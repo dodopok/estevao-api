@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date_reference: MyString
+  cycle: MyString
+  service_type: MyString
+  first_reading: MyString
+  psalm: MyString
+  second_reading: MyString
+  gospel: MyString
+  celebration: one
+  notes: MyText
+
+two:
+  date_reference: MyString
+  cycle: MyString
+  service_type: MyString
+  first_reading: MyString
+  psalm: MyString
+  second_reading: MyString
+  gospel: MyString
+  celebration: two
+  notes: MyText

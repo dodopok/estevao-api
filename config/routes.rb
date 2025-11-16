@@ -5,6 +5,57 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # API routes
+  namespace :api do
+    namespace :v1 do
+      # Rotas do calendário litúrgico
+      get "calendar/:year/:month/:day", to: "calendar#day"
+      get "calendar/:year/:month", to: "calendar#month"
+      get "calendar/:year", to: "calendar#year"
+
+      # Rotas de celebrações
+      resources :celebrations, only: [:index, :show] do
+        collection do
+          get :search
+          get :types
+          get "date/:month/:day", to: "celebrations#by_date"
+        end
+      end
+
+      # Rotas do lecionário (leituras)
+      get "lectionary/:year/:month/:day", to: "lectionary#day"
+      get "lectionary/:year/:month/:day/all_services", to: "lectionary#all_services"
+      get "lectionary/cycle/:year", to: "lectionary#cycle_info"
+    end
+  end
+
+  # Rota raiz com informações da API
+  root to: proc {
+    [200, { "Content-Type" => "application/json" }, [
+      {
+        api: "Calendário Litúrgico Anglicano",
+        versao: "1.0",
+        endpoints: {
+          calendario: {
+            dia: "/api/v1/calendar/:year/:month/:day",
+            mes: "/api/v1/calendar/:year/:month",
+            ano: "/api/v1/calendar/:year"
+          },
+          celebracoes: {
+            listar: "/api/v1/celebrations",
+            detalhes: "/api/v1/celebrations/:id",
+            buscar: "/api/v1/celebrations/search?q=termo",
+            por_data: "/api/v1/celebrations/date/:month/:day",
+            tipos: "/api/v1/celebrations/types"
+          },
+          lecionario: {
+            dia: "/api/v1/lectionary/:year/:month/:day",
+            todos_oficios: "/api/v1/lectionary/:year/:month/:day/all_services",
+            ciclo: "/api/v1/lectionary/cycle/:year"
+          }
+        },
+        documentacao: "https://github.com/seu-usuario/estevao-api"
+      }.to_json
+    ]]
+  }
 end
