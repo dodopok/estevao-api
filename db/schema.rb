@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_16_025902) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_16_181500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,7 +50,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_16_025902) do
   end
 
   create_table "lectionary_readings", force: :cascade do |t|
-    t.bigint "celebration_id", null: false
+    t.bigint "celebration_id"
     t.datetime "created_at", null: false
     t.string "cycle"
     t.string "date_reference"

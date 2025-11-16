@@ -85,7 +85,7 @@ special_advent_christmas = [
   {
     date_reference: "december_24_morning",
     cycle: "all",
-    service_type: "morning",
+    service_type: "morning_prayer",
     first_reading: "2 Samuel 7:1-5, 8-12, 14, 16",
     psalm: "Psalm 89:2-5, 27, 29",
     second_reading: "Luke 1:67-79",

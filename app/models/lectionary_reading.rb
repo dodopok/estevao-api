@@ -6,7 +6,7 @@ class LectionaryReading < ApplicationRecord
   validates :date_reference, presence: true
   validates :cycle, presence: true
   validates :service_type, presence: true
-  validates :service_type, inclusion: { in: %w[eucharist morning_prayer evening_prayer] }
+  validates :service_type, inclusion: { in: %w[eucharist morning_prayer evening_prayer vigil] }
 
   # Scopes
   scope :for_cycle, ->(cycle) { where(cycle: cycle) }
