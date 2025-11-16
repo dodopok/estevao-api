@@ -409,6 +409,20 @@ else
   puts "⚠️  Arquivo de leituras complementares não encontrado."
 end
 
+# Propers Iniciais (1-3)
+if File.exist?(Rails.root.join('db/seeds/early_propers.rb'))
+  load Rails.root.join('db/seeds/early_propers.rb')
+else
+  puts "⚠️  Arquivo de propers iniciais não encontrado."
+end
+
+# Propers Restantes (13-27)
+if File.exist?(Rails.root.join('db/seeds/remaining_propers.rb'))
+  load Rails.root.join('db/seeds/remaining_propers.rb')
+else
+  puts "⚠️  Arquivo de propers restantes não encontrado."
+end
+
 # Santos Adicionais
 if File.exist?(Rails.root.join('db/seeds/more_saints.rb'))
   load Rails.root.join('db/seeds/more_saints.rb')
