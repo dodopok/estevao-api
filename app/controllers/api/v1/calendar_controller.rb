@@ -82,17 +82,19 @@ module Api
 
       def format_day_response(info, date)
         {
-          data: info[:date],
-          dia_da_semana: info[:day_of_week],
-          quadra_liturgica: info[:liturgical_season],
-          cor_liturgica: info[:color],
-          e_domingo: info[:is_sunday],
-          e_dia_santo: info[:is_holy_day],
-          nome_domingo: info[:sunday_name],
-          semana_da_quadra: info[:week_of_season],
-          celebracao: info[:celebration],
-          coleta: collect_for_day(date),
-          leituras: readings_for_day(date)
+          date: info[:date],
+          day_of_week: info[:day_of_week],
+          liturgical_season: info[:liturgical_season],
+          liturgical_color: info[:color],
+          is_sunday: info[:is_sunday],
+          is_holy_day: info[:is_holy_day],
+          sunday_name: info[:sunday_name],
+          week_of_season: info[:week_of_season],
+          sunday_after_pentecost: info[:sunday_after_pentecost],
+          celebration: info[:celebration],
+          saint: info[:saint],
+          collect: collect_for_day(date),
+          readings: readings_for_day(date)
         }
       end
 
@@ -111,7 +113,7 @@ module Api
           season ? Collect.for_season(season.id).in_language("pt-BR").first : nil
         end
 
-        collect ? { texto: collect.text } : nil
+        collect ? { text: collect.text } : nil
       end
 
       def readings_for_day(date)
@@ -137,10 +139,10 @@ module Api
 
         if readings
           {
-            primeira_leitura: readings.first_reading,
-            salmo: readings.psalm,
-            segunda_leitura: readings.second_reading,
-            evangelho: readings.gospel
+            first_reading: readings.first_reading,
+            psalm: readings.psalm,
+            second_reading: readings.second_reading,
+            gospel: readings.gospel
           }
         end
       end
