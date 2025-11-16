@@ -18,7 +18,9 @@ class LiturgicalCalendar
       is_sunday: date.sunday?,
       is_holy_day: holy_day?(date),
       week_of_season: week_number(date),
-      sunday_name: sunday_name(date)
+      sunday_name: sunday_name(date),
+      sunday_after_pentecost: sunday_after_pentecost(date),
+      saint: saint_for_date(date)
     }
   end
 
@@ -140,6 +142,21 @@ class LiturgicalCalendar
       ((date - movable[:first_sunday_in_lent]).to_i / 7) + 1
     when "Páscoa"
       ((date - movable[:easter]).to_i / 7) + 1
+    when "Tempo Comum"
+      # Ordinary Time has two parts: before Lent and after Pentecost
+      if date < movable[:ash_wednesday]
+        # Before Lent - count from Baptism of the Lord
+        baptism = movable[:baptism_of_the_lord]
+        # Find the Sunday on or after baptism
+        first_sunday = baptism.sunday? ? baptism : baptism + (7 - baptism.wday).days
+        ((date - first_sunday).to_i / 7) + 1
+      else
+        # After Pentecost
+        trinity = movable[:trinity_sunday]
+        # First Sunday in Ordinary Time after Pentecost is the Sunday after Trinity
+        first_sunday_after_pentecost = trinity + 7.days
+        ((date - first_sunday_after_pentecost).to_i / 7) + 1
+      end
     else
       nil
     end
@@ -162,6 +179,47 @@ class LiturgicalCalendar
         month: month,
         month_name: I18n.t("date.month_names")[month],
         days: month_calendar(month)
+      }
+    end
+  end
+
+  # Calcula qual domingo após Pentecostes (retorna nil se não estiver no tempo após Pentecostes)
+  def sunday_after_pentecost(date)
+    return nil unless date.sunday?
+
+    season = season_for_date(date)
+    return nil unless season == "Tempo Comum"
+
+    movable = easter_calc.all_movable_dates
+
+    # Only count if we're after Pentecost
+    return nil if date < movable[:pentecost]
+
+    # Count Sundays after Pentecost
+    # Trinity Sunday is the first Sunday after Pentecost
+    trinity = movable[:trinity_sunday]
+
+    # First Sunday in Ordinary Time after Trinity is the first Sunday after Pentecost in Ordinary Time
+    first_sunday_after_pentecost = trinity + 7.days
+
+    # Calculate which Sunday after Pentecost
+    weeks_after = ((date - movable[:pentecost]).to_i / 7)
+    weeks_after if weeks_after >= 0
+  end
+
+  # Retorna informações sobre o santo do dia
+  def saint_for_date(date)
+    celebration = celebration_for_date(date)
+
+    return nil unless celebration
+
+    # Check if the celebration is a saint's day (lesser feast or commemoration typically)
+    if celebration[:type] == "lesser_feast" || celebration[:type] == "commemoration" ||
+       celebration[:name]&.match?(/São|Santa|Santo|Bem-aventurado/i)
+      {
+        name: celebration[:name],
+        type: celebration[:type],
+        color: celebration[:color]
       }
     end
   end
