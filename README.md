@@ -62,9 +62,9 @@ Configure the following environment variables in your Render dashboard:
 
 1. **SECRET_KEY_BASE** (Required)
 
-   Generate a secure secret key by running:
+   Generate a secure secret key:
    ```bash
-   bin/rails secret
+   ruby -e "require 'securerandom'; puts SecureRandom.hex(64)"
    ```
 
    Copy the generated key and add it as an environment variable in Render.
@@ -77,6 +77,8 @@ Configure the following environment variables in your Render dashboard:
    ```
    production
    ```
+
+**Note:** This application is configured to use environment variables for secrets instead of Rails encrypted credentials (no RAILS_MASTER_KEY needed).
 
 ### Build Command
 
