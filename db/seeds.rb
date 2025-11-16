@@ -430,6 +430,20 @@ else
   puts "⚠️  Arquivo de propers restantes não encontrado."
 end
 
+# Leituras da Semana Santa
+if File.exist?(Rails.root.join('db/seeds/holy_week_readings.rb'))
+  load Rails.root.join('db/seeds/holy_week_readings.rb')
+else
+  puts "⚠️  Arquivo de leituras da Semana Santa não encontrado."
+end
+
+# Dias Especiais do Advento e Natal
+if File.exist?(Rails.root.join('db/seeds/advent_weekdays.rb'))
+  load Rails.root.join('db/seeds/advent_weekdays.rb')
+else
+  puts "⚠️  Arquivo de dias especiais não encontrado."
+end
+
 # Santos Adicionais
 if File.exist?(Rails.root.join('db/seeds/more_saints.rb'))
   load Rails.root.join('db/seeds/more_saints.rb')
