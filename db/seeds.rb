@@ -389,5 +389,39 @@ puts "  • #{Celebration.major_holy_day.count} dias santos principais"
 puts "  • #{Celebration.festival.count} festivais"
 puts "  • #{Celebration.count} celebrações no total"
 
-puts "\n📝 Nota: Coletas e leituras devem ser adicionadas posteriormente pelo usuário."
-puts "💡 Use migrations ou scripts personalizados para importar os dados de coletas e leituras."
+puts "  • #{Celebration.lesser_feast.count} festas menores"
+puts "  • #{LectionaryReading.count} leituras do lecionário"
+
+# === CARREGAR SEEDS ADICIONAIS ===
+puts "\n📚 Carregando seeds adicionais..."
+
+# Leituras do Lecionário
+if File.exist?(Rails.root.join('db/seeds/lectionary_readings.rb'))
+  load Rails.root.join('db/seeds/lectionary_readings.rb')
+else
+  puts "⚠️  Arquivo de leituras não encontrado. Execute: rails db:seed:lectionary"
+end
+
+# Santos Adicionais
+if File.exist?(Rails.root.join('db/seeds/more_saints.rb'))
+  load Rails.root.join('db/seeds/more_saints.rb')
+else
+  puts "⚠️  Arquivo de santos adicionais não encontrado. Execute: rails db:seed:saints"
+end
+
+puts "\n📊 TOTAL FINAL:"
+puts "  • #{LiturgicalColor.count} cores litúrgicas"
+puts "  • #{LiturgicalSeason.count} quadras litúrgicas"
+puts "  • #{Celebration.count} celebrações totais"
+puts "    - #{Celebration.principal_feast.count} festas principais"
+puts "    - #{Celebration.major_holy_day.count} dias santos principais"
+puts "    - #{Celebration.festival.count} festivais"
+puts "    - #{Celebration.lesser_feast.count} festas menores"
+puts "  • #{LectionaryReading.count} leituras do lecionário"
+puts "  • #{Collect.count} coletas"
+
+puts "\n✅ Banco de dados populado com sucesso!"
+puts "\n📝 Próximos passos:"
+puts "  • Adicionar coletas (orações) para domingos e festas"
+puts "  • Adicionar leituras de dias de semana (opcional)"
+puts "  • Revisar e corrigir quaisquer dados conforme necessário"
