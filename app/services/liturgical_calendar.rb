@@ -18,8 +18,10 @@ class LiturgicalCalendar
       is_sunday: date.sunday?,
       is_holy_day: holy_day?(date),
       week_of_season: week_number(date),
+      proper_week: proper_number(date),
       sunday_name: sunday_name(date),
       sunday_after_pentecost: sunday_after_pentecost(date),
+      liturgical_year: liturgical_year_cycle(date),
       saint: saint_for_date(date)
     }
   end
@@ -222,6 +224,56 @@ class LiturgicalCalendar
         color: celebration[:color]
       }
     end
+  end
+
+  # Calcula o número do proper (contagem contínua no Tempo Comum)
+  def proper_number(date)
+    season = season_for_date(date)
+    return nil unless season == "Tempo Comum"
+
+    movable = easter_calc.all_movable_dates
+
+    if date < movable[:ash_wednesday]
+      # Before Lent - count from Baptism of the Lord
+      baptism = movable[:baptism_of_the_lord]
+      # Find the first Sunday on or after baptism
+      first_sunday = baptism.sunday? ? baptism : baptism + (7 - baptism.wday).days
+
+      # Calculate which proper (Propers before Lent are numbered 1-9)
+      weeks = ((date - first_sunday).to_i / 7) + 1
+      weeks if date >= first_sunday
+    else
+      # After Pentecost - continue the proper numbering
+      # First, calculate how many propers there were before Lent
+      baptism = movable[:baptism_of_the_lord]
+      first_sunday_before_lent = baptism.sunday? ? baptism : baptism + (7 - baptism.wday).days
+      last_sunday_before_lent = movable[:ash_wednesday] - (movable[:ash_wednesday].wday == 0 ? 7 : movable[:ash_wednesday].wday).days
+      propers_before_lent = ((last_sunday_before_lent - first_sunday_before_lent).to_i / 7) + 1
+
+      # Now count from Trinity Sunday
+      trinity = movable[:trinity_sunday]
+      first_sunday_after_pentecost = trinity + 7.days
+
+      # Calculate weeks after Pentecost season
+      if date >= first_sunday_after_pentecost
+        weeks_after = ((date - first_sunday_after_pentecost).to_i / 7)
+        propers_before_lent + weeks_after + 1
+      end
+    end
+  end
+
+  # Retorna o ciclo do ano litúrgico (A, B ou C)
+  def liturgical_year_cycle(date)
+    # The liturgical year starts on the First Sunday of Advent
+    # So we need to check if we're before or after Advent to determine the year
+    movable = easter_calc.all_movable_dates
+    first_advent = movable[:first_sunday_of_advent]
+
+    # If we're in or after Advent, use the next calendar year for the cycle
+    # Otherwise use the current year
+    year_for_cycle = date >= first_advent ? year + 1 : year
+
+    LectionaryReading.cycle_for_year(year_for_cycle)
   end
 
   private
