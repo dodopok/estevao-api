@@ -5,10 +5,15 @@ module Api
       # Retorna informações litúrgicas de um dia específico
       def day
         date = parse_date
-        calendar = LiturgicalCalendar.new(date.year)
-        info = calendar.day_info(date)
 
-        render json: format_day_response(info, date)
+        # Cache the response for 1 day since liturgical data doesn't change
+        response = Rails.cache.fetch("liturgical_day_#{date}", expires_in: 1.day) do
+          calendar = LiturgicalCalendar.new(date.year)
+          info = calendar.day_info(date)
+          format_day_response(info, date)
+        end
+
+        render json: response
       rescue ArgumentError => e
         render json: { error: "Data inválida: #{e.message}" }, status: :bad_request
       end
@@ -86,10 +91,12 @@ module Api
           day_of_week: info[:day_of_week],
           liturgical_season: info[:liturgical_season],
           liturgical_color: info[:color],
+          liturgical_year: info[:liturgical_year],
           is_sunday: info[:is_sunday],
           is_holy_day: info[:is_holy_day],
           sunday_name: info[:sunday_name],
           week_of_season: info[:week_of_season],
+          proper_week: info[:proper_week],
           sunday_after_pentecost: info[:sunday_after_pentecost],
           celebration: info[:celebration],
           saint: info[:saint],

@@ -11,15 +11,17 @@ class LiturgicalCalendar
   def day_info(date)
     {
       date: date.to_s,
-      day_of_week: day_name_pt(date),
-      liturgical_season: season_for_date(date),
-      color: color_for_date(date),
+      day_of_week: day_name_en(date),
+      liturgical_season: translate_season(season_for_date(date)),
+      color: translate_color(color_for_date(date)),
       celebration: celebration_for_date(date),
       is_sunday: date.sunday?,
       is_holy_day: holy_day?(date),
       week_of_season: week_number(date),
-      sunday_name: sunday_name(date),
+      proper_week: proper_number(date),
+      sunday_name: translate_sunday_name(sunday_name(date)),
       sunday_after_pentecost: sunday_after_pentecost(date),
+      liturgical_year: liturgical_year_cycle(date),
       saint: saint_for_date(date)
     }
   end
@@ -222,6 +224,135 @@ class LiturgicalCalendar
         color: celebration[:color]
       }
     end
+  end
+
+  # Calcula o número do proper (contagem contínua no Tempo Comum)
+  def proper_number(date)
+    season = season_for_date(date)
+    return nil unless season == "Tempo Comum"
+
+    movable = easter_calc.all_movable_dates
+
+    if date < movable[:ash_wednesday]
+      # Before Lent - count from Baptism of the Lord
+      baptism = movable[:baptism_of_the_lord]
+      # Find the first Sunday on or after baptism
+      first_sunday = baptism.sunday? ? baptism : baptism + (7 - baptism.wday).days
+
+      # Calculate which proper (Propers before Lent are numbered 1-9)
+      weeks = ((date - first_sunday).to_i / 7) + 1
+      weeks if date >= first_sunday
+    else
+      # After Pentecost - continue the proper numbering
+      # First, calculate how many propers there were before Lent
+      baptism = movable[:baptism_of_the_lord]
+      first_sunday_before_lent = baptism.sunday? ? baptism : baptism + (7 - baptism.wday).days
+      last_sunday_before_lent = movable[:ash_wednesday] - (movable[:ash_wednesday].wday == 0 ? 7 : movable[:ash_wednesday].wday).days
+      propers_before_lent = ((last_sunday_before_lent - first_sunday_before_lent).to_i / 7) + 1
+
+      # Now count from Trinity Sunday
+      trinity = movable[:trinity_sunday]
+      first_sunday_after_pentecost = trinity + 7.days
+
+      # Calculate weeks after Pentecost season
+      if date >= first_sunday_after_pentecost
+        weeks_after = ((date - first_sunday_after_pentecost).to_i / 7)
+        propers_before_lent + weeks_after + 1
+      end
+    end
+  end
+
+  # Retorna o ciclo do ano litúrgico (A, B ou C)
+  def liturgical_year_cycle(date)
+    # The liturgical year starts on the First Sunday of Advent
+    # For example:
+    # - Liturgical year 2025 runs from 1st Sunday of Advent 2024 to Christ the King 2025
+    # - Liturgical year 2026 runs from 1st Sunday of Advent 2025 to Christ the King 2026
+
+    # Check if we're in the current liturgical year or the next one
+    # We need to check Advent from the current calendar year and previous year
+    current_year_advent = easter_calc.all_movable_dates[:first_sunday_of_advent]
+
+    # If the date is on or after this year's Advent, we're in the next liturgical year
+    if date >= current_year_advent
+      liturgical_year_number = year + 1
+    else
+      # Otherwise, we're in the current liturgical year (which started last year's Advent)
+      liturgical_year_number = year
+    end
+
+    LectionaryReading.cycle_for_year(liturgical_year_number)
+  end
+
+  # Translation helpers
+  def translate_season(season_pt)
+    translations = {
+      "Advento" => "Advent",
+      "Natal" => "Christmas",
+      "Epifania" => "Epiphany",
+      "Quaresma" => "Lent",
+      "Páscoa" => "Easter",
+      "Tempo Comum" => "Ordinary Time"
+    }
+    translations[season_pt] || season_pt
+  end
+
+  def translate_color(color_pt)
+    translations = {
+      "branco" => "white",
+      "vermelho" => "red",
+      "roxo" => "purple",
+      "violeta" => "violet",
+      "rosa" => "rose",
+      "verde" => "green",
+      "preto" => "black"
+    }
+    translations[color_pt] || color_pt
+  end
+
+  def translate_sunday_name(name_pt)
+    return nil if name_pt.nil?
+
+    # Direct translations for special Sundays
+    special_sundays = {
+      "Domingo da Páscoa" => "Easter Sunday",
+      "Pentecostes" => "Pentecost",
+      "Santíssima Trindade" => "Trinity Sunday",
+      "Domingo de Ramos" => "Palm Sunday",
+      "Cristo Rei do Universo" => "Christ the King",
+      "Batismo de nosso Senhor Jesus Cristo" => "Baptism of the Lord"
+    }
+
+    return special_sundays[name_pt] if special_sundays[name_pt]
+
+    # Pattern-based translations for numbered Sundays
+    # "1º Domingo do Advento" -> "1st Sunday of Advent"
+    # "25º Domingo no Tempo Comum" -> "25th Sunday in Ordinary Time"
+
+    if name_pt =~ /(\d+)º Domingo (do|no|da) (.+)/
+      number = $1.to_i
+      preposition = $2
+      season = $3
+
+      ordinal = case number
+      when 1 then "1st"
+      when 2 then "2nd"
+      when 3 then "3rd"
+      else "#{number}th"
+      end
+
+      prep = preposition == "no" ? "in" : "of"
+      translated_season = translate_season(season)
+
+      "#{ordinal} Sunday #{prep} #{translated_season}"
+    else
+      name_pt
+    end
+  end
+
+  def day_name_en(date)
+    names = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
+    names[date.wday]
   end
 
   private
