@@ -409,6 +409,13 @@ else
   puts "⚠️  Arquivo de leituras complementares não encontrado."
 end
 
+# Domingos após Epifania
+if File.exist?(Rails.root.join('db/seeds/epiphany_sundays.rb'))
+  load Rails.root.join('db/seeds/epiphany_sundays.rb')
+else
+  puts "⚠️  Arquivo de domingos após Epifania não encontrado."
+end
+
 # Propers Iniciais (1-3)
 if File.exist?(Rails.root.join('db/seeds/early_propers.rb'))
   load Rails.root.join('db/seeds/early_propers.rb')
