@@ -353,12 +353,24 @@ remaining_propers = [
   }
 ]
 
-# Criar leituras
+# Criar leituras (evita duplicatas)
 count = 0
+skipped = 0
 remaining_propers.each do |reading|
-  LectionaryReading.create!(reading)
-  count += 1
-  print "." if count % 10 == 0
+  existing = LectionaryReading.find_by(
+    date_reference: reading[:date_reference],
+    cycle: reading[:cycle],
+    service_type: reading[:service_type]
+  )
+
+  if existing.nil?
+    LectionaryReading.create!(reading)
+    count += 1
+    print "." if count % 10 == 0
+  else
+    skipped += 1
+  end
 end
 
 puts "\n✅ #{count} Propers restantes criados (13-27)!"
+puts "⏭️  #{skipped} já existiam." if skipped > 0

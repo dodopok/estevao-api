@@ -128,16 +128,24 @@ additional_saints = [
   { name: "São Silvestre I", celebration_type: :lesser_feast, rank: 274, fixed_month: 12, fixed_day: 31, liturgical_color: "branco", description: "Papa, 335" }
 ]
 
-# Criar santos adicionais
+# Criar santos adicionais (evita duplicatas)
 count = 0
+skipped = 0
 additional_saints.each do |saint|
-  # Verifica se já existe para evitar duplicatas
-  unless Celebration.exists?(name: saint[:name], fixed_month: saint[:fixed_month], fixed_day: saint[:fixed_day])
+  existing = Celebration.find_by(
+    name: saint[:name],
+    fixed_month: saint[:fixed_month],
+    fixed_day: saint[:fixed_day]
+  )
+
+  if existing.nil?
     Celebration.create!(saint.merge(movable: false, can_be_transferred: false))
     count += 1
     print "." if count % 10 == 0
+  else
+    skipped += 1
   end
 end
 
-puts "\n✅ #{count} santos adicionais criados com sucesso!"
-puts "📊 Total de santos no banco: #{Celebration.count}"
+puts "\n✅ #{count} santos adicionais criados!"
+puts "⏭️  #{skipped} já existiam." if skipped > 0
