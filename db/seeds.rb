@@ -323,64 +323,7 @@ lesser_feasts.each do |feast|
   puts "  ✓ #{feast[:name]}"
 end
 
-# === LEITURAS DO LECIONÁRIO (Exemplos) ===
-puts "\n📖 Criando leituras de exemplo..."
-
-# Exemplo de leituras para alguns domingos
-sample_readings = [
-  {
-    date_reference: "1st_sunday_of_advent",
-    cycle: "A",
-    service_type: "eucharist",
-    first_reading: "Isaiah 2:1-5",
-    psalm: "Psalm 122",
-    second_reading: "Romans 13:11-14",
-    gospel: "Matthew 24:36-44"
-  },
-  {
-    date_reference: "1st_sunday_of_advent",
-    cycle: "B",
-    service_type: "eucharist",
-    first_reading: "Isaiah 64:1-9",
-    psalm: "Psalm 80:1-7, 17-19",
-    second_reading: "1 Corinthians 1:3-9",
-    gospel: "Mark 13:24-37"
-  },
-  {
-    date_reference: "1st_sunday_of_advent",
-    cycle: "C",
-    service_type: "eucharist",
-    first_reading: "Jeremiah 33:14-16",
-    psalm: "Psalm 25:1-10",
-    second_reading: "1 Thessalonians 3:9-13",
-    gospel: "Luke 21:25-36"
-  },
-  {
-    date_reference: "easter_sunday",
-    cycle: "all",
-    service_type: "eucharist",
-    first_reading: "Acts 10:34-43",
-    psalm: "Psalm 118:1-2, 14-24",
-    second_reading: "Colossians 3:1-4",
-    gospel: "John 20:1-18"
-  },
-  {
-    date_reference: "pentecost",
-    cycle: "all",
-    service_type: "eucharist",
-    first_reading: "Acts 2:1-21",
-    psalm: "Psalm 104:24-34, 35b",
-    second_reading: "Romans 8:22-27",
-    gospel: "John 15:26-27; 16:4b-15"
-  }
-]
-
-sample_readings.each do |reading|
-  LectionaryReading.create!(reading)
-  puts "  ✓ #{reading[:date_reference]} (Cycle #{reading[:cycle]})"
-end
-
-puts "\n✅ Seeds criados com sucesso!"
+puts "\n✅ Seeds básicos criados com sucesso!"
 puts "\nResumo:"
 puts "  • #{LiturgicalColor.count} cores litúrgicas"
 puts "  • #{LiturgicalSeason.count} quadras litúrgicas"
