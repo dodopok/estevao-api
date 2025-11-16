@@ -48,3 +48,11 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
+
+gem "dockerfile-rails", ">= 1.7", :group => :development
+
+gem "pg", "~> 1.6"
+
+gem "litestream", "~> 0.14.0"
+
+gem "aws-sdk-s3", "~> 1.203", :require => false
