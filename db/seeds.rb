@@ -444,6 +444,13 @@ else
   puts "⚠️  Arquivo de dias especiais não encontrado."
 end
 
+# Observâncias Especiais
+if File.exist?(Rails.root.join('db/seeds/special_observances.rb'))
+  load Rails.root.join('db/seeds/special_observances.rb')
+else
+  puts "⚠️  Arquivo de observâncias especiais não encontrado."
+end
+
 # Santos Adicionais
 if File.exist?(Rails.root.join('db/seeds/more_saints.rb'))
   load Rails.root.join('db/seeds/more_saints.rb')
