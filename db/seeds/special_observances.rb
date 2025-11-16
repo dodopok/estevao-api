@@ -181,12 +181,24 @@ special_observances = [
   }
 ]
 
-# Criar leituras
+# Criar leituras (evita duplicatas)
 count = 0
+skipped = 0
 special_observances.each do |reading|
-  LectionaryReading.create!(reading)
-  count += 1
-  print "." if count % 5 == 0
+  existing = LectionaryReading.find_by(
+    date_reference: reading[:date_reference],
+    cycle: reading[:cycle],
+    service_type: reading[:service_type]
+  )
+
+  if existing.nil?
+    LectionaryReading.create!(reading)
+    count += 1
+    print "." if count % 5 == 0
+  else
+    skipped += 1
+  end
 end
 
 puts "\n✅ #{count} observâncias especiais criadas!"
+puts "⏭️  #{skipped} já existiam." if skipped > 0

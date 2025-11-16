@@ -3,9 +3,6 @@
 
 puts "📖 Carregando leituras do lecionário..."
 
-# Limpa leituras existentes se necessário
-# LectionaryReading.destroy_all
-
 readings = [
   # ============= ADVENTO =============
 
@@ -887,12 +884,24 @@ readings = [
   }
 ]
 
-# Criar leituras
+# Criar leituras (evita duplicatas)
 count = 0
+skipped = 0
 readings.each do |reading|
-  LectionaryReading.create!(reading)
-  count += 1
-  print "." if count % 10 == 0
+  existing = LectionaryReading.find_by(
+    date_reference: reading[:date_reference],
+    cycle: reading[:cycle],
+    service_type: reading[:service_type]
+  )
+
+  if existing.nil?
+    LectionaryReading.create!(reading)
+    count += 1
+    print "." if count % 10 == 0
+  else
+    skipped += 1
+  end
 end
 
-puts "\n✅ #{count} leituras criadas com sucesso!"
+puts "\n✅ #{count} leituras criadas!"
+puts "⏭️  #{skipped} leituras já existiam." if skipped > 0
