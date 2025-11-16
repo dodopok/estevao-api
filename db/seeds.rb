@@ -399,14 +399,21 @@ puts "\n📚 Carregando seeds adicionais..."
 if File.exist?(Rails.root.join('db/seeds/lectionary_readings.rb'))
   load Rails.root.join('db/seeds/lectionary_readings.rb')
 else
-  puts "⚠️  Arquivo de leituras não encontrado. Execute: rails db:seed:lectionary"
+  puts "⚠️  Arquivo de leituras não encontrado."
+end
+
+# Leituras Complementares
+if File.exist?(Rails.root.join('db/seeds/complete_lectionary.rb'))
+  load Rails.root.join('db/seeds/complete_lectionary.rb')
+else
+  puts "⚠️  Arquivo de leituras complementares não encontrado."
 end
 
 # Santos Adicionais
 if File.exist?(Rails.root.join('db/seeds/more_saints.rb'))
   load Rails.root.join('db/seeds/more_saints.rb')
 else
-  puts "⚠️  Arquivo de santos adicionais não encontrado. Execute: rails db:seed:saints"
+  puts "⚠️  Arquivo de santos adicionais não encontrado."
 end
 
 puts "\n📊 TOTAL FINAL:"
