@@ -437,6 +437,13 @@ else
   puts "⚠️  Arquivo de santos adicionais não encontrado."
 end
 
+# Santos Anglicanos
+if File.exist?(Rails.root.join('db/seeds/anglican_saints.rb'))
+  load Rails.root.join('db/seeds/anglican_saints.rb')
+else
+  puts "⚠️  Arquivo de santos anglicanos não encontrado."
+end
+
 puts "\n📊 TOTAL FINAL:"
 puts "  • #{LiturgicalColor.count} cores litúrgicas"
 puts "  • #{LiturgicalSeason.count} quadras litúrgicas"
