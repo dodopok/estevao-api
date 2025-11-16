@@ -11,15 +11,15 @@ class LiturgicalCalendar
   def day_info(date)
     {
       date: date.to_s,
-      day_of_week: day_name_pt(date),
-      liturgical_season: season_for_date(date),
-      color: color_for_date(date),
+      day_of_week: day_name_en(date),
+      liturgical_season: translate_season(season_for_date(date)),
+      color: translate_color(color_for_date(date)),
       celebration: celebration_for_date(date),
       is_sunday: date.sunday?,
       is_holy_day: holy_day?(date),
       week_of_season: week_number(date),
       proper_week: proper_number(date),
-      sunday_name: sunday_name(date),
+      sunday_name: translate_sunday_name(sunday_name(date)),
       sunday_after_pentecost: sunday_after_pentecost(date),
       liturgical_year: liturgical_year_cycle(date),
       saint: saint_for_date(date)
@@ -265,15 +265,94 @@ class LiturgicalCalendar
   # Retorna o ciclo do ano litúrgico (A, B ou C)
   def liturgical_year_cycle(date)
     # The liturgical year starts on the First Sunday of Advent
-    # So we need to check if we're before or after Advent to determine the year
-    movable = easter_calc.all_movable_dates
-    first_advent = movable[:first_sunday_of_advent]
+    # For example:
+    # - Liturgical year 2025 runs from 1st Sunday of Advent 2024 to Christ the King 2025
+    # - Liturgical year 2026 runs from 1st Sunday of Advent 2025 to Christ the King 2026
 
-    # If we're in or after Advent, use the next calendar year for the cycle
-    # Otherwise use the current year
-    year_for_cycle = date >= first_advent ? year + 1 : year
+    # Check if we're in the current liturgical year or the next one
+    # We need to check Advent from the current calendar year and previous year
+    current_year_advent = easter_calc.all_movable_dates[:first_sunday_of_advent]
 
-    LectionaryReading.cycle_for_year(year_for_cycle)
+    # If the date is on or after this year's Advent, we're in the next liturgical year
+    if date >= current_year_advent
+      liturgical_year_number = year + 1
+    else
+      # Otherwise, we're in the current liturgical year (which started last year's Advent)
+      liturgical_year_number = year
+    end
+
+    LectionaryReading.cycle_for_year(liturgical_year_number)
+  end
+
+  # Translation helpers
+  def translate_season(season_pt)
+    translations = {
+      "Advento" => "Advent",
+      "Natal" => "Christmas",
+      "Epifania" => "Epiphany",
+      "Quaresma" => "Lent",
+      "Páscoa" => "Easter",
+      "Tempo Comum" => "Ordinary Time"
+    }
+    translations[season_pt] || season_pt
+  end
+
+  def translate_color(color_pt)
+    translations = {
+      "branco" => "white",
+      "vermelho" => "red",
+      "roxo" => "purple",
+      "violeta" => "violet",
+      "rosa" => "rose",
+      "verde" => "green",
+      "preto" => "black"
+    }
+    translations[color_pt] || color_pt
+  end
+
+  def translate_sunday_name(name_pt)
+    return nil if name_pt.nil?
+
+    # Direct translations for special Sundays
+    special_sundays = {
+      "Domingo da Páscoa" => "Easter Sunday",
+      "Pentecostes" => "Pentecost",
+      "Santíssima Trindade" => "Trinity Sunday",
+      "Domingo de Ramos" => "Palm Sunday",
+      "Cristo Rei do Universo" => "Christ the King",
+      "Batismo de nosso Senhor Jesus Cristo" => "Baptism of the Lord"
+    }
+
+    return special_sundays[name_pt] if special_sundays[name_pt]
+
+    # Pattern-based translations for numbered Sundays
+    # "1º Domingo do Advento" -> "1st Sunday of Advent"
+    # "25º Domingo no Tempo Comum" -> "25th Sunday in Ordinary Time"
+
+    if name_pt =~ /(\d+)º Domingo (do|no|da) (.+)/
+      number = $1.to_i
+      preposition = $2
+      season = $3
+
+      ordinal = case number
+      when 1 then "1st"
+      when 2 then "2nd"
+      when 3 then "3rd"
+      else "#{number}th"
+      end
+
+      prep = preposition == "no" ? "in" : "of"
+      translated_season = translate_season(season)
+
+      "#{ordinal} Sunday #{prep} #{translated_season}"
+    else
+      name_pt
+    end
+  end
+
+  def day_name_en(date)
+    names = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
+    names[date.wday]
   end
 
   private
