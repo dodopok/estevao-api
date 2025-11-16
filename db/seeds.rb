@@ -394,6 +394,13 @@ else
   puts "⚠️  Arquivo de observâncias especiais não encontrado."
 end
 
+# Ocasiões Pastorais (Casamentos, Funerais, etc.)
+if File.exist?(Rails.root.join('db/seeds/pastoral_occasions.rb'))
+  load Rails.root.join('db/seeds/pastoral_occasions.rb')
+else
+  puts "⚠️  Arquivo de ocasiões pastorais não encontrado."
+end
+
 # Santos Adicionais
 if File.exist?(Rails.root.join('db/seeds/more_saints.rb'))
   load Rails.root.join('db/seeds/more_saints.rb')
