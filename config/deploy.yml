@@ -87,8 +87,10 @@ builder:
   #   - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
-# ssh:
-#   user: app
+ssh:
+  # Configure Net::SSH options for Kamal/SSHKit
+  log_level: :fatal
+  paranoid: false
 
 # Use accessory services (secrets come from .kamal/secrets).
 accessories:
