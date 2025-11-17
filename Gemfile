@@ -32,7 +32,7 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
-gem 'rswag'
+gem "rswag"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
@@ -52,5 +52,5 @@ group :development, :test do
 
   # RSpec for testing
   gem "rspec-rails", "~> 7.1"
-  gem 'rswag-specs'
+  gem "rswag-specs"
 end
