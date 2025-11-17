@@ -87,14 +87,15 @@ Com Docker:
 docker-compose exec web bin/rails test
 ```
 
-A aplicação possui **144 testes** cobrindo:
-- Cálculo de datas móveis (Páscoa, Quaresma, Advento)
-- Resolução de celebrações e hierarquia litúrgica
-- Calendário litúrgico e cores
-- Serviços de leituras e coletas
-- Endpoints da API (integração)
+A aplicação possui **171 testes (613 asserções)** cobrindo:
+- Cálculo de datas móveis (Páscoa, Quaresma, Advento) - 49 testes
+- Resolução de celebrações e hierarquia litúrgica - 32 testes
+- Calendário litúrgico e cores - 30 testes
+- Serviços de leituras e coletas - 27 testes
+- Endpoints da API (unit) - 36 testes
+- **Testes de integração end-to-end - 27 testes**
 
-**Cobertura de Testes**: 100% dos serviços e controllers principais
+**Cobertura de Testes**: 100% dos serviços e controllers principais + integração completa
 
 ### Integração Contínua (CI)
 
@@ -109,7 +110,8 @@ O projeto utiliza GitHub Actions para CI/CD com 3 jobs:
    - Cache de análise para builds mais rápidas
 
 3. **Tests** (`test`)
-   - Execução de todos os 144 testes com PostgreSQL
+   - Execução de todos os 171 testes (613 asserções) com PostgreSQL
+   - 27 testes de integração end-to-end
    - Setup automático do banco de dados
    - Validação completa da aplicação
 
