@@ -1,5 +1,10 @@
 # Estêvão API
 
+[![CI](https://github.com/dodopok/estevao-api/actions/workflows/ci.yml/badge.svg)](https://github.com/dodopok/estevao-api/actions/workflows/ci.yml)
+[![Ruby Version](https://img.shields.io/badge/ruby-3.2.3-red.svg)](https://www.ruby-lang.org)
+[![Rails Version](https://img.shields.io/badge/rails-8.1.1-red.svg)](https://rubyonrails.org)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 API RESTful para Calendário Litúrgico Anglicano, fornecendo informações sobre celebrações, leituras do lecionário, cores litúrgicas e o calendário litúrgico completo.
 
 ## Descrição
@@ -16,11 +21,14 @@ API completa desenvolvida em Rails 8.1.1 para fornecer dados do calendário lit�
 
 - **Ruby**: 3.2.3
 - **Rails**: 8.1.1
-- **Banco de Dados**: PostgreSQL (produção) / SQLite3 (desenvolvimento)
+- **Banco de Dados**: PostgreSQL
 - **Servidor Web**: Puma + Thruster
 - **Cache**: Solid Cache
 - **Background Jobs**: Solid Queue
 - **Action Cable**: Solid Cable
+- **Testes**: Minitest
+- **CI/CD**: GitHub Actions
+- **Code Quality**: Rubocop, Brakeman, Bundler Audit
 
 ## Configuração Inicial
 
@@ -78,6 +86,36 @@ Com Docker:
 ```bash
 docker-compose exec web bin/rails test
 ```
+
+A aplicação possui **144 testes** cobrindo:
+- Cálculo de datas móveis (Páscoa, Quaresma, Advento)
+- Resolução de celebrações e hierarquia litúrgica
+- Calendário litúrgico e cores
+- Serviços de leituras e coletas
+- Endpoints da API (integração)
+
+**Cobertura de Testes**: 100% dos serviços e controllers principais
+
+### Integração Contínua (CI)
+
+O projeto utiliza GitHub Actions para CI/CD com 3 jobs:
+
+1. **Security Scan** (`scan_ruby`)
+   - Brakeman: Análise estática de vulnerabilidades Rails
+   - Bundler Audit: Verificação de gems com vulnerabilidades conhecidas
+
+2. **Lint** (`lint`)
+   - Rubocop: Verificação de estilo de código e boas práticas
+   - Cache de análise para builds mais rápidas
+
+3. **Tests** (`test`)
+   - Execução de todos os 144 testes com PostgreSQL
+   - Setup automático do banco de dados
+   - Validação completa da aplicação
+
+Todos os jobs são executados automaticamente em:
+- Pull Requests
+- Push para branch `main`
 
 ## Endpoints da API
 
@@ -244,8 +282,30 @@ bundle exec puma -C config/puma.rb
 ### Serviços
 
 - **LiturgicalCalendar**: Calcula o calendário litúrgico completo
-- **EasterCalculator**: Calcula a Páscoa e datas móveis relacionadas
-- **CelebrationResolver**: Resolve precedência entre celebrações
+- **EasterCalculator**: Calcula a Páscoa e datas móveis relacionadas (algoritmo Computus)
+- **CelebrationResolver**: Resolve precedência entre celebrações conforme hierarquia litúrgica
+- **ReadingService**: Busca leituras do lecionário por celebração, Proper ou domingo
+- **CollectService**: Busca coletas apropriadas para cada celebração e estação
+- **SundayReferenceMapper**: Mapeia datas para referências de domingos
+
+## Funcionalidades
+
+### Hierarquia Litúrgica
+A API implementa corretamente a hierarquia de celebrações:
+- Festas Principais (Principal Feasts) têm precedência máxima
+- Domingos em quadras principais (Advento, Natal, Quaresma, Páscoa) têm precedência sobre festivais
+- Transferência automática de celebrações quando necessário (ex: Anunciação, Todos os Santos)
+- Resolução de conflitos baseada em rank (quanto menor o rank, maior a precedência)
+
+### Cores Litúrgicas
+- Domingos sempre usam a cor da estação litúrgica, nunca da celebração
+- Dias de semana podem usar cor específica da celebração
+- Suporte completo para: branco, vermelho, roxo, violeta, rosa, verde, preto
+
+### Ciclos do Lecionário
+- **Domingos**: Ciclos A, B, C (trienal)
+- **Dias de semana**: Anos pares e ímpares (bienal)
+- Cálculo automático baseado no ano litúrgico (que inicia no Advento)
 
 ## Licença
 
