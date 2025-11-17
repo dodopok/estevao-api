@@ -17,7 +17,7 @@ RSpec.describe 'api/v1/calendar', type: :request do
     get('day calendar') do
       tags api_tags
       produces content_type
-      
+
       response(200, 'successful') do
         let(:year) { '2024' }
         let(:month) { '01' }
@@ -42,7 +42,7 @@ RSpec.describe 'api/v1/calendar', type: :request do
     get('month calendar') do
       tags api_tags
       produces content_type
-      
+
       response(200, 'successful') do
         let(:year) { '2024' }
         let(:month) { '01' }
@@ -65,7 +65,7 @@ RSpec.describe 'api/v1/calendar', type: :request do
     get('year calendar') do
       tags api_tags
       produces content_type
-      
+
       response(200, 'successful') do
         let(:year) { '2024' }
 

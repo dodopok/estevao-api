@@ -10,13 +10,11 @@ RSpec.describe 'api/v1/celebrations', type: :request do
   end
 
   path '/api/v1/celebrations/search' do
-
     get('search celebration') do
       tags api_tags
       produces content_type
-      
-      response(200, 'successful') do
 
+      response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -30,13 +28,11 @@ RSpec.describe 'api/v1/celebrations', type: :request do
   end
 
   path '/api/v1/celebrations/types' do
-
     get('types celebration') do
       tags api_tags
       produces content_type
-      
-      response(200, 'successful') do
 
+      response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -56,7 +52,7 @@ RSpec.describe 'api/v1/celebrations', type: :request do
     get('by_date celebration') do
       tags api_tags
       produces content_type
-      
+
       response(200, 'successful') do
         let(:month) { '01' }
         let(:day) { '01' }
@@ -74,13 +70,11 @@ RSpec.describe 'api/v1/celebrations', type: :request do
   end
 
   path '/api/v1/celebrations' do
-
     get('list celebrations') do
       tags api_tags
       produces content_type
-      
-      response(200, 'successful') do
 
+      response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -99,7 +93,7 @@ RSpec.describe 'api/v1/celebrations', type: :request do
     get('show celebration') do
       tags api_tags
       produces content_type
-      
+
       response(200, 'successful') do
         let(:id) { '1' }
 

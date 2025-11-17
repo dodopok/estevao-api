@@ -17,7 +17,7 @@ RSpec.describe 'api/v1/lectionary', type: :request do
     get('day lectionary') do
       tags api_tags
       produces content_type
-      
+
       response(200, 'successful') do
         let(:year) { '2024' }
         let(:month) { '01' }
@@ -43,7 +43,7 @@ RSpec.describe 'api/v1/lectionary', type: :request do
     get('all_services lectionary') do
       tags api_tags
       produces content_type
-      
+
       response(200, 'successful') do
         let(:year) { '2024' }
         let(:month) { '01' }
@@ -67,7 +67,7 @@ RSpec.describe 'api/v1/lectionary', type: :request do
     get('cycle_info lectionary') do
       tags api_tags
       produces content_type
-      
+
       response(200, 'successful') do
         let(:year) { '2024' }
 
