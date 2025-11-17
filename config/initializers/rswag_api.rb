@@ -12,17 +12,17 @@ Rswag::Api.configure do |c|
   c.swagger_filter = lambda { |swagger, env|
     # Show only the appropriate server based on environment
     if Rails.env.production?
-      swagger['servers'] = [
+      swagger["servers"] = [
         {
-          'url' => 'https://api.caminhoanglicano.com.br',
-          'description' => 'Production server'
+          "url" => "https://api.caminhoanglicano.com.br",
+          "description" => "Production server"
         }
       ]
     else
-      swagger['servers'] = [
+      swagger["servers"] = [
         {
-          'url' => 'http://localhost:3000',
-          'description' => 'Development server'
+          "url" => "http://localhost:3000",
+          "description" => "Development server"
         }
       ]
     end
