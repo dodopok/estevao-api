@@ -72,3 +72,4 @@ yarn-debug.log*
 /config/*.key
 
 config/postgres_password
+config/secret_key_base
