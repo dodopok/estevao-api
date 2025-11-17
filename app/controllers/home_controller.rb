@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     render json: {
       api: "Calendário Litúrgico Anglicano",
       version: "1.0",
-      documentation: "/api-docs",
+      docs: "/api-docs",
       endpoints: {
         calendar: {
           day: "/api/v1/calendar/:year/:month/:day",
