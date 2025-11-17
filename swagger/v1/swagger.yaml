@@ -1,0 +1,203 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/calendar/{year}/{month}/{day}":
+    parameters:
+    - name: year
+      in: path
+      description: year
+      required: true
+      schema:
+        type: string
+    - name: month
+      in: path
+      description: month
+      required: true
+      schema:
+        type: string
+    - name: day
+      in: path
+      description: day
+      required: true
+      schema:
+        type: string
+    get:
+      summary: day calendar
+      tags:
+      - Calendar
+      responses:
+        '200':
+          description: successful
+  "/api/v1/calendar/{year}/{month}":
+    parameters:
+    - name: year
+      in: path
+      description: year
+      required: true
+      schema:
+        type: string
+    - name: month
+      in: path
+      description: month
+      required: true
+      schema:
+        type: string
+    get:
+      summary: month calendar
+      tags:
+      - Calendar
+      responses:
+        '200':
+          description: successful
+  "/api/v1/calendar/{year}":
+    parameters:
+    - name: year
+      in: path
+      description: year
+      required: true
+      schema:
+        type: string
+    get:
+      summary: year calendar
+      tags:
+      - Calendar
+      responses:
+        '200':
+          description: successful
+  "/api/v1/celebrations/search":
+    get:
+      summary: search celebration
+      tags:
+      - Celebrations
+      responses:
+        '200':
+          description: successful
+  "/api/v1/celebrations/types":
+    get:
+      summary: types celebration
+      tags:
+      - Celebrations
+      responses:
+        '200':
+          description: successful
+  "/api/v1/celebrations/date/{month}/{day}":
+    parameters:
+    - name: month
+      in: path
+      description: month
+      required: true
+      schema:
+        type: string
+    - name: day
+      in: path
+      description: day
+      required: true
+      schema:
+        type: string
+    get:
+      summary: by_date celebration
+      tags:
+      - Celebrations
+      responses:
+        '200':
+          description: successful
+  "/api/v1/celebrations":
+    get:
+      summary: list celebrations
+      tags:
+      - Celebrations
+      responses:
+        '200':
+          description: successful
+  "/api/v1/celebrations/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show celebration
+      tags:
+      - Celebrations
+      responses:
+        '200':
+          description: successful
+  "/api/v1/lectionary/{year}/{month}/{day}":
+    parameters:
+    - name: year
+      in: path
+      description: year
+      required: true
+      schema:
+        type: string
+    - name: month
+      in: path
+      description: month
+      required: true
+      schema:
+        type: string
+    - name: day
+      in: path
+      description: day
+      required: true
+      schema:
+        type: string
+    get:
+      summary: day lectionary
+      tags:
+      - Lectionary
+      responses:
+        '200':
+          description: successful
+  "/api/v1/lectionary/{year}/{month}/{day}/all_services":
+    parameters:
+    - name: year
+      in: path
+      description: year
+      required: true
+      schema:
+        type: string
+    - name: month
+      in: path
+      description: month
+      required: true
+      schema:
+        type: string
+    - name: day
+      in: path
+      description: day
+      required: true
+      schema:
+        type: string
+    get:
+      summary: all_services lectionary
+      tags:
+      - Lectionary
+      responses:
+        '200':
+          description: successful
+  "/api/v1/lectionary/cycle/{year}":
+    parameters:
+    - name: year
+      in: path
+      description: year
+      required: true
+      schema:
+        type: string
+    get:
+      summary: cycle_info lectionary
+      tags:
+      - Lectionary
+      responses:
+        '200':
+          description: successful
+servers:
+- url: http://localhost:3000
+  description: Development server
+- url: https://api.caminhoanglicano.com.br
+  description: Production server
