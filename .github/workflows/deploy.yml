@@ -40,14 +40,28 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+
+          # Remove any existing entries for the host
+          ssh-keygen -R 46.101.31.39 2>/dev/null || true
+
+          # Add fresh host key
+          ssh-keyscan -H 46.101.31.39 >> ~/.ssh/known_hosts 2>/dev/null
+          chmod 644 ~/.ssh/known_hosts
+
+          # Configure SSH to accept new keys
           cat > ~/.ssh/config <<EOF
           Host 46.101.31.39
             StrictHostKeyChecking accept-new
             UserKnownHostsFile ~/.ssh/known_hosts
           EOF
           chmod 600 ~/.ssh/config
-          ssh-keyscan -H 46.101.31.39 >> ~/.ssh/known_hosts 2>/dev/null || true
-          chmod 644 ~/.ssh/known_hosts
+
+      - name: Verify SSH configuration
+        run: |
+          echo "=== SSH known_hosts content ==="
+          cat ~/.ssh/known_hosts || echo "No known_hosts file"
+          echo "=== Testing SSH connection ==="
+          ssh -o BatchMode=yes -o ConnectTimeout=5 root@46.101.31.39 "echo 'SSH connection successful'" || echo "SSH test completed"
 
       - name: Set up Kamal secrets
         run: |
@@ -64,6 +78,8 @@ jobs:
         run: kamal deploy
         env:
           DOCKER_BUILDKIT: 1
+          SSH_AUTH_SOCK: /tmp/ssh-agent.sock
+          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=~/.ssh/known_hosts"
 
       - name: Verify deployment
         run: |
