@@ -138,7 +138,7 @@ class CelebrationResolver
 
     # JOSÉ DE NAZARÉ e MARCOS, EVANGELISTA
     # Se caem entre Domingo de Ramos e Segundo Domingo da Páscoa
-    if ["José de Nazaré", "Marcos, Evangelista"].include?(celebration.name)
+    if [ "José de Nazaré", "Marcos, Evangelista" ].include?(celebration.name)
       return transfer_if_holy_week(original_date)
     end
 

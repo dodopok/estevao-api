@@ -130,7 +130,7 @@ principal_feasts = [
     liturgical_color: "branco",
     can_be_transferred: true,
     transfer_rules: {
-      conditions: ["if_falls_on_sunday", "if_between_palm_sunday_and_second_easter"],
+      conditions: [ "if_falls_on_sunday", "if_between_palm_sunday_and_second_easter" ],
       transfer_to: "monday_after_second_easter_sunday"
     },
     description: "Anunciação do Anjo Gabriel a Maria"

@@ -90,12 +90,12 @@ christmas_epiphany_collects = [
   {
     celebration_id: Celebration.find_by(fixed_month: 12, fixed_day: 24)&.id,
     text: "Deus Onipotente, que nos deste teu unigênito Filho para que tomasse sobre si a nossa natureza, e nascesse neste tempo de uma Virgem pura; concede que nós, renascidos e feitos teus filhos por adoção e graça, sejamos de dia em dia renovados por teu Santo Espírito; mediante nosso Senhor Jesus Cristo, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   },
   {
     sunday_reference: "1st_sunday_of_christmas",
     text: "Onipotente Deus, que derramaste sobre nós a nova luz do teu Verbo feito carne; concede que essa mesma luz, acesa em nossos corações, brilhe em nossas vidas; por Jesus Cristo, nosso Senhor, que vive e reina contigo, na unidade do Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   },
   {
     sunday_reference: "2nd_sunday_of_christmas",
@@ -200,7 +200,7 @@ lent_collects = [
   {
     sunday_reference: "palm_sunday",
     text: "Onipotente e Eterno Deus, de tal modo amaste o mundo, que enviaste teu Filho, nosso Salvador Jesus Cristo, para tomar sobre si a nossa carne e sofrer morte na cruz, dando ao gênero humano exemplo de sua profunda humildade; concede, em tua misericórdia, que imitemos a sua paciência no sofrimento e possamos participar também de sua ressurreição; mediante o mesmo Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   }
 ]
 
@@ -235,12 +235,12 @@ holy_week_collects = [
   {
     celebration_id: quinta_santa&.id,
     text: "Ó Pai Onipotente, cujo amado Filho, na noite anterior à sua paixão, instituiu o Sacramento do seu Corpo e Sangue; concede-nos, misericordioso, que dele participemos agradecidos, em memória daquele que nestes santos mistérios nos dá o penhor da vida eterna, teu Filho Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   },
   {
     celebration_id: sexta_paixao&.id,
     text: "Deus Onipotente, nós te suplicamos olhes com misericórdia para esta família que é tua, e pela qual nosso Senhor Jesus Cristo não hesitou em entregar-se, traído, às mãos de homens iníquos, e sofrer morte de cruz; o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   },
   {
     celebration_id: sabado_santo&.id,
@@ -270,37 +270,37 @@ easter_collects = [
   {
     celebration_id: pascoa&.id,
     text: "Ó Deus, que para a nossa redenção entregaste o teu unigênito Filho à morte de cruz, e pela tua gloriosa ressurreição nos libertaste do poder de nosso inimigo; concede que morramos diariamente para o pecado, a fim de que vivamos sempre com Ele na alegria de sua ressurreição; mediante Jesus Cristo, teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   },
   {
     sunday_reference: "2nd_sunday_of_easter",
     text: "Pai celestial, libertaste-nos do poder do pecado e trouxeste-nos para o reino de teu Filho; concede que Aquele cuja morte nos restaurou à vida, pela sua presença entre nós, nos erga até às alegrias eternas. Mediante Jesus Cristo, nosso Senhor. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   },
   {
     sunday_reference: "3rd_sunday_of_easter",
     text: "Senhor de misericórdia, teu Filho é a ressurreição e a vida de todos os que n'Ele creem; ergue-nos da morte do pecado, para a vida da retidão. Mediante Jesus Cristo, nosso Senhor. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   },
   {
     sunday_reference: "4th_sunday_of_easter",
     text: "Ó Deus, cujo Filho Jesus é o Bom Pastor do teu povo; concede que, quando ouvirmos sua voz, reconheçamos Aquele que nos chama cada um pelo nome e o sigamos para onde nos conduz; o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   },
   {
     sunday_reference: "5th_sunday_of_easter",
     text: "Ó Deus Onipotente, a quem verdadeiramente conhecer é a vida eterna; concede-nos que conheçamos perfeitamente que teu Filho Jesus Cristo é o caminho, a verdade e a vida; para que, seguindo seus passos, andemos com perseverança no caminho que conduz à vida eterna; mediante o mesmo teu Filho Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   },
   {
     sunday_reference: "6th_sunday_of_easter",
     text: "Pai eterno, o teu reino vai além do espaço e do tempo; concede que neste mundo de constantes mutações nos fixemos naquilo que permanece para sempre. Mediante Jesus Cristo, nosso Senhor. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   },
   {
     celebration_id: ascensao&.id,
     text: "Senhor soberano, teu Filho ascendeu em triunfo para governar todo o universo em amor e glória; faz que todos os povos reconheçam a autoridade do seu reino. Mediante Jesus Cristo, nosso Senhor. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   },
   {
     sunday_reference: "7th_sunday_of_easter",
@@ -310,7 +310,7 @@ easter_collects = [
   {
     celebration_id: pentecostes&.id,
     text: "Ó Deus, que no dia de Pentecostes, ensinaste os fiéis, derramando em seus corações a luz do teu Santo Espírito; concede-nos, por meio do mesmo Espírito, um juízo acertado em todas as coisas, e perene regozijo em seu fortalecimento; pelos méritos de Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR",
+    language: "pt-BR"
   }
 ]
 

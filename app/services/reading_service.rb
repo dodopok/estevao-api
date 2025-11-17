@@ -35,7 +35,7 @@ class ReadingService
     return nil unless celebration
 
     # Tentar por celebration_id
-    reading = LectionaryReading.where(celebration_id: celebration.id, cycle: ["all", cycle])
+    reading = LectionaryReading.where(celebration_id: celebration.id, cycle: [ "all", cycle ])
                                .service_type_eucharist
                                .first
 
@@ -43,7 +43,7 @@ class ReadingService
     if reading.nil?
       celebration_ref = celebration.name.parameterize(separator: "_")
       reading = LectionaryReading.for_date_reference(celebration_ref)
-                                 .where(cycle: [cycle, "all"])
+                                 .where(cycle: [ cycle, "all" ])
                                  .service_type_eucharist
                                  .first
     end
@@ -59,7 +59,7 @@ class ReadingService
     return nil unless proper_num
 
     LectionaryReading.for_date_reference("proper_#{proper_num}")
-                     .where(cycle: [cycle, "all"])
+                     .where(cycle: [ cycle, "all" ])
                      .service_type_eucharist
                      .first
   end
@@ -72,7 +72,7 @@ class ReadingService
     return nil unless sunday_ref
 
     LectionaryReading.for_date_reference(sunday_ref)
-                     .where(cycle: [cycle, "all"])
+                     .where(cycle: [ cycle, "all" ])
                      .service_type_eucharist
                      .first
   end
@@ -83,7 +83,7 @@ class ReadingService
 
     possible_refs.each do |ref|
       reading = LectionaryReading.for_date_reference(ref)
-                                 .where(cycle: [cycle, "all"])
+                                 .where(cycle: [ cycle, "all" ])
                                  .service_type_eucharist
                                  .first
       return reading if reading
@@ -102,13 +102,13 @@ class ReadingService
 
     # Referências especiais para datas importantes
     special_dates = {
-      [12, 25] => "christmas_day",
-      [12, 24] => "christmas_eve",
-      [1, 1] => "holy_name",
-      [1, 6] => "epiphany"
+      [ 12, 25 ] => "christmas_day",
+      [ 12, 24 ] => "christmas_eve",
+      [ 1, 1 ] => "holy_name",
+      [ 1, 6 ] => "epiphany"
     }
 
-    special_ref = special_dates[[date.month, date.day]]
+    special_ref = special_dates[[ date.month, date.day ]]
     refs << special_ref if special_ref
 
     refs

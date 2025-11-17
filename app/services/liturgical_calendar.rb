@@ -149,11 +149,11 @@ class LiturgicalCalendar
     else
       week = week_number(date)
       preposition = case season
-                    when 'Tempo Comum' then 'no'
-                    when 'Quaresma' then 'na'
-                    when 'Epifania' then 'da'
-                    else 'do'
-                    end
+      when "Tempo Comum" then "no"
+      when "Quaresma" then "na"
+      when "Epifania" then "da"
+      else "do"
+      end
       "#{week}º Domingo #{preposition} #{season}"
     end
   end
@@ -284,32 +284,32 @@ class LiturgicalCalendar
       # Map of Proper numbers to their target dates (month, day)
       # Working backwards from Proper 29 (Nov 23) in increments of 7 days
       proper_dates = {
-        29 => [11, 23], # Christ the King
-        28 => [11, 16],
-        27 => [11, 9],
-        26 => [11, 2],
-        25 => [10, 26],
-        24 => [10, 19],
-        23 => [10, 12],
-        22 => [10, 5],
-        21 => [9, 28],
-        20 => [9, 21],
-        19 => [9, 14],
-        18 => [9, 7],
-        17 => [8, 31],
-        16 => [8, 24],
-        15 => [8, 17],
-        14 => [8, 10],
-        13 => [8, 3],
-        12 => [7, 27],
-        11 => [7, 20],
-        10 => [7, 13],
-        9 => [7, 6],
-        8 => [6, 29],
-        7 => [6, 22],
-        6 => [6, 15],
-        5 => [6, 8],
-        4 => [6, 1]
+        29 => [ 11, 23 ], # Christ the King
+        28 => [ 11, 16 ],
+        27 => [ 11, 9 ],
+        26 => [ 11, 2 ],
+        25 => [ 10, 26 ],
+        24 => [ 10, 19 ],
+        23 => [ 10, 12 ],
+        22 => [ 10, 5 ],
+        21 => [ 9, 28 ],
+        20 => [ 9, 21 ],
+        19 => [ 9, 14 ],
+        18 => [ 9, 7 ],
+        17 => [ 8, 31 ],
+        16 => [ 8, 24 ],
+        15 => [ 8, 17 ],
+        14 => [ 8, 10 ],
+        13 => [ 8, 3 ],
+        12 => [ 7, 27 ],
+        11 => [ 7, 20 ],
+        10 => [ 7, 13 ],
+        9 => [ 7, 6 ],
+        8 => [ 6, 29 ],
+        7 => [ 6, 22 ],
+        6 => [ 6, 15 ],
+        5 => [ 6, 8 ],
+        4 => [ 6, 1 ]
       }
 
       # Find the Proper by finding the closest Sunday to each reference date
@@ -484,6 +484,6 @@ class LiturgicalCalendar
   # onde os domingos têm precedência sobre festivais menores
   def in_major_season?(date)
     season = season_for_date(date)
-    ["Advento", "Natal", "Quaresma", "Páscoa"].include?(season)
+    [ "Advento", "Natal", "Quaresma", "Páscoa" ].include?(season)
   end
 end

@@ -19,7 +19,7 @@ class CreateCelebrations < ActiveRecord::Migration[8.1]
 
     add_index :celebrations, :celebration_type
     add_index :celebrations, :rank
-    add_index :celebrations, [:fixed_month, :fixed_day]
+    add_index :celebrations, [ :fixed_month, :fixed_day ]
     add_index :celebrations, :movable
     add_index :celebrations, :name
   end

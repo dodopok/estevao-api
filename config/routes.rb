@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       get "calendar/:year", to: "calendar#year"
 
       # Rotas de celebrações
-      resources :celebrations, only: [:index, :show] do
+      resources :celebrations, only: [ :index, :show ] do
         collection do
           get :search
           get :types
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
 
   # Rota raiz com informações da API
   root to: proc {
-    [200, { "Content-Type" => "application/json" }, [
+    [ 200, { "Content-Type" => "application/json" }, [
       {
         api: "Calendário Litúrgico Anglicano",
         versao: "1.0",
@@ -56,6 +56,6 @@ Rails.application.routes.draw do
         },
         documentacao: "https://github.com/seu-usuario/estevao-api"
       }.to_json
-    ]]
+    ] ]
   }
 end
