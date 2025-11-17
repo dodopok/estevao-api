@@ -38,9 +38,17 @@ test:
   database: estevao_api_test
   <% end %>
 
-# Production uses DATABASE_URL environment variable
+# Production uses individual environment variables or DATABASE_URL
 # Format: postgres://user:password@host:port/database
 # Example: DATABASE_URL="postgres://myuser:mypass@localhost/estevao_api_production"
 production:
   <<: *default
+  <% if ENV["DATABASE_URL"].present? %>
   url: <%= ENV["DATABASE_URL"] %>
+  <% else %>
+  database: estevao_api_production
+  username: estevao_api
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  host: <%= ENV["DB_HOST"] || "estevao_api-db" %>
+  port: 5432
+  <% end %>
