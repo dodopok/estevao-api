@@ -72,7 +72,7 @@ yarn-debug.log*
 /config/*.key
 
 # Kamal deployment secrets
-.kamal/secrets
+.kamal/
 
 config/postgres_password
 config/secret_key_base
