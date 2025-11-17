@@ -277,9 +277,11 @@ class CelebrationResolver
       return true
     end
 
-    # Natal (25 de dezembro até véspera de Epifania)
+    # Natal (25 de dezembro até 6 de janeiro do próximo ano - Epifania)
     # Durante o Natal, domingos têm precedência
-    if date >= Date.new(year, 12, 25) && date <= Date.new(year, 1, 5)
+    christmas_start = Date.new(year, 12, 25)
+    epiphany = Date.new(year + 1, 1, 6)
+    if date >= christmas_start && date <= epiphany
       return true
     end
 

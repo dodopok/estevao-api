@@ -30,20 +30,37 @@ class LiturgicalCalendar
   def season_for_date(date)
     movable = easter_calc.all_movable_dates
 
-    case date
-    when movable[:first_sunday_of_advent]..Date.new(year, 12, 24)
-      "Advento"
-    when Date.new(year, 12, 25)..epiphany_season_end
-      "Natal"
-    when epiphany_season_start..movable[:ash_wednesday] - 1.day
-      "Epifania"
-    when movable[:ash_wednesday]..movable[:holy_saturday]
-      "Quaresma"
-    when movable[:easter]..movable[:pentecost]
-      "Páscoa"
-    else
-      "Tempo Comum"
+    # Advento: do 1º Domingo do Advento até 24 de dezembro
+    if date >= movable[:first_sunday_of_advent] && date <= Date.new(year, 12, 24)
+      return "Advento"
     end
+
+    # Natal: 25 de dezembro até 6 de janeiro (Epifania)
+    # Pode cruzar o ano novo
+    christmas_start = Date.new(year, 12, 25)
+    epiphany = Date.new(year + 1, 1, 6)
+    if date >= christmas_start && date <= epiphany
+      return "Natal"
+    end
+
+    # Epifania: 7 de janeiro até véspera da Quarta de Cinzas
+    epiphany_start_date = Date.new(year, 1, 7)
+    if date >= epiphany_start_date && date < movable[:ash_wednesday]
+      return "Epifania"
+    end
+
+    # Quaresma: Quarta de Cinzas até Sábado Santo
+    if date >= movable[:ash_wednesday] && date <= movable[:holy_saturday]
+      return "Quaresma"
+    end
+
+    # Páscoa: Domingo de Páscoa até Pentecostes
+    if date >= movable[:easter] && date <= movable[:pentecost]
+      return "Páscoa"
+    end
+
+    # Caso contrário: Tempo Comum
+    "Tempo Comum"
   end
 
   # Determina a cor litúrgica para uma data
