@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       {
         api: "Calendário Litúrgico Anglicano",
         versao: "1.0",
+        docs: "/api-docs",
         endpoints: {
           calendario: {
             dia: "/api/v1/calendar/:year/:month/:day",
@@ -55,8 +56,7 @@ Rails.application.routes.draw do
             todos_oficios: "/api/v1/lectionary/:year/:month/:day/all_services",
             ciclo: "/api/v1/lectionary/cycle/:year"
           }
-        },
-        documentacao: "https://github.com/seu-usuario/estevao-api"
+        }
       }.to_json
     ] ]
   }

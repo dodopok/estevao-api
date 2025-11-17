@@ -71,5 +71,8 @@ yarn-debug.log*
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
+# Kamal deployment secrets
+.kamal/secrets
+
 config/postgres_password
 config/secret_key_base
