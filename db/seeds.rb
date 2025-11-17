@@ -51,6 +51,18 @@ puts "\n⭐ Criando Festas Principais..."
 
 principal_feasts = [
   {
+    name: "Vigilia de Natal",
+    latin_name: "Vigilia de Natali",
+    celebration_type: :principal_feast,
+    rank: 1,
+    fixed_month: 12,
+    fixed_day: 24,
+    movable: false,
+    liturgical_color: "branco",
+    can_be_transferred: false,
+    description: "Vigilia de Natal - Nascimento de Jesus Cristo"
+  },
+  {
     name: "Natividade de nosso Senhor Jesus Cristo",
     latin_name: "Nativitas Domini",
     celebration_type: :principal_feast,
@@ -248,6 +260,17 @@ major_holy_days = [
     liturgical_color: "vermelho",
     can_be_transferred: false,
     description: "Paixão e Morte de nosso Senhor - dia de jejum"
+  },
+  {
+    name: "Sábado Santo",
+    latin_name: "Feria Sabbati Sancti",
+    celebration_type: :major_holy_day,
+    rank: 23,
+    movable: true,
+    calculation_rule: "easter_minus_1_day",
+    liturgical_color: "black",
+    can_be_transferred: false,
+    description: "Dia de silêncio e espera pela Ressurreição"
   }
 ]
 
@@ -373,6 +396,13 @@ else
   puts "⚠️  Arquivo de propers restantes não encontrado."
 end
 
+# Celebrações da Semana Santa
+if File.exist?(Rails.root.join('db/seeds/holy_week_celebrations.rb'))
+  load Rails.root.join('db/seeds/holy_week_celebrations.rb')
+else
+  puts "⚠️  Arquivo de celebrações da Semana Santa não encontrado."
+end
+
 # Leituras da Semana Santa
 if File.exist?(Rails.root.join('db/seeds/holy_week_readings.rb'))
   load Rails.root.join('db/seeds/holy_week_readings.rb')
@@ -406,6 +436,20 @@ if File.exist?(Rails.root.join('db/seeds/anglican_saints.rb'))
   load Rails.root.join('db/seeds/anglican_saints.rb')
 else
   puts "⚠️  Arquivo de santos anglicanos não encontrado."
+end
+
+# Coletas
+if File.exist?(Rails.root.join('db/seeds/collects.rb'))
+  load Rails.root.join('db/seeds/collects.rb')
+else
+  puts "⚠️  Arquivo de coletas não encontrado."
+end
+
+# Leituras dos Dias Santos e Festas Maiores
+if File.exist?(Rails.root.join('db/seeds/holy_days_readings.rb'))
+  load Rails.root.join('db/seeds/holy_days_readings.rb')
+else
+  puts "⚠️  Arquivo de leituras dos dias santos não encontrado."
 end
 
 puts "\n📊 TOTAL FINAL:"

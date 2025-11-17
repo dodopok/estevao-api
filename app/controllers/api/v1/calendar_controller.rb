@@ -100,58 +100,9 @@ module Api
           sunday_after_pentecost: info[:sunday_after_pentecost],
           celebration: info[:celebration],
           saint: info[:saint],
-          collect: collect_for_day(date),
-          readings: readings_for_day(date)
+          collect: CollectService.new(date).find_collects,
+          readings: ReadingService.new(date).find_readings
         }
-      end
-
-      def collect_for_day(date)
-        # Busca a coleta do dia
-        # Prioridade: celebração > domingo > quadra
-        celebration = Celebration.fixed.for_date(date.month, date.day).first
-
-        collect = if celebration
-          Collect.for_celebration(celebration.id).in_language("pt-BR").first
-        else
-          # Buscar coleta de domingo ou quadra
-          calendar = LiturgicalCalendar.new(date.year)
-          season_name = calendar.season_for_date(date)
-          season = LiturgicalSeason.find_by(name: season_name)
-          season ? Collect.for_season(season.id).in_language("pt-BR").first : nil
-        end
-
-        collect ? { text: collect.text } : nil
-      end
-
-      def readings_for_day(date)
-        # Determina o ciclo do ano
-        cycle = date.sunday? ? LectionaryReading.cycle_for_year(date.year) : LectionaryReading.even_or_odd_year?(date.year)
-
-        # Busca leituras
-        celebration = Celebration.fixed.for_date(date.month, date.day).first
-
-        if celebration
-          readings = LectionaryReading.where(celebration_id: celebration.id, cycle: ["all", cycle])
-                                      .service_type_eucharist
-                                      .first
-        else
-          # Buscar leituras do domingo ou dia
-          calendar = LiturgicalCalendar.new(date.year)
-          date_ref = calendar.sunday_name(date)&.parameterize(separator: "_") || "weekday"
-          readings = LectionaryReading.for_date_reference(date_ref)
-                                      .for_cycle(cycle)
-                                      .service_type_eucharist
-                                      .first
-        end
-
-        if readings
-          {
-            first_reading: readings.first_reading,
-            psalm: readings.psalm,
-            second_reading: readings.second_reading,
-            gospel: readings.gospel
-          }
-        end
       end
 
       def seasons_summary(calendar)

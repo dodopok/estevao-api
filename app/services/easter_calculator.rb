@@ -29,6 +29,21 @@ class EasterCalculator
     easter_date - 7.days
   end
 
+  # Segunda-feira Santa
+  def holy_monday
+    easter_date - 6.days
+  end
+
+  # Terça-feira Santa
+  def holy_tuesday
+    easter_date - 5.days
+  end
+
+  # Quarta-feira Santa
+  def holy_wednesday
+    easter_date - 4.days
+  end
+
   # Quinta-feira Santa (quinta-feira antes da Páscoa)
   def maundy_thursday
     easter_date - 3.days
@@ -129,6 +144,9 @@ class EasterCalculator
       ash_wednesday: ash_wednesday,
       first_sunday_in_lent: first_sunday_in_lent,
       palm_sunday: palm_sunday,
+      holy_monday: holy_monday,
+      holy_tuesday: holy_tuesday,
+      holy_wednesday: holy_wednesday,
       maundy_thursday: maundy_thursday,
       good_friday: good_friday,
       holy_saturday: holy_saturday,

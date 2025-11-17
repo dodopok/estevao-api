@@ -80,6 +80,13 @@ class CelebrationResolver
     principal = sorted.find { |c| c.principal_feast? || c.major_holy_day? }
     return principal if principal
 
+    # Domingos em quadras principais (Advento, Natal, Quaresma, Páscoa) têm precedência sobre festas menores
+    if date.sunday? && in_major_season?(date)
+      # Retorna nil para que o domingo seja a celebração principal
+      # Isso permite que LiturgicalCalendar use a cor e o nome do domingo
+      return nil
+    end
+
     # Caso contrário, retorna o de menor rank
     sorted.first
   end
@@ -94,10 +101,18 @@ class CelebrationResolver
       movable_dates[:easter]
     when "easter_minus_46_days"
       movable_dates[:ash_wednesday]
+    when "easter_minus_6_days"
+      movable_dates[:holy_monday]
+    when "easter_minus_5_days"
+      movable_dates[:holy_tuesday]
+    when "easter_minus_4_days"
+      movable_dates[:holy_wednesday]
     when "easter_minus_3_days"
       movable_dates[:maundy_thursday]
     when "easter_minus_2_days"
       movable_dates[:good_friday]
+    when "easter_minus_1_day"
+      movable_dates[:holy_saturday]
     when "easter_plus_39_days"
       movable_dates[:ascension]
     when "easter_plus_49_days"
@@ -250,5 +265,34 @@ class CelebrationResolver
 
     # Semana Santa até Segundo Domingo da Páscoa
     (date >= palm_sunday && date <= second_easter)
+  end
+
+  # Verifica se uma data está em uma quadra litúrgica principal
+  # onde os domingos têm precedência sobre festivais menores
+  def in_major_season?(date)
+    movable = easter_calc.all_movable_dates
+
+    # Advento (do 1º Domingo do Advento até 24 de dezembro)
+    if date >= movable[:first_sunday_of_advent] && date <= Date.new(year, 12, 24)
+      return true
+    end
+
+    # Natal (25 de dezembro até véspera de Epifania)
+    # Durante o Natal, domingos têm precedência
+    if date >= Date.new(year, 12, 25) && date <= Date.new(year, 1, 5)
+      return true
+    end
+
+    # Quaresma (Quarta-feira de Cinzas até Sábado Santo)
+    if date >= movable[:ash_wednesday] && date <= movable[:holy_saturday]
+      return true
+    end
+
+    # Páscoa (Domingo de Páscoa até Pentecostes)
+    if date >= movable[:easter] && date <= movable[:pentecost]
+      return true
+    end
+
+    false
   end
 end

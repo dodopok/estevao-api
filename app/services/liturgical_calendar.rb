@@ -51,7 +51,10 @@ class LiturgicalCalendar
     celebration = celebration_for_date(date)
 
     # Se há uma celebração com cor específica, usa essa cor
-    return celebration[:color] if celebration && celebration[:color]
+    # MAS: Se é domingo, SEMPRE usa cor da quadra (domingos têm precedência)
+    if celebration && celebration[:color] && !date.sunday?
+      return celebration[:color]
+    end
 
     # Caso contrário, usa a cor da quadra
     season = season_for_date(date)
@@ -128,7 +131,13 @@ class LiturgicalCalendar
       "Batismo de nosso Senhor Jesus Cristo"
     else
       week = week_number(date)
-      "#{week}º Domingo #{season == 'Tempo Comum' ? 'no' : 'do'} #{season}"
+      preposition = case season
+                    when 'Tempo Comum' then 'no'
+                    when 'Quaresma' then 'na'
+                    when 'Epifania' then 'da'
+                    else 'do'
+                    end
+      "#{week}º Domingo #{preposition} #{season}"
     end
   end
 
@@ -140,6 +149,10 @@ class LiturgicalCalendar
     case season
     when "Advento"
       ((date - movable[:first_sunday_of_advent]).to_i / 7) + 1
+    when "Epifania"
+      # Count weeks from the Monday after Epiphany season starts
+      start_date = epiphany_season_start
+      ((date - start_date).to_i / 7) + 1
     when "Quaresma"
       ((date - movable[:first_sunday_in_lent]).to_i / 7) + 1
     when "Páscoa"
@@ -227,14 +240,18 @@ class LiturgicalCalendar
   end
 
   # Calcula o número do proper (contagem contínua no Tempo Comum)
+  # O sistema RCL usa contagem REVERSA a partir de Cristo Rei
+  # Proper 29 = domingo mais próximo de 23 de novembro
+  # Proper 28 = domingo mais próximo de 16 de novembro, etc.
   def proper_number(date)
     season = season_for_date(date)
     return nil unless season == "Tempo Comum"
+    return nil unless date.sunday?
 
     movable = easter_calc.all_movable_dates
 
     if date < movable[:ash_wednesday]
-      # Before Lent - count from Baptism of the Lord
+      # Before Lent - use forward counting from Baptism of the Lord
       baptism = movable[:baptism_of_the_lord]
       # Find the first Sunday on or after baptism
       first_sunday = baptism.sunday? ? baptism : baptism + (7 - baptism.wday).days
@@ -243,22 +260,68 @@ class LiturgicalCalendar
       weeks = ((date - first_sunday).to_i / 7) + 1
       weeks if date >= first_sunday
     else
-      # After Pentecost - continue the proper numbering
-      # First, calculate how many propers there were before Lent
-      baptism = movable[:baptism_of_the_lord]
-      first_sunday_before_lent = baptism.sunday? ? baptism : baptism + (7 - baptism.wday).days
-      last_sunday_before_lent = movable[:ash_wednesday] - (movable[:ash_wednesday].wday == 0 ? 7 : movable[:ash_wednesday].wday).days
-      propers_before_lent = ((last_sunday_before_lent - first_sunday_before_lent).to_i / 7) + 1
+      # After Pentecost - use REVERSE counting from Christ the King
+      # The RCL assigns Propers based on proximity to fixed dates
+      # Proper 29 is closest to November 23, Proper 28 to November 16, etc.
 
-      # Now count from Trinity Sunday
-      trinity = movable[:trinity_sunday]
-      first_sunday_after_pentecost = trinity + 7.days
+      # Map of Proper numbers to their target dates (month, day)
+      # Working backwards from Proper 29 (Nov 23) in increments of 7 days
+      proper_dates = {
+        29 => [11, 23], # Christ the King
+        28 => [11, 16],
+        27 => [11, 9],
+        26 => [11, 2],
+        25 => [10, 26],
+        24 => [10, 19],
+        23 => [10, 12],
+        22 => [10, 5],
+        21 => [9, 28],
+        20 => [9, 21],
+        19 => [9, 14],
+        18 => [9, 7],
+        17 => [8, 31],
+        16 => [8, 24],
+        15 => [8, 17],
+        14 => [8, 10],
+        13 => [8, 3],
+        12 => [7, 27],
+        11 => [7, 20],
+        10 => [7, 13],
+        9 => [7, 6],
+        8 => [6, 29],
+        7 => [6, 22],
+        6 => [6, 15],
+        5 => [6, 8],
+        4 => [6, 1]
+      }
 
-      # Calculate weeks after Pentecost season
-      if date >= first_sunday_after_pentecost
-        weeks_after = ((date - first_sunday_after_pentecost).to_i / 7)
-        propers_before_lent + weeks_after + 1
+      # Find the Proper by finding the closest Sunday to each reference date
+      closest_proper = nil
+      min_distance = Float::INFINITY
+
+      proper_dates.each do |proper_num, (month, day)|
+        reference_date = Date.new(year, month, day)
+        # Find the Sunday closest to this reference date
+        closest_sunday = reference_date
+
+        # Adjust to find nearest Sunday
+        days_from_sunday = reference_date.wday
+        if days_from_sunday <= 3
+          # If Mon-Wed, use previous Sunday
+          closest_sunday = reference_date - days_from_sunday.days
+        elsif days_from_sunday > 3
+          # If Thu-Sat, use next Sunday
+          closest_sunday = reference_date + (7 - days_from_sunday).days
+        end
+        # If it's already Sunday (wday == 0), it stays the same
+
+        # Check if this is our date
+        if date == closest_sunday
+          return proper_num
+        end
       end
+
+      nil
     end
   end
 
@@ -398,5 +461,12 @@ class LiturgicalCalendar
 
     original_date = Date.new(year, celebration.fixed_month, celebration.fixed_day)
     original_date != date
+  end
+
+  # Verifica se uma data está em uma quadra litúrgica principal
+  # onde os domingos têm precedência sobre festivais menores
+  def in_major_season?(date)
+    season = season_for_date(date)
+    ["Advento", "Natal", "Quaresma", "Páscoa"].include?(season)
   end
 end

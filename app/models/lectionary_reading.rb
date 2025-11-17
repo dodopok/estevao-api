@@ -16,12 +16,23 @@ class LectionaryReading < ApplicationRecord
   scope :service_type_morning_prayer, -> { where(service_type: "morning_prayer") }
   scope :service_type_evening_prayer, -> { where(service_type: "evening_prayer") }
 
-  # Método para determinar o ciclo baseado no ano
+  # Método para determinar o ciclo baseado no ano litúrgico
   def self.cycle_for_year(year)
-    # Ano litúrgico começa no Advento (aproximadamente 4 domingos antes do Natal)
-    # Para simplificar, usamos o ano civil
-    cycles = %w[A B C]
-    cycles[year % 3]
+    # O ciclo litúrgico é determinado pela fórmula:
+    # - Anos divisíveis por 3 (resto 0) = Ciclo C
+    # - Anos com resto 1 ao dividir por 3 = Ciclo A
+    # - Anos com resto 2 ao dividir por 3 = Ciclo B
+    #
+    # Exemplos:
+    # 2025 % 3 = 0 → Ciclo C
+    # 2026 % 3 = 1 → Ciclo A
+    # 2027 % 3 = 2 → Ciclo B
+
+    case year % 3
+    when 0 then "C"
+    when 1 then "A"
+    when 2 then "B"
+    end
   end
 
   # Método para determinar par/ímpar
