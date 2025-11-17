@@ -1,0 +1,81 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+    branches: [ main ]
+  workflow_dispatch: # Permite deploy manual via GitHub UI
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    # Só roda se o CI passou com sucesso
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+
+    environment:
+      name: production
+      url: https://api.caminhoanglicano.com.br
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Install kamal
+        run: gem install kamal
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 46.101.31.39 >> ~/.ssh/known_hosts
+
+      - name: Set up Kamal secrets
+        run: |
+          mkdir -p .kamal
+          cat > .kamal/secrets <<EOF
+          KAMAL_REGISTRY_PASSWORD=${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+          RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
+          SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}
+          POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+          EOF
+          chmod 600 .kamal/secrets
+
+      - name: Deploy with Kamal
+        run: kamal deploy
+        env:
+          DOCKER_BUILDKIT: 1
+
+      - name: Verify deployment
+        run: |
+          echo "Waiting for deployment to stabilize..."
+          sleep 10
+          curl -f https://api.caminhoanglicano.com.br/up || exit 1
+
+      - name: Clean up secrets
+        if: always()
+        run: |
+          rm -f ~/.ssh/id_rsa
+          rm -f .kamal/secrets
+
+      - name: Deployment notification
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "✅ Deploy successful to production!"
+          else
+            echo "❌ Deploy failed!"
+            exit 1
+          fi
