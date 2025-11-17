@@ -36,25 +36,25 @@ Rails.application.routes.draw do
     [ 200, { "Content-Type" => "application/json" }, [
       {
         api: "Calendário Litúrgico Anglicano",
-        versao: "1.0",
+        version: "1.0",
         docs: "/api-docs",
         endpoints: {
-          calendario: {
-            dia: "/api/v1/calendar/:year/:month/:day",
-            mes: "/api/v1/calendar/:year/:month",
-            ano: "/api/v1/calendar/:year"
+          calendar: {
+            day: "/api/v1/calendar/:year/:month/:day",
+            month: "/api/v1/calendar/:year/:month",
+            year: "/api/v1/calendar/:year"
           },
-          celebracoes: {
-            listar: "/api/v1/celebrations",
-            detalhes: "/api/v1/celebrations/:id",
-            buscar: "/api/v1/celebrations/search?q=termo",
-            por_data: "/api/v1/celebrations/date/:month/:day",
-            tipos: "/api/v1/celebrations/types"
+          celebrations: {
+            list: "/api/v1/celebrations",
+            details: "/api/v1/celebrations/:id",
+            search: "/api/v1/celebrations/search?q=term",
+            by_date: "/api/v1/celebrations/date/:month/:day",
+            types: "/api/v1/celebrations/types"
           },
-          lecionario: {
-            dia: "/api/v1/lectionary/:year/:month/:day",
-            todos_oficios: "/api/v1/lectionary/:year/:month/:day/all_services",
-            ciclo: "/api/v1/lectionary/cycle/:year"
+          lectionary: {
+            day: "/api/v1/lectionary/:year/:month/:day",
+            all_services: "/api/v1/lectionary/:year/:month/:day/all_services",
+            cycle: "/api/v1/lectionary/cycle/:year"
           }
         }
       }.to_json
