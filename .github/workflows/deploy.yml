@@ -63,9 +63,11 @@ jobs:
           echo "=== Testing SSH connection ==="
           ssh -o BatchMode=yes -o ConnectTimeout=5 root@46.101.31.39 "echo 'SSH connection successful'" || echo "SSH test completed"
 
-      - name: Set up Kamal secrets
+      - name: Set up Kamal secrets and hooks
         run: |
-          mkdir -p .kamal
+          mkdir -p .kamal/hooks
+
+          # Create secrets file
           cat > .kamal/secrets <<EOF
           KAMAL_REGISTRY_PASSWORD=${{ secrets.KAMAL_REGISTRY_PASSWORD }}
           RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
@@ -73,6 +75,22 @@ jobs:
           POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
           EOF
           chmod 600 .kamal/secrets
+
+          # Create pre-connect hook to disable SSH host key verification
+          cat > .kamal/hooks/pre-connect <<'HOOK_EOF'
+          #!/usr/bin/env ruby
+
+          require 'sshkit'
+          require 'sshkit/dsl'
+
+          SSHKit::Backend::Netssh.configure do |ssh|
+            ssh.ssh_options = {
+              paranoid: false,
+              verify_host_key: :never
+            }
+          end
+          HOOK_EOF
+          chmod +x .kamal/hooks/pre-connect
 
       - name: Deploy with Kamal
         run: kamal deploy
