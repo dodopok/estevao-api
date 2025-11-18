@@ -48,11 +48,11 @@ jobs:
           ssh-keyscan -H 46.101.31.39 >> ~/.ssh/known_hosts 2>/dev/null
           chmod 644 ~/.ssh/known_hosts
 
-          # Configure SSH to accept new keys
+          # Configure SSH to disable strict host key checking
           cat > ~/.ssh/config <<EOF
           Host 46.101.31.39
-            StrictHostKeyChecking accept-new
-            UserKnownHostsFile ~/.ssh/known_hosts
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
           EOF
           chmod 600 ~/.ssh/config
 
@@ -63,9 +63,9 @@ jobs:
           echo "=== Testing SSH connection ==="
           ssh -o BatchMode=yes -o ConnectTimeout=5 root@46.101.31.39 "echo 'SSH connection successful'" || echo "SSH test completed"
 
-      - name: Set up Kamal secrets and hooks
+      - name: Set up Kamal secrets
         run: |
-          mkdir -p .kamal/hooks
+          mkdir -p .kamal
 
           # Create secrets file
           cat > .kamal/secrets <<EOF
@@ -76,28 +76,10 @@ jobs:
           EOF
           chmod 600 .kamal/secrets
 
-          # Create pre-connect hook to disable SSH host key verification
-          cat > .kamal/hooks/pre-connect <<'HOOK_EOF'
-          #!/usr/bin/env ruby
-
-          require 'sshkit'
-          require 'sshkit/dsl'
-
-          SSHKit::Backend::Netssh.configure do |ssh|
-            ssh.ssh_options = {
-              paranoid: false,
-              verify_host_key: :never
-            }
-          end
-          HOOK_EOF
-          chmod +x .kamal/hooks/pre-connect
-
       - name: Deploy with Kamal
         run: kamal deploy
         env:
           DOCKER_BUILDKIT: 1
-          SSH_AUTH_SOCK: /tmp/ssh-agent.sock
-          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=~/.ssh/known_hosts"
 
       - name: Verify deployment
         run: |
