@@ -9,6 +9,24 @@ RSpec.describe 'api/v1/calendar', type: :request do
     'application/json'
   end
 
+  path '/api/v1/calendar/today' do
+    get('today calendar') do
+      tags api_tags
+      produces content_type
+
+      response(200, 'successful') do
+        after do |example|
+          example.metadata[:response][:content] = {
+            'application/json' => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+        run_test!
+      end
+    end
+  end
+
   path '/api/v1/calendar/{year}/{month}/{day}' do
     parameter name: 'year', in: :path, type: :string, description: 'year'
     parameter name: 'month', in: :path, type: :string, description: 'month'

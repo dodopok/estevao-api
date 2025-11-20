@@ -1,6 +1,23 @@
 module Api
   module V1
     class CalendarController < ApplicationController
+      # GET /api/v1/calendar/today
+      # Retorna informações litúrgicas do dia de hoje
+      def today
+        date = Date.today
+
+        # Cache the response for 1 day since liturgical data doesn't change
+        response = Rails.cache.fetch("liturgical_day_#{date}", expires_in: 1.day) do
+          calendar = LiturgicalCalendar.new(date.year)
+          info = calendar.day_info(date)
+          format_day_response(info, date)
+        end
+
+        render json: response
+      rescue ArgumentError => e
+        render json: { error: "Erro ao buscar dados: #{e.message}" }, status: :bad_request
+      end
+
       # GET /api/v1/calendar/:year/:month/:day
       # Retorna informações litúrgicas de um dia específico
       def day

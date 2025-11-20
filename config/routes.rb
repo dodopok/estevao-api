@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       # Rotas do calendário litúrgico
+      get "calendar/today", to: "calendar#today"
       get "calendar/:year/:month/:day", to: "calendar#day"
       get "calendar/:year/:month", to: "calendar#month"
       get "calendar/:year", to: "calendar#year"

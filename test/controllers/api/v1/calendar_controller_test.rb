@@ -23,6 +23,21 @@ module Api
         Rails.cache.clear
       end
 
+      # === TESTES DO ENDPOINT /today ===
+      test "GET /api/v1/calendar/today retorna informações do dia atual" do
+        today = Date.today
+        get "/api/v1/calendar/today"
+        assert_response :success
+
+        json = JSON.parse(response.body)
+
+        assert_equal today.to_s, json["date"]
+        assert json.key?("day_of_week")
+        assert json.key?("liturgical_season")
+        assert json.key?("liturgical_color")
+        assert json.key?("is_sunday")
+      end
+
       # === TESTES DO ENDPOINT /day ===
 
       test "GET /api/v1/calendar/:year/:month/:day retorna informações do dia" do

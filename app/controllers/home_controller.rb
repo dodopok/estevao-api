@@ -6,6 +6,7 @@ class HomeController < ApplicationController
       docs: "/api-docs",
       endpoints: {
         calendar: {
+          today: "/api/v1/calendar/today",
           day: "/api/v1/calendar/:year/:month/:day",
           month: "/api/v1/calendar/:year/:month",
           year: "/api/v1/calendar/:year"
