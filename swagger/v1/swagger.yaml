@@ -4,6 +4,14 @@ info:
   title: API - Calendário Litúrgico Anglicano
   version: v1
 paths:
+  "/api/v1/calendar/today":
+    get:
+      summary: today calendar
+      tags:
+      - Calendar
+      responses:
+        '200':
+          description: successful
   "/api/v1/calendar/{year}/{month}/{day}":
     parameters:
     - name: year
