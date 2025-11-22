@@ -11,9 +11,9 @@ class CreateBibleTexts < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
-    add_index :bible_texts, [:book, :chapter, :verse, :translation],
+    add_index :bible_texts, [ :book, :chapter, :verse, :translation ],
               name: 'index_bible_texts_on_verse_lookup'
-    add_index :bible_texts, [:book_number, :chapter, :verse, :translation],
+    add_index :bible_texts, [ :book_number, :chapter, :verse, :translation ],
               name: 'index_bible_texts_on_book_number_lookup'
   end
 end

@@ -8,23 +8,23 @@ puts "Creating Psalm Cycles..."
 # This is a simplified example - you should consult LOC 2015 for the official cycle
 
 weekly_morning_psalms = {
-  0 => [1, 2, 3],      # Sunday
-  1 => [5, 6, 7],      # Monday
-  2 => [9, 10, 11],    # Tuesday
-  3 => [12, 13, 14],   # Wednesday
-  4 => [15, 16, 17],   # Thursday
-  5 => [18, 19, 20],   # Friday
-  6 => [21, 22, 23]    # Saturday
+  0 => [ 1, 2, 3 ],      # Sunday
+  1 => [ 5, 6, 7 ],      # Monday
+  2 => [ 9, 10, 11 ],    # Tuesday
+  3 => [ 12, 13, 14 ],   # Wednesday
+  4 => [ 15, 16, 17 ],   # Thursday
+  5 => [ 18, 19, 20 ],   # Friday
+  6 => [ 21, 22, 23 ]    # Saturday
 }
 
 weekly_evening_psalms = {
-  0 => [8, 84, 150],   # Sunday
-  1 => [24, 25, 26],   # Monday
-  2 => [27, 28, 29],   # Tuesday
-  3 => [30, 31, 32],   # Wednesday
-  4 => [33, 34, 35],   # Thursday
-  5 => [36, 37, 38],   # Friday
-  6 => [39, 40, 41]    # Saturday
+  0 => [ 8, 84, 150 ],   # Sunday
+  1 => [ 24, 25, 26 ],   # Monday
+  2 => [ 27, 28, 29 ],   # Tuesday
+  3 => [ 30, 31, 32 ],   # Wednesday
+  4 => [ 33, 34, 35 ],   # Thursday
+  5 => [ 36, 37, 38 ],   # Friday
+  6 => [ 39, 40, 41 ]    # Saturday
 }
 
 # Create weekly morning cycle
@@ -56,13 +56,13 @@ end
 # Midday typically uses portions of Psalm 119 or fixed psalms
 # Creating a simple rotation for midday
 midday_psalms = [
-  [119], # Sunday (can use different portions)
-  [119], # Monday
-  [119], # Tuesday
-  [119], # Wednesday
-  [119], # Thursday
-  [119], # Friday
-  [119]  # Saturday
+  [ 119 ], # Sunday (can use different portions)
+  [ 119 ], # Monday
+  [ 119 ], # Tuesday
+  [ 119 ], # Wednesday
+  [ 119 ], # Thursday
+  [ 119 ], # Friday
+  [ 119 ]  # Saturday
 ]
 
 midday_psalms.each_with_index do |psalms, day|
@@ -85,7 +85,7 @@ end
     day_of_week: day,
     office_type: 'compline'
   ) do |pc|
-    pc.psalm_numbers = [4, 31, 91, 134]
+    pc.psalm_numbers = [ 4, 31, 91, 134 ]
     pc.notes = "Compline psalms (fixed)"
   end
 end

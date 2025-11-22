@@ -10,7 +10,7 @@ class CreatePsalmCycles < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
-    add_index :psalm_cycles, [:cycle_type, :week_number, :day_of_week, :office_type],
+    add_index :psalm_cycles, [ :cycle_type, :week_number, :day_of_week, :office_type ],
               name: 'index_psalm_cycles_on_cycle_lookup', unique: true
   end
 end

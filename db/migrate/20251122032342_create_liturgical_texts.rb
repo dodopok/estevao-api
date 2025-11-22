@@ -13,6 +13,6 @@ class CreateLiturgicalTexts < ActiveRecord::Migration[8.1]
     end
     add_index :liturgical_texts, :slug
     add_index :liturgical_texts, :category
-    add_index :liturgical_texts, [:slug, :version], unique: true
+    add_index :liturgical_texts, [ :slug, :version ], unique: true
   end
 end
