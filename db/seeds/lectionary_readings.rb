@@ -532,7 +532,7 @@ readings = [
     cycle: "C",
     service_type: "eucharist",
     first_reading: "Jeremiah 23:1-6",
-    psalm: "Luke 1:68-79",
+    psalm: "Psalm 46",
     second_reading: "Colossians 1:11-20",
     gospel: "Luke 23:33-43"
   },

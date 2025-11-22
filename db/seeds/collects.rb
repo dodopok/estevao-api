@@ -473,8 +473,8 @@ trinity_propers_collects = [
     language: "pt-BR"
   },
   {
-    sunday_reference: "proper_29",
-    text: "Senhor soberano, Onipotente e sempiterno Deus, cuja vontade é restaurar todas as coisas em teu amado Filho, o Rei dos Reis, Senhor dos senhores; misericordioso concede que os povos da terra, divididos e escravizados pelo pecado, sejam libertados e reunidos em seu reino de amor; o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    sunday_reference: "christ_the_king",
+    text: "Senhor soberano, Onipotente e sempiterno Deus, cuja vontade é restaurar todas as coisas em teu amado Filho, o Rei dos Reis e Senhor dos senhores; concede misericordiosamente que os povos da terra, divididos e escravizados pelo pecado, sejam libertados e reunidos em Teu reino de amor, por meio de Cristo Jesus, Teu Filho, nosso Senhor, o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
     language: "pt-BR"
   }
 ]
