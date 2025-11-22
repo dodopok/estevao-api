@@ -31,7 +31,7 @@ module Api
 
         json = JSON.parse(response.body)
 
-        assert_equal today.to_s, json["date"]
+        assert_equal today.strftime("%d/%m/%Y"), json["date"]
         assert json.key?("day_of_week")
         assert json.key?("liturgical_season")
         assert json.key?("liturgical_color")
@@ -47,7 +47,7 @@ module Api
 
         json = JSON.parse(response.body)
 
-        assert_equal "2025-11-16", json["date"]
+        assert_equal "16/11/2025", json["date"]
         assert_equal "Domingo", json["day_of_week"]
         assert_equal "Tempo Comum", json["liturgical_season"]
         assert_equal "verde", json["liturgical_color"]
@@ -362,7 +362,7 @@ module Api
         day_json = JSON.parse(response.body)
 
         # Encontra o dia 16 no mês
-        day_in_month = month_json["days"].find { |d| d["date"] == "2025-11-16" }
+        day_in_month = month_json["days"].find { |d| d["date"] == "16/11/2025" }
 
         # Compara campos importantes
         assert_equal day_json["liturgical_season"], day_in_month["liturgical_season"]
@@ -379,7 +379,7 @@ module Api
         assert_response :success
 
         json = JSON.parse(response.body)
-        assert_equal "2024-02-29", json["date"]
+        assert_equal "29/02/2024", json["date"]
       end
 
       test "GET /api/v1/calendar retorna erro para 29 de fevereiro em ano não bissexto" do
@@ -394,7 +394,7 @@ module Api
         assert_response :success
 
         json = JSON.parse(response.body)
-        assert_equal "2025-12-31", json["date"]
+        assert_equal "31/12/2025", json["date"]
       end
 
       test "GET /api/v1/calendar funciona para 1 de janeiro" do
@@ -403,7 +403,7 @@ module Api
         assert_response :success
 
         json = JSON.parse(response.body)
-        assert_equal "2025-01-01", json["date"]
+        assert_equal "01/01/2025", json["date"]
       end
 
       # === TESTES DE FORMATO JSON ===

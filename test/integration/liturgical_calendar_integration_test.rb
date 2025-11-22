@@ -85,7 +85,7 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
     json = JSON.parse(response.body)
 
     # Verifica estrutura completa
-    assert_equal "2025-11-16", json["date"]
+    assert_equal "16/11/2025", json["date"]
     assert_equal "Domingo", json["day_of_week"]
     assert_equal "Tempo Comum", json["liturgical_season"]
     assert_equal "verde", json["liturgical_color"], "Domingos no Tempo Comum devem ser verdes"
@@ -108,7 +108,7 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :success
     json = JSON.parse(response.body)
 
-    assert_equal "2025-12-25", json["date"]
+    assert_equal "25/12/2025", json["date"]
     assert_equal "Natal", json["liturgical_season"]
     assert_equal "branco", json["liturgical_color"]
     assert_equal true, json["is_holy_day"]
@@ -200,7 +200,7 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
     assert first_day.key?("is_sunday")
 
     # Verifica que dia 25 é Natal
-    christmas_day = json["days"].find { |d| d["date"] == "2025-12-25" }
+    christmas_day = json["days"].find { |d| d["date"] == "25/12/2025" }
     assert christmas_day
     assert_equal "Natal", christmas_day["liturgical_season"]
   end
@@ -210,7 +210,7 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
     month_json = JSON.parse(response.body)
 
     # Pega um dia específico do mês
-    day_16 = month_json["days"].find { |d| d["date"] == "2025-11-16" }
+    day_16 = month_json["days"].find { |d| d["date"] == "16/11/2025" }
 
     # Busca o mesmo dia individualmente
     get "/api/v1/calendar/2025/11/16"
@@ -453,7 +453,7 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :success
     json = JSON.parse(response.body)
 
-    assert_equal "2024-02-29", json["date"]
+    assert_equal "29/02/2024", json["date"]
   end
 
   test "fluxo completo: 29 de fevereiro em ano não bissexto retorna erro" do
@@ -467,13 +467,13 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
     get "/api/v1/calendar/2025/12/31"
     assert_response :success
     dec_json = JSON.parse(response.body)
-    assert_equal "2025-12-31", dec_json["date"]
+    assert_equal "31/12/2025", dec_json["date"]
 
     # 1 de janeiro
     get "/api/v1/calendar/2026/1/1"
     assert_response :success
     jan_json = JSON.parse(response.body)
-    assert_equal "2026-01-01", jan_json["date"]
+    assert_equal "01/01/2026", jan_json["date"]
   end
 
   # === TESTES DE INTEGRAÇÃO: CICLOS LITÚRGICOS ===

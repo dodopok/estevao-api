@@ -10,7 +10,7 @@ class LiturgicalCalendar
   # Retorna as informações litúrgicas completas de um dia específico
   def day_info(date)
     {
-      date: date.to_s,
+      date: date.strftime("%d/%m/%Y"),
       day_of_week: day_name_br(date),
       liturgical_season: season_for_date(date),
       color: color_for_date(date),
