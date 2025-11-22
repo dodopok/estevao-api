@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_22_032415) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_22_222907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -61,6 +61,17 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_22_032415) do
     t.datetime "updated_at", null: false
     t.index ["celebration_id"], name: "index_collects_on_celebration_id"
     t.index ["season_id"], name: "index_collects_on_season_id"
+  end
+
+  create_table "completions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "date_reference", null: false
+    t.integer "duration_seconds"
+    t.string "office_type", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "date_reference", "office_type"], name: "index_completions_unique", unique: true
+    t.index ["user_id"], name: "index_completions_on_user_id"
   end
 
   create_table "lectionary_readings", force: :cascade do |t|
@@ -133,7 +144,23 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_22_032415) do
     t.index ["number"], name: "index_psalms_on_number"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "current_streak", default: 0
+    t.string "email", null: false
+    t.datetime "last_completed_office_at"
+    t.integer "longest_streak", default: 0
+    t.string "name"
+    t.string "photo_url"
+    t.jsonb "preferences", default: {}, null: false
+    t.string "provider_uid"
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["provider_uid"], name: "index_users_on_provider_uid"
+  end
+
   add_foreign_key "collects", "celebrations"
   add_foreign_key "collects", "liturgical_seasons", column: "season_id"
+  add_foreign_key "completions", "users"
   add_foreign_key "lectionary_readings", "celebrations"
 end

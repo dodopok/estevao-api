@@ -3,6 +3,8 @@ openapi: 3.0.1
 info:
   title: API - Calendário Litúrgico Anglicano
   version: v1
+  description: API para consulta de calendário litúrgico anglicano, lecionário, celebrações
+    e ofício diário. Inclui autenticação Firebase para recursos personalizados.
 paths:
   "/api/v1/calendar/today":
     get:
@@ -135,6 +137,165 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/completions":
+    post:
+      summary: Mark office as completed
+      tags:
+      - Completions
+      description: Marks a Daily Office as completed for the authenticated user and
+        updates streak
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Office completed successfully
+                  completion:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      date_reference:
+                        type: string
+                        format: date
+                        example: '2025-11-22'
+                      office_type:
+                        type: string
+                        example: morning
+                      duration_seconds:
+                        type: integer
+                        example: 600
+                        nullable: true
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: '2025-11-22T08:30:00Z'
+                  current_streak:
+                    type: integer
+                    example: 8
+                  longest_streak:
+                    type: integer
+                    example: 15
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: 'Validation failed: User already completed this office
+                      today'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                completion:
+                  type: object
+                  properties:
+                    office_type:
+                      type: string
+                      enum:
+                      - morning
+                      - midday
+                      - evening
+                      - compline
+                      example: morning
+                    duration_seconds:
+                      type: integer
+                      example: 600
+                      description: 'Optional: duration in seconds spent on the office'
+                  required:
+                  - office_type
+              required:
+              - completion
+  "/api/v1/completions/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Completion ID
+      required: true
+      schema:
+        type: integer
+    delete:
+      summary: Remove completion
+      tags:
+      - Completions
+      description: Removes a completion (in case of mistake) and recalculates streak
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Completion removed successfully
+                  current_streak:
+                    type: integer
+                    example: 7
+                  longest_streak:
+                    type: integer
+                    example: 15
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Completion not found
   "/api/v1/daily_office/preferences":
     get:
       summary: Get available preferences
@@ -525,8 +686,254 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/users/me":
+    get:
+      summary: Get current user profile
+      tags:
+      - Users
+      description: Returns the authenticated user profile including preferences and
+        streak information
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  email:
+                    type: string
+                    example: user@example.com
+                  name:
+                    type: string
+                    example: João Silva
+                  photo_url:
+                    type: string
+                    example: https://example.com/photo.jpg
+                    nullable: true
+                  preferences:
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                        example: loc_2015
+                      language:
+                        type: string
+                        example: pt-BR
+                      bible_version:
+                        type: string
+                        example: nvi
+                      lords_prayer_version:
+                        type: string
+                        example: traditional
+                      creed_type:
+                        type: string
+                        example: apostles
+                      confession_type:
+                        type: string
+                        example: long
+                      notifications:
+                        type: boolean
+                        example: true
+                  current_streak:
+                    type: integer
+                    example: 7
+                  longest_streak:
+                    type: integer
+                    example: 15
+                  last_completed_office_at:
+                    type: string
+                    format: date-time
+                    example: '2025-11-22T08:30:00Z'
+                    nullable: true
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+  "/api/v1/users/preferences":
+    patch:
+      summary: Update user preferences
+      tags:
+      - Users
+      description: Updates user preferences for customizing the Daily Office experience
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Preferences updated successfully
+                  preferences:
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                      language:
+                        type: string
+                      bible_version:
+                        type: string
+                      lords_prayer_version:
+                        type: string
+                      creed_type:
+                        type: string
+                      confession_type:
+                        type: string
+                      notifications:
+                        type: boolean
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                preferences:
+                  type: object
+                  properties:
+                    version:
+                      type: string
+                      example: loc_2015
+                    language:
+                      type: string
+                      example: pt-BR
+                    bible_version:
+                      type: string
+                      example: nvi
+                    lords_prayer_version:
+                      type: string
+                      example: traditional
+                    creed_type:
+                      type: string
+                      example: apostles
+                    confession_type:
+                      type: string
+                      example: long
+                    notifications:
+                      type: boolean
+                      example: true
+              required:
+              - preferences
+  "/api/v1/users/completions":
+    get:
+      summary: Get user completion history
+      tags:
+      - Users
+      description: Returns the authenticated user completion history with streak information
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'Limit number of results (default: 30)'
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  completions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        date_reference:
+                          type: string
+                          format: date
+                          example: '2025-11-22'
+                        office_type:
+                          type: string
+                          example: morning
+                        duration_seconds:
+                          type: integer
+                          example: 600
+                          nullable: true
+                        created_at:
+                          type: string
+                          format: date-time
+                          example: '2025-11-22T08:30:00Z'
+                  total_completions:
+                    type: integer
+                    example: 42
+                  current_streak:
+                    type: integer
+                    example: 7
+                  longest_streak:
+                    type: integer
+                    example: 15
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
 servers:
 - url: http://localhost:3000
   description: Development server
 - url: https://api.caminhoanglicano.com.br
   description: Production server
+components:
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Firebase ID Token. Obtenha através do Firebase Authentication no
+        app Flutter.
