@@ -26,28 +26,28 @@ easter_season_readings = [
     date_reference: "2nd_sunday_of_easter",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Acts 2:14a, 22-32",
-    psalm: "Psalm 16",
-    second_reading: "1 Peter 1:3-9",
-    gospel: "John 20:19-31"
+    first_reading: "Atos 2:14a, 22-32",
+    psalm: "Salmo 16",
+    second_reading: "1 Pedro 1:3-9",
+    gospel: "João 20:19-31"
   },
   {
     date_reference: "2nd_sunday_of_easter",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Acts 4:32-35",
-    psalm: "Psalm 133",
-    second_reading: "1 John 1:1-2:2",
-    gospel: "John 20:19-31"
+    first_reading: "Atos 4:32-35",
+    psalm: "Salmo 133",
+    second_reading: "1 João 1:1-2:2",
+    gospel: "João 20:19-31"
   },
   {
     date_reference: "2nd_sunday_of_easter",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Acts 5:27-32",
-    psalm: "Psalm 118:14-29 or Psalm 150",
-    second_reading: "Revelation 1:4-8",
-    gospel: "John 20:19-31"
+    first_reading: "Atos 5:27-32",
+    psalm: "Salmo 118:14-29 or Salmo 150",
+    second_reading: "Apocalipse 1:4-8",
+    gospel: "João 20:19-31"
   },
 
   # ----------------------------------------------------------------------------
@@ -57,28 +57,28 @@ easter_season_readings = [
     date_reference: "3rd_sunday_of_easter",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Acts 2:14a, 36-41",
-    psalm: "Psalm 116:1-4, 12-19",
-    second_reading: "1 Peter 1:17-23",
-    gospel: "Luke 24:13-35"
+    first_reading: "Atos 2:14a, 36-41",
+    psalm: "Salmo 116:1-4, 12-19",
+    second_reading: "1 Pedro 1:17-23",
+    gospel: "Lucas 24:13-35"
   },
   {
     date_reference: "3rd_sunday_of_easter",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Acts 3:12-19",
-    psalm: "Psalm 4",
-    second_reading: "1 John 3:1-7",
-    gospel: "Luke 24:36b-48"
+    first_reading: "Atos 3:12-19",
+    psalm: "Salmo 4",
+    second_reading: "1 João 3:1-7",
+    gospel: "Lucas 24:36b-48"
   },
   {
     date_reference: "3rd_sunday_of_easter",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Acts 9:1-6, (7-20)",
-    psalm: "Psalm 30",
-    second_reading: "Revelation 5:11-14",
-    gospel: "John 21:1-19"
+    first_reading: "Atos 9:1-6, (7-20)",
+    psalm: "Salmo 30",
+    second_reading: "Apocalipse 5:11-14",
+    gospel: "João 21:1-19"
   },
 
   # ----------------------------------------------------------------------------
@@ -88,28 +88,28 @@ easter_season_readings = [
     date_reference: "4th_sunday_of_easter",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Acts 2:42-47",
-    psalm: "Psalm 23",
-    second_reading: "1 Peter 2:19-25",
-    gospel: "John 10:1-10"
+    first_reading: "Atos 2:42-47",
+    psalm: "Salmo 23",
+    second_reading: "1 Pedro 2:19-25",
+    gospel: "João 10:1-10"
   },
   {
     date_reference: "4th_sunday_of_easter",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Acts 4:5-12",
-    psalm: "Psalm 23",
-    second_reading: "1 John 3:16-24",
-    gospel: "John 10:11-18"
+    first_reading: "Atos 4:5-12",
+    psalm: "Salmo 23",
+    second_reading: "1 João 3:16-24",
+    gospel: "João 10:11-18"
   },
   {
     date_reference: "4th_sunday_of_easter",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Acts 9:36-43",
-    psalm: "Psalm 23",
-    second_reading: "Revelation 7:9-17",
-    gospel: "John 10:22-30"
+    first_reading: "Atos 9:36-43",
+    psalm: "Salmo 23",
+    second_reading: "Apocalipse 7:9-17",
+    gospel: "João 10:22-30"
   },
 
   # ----------------------------------------------------------------------------
@@ -119,28 +119,28 @@ easter_season_readings = [
     date_reference: "5th_sunday_of_easter",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Acts 7:55-60",
-    psalm: "Psalm 31:1-5, 15-16",
-    second_reading: "1 Peter 2:2-10",
-    gospel: "John 14:1-14"
+    first_reading: "Atos 7:55-60",
+    psalm: "Salmo 31:1-5, 15-16",
+    second_reading: "1 Pedro 2:2-10",
+    gospel: "João 14:1-14"
   },
   {
     date_reference: "5th_sunday_of_easter",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Acts 8:26-40",
-    psalm: "Psalm 22:25-31",
-    second_reading: "1 John 4:7-21",
-    gospel: "John 15:1-8"
+    first_reading: "Atos 8:26-40",
+    psalm: "Salmo 22:25-31",
+    second_reading: "1 João 4:7-21",
+    gospel: "João 15:1-8"
   },
   {
     date_reference: "5th_sunday_of_easter",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Acts 11:1-18",
-    psalm: "Psalm 148",
-    second_reading: "Revelation 21:1-6",
-    gospel: "John 13:31-35"
+    first_reading: "Atos 11:1-18",
+    psalm: "Salmo 148",
+    second_reading: "Apocalipse 21:1-6",
+    gospel: "João 13:31-35"
   },
 
   # ----------------------------------------------------------------------------
@@ -150,28 +150,28 @@ easter_season_readings = [
     date_reference: "6th_sunday_of_easter",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Acts 17:22-31",
-    psalm: "Psalm 66:8-20",
-    second_reading: "1 Peter 3:13-22",
-    gospel: "John 14:15-21"
+    first_reading: "Atos 17:22-31",
+    psalm: "Salmo 66:8-20",
+    second_reading: "1 Pedro 3:13-22",
+    gospel: "João 14:15-21"
   },
   {
     date_reference: "6th_sunday_of_easter",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Acts 10:44-48",
-    psalm: "Psalm 98",
-    second_reading: "1 John 5:1-6",
-    gospel: "John 15:9-17"
+    first_reading: "Atos 10:44-48",
+    psalm: "Salmo 98",
+    second_reading: "1 João 5:1-6",
+    gospel: "João 15:9-17"
   },
   {
     date_reference: "6th_sunday_of_easter",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Acts 16:9-15",
-    psalm: "Psalm 67",
-    second_reading: "Revelation 21:10, 22-22:5",
-    gospel: "John 14:23-29"
+    first_reading: "Atos 16:9-15",
+    psalm: "Salmo 67",
+    second_reading: "Apocalipse 21:10, 22-22:5",
+    gospel: "João 14:23-29"
   },
 
   # ============================================================================
@@ -182,28 +182,28 @@ easter_season_readings = [
     date_reference: "ascension",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Acts 1:1-11",
-    psalm: "Psalm 47 or Psalm 93",
-    second_reading: "Ephesians 1:15-23",
-    gospel: "Luke 24:44-53"
+    first_reading: "Atos 1:1-11",
+    psalm: "Salmo 47 or Salmo 93",
+    second_reading: "Efésios 1:15-23",
+    gospel: "Lucas 24:44-53"
   },
   {
     date_reference: "ascension",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Acts 1:1-11",
-    psalm: "Psalm 47 or Psalm 93",
-    second_reading: "Ephesians 1:15-23",
-    gospel: "Luke 24:44-53"
+    first_reading: "Atos 1:1-11",
+    psalm: "Salmo 47 or Salmo 93",
+    second_reading: "Efésios 1:15-23",
+    gospel: "Lucas 24:44-53"
   },
   {
     date_reference: "ascension",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Acts 1:1-11",
-    psalm: "Psalm 47 or Psalm 93",
-    second_reading: "Ephesians 1:15-23",
-    gospel: "Luke 24:44-53"
+    first_reading: "Atos 1:1-11",
+    psalm: "Salmo 47 or Salmo 93",
+    second_reading: "Efésios 1:15-23",
+    gospel: "Lucas 24:44-53"
   },
 
   # ----------------------------------------------------------------------------
@@ -214,28 +214,28 @@ easter_season_readings = [
     date_reference: "7th_sunday_of_easter",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Acts 1:6-14",
-    psalm: "Psalm 68:1-10, 32-35",
-    second_reading: "1 Peter 4:12-14; 5:6-11",
-    gospel: "John 17:1-11"
+    first_reading: "Atos 1:6-14",
+    psalm: "Salmo 68:1-10, 32-35",
+    second_reading: "1 Pedro 4:12-14; 5:6-11",
+    gospel: "João 17:1-11"
   },
   {
     date_reference: "7th_sunday_of_easter",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Acts 1:15-17, 21-26",
-    psalm: "Psalm 1",
-    second_reading: "1 John 5:9-13",
-    gospel: "John 17:6-19"
+    first_reading: "Atos 1:15-17, 21-26",
+    psalm: "Salmo 1",
+    second_reading: "1 João 5:9-13",
+    gospel: "João 17:6-19"
   },
   {
     date_reference: "7th_sunday_of_easter",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Acts 16:16-34",
-    psalm: "Psalm 97",
-    second_reading: "Revelation 22:12-14, 16-17, 20-21",
-    gospel: "John 17:20-26"
+    first_reading: "Atos 16:16-34",
+    psalm: "Salmo 97",
+    second_reading: "Apocalipse 22:12-14, 16-17, 20-21",
+    gospel: "João 17:20-26"
   }
 ]
 

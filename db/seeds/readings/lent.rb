@@ -20,10 +20,10 @@ lent_readings = [
     date_reference: "ash_wednesday",
     cycle: "all",
     service_type: "eucharist",
-    first_reading: "Joel 2:1-2, 12-17 or Isaiah 58:1-12",
-    psalm: "Psalm 51:1-17",
-    second_reading: "2 Corinthians 5:20b-6:10",
-    gospel: "Matthew 6:1-6, 16-21"
+    first_reading: "Joel 2:1-2, 12-17 or Isaías 58:1-12",
+    psalm: "Salmo 51:1-17",
+    second_reading: "2 Coríntios 5:20b-6:10",
+    gospel: "Mateus 6:1-6, 16-21"
   },
 
   # ============================================================================
@@ -37,28 +37,28 @@ lent_readings = [
     date_reference: "1st_sunday_in_lent",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Genesis 2:15-17; 3:1-7",
-    psalm: "Psalm 32",
-    second_reading: "Romans 5:12-19",
-    gospel: "Matthew 4:1-11"
+    first_reading: "Gênesis 2:15-17; 3:1-7",
+    psalm: "Salmo 32",
+    second_reading: "Romanos 5:12-19",
+    gospel: "Mateus 4:1-11"
   },
   {
     date_reference: "1st_sunday_in_lent",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Genesis 9:8-17",
-    psalm: "Psalm 25:1-10",
-    second_reading: "1 Peter 3:18-22",
-    gospel: "Mark 1:9-15"
+    first_reading: "Gênesis 9:8-17",
+    psalm: "Salmo 25:1-10",
+    second_reading: "1 Pedro 3:18-22",
+    gospel: "Marcos 1:9-15"
   },
   {
     date_reference: "1st_sunday_in_lent",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Deuteronomy 26:1-11",
-    psalm: "Psalm 91:1-2, 9-16",
-    second_reading: "Romans 10:8b-13",
-    gospel: "Luke 4:1-13"
+    first_reading: "Deuteronômio 26:1-11",
+    psalm: "Salmo 91:1-2, 9-16",
+    second_reading: "Romanos 10:8b-13",
+    gospel: "Lucas 4:1-13"
   },
 
   # ----------------------------------------------------------------------------
@@ -68,28 +68,28 @@ lent_readings = [
     date_reference: "2nd_sunday_in_lent",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Genesis 12:1-4a",
-    psalm: "Psalm 121",
-    second_reading: "Romans 4:1-5, 13-17",
-    gospel: "John 3:1-17 or Matthew 17:1-9"
+    first_reading: "Gênesis 12:1-4a",
+    psalm: "Salmo 121",
+    second_reading: "Romanos 4:1-5, 13-17",
+    gospel: "João 3:1-17 or Mateus 17:1-9"
   },
   {
     date_reference: "2nd_sunday_in_lent",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Genesis 17:1-7, 15-16",
-    psalm: "Psalm 22:23-31",
-    second_reading: "Romans 4:13-25",
-    gospel: "Mark 8:31-38 or Mark 9:2-9"
+    first_reading: "Gênesis 17:1-7, 15-16",
+    psalm: "Salmo 22:23-31",
+    second_reading: "Romanos 4:13-25",
+    gospel: "Marcos 8:31-38 or Marcos 9:2-9"
   },
   {
     date_reference: "2nd_sunday_in_lent",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Genesis 15:1-12, 17-18",
-    psalm: "Psalm 27",
-    second_reading: "Philippians 3:17-4:1",
-    gospel: "Luke 13:31-35 or Luke 9:28-36, (37-43)"
+    first_reading: "Gênesis 15:1-12, 17-18",
+    psalm: "Salmo 27",
+    second_reading: "Filipenses 3:17-4:1",
+    gospel: "Lucas 13:31-35 or Lucas 9:28-36, (37-43)"
   },
 
   # ----------------------------------------------------------------------------
@@ -99,28 +99,28 @@ lent_readings = [
     date_reference: "3rd_sunday_in_lent",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Exodus 17:1-7",
-    psalm: "Psalm 95",
-    second_reading: "Romans 5:1-11",
-    gospel: "John 4:5-42"
+    first_reading: "Êxodo 17:1-7",
+    psalm: "Salmo 95",
+    second_reading: "Romanos 5:1-11",
+    gospel: "João 4:5-42"
   },
   {
     date_reference: "3rd_sunday_in_lent",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Exodus 20:1-17",
-    psalm: "Psalm 19",
-    second_reading: "1 Corinthians 1:18-25",
-    gospel: "John 2:13-22"
+    first_reading: "Êxodo 20:1-17",
+    psalm: "Salmo 19",
+    second_reading: "1 Coríntios 1:18-25",
+    gospel: "João 2:13-22"
   },
   {
     date_reference: "3rd_sunday_in_lent",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Isaiah 55:1-9",
-    psalm: "Psalm 63:1-8",
-    second_reading: "1 Corinthians 10:1-13",
-    gospel: "Luke 13:1-9"
+    first_reading: "Isaías 55:1-9",
+    psalm: "Salmo 63:1-8",
+    second_reading: "1 Coríntios 10:1-13",
+    gospel: "Lucas 13:1-9"
   },
 
   # ----------------------------------------------------------------------------
@@ -131,27 +131,27 @@ lent_readings = [
     cycle: "A",
     service_type: "eucharist",
     first_reading: "1 Samuel 16:1-13",
-    psalm: "Psalm 23",
-    second_reading: "Ephesians 5:8-14",
-    gospel: "John 9:1-41"
+    psalm: "Salmo 23",
+    second_reading: "Efésios 5:8-14",
+    gospel: "João 9:1-41"
   },
   {
     date_reference: "4th_sunday_in_lent",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Numbers 21:4-9",
-    psalm: "Psalm 107:1-3, 17-22",
-    second_reading: "Ephesians 2:1-10",
-    gospel: "John 3:14-21"
+    first_reading: "Números 21:4-9",
+    psalm: "Salmo 107:1-3, 17-22",
+    second_reading: "Efésios 2:1-10",
+    gospel: "João 3:14-21"
   },
   {
     date_reference: "4th_sunday_in_lent",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Joshua 5:9-12",
-    psalm: "Psalm 32",
-    second_reading: "2 Corinthians 5:16-21",
-    gospel: "Luke 15:1-3, 11b-32"
+    first_reading: "Josué 5:9-12",
+    psalm: "Salmo 32",
+    second_reading: "2 Coríntios 5:16-21",
+    gospel: "Lucas 15:1-3, 11b-32"
   },
 
   # ----------------------------------------------------------------------------
@@ -161,28 +161,28 @@ lent_readings = [
     date_reference: "5th_sunday_in_lent",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Ezekiel 37:1-14",
-    psalm: "Psalm 130",
-    second_reading: "Romans 8:6-11",
-    gospel: "John 11:1-45"
+    first_reading: "Ezequiel 37:1-14",
+    psalm: "Salmo 130",
+    second_reading: "Romanos 8:6-11",
+    gospel: "João 11:1-45"
   },
   {
     date_reference: "5th_sunday_in_lent",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Jeremiah 31:31-34",
-    psalm: "Psalm 51:1-12 or Psalm 119:9-16",
-    second_reading: "Hebrews 5:5-10",
-    gospel: "John 12:20-33"
+    first_reading: "Jeremias 31:31-34",
+    psalm: "Salmo 51:1-12 or Salmo 119:9-16",
+    second_reading: "Hebreus 5:5-10",
+    gospel: "João 12:20-33"
   },
   {
     date_reference: "5th_sunday_in_lent",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Isaiah 43:16-21",
-    psalm: "Psalm 126",
-    second_reading: "Philippians 3:4b-14",
-    gospel: "John 12:1-8"
+    first_reading: "Isaías 43:16-21",
+    psalm: "Salmo 126",
+    second_reading: "Filipenses 3:4b-14",
+    gospel: "João 12:1-8"
   },
 
   # ----------------------------------------------------------------------------
@@ -192,28 +192,28 @@ lent_readings = [
     date_reference: "palm_sunday",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Isaiah 50:4-9a",
-    psalm: "Psalm 31:9-16",
-    second_reading: "Philippians 2:5-11",
-    gospel: "Matthew 26:14-27:66 or Matthew 27:11-54"
+    first_reading: "Isaías 50:4-9a",
+    psalm: "Salmo 31:9-16",
+    second_reading: "Filipenses 2:5-11",
+    gospel: "Mateus 26:14-27:66 or Mateus 27:11-54"
   },
   {
     date_reference: "palm_sunday",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Isaiah 50:4-9a",
-    psalm: "Psalm 31:9-16",
-    second_reading: "Philippians 2:5-11",
-    gospel: "Mark 14:1-15:47 or Mark 15:1-39, (40-47)"
+    first_reading: "Isaías 50:4-9a",
+    psalm: "Salmo 31:9-16",
+    second_reading: "Filipenses 2:5-11",
+    gospel: "Marcos 14:1-15:47 or Marcos 15:1-39, (40-47)"
   },
   {
     date_reference: "palm_sunday",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Isaiah 50:4-9a",
-    psalm: "Psalm 31:9-16",
-    second_reading: "Philippians 2:5-11",
-    gospel: "Luke 22:14-23:56 or Luke 23:1-49"
+    first_reading: "Isaías 50:4-9a",
+    psalm: "Salmo 31:9-16",
+    second_reading: "Filipenses 2:5-11",
+    gospel: "Lucas 22:14-23:56 or Lucas 23:1-49"
   }
 ]
 

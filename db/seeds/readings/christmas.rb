@@ -26,10 +26,10 @@ christmas_readings = [
     date_reference: "christmas_eve",
     cycle: "all",
     service_type: "eucharist",
-    first_reading: "Isaiah 9:2-7",
-    psalm: "Psalm 96",
-    second_reading: "Titus 2:11-14",
-    gospel: "Luke 2:1-14, (15-20)"
+    first_reading: "Isaías 9:2-7",
+    psalm: "Salmo 96",
+    second_reading: "Tito 2:11-14",
+    gospel: "Lucas 2:1-14, (15-20)"
   },
 
   # ----------------------------------------------------------------------------
@@ -39,10 +39,10 @@ christmas_readings = [
     date_reference: "christmas_day",
     cycle: "all",
     service_type: "eucharist",
-    first_reading: "Isaiah 52:7-10",
-    psalm: "Psalm 98",
-    second_reading: "Hebrews 1:1-4, (5-12)",
-    gospel: "John 1:1-14"
+    first_reading: "Isaías 52:7-10",
+    psalm: "Salmo 98",
+    second_reading: "Hebreus 1:1-4, (5-12)",
+    gospel: "João 1:1-14"
   },
 
   # ============================================================================
@@ -56,28 +56,28 @@ christmas_readings = [
     date_reference: "1st_sunday_after_christmas",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Isaiah 63:7-9",
-    psalm: "Psalm 148",
-    second_reading: "Hebrews 2:10-18",
-    gospel: "Matthew 2:13-23"
+    first_reading: "Isaías 63:7-9",
+    psalm: "Salmo 148",
+    second_reading: "Hebreus 2:10-18",
+    gospel: "Mateus 2:13-23"
   },
   {
     date_reference: "1st_sunday_after_christmas",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Isaiah 61:10-62:3",
-    psalm: "Psalm 148",
-    second_reading: "Galatians 4:4-7",
-    gospel: "Luke 2:22-40"
+    first_reading: "Isaías 61:10-62:3",
+    psalm: "Salmo 148",
+    second_reading: "Gálatas 4:4-7",
+    gospel: "Lucas 2:22-40"
   },
   {
     date_reference: "1st_sunday_after_christmas",
     cycle: "C",
     service_type: "eucharist",
     first_reading: "1 Samuel 2:18-20, 26",
-    psalm: "Psalm 148",
-    second_reading: "Colossians 3:12-17",
-    gospel: "Luke 2:41-52"
+    psalm: "Salmo 148",
+    second_reading: "Colossenses 3:12-17",
+    gospel: "Lucas 2:41-52"
   },
 
   # ----------------------------------------------------------------------------
@@ -87,28 +87,28 @@ christmas_readings = [
     date_reference: "holy_family",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Sirach 3:2-6, 12-14",
-    psalm: "Psalm 128:1-5",
-    second_reading: "Colossians 3:12-21",
-    gospel: "Matthew 2:13-15, 19-23"
+    first_reading: "Eclesiástico 3:2-6, 12-14",
+    psalm: "Salmo 128:1-5",
+    second_reading: "Colossenses 3:12-21",
+    gospel: "Mateus 2:13-15, 19-23"
   },
   {
     date_reference: "holy_family",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Genesis 15:1-6; 21:1-3",
-    psalm: "Psalm 105:1-9",
-    second_reading: "Hebrews 11:8, 11-12, 17-19",
-    gospel: "Luke 2:22-40"
+    first_reading: "Gênesis 15:1-6; 21:1-3",
+    psalm: "Salmo 105:1-9",
+    second_reading: "Hebreus 11:8, 11-12, 17-19",
+    gospel: "Lucas 2:22-40"
   },
   {
     date_reference: "holy_family",
     cycle: "C",
     service_type: "eucharist",
     first_reading: "1 Samuel 1:20-22, 24-28",
-    psalm: "Psalm 84:2-3, 5-6, 9-10",
-    second_reading: "1 John 3:1-2, 21-24",
-    gospel: "Luke 2:41-52"
+    psalm: "Salmo 84:2-3, 5-6, 9-10",
+    second_reading: "1 João 3:1-2, 21-24",
+    gospel: "Lucas 2:41-52"
   },
 
   # ----------------------------------------------------------------------------
@@ -118,10 +118,10 @@ christmas_readings = [
     date_reference: "2nd_sunday_after_christmas",
     cycle: "all",
     service_type: "eucharist",
-    first_reading: "Jeremiah 31:7-14 or Sirach 24:1-12",
-    psalm: "Psalm 147:12-20 or Wisdom 10:15-21",
-    second_reading: "Ephesians 1:3-14",
-    gospel: "John 1:(1-9), 10-18"
+    first_reading: "Jeremias 31:7-14 or Eclesiástico 24:1-12",
+    psalm: "Salmo 147:12-20 or Sabedoria 10:15-21",
+    second_reading: "Efésios 1:3-14",
+    gospel: "João 1:(1-9), 10-18"
   }
 ]
 

@@ -106,10 +106,10 @@ if create_reading_direct({
   date_reference: "presentation_of_the_lord",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Malachi 3:1-4",
-  psalm: "Psalm 84 or Psalm 24:7-10",
-  second_reading: "Hebrews 2:14-18",
-  gospel: "Luke 2:22-40"
+  first_reading: "Malaquias 3:1-4",
+  psalm: "Salmo 84 or Salmo 24:7-10",
+  second_reading: "Hebreus 2:14-18",
+  gospel: "Lucas 2:22-40"
 })
   count += 1
 else
@@ -200,10 +200,10 @@ if create_reading_direct({
   date_reference: "annunciation",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Isaiah 7:10-14",
-  psalm: "Psalm 45 or Psalm 40:5-10",
-  second_reading: "Hebrews 10:4-10",
-  gospel: "Luke 1:26-38"
+  first_reading: "Isaías 7:10-14",
+  psalm: "Salmo 45 or Salmo 40:5-10",
+  second_reading: "Hebreus 10:4-10",
+  gospel: "Lucas 1:26-38"
 })
   count += 1
 else
@@ -275,9 +275,9 @@ if create_reading_direct({
   cycle: "all",
   service_type: "eucharist",
   first_reading: "1 Samuel 2:1-10",
-  psalm: "Psalm 113",
-  second_reading: "Romans 12:9-16b",
-  gospel: "Luke 1:39-57"
+  psalm: "Salmo 113",
+  second_reading: "Romanos 12:9-16b",
+  gospel: "Lucas 1:39-57"
 })
   count += 1
 else
@@ -331,10 +331,10 @@ if create_reading_direct({
   date_reference: "peter_and_paul",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Acts 12:1-11",
-  psalm: "Psalm 87",
-  second_reading: "2 Timothy 4:6-8, 17-18",
-  gospel: "Matthew 16:13-19"
+  first_reading: "Atos 12:1-11",
+  psalm: "Salmo 87",
+  second_reading: "2 Timóteo 4:6-8, 17-18",
+  gospel: "Mateus 16:13-19"
 })
   count += 1
 else
@@ -388,10 +388,10 @@ if create_reading_direct({
   date_reference: "james_apostle",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "2 Corinthians 4:7-15",
-  psalm: "Psalm 126",
-  second_reading: "Acts 11:27-12:2",
-  gospel: "Matthew 20:20-28"
+  first_reading: "2 Coríntios 4:7-15",
+  psalm: "Salmo 126",
+  second_reading: "Atos 11:27-12:2",
+  gospel: "Mateus 20:20-28"
 })
   count += 1
 else
@@ -420,9 +420,9 @@ if create_reading_direct({
   cycle: "all",
   service_type: "eucharist",
   first_reading: "Daniel 7:9-10, 13-14",
-  psalm: "Psalm 99",
-  second_reading: "2 Peter 1:16-19",
-  gospel: "Luke 9:28-36"
+  psalm: "Salmo 99",
+  second_reading: "2 Pedro 1:16-19",
+  gospel: "Lucas 9:28-36"
 })
   count += 1
 else
@@ -446,10 +446,10 @@ if create_reading_direct({
   date_reference: "bartholomew",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Exodus 19:1-6a",
-  psalm: "Psalm 12",
-  second_reading: "1 Corinthians 12:27-31a",
-  gospel: "John 1:43-51"
+  first_reading: "Êxodo 19:1-6a",
+  psalm: "Salmo 12",
+  second_reading: "1 Coríntios 12:27-31a",
+  gospel: "João 1:43-51"
 })
   count += 1
 else
@@ -517,10 +517,10 @@ if create_reading_direct({
   date_reference: "matthew",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Proverbs 3:1-6",
-  psalm: "Psalm 119:33-40",
-  second_reading: "2 Corinthians 4:1-6",
-  gospel: "Matthew 9:9-13"
+  first_reading: "Provérbios 3:1-6",
+  psalm: "Salmo 119:33-40",
+  second_reading: "2 Coríntios 4:1-6",
+  gospel: "Mateus 9:9-13"
 })
   count += 1
 else
@@ -561,10 +561,10 @@ if create_reading_direct({
   date_reference: "luke",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Isaiah 35:5-8",
-  psalm: "Psalm 147:1-7",
-  second_reading: "2 Timothy 4:5-13",
-  gospel: "Luke 1:1-4"
+  first_reading: "Isaías 35:5-8",
+  psalm: "Salmo 147:1-7",
+  second_reading: "2 Timóteo 4:5-13",
+  gospel: "Lucas 1:1-4"
 })
   count += 1
 else
@@ -588,10 +588,10 @@ if create_reading_direct({
   date_reference: "simon_and_jude",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Deuteronomy 32:1-4",
-  psalm: "Psalm 119:89-96",
-  second_reading: "Ephesians 2:13-22",
-  gospel: "John 15:17-27"
+  first_reading: "Deuteronômio 32:1-4",
+  psalm: "Salmo 119:89-96",
+  second_reading: "Efésios 2:13-22",
+  gospel: "João 15:17-27"
 })
   count += 1
 else
@@ -644,10 +644,10 @@ if create_reading_direct({
   date_reference: "all_saints",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Revelation 7:9-17",
-  psalm: "Psalm 34:1-10, 22",
-  second_reading: "1 John 3:1-3",
-  gospel: "Matthew 5:1-12"
+  first_reading: "Apocalipse 7:9-17",
+  psalm: "Salmo 34:1-10, 22",
+  second_reading: "1 João 3:1-3",
+  gospel: "Mateus 5:1-12"
 })
   count += 1
 else
@@ -671,10 +671,10 @@ if create_reading_direct({
   date_reference: "andrew",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Isaiah 52:7-10",
-  psalm: "Psalm 19:1-6",
-  second_reading: "Romans 10:12-18",
-  gospel: "Matthew 4:18-22"
+  first_reading: "Isaías 52:7-10",
+  psalm: "Salmo 19:1-6",
+  second_reading: "Romanos 10:12-18",
+  gospel: "Mateus 4:18-22"
 })
   count += 1
 else
@@ -702,10 +702,10 @@ if create_reading_direct({
   date_reference: "thomas_apostle",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Habakkuk 2:1-4",
-  psalm: "Psalm 126",
-  second_reading: "Hebrews 10:35-11:1",
-  gospel: "John 20:24-29"
+  first_reading: "Habacuque 2:1-4",
+  psalm: "Salmo 126",
+  second_reading: "Hebreus 10:35-11:1",
+  gospel: "João 20:24-29"
 })
   count += 1
 else
@@ -730,10 +730,10 @@ if create_reading_direct({
   date_reference: "john_apostle",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Exodus 33:18-23",
-  psalm: "Psalm 92:1-4, 11-14",
-  second_reading: "1 John 1:1-9",
-  gospel: "John 21:19b-24"
+  first_reading: "Êxodo 33:18-23",
+  psalm: "Salmo 92:1-4, 11-14",
+  second_reading: "1 João 1:1-9",
+  gospel: "João 21:19b-24"
 })
   count += 1
 else
@@ -757,10 +757,10 @@ if create_reading_direct({
   date_reference: "holy_innocents",
   cycle: "all",
   service_type: "eucharist",
-  first_reading: "Jeremiah 31:15-17",
-  psalm: "Psalm 124",
-  second_reading: "Revelation 21:1-7",
-  gospel: "Matthew 2:13-18"
+  first_reading: "Jeremias 31:15-17",
+  psalm: "Salmo 124",
+  second_reading: "Apocalipse 21:1-7",
+  gospel: "Mateus 2:13-18"
 })
   count += 1
 else
@@ -779,7 +779,7 @@ else
   skipped += 1
 end
 
-# John Wycliff (31 de dezembro)
+# João Wycliff (31 de dezembro)
 wycliff = Celebration.find_by("name LIKE ?", "%Wycliff%")
 if wycliff
   existing = LectionaryReading.find_by(

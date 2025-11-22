@@ -23,10 +23,10 @@ pentecost_readings = [
     date_reference: "pentecost",
     cycle: "all",
     service_type: "eucharist",
-    first_reading: "Acts 2:1-21 or Numbers 11:24-30",
-    psalm: "Psalm 104:24-34, 35b",
-    second_reading: "1 Corinthians 12:3b-13 or Acts 2:1-21",
-    gospel: "John 20:19-23 or John 7:37-39"
+    first_reading: "Atos 2:1-21 or Números 11:24-30",
+    psalm: "Salmo 104:24-34, 35b",
+    second_reading: "1 Coríntios 12:3b-13 or Atos 2:1-21",
+    gospel: "João 20:19-23 or João 7:37-39"
   },
 
   # ============================================================================
@@ -41,10 +41,10 @@ pentecost_readings = [
     date_reference: "trinity_sunday",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Genesis 1:1-2:4a",
-    psalm: "Psalm 8",
-    second_reading: "2 Corinthians 13:11-13",
-    gospel: "Matthew 28:16-20"
+    first_reading: "Gênesis 1:1-2:4a",
+    psalm: "Salmo 8",
+    second_reading: "2 Coríntios 13:11-13",
+    gospel: "Mateus 28:16-20"
   },
 
   # ----------------------------------------------------------------------------
@@ -54,10 +54,10 @@ pentecost_readings = [
     date_reference: "trinity_sunday",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Isaiah 6:1-8",
-    psalm: "Psalm 29",
-    second_reading: "Romans 8:12-17",
-    gospel: "John 3:1-17"
+    first_reading: "Isaías 6:1-8",
+    psalm: "Salmo 29",
+    second_reading: "Romanos 8:12-17",
+    gospel: "João 3:1-17"
   },
 
   # ----------------------------------------------------------------------------
@@ -67,10 +67,10 @@ pentecost_readings = [
     date_reference: "trinity_sunday",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Proverbs 8:1-4, 22-31",
-    psalm: "Psalm 8",
-    second_reading: "Romans 5:1-5",
-    gospel: "John 16:12-15"
+    first_reading: "Provérbios 8:1-4, 22-31",
+    psalm: "Salmo 8",
+    second_reading: "Romanos 5:1-5",
+    gospel: "João 16:12-15"
   }
 ]
 

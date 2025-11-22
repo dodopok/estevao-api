@@ -23,28 +23,28 @@ advent_readings = [
     date_reference: "1st_sunday_of_advent",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Isaiah 2:1-5",
-    psalm: "Psalm 122",
-    second_reading: "Romans 13:11-14",
-    gospel: "Matthew 24:36-44"
+    first_reading: "Isaías 2:1-5",
+    psalm: "Salmo 122",
+    second_reading: "Romanos 13:11-14",
+    gospel: "Mateus 24:36-44"
   },
   {
     date_reference: "1st_sunday_of_advent",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Isaiah 64:1-9",
-    psalm: "Psalm 80:1-7, 17-19",
-    second_reading: "1 Corinthians 1:3-9",
-    gospel: "Mark 13:24-37"
+    first_reading: "Isaías 64:1-9",
+    psalm: "Salmo 80:1-7, 17-19",
+    second_reading: "1 Coríntios 1:3-9",
+    gospel: "Marcos 13:24-37"
   },
   {
     date_reference: "1st_sunday_of_advent",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Jeremiah 33:14-16",
-    psalm: "Psalm 25:1-10",
-    second_reading: "1 Thessalonians 3:9-13",
-    gospel: "Luke 21:25-36"
+    first_reading: "Jeremias 33:14-16",
+    psalm: "Salmo 25:1-10",
+    second_reading: "1 Tessalonicenses 3:9-13",
+    gospel: "Lucas 21:25-36"
   },
 
   # ----------------------------------------------------------------------------
@@ -54,28 +54,28 @@ advent_readings = [
     date_reference: "2nd_sunday_of_advent",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Isaiah 11:1-10",
-    psalm: "Psalm 72:1-7, 18-19",
-    second_reading: "Romans 15:4-13",
-    gospel: "Matthew 3:1-12"
+    first_reading: "Isaías 11:1-10",
+    psalm: "Salmo 72:1-7, 18-19",
+    second_reading: "Romanos 15:4-13",
+    gospel: "Mateus 3:1-12"
   },
   {
     date_reference: "2nd_sunday_of_advent",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Isaiah 40:1-11",
-    psalm: "Psalm 85:1-2, 8-13",
-    second_reading: "2 Peter 3:8-15a",
-    gospel: "Mark 1:1-8"
+    first_reading: "Isaías 40:1-11",
+    psalm: "Salmo 85:1-2, 8-13",
+    second_reading: "2 Pedro 3:8-15a",
+    gospel: "Marcos 1:1-8"
   },
   {
     date_reference: "2nd_sunday_of_advent",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Baruch 5:1-9 or Malachi 3:1-4",
-    psalm: "Luke 1:68-79",
-    second_reading: "Philippians 1:3-11",
-    gospel: "Luke 3:1-6"
+    first_reading: "Baruque 5:1-9 or Malaquias 3:1-4",
+    psalm: "Lucas 1:68-79",
+    second_reading: "Filipenses 1:3-11",
+    gospel: "Lucas 3:1-6"
   },
 
   # ----------------------------------------------------------------------------
@@ -85,28 +85,28 @@ advent_readings = [
     date_reference: "3rd_sunday_of_advent",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Isaiah 35:1-10",
-    psalm: "Psalm 146:5-10 or Luke 1:47-55",
-    second_reading: "James 5:7-10",
-    gospel: "Matthew 11:2-11"
+    first_reading: "Isaías 35:1-10",
+    psalm: "Salmo 146:5-10 or Lucas 1:47-55",
+    second_reading: "Tiago 5:7-10",
+    gospel: "Mateus 11:2-11"
   },
   {
     date_reference: "3rd_sunday_of_advent",
     cycle: "B",
     service_type: "eucharist",
-    first_reading: "Isaiah 61:1-4, 8-11",
-    psalm: "Psalm 126 or Luke 1:47-55",
-    second_reading: "1 Thessalonians 5:16-24",
-    gospel: "John 1:6-8, 19-28"
+    first_reading: "Isaías 61:1-4, 8-11",
+    psalm: "Salmo 126 or Lucas 1:47-55",
+    second_reading: "1 Tessalonicenses 5:16-24",
+    gospel: "João 1:6-8, 19-28"
   },
   {
     date_reference: "3rd_sunday_of_advent",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Zephaniah 3:14-20",
-    psalm: "Isaiah 12:2-6",
-    second_reading: "Philippians 4:4-7",
-    gospel: "Luke 3:7-18"
+    first_reading: "Sofonias 3:14-20",
+    psalm: "Isaías 12:2-6",
+    second_reading: "Filipenses 4:4-7",
+    gospel: "Lucas 3:7-18"
   },
 
   # ----------------------------------------------------------------------------
@@ -116,28 +116,28 @@ advent_readings = [
     date_reference: "4th_sunday_of_advent",
     cycle: "A",
     service_type: "eucharist",
-    first_reading: "Isaiah 7:10-16",
-    psalm: "Psalm 80:1-7, 17-19",
-    second_reading: "Romans 1:1-7",
-    gospel: "Matthew 1:18-25"
+    first_reading: "Isaías 7:10-16",
+    psalm: "Salmo 80:1-7, 17-19",
+    second_reading: "Romanos 1:1-7",
+    gospel: "Mateus 1:18-25"
   },
   {
     date_reference: "4th_sunday_of_advent",
     cycle: "B",
     service_type: "eucharist",
     first_reading: "2 Samuel 7:1-11, 16",
-    psalm: "Luke 1:47-55 or Psalm 89:1-4, 19-26",
-    second_reading: "Romans 16:25-27",
-    gospel: "Luke 1:26-38"
+    psalm: "Lucas 1:47-55 or Salmo 89:1-4, 19-26",
+    second_reading: "Romanos 16:25-27",
+    gospel: "Lucas 1:26-38"
   },
   {
     date_reference: "4th_sunday_of_advent",
     cycle: "C",
     service_type: "eucharist",
-    first_reading: "Micah 5:2-5a",
-    psalm: "Luke 1:47-55 or Psalm 80:1-7",
-    second_reading: "Hebrews 10:5-10",
-    gospel: "Luke 1:39-45 (46-55)"
+    first_reading: "Miqueias 5:2-5a",
+    psalm: "Lucas 1:47-55 or Salmo 80:1-7",
+    second_reading: "Hebreus 10:5-10",
+    gospel: "Lucas 1:39-45 (46-55)"
   },
 
   # ============================================================================
@@ -152,10 +152,10 @@ advent_readings = [
     date_reference: "december_17",
     cycle: "all",
     service_type: "eucharist",
-    first_reading: "Genesis 49:2, 8-10",
-    psalm: "Psalm 72:1-4, 7-8, 17",
-    second_reading: "Matthew 1:1-17",
-    gospel: "Matthew 1:1-17"
+    first_reading: "Gênesis 49:2, 8-10",
+    psalm: "Salmo 72:1-4, 7-8, 17",
+    second_reading: "Mateus 1:1-17",
+    gospel: "Mateus 1:1-17"
   },
 
   # ----------------------------------------------------------------------------
@@ -165,10 +165,10 @@ advent_readings = [
     date_reference: "december_18",
     cycle: "all",
     service_type: "eucharist",
-    first_reading: "Jeremiah 23:5-8",
-    psalm: "Psalm 72:1-2, 12-13, 18-19",
-    second_reading: "Matthew 1:18-25",
-    gospel: "Matthew 1:18-25"
+    first_reading: "Jeremias 23:5-8",
+    psalm: "Salmo 72:1-2, 12-13, 18-19",
+    second_reading: "Mateus 1:18-25",
+    gospel: "Mateus 1:18-25"
   },
 
   # ----------------------------------------------------------------------------
@@ -178,10 +178,10 @@ advent_readings = [
     date_reference: "december_19",
     cycle: "all",
     service_type: "eucharist",
-    first_reading: "Judges 13:2-7, 24-25a",
-    psalm: "Psalm 71:3-6, 16-17",
-    second_reading: "Luke 1:5-25",
-    gospel: "Luke 1:5-25"
+    first_reading: "Juízes 13:2-7, 24-25a",
+    psalm: "Salmo 71:3-6, 16-17",
+    second_reading: "Lucas 1:5-25",
+    gospel: "Lucas 1:5-25"
   },
 
   # ----------------------------------------------------------------------------
@@ -191,10 +191,10 @@ advent_readings = [
     date_reference: "december_20",
     cycle: "all",
     service_type: "eucharist",
-    first_reading: "Isaiah 7:10-14",
-    psalm: "Psalm 24:1-6",
-    second_reading: "Luke 1:26-38",
-    gospel: "Luke 1:26-38"
+    first_reading: "Isaías 7:10-14",
+    psalm: "Salmo 24:1-6",
+    second_reading: "Lucas 1:26-38",
+    gospel: "Lucas 1:26-38"
   },
 
   # ----------------------------------------------------------------------------
@@ -204,10 +204,10 @@ advent_readings = [
     date_reference: "december_21",
     cycle: "all",
     service_type: "eucharist",
-    first_reading: "Song of Solomon 2:8-14 or Zephaniah 3:14-18a",
-    psalm: "Psalm 33:2-3, 11-12, 20-21",
-    second_reading: "Luke 1:39-45",
-    gospel: "Luke 1:39-45"
+    first_reading: "Cântico dos Cânticos 2:8-14 or Sofonias 3:14-18a",
+    psalm: "Salmo 33:2-3, 11-12, 20-21",
+    second_reading: "Lucas 1:39-45",
+    gospel: "Lucas 1:39-45"
   },
 
   # ----------------------------------------------------------------------------
@@ -219,8 +219,8 @@ advent_readings = [
     service_type: "eucharist",
     first_reading: "1 Samuel 1:24-28",
     psalm: "1 Samuel 2:1, 4-8",
-    second_reading: "Luke 1:46-56",
-    gospel: "Luke 1:46-56"
+    second_reading: "Lucas 1:46-56",
+    gospel: "Lucas 1:46-56"
   },
 
   # ----------------------------------------------------------------------------
@@ -230,10 +230,10 @@ advent_readings = [
     date_reference: "december_23",
     cycle: "all",
     service_type: "eucharist",
-    first_reading: "Malachi 3:1-4, 23-24",
-    psalm: "Psalm 25:4-5, 8-10, 14",
-    second_reading: "Luke 1:57-66",
-    gospel: "Luke 1:57-66"
+    first_reading: "Malaquias 3:1-4, 23-24",
+    psalm: "Salmo 25:4-5, 8-10, 14",
+    second_reading: "Lucas 1:57-66",
+    gospel: "Lucas 1:57-66"
   },
 
   # ----------------------------------------------------------------------------
@@ -244,9 +244,9 @@ advent_readings = [
     cycle: "all",
     service_type: "morning_prayer",
     first_reading: "2 Samuel 7:1-5, 8-12, 14, 16",
-    psalm: "Psalm 89:2-5, 27, 29",
-    second_reading: "Luke 1:67-79",
-    gospel: "Luke 1:67-79"
+    psalm: "Salmo 89:2-5, 27, 29",
+    second_reading: "Lucas 1:67-79",
+    gospel: "Lucas 1:67-79"
   }
 ]
 
