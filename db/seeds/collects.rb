@@ -1,5 +1,7 @@
-# Coletas do Ano Litúrgico
+# ================================================================================
+# COLETAS DO ANO LITÚRGICO
 # Baseado no Livro de Oração Comum da IEAB
+# ================================================================================
 
 puts "📿 Carregando coletas do ano litúrgico..."
 
@@ -30,10 +32,31 @@ end
 count = 0
 skipped = 0
 
-# =====================================================
-# ADVENTO
-# =====================================================
+# Buscar celebrações que serão usadas
+epifania = Celebration.find_by("name LIKE ?", "%Epifania%") || Celebration.find_by(fixed_month: 1, fixed_day: 6)
+cinzas = Celebration.find_by("name LIKE ?", "%Cinzas%")
+segunda_santa = Celebration.find_by("name LIKE ?", "%Segunda-feira Santa%")
+terca_santa = Celebration.find_by("name LIKE ?", "%Terça-feira Santa%")
+quarta_santa = Celebration.find_by("name LIKE ?", "%Quarta-feira Santa%")
+quinta_santa = Celebration.find_by("name LIKE ?", "%Quinta-Feira Santa%")
+sexta_paixao = Celebration.find_by("name LIKE ?", "%Sexta-Feira%Paixão%")
+sabado_santo = Celebration.find_by("name LIKE ?", "%Sábado Santo%")
+vigilia_pascal = Celebration.find_by("name LIKE ?", "%Vigília Pascal%")
+pascoa = Celebration.find_by("name LIKE ?", "Páscoa") || Celebration.find_by(calculation_rule: "easter")
+ascensao = Celebration.find_by("name LIKE ?", "%Ascensão%")
+pentecostes = Celebration.find_by("name LIKE ?", "%Pentecostes%")
+trindade = Celebration.find_by("name LIKE ?", "%Trindade%")
+transfiguracao = Celebration.find_by("name LIKE ?", "%Transfiguração%")
 
+# ================================================================================
+# COLETAS POR ESTAÇÃO LITÚRGICA (season_id)
+# ================================================================================
+
+# --------------------------------------------------------------------------------
+# ADVENTO (4 coletas)
+# --------------------------------------------------------------------------------
+
+advent = LiturgicalSeason.find_by(name: "Advento")
 advent_collects = [
   {
     sunday_reference: "1st_sunday_of_advent",
@@ -57,7 +80,6 @@ advent_collects = [
   }
 ]
 
-advent = LiturgicalSeason.find_by(name: "Advento")
 advent_collects.each do |collect|
   if create_collect(collect.merge(season_id: advent&.id))
     count += 1
@@ -66,32 +88,16 @@ advent_collects.each do |collect|
   end
 end
 
-# =====================================================
-# NATAL E EPIFANIA
-# =====================================================
+# ================================================================================
+# COLETAS POR DOMINGO/REFERÊNCIA TEMPORAL (sunday_reference)
+# Organizadas em ordem do Ano Litúrgico
+# ================================================================================
 
-# Buscar celebrações que serão usadas
-epifania = Celebration.find_by("name LIKE ?", "%Epifania%") || Celebration.find_by(fixed_month: 1, fixed_day: 6)
-cinzas = Celebration.find_by("name LIKE ?", "%Cinzas%")
-segunda_santa = Celebration.find_by("name LIKE ?", "%Segunda-feira Santa%")
-terca_santa = Celebration.find_by("name LIKE ?", "%Terça-feira Santa%")
-quarta_santa = Celebration.find_by("name LIKE ?", "%Quarta-feira Santa%")
-quinta_santa = Celebration.find_by("name LIKE ?", "%Quinta-Feira Santa%")
-sexta_paixao = Celebration.find_by("name LIKE ?", "%Sexta-Feira%Paixão%")
-sabado_santo = Celebration.find_by("name LIKE ?", "%Sábado Santo%")
-vigilia_pascal = Celebration.find_by("name LIKE ?", "%Vigília Pascal%")
-pascoa = Celebration.find_by("name LIKE ?", "Páscoa") || Celebration.find_by(calculation_rule: "easter")
-ascensao = Celebration.find_by("name LIKE ?", "%Ascensão%")
-pentecostes = Celebration.find_by("name LIKE ?", "%Pentecostes%")
-trindade = Celebration.find_by("name LIKE ?", "%Trindade%")
-transfiguracao = Celebration.find_by("name LIKE ?", "%Transfiguração%")
+# --------------------------------------------------------------------------------
+# NATAL E EPIFANIA
+# --------------------------------------------------------------------------------
 
 christmas_epiphany_collects = [
-  {
-    celebration_id: Celebration.find_by(fixed_month: 12, fixed_day: 24)&.id,
-    text: "Deus Onipotente, que nos deste teu unigênito Filho para que tomasse sobre si a nossa natureza, e nascesse neste tempo de uma Virgem pura; concede que nós, renascidos e feitos teus filhos por adoção e graça, sejamos de dia em dia renovados por teu Santo Espírito; mediante nosso Senhor Jesus Cristo, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR"
-  },
   {
     sunday_reference: "1st_sunday_of_christmas",
     text: "Onipotente Deus, que derramaste sobre nós a nova luz do teu Verbo feito carne; concede que essa mesma luz, acesa em nossos corações, brilhe em nossas vidas; por Jesus Cristo, nosso Senhor, que vive e reina contigo, na unidade do Espírito Santo, um só Deus, agora e sempre. Amém.",
@@ -100,11 +106,6 @@ christmas_epiphany_collects = [
   {
     sunday_reference: "2nd_sunday_of_christmas",
     text: "Ó Deus, que maravilhosamente criaste e ainda mais maravilhosamente restauraste a dignidade da natureza humana; concede que participemos da vida divinal de teu Filho Jesus Cristo, que se humilhou para participar de nossa humanidade, o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    celebration_id: epifania&.id,
-    text: "Ó Deus, que pela Estrela manifestaste teu unigênito Filho a todos os povos da terra; guia-nos à tua presença, os que hoje te conhecemos pela fé; a fim de que desfrutemos de tua glória face a face; mediante Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
     language: "pt-BR"
   },
   {
@@ -162,16 +163,11 @@ christmas_epiphany_collects.each do |collect|
   end
 end
 
-# =====================================================
-# QUARESMA
-# =====================================================
+# --------------------------------------------------------------------------------
+# QUARESMA (7 coletas)
+# --------------------------------------------------------------------------------
 
 lent_collects = [
-  {
-    celebration_id: cinzas&.id,
-    text: "Onipotente e Eterno Deus, que amas tudo quanto criaste, e que perdoas a todos os penitentes; cria em nós corações novos e contritos, para que, lamentando deveras os nossos pecados e confessando a nossa miséria, alcancemos de ti, Deus de suma piedade, perfeita remissão e perdão; por nosso Senhor Jesus Cristo, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR"
-  },
   {
     sunday_reference: "1st_sunday_in_lent",
     text: "Onipotente Deus, cujo bendito Filho foi conduzido pelo Espírito para ser tentado pelo demônio, apressa-te em socorrer a nós, que somos assaltados por muitas tentações, nós te rogamos. E, assim como conheces as fraquezas de cada um de nós, permite que cada qual encontre em ti o poder de salvação. Por Jesus Cristo teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
@@ -212,66 +208,11 @@ lent_collects.each do |collect|
   end
 end
 
-# =====================================================
-# SEMANA SANTA
-# =====================================================
-
-holy_week_collects = [
-  {
-    celebration_id: segunda_santa&.id,
-    text: "Onipotente Deus, cujo Filho muito amado não gozou perfeita alegria, senão após o sofrimento, e só subiu à glória depois de crucificado; concede-nos misericordioso que, seguindo o caminho da cruz, seja este para nós vereda de vida e paz; por Jesus Cristo, teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    celebration_id: terca_santa&.id,
-    text: "Ó Deus, que pela paixão de teu bendito Filho, fizeste com que o instrumento da morte vergonhosa se tornasse para nós símbolo de vida; concede que nos glorifiquemos na cruz de Cristo, a fim de que alegremente suportemos infâmias e privações, por amor de teu Filho, nosso Salvador Jesus Cristo, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    celebration_id: quarta_santa&.id,
-    text: "Ó Senhor Deus, cujo bendito Filho, nosso Salvador Jesus Cristo, teve o seu corpo torturado e seu rosto cuspido; concede-nos a graça de enfrentar com esperança os sofrimentos deste tempo e de confiar na glória que há de ser revelada; por Jesus Cristo teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    celebration_id: quinta_santa&.id,
-    text: "Ó Pai Onipotente, cujo amado Filho, na noite anterior à sua paixão, instituiu o Sacramento do seu Corpo e Sangue; concede-nos, misericordioso, que dele participemos agradecidos, em memória daquele que nestes santos mistérios nos dá o penhor da vida eterna, teu Filho Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    celebration_id: sexta_paixao&.id,
-    text: "Deus Onipotente, nós te suplicamos olhes com misericórdia para esta família que é tua, e pela qual nosso Senhor Jesus Cristo não hesitou em entregar-se, traído, às mãos de homens iníquos, e sofrer morte de cruz; o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    celebration_id: sabado_santo&.id,
-    text: "Ó Deus, Criador do céu e da terra; concede que, assim como o corpo crucificado de teu amado Filho foi colocado no túmulo e descansou neste sábado santo, também sepultados com Ele aguardemos o terceiro dia e com Ele ressuscitemos para uma vida nova; o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR"
-  }
-]
-
-holy_week_collects.each do |collect|
-  if create_collect(collect)
-    count += 1
-  else
-    skipped += 1
-  end
-end
-
-# =====================================================
-# PÁSCOA
-# =====================================================
+# --------------------------------------------------------------------------------
+# PÁSCOA (8 coletas)
+# --------------------------------------------------------------------------------
 
 easter_collects = [
-  {
-    celebration_id: vigilia_pascal&.id,
-    text: "Senhor Deus, Tu fizeste resplandecer esta noite com a glória da ressurreição de Cristo; faz com que a sua luz brilhe na tua Igreja para que sejamos renovados no corpo e na alma e nos entreguemos plenamente ao teu serviço. Amém.",
-    language: "pt-BR"
-  },
-  {
-    celebration_id: pascoa&.id,
-    text: "Ó Deus, que para a nossa redenção entregaste o teu unigênito Filho à morte de cruz, e pela tua gloriosa ressurreição nos libertaste do poder de nosso inimigo; concede que morramos diariamente para o pecado, a fim de que vivamos sempre com Ele na alegria de sua ressurreição; mediante Jesus Cristo, teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR"
-  },
   {
     sunday_reference: "2nd_sunday_of_easter",
     text: "Pai celestial, libertaste-nos do poder do pecado e trouxeste-nos para o reino de teu Filho; concede que Aquele cuja morte nos restaurou à vida, pela sua presença entre nós, nos erga até às alegrias eternas. Mediante Jesus Cristo, nosso Senhor. Amém.",
@@ -298,18 +239,8 @@ easter_collects = [
     language: "pt-BR"
   },
   {
-    celebration_id: ascensao&.id,
-    text: "Senhor soberano, teu Filho ascendeu em triunfo para governar todo o universo em amor e glória; faz que todos os povos reconheçam a autoridade do seu reino. Mediante Jesus Cristo, nosso Senhor. Amém.",
-    language: "pt-BR"
-  },
-  {
     sunday_reference: "7th_sunday_of_easter",
     text: "Ó Deus, Rei da glória, que exaltaste o teu único Filho Jesus Cristo com grande triunfo ao teu celeste reino; suplicamos-te que não nos deixes desconsolados, mas nos envies o teu Santo Espírito para nos confortar e conduzir ao alto e santo lugar, onde nosso Senhor Jesus Cristo já nos precedeu, o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    celebration_id: pentecostes&.id,
-    text: "Ó Deus, que no dia de Pentecostes, ensinaste os fiéis, derramando em seus corações a luz do teu Santo Espírito; concede-nos, por meio do mesmo Espírito, um juízo acertado em todas as coisas, e perene regozijo em seu fortalecimento; pelos méritos de Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
     language: "pt-BR"
   }
 ]
@@ -322,16 +253,11 @@ easter_collects.each do |collect|
   end
 end
 
-# =====================================================
-# TRINDADE E PRÓPRIOS
-# =====================================================
+# --------------------------------------------------------------------------------
+# TEMPO COMUM - TRINDADE E PRÓPRIOS (30 coletas: Proper 1-28 + Christ the King)
+# --------------------------------------------------------------------------------
 
 trinity_propers_collects = [
-  {
-    celebration_id: trindade&.id,
-    text: "Deus nosso Pai, enviaste ao mundo a Palavra da verdade e o Espírito da santidade para revelar aos homens o mistério admirável do teu Ser: concede-nos que na profissão da verdadeira fé reconheçamos a glória da eterna Trindade e adoremos a Unidade na sua onipotência. Mediante nosso Senhor Jesus Cristo. Amém.",
-    language: "pt-BR"
-  },
   {
     sunday_reference: "proper_1",
     text: "Lembra-te, Senhor, da graça que nos concedeste e não dos nossos merecimentos, e, assim como nos chamaste ao teu serviço, faze-nos dignos de nossa vocação; por Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
@@ -487,9 +413,205 @@ trinity_propers_collects.each do |collect|
   end
 end
 
-# =====================================================
-# DIAS SANTOS E FESTAS MAIORES
-# =====================================================
+# --------------------------------------------------------------------------------
+# COLETAS COMUNS (6 coletas)
+# --------------------------------------------------------------------------------
+
+common_collects = [
+  {
+    sunday_reference: "common_saints",
+    text: "Deus Todo-poderoso, que nos manténs em unidade com todos os teus santos no céu e na terra, permite que fortalecidos pelo bom exemplo de teu servo N., e imitando a sua fé, sejamos continuamente sustentados por esta comunhão de fé e oração, sabedores que pela intercessão de Jesus Cristo teu Filho, nosso Senhor, as nossas orações são aceitáveis a ti, ó Pai, por meio do Espírito Santo, um só Deus agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    sunday_reference: "common_martyrs",
+    text: "Deus Todo-poderoso, que deste ao teu servo N., a ousadia de confessar diante dos poderosos deste mundo o nome glorioso de teu Filho e de morrer como mártir pela fé cristã, ajuda-nos a seguir o seu supremo exemplo de renúncia e a viver nossa vida, prontos a dar a razão da esperança que há em nós e, se necessário, a morrer por esta esperança; por Jesus Cristo teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    sunday_reference: "common_pastors",
+    text: "Ó Senhor, tu que és Pastor e Bispo das nossas almas e que escolheste teu servo N. para ser [Bispo e] Pastor na tua Igreja, ajuda-o, com teu poder, a apascentar o teu rebanho; e concede, pelo teu Espírito, a todos os pastores, dons, talentos e habilidades, para que, como verdadeiros servos de Cristo e fiéis despenseiros dos teus divinos mistérios, ministrem ao teu povo; por Jesus Cristo, teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    sunday_reference: "common_missionaries",
+    text: "Deus Todo-poderoso e eterno, damos-te graças por teu servo N., a quem chamaste para pregar o Evangelho ao povo de N.; desperta, neste e em todos os povos, evangelistas e mensageiros do teu reino, para que a tua Igreja proclame as insondáveis riquezas de nosso Salvador Jesus Cristo teu Filho, que vive e reina contigo e com o Espírito Santo, um só Deus agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    sunday_reference: "common_theologians",
+    text: "Ó Deus, que pelo Espírito Santo concedes dons especiais para que possamos entender e ensinar a tua Palavra, louvamos o teu nome pela graça manifestada ao teu servo N., a quem capacitaste, e suplicamos que a tua Igreja seja sempre provida com esses dons; por Jesus Cristo teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    sunday_reference: "common_religious",
+    text: "Ó Deus, cujo bendito Filho viveu vida consagrada a ti, liberta-nos do amor indevido por este mundo, para que, inspirados na vida consagrada do teu servo N., te sirvamos alegremente e com ele alcancemos a herança da vida eterna; por Jesus Cristo teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus agora e sempre. Amém.",
+    language: "pt-BR"
+  }
+]
+
+common_collects.each do |collect|
+  if create_collect(collect)
+    count += 1
+  else
+    skipped += 1
+  end
+end
+
+# ================================================================================
+# COLETAS POR CELEBRAÇÃO (celebration_id)
+# Organizadas em ordem do Ano Litúrgico e por Rank
+# ================================================================================
+
+# --------------------------------------------------------------------------------
+# NATAL E EPIFANIA - Celebrações
+# --------------------------------------------------------------------------------
+
+christmas_celebrations_collects = [
+  {
+    celebration_id: Celebration.find_by(fixed_month: 12, fixed_day: 24)&.id,
+    text: "Deus Onipotente, que nos deste teu unigênito Filho para que tomasse sobre si a nossa natureza, e nascesse neste tempo de uma Virgem pura; concede que nós, renascidos e feitos teus filhos por adoção e graça, sejamos de dia em dia renovados por teu Santo Espírito; mediante nosso Senhor Jesus Cristo, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    celebration_id: epifania&.id,
+    text: "Ó Deus, que pela Estrela manifestaste teu unigênito Filho a todos os povos da terra; guia-nos à tua presença, os que hoje te conhecemos pela fé; a fim de que desfrutemos de tua glória face a face; mediante Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    language: "pt-BR"
+  }
+]
+
+christmas_celebrations_collects.each do |collect|
+  if create_collect(collect)
+    count += 1
+  else
+    skipped += 1
+  end
+end
+
+# --------------------------------------------------------------------------------
+# QUARESMA - Celebrações
+# --------------------------------------------------------------------------------
+
+lent_celebrations_collects = [
+  {
+    celebration_id: cinzas&.id,
+    text: "Onipotente e Eterno Deus, que amas tudo quanto criaste, e que perdoas a todos os penitentes; cria em nós corações novos e contritos, para que, lamentando deveras os nossos pecados e confessando a nossa miséria, alcancemos de ti, Deus de suma piedade, perfeita remissão e perdão; por nosso Senhor Jesus Cristo, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    language: "pt-BR"
+  }
+]
+
+lent_celebrations_collects.each do |collect|
+  if create_collect(collect)
+    count += 1
+  else
+    skipped += 1
+  end
+end
+
+# --------------------------------------------------------------------------------
+# SEMANA SANTA - Celebrações
+# --------------------------------------------------------------------------------
+
+holy_week_collects = [
+  {
+    celebration_id: segunda_santa&.id,
+    text: "Onipotente Deus, cujo Filho muito amado não gozou perfeita alegria, senão após o sofrimento, e só subiu à glória depois de crucificado; concede-nos misericordioso que, seguindo o caminho da cruz, seja este para nós vereda de vida e paz; por Jesus Cristo, teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    celebration_id: terca_santa&.id,
+    text: "Ó Deus, que pela paixão de teu bendito Filho, fizeste com que o instrumento da morte vergonhosa se tornasse para nós símbolo de vida; concede que nos glorifiquemos na cruz de Cristo, a fim de que alegremente suportemos infâmias e privações, por amor de teu Filho, nosso Salvador Jesus Cristo, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    celebration_id: quarta_santa&.id,
+    text: "Ó Senhor Deus, cujo bendito Filho, nosso Salvador Jesus Cristo, teve o seu corpo torturado e seu rosto cuspido; concede-nos a graça de enfrentar com esperança os sofrimentos deste tempo e de confiar na glória que há de ser revelada; por Jesus Cristo teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    celebration_id: quinta_santa&.id,
+    text: "Ó Pai Onipotente, cujo amado Filho, na noite anterior à sua paixão, instituiu o Sacramento do seu Corpo e Sangue; concede-nos, misericordioso, que dele participemos agradecidos, em memória daquele que nestes santos mistérios nos dá o penhor da vida eterna, teu Filho Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    celebration_id: sexta_paixao&.id,
+    text: "Deus Onipotente, nós te suplicamos olhes com misericórdia para esta família que é tua, e pela qual nosso Senhor Jesus Cristo não hesitou em entregar-se, traído, às mãos de homens iníquos, e sofrer morte de cruz; o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    celebration_id: sabado_santo&.id,
+    text: "Ó Deus, Criador do céu e da terra; concede que, assim como o corpo crucificado de teu amado Filho foi colocado no túmulo e descansou neste sábado santo, também sepultados com Ele aguardemos o terceiro dia e com Ele ressuscitemos para uma vida nova; o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    language: "pt-BR"
+  }
+]
+
+holy_week_collects.each do |collect|
+  if create_collect(collect)
+    count += 1
+  else
+    skipped += 1
+  end
+end
+
+# --------------------------------------------------------------------------------
+# PÁSCOA - Celebrações
+# --------------------------------------------------------------------------------
+
+easter_celebrations_collects = [
+  {
+    celebration_id: vigilia_pascal&.id,
+    text: "Senhor Deus, Tu fizeste resplandecer esta noite com a glória da ressurreição de Cristo; faz com que a sua luz brilhe na tua Igreja para que sejamos renovados no corpo e na alma e nos entreguemos plenamente ao teu serviço. Amém.",
+    language: "pt-BR"
+  },
+  {
+    celebration_id: pascoa&.id,
+    text: "Ó Deus, que para a nossa redenção entregaste o teu unigênito Filho à morte de cruz, e pela tua gloriosa ressurreição nos libertaste do poder de nosso inimigo; concede que morramos diariamente para o pecado, a fim de que vivamos sempre com Ele na alegria de sua ressurreição; mediante Jesus Cristo, teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    language: "pt-BR"
+  },
+  {
+    celebration_id: ascensao&.id,
+    text: "Senhor soberano, teu Filho ascendeu em triunfo para governar todo o universo em amor e glória; faz que todos os povos reconheçam a autoridade do seu reino. Mediante Jesus Cristo, nosso Senhor. Amém.",
+    language: "pt-BR"
+  },
+  {
+    celebration_id: pentecostes&.id,
+    text: "Ó Deus, que no dia de Pentecostes, ensinaste os fiéis, derramando em seus corações a luz do teu Santo Espírito; concede-nos, por meio do mesmo Espírito, um juízo acertado em todas as coisas, e perene regozijo em seu fortalecimento; pelos méritos de Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+    language: "pt-BR"
+  }
+]
+
+easter_celebrations_collects.each do |collect|
+  if create_collect(collect)
+    count += 1
+  else
+    skipped += 1
+  end
+end
+
+# --------------------------------------------------------------------------------
+# TEMPO COMUM - Celebrações
+# --------------------------------------------------------------------------------
+
+trinity_celebration_collect = [
+  {
+    celebration_id: trindade&.id,
+    text: "Deus nosso Pai, enviaste ao mundo a Palavra da verdade e o Espírito da santidade para revelar aos homens o mistério admirável do teu Ser: concede-nos que na profissão da verdadeira fé reconheçamos a glória da eterna Trindade e adoremos a Unidade na sua onipotência. Mediante nosso Senhor Jesus Cristo. Amém.",
+    language: "pt-BR"
+  }
+]
+
+trinity_celebration_collect.each do |collect|
+  if create_collect(collect)
+    count += 1
+  else
+    skipped += 1
+  end
+end
+
+# --------------------------------------------------------------------------------
+# DIAS SANTOS E FESTAS (42 coletas por celebration_id)
+# Organizadas por ordem cronológica do ano litúrgico
+# --------------------------------------------------------------------------------
 
 holy_days_collects = [
   # Janeiro
@@ -665,50 +787,9 @@ holy_days_collects.each do |collect|
   end
 end
 
-# =====================================================
-# COLETAS COMUNS
-# =====================================================
-
-common_collects = [
-  {
-    sunday_reference: "common_saints",
-    text: "Deus Todo-poderoso, que nos manténs em unidade com todos os teus santos no céu e na terra, permite que fortalecidos pelo bom exemplo de teu servo N., e imitando a sua fé, sejamos continuamente sustentados por esta comunhão de fé e oração, sabedores que pela intercessão de Jesus Cristo teu Filho, nosso Senhor, as nossas orações são aceitáveis a ti, ó Pai, por meio do Espírito Santo, um só Deus agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    sunday_reference: "common_martyrs",
-    text: "Deus Todo-poderoso, que deste ao teu servo N., a ousadia de confessar diante dos poderosos deste mundo o nome glorioso de teu Filho e de morrer como mártir pela fé cristã, ajuda-nos a seguir o seu supremo exemplo de renúncia e a viver nossa vida, prontos a dar a razão da esperança que há em nós e, se necessário, a morrer por esta esperança; por Jesus Cristo teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    sunday_reference: "common_pastors",
-    text: "Ó Senhor, tu que és Pastor e Bispo das nossas almas e que escolheste teu servo N. para ser [Bispo e] Pastor na tua Igreja, ajuda-o, com teu poder, a apascentar o teu rebanho; e concede, pelo teu Espírito, a todos os pastores, dons, talentos e habilidades, para que, como verdadeiros servos de Cristo e fiéis despenseiros dos teus divinos mistérios, ministrem ao teu povo; por Jesus Cristo, teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    sunday_reference: "common_missionaries",
-    text: "Deus Todo-poderoso e eterno, damos-te graças por teu servo N., a quem chamaste para pregar o Evangelho ao povo de N.; desperta, neste e em todos os povos, evangelistas e mensageiros do teu reino, para que a tua Igreja proclame as insondáveis riquezas de nosso Salvador Jesus Cristo teu Filho, que vive e reina contigo e com o Espírito Santo, um só Deus agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    sunday_reference: "common_theologians",
-    text: "Ó Deus, que pelo Espírito Santo concedes dons especiais para que possamos entender e ensinar a tua Palavra, louvamos o teu nome pela graça manifestada ao teu servo N., a quem capacitaste, e suplicamos que a tua Igreja seja sempre provida com esses dons; por Jesus Cristo teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus agora e sempre. Amém.",
-    language: "pt-BR"
-  },
-  {
-    sunday_reference: "common_religious",
-    text: "Ó Deus, cujo bendito Filho viveu vida consagrada a ti, liberta-nos do amor indevido por este mundo, para que, inspirados na vida consagrada do teu servo N., te sirvamos alegremente e com ele alcancemos a herança da vida eterna; por Jesus Cristo teu Filho, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus agora e sempre. Amém.",
-    language: "pt-BR"
-  }
-]
-
-common_collects.each do |collect|
-  if create_collect(collect)
-    count += 1
-  else
-    skipped += 1
-  end
-end
+# ================================================================================
+# RESUMO FINAL
+# ================================================================================
 
 puts "\n✅ #{count} coletas criadas com sucesso!"
 puts "⏭️  #{skipped} coletas já existiam no banco de dados." if skipped > 0

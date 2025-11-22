@@ -1,11 +1,72 @@
-# Domingos após Epifania
-# Estes domingos preenchem o período entre Epifania (6 jan) e Quaresma
-# O número de domingos varia conforme a data da Páscoa
+# ================================================================================
+# LEITURAS DO TEMPO DA EPIFANIA
+# Revised Common Lectionary (RCL)
+# ================================================================================
+#
+# Conteúdo:
+# - Epifania (6 de janeiro)
+# - Batismo do Senhor (1º domingo após Epifania)
+# - Domingos após Epifania (2º ao 8º)
+# - Último Domingo após Epifania (Transfiguração)
+#
+# Nota: O número de domingos após Epifania varia conforme a data da Páscoa
+#
+# ================================================================================
 
-puts "📖 Carregando domingos após Epifania..."
+puts "📖 Carregando leituras do Tempo da Epifania..."
 
-epiphany_sundays = [
-  # 2º Domingo após Epifania
+epiphany_readings = [
+  # ============================================================================
+  # EPIFANIA (6 de janeiro)
+  # ============================================================================
+  {
+    date_reference: "epiphany",
+    cycle: "all",
+    service_type: "eucharist",
+    first_reading: "Isaiah 60:1-6",
+    psalm: "Psalm 72:1-7, 10-14",
+    second_reading: "Ephesians 3:1-12",
+    gospel: "Matthew 2:1-12"
+  },
+
+  # ============================================================================
+  # BATISMO DO SENHOR (1º domingo após Epifania)
+  # ============================================================================
+  {
+    date_reference: "baptism_of_the_lord",
+    cycle: "A",
+    service_type: "eucharist",
+    first_reading: "Isaiah 42:1-9",
+    psalm: "Psalm 29",
+    second_reading: "Acts 10:34-43",
+    gospel: "Matthew 3:13-17"
+  },
+  {
+    date_reference: "baptism_of_the_lord",
+    cycle: "B",
+    service_type: "eucharist",
+    first_reading: "Genesis 1:1-5",
+    psalm: "Psalm 29",
+    second_reading: "Acts 19:1-7",
+    gospel: "Mark 1:4-11"
+  },
+  {
+    date_reference: "baptism_of_the_lord",
+    cycle: "C",
+    service_type: "eucharist",
+    first_reading: "Isaiah 43:1-7",
+    psalm: "Psalm 29",
+    second_reading: "Acts 8:14-17",
+    gospel: "Luke 3:15-17, 21-22"
+  },
+
+  # ============================================================================
+  # DOMINGOS APÓS EPIFANIA
+  # ============================================================================
+
+  # ----------------------------------------------------------------------------
+  # 2º DOMINGO APÓS EPIFANIA
+  # ----------------------------------------------------------------------------
   {
     date_reference: "2nd_sunday_after_epiphany",
     cycle: "A",
@@ -34,7 +95,9 @@ epiphany_sundays = [
     gospel: "John 2:1-11"
   },
 
-  # 3º Domingo após Epifania
+  # ----------------------------------------------------------------------------
+  # 3º DOMINGO APÓS EPIFANIA
+  # ----------------------------------------------------------------------------
   {
     date_reference: "3rd_sunday_after_epiphany",
     cycle: "A",
@@ -63,7 +126,9 @@ epiphany_sundays = [
     gospel: "Luke 4:14-21"
   },
 
-  # 4º Domingo após Epifania
+  # ----------------------------------------------------------------------------
+  # 4º DOMINGO APÓS EPIFANIA
+  # ----------------------------------------------------------------------------
   {
     date_reference: "4th_sunday_after_epiphany",
     cycle: "A",
@@ -92,7 +157,9 @@ epiphany_sundays = [
     gospel: "Luke 4:21-30"
   },
 
-  # 5º Domingo após Epifania
+  # ----------------------------------------------------------------------------
+  # 5º DOMINGO APÓS EPIFANIA
+  # ----------------------------------------------------------------------------
   {
     date_reference: "5th_sunday_after_epiphany",
     cycle: "A",
@@ -121,7 +188,9 @@ epiphany_sundays = [
     gospel: "Luke 5:1-11"
   },
 
-  # 6º Domingo após Epifania
+  # ----------------------------------------------------------------------------
+  # 6º DOMINGO APÓS EPIFANIA
+  # ----------------------------------------------------------------------------
   {
     date_reference: "6th_sunday_after_epiphany",
     cycle: "A",
@@ -150,7 +219,9 @@ epiphany_sundays = [
     gospel: "Luke 6:17-26"
   },
 
-  # 7º Domingo após Epifania
+  # ----------------------------------------------------------------------------
+  # 7º DOMINGO APÓS EPIFANIA
+  # ----------------------------------------------------------------------------
   {
     date_reference: "7th_sunday_after_epiphany",
     cycle: "A",
@@ -179,7 +250,9 @@ epiphany_sundays = [
     gospel: "Luke 6:27-38"
   },
 
-  # 8º Domingo após Epifania
+  # ----------------------------------------------------------------------------
+  # 8º DOMINGO APÓS EPIFANIA
+  # ----------------------------------------------------------------------------
   {
     date_reference: "8th_sunday_after_epiphany",
     cycle: "A",
@@ -208,7 +281,9 @@ epiphany_sundays = [
     gospel: "Luke 6:39-49"
   },
 
-  # Último Domingo após Epifania (Transfiguração)
+  # ============================================================================
+  # ÚLTIMO DOMINGO APÓS EPIFANIA (Transfiguração)
+  # ============================================================================
   {
     date_reference: "last_sunday_after_epiphany",
     cycle: "A",
@@ -241,7 +316,8 @@ epiphany_sundays = [
 # Criar leituras (evita duplicatas)
 count = 0
 skipped = 0
-epiphany_sundays.each do |reading|
+
+epiphany_readings.each do |reading|
   existing = LectionaryReading.find_by(
     date_reference: reading[:date_reference],
     cycle: reading[:cycle],
@@ -257,5 +333,5 @@ epiphany_sundays.each do |reading|
   end
 end
 
-puts "\n✅ #{count} domingos após Epifania criados!"
+puts "\n✅ #{count} leituras do Tempo da Epifania criadas!"
 puts "⏭️  #{skipped} já existiam." if skipped > 0

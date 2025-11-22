@@ -1,13 +1,26 @@
-# Leituras dos Dias Santos e Festas Maiores
-# Baseado no Livro de Oração Comum da IEAB
+# ================================================================================
+# LEITURAS DOS DIAS SANTOS E FESTAS FIXAS
+# Revised Common Lectionary (RCL)
+# ================================================================================
+#
+# Conteúdo:
+# - Dias Santos Principais
+# - Festas de Apóstolos e Evangelistas
+# - Festas Marianas
+# - Dias de Santos e Mártires
+#
+# Nota: Este arquivo usa celebration_id references como no arquivo original
+#       holy_days_readings.rb
+#
+# ================================================================================
 
-puts "📖 Carregando leituras dos dias santos e festas maiores..."
+puts "📖 Carregando leituras dos dias santos e festas fixas..."
 
 count = 0
 skipped = 0
 
-# Helper para criar leituras
-def create_reading(celebration_name, reading_data)
+# Helper para criar leituras por celebration_id
+def create_reading_by_celebration(celebration_name, reading_data)
   celebration = Celebration.find_by(name: celebration_name)
 
   unless celebration
@@ -15,7 +28,6 @@ def create_reading(celebration_name, reading_data)
     return false
   end
 
-  # Determina o year baseado no reading_data
   year = reading_data[:year] || "ABC"
 
   existing = LectionaryReading.find_by(
@@ -40,12 +52,27 @@ def create_reading(celebration_name, reading_data)
   false
 end
 
-# =====================================================
+# Helper para criar leituras sem celebration (por date_reference)
+def create_reading_direct(reading_hash)
+  existing = LectionaryReading.find_by(
+    date_reference: reading_hash[:date_reference],
+    cycle: reading_hash[:cycle],
+    service_type: reading_hash[:service_type]
+  )
+
+  if existing.nil?
+    LectionaryReading.create!(reading_hash)
+    return true
+  end
+  false
+end
+
+# ============================================================================
 # JANEIRO
-# =====================================================
+# ============================================================================
 
 # Santo Nome de Jesus (1 de janeiro)
-if create_reading("Santo Nome e Circuncisão de nosso Senhor Jesus Cristo", {
+if create_reading_by_celebration("Santo Nome e Circuncisão de nosso Senhor Jesus Cristo", {
   year: "ABC",
   first_reading: "Isaías 9:2-7",
   psalm: "Salmo 8",
@@ -58,7 +85,7 @@ else
 end
 
 # Conversão de São Paulo (25 de janeiro)
-if create_reading("Conversão de Paulo, Apóstolo", {
+if create_reading_by_celebration("Conversão de Paulo, Apóstolo", {
   year: "ABC",
   first_reading: "Atos 26:9-23",
   psalm: "Salmo 67",
@@ -70,12 +97,26 @@ else
   skipped += 1
 end
 
-# =====================================================
+# ============================================================================
 # FEVEREIRO
-# =====================================================
+# ============================================================================
 
 # Apresentação de Cristo no Templo (2 de fevereiro)
-if create_reading("Apresentação de nosso Senhor Jesus Cristo no Templo", {
+if create_reading_direct({
+  date_reference: "presentation_of_the_lord",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Malachi 3:1-4",
+  psalm: "Psalm 84 or Psalm 24:7-10",
+  second_reading: "Hebrews 2:14-18",
+  gospel: "Luke 2:22-40"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Apresentação de nosso Senhor Jesus Cristo no Templo", {
   year: "ABC",
   first_reading: "Malaquias 3:1-4",
   psalm: "Salmo 24",
@@ -87,9 +128,9 @@ else
   skipped += 1
 end
 
-# =====================================================
+# ============================================================================
 # MARÇO
-# =====================================================
+# ============================================================================
 
 # João e Charles Wesley (3 de março)
 wesley = Celebration.find_by("name LIKE ?", "%Wesley%")
@@ -117,7 +158,7 @@ if wesley
 end
 
 # São José (19 de março)
-if create_reading("José de Nazaré", {
+if create_reading_by_celebration("José de Nazaré", {
   year: "ABC",
   first_reading: "Deuteronômio 33:13-16",
   psalm: "Salmo 89:2-9",
@@ -155,7 +196,21 @@ if cranmer
 end
 
 # Anunciação (25 de março)
-if create_reading("Anunciação de nosso Senhor Jesus Cristo à Bem-Aventurada Virgem Maria", {
+if create_reading_direct({
+  date_reference: "annunciation",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Isaiah 7:10-14",
+  psalm: "Psalm 45 or Psalm 40:5-10",
+  second_reading: "Hebrews 10:4-10",
+  gospel: "Luke 1:26-38"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Anunciação de nosso Senhor Jesus Cristo à Bem-Aventurada Virgem Maria", {
   year: "ABC",
   first_reading: "Isaías 7:10-14",
   psalm: "Salmo 113",
@@ -167,12 +222,12 @@ else
   skipped += 1
 end
 
-# =====================================================
+# ============================================================================
 # ABRIL
-# =====================================================
+# ============================================================================
 
 # São Marcos (25 de abril)
-if create_reading("Marcos, Evangelista", {
+if create_reading_by_celebration("Marcos, Evangelista", {
   year: "ABC",
   first_reading: "Isaías 52:7-10",
   psalm: "Salmo 119:9-16",
@@ -184,12 +239,12 @@ else
   skipped += 1
 end
 
-# =====================================================
+# ============================================================================
 # MAIO
-# =====================================================
+# ============================================================================
 
 # São Filipe e São Tiago (1 de maio)
-if create_reading("Filipe e Tiago Menor, Apóstolos", {
+if create_reading_by_celebration("Filipe e Tiago Menor, Apóstolos", {
   year: "ABC",
   first_reading: "Provérbios 4:10-18",
   psalm: "Salmo 84",
@@ -201,8 +256,8 @@ else
   skipped += 1
 end
 
-# São Matias (14 de maio - transferido de 24 de fevereiro)
-if create_reading("Matias, Apóstolo", {
+# São Matias (14 de maio)
+if create_reading_by_celebration("Matias, Apóstolo", {
   year: "ABC",
   first_reading: "Isaías 22:15-22",
   psalm: "Salmo 16",
@@ -215,7 +270,21 @@ else
 end
 
 # Visitação (31 de maio)
-if create_reading("Visitação da Bem-Aventurada Virgem Maria", {
+if create_reading_direct({
+  date_reference: "visitation",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "1 Samuel 2:1-10",
+  psalm: "Psalm 113",
+  second_reading: "Romans 12:9-16b",
+  gospel: "Luke 1:39-57"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Visitação da Bem-Aventurada Virgem Maria", {
   year: "ABC",
   first_reading: "Sofonias 3:14-18a",
   psalm: "Salmo 113",
@@ -227,12 +296,12 @@ else
   skipped += 1
 end
 
-# =====================================================
+# ============================================================================
 # JUNHO
-# =====================================================
+# ============================================================================
 
 # São Barnabé (11 de junho)
-if create_reading("Barnabé, Apóstolo", {
+if create_reading_by_celebration("Barnabé, Apóstolo", {
   year: "ABC",
   first_reading: "Jó 29:11-16",
   psalm: "Salmo 112",
@@ -245,7 +314,7 @@ else
 end
 
 # Natividade de João Batista (24 de junho)
-if create_reading("Natividade de João Batista", {
+if create_reading_by_celebration("Natividade de João Batista", {
   year: "ABC",
   first_reading: "Isaías 40:1-11",
   psalm: "Salmo 119:161-168",
@@ -258,7 +327,21 @@ else
 end
 
 # Pedro e Paulo (29 de junho)
-if create_reading("Pedro e Paulo, Apóstolos", {
+if create_reading_direct({
+  date_reference: "peter_and_paul",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Acts 12:1-11",
+  psalm: "Psalm 87",
+  second_reading: "2 Timothy 4:6-8, 17-18",
+  gospel: "Matthew 16:13-19"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Pedro e Paulo, Apóstolos", {
   year: "ABC",
   first_reading: "Jonas 3",
   psalm: "Salmo 34:2-10",
@@ -270,12 +353,12 @@ else
   skipped += 1
 end
 
-# =====================================================
+# ============================================================================
 # JULHO
-# =====================================================
+# ============================================================================
 
-# São Tomé (3 de julho - transferido de 21 de dezembro)
-if create_reading("Tomé, Apóstolo", {
+# São Tomé (3 de julho)
+if create_reading_by_celebration("Tomé, Apóstolo", {
   year: "ABC",
   first_reading: "Jó 42:1-6",
   psalm: "Salmo 126",
@@ -288,7 +371,7 @@ else
 end
 
 # Santa Maria Madalena (22 de julho)
-if create_reading("Maria Madalena, Apóstola", {
+if create_reading_by_celebration("Maria Madalena, Apóstola", {
   year: "ABC",
   first_reading: "Cantares 3:1-4a",
   psalm: "Salmo 63:2-10",
@@ -301,7 +384,21 @@ else
 end
 
 # São Tiago (25 de julho)
-if create_reading("Tiago, Apóstolo", {
+if create_reading_direct({
+  date_reference: "james_apostle",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "2 Corinthians 4:7-15",
+  psalm: "Psalm 126",
+  second_reading: "Acts 11:27-12:2",
+  gospel: "Matthew 20:20-28"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Tiago, Apóstolo", {
   year: "ABC",
   first_reading: "Jeremias 45",
   psalm: "Salmo 15",
@@ -313,12 +410,26 @@ else
   skipped += 1
 end
 
-# =====================================================
+# ============================================================================
 # AGOSTO
-# =====================================================
+# ============================================================================
 
 # Transfiguração (6 de agosto)
-if create_reading("Transfiguração de nosso Senhor Jesus Cristo", {
+if create_reading_direct({
+  date_reference: "transfiguration",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Daniel 7:9-10, 13-14",
+  psalm: "Psalm 99",
+  second_reading: "2 Peter 1:16-19",
+  gospel: "Luke 9:28-36"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Transfiguração de nosso Senhor Jesus Cristo", {
   year: "ABC",
   first_reading: "Êxodo 34:29-35",
   psalm: "Salmo 99",
@@ -331,7 +442,21 @@ else
 end
 
 # São Bartolomeu (24 de agosto)
-if create_reading("Bartolomeu, Apóstolo", {
+if create_reading_direct({
+  date_reference: "bartholomew",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Exodus 19:1-6a",
+  psalm: "Psalm 12",
+  second_reading: "1 Corinthians 12:27-31a",
+  gospel: "John 1:43-51"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Bartolomeu, Apóstolo", {
   year: "ABC",
   first_reading: "Gênesis 28:10-17",
   psalm: "Salmo 103:1b-8",
@@ -343,9 +468,9 @@ else
   skipped += 1
 end
 
-# =====================================================
+# ============================================================================
 # SETEMBRO
-# =====================================================
+# ============================================================================
 
 # Bem-aventurada Virgem Maria (8 de setembro - transferido de 15 de agosto)
 bvm = Celebration.find_by("name LIKE ?", "%Virgem Maria%") || Celebration.find_by(fixed_month: 8, fixed_day: 15)
@@ -388,7 +513,21 @@ if bvm
 end
 
 # São Mateus (21 de setembro)
-if create_reading("Mateus, Apóstolo e Evangelista", {
+if create_reading_direct({
+  date_reference: "matthew",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Proverbs 3:1-6",
+  psalm: "Psalm 119:33-40",
+  second_reading: "2 Corinthians 4:1-6",
+  gospel: "Matthew 9:9-13"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Mateus, Apóstolo e Evangelista", {
   year: "ABC",
   first_reading: "Provérbios 3:9-18",
   psalm: "Salmo 19",
@@ -401,7 +540,7 @@ else
 end
 
 # São Miguel e Todos os Anjos (29 de setembro)
-if create_reading("Arcanjo Miguel e Todos os Anjos", {
+if create_reading_by_celebration("Arcanjo Miguel e Todos os Anjos", {
   year: "ABC",
   first_reading: "Jó 38:1-7",
   psalm: "Salmo 148:1-6",
@@ -413,12 +552,26 @@ else
   skipped += 1
 end
 
-# =====================================================
+# ============================================================================
 # OUTUBRO
-# =====================================================
+# ============================================================================
 
 # São Lucas (18 de outubro)
-if create_reading("Lucas, Evangelista", {
+if create_reading_direct({
+  date_reference: "luke",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Isaiah 35:5-8",
+  psalm: "Psalm 147:1-7",
+  second_reading: "2 Timothy 4:5-13",
+  gospel: "Luke 1:1-4"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Lucas, Evangelista", {
   year: "ABC",
   first_reading: "Isaías 61:1-6",
   psalm: "Salmo 147:1-7",
@@ -431,7 +584,21 @@ else
 end
 
 # Simão e Judas (28 de outubro)
-if create_reading("Simão e Judas, Apóstolos", {
+if create_reading_direct({
+  date_reference: "simon_and_jude",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Deuteronomy 32:1-4",
+  psalm: "Psalm 119:89-96",
+  second_reading: "Ephesians 2:13-22",
+  gospel: "John 15:17-27"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Simão e Judas, Apóstolos", {
   year: "ABC",
   first_reading: "Isaías 28:9-16",
   psalm: "Salmo 119:89-96",
@@ -468,12 +635,26 @@ if luther
   end
 end
 
-# =====================================================
+# ============================================================================
 # NOVEMBRO
-# =====================================================
+# ============================================================================
 
 # Todos os Santos (1 de novembro)
-if create_reading("Todos os Santos e Santas", {
+if create_reading_direct({
+  date_reference: "all_saints",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Revelation 7:9-17",
+  psalm: "Psalm 34:1-10, 22",
+  second_reading: "1 John 3:1-3",
+  gospel: "Matthew 5:1-12"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Todos os Santos e Santas", {
   year: "ABC",
   first_reading: "Jeremias 31:31-34",
   psalm: "Salmo 150",
@@ -486,7 +667,21 @@ else
 end
 
 # Santo André (30 de novembro)
-if create_reading("André, Apóstolo", {
+if create_reading_direct({
+  date_reference: "andrew",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Isaiah 52:7-10",
+  psalm: "Psalm 19:1-6",
+  second_reading: "Romans 10:12-18",
+  gospel: "Matthew 4:18-22"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("André, Apóstolo", {
   year: "ABC",
   first_reading: "Zacarias 8:20-23",
   psalm: "Salmo 47",
@@ -498,12 +693,27 @@ else
   skipped += 1
 end
 
-# =====================================================
+# ============================================================================
 # DEZEMBRO
-# =====================================================
+# ============================================================================
+
+# São Tomé (21 de dezembro)
+if create_reading_direct({
+  date_reference: "thomas_apostle",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Habakkuk 2:1-4",
+  psalm: "Psalm 126",
+  second_reading: "Hebrews 10:35-11:1",
+  gospel: "John 20:24-29"
+})
+  count += 1
+else
+  skipped += 1
+end
 
 # Santo Estevão (26 de dezembro)
-if create_reading("Estêvão, Diácono e Protomártir", {
+if create_reading_by_celebration("Estêvão, Diácono e Protomártir", {
   year: "ABC",
   first_reading: "2 Crônicas 24:17-22",
   psalm: "Salmo 31:2-6",
@@ -516,7 +726,21 @@ else
 end
 
 # São João Evangelista (27 de dezembro)
-if create_reading("João, Apóstolo e Evangelista", {
+if create_reading_direct({
+  date_reference: "john_apostle",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Exodus 33:18-23",
+  psalm: "Psalm 92:1-4, 11-14",
+  second_reading: "1 John 1:1-9",
+  gospel: "John 21:19b-24"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("João, Apóstolo e Evangelista", {
   year: "ABC",
   first_reading: "Isaías 6:1-8",
   psalm: "Salmo 97",
@@ -529,7 +753,21 @@ else
 end
 
 # Santos Inocentes (28 de dezembro)
-if create_reading("Santos Inocentes", {
+if create_reading_direct({
+  date_reference: "holy_innocents",
+  cycle: "all",
+  service_type: "eucharist",
+  first_reading: "Jeremiah 31:15-17",
+  psalm: "Psalm 124",
+  second_reading: "Revelation 21:1-7",
+  gospel: "Matthew 2:13-18"
+})
+  count += 1
+else
+  skipped += 1
+end
+
+if create_reading_by_celebration("Santos Inocentes", {
   year: "ABC",
   first_reading: "Jeremias 31:15-17",
   psalm: "Salmo 124",
@@ -566,29 +804,5 @@ if wycliff
   end
 end
 
-# =====================================================
-# OBSERVÂNCIAS ESPECIAIS
-# =====================================================
-
-# Dia do Trabalho (1 de maio)
-labor_day = Celebration.find_by("name LIKE ?", "%Trabalho%")
-if labor_day
-  puts "⚠️  Dia do Trabalho não tem leituras específicas definidas - usa-se o lecionário do dia."
-end
-
-# Dia da Pátria (7 de setembro)
-independence_day = Celebration.find_by("name LIKE ?", "%Pátria%") ||
-                   Celebration.find_by("name LIKE ?", "%Independência%")
-if independence_day
-  puts "⚠️  Dia da Pátria não tem leituras específicas definidas - usa-se o lecionário do dia."
-end
-
-# Ação de Graças (quarta quinta-feira de novembro)
-thanksgiving = Celebration.find_by("name LIKE ?", "%Ação de Graças%") ||
-               Celebration.find_by("name LIKE ?", "%Thanksgiving%")
-if thanksgiving
-  puts "⚠️  Dia de Ação de Graças não tem leituras específicas definidas - usa-se o lecionário do dia."
-end
-
-puts "\n✅ #{count} leituras de dias santos criadas com sucesso!"
-puts "⏭️  #{skipped} leituras já existiam no banco de dados." if skipped > 0
+puts "\n✅ #{count} leituras de dias santos e festas fixas criadas!"
+puts "⏭️  #{skipped} já existiam." if skipped > 0
