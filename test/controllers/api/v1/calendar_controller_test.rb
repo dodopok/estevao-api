@@ -49,8 +49,8 @@ module Api
 
         assert_equal "2025-11-16", json["date"]
         assert_equal "Sunday", json["day_of_week"]
-        assert_equal "Ordinary Time", json["liturgical_season"]
-        assert_equal "green", json["liturgical_color"]
+        assert_equal "Tempo Comum", json["liturgical_season"]
+        assert_equal "verde", json["liturgical_color"]
         assert_equal "C", json["liturgical_year"]
         assert_equal true, json["is_sunday"]
 
@@ -141,8 +141,8 @@ module Api
         json = JSON.parse(response.body)
 
         # Domingo no Tempo Comum deveria ser verde, não branco
-        assert_equal "green", json["liturgical_color"]
-        assert_equal "Ordinary Time", json["liturgical_season"]
+        assert_equal "verde", json["liturgical_color"]
+        assert_equal "Tempo Comum", json["liturgical_season"]
       end
 
       test "GET /api/v1/calendar/2026/4/4 retorna Vigília Pascal" do
@@ -172,7 +172,7 @@ module Api
         json = JSON.parse(response.body)
 
         # Deveria retornar Vigília Pascal (rank 1) ao invés de Sábado Santo (rank 23)
-        assert_equal "white", json["liturgical_color"]
+        assert_equal "branco", json["liturgical_color"]
         assert json["celebration"]
         assert_equal "Vigília Pascal", json["celebration"]["name"]
       end

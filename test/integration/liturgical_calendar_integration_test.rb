@@ -87,8 +87,8 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
     # Verifica estrutura completa
     assert_equal "2025-11-16", json["date"]
     assert_equal "Sunday", json["day_of_week"]
-    assert_equal "Ordinary Time", json["liturgical_season"]
-    assert_equal "green", json["liturgical_color"], "Domingos no Tempo Comum devem ser verdes"
+    assert_equal "Tempo Comum", json["liturgical_season"]
+    assert_equal "verde", json["liturgical_color"], "Domingos no Tempo Comum devem ser verdes"
     assert_equal "C", json["liturgical_year"]
     assert_equal true, json["is_sunday"]
 
@@ -109,8 +109,8 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
     json = JSON.parse(response.body)
 
     assert_equal "2025-12-25", json["date"]
-    assert_equal "Christmas", json["liturgical_season"]
-    assert_equal "white", json["liturgical_color"]
+    assert_equal "Natal", json["liturgical_season"]
+    assert_equal "branco", json["liturgical_color"]
     assert_equal true, json["is_holy_day"]
 
     # Verifica celebração
@@ -125,7 +125,7 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
     json = JSON.parse(response.body)
 
     # Deveria retornar Vigília Pascal (rank 1), não Sábado Santo (rank 23)
-    assert_equal "white", json["liturgical_color"]
+    assert_equal "branco", json["liturgical_color"]
     assert json["celebration"]
     assert_equal "Vigília Pascal", json["celebration"]["name"]
   end
@@ -202,7 +202,7 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
     # Verifica que dia 25 é Natal
     christmas_day = json["days"].find { |d| d["date"] == "2025-12-25" }
     assert christmas_day
-    assert_equal "Christmas", christmas_day["liturgical_season"]
+    assert_equal "Natal", christmas_day["liturgical_season"]
   end
 
   test "fluxo completo: calendário mensal mantém consistência entre dias" do

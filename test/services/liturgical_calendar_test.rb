@@ -296,8 +296,8 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
     # Verifica campos obrigatórios
     assert_equal "2025-11-16", info[:date]
     assert_equal "Sunday", info[:day_of_week]
-    assert_equal "Ordinary Time", info[:liturgical_season]
-    assert_equal "green", info[:color]
+    assert_equal "Tempo Comum", info[:liturgical_season]
+    assert_equal "verde", info[:color]
     assert_equal true, info[:is_sunday]
     assert_equal "C", info[:liturgical_year]
 
@@ -367,10 +367,10 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
     info = calendar.day_info(date)
 
     # Deveria ser Quaresma (Sábado Santo é o último dia da Quaresma)
-    assert_equal "Lent", info[:liturgical_season]
+    assert_equal "Quaresma", info[:liturgical_season]
 
     # Cor deveria ser branca (da Vigília Pascal que tem precedência)
-    assert_equal "white", info[:color]
+    assert_equal "branco", info[:color]
   end
 
   # === TESTES DE SEMANA DO ANO ===

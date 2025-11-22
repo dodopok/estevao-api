@@ -12,14 +12,14 @@ class LiturgicalCalendar
     {
       date: date.to_s,
       day_of_week: day_name_en(date),
-      liturgical_season: translate_season(season_for_date(date)),
-      color: translate_color(color_for_date(date)),
+      liturgical_season: season_for_date(date),
+      color: color_for_date(date),
       celebration: celebration_for_date(date),
       is_sunday: date.sunday?,
       is_holy_day: holy_day?(date),
       week_of_season: week_number(date),
       proper_week: proper_number(date),
-      sunday_name: translate_sunday_name(sunday_name(date)),
+      sunday_name: sunday_name(date),
       sunday_after_pentecost: sunday_after_pentecost(date),
       liturgical_year: liturgical_year_cycle(date),
       saint: saint_for_date(date)
@@ -388,46 +388,6 @@ class LiturgicalCalendar
       "preto" => "black"
     }
     translations[color_pt] || color_pt
-  end
-
-  def translate_sunday_name(name_pt)
-    return nil if name_pt.nil?
-
-    # Direct translations for special Sundays
-    special_sundays = {
-      "Domingo da Páscoa" => "Easter Sunday",
-      "Pentecostes" => "Pentecost",
-      "Santíssima Trindade" => "Trinity Sunday",
-      "Domingo de Ramos" => "Palm Sunday",
-      "Cristo Rei do Universo" => "Christ the King",
-      "Batismo de nosso Senhor Jesus Cristo" => "Baptism of the Lord"
-    }
-
-    return special_sundays[name_pt] if special_sundays[name_pt]
-
-    # Pattern-based translations for numbered Sundays
-    # "1º Domingo do Advento" -> "1st Sunday of Advent"
-    # "25º Domingo no Tempo Comum" -> "25th Sunday in Ordinary Time"
-
-    if name_pt =~ /(\d+)º Domingo (do|no|da) (.+)/
-      number = $1.to_i
-      preposition = $2
-      season = $3
-
-      ordinal = case number
-      when 1 then "1st"
-      when 2 then "2nd"
-      when 3 then "3rd"
-      else "#{number}th"
-      end
-
-      prep = preposition == "no" ? "in" : "of"
-      translated_season = translate_season(season)
-
-      "#{ordinal} Sunday #{prep} #{translated_season}"
-    else
-      name_pt
-    end
   end
 
   def day_name_en(date)
