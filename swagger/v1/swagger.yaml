@@ -135,6 +135,327 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/daily_office/preferences":
+    get:
+      summary: Get available preferences
+      tags:
+      - Daily Office
+      description: Returns all available options for customizing the Daily Office
+        (versions, languages, Bible translations, etc.)
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  versions:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - loc_2015
+                  languages:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - pt-BR
+                    - en
+                  bible_versions:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - nvi
+                    - ntlh
+                    - arc
+                  lords_prayer_versions:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - traditional
+                    - contemporary
+                  creed_types:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - apostles
+                    - nicene
+                  confession_types:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - long
+                    - short
+                  office_types:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - morning
+                    - midday
+                    - evening
+                    - compline
+  "/api/v1/daily_office/today/{office_type}":
+    parameters:
+    - name: office_type
+      in: path
+      description: Type of office (morning, midday, evening, compline)
+      required: true
+      schema:
+        type: string
+    - name: version
+      in: query
+      description: 'LOC version (default: loc_2015)'
+      required: false
+      schema:
+        type: string
+    - name: bible_version
+      in: query
+      description: 'Bible translation (default: nvi)'
+      required: false
+      schema:
+        type: string
+    - name: language
+      in: query
+      description: 'Language (default: pt-BR)'
+      required: false
+      schema:
+        type: string
+    - name: lords_prayer_version
+      in: query
+      description: Lord's Prayer version (traditional/contemporary)
+      required: false
+      schema:
+        type: string
+    - name: creed_type
+      in: query
+      description: Creed type (apostles/nicene)
+      required: false
+      schema:
+        type: string
+    - name: confession_type
+      in: query
+      description: Confession type (long/short)
+      required: false
+      schema:
+        type: string
+    get:
+      summary: Get today's Daily Office
+      tags:
+      - Daily Office
+      description: Returns the complete liturgy for today's Daily Office with all
+        modules (opening sentence, psalms, readings, canticles, prayers, etc.)
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    example: '2025-11-22'
+                  office_type:
+                    type: string
+                    example: morning
+                  season:
+                    type: string
+                    example: Tempo Comum
+                  color:
+                    type: string
+                    example: verde
+                  celebration:
+                    type: object
+                    nullable: true
+                  saint:
+                    type: object
+                    nullable: true
+                  modules:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: Sentença de Abertura
+                        slug:
+                          type: string
+                          example: opening_sentence
+                        lines:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              content:
+                                type: string
+                              line_type:
+                                type: string
+                                enum:
+                                - heading
+                                - subheading
+                                - rubric
+                                - leader
+                                - congregation
+                                - reader
+                                - responsive
+                                - citation
+                                - html
+                                - spacer
+                              reference:
+                                type: string
+                                nullable: true
+                              audio_id:
+                                type: string
+                                nullable: true
+                  metadata:
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                        example: loc_2015
+                      bible_version:
+                        type: string
+                        example: nvi
+                      language:
+                        type: string
+                        example: pt-BR
+        '400':
+          description: invalid office type
+  "/api/v1/daily_office/{year}/{month}/{day}/{office_type}":
+    parameters:
+    - name: year
+      in: path
+      description: Year (1900-2200)
+      required: true
+      schema:
+        type: string
+    - name: month
+      in: path
+      description: Month (1-12)
+      required: true
+      schema:
+        type: string
+    - name: day
+      in: path
+      description: Day (1-31)
+      required: true
+      schema:
+        type: string
+    - name: office_type
+      in: path
+      description: Type of office (morning, midday, evening, compline)
+      required: true
+      schema:
+        type: string
+    - name: version
+      in: query
+      description: 'LOC version (default: loc_2015)'
+      required: false
+      schema:
+        type: string
+    - name: bible_version
+      in: query
+      description: 'Bible translation (default: nvi)'
+      required: false
+      schema:
+        type: string
+    - name: language
+      in: query
+      description: 'Language (default: pt-BR)'
+      required: false
+      schema:
+        type: string
+    - name: lords_prayer_version
+      in: query
+      description: Lord's Prayer version (traditional/contemporary)
+      required: false
+      schema:
+        type: string
+    - name: creed_type
+      in: query
+      description: Creed type (apostles/nicene)
+      required: false
+      schema:
+        type: string
+    - name: confession_type
+      in: query
+      description: Confession type (long/short)
+      required: false
+      schema:
+        type: string
+    get:
+      summary: Get Daily Office for specific date
+      tags:
+      - Daily Office
+      description: Returns the complete liturgy for a specific date's Daily Office
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    example: '2025-12-25'
+                  office_type:
+                    type: string
+                    example: morning
+                  season:
+                    type: string
+                    example: Natal
+                  color:
+                    type: string
+                    example: branco
+                  celebration:
+                    type: object
+                    nullable: true
+                  saint:
+                    type: object
+                    nullable: true
+                  modules:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        slug:
+                          type: string
+                        lines:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              content:
+                                type: string
+                              line_type:
+                                type: string
+                              reference:
+                                type: string
+                                nullable: true
+                              audio_id:
+                                type: string
+                                nullable: true
+                  metadata:
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                      bible_version:
+                        type: string
+                      language:
+                        type: string
+        '400':
+          description: invalid office type
   "/api/v1/lectionary/{year}/{month}/{day}":
     parameters:
     - name: year

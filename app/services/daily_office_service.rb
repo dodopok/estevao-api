@@ -14,7 +14,7 @@ class DailyOfficeService
     @day_info = liturgical_calendar.day_info(@date)
 
     # 2. Fetch the Readings for the Day
-    @readings = ReadingService.new(@date).find_readings
+    @readings = ReadingService.new(@date).find_readings || {}
 
     # 3. Assemble the Office based on type
     structure = case @office_type
@@ -325,6 +325,7 @@ class DailyOfficeService
   end
 
   def build_first_reading
+    return nil unless @readings
     reading_ref = @readings[:first_reading]
     return nil unless reading_ref
 
@@ -345,6 +346,7 @@ class DailyOfficeService
   end
 
   def build_second_reading
+    return nil unless @readings
     reading_ref = @readings[:second_reading]
     return nil unless reading_ref
 
@@ -531,14 +533,14 @@ class DailyOfficeService
   end
 
   def build_collects
-    collects_data = CollectService.new(@date).find_collects
+    collects_data = CollectService.new(@date).find_collects || {}
 
     {
       name: "Coletas",
       slug: "collects",
       lines: [
         line_item("Coleta do Dia", type: "heading"),
-        line_item(collects_data[:collect], type: "leader"),
+        line_item(collects_data[:text], type: "leader"),
         line_item("", type: "spacer"),
         line_item("Coleta pela Paz", type: "heading"),
         line_item(fetch_liturgical_text("collect_peace")&.content || "", type: "leader"),
