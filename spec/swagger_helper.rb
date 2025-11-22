@@ -19,7 +19,8 @@ RSpec.configure do |config|
       openapi: '3.0.1',
       info: {
         title: 'API - Calendário Litúrgico Anglicano',
-        version: 'v1'
+        version: 'v1',
+        description: 'API para consulta de calendário litúrgico anglicano, lecionário, celebrações e ofício diário. Inclui autenticação Firebase para recursos personalizados.'
       },
       paths: {},
       servers: [
@@ -31,7 +32,17 @@ RSpec.configure do |config|
           url: 'https://api.caminhoanglicano.com.br',
           description: 'Production server'
         }
-      ]
+      ],
+      components: {
+        securitySchemes: {
+          bearer_auth: {
+            type: :http,
+            scheme: :bearer,
+            bearerFormat: 'JWT',
+            description: 'Firebase ID Token. Obtenha através do Firebase Authentication no app Flutter.'
+          }
+        }
+      }
     }
   }
 

@@ -1,6 +1,10 @@
 module Api
   module V1
     class DailyOfficeController < ApplicationController
+      include Authenticatable
+
+      before_action :authenticate_user_optional
+
       # GET /api/v1/daily_office/today/:office_type
       # Returns today's office
       def today
@@ -15,6 +19,9 @@ module Api
           )
           service.call
         end
+
+        # Adiciona dados do usuário se autenticado
+        response = add_user_data(response, date, office_type) if current_user
 
         render json: response
       rescue ArgumentError => e
@@ -35,6 +42,9 @@ module Api
           )
           service.call
         end
+
+        # Adiciona dados do usuário se autenticado
+        response = add_user_data(response, date, office_type) if current_user
 
         render json: response
       rescue ArgumentError => e
@@ -93,14 +103,45 @@ module Api
       end
 
       def user_preferences
-        {
-          version: params[:version] || "loc_2015",
-          language: params[:language] || "pt-BR",
-          bible_version: params[:bible_version] || "nvi",
-          lords_prayer_version: params[:lords_prayer_version] || "traditional",
-          creed_type: (params[:creed_type]&.to_sym || :apostles),
-          confession_type: params[:confession_type] || "long"
-        }
+        # Se usuário autenticado, usa preferências dele (params sobrescrevem)
+        if current_user
+          prefs = current_user.preferences.symbolize_keys
+          {
+            version: params[:version] || prefs[:version] || "loc_2015",
+            language: params[:language] || prefs[:language] || "pt-BR",
+            bible_version: params[:bible_version] || prefs[:bible_version] || "nvi",
+            lords_prayer_version: params[:lords_prayer_version] || prefs[:lords_prayer_version] || "traditional",
+            creed_type: (params[:creed_type]&.to_sym || prefs[:creed_type]&.to_sym || :apostles),
+            confession_type: params[:confession_type] || prefs[:confession_type] || "long"
+          }
+        else
+          # Usuário não autenticado - usa defaults ou params
+          {
+            version: params[:version] || "loc_2015",
+            language: params[:language] || "pt-BR",
+            bible_version: params[:bible_version] || "nvi",
+            lords_prayer_version: params[:lords_prayer_version] || "traditional",
+            creed_type: (params[:creed_type]&.to_sym || :apostles),
+            confession_type: params[:confession_type] || "long"
+          }
+        end
+      end
+
+      # Adiciona dados do usuário autenticado na resposta
+      def add_user_data(response, date, office_type)
+        completion = current_user.completions.find_by(
+          date_reference: date,
+          office_type: office_type.to_s
+        )
+
+        response.merge(
+          user: {
+            current_streak: current_user.current_streak,
+            longest_streak: current_user.longest_streak,
+            completed: completion.present?,
+            completed_at: completion&.created_at
+          }
+        )
       end
 
       # Create a hash of preferences for cache key

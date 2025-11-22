@@ -1,14 +1,6 @@
 # syntax=docker/dockerfile:1
 # check=error=true
 
-# This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t estevao-api .
-# docker run -d -p 3000:80 \
-#   -e SECRET_KEY_BASE=<your_secret_key> \
-#   -e DATABASE_URL=<postgresql_url> \
-#   -e RAILS_ENV=production \
-#   --name estevao-api estevao-api
-
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version

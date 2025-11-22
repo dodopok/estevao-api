@@ -34,6 +34,14 @@ Rails.application.routes.draw do
       get "daily_office/today/:office_type", to: "daily_office#today"
       get "daily_office/:year/:month/:day/:office_type", to: "daily_office#show"
       get "daily_office/preferences", to: "daily_office#preferences"
+
+      # Rotas de autenticação e usuários
+      get "users/me", to: "users#show"
+      patch "users/preferences", to: "users#update_preferences"
+      get "users/completions", to: "users#completions"
+
+      # Rotas de completions (marcar ofícios como completados)
+      resources :completions, only: [ :create, :destroy ]
     end
   end
 
