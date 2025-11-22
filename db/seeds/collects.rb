@@ -13,6 +13,7 @@ def create_collect(attrs)
   # Pula se não tem nenhuma referência válida
   if attrs[:celebration_id].nil? && attrs[:season_id].nil? && attrs[:sunday_reference].nil?
     puts "⚠️  Coleta sem referência válida - pulando"
+    puts attrs
     return false
   end
 
@@ -669,7 +670,7 @@ holy_days_collects = [
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "Visitação de Nossa Senhora")&.id,
+    celebration_id: Celebration.find_by(name: "Visitação da Bem-Aventurada Virgem Maria")&.id,
     text: "Pai misericordioso, inspiraste a bem-aventurada Virgem Maria a visitar Isabel, que com alegria a saudou como mãe do Senhor; enche-nos da tua graça para que aclamemos o seu Filho como nosso Senhor, o qual vive e reina, contigo e com o Espírito Santo, um só Deus para todo o sempre. Amém.",
     language: "pt-BR"
   },
@@ -710,7 +711,7 @@ holy_days_collects = [
 
   # Agosto
   {
-    celebration_id: Celebration.find_by(name: "Transfiguração de Nosso Senhor")&.id,
+    celebration_id: Celebration.find_by(name: "Transfiguração do Senhor")&.id,
     text: "Deus onipotente, teu Filho revelou-se em glória antes de sofrer na Cruz; concede-nos que pela fé na sua morte e ressurreição triunfemos no poder da sua vitória. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
@@ -722,7 +723,7 @@ holy_days_collects = [
 
   # Setembro
   {
-    celebration_id: Celebration.find_by(name: "Bem-aventurada Virgem Maria")&.id,
+    celebration_id: Celebration.find_by(name: "Visitação da Bem-Aventurada Virgem Maria")&.id,
     text: "Deus onipotente, escolheste a bem-aventurada Virgem Maria para ser a mãe do teu único Filho; concede-nos a nós, redimidos pelo Sangue de Jesus, a graça de estarmos com ela na glória do teu reino eterno. Mediante Jesus Cristo, nosso Senhor, que vive e reina, contigo e com o Espírito Santo. Amém.",
     language: "pt-BR"
   },
@@ -763,12 +764,12 @@ holy_days_collects = [
 
   # Dezembro
   {
-    celebration_id: Celebration.find_by(name: "Santo Estevão")&.id,
+    celebration_id: Celebration.find_by(name: "Santo Estêvão")&.id,
     text: "Pai celestial, deste ao teu mártir Estevão a graça de orar por aqueles que o apedrejaram; concede que, ao sofrermos pela verdade, imitemos o seu exemplo de perdão. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "São João Evangelista")&.id,
+    celebration_id: Celebration.find_by(name: "São João")&.id,
     text: "Senhor misericordioso, iluminaste a tua Igreja com o ensino de João; lança sobre nós os brilhantes raios da tua luz para podermos caminhar na tua verdade e chegar finalmente ao teu eterno esplendor. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },

@@ -30,7 +30,7 @@ principal_feasts = [
     description: "Natal - Nascimento de Jesus Cristo"
   },
   {
-    name: "Santo Nome e Circuncisão de nosso Senhor Jesus Cristo",
+    name: "Santo Nome de Jesus",
     celebration_type: :principal_feast,
     rank: 2,
     fixed_month: 1,
@@ -75,7 +75,7 @@ principal_feasts = [
     description: "Candelária - 40 dias após o Natal"
   },
   {
-    name: "Anunciação de nosso Senhor Jesus Cristo à Bem-Aventurada Virgem Maria",
+    name: "Anunciação de Nosso Senhor",
     latin_name: "Annuntiatio Domini",
     celebration_type: :principal_feast,
     rank: 6,

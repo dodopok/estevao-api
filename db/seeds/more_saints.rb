@@ -7,8 +7,6 @@ additional_saints = [
   # Janeiro
   { name: "Santa Maria, Mãe de Deus", celebration_type: :festival, rank: 200, fixed_month: 1, fixed_day: 1, liturgical_color: "branco", description: "Theotokos" },
   { name: "Basílio Magno e Gregório Nazianzeno", celebration_type: :lesser_feast, rank: 201, fixed_month: 1, fixed_day: 2, liturgical_color: "branco", description: "Bispos e Doutores, 379 e 389" },
-  { name: "Santo Antão do Egito", celebration_type: :lesser_feast, rank: 202, fixed_month: 1, fixed_day: 17, liturgical_color: "branco", description: "Abade, 356" },
-  { name: "Santa Agnes", celebration_type: :lesser_feast, rank: 203, fixed_month: 1, fixed_day: 21, liturgical_color: "vermelho", description: "Mártir, 304" },
   { name: "São Francisco de Sales", celebration_type: :lesser_feast, rank: 204, fixed_month: 1, fixed_day: 24, liturgical_color: "branco", description: "Bispo e Doutor, 1622" },
   { name: "São Timóteo e São Tito", celebration_type: :lesser_feast, rank: 205, fixed_month: 1, fixed_day: 26, liturgical_color: "branco", description: "Companheiros de Paulo" },
   { name: "São João Crisóstomo", celebration_type: :lesser_feast, rank: 206, fixed_month: 1, fixed_day: 27, liturgical_color: "branco", description: "Bispo e Doutor, 407" },
@@ -29,17 +27,13 @@ additional_saints = [
 
   # Abril
   { name: "São Francisco de Paula", celebration_type: :lesser_feast, rank: 216, fixed_month: 4, fixed_day: 2, liturgical_color: "branco", description: "Eremita, 1507" },
-  { name: "Santo Anselmo", celebration_type: :lesser_feast, rank: 217, fixed_month: 4, fixed_day: 21, liturgical_color: "branco", description: "Bispo e Doutor, 1109" },
   { name: "São Fidelis de Sigmaringa", celebration_type: :lesser_feast, rank: 218, fixed_month: 4, fixed_day: 24, liturgical_color: "vermelho", description: "Sacerdote e Mártir, 1622" },
   { name: "Santa Catarina de Siena", celebration_type: :lesser_feast, rank: 219, fixed_month: 4, fixed_day: 29, liturgical_color: "branco", description: "Doutora, 1380" },
   { name: "São Pio V", celebration_type: :lesser_feast, rank: 220, fixed_month: 4, fixed_day: 30, liturgical_color: "branco", description: "Papa, 1572" },
 
   # Maio
   { name: "São José Operário", celebration_type: :lesser_feast, rank: 221, fixed_month: 5, fixed_day: 1, liturgical_color: "branco", description: "Patrono dos Trabalhadores" },
-  { name: "Santo Atanásio", celebration_type: :lesser_feast, rank: 222, fixed_month: 5, fixed_day: 2, liturgical_color: "branco", description: "Bispo e Doutor, 373" },
-  { name: "Julian of Norwich", celebration_type: :lesser_feast, rank: 223, fixed_month: 5, fixed_day: 8, liturgical_color: "branco", description: "Mística, c. 1417" },
-  { name: "São Matias, Apóstolo", celebration_type: :festival, rank: 32, fixed_month: 5, fixed_day: 14, liturgical_color: "vermelho", description: "Século I" },
-  { name: "Beda, o Venerável", celebration_type: :lesser_feast, rank: 224, fixed_month: 5, fixed_day: 25, liturgical_color: "branco", description: "Sacerdote e Doutor, 735" },
+  { name: "São Matias", celebration_type: :festival, rank: 32, fixed_month: 5, fixed_day: 14, liturgical_color: "vermelho", description: "Século I" },
 
   # Junho
   { name: "São Justino Mártir", celebration_type: :lesser_feast, rank: 225, fixed_month: 6, fixed_day: 1, liturgical_color: "vermelho", description: "Mártir, c. 165" },
@@ -83,7 +77,7 @@ additional_saints = [
   { name: "São Mateus", celebration_type: :festival, rank: 45, fixed_month: 9, fixed_day: 21, liturgical_color: "vermelho", description: "Apóstolo e Evangelista" },
   { name: "São Pio de Pietrelcina", celebration_type: :lesser_feast, rank: 251, fixed_month: 9, fixed_day: 23, liturgical_color: "branco", description: "Sacerdote, 1968" },
   { name: "São Vicente de Paulo", celebration_type: :lesser_feast, rank: 252, fixed_month: 9, fixed_day: 27, liturgical_color: "branco", description: "Sacerdote e Fundador, 1660" },
-  { name: "São Miguel, Gabriel e Rafael, Arcanjos", celebration_type: :festival, rank: 46, fixed_month: 9, fixed_day: 29, liturgical_color: "branco", description: "Arcanjos" },
+  { name: "São Miguel e Todos os Anjos", celebration_type: :festival, rank: 46, fixed_month: 9, fixed_day: 29, liturgical_color: "branco", description: "Arcanjos" },
 
   # Outubro
   { name: "Santa Teresinha do Menino Jesus", celebration_type: :lesser_feast, rank: 253, fixed_month: 10, fixed_day: 1, liturgical_color: "branco", description: "Virgem e Doutora, 1897" },
@@ -97,7 +91,7 @@ additional_saints = [
   { name: "São Paulo da Cruz", celebration_type: :lesser_feast, rank: 258, fixed_month: 10, fixed_day: 19, liturgical_color: "branco", description: "Sacerdote, 1775" },
   { name: "São João de Capistrano", celebration_type: :lesser_feast, rank: 259, fixed_month: 10, fixed_day: 23, liturgical_color: "branco", description: "Sacerdote, 1456" },
   { name: "Santo Antônio Maria Claret", celebration_type: :lesser_feast, rank: 260, fixed_month: 10, fixed_day: 24, liturgical_color: "branco", description: "Bispo, 1870" },
-  { name: "Simão e Judas", celebration_type: :festival, rank: 49, fixed_month: 10, fixed_day: 28, liturgical_color: "vermelho", description: "Apóstolos" },
+  { name: "São Simão e São Judas", celebration_type: :festival, rank: 49, fixed_month: 10, fixed_day: 28, liturgical_color: "vermelho", description: "Apóstolos" },
 
   # Novembro
   { name: "Todos os Santos", celebration_type: :principal_feast, rank: 11, fixed_month: 11, fixed_day: 1, liturgical_color: "branco", description: "" },

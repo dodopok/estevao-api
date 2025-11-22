@@ -31,7 +31,7 @@ anglican_saints = [
 
   # Maio
   { name: "Santo Atanásio", celebration_type: :lesser_feast, rank: 217, fixed_month: 5, fixed_day: 2, liturgical_color: "branco", description: "Bispo e Doutor, 373" },
-  { name: "Julian of Norwich", celebration_type: :lesser_feast, rank: 218, fixed_month: 5, fixed_day: 8, liturgical_color: "branco", description: "Mística, c. 1417" },
+  { name: "Juliana de Norwich", celebration_type: :lesser_feast, rank: 218, fixed_month: 5, fixed_day: 8, liturgical_color: "branco", description: "Mística, c. 1417" },
   { name: "Dunstan", celebration_type: :lesser_feast, rank: 219, fixed_month: 5, fixed_day: 19, liturgical_color: "branco", description: "Arcebispo, 988" },
   { name: "Beda, o Venerável", celebration_type: :lesser_feast, rank: 220, fixed_month: 5, fixed_day: 25, liturgical_color: "branco", description: "Sacerdote e Doutor, 735" },
   { name: "João e Carlos Wesley", celebration_type: :lesser_feast, rank: 221, fixed_month: 5, fixed_day: 24, liturgical_color: "branco", description: "Sacerdotes, 1791, 1788" },
@@ -84,7 +84,7 @@ anglican_saints = [
   # Dezembro
   { name: "Nicholas Ferrar", celebration_type: :lesser_feast, rank: 255, fixed_month: 12, fixed_day: 1, liturgical_color: "branco", description: "Diácono, 1637" },
   { name: "John of Damascus", celebration_type: :lesser_feast, rank: 256, fixed_month: 12, fixed_day: 4, liturgical_color: "branco", description: "Sacerdote e Monge, c. 749" },
-  { name: "Conception da Bem-Aventurada Virgem Maria", celebration_type: :lesser_feast, rank: 257, fixed_month: 12, fixed_day: 8, liturgical_color: "branco", description: "Imaculada Conceição" },
+  { name: "Bem-aventurada Virgem Maria", celebration_type: :lesser_feast, rank: 257, fixed_month: 12, fixed_day: 8, liturgical_color: "branco", description: "Imaculada Conceição" },
   { name: "Thomas Merton", celebration_type: :lesser_feast, rank: 258, fixed_month: 12, fixed_day: 10, liturgical_color: "branco", description: "Monge e Escritor, 1968" },
   { name: "Samuel Johnson", celebration_type: :lesser_feast, rank: 259, fixed_month: 12, fixed_day: 13, liturgical_color: "branco", description: "Moralista, 1784" },
   { name: "John of the Cross", celebration_type: :lesser_feast, rank: 260, fixed_month: 12, fixed_day: 14, liturgical_color: "branco", description: "Frade e Místico, 1591" },
@@ -108,6 +108,7 @@ anglican_saints.each do |saint|
     print "." if count % 10 == 0
   else
     skipped += 1
+    puts "⚠️  Santo já existe: #{saint[:name]} (#{saint[:fixed_month]}/#{saint[:fixed_day]})"
   end
 end
 

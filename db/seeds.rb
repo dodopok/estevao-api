@@ -34,15 +34,15 @@ puts "CARREGANDO DADOS FUNDAMENTAIS"
 puts "="*80
 
 # Cores Litúrgicas
-if File.exist?(Rails.root.join('db/seeds/liturgical_colors.rb'))
-  load Rails.root.join('db/seeds/liturgical_colors.rb')
+if File.exist?(Rails.root.join('db/seeds/colors.rb'))
+  load Rails.root.join('db/seeds/colors.rb')
 else
   puts "⚠️  Arquivo de cores litúrgicas não encontrado."
 end
 
 # Estações Litúrgicas
-if File.exist?(Rails.root.join('db/seeds/liturgical_seasons.rb'))
-  load Rails.root.join('db/seeds/liturgical_seasons.rb')
+if File.exist?(Rails.root.join('db/seeds/seasons.rb'))
+  load Rails.root.join('db/seeds/seasons.rb')
 else
   puts "⚠️  Arquivo de estações litúrgicas não encontrado."
 end

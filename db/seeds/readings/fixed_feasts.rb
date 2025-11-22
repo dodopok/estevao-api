@@ -72,7 +72,7 @@ end
 # ============================================================================
 
 # Santo Nome de Jesus (1 de janeiro)
-if create_reading_by_celebration("Santo Nome e Circuncisão de nosso Senhor Jesus Cristo", {
+if create_reading_by_celebration("Santo Nome de Jesus", {
   year: "ABC",
   first_reading: "Isaías 9:2-7",
   psalm: "Salmo 8",
@@ -85,7 +85,7 @@ else
 end
 
 # Conversão de São Paulo (25 de janeiro)
-if create_reading_by_celebration("Conversão de Paulo, Apóstolo", {
+if create_reading_by_celebration("Conversão de São Paulo", {
   year: "ABC",
   first_reading: "Atos 26:9-23",
   psalm: "Salmo 67",
@@ -158,7 +158,7 @@ if wesley
 end
 
 # São José (19 de março)
-if create_reading_by_celebration("José de Nazaré", {
+if create_reading_by_celebration("São José", {
   year: "ABC",
   first_reading: "Deuteronômio 33:13-16",
   psalm: "Salmo 89:2-9",
@@ -210,7 +210,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("Anunciação de nosso Senhor Jesus Cristo à Bem-Aventurada Virgem Maria", {
+if create_reading_by_celebration("Anunciação de Nosso Senhor", {
   year: "ABC",
   first_reading: "Isaías 7:10-14",
   psalm: "Salmo 113",
@@ -227,7 +227,7 @@ end
 # ============================================================================
 
 # São Marcos (25 de abril)
-if create_reading_by_celebration("Marcos, Evangelista", {
+if create_reading_by_celebration("São Marcos Evangelista", {
   year: "ABC",
   first_reading: "Isaías 52:7-10",
   psalm: "Salmo 119:9-16",
@@ -244,7 +244,7 @@ end
 # ============================================================================
 
 # São Filipe e São Tiago (1 de maio)
-if create_reading_by_celebration("Filipe e Tiago Menor, Apóstolos", {
+if create_reading_by_celebration("São Matias", {
   year: "ABC",
   first_reading: "Provérbios 4:10-18",
   psalm: "Salmo 84",
@@ -257,7 +257,7 @@ else
 end
 
 # São Matias (14 de maio)
-if create_reading_by_celebration("Matias, Apóstolo", {
+if create_reading_by_celebration("São Matias", {
   year: "ABC",
   first_reading: "Isaías 22:15-22",
   psalm: "Salmo 16",
@@ -301,7 +301,7 @@ end
 # ============================================================================
 
 # São Barnabé (11 de junho)
-if create_reading_by_celebration("Barnabé, Apóstolo", {
+if create_reading_by_celebration("São Barnabé", {
   year: "ABC",
   first_reading: "Jó 29:11-16",
   psalm: "Salmo 112",
@@ -314,7 +314,7 @@ else
 end
 
 # Natividade de João Batista (24 de junho)
-if create_reading_by_celebration("Natividade de João Batista", {
+if create_reading_by_celebration("Natividade de São João Batista", {
   year: "ABC",
   first_reading: "Isaías 40:1-11",
   psalm: "Salmo 119:161-168",
@@ -341,7 +341,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("Pedro e Paulo, Apóstolos", {
+if create_reading_by_celebration("São Pedro e São Paulo", {
   year: "ABC",
   first_reading: "Jonas 3",
   psalm: "Salmo 34:2-10",
@@ -358,7 +358,7 @@ end
 # ============================================================================
 
 # São Tomé (3 de julho)
-if create_reading_by_celebration("Tomé, Apóstolo", {
+if create_reading_by_celebration("São Tomé", {
   year: "ABC",
   first_reading: "Jó 42:1-6",
   psalm: "Salmo 126",
@@ -371,7 +371,7 @@ else
 end
 
 # Santa Maria Madalena (22 de julho)
-if create_reading_by_celebration("Maria Madalena, Apóstola", {
+if create_reading_by_celebration("Santa Maria Madalena", {
   year: "ABC",
   first_reading: "Cantares 3:1-4a",
   psalm: "Salmo 63:2-10",
@@ -398,7 +398,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("Tiago, Apóstolo", {
+if create_reading_by_celebration("São Tiago", {
   year: "ABC",
   first_reading: "Jeremias 45",
   psalm: "Salmo 15",
@@ -456,7 +456,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("Bartolomeu, Apóstolo", {
+if create_reading_by_celebration("São Bartolomeu", {
   year: "ABC",
   first_reading: "Gênesis 28:10-17",
   psalm: "Salmo 103:1b-8",
