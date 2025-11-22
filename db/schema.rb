@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_16_181500) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_22_032415) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "bible_texts", force: :cascade do |t|
+    t.string "book", null: false
+    t.integer "book_number", null: false
+    t.integer "chapter", null: false
+    t.datetime "created_at", null: false
+    t.text "text", null: false
+    t.string "translation", default: "nvi"
+    t.datetime "updated_at", null: false
+    t.integer "verse", null: false
+    t.string "verse_type"
+    t.index ["book", "chapter", "verse", "translation"], name: "index_bible_texts_on_verse_lookup"
+    t.index ["book_number", "chapter", "verse", "translation"], name: "index_bible_texts_on_book_number_lookup"
+  end
 
   create_table "celebrations", force: :cascade do |t|
     t.string "calculation_rule"
@@ -78,6 +92,45 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_16_181500) do
     t.text "description"
     t.string "name"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "liturgical_texts", force: :cascade do |t|
+    t.string "audio_url"
+    t.string "category", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.string "language", default: "pt-BR"
+    t.string "reference"
+    t.string "slug", null: false
+    t.datetime "updated_at", null: false
+    t.string "version", default: "loc_2015"
+    t.index ["category"], name: "index_liturgical_texts_on_category"
+    t.index ["slug", "version"], name: "index_liturgical_texts_on_slug_and_version", unique: true
+    t.index ["slug"], name: "index_liturgical_texts_on_slug"
+  end
+
+  create_table "psalm_cycles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "cycle_type", null: false
+    t.integer "day_of_week", null: false
+    t.text "notes"
+    t.string "office_type", null: false
+    t.jsonb "psalm_numbers", default: [], null: false
+    t.datetime "updated_at", null: false
+    t.integer "week_number"
+    t.index ["cycle_type", "week_number", "day_of_week", "office_type"], name: "index_psalm_cycles_on_cycle_lookup", unique: true
+  end
+
+  create_table "psalms", force: :cascade do |t|
+    t.text "antiphon"
+    t.datetime "created_at", null: false
+    t.integer "number", null: false
+    t.string "title"
+    t.string "translation", default: "loc_2015"
+    t.datetime "updated_at", null: false
+    t.jsonb "verses", default: {}, null: false
+    t.index ["number", "translation"], name: "index_psalms_on_number_and_translation", unique: true
+    t.index ["number"], name: "index_psalms_on_number"
   end
 
   add_foreign_key "collects", "celebrations"
