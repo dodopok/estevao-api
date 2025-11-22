@@ -11,6 +11,7 @@ class LiturgicalCalendar
   def day_info(date)
     {
       date: date.strftime("%d/%m/%Y"),
+      sunday_name: sunday_name(date),
       day_of_week: day_name_br(date),
       liturgical_season: season_for_date(date),
       color: color_for_date(date),
@@ -19,7 +20,6 @@ class LiturgicalCalendar
       is_holy_day: holy_day?(date),
       week_of_season: week_number(date),
       proper_week: proper_number(date),
-      sunday_name: sunday_name(date),
       sunday_after_pentecost: sunday_after_pentecost(date),
       liturgical_year: liturgical_year_cycle(date),
       saint: saint_for_date(date)
