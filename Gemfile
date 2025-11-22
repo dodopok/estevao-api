@@ -54,5 +54,3 @@ group :development, :test do
   gem "rspec-rails", "~> 7.1"
   gem "rswag-specs"
 end
-
-gem "byebug", "~> 12.0", :groups => [:development, :test]

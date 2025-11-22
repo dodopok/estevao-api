@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "rdbg",
+      "name": "Attach with rdbg (Docker)",
+      "request": "attach",
+      "debugPort": "localhost:1234",
+      "localfs": true,
+      "remoteWorkspaceRoot": "/rails"
+    }
+  ]
+}

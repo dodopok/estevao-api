@@ -23,13 +23,14 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: estevao-api
-    command: bash -c "rm -f tmp/pids/server.pid && bin/rails db:prepare && bin/rails server -b 0.0.0.0"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rdbg -n --open --host 0.0.0.0 --port 1234 -c -- bundle exec rails server -b 0.0.0.0"
     environment:
       RAILS_ENV: development
       DATABASE_URL: postgres://postgres:postgres@db:5432/estevao_api_development
       SECRET_KEY_BASE: development_secret_key_base_change_in_production
     ports:
       - "3000:3000"
+      - "1234:1234"
     volumes:
       - .:/rails
       - bundle_cache:/usr/local/bundle
