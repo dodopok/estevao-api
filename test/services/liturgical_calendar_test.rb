@@ -295,7 +295,7 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
 
     # Verifica campos obrigatórios
     assert_equal "2025-11-16", info[:date]
-    assert_equal "Sunday", info[:day_of_week]
+    assert_equal "Domingo", info[:day_of_week]
     assert_equal "Tempo Comum", info[:liturgical_season]
     assert_equal "verde", info[:color]
     assert_equal true, info[:is_sunday]

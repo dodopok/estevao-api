@@ -11,7 +11,7 @@ class LiturgicalCalendar
   def day_info(date)
     {
       date: date.to_s,
-      day_of_week: day_name_en(date),
+      day_of_week: day_name_br(date),
       liturgical_season: season_for_date(date),
       color: color_for_date(date),
       celebration: celebration_for_date(date),
@@ -392,6 +392,11 @@ class LiturgicalCalendar
 
   def day_name_en(date)
     names = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
+    names[date.wday]
+  end
+
+  def day_name_br(date)
+    names = %w[Domingo Segunda-feira Terça-feira Quarta-feira Quinta-feira Sexta-feira Sábado]
     names[date.wday]
   end
 

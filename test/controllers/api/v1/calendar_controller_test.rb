@@ -48,7 +48,7 @@ module Api
         json = JSON.parse(response.body)
 
         assert_equal "2025-11-16", json["date"]
-        assert_equal "Sunday", json["day_of_week"]
+        assert_equal "Domingo", json["day_of_week"]
         assert_equal "Tempo Comum", json["liturgical_season"]
         assert_equal "verde", json["liturgical_color"]
         assert_equal "C", json["liturgical_year"]
