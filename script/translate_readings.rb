@@ -11,7 +11,7 @@ TRANSLATIONS = {
   "1 Kings" => "1 Reis",
   "2 Kings" => "2 Reis",
   "Song of Solomon" => "Cântico dos Cânticos",
-  
+
   # Antigo Testamento - ordem alfabética
   "Amos" => "Amós",
   "Baruch" => "Baruque",
@@ -41,7 +41,7 @@ TRANSLATIONS = {
   "Wisdom" => "Sabedoria",
   "Zechariah" => "Zacarias",
   "Zephaniah" => "Sofonias",
-  
+
   # Novo Testamento - múltiplas palavras primeiro
   "1 Corinthians" => "1 Coríntios",
   "2 Corinthians" => "2 Coríntios",
@@ -54,7 +54,7 @@ TRANSLATIONS = {
   "1 John" => "1 João",
   "2 John" => "2 João",
   "3 John" => "3 João",
-  
+
   # Novo Testamento - ordem alfabética
   "Acts" => "Atos",
   "Colossians" => "Colossenses",
@@ -82,16 +82,16 @@ total_changes = 0
 
 files.each do |file|
   puts "\n📄 Processando: #{File.basename(file)}"
-  
+
   content = File.read(file)
   original_content = content.dup
   file_changes = 0
-  
+
   # Aplicar traduções
   TRANSLATIONS.each do |english, portuguese|
     # Contar ocorrências
     count = content.scan(/\b#{Regexp.escape(english)}\b/).length
-    
+
     if count > 0
       # Fazer substituição (word boundary para evitar substituições parciais)
       content.gsub!(/\b#{Regexp.escape(english)}\b/, portuguese)
@@ -99,7 +99,7 @@ files.each do |file|
       puts "  ✓ #{english.ljust(20)} → #{portuguese.ljust(25)} (#{count}x)"
     end
   end
-  
+
   # Salvar apenas se houve mudanças
   if content != original_content
     File.write(file, content)
