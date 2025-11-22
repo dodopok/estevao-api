@@ -198,6 +198,35 @@ else
 end
 
 # ================================================================================
+# OFÍCIO DIÁRIO - TEXTOS LITÚRGICOS, SALMOS E CICLOS
+# ================================================================================
+
+puts "\n" + "="*80
+puts "CARREGANDO TEXTOS LITÚRGICOS E SALMOS PARA OFÍCIO DIÁRIO"
+puts "="*80
+
+# Textos Litúrgicos
+if File.exist?(Rails.root.join('db/seeds/liturgical_texts_example.rb'))
+  load Rails.root.join('db/seeds/liturgical_texts_example.rb')
+else
+  puts "⚠️  Arquivo de textos litúrgicos não encontrado."
+end
+
+# Salmos
+if File.exist?(Rails.root.join('db/seeds/psalms_example.rb'))
+  load Rails.root.join('db/seeds/psalms_example.rb')
+else
+  puts "⚠️  Arquivo de salmos não encontrado."
+end
+
+# Ciclos de Salmos
+if File.exist?(Rails.root.join('db/seeds/psalm_cycles_example.rb'))
+  load Rails.root.join('db/seeds/psalm_cycles_example.rb')
+else
+  puts "⚠️  Arquivo de ciclos de salmos não encontrado."
+end
+
+# ================================================================================
 # RESUMO FINAL
 # ================================================================================
 
@@ -215,5 +244,8 @@ puts "    - #{Celebration.festival.count} festivais"
 puts "    - #{Celebration.lesser_feast.count} festas menores"
 puts "  • #{LectionaryReading.count} leituras do lecionário"
 puts "  • #{Collect.count} coletas"
+puts "  • #{LiturgicalText.count} textos litúrgicos"
+puts "  • #{Psalm.count} salmos"
+puts "  • #{PsalmCycle.count} ciclos de salmos"
 
 puts "\n✅ Banco de dados populado com sucesso!"

@@ -29,6 +29,11 @@ Rails.application.routes.draw do
       get "lectionary/:year/:month/:day", to: "lectionary#day"
       get "lectionary/:year/:month/:day/all_services", to: "lectionary#all_services"
       get "lectionary/cycle/:year", to: "lectionary#cycle_info"
+
+      # Rotas do Ofício Diário
+      get "daily_office/today/:office_type", to: "daily_office#today"
+      get "daily_office/:year/:month/:day/:office_type", to: "daily_office#show"
+      get "daily_office/preferences", to: "daily_office#preferences"
     end
   end
 
