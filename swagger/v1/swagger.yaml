@@ -686,6 +686,204 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/notifications/send":
+    post:
+      summary: Send notifications to specific users
+      tags:
+      - Notifications
+      description: Sends push notifications to specific users (Admin only)
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>) - Must be admin user'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Notificações enviadas
+                  sent_count:
+                    type: integer
+                    example: 3
+                  failed_count:
+                    type: integer
+                    example: 0
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized - Admin access required
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: user_ids, title, and body are required
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_ids:
+                  type: array
+                  items:
+                    type: integer
+                  example:
+                  - 1
+                  - 2
+                  - 3
+                title:
+                  type: string
+                  example: Título da notificação
+                body:
+                  type: string
+                  example: Corpo da notificação
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: new_feature
+                    url:
+                      type: string
+                      example: "/path/to/feature"
+              required:
+              - user_ids
+              - title
+              - body
+  "/api/v1/notifications/broadcast":
+    post:
+      summary: Broadcast notification to all users
+      tags:
+      - Notifications
+      description: Sends push notification to all users with active FCM tokens (Admin
+        only)
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>) - Must be admin user'
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: accepted - broadcast started in background
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Broadcast iniciado em background
+                  total_users:
+                    type: integer
+                    example: 1500
+        '200':
+          description: successful - broadcast completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Broadcast concluído
+                  total_users:
+                    type: integer
+                    example: 1500
+                  sent_count:
+                    type: integer
+                    example: 1450
+                  failed_count:
+                    type: integer
+                    example: 50
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized - Admin access required
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: title and body are required
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Novo recurso disponível!
+                body:
+                  type: string
+                  example: Confira as novas funcionalidades do Ordo
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: announcement
+                    url:
+                      type: string
+                      example: "/announcements/123"
+              required:
+              - title
+              - body
   "/api/v1/users/me":
     get:
       summary: Get current user profile
@@ -747,6 +945,32 @@ paths:
                       notifications:
                         type: boolean
                         example: true
+                      notifications_enabled:
+                        type: boolean
+                        example: true
+                      streak_reminder_enabled:
+                        type: boolean
+                        example: true
+                      prayer_times:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            office_id:
+                              type: string
+                              example: '1'
+                            office_name:
+                              type: string
+                              example: Matutino
+                            hour:
+                              type: integer
+                              example: 6
+                            minute:
+                              type: integer
+                              example: 0
+                            enabled:
+                              type: boolean
+                              example: true
                   current_streak:
                     type: integer
                     example: 7
@@ -851,6 +1075,32 @@ paths:
                     notifications:
                       type: boolean
                       example: true
+                    notifications_enabled:
+                      type: boolean
+                      example: true
+                    streak_reminder_enabled:
+                      type: boolean
+                      example: true
+                    prayer_times:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          office_id:
+                            type: string
+                            example: '1'
+                          office_name:
+                            type: string
+                            example: Matutino
+                          hour:
+                            type: integer
+                            example: 6
+                          minute:
+                            type: integer
+                            example: 0
+                          enabled:
+                            type: boolean
+                            example: true
               required:
               - preferences
   "/api/v1/users/completions":
@@ -924,6 +1174,126 @@ paths:
                   error:
                     type: string
                     example: Unauthorized
+  "/api/v1/users/fcm_token":
+    post:
+      summary: Save FCM token for push notifications
+      tags:
+      - Users
+      description: Saves or updates the FCM (Firebase Cloud Messaging) token for the
+        authenticated user to enable push notifications
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Token FCM salvo com sucesso
+                  fcm_token:
+                    type: string
+                    example: fK8x9y2ZqR3...
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: FCM token is required
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fcm_token:
+                  type: string
+                  example: fK8x9y2ZqR3...
+                platform:
+                  type: string
+                  enum:
+                  - android
+                  - ios
+                  - web
+                  example: android
+              required:
+              - fcm_token
+    delete:
+      summary: Remove FCM token
+      tags:
+      - Users
+      description: Removes the FCM token for the authenticated user (e.g., when logging
+        out or disabling notifications)
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      - name: fcm_token
+        in: query
+        description: FCM token to remove
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Token FCM removido com sucesso
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: FCM token is required
 servers:
 - url: http://localhost:3000
   description: Development server

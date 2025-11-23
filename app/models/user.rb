@@ -2,6 +2,8 @@
 
 class User < ApplicationRecord
   has_many :completions, dependent: :destroy
+  has_many :fcm_tokens, dependent: :destroy
+  has_many :notification_logs, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :provider_uid, presence: true
@@ -9,6 +11,9 @@ class User < ApplicationRecord
   # Preferências padrões
   DEFAULT_PREFERENCES = {
     "notifications" => true,
+    "notifications_enabled" => true,
+    "streak_reminder_enabled" => true,
+    "prayer_times" => [],
     "version" => "loc_2015",
     "language" => "pt-BR",
     "bible_version" => "nvi",

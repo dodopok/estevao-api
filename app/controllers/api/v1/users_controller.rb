@@ -50,6 +50,45 @@ module Api
         }
       end
 
+      # POST /api/v1/users/fcm_token
+      # Saves or updates FCM token for push notifications
+      def save_fcm_token
+        token = fcm_token_params[:fcm_token]
+        platform = fcm_token_params[:platform] || "android"
+
+        if token.blank?
+          return render json: { error: "FCM token is required" }, status: :unprocessable_entity
+        end
+
+        # Encontra ou cria o token
+        fcm_token = current_user.fcm_tokens.find_or_initialize_by(token: token)
+        fcm_token.platform = platform
+        fcm_token.touch # Atualiza o updated_at
+
+        if fcm_token.save
+          render json: {
+            message: "Token FCM salvo com sucesso",
+            fcm_token: token
+          }, status: :ok
+        else
+          render json: { error: fcm_token.errors.full_messages }, status: :unprocessable_entity
+        end
+      end
+
+      # DELETE /api/v1/users/fcm_token
+      # Removes FCM token (when user logs out or disables notifications)
+      def delete_fcm_token
+        token = params[:fcm_token]
+
+        if token.blank?
+          return render json: { error: "FCM token is required" }, status: :unprocessable_entity
+        end
+
+        current_user.fcm_tokens.where(token: token).destroy_all
+
+        render json: { message: "Token FCM removido com sucesso" }, status: :ok
+      end
+
       private
 
       def merged_preferences
@@ -64,8 +103,21 @@ module Api
           :lords_prayer_version,
           :creed_type,
           :confession_type,
-          :notifications
+          :notifications,
+          :notifications_enabled,
+          :streak_reminder_enabled,
+          prayer_times: [
+            :office_id,
+            :office_name,
+            :hour,
+            :minute,
+            :enabled
+          ]
         ).to_h
+      end
+
+      def fcm_token_params
+        params.permit(:fcm_token, :platform)
       end
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_22_222907) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_23_000002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -74,6 +74,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_22_222907) do
     t.index ["user_id"], name: "index_completions_on_user_id"
   end
 
+  create_table "fcm_tokens", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "platform"
+    t.string "token", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "token"], name: "index_fcm_tokens_on_user_id_and_token", unique: true
+    t.index ["user_id"], name: "index_fcm_tokens_on_user_id"
+  end
+
   create_table "lectionary_readings", force: :cascade do |t|
     t.bigint "celebration_id"
     t.datetime "created_at", null: false
@@ -120,6 +130,22 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_22_222907) do
     t.index ["slug"], name: "index_liturgical_texts_on_slug"
   end
 
+  create_table "notification_logs", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.jsonb "data", default: {}
+    t.text "error_message"
+    t.string "notification_type"
+    t.boolean "sent", default: false
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["created_at"], name: "index_notification_logs_on_created_at"
+    t.index ["notification_type"], name: "index_notification_logs_on_notification_type"
+    t.index ["sent"], name: "index_notification_logs_on_sent"
+    t.index ["user_id"], name: "index_notification_logs_on_user_id"
+  end
+
   create_table "psalm_cycles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "cycle_type", null: false
@@ -162,5 +188,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_22_222907) do
   add_foreign_key "collects", "celebrations"
   add_foreign_key "collects", "liturgical_seasons", column: "season_id"
   add_foreign_key "completions", "users"
+  add_foreign_key "fcm_tokens", "users"
   add_foreign_key "lectionary_readings", "celebrations"
+  add_foreign_key "notification_logs", "users"
 end
