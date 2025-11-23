@@ -22,6 +22,13 @@ class FirebaseAuthService
     def verify_token(token)
       raise InvalidTokenError, "Token is blank" if token.blank?
 
+      # Valida se Firebase Project ID está configurado
+      project_id = firebase_project_id
+      if project_id.blank?
+        raise InvalidTokenError, "FIREBASE_PROJECT_ID environment variable is not set. " \
+                                 "Please configure it in your environment."
+      end
+
       # Decodifica o token sem verificar (para pegar o kid - Key ID)
       unverified_payload = JWT.decode(token, nil, false)
       header = unverified_payload.last
@@ -39,8 +46,8 @@ class FirebaseAuthService
           algorithm: "RS256",
           verify_iat: true,
           verify_expiration: true,
-          iss: "https://securetoken.google.com/#{firebase_project_id}",
-          aud: firebase_project_id,
+          iss: "https://securetoken.google.com/#{project_id}",
+          aud: project_id,
           verify_iss: true,
           verify_aud: true
         }
@@ -48,7 +55,8 @@ class FirebaseAuthService
 
       decoded_token.first
     rescue JWT::DecodeError => e
-      raise InvalidTokenError, "Token decode error: #{e.message}"
+      raise InvalidTokenError, "Token decode error: #{e.message}. " \
+                               "Make sure FIREBASE_PROJECT_ID matches your Firebase project."
     rescue StandardError => e
       raise InvalidTokenError, "Token verification error: #{e.message}"
     end
