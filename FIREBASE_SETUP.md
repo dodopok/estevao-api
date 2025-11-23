@@ -40,8 +40,13 @@ Este documento descreve como configurar Firebase Authentication para a API Estev
 
 ## 3. Obter Project ID
 
-1. Nas configurações do projeto (ícone de engrenagem)
-2. Copie o **Project ID** (ex: "estevao-app-12345")
+**IMPORTANTE**: Este passo é obrigatório para que a autenticação funcione!
+
+1. No Firebase Console, clique no ícone de **engrenagem** (⚙️) ao lado de "Visão geral do projeto"
+2. Clique em "Configurações do projeto"
+3. Na aba "Geral", localize o campo **Project ID** (ID do projeto)
+4. Copie o valor (ex: "promocoes-teologicas", "estevao-app-12345", etc.)
+5. **Guarde esse valor** - você precisará dele no próximo passo!
 
 ## 4. Configurar Aplicação Flutter
 
@@ -86,10 +91,41 @@ final response = await http.get(
 
 ### 5.1 Definir variável de ambiente
 
-Crie um arquivo `.env` (ou configure no seu hosting):
+**CRÍTICO**: Configure a variável `FIREBASE_PROJECT_ID` com o valor que você copiou no passo 3!
 
+#### Desenvolvimento Local
+
+1. Copie o arquivo `.env.example` para `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edite o arquivo `.env` e substitua `your-firebase-project-id` pelo seu Project ID real:
+   ```bash
+   # .env
+   FIREBASE_PROJECT_ID=promocoes-teologicas  # Use o seu Project ID aqui!
+   ```
+
+#### Produção
+
+Configure a variável de ambiente de acordo com seu hosting:
+
+**Heroku:**
 ```bash
-FIREBASE_PROJECT_ID=estevao-app-12345
+heroku config:set FIREBASE_PROJECT_ID=promocoes-teologicas
+```
+
+**Render, Railway, Fly.io:**
+- Vá nas configurações do seu serviço
+- Adicione a variável de ambiente:
+  - Nome: `FIREBASE_PROJECT_ID`
+  - Valor: `promocoes-teologicas` (seu Project ID)
+
+**Docker:**
+```yaml
+# docker-compose.yml
+environment:
+  - FIREBASE_PROJECT_ID=promocoes-teologicas
 ```
 
 ### 5.2 Exemplo de Uso
