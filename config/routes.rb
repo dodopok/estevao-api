@@ -39,9 +39,15 @@ Rails.application.routes.draw do
       get "users/me", to: "users#show"
       patch "users/preferences", to: "users#update_preferences"
       get "users/completions", to: "users#completions"
+      post "users/fcm_token", to: "users#save_fcm_token"
+      delete "users/fcm_token", to: "users#delete_fcm_token"
 
       # Rotas de completions (marcar ofícios como completados)
       resources :completions, only: [ :create, :destroy ]
+
+      # Rotas de notificações (admin apenas)
+      post "notifications/send", to: "notifications#send_to_users"
+      post "notifications/broadcast", to: "notifications#broadcast"
     end
   end
 

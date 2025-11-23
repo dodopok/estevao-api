@@ -40,7 +40,22 @@ RSpec.describe 'api/v1/users', type: :request do
                      lords_prayer_version: { type: :string, example: 'traditional' },
                      creed_type: { type: :string, example: 'apostles' },
                      confession_type: { type: :string, example: 'long' },
-                     notifications: { type: :boolean, example: true }
+                     notifications: { type: :boolean, example: true },
+                     notifications_enabled: { type: :boolean, example: true },
+                     streak_reminder_enabled: { type: :boolean, example: true },
+                     prayer_times: {
+                       type: :array,
+                       items: {
+                         type: :object,
+                         properties: {
+                           office_id: { type: :string, example: '1' },
+                           office_name: { type: :string, example: 'Matutino' },
+                           hour: { type: :integer, example: 6 },
+                           minute: { type: :integer, example: 0 },
+                           enabled: { type: :boolean, example: true }
+                         }
+                       }
+                     }
                    }
                  },
                  current_streak: { type: :integer, example: 7 },
@@ -89,7 +104,22 @@ RSpec.describe 'api/v1/users', type: :request do
               lords_prayer_version: { type: :string, example: 'traditional' },
               creed_type: { type: :string, example: 'apostles' },
               confession_type: { type: :string, example: 'long' },
-              notifications: { type: :boolean, example: true }
+              notifications: { type: :boolean, example: true },
+              notifications_enabled: { type: :boolean, example: true },
+              streak_reminder_enabled: { type: :boolean, example: true },
+              prayer_times: {
+                type: :array,
+                items: {
+                  type: :object,
+                  properties: {
+                    office_id: { type: :string, example: '1' },
+                    office_name: { type: :string, example: 'Matutino' },
+                    hour: { type: :integer, example: 6 },
+                    minute: { type: :integer, example: 0 },
+                    enabled: { type: :boolean, example: true }
+                  }
+                }
+              }
             }
           }
         },
@@ -172,6 +202,101 @@ RSpec.describe 'api/v1/users', type: :request do
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'Unauthorized' }
+               }
+
+        run_test!
+      end
+    end
+  end
+
+  path '/api/v1/users/fcm_token' do
+    post('Save FCM token for push notifications') do
+      tags api_tags
+      produces content_type
+      consumes content_type
+      description 'Saves or updates the FCM (Firebase Cloud Messaging) token for the authenticated user to enable push notifications'
+      security [ { bearer_auth: [] } ]
+
+      parameter name: 'Authorization',
+                in: :header,
+                type: :string,
+                description: 'Firebase ID Token (format: Bearer <token>)',
+                required: true
+
+      parameter name: :fcm_token_data, in: :body, schema: {
+        type: :object,
+        properties: {
+          fcm_token: { type: :string, example: 'fK8x9y2ZqR3...' },
+          platform: { type: :string, enum: [ 'android', 'ios', 'web' ], example: 'android' }
+        },
+        required: [ 'fcm_token' ]
+      }
+
+      response(200, 'successful') do
+        schema type: :object,
+               properties: {
+                 message: { type: :string, example: 'Token FCM salvo com sucesso' },
+                 fcm_token: { type: :string, example: 'fK8x9y2ZqR3...' }
+               }
+
+        run_test!
+      end
+
+      response(401, 'unauthorized') do
+        schema type: :object,
+               properties: {
+                 error: { type: :string, example: 'Unauthorized' }
+               }
+
+        run_test!
+      end
+
+      response(422, 'unprocessable entity') do
+        schema type: :object,
+               properties: {
+                 error: { type: :string, example: 'FCM token is required' }
+               }
+
+        run_test!
+      end
+    end
+
+    delete('Remove FCM token') do
+      tags api_tags
+      produces content_type
+      description 'Removes the FCM token for the authenticated user (e.g., when logging out or disabling notifications)'
+      security [ { bearer_auth: [] } ]
+
+      parameter name: 'Authorization',
+                in: :header,
+                type: :string,
+                description: 'Firebase ID Token (format: Bearer <token>)',
+                required: true
+
+      parameter name: :fcm_token, in: :query, type: :string, description: 'FCM token to remove', required: true
+
+      response(200, 'successful') do
+        schema type: :object,
+               properties: {
+                 message: { type: :string, example: 'Token FCM removido com sucesso' }
+               }
+
+        run_test!
+      end
+
+      response(401, 'unauthorized') do
+        schema type: :object,
+               properties: {
+                 error: { type: :string, example: 'Unauthorized' }
+               }
+
+        run_test!
+      end
+
+      response(422, 'unprocessable entity') do
+        schema type: :object,
+               properties: {
+                 error: { type: :string, example: 'FCM token is required' }
                }
 
         run_test!
