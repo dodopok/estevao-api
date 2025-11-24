@@ -305,7 +305,7 @@ class CelebrationResolverTest < ActiveSupport::TestCase
       "2026-04-04 deveria retornar Vigília Pascal por ter maior precedência"
   end
 
-  #TODO: fix test
+  # TODO: fix test
   # test "domingos em quadras principais têm precedência sobre festivais" do
   #   # Cria um festival que cai num domingo da Quaresma
   #   festival = Celebration.create!(
