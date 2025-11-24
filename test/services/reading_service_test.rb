@@ -3,6 +3,8 @@ require "test_helper"
 class ReadingServiceTest < ActiveSupport::TestCase
   def setup
     # Cria celebração de teste
+    @prayer_book = default_prayer_book
+
     @celebration = Celebration.create!(
       name: "São José Teste",
       celebration_type: "festival",
@@ -10,7 +12,8 @@ class ReadingServiceTest < ActiveSupport::TestCase
       movable: false,
       fixed_month: 3,
       fixed_day: 19,
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+      prayer_book: @prayer_book
     )
 
     # Cria leitura para a celebração
@@ -22,7 +25,8 @@ class ReadingServiceTest < ActiveSupport::TestCase
       first_reading: "Deuteronômio 33:13-16",
       psalm: "Salmo 89:2-9",
       second_reading: "Filipenses 4:5-8",
-      gospel: "Mateus 13:53-58"
+      gospel: "Mateus 13:53-58",
+      prayer_book: @prayer_book
     )
 
     # Cria leitura para um Proper
@@ -34,7 +38,8 @@ class ReadingServiceTest < ActiveSupport::TestCase
       first_reading: "Joel 2:23-32",
       psalm: "Psalm 65",
       second_reading: "2 Timothy 4:6-8, 16-18",
-      gospel: "Luke 18:9-14"
+      gospel: "Luke 18:9-14",
+      prayer_book: @prayer_book
     )
 
     # Cria leitura para domingo específico
@@ -46,7 +51,8 @@ class ReadingServiceTest < ActiveSupport::TestCase
       first_reading: "Isaiah 2:1-5",
       psalm: "Psalm 122",
       second_reading: "Romans 13:11-14",
-      gospel: "Matthew 24:36-44"
+      gospel: "Matthew 24:36-44",
+      prayer_book: @prayer_book
     )
   end
 
@@ -97,7 +103,8 @@ class ReadingServiceTest < ActiveSupport::TestCase
       movable: false,
       fixed_month: 6,
       fixed_day: 20,
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+          prayer_book: @prayer_book
     )
 
     date = Date.new(2025, 6, 20)
@@ -188,6 +195,7 @@ class ReadingServiceTest < ActiveSupport::TestCase
 
   test "format_response remove campos nil com compact" do
     reading = LectionaryReading.create!(
+      prayer_book: @prayer_book,
       celebration_id: nil,
       date_reference: "test",
       cycle: "A",

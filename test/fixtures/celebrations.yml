@@ -10,9 +10,10 @@ one:
   calculation_rule: MyString
   liturgical_color: MyString
   can_be_transferred: false
-  transfer_rules: 
+  transfer_rules:
   description: MyText
   latin_name: MyString
+  prayer_book: one
 
 two:
   name: MyString
@@ -24,6 +25,7 @@ two:
   calculation_rule: MyString
   liturgical_color: MyString
   can_be_transferred: false
-  transfer_rules: 
+  transfer_rules:
   description: MyText
   latin_name: MyString
+  prayer_book: two

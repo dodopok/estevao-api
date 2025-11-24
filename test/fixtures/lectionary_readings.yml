@@ -10,6 +10,7 @@ one:
   gospel: MyString
   celebration: one
   notes: MyText
+  prayer_book: one
 
 two:
   date_reference: MyString
@@ -21,3 +22,4 @@ two:
   gospel: MyString
   celebration: two
   notes: MyText
+  prayer_book: two

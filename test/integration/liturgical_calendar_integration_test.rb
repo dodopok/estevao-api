@@ -3,6 +3,8 @@ require "test_helper"
 class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
   def setup
     # Cria dados necessários para testes de integração completos
+    @prayer_book = default_prayer_book
+
     @advent_season = LiturgicalSeason.create!(
       name: "Advento",
       color: "violeta"
@@ -30,7 +32,8 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
       rank: 0,
       movable: true,
       calculation_rule: "easter",
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+      prayer_book: @prayer_book
     )
 
     @christmas = Celebration.create!(
@@ -40,7 +43,8 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
       movable: false,
       fixed_month: 12,
       fixed_day: 25,
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+      prayer_book: @prayer_book
     )
 
     @holy_saturday = Celebration.create!(
@@ -49,7 +53,8 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
       rank: 23,
       movable: true,
       calculation_rule: "easter_minus_1_day",
-      liturgical_color: "preto"
+      liturgical_color: "preto",
+      prayer_book: @prayer_book
     )
 
     @easter_vigil = Celebration.create!(
@@ -58,7 +63,8 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
       rank: 1,
       movable: true,
       calculation_rule: "easter_minus_1_day",
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+      prayer_book: @prayer_book
     )
 
     @lesser_feast = Celebration.create!(
@@ -68,7 +74,8 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
       movable: false,
       fixed_month: 11,
       fixed_day: 16,
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+      prayer_book: @prayer_book
     )
 
     # Limpa cache
@@ -138,7 +145,8 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
       rank: 21,
       movable: true,
       calculation_rule: "easter_minus_6_days",
-      liturgical_color: "roxo"
+      liturgical_color: "roxo",
+          prayer_book: @prayer_book
     )
 
     Celebration.create!(
@@ -147,7 +155,8 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
       rank: 21,
       movable: true,
       calculation_rule: "easter_minus_5_days",
-      liturgical_color: "roxo"
+      liturgical_color: "roxo",
+          prayer_book: @prayer_book
     )
 
     Celebration.create!(
@@ -156,7 +165,8 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
       rank: 21,
       movable: true,
       calculation_rule: "easter_minus_4_days",
-      liturgical_color: "roxo"
+      liturgical_color: "roxo",
+          prayer_book: @prayer_book
     )
 
     # Segunda-feira Santa: 30/03/2026
@@ -268,6 +278,7 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
   test "fluxo completo: leituras são incluídas quando disponíveis" do
     # Cria leitura para uma data específica
     LectionaryReading.create!(
+      prayer_book: @prayer_book,
       celebration_id: @christmas.id,
       date_reference: "12-25",
       cycle: "all",
@@ -290,6 +301,7 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
   test "fluxo completo: endpoint de leituras retorna dados corretos" do
     # Cria leitura
     LectionaryReading.create!(
+      prayer_book: @prayer_book,
       celebration_id: @christmas.id,
       date_reference: "12-25",
       cycle: "all",
@@ -317,6 +329,7 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
   test "fluxo completo: coletas são incluídas quando disponíveis" do
     # Cria coleta para Natal
     Collect.create!(
+      prayer_book: @prayer_book,
       celebration_id: @christmas.id,
       text: "Deus Onipotente, que destes vosso Filho unigênito...",
       language: "pt-BR"
@@ -334,6 +347,7 @@ class LiturgicalCalendarIntegrationTest < ActionDispatch::IntegrationTest
   test "fluxo completo: coletas de quadras são usadas quando não há específica" do
     # Cria coleta para Advento
     Collect.create!(
+      prayer_book: @prayer_book,
       season_id: @advent_season.id,
       text: "Onipotente Deus, dá-nos a graça...",
       language: "pt-BR"

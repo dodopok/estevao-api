@@ -6,6 +6,7 @@ one:
   season: one
   text: MyText
   language: MyString
+  prayer_book: one
 
 two:
   celebration: two
@@ -13,3 +14,4 @@ two:
   season: two
   text: MyText
   language: MyString
+  prayer_book: two

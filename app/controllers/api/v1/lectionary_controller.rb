@@ -1,6 +1,9 @@
 module Api
   module V1
     class LectionaryController < ApplicationController
+      include Authenticatable
+
+      before_action :authenticate_user_optional
       # GET /api/v1/lectionary/:year/:month/:day
       # Retorna as leituras para um dia específico
       def day
@@ -103,13 +106,16 @@ module Api
       end
 
       def find_readings_for_date(date, cycle, service_type = "eucharist")
+        prayer_book = PrayerBook.find_by_code(prayer_book_code)
+
         # Primeiro tenta encontrar por celebração fixa
-        celebration = Celebration.fixed.for_date(date.month, date.day).first
+        celebration = Celebration.fixed.for_date(date.month, date.day).where(prayer_book_id: prayer_book.id).first
 
         if celebration
           reading = LectionaryReading
                       .where(celebration_id: celebration.id)
                       .where(service_type: service_type)
+                      .where(prayer_book_id: prayer_book.id)
                       .where("cycle = ? OR cycle = ?", cycle, "all")
                       .first
           return reading if reading
@@ -129,8 +135,17 @@ module Api
         LectionaryReading
           .for_date_reference(date_ref)
           .where(service_type: service_type)
+          .where(prayer_book_id: prayer_book.id)
           .where("cycle = ? OR cycle = ?", cycle, "all")
           .first
+      end
+
+      def prayer_book_code
+        # Priority: URL param > User preference > Default
+        return params[:prayer_book_code] if params[:prayer_book_code].present?
+        return current_user.preferences["prayer_book_code"] if current_user&.preferences&.dig("prayer_book_code")
+
+        "loc_2015"
       end
 
       def format_readings_response(reading, date, cycle)

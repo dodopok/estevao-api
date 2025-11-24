@@ -1,6 +1,7 @@
 class LectionaryReading < ApplicationRecord
   # Relacionamento - celebration é opcional pois pode ser leitura de domingo
   belongs_to :celebration, optional: true
+  belongs_to :prayer_book
 
   # Validações
   validates :date_reference, presence: true
@@ -15,6 +16,11 @@ class LectionaryReading < ApplicationRecord
   scope :service_type_eucharist, -> { where(service_type: "eucharist") }
   scope :service_type_morning_prayer, -> { where(service_type: "morning_prayer") }
   scope :service_type_evening_prayer, -> { where(service_type: "evening_prayer") }
+  scope :for_prayer_book_id, ->(prayer_book_id) { where(prayer_book_id: prayer_book_id) }
+  scope :for_prayer_book, ->(code) {
+    prayer_book = PrayerBook.find_by(code: code)
+    where(prayer_book_id: prayer_book&.id)
+  }
 
   # Método para determinar o ciclo baseado no ano litúrgico
   def self.cycle_for_year(year)

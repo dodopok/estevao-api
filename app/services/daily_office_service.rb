@@ -14,7 +14,7 @@ class DailyOfficeService
     @day_info = liturgical_calendar.day_info(@date)
 
     # 2. Fetch the Readings for the Day
-    @readings = ReadingService.new(@date).find_readings || {}
+    @readings = ReadingService.new(@date, prayer_book_code: @prefs[:prayer_book_code]).find_readings || {}
 
     # 3. Assemble the Office based on type
     structure = case @office_type
@@ -36,7 +36,8 @@ class DailyOfficeService
       saint: @day_info[:saint],
       modules: structure,
       metadata: {
-        version: @prefs[:version],
+        prayer_book_code: @prefs[:prayer_book_code],
+        prayer_book_name: prayer_book&.name,
         bible_version: @prefs[:bible_version],
         language: @prefs[:language]
       }
@@ -264,7 +265,7 @@ class DailyOfficeService
       line_item("", type: "spacer")
     ]
 
-    cycle.psalms(translation: @prefs[:version]).each do |psalm|
+    cycle.psalms(prayer_book_code: @prefs[:prayer_book_code]).each do |psalm|
       next unless psalm
 
       lines << line_item(psalm.full_title, type: "subheading")
@@ -290,7 +291,7 @@ class DailyOfficeService
     lines = []
 
     psalm_numbers.each do |number|
-      psalm = Psalm.find_psalm(number, translation: @prefs[:version])
+      psalm = Psalm.find_psalm(number, prayer_book_code: @prefs[:prayer_book_code])
       next unless psalm
 
       lines << line_item(psalm.full_title, type: "subheading")
@@ -311,7 +312,7 @@ class DailyOfficeService
   end
 
   def build_fixed_psalm(number)
-    psalm = Psalm.find_psalm(number, translation: @prefs[:version])
+    psalm = Psalm.find_psalm(number, prayer_book_code: @prefs[:prayer_book_code])
     return nil unless psalm
 
     {
@@ -533,7 +534,7 @@ class DailyOfficeService
   end
 
   def build_collects
-    collects_data = CollectService.new(@date).find_collects || {}
+    collects_data = CollectService.new(@date, prayer_book_code: @prefs[:prayer_book_code]).find_collects || {}
 
     {
       name: "Coletas",
@@ -629,7 +630,7 @@ class DailyOfficeService
   end
 
   def fetch_liturgical_text(slug)
-    LiturgicalText.find_text(slug, version: @prefs[:version])
+    LiturgicalText.find_text(slug, prayer_book_code: @prefs[:prayer_book_code])
   end
 
   def fetch_bible_text(reference)
@@ -641,7 +642,7 @@ class DailyOfficeService
   end
 
   def liturgical_calendar
-    @liturgical_calendar ||= LiturgicalCalendar.new(@date.year)
+    @liturgical_calendar ||= LiturgicalCalendar.new(@date.year, prayer_book_code: @prefs[:prayer_book_code])
   end
 
   def gloria_patri
@@ -671,12 +672,20 @@ class DailyOfficeService
 
   def default_preferences
     {
-      version: "loc_2015",
+      prayer_book_code: "loc_2015",
       language: "pt-BR",
       bible_version: "nvi",
       lords_prayer_version: "traditional",
       creed_type: :apostles,
       confession_type: "long"
     }
+  end
+
+  def prayer_book
+    @prayer_book ||= PrayerBook.find_by_code(@prefs[:prayer_book_code])
+  end
+
+  def prayer_book_id
+    prayer_book&.id
   end
 end

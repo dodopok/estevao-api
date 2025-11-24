@@ -55,7 +55,7 @@ worksheet1.set_column(5, 5, 30)  # second_reading
 worksheet1.set_column(6, 6, 30)  # gospel
 
 # Cabeçalhos
-headers = ["cycle", "service_type", "date_reference", "first_reading", "psalm", "second_reading", "gospel"]
+headers = [ "cycle", "service_type", "date_reference", "first_reading", "psalm", "second_reading", "gospel" ]
 worksheet1.write_row(0, 0, headers, header_format)
 
 # Dados
@@ -86,17 +86,17 @@ worksheet2.set_column(5, 5, 30)  # second_reading
 worksheet2.set_column(6, 6, 30)  # gospel
 
 # Cabeçalhos
-headers2 = ["date_reference", "cycle", "service_type", "first_reading", "psalm", "second_reading", "gospel"]
+headers2 = [ "date_reference", "cycle", "service_type", "first_reading", "psalm", "second_reading", "gospel" ]
 worksheet2.write_row(0, 0, headers2, header_format)
 
 # Template para ciclos faltantes
 row = 1
 date_refs.each do |date_ref|
   existing_cycles = LectionaryReading.where(date_reference: date_ref).pluck(:cycle).uniq
-  
-  ['A', 'B', 'C'].each do |cycle|
+
+  [ 'A', 'B', 'C' ].each do |cycle|
     next if existing_cycles.include?(cycle)
-    
+
     worksheet2.write(row, 0, date_ref, cell_format)
     worksheet2.write(row, 1, cycle, cell_format)
     worksheet2.write(row, 2, 'eucharist', cell_format)

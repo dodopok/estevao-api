@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_23_000002) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_24_200629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -40,6 +40,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_23_000002) do
     t.string "liturgical_color"
     t.boolean "movable", default: false, null: false
     t.string "name", null: false
+    t.bigint "prayer_book_id", null: false
     t.integer "rank", null: false
     t.jsonb "transfer_rules", default: {}
     t.datetime "updated_at", null: false
@@ -47,6 +48,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_23_000002) do
     t.index ["fixed_month", "fixed_day"], name: "index_celebrations_on_fixed_month_and_fixed_day"
     t.index ["movable"], name: "index_celebrations_on_movable"
     t.index ["name"], name: "index_celebrations_on_name"
+    t.index ["prayer_book_id"], name: "index_celebrations_on_prayer_book_id"
     t.index ["rank"], name: "index_celebrations_on_rank"
   end
 
@@ -54,12 +56,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_23_000002) do
     t.bigint "celebration_id"
     t.datetime "created_at", null: false
     t.string "language"
+    t.bigint "prayer_book_id", null: false
     t.string "preface"
     t.bigint "season_id"
     t.string "sunday_reference"
     t.text "text"
     t.datetime "updated_at", null: false
+    t.index ["celebration_id", "prayer_book_id"], name: "index_collects_on_celebration_id_and_prayer_book_id"
     t.index ["celebration_id"], name: "index_collects_on_celebration_id"
+    t.index ["prayer_book_id"], name: "index_collects_on_prayer_book_id"
     t.index ["season_id"], name: "index_collects_on_season_id"
   end
 
@@ -92,11 +97,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_23_000002) do
     t.string "first_reading"
     t.string "gospel"
     t.text "notes"
+    t.bigint "prayer_book_id", null: false
     t.string "psalm"
     t.string "second_reading"
     t.string "service_type"
     t.datetime "updated_at", null: false
     t.index ["celebration_id"], name: "index_lectionary_readings_on_celebration_id"
+    t.index ["date_reference", "service_type", "prayer_book_id"], name: "index_lectionary_readings_on_date_service_prayer_book"
+    t.index ["prayer_book_id"], name: "index_lectionary_readings_on_prayer_book_id"
   end
 
   create_table "liturgical_colors", force: :cascade do |t|
@@ -121,13 +129,13 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_23_000002) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.string "language", default: "pt-BR"
+    t.bigint "prayer_book_id", null: false
     t.string "reference"
     t.string "slug", null: false
     t.datetime "updated_at", null: false
-    t.string "version", default: "loc_2015"
     t.index ["category"], name: "index_liturgical_texts_on_category"
-    t.index ["slug", "version"], name: "index_liturgical_texts_on_slug_and_version", unique: true
-    t.index ["slug"], name: "index_liturgical_texts_on_slug"
+    t.index ["prayer_book_id"], name: "index_liturgical_texts_on_prayer_book_id"
+    t.index ["slug", "prayer_book_id"], name: "index_liturgical_texts_on_slug_and_prayer_book_id", unique: true
   end
 
   create_table "notification_logs", force: :cascade do |t|
@@ -146,28 +154,45 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_23_000002) do
     t.index ["user_id"], name: "index_notification_logs_on_user_id"
   end
 
+  create_table "prayer_books", force: :cascade do |t|
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.boolean "is_default"
+    t.string "jurisdiction"
+    t.string "name"
+    t.string "pdf_url"
+    t.string "thumbnail_url"
+    t.datetime "updated_at", null: false
+    t.integer "year"
+    t.index ["code"], name: "index_prayer_books_on_code", unique: true
+    t.index ["is_default"], name: "index_prayer_books_on_is_default"
+  end
+
   create_table "psalm_cycles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "cycle_type", null: false
     t.integer "day_of_week", null: false
     t.text "notes"
     t.string "office_type", null: false
+    t.bigint "prayer_book_id", null: false
     t.jsonb "psalm_numbers", default: [], null: false
     t.datetime "updated_at", null: false
     t.integer "week_number"
-    t.index ["cycle_type", "week_number", "day_of_week", "office_type"], name: "index_psalm_cycles_on_cycle_lookup", unique: true
+    t.index ["cycle_type", "week_number", "day_of_week", "office_type", "prayer_book_id"], name: "index_psalm_cycles_on_cycle_lookup_with_prayer_book", unique: true
+    t.index ["prayer_book_id"], name: "index_psalm_cycles_on_prayer_book_id"
   end
 
   create_table "psalms", force: :cascade do |t|
     t.text "antiphon"
     t.datetime "created_at", null: false
     t.integer "number", null: false
+    t.bigint "prayer_book_id", null: false
     t.string "title"
-    t.string "translation", default: "loc_2015"
     t.datetime "updated_at", null: false
     t.jsonb "verses", default: {}, null: false
-    t.index ["number", "translation"], name: "index_psalms_on_number_and_translation", unique: true
-    t.index ["number"], name: "index_psalms_on_number"
+    t.index ["number", "prayer_book_id"], name: "index_psalms_on_number_and_prayer_book_id", unique: true
+    t.index ["prayer_book_id"], name: "index_psalms_on_prayer_book_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -185,10 +210,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_23_000002) do
     t.index ["provider_uid"], name: "index_users_on_provider_uid"
   end
 
+  add_foreign_key "celebrations", "prayer_books", on_delete: :restrict
   add_foreign_key "collects", "celebrations"
   add_foreign_key "collects", "liturgical_seasons", column: "season_id"
+  add_foreign_key "collects", "prayer_books"
   add_foreign_key "completions", "users"
   add_foreign_key "fcm_tokens", "users"
   add_foreign_key "lectionary_readings", "celebrations"
+  add_foreign_key "lectionary_readings", "prayer_books"
+  add_foreign_key "liturgical_texts", "prayer_books", on_delete: :restrict
   add_foreign_key "notification_logs", "users"
+  add_foreign_key "psalm_cycles", "prayer_books"
+  add_foreign_key "psalms", "prayer_books", on_delete: :restrict
 end

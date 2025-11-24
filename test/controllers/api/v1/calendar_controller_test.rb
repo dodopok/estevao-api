@@ -5,13 +5,16 @@ module Api
     class CalendarControllerTest < ActionDispatch::IntegrationTest
       def setup
         # Cria dados mínimos necessários para os testes
+        @prayer_book = default_prayer_book
+
         @easter = Celebration.create!(
           name: "Páscoa",
           celebration_type: "principal_feast",
           rank: 0,
           movable: true,
           calculation_rule: "easter",
-          liturgical_color: "branco"
+          liturgical_color: "branco",
+          prayer_book: @prayer_book
         )
 
         @advent_season = LiturgicalSeason.create!(
@@ -103,6 +106,7 @@ module Api
       test "GET /api/v1/calendar/:year/:month/:day inclui coletas e leituras" do
         # Cria uma coleta de teste
         Collect.create!(
+          prayer_book: @prayer_book,
           season_id: @advent_season.id,
           text: "Coleta de teste",
           language: "pt-BR"
@@ -131,7 +135,8 @@ module Api
           movable: false,
           fixed_month: 11,
           fixed_day: 16,
-          liturgical_color: "branco"
+          liturgical_color: "branco",
+          prayer_book: @prayer_book
         )
 
         get "/api/v1/calendar/2025/11/16"
@@ -153,7 +158,8 @@ module Api
           rank: 23,
           movable: true,
           calculation_rule: "easter_minus_1_day",
-          liturgical_color: "preto"
+          liturgical_color: "preto",
+          prayer_book: @prayer_book
         )
 
         Celebration.create!(
@@ -162,7 +168,8 @@ module Api
           rank: 1,
           movable: true,
           calculation_rule: "easter_minus_1_day",
-          liturgical_color: "branco"
+          liturgical_color: "branco",
+          prayer_book: @prayer_book
         )
 
         get "/api/v1/calendar/2026/4/4"
@@ -185,7 +192,8 @@ module Api
           rank: 21,
           movable: true,
           calculation_rule: "easter_minus_6_days",
-          liturgical_color: "roxo"
+          liturgical_color: "roxo",
+          prayer_book: @prayer_book
         )
 
         Celebration.create!(
@@ -194,7 +202,8 @@ module Api
           rank: 21,
           movable: true,
           calculation_rule: "easter_minus_5_days",
-          liturgical_color: "roxo"
+          liturgical_color: "roxo",
+          prayer_book: @prayer_book
         )
 
         Celebration.create!(
@@ -203,7 +212,8 @@ module Api
           rank: 21,
           movable: true,
           calculation_rule: "easter_minus_4_days",
-          liturgical_color: "roxo"
+          liturgical_color: "roxo",
+          prayer_book: @prayer_book
         )
 
         # Testa Segunda-feira Santa

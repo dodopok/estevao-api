@@ -98,6 +98,7 @@ module Api
       def preferences_params
         params.require(:preferences).permit(
           :version,
+          :prayer_book_code,
           :language,
           :bible_version,
           :lords_prayer_version,

@@ -3,13 +3,16 @@ require "test_helper"
 class LiturgicalCalendarTest < ActiveSupport::TestCase
   def setup
     # Cria dados mínimos necessários
+    @prayer_book = default_prayer_book
+
     @easter_2025 = Celebration.create!(
       name: "Páscoa",
       celebration_type: "principal_feast",
       rank: 0,
       movable: true,
       calculation_rule: "easter",
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+      prayer_book: @prayer_book
     )
 
     @lesser_feast = Celebration.create!(
@@ -19,7 +22,8 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
       movable: false,
       fixed_month: 11,
       fixed_day: 16,
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+      prayer_book: @prayer_book
     )
   end
 
@@ -176,7 +180,8 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
       rank: 12,
       movable: true,
       calculation_rule: "sunday_before_advent",
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+          prayer_book: @prayer_book
     )
 
     calendar = LiturgicalCalendar.new(2025)
@@ -197,7 +202,8 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
       movable: false,
       fixed_month: 6,
       fixed_day: 16, # Segunda-feira em 2025
-      liturgical_color: "vermelho"
+      liturgical_color: "vermelho",
+          prayer_book: @prayer_book
     )
 
     calendar = LiturgicalCalendar.new(2025)
@@ -376,7 +382,8 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
       rank: 1,
       movable: true,
       calculation_rule: "easter_minus_1_day",
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+          prayer_book: @prayer_book
     )
 
     calendar = LiturgicalCalendar.new(2026)
@@ -459,7 +466,8 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
       movable: false,
       fixed_month: 8,
       fixed_day: 15,
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+          prayer_book: @prayer_book
     )
 
     calendar = LiturgicalCalendar.new(2025)
@@ -487,7 +495,8 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
       fixed_month: 3,
       fixed_day: 25,
       liturgical_color: "branco",
-      can_be_transferred: true
+      can_be_transferred: true,
+          prayer_book: @prayer_book
     )
 
     calendar = LiturgicalCalendar.new(2025)
@@ -506,7 +515,8 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
       rank: 20,
       movable: true,
       calculation_rule: "easter_minus_46_days",
-      liturgical_color: "roxo"
+      liturgical_color: "roxo",
+          prayer_book: @prayer_book
     )
 
     calendar = LiturgicalCalendar.new(2025)
@@ -525,7 +535,8 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
       movable: false,
       fixed_month: 3,
       fixed_day: 17,
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+          prayer_book: @prayer_book
     )
 
     calendar = LiturgicalCalendar.new(2025)
@@ -545,7 +556,8 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
       movable: false,
       fixed_month: 10,
       fixed_day: 4,
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+          prayer_book: @prayer_book
     )
 
     calendar = LiturgicalCalendar.new(2026)

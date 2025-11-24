@@ -13,6 +13,11 @@ RSpec.describe 'api/v1/calendar', type: :request do
     get('today calendar') do
       tags api_tags
       produces content_type
+      security [ { bearer_auth: [] }, {} ]
+      parameter name: 'Authorization', in: :header, type: :string, required: false,
+                description: 'Optional Firebase auth token (Bearer)'
+      parameter name: 'prayer_book_code', in: :query, type: :string, required: false,
+                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided'
 
       response(200, 'successful') do
         after do |example|
@@ -35,6 +40,11 @@ RSpec.describe 'api/v1/calendar', type: :request do
     get('day calendar') do
       tags api_tags
       produces content_type
+      security [ { bearer_auth: [] }, {} ]
+      parameter name: 'Authorization', in: :header, type: :string, required: false,
+                description: 'Optional Firebase auth token (Bearer)'
+      parameter name: 'prayer_book_code', in: :query, type: :string, required: false,
+                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided'
 
       response(200, 'successful') do
         let(:year) { '2024' }
@@ -60,6 +70,11 @@ RSpec.describe 'api/v1/calendar', type: :request do
     get('month calendar') do
       tags api_tags
       produces content_type
+      security [ { bearer_auth: [] }, {} ]
+      parameter name: 'Authorization', in: :header, type: :string, required: false,
+                description: 'Optional Firebase auth token (Bearer)'
+      parameter name: 'prayer_book_code', in: :query, type: :string, required: false,
+                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided'
 
       response(200, 'successful') do
         let(:year) { '2024' }
@@ -83,6 +98,11 @@ RSpec.describe 'api/v1/calendar', type: :request do
     get('year calendar') do
       tags api_tags
       produces content_type
+      security [ { bearer_auth: [] }, {} ]
+      parameter name: 'Authorization', in: :header, type: :string, required: false,
+                description: 'Optional Firebase auth token (Bearer)'
+      parameter name: 'prayer_book_code', in: :query, type: :string, required: false,
+                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided'
 
       response(200, 'successful') do
         let(:year) { '2024' }

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: loc_2015
+  name: Livro de Oração Comum 2015
+  year: 2015
+  jurisdiction: IEAB
+  description: Livro de Oração Comum da Igreja Episcopal Anglicana do Brasil
+  is_default: true
+
+two:
+  code: loc_1987
+  name: Livro de Oração Comum 1987
+  year: 1987
+  jurisdiction: IEAB
+  description: Livro de Oração Comum da Igreja Episcopal Anglicana do Brasil (edição 1987)
+  is_default: false

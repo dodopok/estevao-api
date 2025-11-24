@@ -48,6 +48,13 @@ Rails.application.routes.draw do
       # Rotas de notificações (admin apenas)
       post "notifications/send", to: "notifications#send_to_users"
       post "notifications/broadcast", to: "notifications#broadcast"
+
+      # Rotas de livros de oração
+      resources :prayer_books, only: [ :index ], param: :code do
+        collection do
+          get ":code", to: "prayer_books#show", as: :show
+        end
+      end
     end
   end
 

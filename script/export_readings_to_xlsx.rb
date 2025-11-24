@@ -7,7 +7,7 @@
 #   rails runner script/export_readings_to_xlsx.rb
 #
 # Gera um arquivo Excel com todas as leituras do banco de dados
-# Colunas: cycle, service_type, date_reference, first_reading, psalm, 
+# Colunas: cycle, service_type, date_reference, first_reading, psalm,
 #          second_reading, gospel
 #
 # ================================================================================
@@ -26,7 +26,7 @@ puts "📅 Encontradas #{date_refs.count} date_references únicas"
 # Criar arquivo Excel
 Axlsx::Package.new do |package|
   workbook = package.workbook
-  
+
   # Estilos
   header_style = workbook.styles.add_style(
     bg_color: "4472C4",
@@ -34,11 +34,11 @@ Axlsx::Package.new do |package|
     b: true,
     alignment: { horizontal: :center, vertical: :center }
   )
-  
+
   cell_style = workbook.styles.add_style(
     alignment: { wrap_text: true, vertical: :top }
   )
-  
+
   # ==============================================================
   # PLANILHA 1: Todas as leituras existentes
   # ==============================================================
@@ -53,7 +53,7 @@ Axlsx::Package.new do |package|
       "second_reading",
       "gospel"
     ], style: header_style
-    
+
     # Dados
     readings.each do |reading|
       sheet.add_row [
@@ -66,11 +66,11 @@ Axlsx::Package.new do |package|
         reading.gospel || ""
       ], style: cell_style
     end
-    
+
     # Largura das colunas
     sheet.column_widths 8, 15, 30, 30, 25, 30, 30
   end
-  
+
   # ==============================================================
   # PLANILHA 2: Template com ciclos faltantes
   # ==============================================================
@@ -85,14 +85,14 @@ Axlsx::Package.new do |package|
       "second_reading",
       "gospel"
     ], style: header_style
-    
+
     # Template para ciclos faltantes
     date_refs.each do |date_ref|
       existing_cycles = LectionaryReading.where(date_reference: date_ref).pluck(:cycle).uniq
-      
-      ['A', 'B', 'C'].each do |cycle|
+
+      [ 'A', 'B', 'C' ].each do |cycle|
         next if existing_cycles.include?(cycle)
-        
+
         sheet.add_row [
           date_ref,
           cycle,
@@ -104,15 +104,15 @@ Axlsx::Package.new do |package|
         ], style: cell_style
       end
     end
-    
+
     # Largura das colunas
     sheet.column_widths 30, 8, 15, 30, 25, 30, 30
   end
-  
+
   # Salvar arquivo
   output_path = Rails.root.join("tmp", "lectionary_readings_export.xlsx")
   package.serialize(output_path)
-  
+
   puts "✅ Arquivo exportado com sucesso!"
   puts "📁 Localização: #{output_path}"
   puts ""

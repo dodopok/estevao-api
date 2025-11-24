@@ -3,6 +3,8 @@ require "test_helper"
 class CelebrationResolverTest < ActiveSupport::TestCase
   def setup
     # Cria celebrações de teste necessárias
+    @prayer_book = default_prayer_book
+
     @easter = Celebration.create!(
       name: "Páscoa",
       celebration_type: "principal_feast",
@@ -10,7 +12,8 @@ class CelebrationResolverTest < ActiveSupport::TestCase
       movable: true,
       calculation_rule: "easter",
       liturgical_color: "branco",
-      can_be_transferred: false
+      can_be_transferred: false,
+      prayer_book: @prayer_book
     )
 
     @holy_saturday = Celebration.create!(
@@ -20,7 +23,8 @@ class CelebrationResolverTest < ActiveSupport::TestCase
       movable: true,
       calculation_rule: "easter_minus_1_day",
       liturgical_color: "preto",
-      can_be_transferred: false
+      can_be_transferred: false,
+      prayer_book: @prayer_book
     )
 
     @easter_vigil = Celebration.create!(
@@ -30,7 +34,8 @@ class CelebrationResolverTest < ActiveSupport::TestCase
       movable: true,
       calculation_rule: "easter_minus_1_day",
       liturgical_color: "branco",
-      can_be_transferred: false
+      can_be_transferred: false,
+      prayer_book: @prayer_book
     )
 
     @good_friday = Celebration.create!(
@@ -40,7 +45,8 @@ class CelebrationResolverTest < ActiveSupport::TestCase
       movable: true,
       calculation_rule: "easter_minus_2_days",
       liturgical_color: "vermelho",
-      can_be_transferred: false
+      can_be_transferred: false,
+      prayer_book: @prayer_book
     )
 
     @annunciation = Celebration.create!(
@@ -51,7 +57,8 @@ class CelebrationResolverTest < ActiveSupport::TestCase
       fixed_month: 3,
       fixed_day: 25,
       liturgical_color: "branco",
-      can_be_transferred: true
+      can_be_transferred: true,
+      prayer_book: @prayer_book
     )
 
     @saint_joseph = Celebration.create!(
@@ -62,7 +69,8 @@ class CelebrationResolverTest < ActiveSupport::TestCase
       fixed_month: 3,
       fixed_day: 19,
       liturgical_color: "branco",
-      can_be_transferred: true
+      can_be_transferred: true,
+      prayer_book: @prayer_book
     )
 
     @all_saints = Celebration.create!(
@@ -73,7 +81,8 @@ class CelebrationResolverTest < ActiveSupport::TestCase
       fixed_month: 11,
       fixed_day: 1,
       liturgical_color: "branco",
-      can_be_transferred: true
+      can_be_transferred: true,
+      prayer_book: @prayer_book
     )
 
     @lesser_feast = Celebration.create!(
@@ -84,7 +93,8 @@ class CelebrationResolverTest < ActiveSupport::TestCase
       fixed_month: 5,
       fixed_day: 15,
       liturgical_color: "branco",
-      can_be_transferred: false
+      can_be_transferred: false,
+      prayer_book: @prayer_book
     )
   end
 
@@ -316,7 +326,8 @@ class CelebrationResolverTest < ActiveSupport::TestCase
   #     fixed_month: 3,
   #     fixed_day: 16, # Ajustar para ser domingo em 2025
   #     liturgical_color: "branco",
-  #     can_be_transferred: true
+  #     can_be_transferred: true,
+  #     prayer_book: @prayer_book
   #   )
 
   #   resolver = CelebrationResolver.new(2025)

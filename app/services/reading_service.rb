@@ -1,11 +1,20 @@
 # Serviço para buscar leituras do lecionário para uma data específica
 class ReadingService
-  attr_reader :date, :calendar, :cycle
+  attr_reader :date, :calendar, :cycle, :prayer_book_code
 
-  def initialize(date)
+  def initialize(date, prayer_book_code: "loc_2015")
     @date = date
     @calendar = LiturgicalCalendar.new(date.year)
     @cycle = determine_cycle
+    @prayer_book_code = prayer_book_code
+  end
+
+  def prayer_book
+    @prayer_book ||= PrayerBook.find_by_code(@prayer_book_code)
+  end
+
+  def prayer_book_id
+    prayer_book&.id
   end
 
   # Retorna as leituras para o dia
@@ -36,6 +45,7 @@ class ReadingService
 
     # Tentar por celebration_id
     reading = LectionaryReading.where(celebration_id: celebration.id, cycle: [ "all", cycle ])
+                               .for_prayer_book_id(prayer_book_id)
                                .service_type_eucharist
                                .first
 
@@ -44,6 +54,7 @@ class ReadingService
       celebration_ref = celebration.name.parameterize(separator: "_")
       reading = LectionaryReading.for_date_reference(celebration_ref)
                                  .where(cycle: [ cycle, "all" ])
+                                 .for_prayer_book_id(prayer_book_id)
                                  .service_type_eucharist
                                  .first
     end
@@ -60,6 +71,7 @@ class ReadingService
 
     LectionaryReading.for_date_reference("proper_#{proper_num}")
                      .where(cycle: [ cycle, "all" ])
+                     .for_prayer_book_id(prayer_book_id)
                      .service_type_eucharist
                      .first
   end
@@ -73,6 +85,7 @@ class ReadingService
 
     LectionaryReading.for_date_reference(sunday_ref)
                      .where(cycle: [ cycle, "all" ])
+                     .for_prayer_book_id(prayer_book_id)
                      .service_type_eucharist
                      .first
   end
@@ -84,6 +97,7 @@ class ReadingService
     possible_refs.each do |ref|
       reading = LectionaryReading.for_date_reference(ref)
                                  .where(cycle: [ cycle, "all" ])
+                                 .for_prayer_book_id(prayer_book_id)
                                  .service_type_eucharist
                                  .first
       return reading if reading

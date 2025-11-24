@@ -3,6 +3,8 @@ require "test_helper"
 class CollectServiceTest < ActiveSupport::TestCase
   def setup
     # Cria quadra litúrgica
+    @prayer_book = default_prayer_book
+
     @advent_season = LiturgicalSeason.create!(
       name: "Advento",
       color: "violeta",
@@ -17,35 +19,40 @@ class CollectServiceTest < ActiveSupport::TestCase
       movable: false,
       fixed_month: 3,
       fixed_day: 19,
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+      prayer_book: @prayer_book
     )
 
     # Cria coleta para celebração
     @celebration_collect = Collect.create!(
       celebration_id: @celebration.id,
       text: "Ó Deus, que fizeste de São José...",
-      language: "pt-BR"
+      language: "pt-BR",
+      prayer_book: @prayer_book
     )
 
     # Cria coleta para Proper
     @proper_collect = Collect.create!(
       sunday_reference: "proper_25",
       text: "Senhor Deus Onipotente, que chamaste...",
-      language: "pt-BR"
+      language: "pt-BR",
+      prayer_book: @prayer_book
     )
 
     # Cria coleta para quadra
     @season_collect = Collect.create!(
       season_id: @advent_season.id,
       text: "Onipotente Deus, dá-nos a graça...",
-      language: "pt-BR"
+      language: "pt-BR",
+      prayer_book: @prayer_book
     )
 
     # Cria coleta para domingo específico
     @sunday_collect = Collect.create!(
       sunday_reference: "advent_1",
       text: "Deus Onipotente, dá-nos a graça de entrar com alegria...",
-      language: "pt-BR"
+      language: "pt-BR",
+      prayer_book: @prayer_book
     )
   end
 
@@ -112,6 +119,7 @@ class CollectServiceTest < ActiveSupport::TestCase
 
   test "format_response retorna array quando há múltiplas coletas" do
     collect2 = Collect.create!(
+      prayer_book: @prayer_book,
       celebration_id: @celebration.id,
       text: "Segunda coleta de São José...",
       language: "pt-BR"
@@ -144,6 +152,7 @@ class CollectServiceTest < ActiveSupport::TestCase
 
   test "format_response inclui preface quando presente" do
     collect_with_preface = Collect.create!(
+      prayer_book: @prayer_book,
       celebration_id: @celebration.id,
       text: "Coleta com prefácio...",
       preface: "Prefácio especial...",
@@ -191,10 +200,12 @@ class CollectServiceTest < ActiveSupport::TestCase
       movable: false,
       fixed_month: 11,
       fixed_day: 30, # Primeiro Domingo do Advento 2025
-      liturgical_color: "branco"
+      liturgical_color: "branco",
+      prayer_book: @prayer_book
     )
 
     celebration_collect = Collect.create!(
+      prayer_book: @prayer_book,
       celebration_id: sunday_celebration.id,
       text: "Coleta da celebração em domingo",
       language: "pt-BR"
@@ -222,6 +233,7 @@ class CollectServiceTest < ActiveSupport::TestCase
   test "retorna apenas coletas no idioma correto" do
     # Cria coleta em inglês
     Collect.create!(
+      prayer_book: @prayer_book,
       celebration_id: @celebration.id,
       text: "English collect...",
       language: "en"

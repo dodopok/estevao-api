@@ -107,7 +107,7 @@ module Api
         if current_user
           prefs = current_user.preferences.symbolize_keys
           {
-            version: params[:version] || prefs[:version] || "loc_2015",
+            prayer_book_code: params[:prayer_book_code] || prefs[:prayer_book_code] || "loc_2015",
             language: params[:language] || prefs[:language] || "pt-BR",
             bible_version: params[:bible_version] || prefs[:bible_version] || "nvi",
             lords_prayer_version: params[:lords_prayer_version] || prefs[:lords_prayer_version] || "traditional",
@@ -117,7 +117,7 @@ module Api
         else
           # Usuário não autenticado - usa defaults ou params
           {
-            version: params[:version] || "loc_2015",
+            prayer_book_code: params[:prayer_book_code] || "loc_2015",
             language: params[:language] || "pt-BR",
             bible_version: params[:bible_version] || "nvi",
             lords_prayer_version: params[:lords_prayer_version] || "traditional",
@@ -125,7 +125,7 @@ module Api
             confession_type: params[:confession_type] || "long"
           }
         end
-      end
+    end
 
       # Adiciona dados do usuário autenticado na resposta
       def add_user_data(response, date, office_type)

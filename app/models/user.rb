@@ -15,6 +15,7 @@ class User < ApplicationRecord
     "streak_reminder_enabled" => true,
     "prayer_times" => [],
     "version" => "loc_2015",
+    "prayer_book_code" => "loc_2015",
     "language" => "pt-BR",
     "bible_version" => "nvi",
     "lords_prayer_version" => "traditional",

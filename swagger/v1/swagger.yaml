@@ -11,6 +11,23 @@ paths:
       summary: today calendar
       tags:
       - Calendar
+      security:
+      - bearer_auth: []
+      - {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        description: Optional Firebase auth token (Bearer)
+        schema:
+          type: string
+      - name: prayer_book_code
+        in: query
+        required: false
+        description: 'Prayer book code (default: loc_2015). If authenticated, uses
+          user''s preference if not provided'
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -38,6 +55,23 @@ paths:
       summary: day calendar
       tags:
       - Calendar
+      security:
+      - bearer_auth: []
+      - {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        description: Optional Firebase auth token (Bearer)
+        schema:
+          type: string
+      - name: prayer_book_code
+        in: query
+        required: false
+        description: 'Prayer book code (default: loc_2015). If authenticated, uses
+          user''s preference if not provided'
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -59,6 +93,23 @@ paths:
       summary: month calendar
       tags:
       - Calendar
+      security:
+      - bearer_auth: []
+      - {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        description: Optional Firebase auth token (Bearer)
+        schema:
+          type: string
+      - name: prayer_book_code
+        in: query
+        required: false
+        description: 'Prayer book code (default: loc_2015). If authenticated, uses
+          user''s preference if not provided'
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -74,6 +125,23 @@ paths:
       summary: year calendar
       tags:
       - Calendar
+      security:
+      - bearer_auth: []
+      - {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        description: Optional Firebase auth token (Bearer)
+        schema:
+          type: string
+      - name: prayer_book_code
+        in: query
+        required: false
+        description: 'Prayer book code (default: loc_2015). If authenticated, uses
+          user''s preference if not provided'
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -82,6 +150,29 @@ paths:
       summary: search celebration
       tags:
       - Celebrations
+      security:
+      - bearer_auth: []
+      - {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        description: Optional Firebase auth token (Bearer)
+        schema:
+          type: string
+      - name: prayer_book_code
+        in: query
+        required: false
+        description: 'Prayer book code (default: loc_2015). If authenticated, uses
+          user''s preference if not provided'
+        schema:
+          type: string
+      - name: q
+        in: query
+        required: false
+        description: Search query
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -111,6 +202,23 @@ paths:
       summary: by_date celebration
       tags:
       - Celebrations
+      security:
+      - bearer_auth: []
+      - {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        description: Optional Firebase auth token (Bearer)
+        schema:
+          type: string
+      - name: prayer_book_code
+        in: query
+        required: false
+        description: 'Prayer book code (default: loc_2015). If authenticated, uses
+          user''s preference if not provided'
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -119,6 +227,23 @@ paths:
       summary: list celebrations
       tags:
       - Celebrations
+      security:
+      - bearer_auth: []
+      - {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        description: Optional Firebase auth token (Bearer)
+        schema:
+          type: string
+      - name: prayer_book_code
+        in: query
+        required: false
+        description: 'Prayer book code (default: loc_2015). If authenticated, uses
+          user''s preference if not provided'
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -134,6 +259,23 @@ paths:
       summary: show celebration
       tags:
       - Celebrations
+      security:
+      - bearer_auth: []
+      - {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        description: Optional Firebase auth token (Bearer)
+        schema:
+          type: string
+      - name: prayer_book_code
+        in: query
+        required: false
+        description: 'Prayer book code (default: loc_2015). If authenticated, uses
+          user''s preference if not provided'
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -370,9 +512,9 @@ paths:
       required: true
       schema:
         type: string
-    - name: version
+    - name: prayer_book_code
       in: query
-      description: 'LOC version (default: loc_2015)'
+      description: 'Prayer book code (default: loc_2015)'
       required: false
       schema:
         type: string
@@ -478,9 +620,12 @@ paths:
                   metadata:
                     type: object
                     properties:
-                      version:
+                      prayer_book_code:
                         type: string
                         example: loc_2015
+                      prayer_book_name:
+                        type: string
+                        example: Livro de Oração Comum - IEAB 2015
                       bible_version:
                         type: string
                         example: nvi
@@ -515,9 +660,9 @@ paths:
       required: true
       schema:
         type: string
-    - name: version
+    - name: prayer_book_code
       in: query
-      description: 'LOC version (default: loc_2015)'
+      description: 'Prayer book code (default: loc_2015)'
       required: false
       schema:
         type: string
@@ -609,7 +754,9 @@ paths:
                   metadata:
                     type: object
                     properties:
-                      version:
+                      prayer_book_code:
+                        type: string
+                      prayer_book_name:
                         type: string
                       bible_version:
                         type: string
@@ -641,6 +788,23 @@ paths:
       summary: day lectionary
       tags:
       - Lectionary
+      security:
+      - bearer_auth: []
+      - {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        description: Optional Firebase auth token (Bearer)
+        schema:
+          type: string
+      - name: prayer_book_code
+        in: query
+        required: false
+        description: 'Prayer book code (default: loc_2015). If authenticated, uses
+          user''s preference if not provided'
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -668,6 +832,23 @@ paths:
       summary: all_services lectionary
       tags:
       - Lectionary
+      security:
+      - bearer_auth: []
+      - {}
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        description: Optional Firebase auth token (Bearer)
+        schema:
+          type: string
+      - name: prayer_book_code
+        in: query
+        required: false
+        description: 'Prayer book code (default: loc_2015). If authenticated, uses
+          user''s preference if not provided'
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -884,6 +1065,112 @@ paths:
               required:
               - title
               - body
+  "/api/v1/prayer_books":
+    get:
+      summary: list prayer books
+      tags:
+      - Prayer Books
+      description: Returns all available Prayer Books (LOCs), ordered by default and
+        year
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      example: loc_2015
+                    name:
+                      type: string
+                      example: Livro de Oração Comum - IEAB 2015
+                    year:
+                      type: integer
+                      example: 2015
+                    jurisdiction:
+                      type: string
+                      example: Igreja Episcopal Anglicana do Brasil
+                    description:
+                      type: string
+                      nullable: true
+                    thumbnail_url:
+                      type: string
+                      nullable: true
+                    pdf_url:
+                      type: string
+                      nullable: true
+                    is_default:
+                      type: boolean
+                      example: true
+                  required:
+                  - code
+                  - name
+                  - year
+                  - is_default
+  "/api/v1/prayer_books/{code}":
+    parameters:
+    - name: code
+      in: path
+      description: Prayer book code (e.g., loc_2015, loc_1987)
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show prayer book
+      tags:
+      - Prayer Books
+      description: Returns details of a specific Prayer Book by its code
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: loc_2015
+                  name:
+                    type: string
+                    example: Livro de Oração Comum - IEAB 2015
+                  year:
+                    type: integer
+                    example: 2015
+                  jurisdiction:
+                    type: string
+                    example: Igreja Episcopal Anglicana do Brasil
+                  description:
+                    type: string
+                    nullable: true
+                  thumbnail_url:
+                    type: string
+                    nullable: true
+                  pdf_url:
+                    type: string
+                    nullable: true
+                  is_default:
+                    type: boolean
+                    example: true
+                required:
+                - code
+                - name
+                - year
+                - is_default
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Prayer book not found
   "/api/v1/users/me":
     get:
       summary: Get current user profile

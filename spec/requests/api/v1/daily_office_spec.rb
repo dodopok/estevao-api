@@ -41,7 +41,7 @@ RSpec.describe "api/v1/daily_office", type: :request do
 
   path "/api/v1/daily_office/today/{office_type}" do
     parameter name: "office_type", in: :path, type: :string, description: "Type of office (morning, midday, evening, compline)", required: true
-    parameter name: :version, in: :query, type: :string, description: "LOC version (default: loc_2015)", required: false
+    parameter name: :prayer_book_code, in: :query, type: :string, description: "Prayer book code (default: loc_2015)", required: false
     parameter name: :bible_version, in: :query, type: :string, description: "Bible translation (default: nvi)", required: false
     parameter name: :language, in: :query, type: :string, description: "Language (default: pt-BR)", required: false
     parameter name: :lords_prayer_version, in: :query, type: :string, description: "Lord's Prayer version (traditional/contemporary)", required: false
@@ -89,7 +89,8 @@ RSpec.describe "api/v1/daily_office", type: :request do
                  metadata: {
                    type: :object,
                    properties: {
-                     version: { type: :string, example: "loc_2015" },
+                     prayer_book_code: { type: :string, example: "loc_2015" },
+                     prayer_book_name: { type: :string, example: "Livro de Oração Comum - IEAB 2015" },
                      bible_version: { type: :string, example: "nvi" },
                      language: { type: :string, example: "pt-BR" }
                    }
@@ -118,7 +119,7 @@ RSpec.describe "api/v1/daily_office", type: :request do
     parameter name: "month", in: :path, type: :string, description: "Month (1-12)", required: true
     parameter name: "day", in: :path, type: :string, description: "Day (1-31)", required: true
     parameter name: "office_type", in: :path, type: :string, description: "Type of office (morning, midday, evening, compline)", required: true
-    parameter name: :version, in: :query, type: :string, description: "LOC version (default: loc_2015)", required: false
+    parameter name: :prayer_book_code, in: :query, type: :string, description: "Prayer book code (default: loc_2015)", required: false
     parameter name: :bible_version, in: :query, type: :string, description: "Bible translation (default: nvi)", required: false
     parameter name: :language, in: :query, type: :string, description: "Language (default: pt-BR)", required: false
     parameter name: :lords_prayer_version, in: :query, type: :string, description: "Lord's Prayer version (traditional/contemporary)", required: false
@@ -169,7 +170,8 @@ RSpec.describe "api/v1/daily_office", type: :request do
                  metadata: {
                    type: :object,
                    properties: {
-                     version: { type: :string },
+                     prayer_book_code: { type: :string },
+                     prayer_book_name: { type: :string },
                      bible_version: { type: :string },
                      language: { type: :string }
                    }
