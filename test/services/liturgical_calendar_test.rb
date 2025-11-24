@@ -154,7 +154,7 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
     assert_equal "verde", calendar.color_for_date(date)
   end
 
-  test "domingos sempre usam cor da quadra, não da celebração" do
+  test "festas menores em domingos mantêm cor da quadra" do
     calendar = LiturgicalCalendar.new(2025)
 
     # 16 de novembro de 2025 é domingo no Tempo Comum
@@ -165,10 +165,30 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
     assert date.sunday?, "2025-11-16 deveria ser domingo"
     assert_equal "Tempo Comum", calendar.season_for_date(date)
     assert_equal "verde", calendar.color_for_date(date),
-      "Domingos devem usar cor da quadra, não da celebração"
+      "Festas menores em domingos devem manter cor da quadra"
   end
 
-  test "dias de semana usam cor da celebração quando há uma" do
+  test "festas principais em domingos sobrescrevem cor da quadra" do
+    # Cria Cristo Rei do Universo para 2025
+    christ_king = Celebration.create!(
+      name: "Cristo Rei do Universo",
+      celebration_type: "principal_feast",
+      rank: 12,
+      movable: true,
+      calculation_rule: "sunday_before_advent",
+      liturgical_color: "branco"
+    )
+
+    calendar = LiturgicalCalendar.new(2025)
+    date = Date.new(2025, 11, 23) # Cristo Rei em 2025
+
+    assert date.sunday?, "Cristo Rei deveria cair em domingo"
+    assert_equal "Tempo Comum", calendar.season_for_date(date)
+    assert_equal "branco", calendar.color_for_date(date),
+      "Festas principais sobrescrevem cor da quadra mesmo em domingos"
+  end
+
+  test "festas menores em dias de semana mantêm cor da quadra" do
     # Cria uma celebração em dia de semana
     celebration = Celebration.create!(
       name: "Santo Teste Segunda",
@@ -176,7 +196,7 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
       rank: 250,
       movable: false,
       fixed_month: 6,
-      fixed_day: 16, # Ajustar para ser segunda em 2025
+      fixed_day: 16, # Segunda-feira em 2025
       liturgical_color: "vermelho"
     )
 
@@ -185,11 +205,9 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
 
     refute date.sunday?, "Não deveria ser domingo"
 
-    # Deveria usar cor da celebração
-    color = calendar.color_for_date(date)
-    # Pode ser "vermelho" se a celebração for retornada, ou "verde" se não for
-    # O importante é que a lógica não quebre
-    assert color.is_a?(String)
+    # Festas menores não alteram cor da quadra
+    assert_equal "verde", calendar.color_for_date(date),
+      "Festas menores mantêm cor da quadra mesmo em dias de semana"
   end
 
   # === TESTES DE NOMES DE DOMINGOS ===
@@ -455,5 +473,92 @@ class LiturgicalCalendarTest < ActiveSupport::TestCase
     date = Date.new(2025, 11, 16) # Margaret of Scotland (lesser feast)
 
     refute calendar.holy_day?(date), "Lesser feast não deveria ser holy day"
+  end
+
+  # === TESTES DE PRECEDÊNCIA DE CORES ===
+
+  test "festas principais sobrescrevem cor da quadra mesmo na Quaresma" do
+    # Anunciação cai em 25 de março
+    annunciation = Celebration.create!(
+      name: "Anunciação de Nosso Senhor",
+      celebration_type: "principal_feast",
+      rank: 6,
+      movable: false,
+      fixed_month: 3,
+      fixed_day: 25,
+      liturgical_color: "branco",
+      can_be_transferred: true
+    )
+
+    calendar = LiturgicalCalendar.new(2025)
+    date = Date.new(2025, 3, 25)
+
+    assert_equal "Quaresma", calendar.season_for_date(date)
+    assert_equal "branco", calendar.color_for_date(date),
+      "Festa principal sobrescreve roxo da Quaresma"
+  end
+
+  test "dias santos principais sobrescrevem cor da quadra" do
+    # Quarta-feira de Cinzas
+    ash_wednesday = Celebration.create!(
+      name: "Quarta-Feira de Cinzas",
+      celebration_type: "major_holy_day",
+      rank: 20,
+      movable: true,
+      calculation_rule: "easter_minus_46_days",
+      liturgical_color: "roxo"
+    )
+
+    calendar = LiturgicalCalendar.new(2025)
+    date = Date.new(2025, 3, 5) # Quarta de Cinzas 2025
+
+    assert_equal "roxo", calendar.color_for_date(date),
+      "Dia santo principal define sua própria cor"
+  end
+
+  test "festas menores na Quaresma mantêm cor roxa da quadra" do
+    # São Patrício cai em 17 de março (durante Quaresma)
+    st_patrick = Celebration.create!(
+      name: "São Patrício",
+      celebration_type: "lesser_feast",
+      rank: 110,
+      movable: false,
+      fixed_month: 3,
+      fixed_day: 17,
+      liturgical_color: "branco"
+    )
+
+    calendar = LiturgicalCalendar.new(2025)
+    date = Date.new(2025, 3, 17)
+
+    assert_equal "Quaresma", calendar.season_for_date(date)
+    assert_equal "roxo", calendar.color_for_date(date),
+      "Festa menor na Quaresma mantém cor roxa da quadra"
+  end
+
+  test "celebration aparece mesmo quando cor não é usada" do
+    # São Francisco em domingo (4 de outubro de 2026)
+    st_francis = Celebration.create!(
+      name: "São Francisco de Assis",
+      celebration_type: "lesser_feast",
+      rank: 105,
+      movable: false,
+      fixed_month: 10,
+      fixed_day: 4,
+      liturgical_color: "branco"
+    )
+
+    calendar = LiturgicalCalendar.new(2026)
+    date = Date.new(2026, 10, 4)
+
+    info = calendar.day_info(date)
+
+    # Cor litúrgica principal é verde (Tempo Comum)
+    assert_equal "verde", info[:color]
+
+    # Mas celebration aparece com sua própria cor
+    assert_not_nil info[:celebration]
+    assert_equal "São Francisco de Assis", info[:celebration][:name]
+    assert_equal "branco", info[:celebration][:color]
   end
 end

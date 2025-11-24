@@ -67,13 +67,18 @@ class LiturgicalCalendar
   def color_for_date(date)
     celebration = celebration_for_date(date)
 
-    # Se há uma celebração com cor específica, usa essa cor
-    # MAS: Se é domingo, SEMPRE usa cor da quadra (domingos têm precedência)
-    if celebration && celebration[:color] && !date.sunday?
-      return celebration[:color]
+    # Se há uma FESTA PRINCIPAL ou DIA SANTO PRINCIPAL, usa SEMPRE a cor da celebração
+    # (sobrescreve tudo, incluindo domingos e quadras litúrgicas)
+    if celebration && celebration[:color]
+      if celebration[:type] == "principal_feast" || celebration[:type] == "major_holy_day"
+        return celebration[:color]
+      end
     end
 
-    # Caso contrário, usa a cor da quadra
+    # Para festivais e festas menores: mantém a cor da quadra litúrgica
+    # A celebração aparece em 'celebration', mas não altera a cor litúrgica principal
+
+    # Usa a cor da quadra
     season = season_for_date(date)
     movable = easter_calc.all_movable_dates
 

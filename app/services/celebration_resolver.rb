@@ -76,15 +76,16 @@ class CelebrationResolver
     # Ordena por rank (menor = maior precedência)
     sorted = celebrations.sort_by(&:rank)
 
-    # Festa Principal ou Dia Santo Principal sempre tem precedência
+    # Festa Principal ou Dia Santo Principal sempre tem precedência (mesmo em domingos)
     principal = sorted.find { |c| c.principal_feast? || c.major_holy_day? }
     return principal if principal
 
     # Domingos em quadras principais (Advento, Natal, Quaresma, Páscoa) têm precedência sobre festas menores
+    # MAS: Festas Principais e Dias Santos Principais já foram tratados acima
     if date.sunday? && in_major_season?(date)
-      # Retorna nil para que o domingo seja a celebração principal
-      # Isso permite que LiturgicalCalendar use a cor e o nome do domingo
-      return nil
+      # Retorna a festa menor para que apareça em 'celebration',
+      # mas LiturgicalCalendar usará a cor da quadra (não da celebração)
+      return sorted.first
     end
 
     # Caso contrário, retorna o de menor rank
