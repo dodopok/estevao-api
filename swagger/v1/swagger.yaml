@@ -28,6 +28,13 @@ paths:
           user''s preference if not provided'
         schema:
           type: string
+          enum:
+          - loc_1987
+          - locb_2008
+          - loc_1662
+          - loc_2012
+          - loc_2015
+          - loc_2019
       responses:
         '200':
           description: successful
@@ -72,6 +79,13 @@ paths:
           user''s preference if not provided'
         schema:
           type: string
+          enum:
+          - loc_1987
+          - locb_2008
+          - loc_1662
+          - loc_2012
+          - loc_2015
+          - loc_2019
       responses:
         '200':
           description: successful
@@ -110,6 +124,13 @@ paths:
           user''s preference if not provided'
         schema:
           type: string
+          enum:
+          - loc_1987
+          - locb_2008
+          - loc_1662
+          - loc_2012
+          - loc_2015
+          - loc_2019
       responses:
         '200':
           description: successful
@@ -142,6 +163,13 @@ paths:
           user''s preference if not provided'
         schema:
           type: string
+          enum:
+          - loc_1987
+          - locb_2008
+          - loc_1662
+          - loc_2012
+          - loc_2015
+          - loc_2019
       responses:
         '200':
           description: successful
@@ -167,6 +195,13 @@ paths:
           user''s preference if not provided'
         schema:
           type: string
+          enum:
+          - loc_1987
+          - locb_2008
+          - loc_1662
+          - loc_2012
+          - loc_2015
+          - loc_2019
       - name: q
         in: query
         required: false
@@ -219,6 +254,13 @@ paths:
           user''s preference if not provided'
         schema:
           type: string
+          enum:
+          - loc_1987
+          - locb_2008
+          - loc_1662
+          - loc_2012
+          - loc_2015
+          - loc_2019
       responses:
         '200':
           description: successful
@@ -244,6 +286,13 @@ paths:
           user''s preference if not provided'
         schema:
           type: string
+          enum:
+          - loc_1987
+          - locb_2008
+          - loc_1662
+          - loc_2012
+          - loc_2015
+          - loc_2019
       responses:
         '200':
           description: successful
@@ -276,6 +325,13 @@ paths:
           user''s preference if not provided'
         schema:
           type: string
+          enum:
+          - loc_1987
+          - locb_2008
+          - loc_1662
+          - loc_2012
+          - loc_2015
+          - loc_2019
       responses:
         '200':
           description: successful
@@ -508,46 +564,73 @@ paths:
     parameters:
     - name: office_type
       in: path
-      description: Type of office (morning, midday, evening, compline)
       required: true
+      description: Type of office (morning, midday, evening, compline)
       schema:
         type: string
+        enum:
+        - morning
+        - midday
+        - evening
+        - compline
     - name: prayer_book_code
       in: query
-      description: 'Prayer book code (default: loc_2015)'
       required: false
+      description: 'Prayer book code (default: loc_2015)'
       schema:
         type: string
+        enum:
+        - loc_1987
+        - locb_2008
+        - loc_1662
+        - loc_2012
+        - loc_2015
+        - loc_2019
     - name: bible_version
       in: query
-      description: 'Bible translation (default: nvi)'
       required: false
+      description: 'Bible translation (default: nvi)'
       schema:
         type: string
+        enum:
+        - nvi
+        - ntlh
+        - arc
     - name: language
       in: query
-      description: 'Language (default: pt-BR)'
       required: false
+      description: 'Language (default: pt-BR)'
       schema:
         type: string
+        enum:
+        - pt-BR
     - name: lords_prayer_version
       in: query
-      description: Lord's Prayer version (traditional/contemporary)
       required: false
+      description: Lord's Prayer version (traditional/contemporary)
       schema:
         type: string
+        enum:
+        - traditional
+        - contemporary
     - name: creed_type
       in: query
-      description: Creed type (apostles/nicene)
       required: false
+      description: Creed type (apostles/nicene)
       schema:
         type: string
+        enum:
+        - apostles
+        - nicene
     - name: confession_type
       in: query
-      description: Confession type (long/short)
       required: false
+      description: Confession type (long/short)
       schema:
         type: string
+        enum:
+        - long
+        - short
     get:
       summary: Get today's Daily Office
       tags:
@@ -656,46 +739,73 @@ paths:
         type: string
     - name: office_type
       in: path
-      description: Type of office (morning, midday, evening, compline)
       required: true
+      description: Type of office (morning, midday, evening, compline)
       schema:
         type: string
+        enum:
+        - morning
+        - midday
+        - evening
+        - compline
     - name: prayer_book_code
       in: query
-      description: 'Prayer book code (default: loc_2015)'
       required: false
+      description: 'Prayer book code (default: loc_2015)'
       schema:
         type: string
+        enum:
+        - loc_1987
+        - locb_2008
+        - loc_1662
+        - loc_2012
+        - loc_2015
+        - loc_2019
     - name: bible_version
       in: query
-      description: 'Bible translation (default: nvi)'
       required: false
+      description: 'Bible translation (default: nvi)'
       schema:
         type: string
+        enum:
+        - nvi
+        - ntlh
+        - arc
     - name: language
       in: query
-      description: 'Language (default: pt-BR)'
       required: false
+      description: 'Language (default: pt-BR)'
       schema:
         type: string
+        enum:
+        - pt-BR
     - name: lords_prayer_version
       in: query
-      description: Lord's Prayer version (traditional/contemporary)
       required: false
+      description: Lord's Prayer version (traditional/contemporary)
       schema:
         type: string
+        enum:
+        - traditional
+        - contemporary
     - name: creed_type
       in: query
-      description: Creed type (apostles/nicene)
       required: false
+      description: Creed type (apostles/nicene)
       schema:
         type: string
+        enum:
+        - apostles
+        - nicene
     - name: confession_type
       in: query
-      description: Confession type (long/short)
       required: false
+      description: Confession type (long/short)
       schema:
         type: string
+        enum:
+        - long
+        - short
     get:
       summary: Get Daily Office for specific date
       tags:
@@ -805,6 +915,13 @@ paths:
           user''s preference if not provided'
         schema:
           type: string
+          enum:
+          - loc_1987
+          - locb_2008
+          - loc_1662
+          - loc_2012
+          - loc_2015
+          - loc_2019
       responses:
         '200':
           description: successful
@@ -849,6 +966,13 @@ paths:
           user''s preference if not provided'
         schema:
           type: string
+          enum:
+          - loc_1987
+          - locb_2008
+          - loc_1662
+          - loc_2012
+          - loc_2015
+          - loc_2019
       responses:
         '200':
           description: successful
