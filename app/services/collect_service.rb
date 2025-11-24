@@ -45,13 +45,32 @@ class CollectService
     Collect.for_sunday(sunday_ref).in_language("pt-BR")
   end
 
-  # 3. Buscar pela quadra litúrgica
+  # 3. Buscar pela coleta do último domingo
   def find_by_season
-    season_name = calendar.season_for_date(date)
-    season = LiturgicalSeason.find_by(name: season_name)
-    return [] unless season
+    # Encontrar o domingo anterior
+    last_sunday = find_last_sunday
+    return [] unless last_sunday
 
-    Collect.for_season(season.id).in_language("pt-BR")
+    # Tentar buscar a coleta desse domingo
+    proper_num = calendar.proper_number(last_sunday)
+    if proper_num
+      collects = Collect.for_sunday("proper_#{proper_num}").in_language("pt-BR")
+      return collects if collects.any?
+    end
+
+    # Se não encontrou por Proper, tentar pelo nome do domingo
+    sunday_ref = SundayReferenceMapper.map(last_sunday, calendar)
+    return [] unless sunday_ref
+
+    Collect.for_sunday(sunday_ref).in_language("pt-BR")
+  end
+
+  # Encontra o domingo anterior à data atual
+  def find_last_sunday
+    days_since_sunday = date.wday # 0 = domingo, 1 = segunda, etc
+    return nil if days_since_sunday == 0 # Se já é domingo, não busca
+
+    date - days_since_sunday.days
   end
 
   # Formata a resposta: retorna hash se única, array se múltiplas
