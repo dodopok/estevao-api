@@ -20,7 +20,7 @@ RSpec.describe 'api/v1/celebrations', type: :request do
                 description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
                 schema: {
                   type: :string,
-                  enum: ['loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019']
+                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
                 }
       parameter name: 'q', in: :query, type: :string, required: false, description: 'Search query'
 
@@ -69,7 +69,7 @@ RSpec.describe 'api/v1/celebrations', type: :request do
                 description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
                 schema: {
                   type: :string,
-                  enum: ['loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019']
+                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
                 }
 
       response(200, 'successful') do
@@ -99,7 +99,7 @@ RSpec.describe 'api/v1/celebrations', type: :request do
                 description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
                 schema: {
                   type: :string,
-                  enum: ['loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019']
+                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
                 }
 
       response(200, 'successful') do
@@ -128,7 +128,7 @@ RSpec.describe 'api/v1/celebrations', type: :request do
                 description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
                 schema: {
                   type: :string,
-                  enum: ['loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019']
+                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
                 }
 
       response(200, 'successful') do
