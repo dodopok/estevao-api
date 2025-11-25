@@ -25,6 +25,7 @@ Collect.destroy_all
 Celebration.destroy_all
 LiturgicalColor.destroy_all
 LiturgicalSeason.destroy_all
+LiturgicalText.destroy_all
 # Note: Prayer books não são limpos pois são dados mestres
 
 # ================================================================================

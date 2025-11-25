@@ -13,8 +13,8 @@ module DailyOffice
 
       def build_opening_sentence(office_type)
         slug = case office_type
-        when :morning then "opening_sentence_morning"
-        when :evening then "opening_sentence_evening"
+        when :morning then season_specific_slug("opening_sentence", "morning")
+        when :evening then season_specific_slug("opening_sentence", "evening")
         when :midday then "opening_sentence_midday"
         when :compline then "opening_sentence_compline"
         else season_specific_slug("opening_sentence", "morning")

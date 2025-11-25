@@ -97,7 +97,7 @@ class CollectService
     return nil if collects.nil? || collects.empty?
 
     if collects.count == 1
-      { text: collects.first.text, preface: collects.first.preface }
+      [{ text: collects.first.text, preface: collects.first.preface }]
     else
       collects.map { |c| { text: c.text, preface: c.preface } }
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_25_165648) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_25_191610) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -134,6 +134,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_165648) do
     t.bigint "prayer_book_id", null: false
     t.string "reference"
     t.string "slug", null: false
+    t.string "title"
     t.datetime "updated_at", null: false
     t.index ["category"], name: "index_liturgical_texts_on_category"
     t.index ["prayer_book_id"], name: "index_liturgical_texts_on_prayer_book_id"

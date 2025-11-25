@@ -129,15 +129,34 @@ class ReadingService
   end
 
   # Formata a resposta para retornar apenas os campos necessários
+  # Enriquece cada leitura com componentes parseados (book_name, chapter, verse)
   def format_response(reading)
     return nil unless reading
 
     {
-      first_reading: reading.first_reading,
-      psalm: reading.psalm,
-      second_reading: reading.second_reading,
-      gospel: reading.gospel,
+      first_reading: enrich_reading(reading.first_reading),
+      psalm: enrich_reading(reading.psalm),
+      second_reading: enrich_reading(reading.second_reading),
+      gospel: enrich_reading(reading.gospel),
       notes: reading.notes
     }.compact
+  end
+
+  # Enriquece uma referência de leitura com componentes parseados
+  def enrich_reading(reference)
+    return nil if reference.blank?
+
+    parsed = BibleText.parse_reference(reference)
+
+    # Se não conseguiu parsear, retorna apenas a referência
+    return { reference: reference } unless parsed
+
+    {
+      reference: reference,
+      book_name: parsed[:book],
+      chapter: parsed[:chapter],
+      verse_start: parsed[:verse_start],
+      verse_end: parsed[:verse_end]
+    }
   end
 end

@@ -55,10 +55,33 @@ class BibleText < ApplicationRecord
   end
 
   # Parse a reference like "João 3:16-17" into components
+  # Supports complex formats:
+  # - Books with numbers: "1 Coríntios 13:1-13", "2 Samuel 7:1-11"
+  # - Multiple verse ranges: "Salmo 80:1-7, 17-19" (returns first range)
+  # - Letter suffixes: "2 Pedro 3:8-15a"
+  # - Alternatives with "or": "Baruque 5:1-9 or Malaquias 3:1-4" (returns first option)
+  # - Optional verses: "Lucas 1:39-45 (46-55)" (ignores optional part)
   def self.parse_reference(reference)
-    # Simple regex to parse references (can be enhanced)
-    # Format: "Book Chapter:Verse" or "Book Chapter:Verse-Verse"
-    match = reference.match(/^([^0-9]+)\s*(\d+)(?::(\d+)(?:-(\d+))?)?$/)
+    return nil if reference.blank?
+
+    # Clean up the reference
+    clean_ref = reference.strip
+
+    # Handle "or" alternatives - take first option
+    clean_ref = clean_ref.split(/\s+or\s+/i).first.strip
+
+    # Remove optional verses in parentheses
+    clean_ref = clean_ref.gsub(/\s*\([^)]+\)/, '')
+
+    # Handle multiple verse ranges - take first segment
+    clean_ref = clean_ref.split(',').first.strip
+
+    # Remove letter suffixes from verses (e.g., "15a" -> "15")
+    clean_ref = clean_ref.gsub(/(\d+)[a-z]/, '\1')
+
+    # Enhanced regex to handle books with numbers
+    # Captures: (optional number + book name) (chapter) (optional :verse) (optional -verse_end)
+    match = clean_ref.match(/^(\d*\s*[^\d:]+?)\s*(\d+)(?::(\d+)(?:-(\d+))?)?$/)
     return nil unless match
 
     {

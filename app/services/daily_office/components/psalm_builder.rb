@@ -41,7 +41,6 @@ module DailyOffice
           slug: "compline_psalms",
           lines: [
             line_item("Salmos 4, 31, 91, 134", type: "heading"),
-            line_item("Todos sentados", type: "rubric"),
             *build_multiple_psalms_lines([ 4, 31, 91, 134 ])
           ]
         }
@@ -63,7 +62,6 @@ module DailyOffice
       def build_psalm_lines(cycle)
         lines = [
           line_item("Salmo(s): #{cycle.psalm_numbers.join(', ')}", type: "heading"),
-          line_item("Todos sentados", type: "rubric"),
           line_item("", type: "spacer")
         ]
 
@@ -92,7 +90,6 @@ module DailyOffice
 
         lines = [
           line_item("Salmo #{psalm_number}", type: "heading"),
-          line_item("Todos sentados", type: "rubric"),
           line_item("", type: "spacer")
         ]
 
