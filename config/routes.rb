@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       # Rotas do Ofício Diário
       get "daily_office/today/:office_type", to: "daily_office#today"
       get "daily_office/:year/:month/:day/:office_type", to: "daily_office#show"
+      get "daily_office/:year/:month/:day/:office_type/family", to: "daily_office#family_rite"
       get "daily_office/preferences", to: "daily_office#preferences"
 
       # Rotas de autenticação e usuários
@@ -55,6 +56,11 @@ Rails.application.routes.draw do
           get ":code", to: "prayer_books#show", as: :show
         end
       end
+
+      # Rotas de preferências específicas por Prayer Book
+      get "prayer_books/:prayer_book_code/features", to: "prayer_book_user_preferences#features"
+      get "prayer_books/:prayer_book_code/preferences", to: "prayer_book_user_preferences#show"
+      patch "prayer_books/:prayer_book_code/preferences", to: "prayer_book_user_preferences#update"
     end
   end
 

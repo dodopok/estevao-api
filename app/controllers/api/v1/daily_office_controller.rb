@@ -51,6 +51,40 @@ module Api
         render json: { error: "Erro ao buscar ofício: #{e.message}" }, status: :bad_request
       end
 
+      # GET /api/v1/daily_office/:year/:month/:day/:office_type/family
+      # Returns family rite version of the office
+      def family_rite
+        date = parse_date
+        office_type = parse_office_type
+        prayer_book_code = user_preferences[:prayer_book_code]
+
+        # Verifica se o Prayer Book suporta rito familiar
+        prayer_book = PrayerBook.find_by(code: prayer_book_code)
+        unless prayer_book&.supports_family_rite?
+          return render json: {
+            error: "O Prayer Book '#{prayer_book_code}' não suporta rito familiar"
+          }, status: :unprocessable_entity
+        end
+
+        # Gera o ofício com flag de rito familiar
+        preferences = user_preferences.merge(family_rite: true)
+        response = Rails.cache.fetch("daily_office_family_#{date}_#{office_type}_#{preferences.hash}", expires_in: 1.day) do
+          service = DailyOfficeService.new(
+            date: date,
+            office_type: office_type,
+            preferences: preferences
+          )
+          service.call
+        end
+
+        # Adiciona dados do usuário se autenticado
+        response = add_user_data(response, date, office_type) if current_user
+
+        render json: response
+      rescue ArgumentError => e
+        render json: { error: "Erro ao buscar ofício: #{e.message}" }, status: :bad_request
+      end
+
       # GET /api/v1/daily_office/preferences
       # Returns available preferences options
       def preferences
@@ -106,24 +140,36 @@ module Api
         # Se usuário autenticado, usa preferências dele (params sobrescrevem)
         if current_user
           prefs = current_user.preferences.symbolize_keys
-          {
-            prayer_book_code: params[:prayer_book_code] || prefs[:prayer_book_code] || "loc_2015",
+          prayer_book_code = params[:prayer_book_code] || prefs[:prayer_book_code] || "loc_2015"
+
+          # Busca as preferências específicas do Prayer Book do usuário
+          pb_prefs = current_user.prayer_book_preferences_for(prayer_book_code)
+
+          # Merge de preferências: globais < específicas do PB < params
+          base_prefs = {
+            prayer_book_code: prayer_book_code,
             language: params[:language] || prefs[:language] || "pt-BR",
             bible_version: params[:bible_version] || prefs[:bible_version] || "nvi",
             lords_prayer_version: params[:lords_prayer_version] || prefs[:lords_prayer_version] || "traditional",
             creed_type: (params[:creed_type]&.to_sym || prefs[:creed_type]&.to_sym || :apostles),
             confession_type: params[:confession_type] || prefs[:confession_type] || "long"
           }
+
+          # Adiciona as opções específicas do Prayer Book
+          base_prefs.merge(pb_prefs.symbolize_keys)
         else
           # Usuário não autenticado - usa defaults ou params
+          prayer_book_code = params[:prayer_book_code] || "loc_2015"
+          prayer_book = PrayerBook.find_by(code: prayer_book_code)
+
           {
-            prayer_book_code: params[:prayer_book_code] || "loc_2015",
+            prayer_book_code: prayer_book_code,
             language: params[:language] || "pt-BR",
             bible_version: params[:bible_version] || "nvi",
             lords_prayer_version: params[:lords_prayer_version] || "traditional",
             creed_type: (params[:creed_type]&.to_sym || :apostles),
             confession_type: params[:confession_type] || "long"
-          }
+          }.merge(prayer_book&.default_options&.symbolize_keys || {})
         end
     end
 

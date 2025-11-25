@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :completions, dependent: :destroy
   has_many :fcm_tokens, dependent: :destroy
   has_many :notification_logs, dependent: :destroy
+  has_many :prayer_book_user_preferences, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :provider_uid, presence: true
@@ -80,6 +81,23 @@ class User < ApplicationRecord
     return false if last_completed_office_at.nil?
 
     (Date.today - last_completed_office_at.to_date).to_i > 1
+  end
+
+  # Retorna as preferências específicas do Prayer Book para este usuário
+  def prayer_book_preferences_for(prayer_book_code)
+    prayer_book = PrayerBook.find_by(code: prayer_book_code)
+    return {} unless prayer_book
+
+    pref = prayer_book_user_preferences.find_by(prayer_book: prayer_book)
+    pref&.options_with_defaults || prayer_book.default_options
+  end
+
+  # Retorna ou cria as preferências para um Prayer Book
+  def find_or_initialize_prayer_book_preference(prayer_book_code)
+    prayer_book = PrayerBook.find_by(code: prayer_book_code)
+    return nil unless prayer_book
+
+    prayer_book_user_preferences.find_or_initialize_by(prayer_book: prayer_book)
   end
 
   private

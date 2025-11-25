@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_24_200629) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_25_154717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -154,10 +154,23 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_24_200629) do
     t.index ["user_id"], name: "index_notification_logs_on_user_id"
   end
 
+  create_table "prayer_book_user_preferences", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "options", default: {}, null: false
+    t.bigint "prayer_book_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["options"], name: "index_prayer_book_user_preferences_on_options", using: :gin
+    t.index ["prayer_book_id"], name: "index_prayer_book_user_preferences_on_prayer_book_id"
+    t.index ["user_id", "prayer_book_id"], name: "index_pb_user_prefs_on_user_and_prayer_book", unique: true
+    t.index ["user_id"], name: "index_prayer_book_user_preferences_on_user_id"
+  end
+
   create_table "prayer_books", force: :cascade do |t|
     t.string "code", null: false
     t.datetime "created_at", null: false
     t.text "description"
+    t.jsonb "features", default: {}, null: false
     t.boolean "is_default"
     t.string "jurisdiction"
     t.string "name"
@@ -166,6 +179,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_24_200629) do
     t.datetime "updated_at", null: false
     t.integer "year"
     t.index ["code"], name: "index_prayer_books_on_code", unique: true
+    t.index ["features"], name: "index_prayer_books_on_features", using: :gin
     t.index ["is_default"], name: "index_prayer_books_on_is_default"
   end
 
@@ -220,6 +234,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_24_200629) do
   add_foreign_key "lectionary_readings", "prayer_books"
   add_foreign_key "liturgical_texts", "prayer_books", on_delete: :restrict
   add_foreign_key "notification_logs", "users"
+  add_foreign_key "prayer_book_user_preferences", "prayer_books"
+  add_foreign_key "prayer_book_user_preferences", "users"
   add_foreign_key "psalm_cycles", "prayer_books"
   add_foreign_key "psalms", "prayer_books", on_delete: :restrict
 end

@@ -11,7 +11,24 @@ prayer_books_data = [
     description: "Versão do LOC da Igreja Episcopal Anglicana do Brasil de 1984 - Revisão de Julho de 1987",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-1987.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-1987.pdf",
-    is_default: false
+    is_default: false,
+    features: {
+      lectionary: {
+        reading_types: [ "semicontinuous" ],
+        default_reading_type: "semicontinuous",
+        readings_per_week: 4,
+        supports_vigil: false
+      },
+      daily_office: {
+        supports_family_rite: false,
+        available_confession_types: [ "long" ],
+        available_lords_prayer: [ "traditional" ]
+      },
+      psalter: {
+        cycle_length: 30,
+        supports_seasonal_variations: false
+      }
+    }
   },
   {
     code: "locb_2008",
@@ -21,7 +38,24 @@ prayer_books_data = [
     description: "Adotado pela Diocese do Recife - Comunhão Anglicana Sob Autoridade Primacial da Igreja Anglicana do Cone Sul da América",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/locb-2008.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/locb-2008.pdf",
-    is_default: false
+    is_default: false,
+    features: {
+      lectionary: {
+        reading_types: [ "semicontinuous" ],
+        default_reading_type: "semicontinuous",
+        readings_per_week: 4,
+        supports_vigil: false
+      },
+      daily_office: {
+        supports_family_rite: false,
+        available_confession_types: [ "long" ],
+        available_lords_prayer: [ "traditional" ]
+      },
+      psalter: {
+        cycle_length: 30,
+        supports_seasonal_variations: false
+      }
+    }
   },
   {
     code: "loc_1662",
@@ -31,7 +65,24 @@ prayer_books_data = [
     description: "Adotado pela Igreja Anglicana Reformada do Brasil, tradução do LOC da Igreja da Inglaterra de 1662",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-1662.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-1662.pdf",
-    is_default: false
+    is_default: false,
+    features: {
+      lectionary: {
+        reading_types: [ "semicontinuous" ],
+        default_reading_type: "semicontinuous",
+        readings_per_week: 4,
+        supports_vigil: false
+      },
+      daily_office: {
+        supports_family_rite: false,
+        available_confession_types: [ "long" ],
+        available_lords_prayer: [ "traditional" ]
+      },
+      psalter: {
+        cycle_length: 30,
+        supports_seasonal_variations: false
+      }
+    }
   },
   {
     code: "loc_2012",
@@ -41,7 +92,24 @@ prayer_books_data = [
     description: "LOC atual da IEAB, parte de uma nova geração de Livros de Oração",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2012.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2012.pdf",
-    is_default: false
+    is_default: false,
+    features: {
+      lectionary: {
+        reading_types: [ "semicontinuous" ],
+        default_reading_type: "semicontinuous",
+        readings_per_week: 4,
+        supports_vigil: false
+      },
+      daily_office: {
+        supports_family_rite: false,
+        available_confession_types: [ "long", "short" ],
+        available_lords_prayer: [ "traditional", "contemporary" ]
+      },
+      psalter: {
+        cycle_length: 30,
+        supports_seasonal_variations: false
+      }
+    }
   },
   {
     code: "loc_2015",
@@ -51,7 +119,24 @@ prayer_books_data = [
     description: "LOC atual da IEAB, parte de uma nova geração de Livros de Oração",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2015.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2015.pdf",
-    is_default: true
+    is_default: true,
+    features: {
+      lectionary: {
+        reading_types: [ "semicontinuous", "complementary" ],
+        default_reading_type: "semicontinuous",
+        readings_per_week: 4,
+        supports_vigil: false
+      },
+      daily_office: {
+        supports_family_rite: true,
+        available_confession_types: [ "long", "short" ],
+        available_lords_prayer: [ "traditional", "contemporary" ]
+      },
+      psalter: {
+        cycle_length: 30,
+        supports_seasonal_variations: true
+      }
+    }
   },
   {
     code: "loc_2019",
@@ -61,21 +146,39 @@ prayer_books_data = [
     description: "LOC da ACNA, com Ofícios e Lecionário traduzidos pelo Rev. Douglas Araujo",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2019.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2019.pdf",
-    is_default: false
+    is_default: false,
+    features: {
+      lectionary: {
+        reading_types: [ "semicontinuous", "complementary" ],
+        default_reading_type: "semicontinuous",
+        readings_per_week: 7,
+        supports_vigil: true
+      },
+      daily_office: {
+        supports_family_rite: true,
+        available_confession_types: [ "long", "short" ],
+        available_lords_prayer: [ "traditional", "contemporary" ]
+      },
+      psalter: {
+        cycle_length: 60,
+        supports_seasonal_variations: true
+      }
+    }
   }
 ]
 
 prayer_books_data.each do |data|
-  PrayerBook.find_or_create_by!(code: data[:code]) do |pb|
-    pb.name = data[:name]
-    pb.year = data[:year]
-    pb.jurisdiction = data[:jurisdiction]
-    pb.description = data[:description]
-    pb.thumbnail_url = data[:thumbnail_url]
-    pb.pdf_url = data[:pdf_url]
-    pb.is_default = data[:is_default]
-  end
-  puts "✓ LOC Criado: #{data[:code]}"
+  pb = PrayerBook.find_or_initialize_by(code: data[:code])
+  pb.name = data[:name]
+  pb.year = data[:year]
+  pb.jurisdiction = data[:jurisdiction]
+  pb.description = data[:description]
+  pb.thumbnail_url = data[:thumbnail_url]
+  pb.pdf_url = data[:pdf_url]
+  pb.is_default = data[:is_default]
+  pb.features = data[:features] if data[:features].present?
+  pb.save!
+  puts "✓ LOC Criado/Atualizado: #{data[:code]}"
 end
 
 puts "Prayer Books seeded successfully!"
