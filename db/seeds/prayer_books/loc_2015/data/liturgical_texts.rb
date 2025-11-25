@@ -11,7 +11,7 @@ puts "Creating Liturgical Texts..."
   { slug: 'opening_sentence_epiphany', category: 'opening_sentence', content: 'Do nascente ao poente seja louvado o nome do Senhor. Aleluia!', reference: 'Salmo 113:3' },
   { slug: 'opening_sentence_lent', category: 'opening_sentence', content: 'Arrependei-vos e crede no Evangelho, porque o reino de Deus está próximo.', reference: 'Marcos 1:15' },
   { slug: 'opening_sentence_easter', category: 'opening_sentence', content: 'Cristo ressuscitou dos mortos, aleluia! Primícias dos que dormem, aleluia!', reference: '1 Coríntios 15:20' },
-  { slug: 'opening_sentence_ordinary', category: 'opening_sentence', content: 'Senhor, abre os meus lábios, e a minha boca proclamará o teu louvor.', reference: 'Salmo 51:15' },
+  { slug: 'opening_sentence_morning', category: 'opening_sentence', content: 'Senhor, abre os meus lábios, e a minha boca proclamará o teu louvor.', reference: 'Salmo 51:15' },
   { slug: 'opening_sentence_midday', category: 'opening_sentence', content: 'Deus, vem em meu auxílio. Senhor, apressa-te em socorrer-me.', reference: 'Salmo 70:1' },
   { slug: 'opening_sentence_compline', category: 'opening_sentence', content: 'O Senhor Todo-Poderoso nos conceda uma noite tranquila e um fim perfeito. Amém.', reference: nil }
 ].each do |text|

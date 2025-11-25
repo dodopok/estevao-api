@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_25_154717) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_25_165648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -99,12 +99,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_154717) do
     t.text "notes"
     t.bigint "prayer_book_id", null: false
     t.string "psalm"
+    t.string "reading_type", default: "semicontinuous", null: false
     t.string "second_reading"
     t.string "service_type"
     t.datetime "updated_at", null: false
     t.index ["celebration_id"], name: "index_lectionary_readings_on_celebration_id"
     t.index ["date_reference", "service_type", "prayer_book_id"], name: "index_lectionary_readings_on_date_service_prayer_book"
     t.index ["prayer_book_id"], name: "index_lectionary_readings_on_prayer_book_id"
+    t.index ["reading_type"], name: "index_lectionary_readings_on_reading_type"
   end
 
   create_table "liturgical_colors", force: :cascade do |t|

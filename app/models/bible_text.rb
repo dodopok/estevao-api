@@ -72,7 +72,7 @@ class BibleText < ApplicationRecord
   # Format passage as HTML
   def self.format_passage_html(reference, translation: "nvi")
     verses = fetch_passage(reference, translation: translation)
-    return "<p>Texto não disponível</p>" unless verses.any?
+    return "<p>Texto não disponível</p>" unless verses&.any?
 
     html = "<div class='bible-passage'>"
     html += "<p class='passage-reference'>#{reference}</p>"

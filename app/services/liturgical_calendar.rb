@@ -91,7 +91,7 @@ class LiturgicalCalendar
     when "Quaresma"
       if date >= movable[:palm_sunday] && date <= movable[:good_friday]
         date == movable[:good_friday] ? "vermelho" : "vermelho"
-      elsif date == movable[:ash_wednesday] + 25.days # 4º Domingo na Quaresma
+      elsif date == movable[:first_sunday_in_lent] + 21.days # 4º Domingo na Quaresma
         "rosa"
       else
         "roxo"

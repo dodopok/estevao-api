@@ -107,11 +107,7 @@ module Api
 
       def find_readings_for_date(date, cycle, service_type = "eucharist")
         prayer_book = PrayerBook.find_by_code(prayer_book_code)
-
-        # TODO: Implementar suporte a reading_type (semicontinuous vs complementary)
-        # Quando implementado, buscar a preferência do usuário:
-        # reading_type = get_user_reading_type_preference(prayer_book.code)
-        # E filtrar as leituras por reading_type também
+        reading_type = get_user_reading_type_preference(prayer_book.code)
 
         # Primeiro tenta encontrar por celebração fixa
         celebration = Celebration.fixed.for_date(date.month, date.day).where(prayer_book_id: prayer_book.id).first
@@ -121,8 +117,19 @@ module Api
                       .where(celebration_id: celebration.id)
                       .where(service_type: service_type)
                       .where(prayer_book_id: prayer_book.id)
+                      .where(reading_type: reading_type)
                       .where("cycle = ? OR cycle = ?", cycle, "all")
                       .first
+
+          # Fallback: se não encontrou com o reading_type preferido, tenta semicontinuous
+          reading ||= LectionaryReading
+                        .where(celebration_id: celebration.id)
+                        .where(service_type: service_type)
+                        .where(prayer_book_id: prayer_book.id)
+                        .where(reading_type: "semicontinuous")
+                        .where("cycle = ? OR cycle = ?", cycle, "all")
+                        .first if reading_type != "semicontinuous"
+
           return reading if reading
         end
 
@@ -137,19 +144,37 @@ module Api
 
         return nil unless date_ref
 
-        LectionaryReading
-          .for_date_reference(date_ref)
-          .where(service_type: service_type)
-          .where(prayer_book_id: prayer_book.id)
-          .where("cycle = ? OR cycle = ?", cycle, "all")
-          .first
+        reading = LectionaryReading
+                    .for_date_reference(date_ref)
+                    .where(service_type: service_type)
+                    .where(prayer_book_id: prayer_book.id)
+                    .where(reading_type: reading_type)
+                    .where("cycle = ? OR cycle = ?", cycle, "all")
+                    .first
+
+        # Fallback: se não encontrou com o reading_type preferido, tenta semicontinuous
+        reading ||= LectionaryReading
+                      .for_date_reference(date_ref)
+                      .where(service_type: service_type)
+                      .where(prayer_book_id: prayer_book.id)
+                      .where(reading_type: "semicontinuous")
+                      .where("cycle = ? OR cycle = ?", cycle, "all")
+                      .first if reading_type != "semicontinuous"
+
+        reading
       end
 
       # Helper method para obter a preferência de reading_type do usuário
-      # def get_user_reading_type_preference(prayer_book_code)
-      #   return params[:reading_type] if params[:reading_type].present?
-      #   return current_user&.prayer_book_preferences_for(prayer_book_code)&.dig("lectionary", "reading_type") || "semicontinuous"
-      # end
+      def get_user_reading_type_preference(prayer_book_code)
+        return params[:reading_type] if params[:reading_type].present?
+
+        if current_user
+          prefs = current_user.prayer_book_preferences_for(prayer_book_code)
+          return prefs.dig("lectionary", "reading_type") if prefs.dig("lectionary", "reading_type").present?
+        end
+
+        "semicontinuous"
+      end
 
       def prayer_book_code
         # Priority: URL param > User preference > Default

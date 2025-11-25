@@ -205,4 +205,74 @@ RSpec.describe "api/v1/daily_office", type: :request do
       end
     end
   end
+
+  path "/api/v1/daily_office/{year}/{month}/{day}/{office_type}/family" do
+    parameter name: :year, in: :path, required: true, schema: { type: :integer }, example: 2025
+    parameter name: :month, in: :path, required: true, schema: { type: :integer }, example: 11
+    parameter name: :day, in: :path, required: true, schema: { type: :integer }, example: 25
+    parameter name: :office_type, in: :path, required: true, description: "Type of office (morning or evening only)", schema: { type: :string, enum: [ 'morning', 'evening' ] }
+    parameter name: :prayer_book_code, in: :query, required: false, description: "Prayer book code (default uses user preference or loc_2015)", schema: { type: :string, enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ] }
+
+    get("Get family rite daily office") do
+      tags api_tags
+      produces content_type
+      description "Returns a simplified family rite version of the daily office with reduced components (8 components instead of 15-18)"
+
+      parameter name: 'Authorization', in: :header, required: false, description: 'Optional Firebase auth token (Bearer)', schema: { type: :string }
+
+      response(200, "successful") do
+        let(:year) { "2025" }
+        let(:month) { "11" }
+        let(:day) { "25" }
+        let(:office_type) { "morning" }
+
+        schema type: :object,
+               properties: {
+                 date: { type: :string, example: "2025-11-25" },
+                 office_type: { type: :string, example: "morning" },
+                 season: { type: :string, example: "Tempo Comum" },
+                 modules: {
+                   type: :array,
+                   description: "Simplified list of 6-8 modules for family rite",
+                   items: {
+                     type: :object,
+                     properties: {
+                       name: { type: :string },
+                       slug: { type: :string },
+                       lines: {
+                         type: :array,
+                         items: { type: :object }
+                       }
+                     }
+                   }
+                 },
+                 metadata: {
+                   type: :object,
+                   properties: {
+                     prayer_book_code: { type: :string },
+                     prayer_book_name: { type: :string },
+                     bible_version: { type: :string }
+                   }
+                 }
+               }
+
+        run_test!
+      end
+
+      response(422, "Unprocessable entity - Prayer Book doesn't support family rite") do
+        let(:year) { "2025" }
+        let(:month) { "11" }
+        let(:day) { "25" }
+        let(:office_type) { "morning" }
+        let(:prayer_book_code) { "loc_1987" }
+
+        schema type: :object,
+               properties: {
+                 error: { type: :string, example: "O Prayer Book 'loc_1987' não suporta rito familiar" }
+               }
+
+        run_test!
+      end
+    end
+  end
 end

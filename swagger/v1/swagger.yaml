@@ -874,6 +874,111 @@ paths:
                         type: string
         '400':
           description: invalid office type
+  "/api/v1/daily_office/{year}/{month}/{day}/{office_type}/family":
+    parameters:
+    - name: year
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 2025
+    - name: month
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 11
+    - name: day
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 25
+    - name: office_type
+      in: path
+      required: true
+      description: Type of office (morning or evening only)
+      schema:
+        type: string
+        enum:
+        - morning
+        - evening
+    - name: prayer_book_code
+      in: query
+      required: false
+      description: Prayer book code (default uses user preference or loc_2015)
+      schema:
+        type: string
+        enum:
+        - loc_1987
+        - locb_2008
+        - loc_1662
+        - loc_2012
+        - loc_2015
+        - loc_2019
+    get:
+      summary: Get family rite daily office
+      tags:
+      - Daily Office
+      description: Returns a simplified family rite version of the daily office with
+        reduced components (8 components instead of 15-18)
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        description: Optional Firebase auth token (Bearer)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    example: '2025-11-25'
+                  office_type:
+                    type: string
+                    example: morning
+                  season:
+                    type: string
+                    example: Tempo Comum
+                  modules:
+                    type: array
+                    description: Simplified list of 6-8 modules for family rite
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        slug:
+                          type: string
+                        lines:
+                          type: array
+                          items:
+                            type: object
+                  metadata:
+                    type: object
+                    properties:
+                      prayer_book_code:
+                        type: string
+                      prayer_book_name:
+                        type: string
+                      bible_version:
+                        type: string
+        '422':
+          description: Unprocessable entity - Prayer Book doesn't support family rite
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: O Prayer Book 'loc_1987' não suporta rito familiar
   "/api/v1/lectionary/{year}/{month}/{day}":
     parameters:
     - name: year
@@ -1189,6 +1294,247 @@ paths:
               required:
               - title
               - body
+  "/api/v1/prayer_books/{prayer_book_code}/features":
+    parameters:
+    - name: prayer_book_code
+      in: path
+      description: Prayer book code (e.g., loc_2015, loc_2019)
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get prayer book features and capabilities
+      tags:
+      - Prayer Book Preferences
+      description: Returns available features and options for a specific Prayer Book.
+        This endpoint does not require authentication.
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  prayer_book_code:
+                    type: string
+                    example: loc_2015
+                  prayer_book_name:
+                    type: string
+                    example: Livro de Oração Comum - IEAB - 2015
+                  features:
+                    type: object
+                    properties:
+                      lectionary:
+                        type: object
+                        properties:
+                          reading_types:
+                            type: array
+                            items:
+                              type: string
+                            example:
+                            - semicontinuous
+                            - complementary
+                          default_reading_type:
+                            type: string
+                            example: semicontinuous
+                          readings_per_week:
+                            type: integer
+                            example: 4
+                          supports_vigil:
+                            type: boolean
+                            example: false
+                      daily_office:
+                        type: object
+                        properties:
+                          supports_family_rite:
+                            type: boolean
+                            example: true
+                          available_confession_types:
+                            type: array
+                            items:
+                              type: string
+                            example:
+                            - long
+                            - short
+                          available_lords_prayer:
+                            type: array
+                            items:
+                              type: string
+                            example:
+                            - traditional
+                            - contemporary
+                      psalter:
+                        type: object
+                        properties:
+                          cycle_length:
+                            type: integer
+                            example: 30
+                          supports_seasonal_variations:
+                            type: boolean
+                            example: true
+                  capabilities:
+                    type: object
+                    description: Flattened view of capabilities for easier frontend
+                      consumption
+                    properties:
+                      supports_family_rite:
+                        type: boolean
+                        example: true
+                      available_reading_types:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                        - semicontinuous
+                        - complementary
+        '404':
+          description: Prayer book not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Prayer book not found
+  "/api/v1/prayer_books/{prayer_book_code}/preferences":
+    parameters:
+    - name: prayer_book_code
+      in: path
+      description: Prayer book code (e.g., loc_2015, loc_2019)
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get user preferences for a prayer book
+      tags:
+      - Prayer Book Preferences
+      description: Returns user's saved preferences for a specific Prayer Book, merged
+        with defaults
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  prayer_book_code:
+                    type: string
+                    example: loc_2015
+                  prayer_book_name:
+                    type: string
+                    example: Livro de Oração Comum - IEAB - 2015
+                  options:
+                    type: object
+                    properties:
+                      lectionary:
+                        type: object
+                        properties:
+                          reading_type:
+                            type: string
+                            example: complementary
+                      daily_office:
+                        type: object
+                        properties:
+                          use_family_rite:
+                            type: boolean
+                            example: true
+                  available_features:
+                    type: object
+                    description: Available features for this Prayer Book
+        '401':
+          description: Unauthorized
+        '404':
+          description: Prayer book not found
+    patch:
+      summary: Update user preferences for a prayer book
+      tags:
+      - Prayer Book Preferences
+      description: Updates or creates user preferences for a specific Prayer Book
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Preferências salvas com sucesso
+                  options:
+                    type: object
+                    description: Updated preferences
+        '401':
+          description: Unauthorized
+        '404':
+          description: Prayer book not found
+        '422':
+          description: Unprocessable entity - invalid options
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Opções inválidas
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - reading_type 'invalid' não é suportado por este Prayer Book
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: object
+                  properties:
+                    lectionary:
+                      type: object
+                      properties:
+                        reading_type:
+                          type: string
+                          enum:
+                          - semicontinuous
+                          - complementary
+                          example: complementary
+                    daily_office:
+                      type: object
+                      properties:
+                        use_family_rite:
+                          type: boolean
+                          example: true
+              example:
+                options:
+                  lectionary:
+                    reading_type: complementary
+                  daily_office:
+                    use_family_rite: true
   "/api/v1/prayer_books":
     get:
       summary: list prayer books
