@@ -1,8 +1,5 @@
 class AddPrayerBookToLectionaryReadings < ActiveRecord::Migration[8.1]
   def up
-    # Truncate all existing lectionary readings (will be recreated by seed with prayer_book_id)
-    execute "TRUNCATE TABLE lectionary_readings CASCADE"
-
     # Add prayer_book_id column
     add_reference :lectionary_readings, :prayer_book, foreign_key: true, null: false
 
