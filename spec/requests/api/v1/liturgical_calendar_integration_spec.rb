@@ -306,7 +306,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
       get "/api/v1/lectionary/2025/12/25"
 
       # 404 é OK se não encontrou leituras
-      expect([200, 404]).to include(response.status)
+      expect([ 200, 404 ]).to include(response.status)
 
       if response.status == 200
         json = JSON.parse(response.body)
@@ -512,7 +512,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
       expect(during_advent).to have_key("liturgical_year")
 
       # O ciclo durante o Advento deve ser diferente ou igual, dependendo da implementação
-      expect(["A", "B", "C"]).to include(during_advent["liturgical_year"])
+      expect([ "A", "B", "C" ]).to include(during_advent["liturgical_year"])
     end
 
     it "fluxo completo: endpoint de ciclo retorna correto" do
@@ -520,7 +520,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
 
       # Endpoint pode não existir ou retornar 404
       # Apenas verifica que não quebra
-      expect([200, 404]).to include(response.status), "Endpoint deveria retornar 200 ou 404"
+      expect([ 200, 404 ]).to include(response.status), "Endpoint deveria retornar 200 ou 404"
 
       if response.status == 200
         json = JSON.parse(response.body)

@@ -7,7 +7,7 @@ FactoryBot.define do
     features do
       {
         "lectionary" => {
-          "reading_types" => ["semicontinuous", "complementary"],
+          "reading_types" => [ "semicontinuous", "complementary" ],
           "default_reading_type" => "semicontinuous",
           "supports_vigil" => false
         },

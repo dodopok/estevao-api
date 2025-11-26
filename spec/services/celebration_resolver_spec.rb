@@ -8,7 +8,7 @@ RSpec.describe CelebrationResolver do
       pb.is_default = true
       pb.features = {
         "lectionary" => {
-          "reading_types" => ["semicontinuous", "complementary"],
+          "reading_types" => [ "semicontinuous", "complementary" ],
           "default_reading_type" => "semicontinuous"
         },
         "daily_office" => {

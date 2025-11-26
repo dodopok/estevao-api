@@ -48,7 +48,7 @@ RSpec.describe 'api/v1/notifications', type: :request do
 
       response(200, 'successful') do
         let(:Authorization) { 'Bearer mock-admin-token' }
-        let(:notification) { { user_ids: [1, 2], title: 'Test', body: 'Test body' } }
+        let(:notification) { { user_ids: [ 1, 2 ], title: 'Test', body: 'Test body' } }
 
         before do
           skip 'Admin functionality not yet implemented'
@@ -70,7 +70,7 @@ RSpec.describe 'api/v1/notifications', type: :request do
 
       response(401, 'unauthorized') do
         let(:Authorization) { 'Bearer invalid-token' }
-        let(:notification) { { user_ids: [1, 2], title: 'Test', body: 'Test body' } }
+        let(:notification) { { user_ids: [ 1, 2 ], title: 'Test', body: 'Test body' } }
 
         schema type: :object,
                properties: {
@@ -82,7 +82,7 @@ RSpec.describe 'api/v1/notifications', type: :request do
 
       response(403, 'forbidden') do
         let(:Authorization) { 'Bearer mock-token' }
-        let(:notification) { { user_ids: [1, 2], title: 'Test', body: 'Test body' } }
+        let(:notification) { { user_ids: [ 1, 2 ], title: 'Test', body: 'Test body' } }
 
         before do
           skip 'Admin functionality not yet implemented'

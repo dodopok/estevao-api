@@ -40,7 +40,7 @@ RSpec.describe 'api/v1/lectionary', type: :request do
             pb.year = 2015
             pb.is_default = true
           end
-          
+
           celebration = Celebration.find_or_create_by!(
             fixed_month: 12,
             fixed_day: 25,
@@ -52,7 +52,7 @@ RSpec.describe 'api/v1/lectionary', type: :request do
             c.movable = false
             c.liturgical_color = 'branco'
           end
-          
+
           create(:lectionary_reading,
             prayer_book: prayer_book,
             celebration: celebration,

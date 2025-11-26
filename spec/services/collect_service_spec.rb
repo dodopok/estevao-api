@@ -8,7 +8,7 @@ RSpec.describe CollectService do
       pb.is_default = true
       pb.features = {
         "lectionary" => {
-          "reading_types" => ["semicontinuous", "complementary"],
+          "reading_types" => [ "semicontinuous", "complementary" ],
           "default_reading_type" => "semicontinuous"
         },
         "daily_office" => {
@@ -102,7 +102,7 @@ RSpec.describe CollectService do
 
     context 'with a single collect' do
       it 'returns array with hash' do
-        response = service.send(:format_response, [celebration_collect])
+        response = service.send(:format_response, [ celebration_collect ])
 
         expect(response).to be_an(Array)
         expect(response.first[:text]).to eq(celebration_collect.text)
@@ -119,7 +119,7 @@ RSpec.describe CollectService do
       end
 
       it 'returns array of hashes' do
-        response = service.send(:format_response, [celebration_collect, collect2])
+        response = service.send(:format_response, [ celebration_collect, collect2 ])
 
         expect(response).to be_an(Array)
         expect(response.length).to eq(2)
@@ -152,7 +152,7 @@ RSpec.describe CollectService do
       end
 
       it 'includes preface when present' do
-        response = service.send(:format_response, [collect_with_preface])
+        response = service.send(:format_response, [ collect_with_preface ])
 
         expect(response.first[:text]).to eq("Coleta com prefácio...")
         expect(response.first[:preface]).to eq("Prefácio especial...")

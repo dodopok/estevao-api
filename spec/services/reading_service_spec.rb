@@ -8,7 +8,7 @@ RSpec.describe ReadingService do
       pb.is_default = true
       pb.features = {
         "lectionary" => {
-          "reading_types" => ["semicontinuous", "complementary"],
+          "reading_types" => [ "semicontinuous", "complementary" ],
           "default_reading_type" => "semicontinuous"
         },
         "daily_office" => {
@@ -84,7 +84,7 @@ RSpec.describe ReadingService do
         # 2026 is even
         service = described_class.new(Date.new(2026, 1, 5)) # Monday
 
-        expect(["even", "odd"]).to include(service.cycle)
+        expect([ "even", "odd" ]).to include(service.cycle)
       end
     end
   end

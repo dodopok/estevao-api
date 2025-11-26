@@ -358,7 +358,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
       end
 
       it 'respects first_canticle preference' do
-        [1, 2, 3].each do |canticle_num|
+        [ 1, 2, 3 ].each do |canticle_num|
           test_builder = described_class.new(
             date: date,
             office_type: :morning,
@@ -410,7 +410,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
       end
 
       it 'respects second_canticle preference' do
-        [1, 2, 3].each do |canticle_num|
+        [ 1, 2, 3 ].each do |canticle_num|
           test_builder = described_class.new(
             date: date,
             office_type: :morning,
@@ -535,7 +535,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
         custom_builder = described_class.new(
           date: date,
           office_type: :morning,
-          preferences: { general_collects: ['for_peace', 'for_grace'] }
+          preferences: { general_collects: [ 'for_peace', 'for_grace' ] }
         )
 
         result = custom_builder.send(:build_general_collects)
@@ -599,7 +599,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
       end
 
       it 'respects dismissal_blessing preference' do
-        [1, 2, 3, 4].each do |blessing_num|
+        [ 1, 2, 3, 4 ].each do |blessing_num|
           test_builder = described_class.new(
             date: date,
             office_type: :morning,
@@ -663,7 +663,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
     end
 
     it 'handles thanksgiving prayer preference' do
-      [1, 2].each do |num|
+      [ 1, 2 ].each do |num|
         builder = described_class.new(
           date: date,
           office_type: :morning,
@@ -953,7 +953,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
         { first_canticle: 2 },
         { second_canticle: 3 },
         { invitatory_canticle: 'jubilate' },
-        { general_collects: ['for_peace', 'for_grace'] }
+        { general_collects: [ 'for_peace', 'for_grace' ] }
       ]
 
       preferences_combinations.each do |prefs|
