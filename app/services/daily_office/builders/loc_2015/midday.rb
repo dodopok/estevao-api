@@ -122,7 +122,7 @@ module DailyOffice
               lines << line_item(psalm.content, type: "congregation")
 
               sections << {
-                name: [ psalm.title, psalm.reference ].compact.join(" ").presence || "Salmo",
+                name: [ psalm.title, psalm.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Salmo",
                 slug: psalm_slugs[psalm_num],
                 lines: lines
               }
@@ -185,7 +185,7 @@ module DailyOffice
           end
 
           # Rubric after Our Father
-          rubric_after = fetch_liturgical_text("midday_rubric_after_our_father")
+          rubric_after = fetch_liturgical_text("rubric_after_our_father")
           if rubric_after
             lines << line_item(rubric_after.content, type: "rubric")
             lines << line_item("", type: "spacer")

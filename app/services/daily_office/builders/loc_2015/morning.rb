@@ -91,7 +91,7 @@ module DailyOffice
           lines = []
 
           # Rubric for opening sentence
-          rubric = fetch_liturgical_text("morning_opening_sentence_rubric")
+          rubric = fetch_liturgical_text("opening_sentence_rubric")
           if rubric
             lines << line_item(rubric.content, type: "rubric")
             lines << line_item("", type: "spacer")
@@ -142,7 +142,7 @@ module DailyOffice
           end
 
           # Post-opening rubric
-          post_opening = fetch_liturgical_text("morning_rubric_post_opening_confession")
+          post_opening = fetch_liturgical_text("rubric_post_opening_confession")
           if post_opening
             lines << line_item(post_opening.content, type: "rubric")
             lines << line_item("", type: "spacer")
@@ -157,7 +157,7 @@ module DailyOffice
           lines << line_item("", type: "spacer")
 
           # Post-confession rubric
-          post_confession = fetch_liturgical_text("morning_rubric_post_confession")
+          post_confession = fetch_liturgical_text("rubric_post_confession")
           if post_confession
             lines << line_item(post_confession.content, type: "rubric")
             lines << line_item("", type: "spacer")
@@ -166,7 +166,7 @@ module DailyOffice
           # Prayer after confession (if no priest for absolution)
           if preferences[:include_prayer_after_confession]
             prayer_num = preferences[:prayer_after_confession] || 1
-            after_prayer = fetch_liturgical_text("morning_prayer_after_confession_#{prayer_num}")
+            after_prayer = fetch_liturgical_text("prayer_after_confession_#{prayer_num}")
             if after_prayer
               lines << line_item(after_prayer.content, type: "congregation")
             end
@@ -183,14 +183,14 @@ module DailyOffice
         def build_absolution
           lines = []
 
-          absolution = fetch_liturgical_text("morning_absolution")
+          absolution = fetch_liturgical_text("absolution")
           return nil unless absolution
 
           lines << line_item(absolution.content, type: "leader")
           lines << line_item("", type: "spacer")
 
           # Post-absolution rubric
-          rubric = fetch_liturgical_text("morning_rubric_post_absolution")
+          rubric = fetch_liturgical_text("rubric_post_absolution")
           if rubric
             lines << line_item(rubric.content, type: "rubric")
           end
@@ -243,7 +243,7 @@ module DailyOffice
           lines << line_item(canticle.content, type: "congregation")
 
           {
-            name: [ canticle&.title, canticle&.reference ].compact.join(" ").presence || "Cântico",
+            name: [ canticle&.title, canticle&.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Cântico",
             slug: "invitatory_canticle",
             lines: lines
           }
@@ -262,7 +262,7 @@ module DailyOffice
               pre: "rubric_first_reading",
               post: "rubric_post_first_reading",
               response: "canticle_post_first_reading",
-              end: "morning_rubric_end_first_reading"
+              end: "rubric_end_first_reading"
             },
             reading_key: :first_reading,
             module_name: "Leituras da Palavra de Deus"
@@ -332,7 +332,7 @@ module DailyOffice
           end
 
           {
-            name: [ canticle&.title, canticle&.reference ].compact.join(" ").presence || "Cântico",
+            name: [ canticle&.title, canticle&.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Cântico",
             slug: "second_canticle",
             lines: lines
           }
@@ -364,7 +364,7 @@ module DailyOffice
           lines = []
 
           # End rubric (mentions Creed)
-          end_rubric = fetch_liturgical_text("morning_rubric_offertory")
+          end_rubric = fetch_liturgical_text("rubric_offertory")
           if end_rubric
             lines << line_item("", type: "spacer")
             lines << line_item(end_rubric.content, type: "rubric")
@@ -543,14 +543,14 @@ module DailyOffice
           lines = []
 
           # Concluding prayers rubric
-          rubric = fetch_liturgical_text("morning_rubric_concluding_prayers")
+          rubric = fetch_liturgical_text("rubric_concluding_prayers")
           if rubric
             lines << line_item(rubric.content, type: "rubric")
             lines << line_item("", type: "spacer")
           end
 
           # Concluding sentence
-          concluding = fetch_liturgical_text("morning_opening_concluding_prayers")
+          concluding = fetch_liturgical_text("opening_concluding_prayers")
           if concluding
             lines << line_item(concluding.content, type: "responsive")
             lines << line_item("", type: "spacer")
@@ -565,13 +565,13 @@ module DailyOffice
 
           # Dismissal blessing (4 options)
           dismissal_num = preferences[:dismissal_blessing] || 1
-          dismissal = fetch_liturgical_text("morning_dismissal_#{dismissal_num}")
+          dismissal = fetch_liturgical_text("dismissal_#{dismissal_num}")
           return nil unless dismissal
 
           lines << line_item(dismissal.content, type: "leader")
 
           # Post-dismissal rubric
-          post_rubric = fetch_liturgical_text("morning_rubric_post_dismissal")
+          post_rubric = fetch_liturgical_text("rubric_post_dismissal")
           if post_rubric
             lines << line_item("", type: "spacer")
             lines << line_item(post_rubric.content, type: "rubric")
