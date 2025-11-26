@@ -3079,7 +3079,7 @@ LiturgicalText.find_or_create_by!(slug: 'phos_hilaron', prayer_book_id: prayer_b
   TEXT
   lt.reference = 'Luz Radiante'
   lt.language = 'pt-BR'
-end 
+end
 
 # rubric_gloria_patri
 
@@ -3300,7 +3300,7 @@ end
 
 # rubric_offertory
 
-# rubric_before_prayers 
+# rubric_before_prayers
 
 # invocation_our_father_1 ou invocation_our_father_2
 
@@ -3432,7 +3432,7 @@ LiturgicalText.find_or_create_by!(slug: 'evening_for_parish_family', prayer_book
     Enche-a de tua verdade e paz,
     e dá-lhe flexibilidade para aceitar
     a ação de teu Santo Espírito.
-    Em um mundo repleto de violência e ódio, 
+    Em um mundo repleto de violência e ódio,#{' '}
     dá-lhe coragem para semear o amor e a harmonia.
     Em um mundo marcado pela violência
     da discriminação e da desigualdade,

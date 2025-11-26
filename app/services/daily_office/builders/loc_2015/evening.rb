@@ -51,8 +51,8 @@ module DailyOffice
                         "evening_welcome_contemporary" : "evening_welcome_traditional"
           welcome = fetch_liturgical_text(welcome_slug)
 
-          lines << line_item(welcome.content, type: "leader")          
-          
+          lines << line_item(welcome.content, type: "leader")
+
           # Rubric for opening sentence
           rubric = fetch_liturgical_text("opening_sentence_rubric")
           if rubric
