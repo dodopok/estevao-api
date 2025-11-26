@@ -6,9 +6,9 @@ module DailyOffice
       include Concerns::SeasonMapper
       include Concerns::ReadingFormatter
       include Loc2015::SharedHelpers
-      include Loc2015::MorningPrayer
-      include Loc2015::EveningPrayer
-      include Loc2015::MiddayPrayer
+      include Loc2015::Morning
+      include Loc2015::Evening
+      include Loc2015::Midday
       include Loc2015::Compline
 
       # LOC 2015 (IEAB) specific implementation

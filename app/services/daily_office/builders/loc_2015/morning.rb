@@ -3,7 +3,7 @@
 module DailyOffice
   module Builders
     module Loc2015
-      module MorningPrayer
+      module Morning
         # General collects available for morning prayer
         GENERAL_COLLECT_SLUGS = %w[
           for_peace

@@ -3,7 +3,7 @@
 module DailyOffice
   module Builders
     module Loc2015
-      module EveningPrayer
+      module Evening
         # Evening Prayer (Oração da Tarde) specific implementation
         # TODO: Implement evening prayer methods following the same pattern as morning_prayer.rb
 
