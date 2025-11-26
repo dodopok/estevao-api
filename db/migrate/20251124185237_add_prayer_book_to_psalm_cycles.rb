@@ -1,22 +1,10 @@
 class AddPrayerBookToPsalmCycles < ActiveRecord::Migration[8.1]
   def up
+    # Delete all existing psalm cycles (will be recreated by seed with prayer_book_id)
+    execute "DELETE FROM psalm_cycles"
+
     # Add prayer_book_id column
-    add_reference :psalm_cycles, :prayer_book, foreign_key: true, null: true
-
-    # Backfill prayer_book_id with default LOC 2015 IEAB
-    reversible do |dir|
-      dir.up do
-        execute <<-SQL
-          UPDATE psalm_cycles pc
-          SET prayer_book_id = (
-            SELECT id FROM prayer_books WHERE code = 'loc_2015'
-          )
-        SQL
-      end
-    end
-
-    # Make prayer_book_id NOT NULL after backfill
-    change_column_null :psalm_cycles, :prayer_book_id, false
+    add_reference :psalm_cycles, :prayer_book, foreign_key: true, null: false
 
     # Remove old unique index
     remove_index :psalm_cycles, name: 'index_psalm_cycles_on_cycle_lookup', if_exists: true

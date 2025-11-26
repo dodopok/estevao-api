@@ -1,16 +1,10 @@
 class AddPrayerBookToLiturgicalTexts < ActiveRecord::Migration[8.1]
   def up
-    # Add prayer_book_id column (nullable first)
-    add_reference :liturgical_texts, :prayer_book, null: true, foreign_key: { on_delete: :restrict }
+    # Delete all existing liturgical texts (will be recreated by seed with prayer_book_id)
+    execute "DELETE FROM liturgical_texts"
 
-    # Backfill existing records with LOC 2015
-    execute <<-SQL
-      UPDATE liturgical_texts lt
-      SET prayer_book_id = (SELECT id FROM prayer_books pb WHERE pb.code = COALESCE(lt.version, 'loc_2015'))
-    SQL
-
-    # Make prayer_book_id not null
-    change_column_null :liturgical_texts, :prayer_book_id, false
+    # Add prayer_book_id column (not null from the start)
+    add_reference :liturgical_texts, :prayer_book, null: false, foreign_key: { on_delete: :restrict }
 
     # Remove old version column
     remove_column :liturgical_texts, :version if column_exists?(:liturgical_texts, :version)
