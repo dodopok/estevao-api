@@ -1,7 +1,7 @@
 class AddPrayerBookToLiturgicalTexts < ActiveRecord::Migration[8.1]
   def up
-    # Delete all existing liturgical texts (will be recreated by seed with prayer_book_id)
-    execute "DELETE FROM liturgical_texts"
+    # Truncate all existing liturgical texts (will be recreated by seed with prayer_book_id)
+    execute "TRUNCATE TABLE liturgical_texts CASCADE"
 
     # Add prayer_book_id column (not null from the start)
     add_reference :liturgical_texts, :prayer_book, null: false, foreign_key: { on_delete: :restrict }

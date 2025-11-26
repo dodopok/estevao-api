@@ -1,9 +1,9 @@
 class AddPrayerBookToPsalms < ActiveRecord::Migration[8.1]
   def change
-    # Delete all existing psalms (will be recreated by seed with prayer_book_id)
+    # Truncate all existing psalms (will be recreated by seed with prayer_book_id)
     reversible do |dir|
       dir.up do
-        execute "DELETE FROM psalms"
+        execute "TRUNCATE TABLE psalms CASCADE"
       end
     end
 

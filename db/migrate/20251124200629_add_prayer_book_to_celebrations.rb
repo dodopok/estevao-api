@@ -1,5 +1,7 @@
 class AddPrayerBookToCelebrations < ActiveRecord::Migration[8.1]
   def up
+    execute "TRUNCATE TABLE celebrations CASCADE"
+
     # Add prayer_book_id column (nullable first)
     add_reference :celebrations, :prayer_book, null: true, foreign_key: { on_delete: :restrict }
 

@@ -1,7 +1,7 @@
 class AddPrayerBookToCollects < ActiveRecord::Migration[8.1]
   def up
-    # Delete all existing collects (will be recreated by seed with prayer_book_id)
-    execute "DELETE FROM collects"
+    # Truncate all existing collects (will be recreated by seed with prayer_book_id)
+    execute "TRUNCATE TABLE collects CASCADE"
 
     # Add prayer_book_id column
     add_reference :collects, :prayer_book, foreign_key: true, null: false

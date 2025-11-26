@@ -1,7 +1,7 @@
 class AddPrayerBookToPsalmCycles < ActiveRecord::Migration[8.1]
   def up
-    # Delete all existing psalm cycles (will be recreated by seed with prayer_book_id)
-    execute "DELETE FROM psalm_cycles"
+    # Truncate all existing psalm cycles (will be recreated by seed with prayer_book_id)
+    execute "TRUNCATE TABLE psalm_cycles CASCADE"
 
     # Add prayer_book_id column
     add_reference :psalm_cycles, :prayer_book, foreign_key: true, null: false
