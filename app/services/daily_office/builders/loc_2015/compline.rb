@@ -175,8 +175,8 @@ module DailyOffice
           sections = []
 
           # Get selected psalms (default to all 3)
-          selected_psalms = preferences[:compline_psalms] || [1, 2, 3]
-          selected_psalms = [selected_psalms] unless selected_psalms.is_a?(Array)
+          selected_psalms = preferences[:compline_psalms] || [ 1, 2, 3 ]
+          selected_psalms = [ selected_psalms ] unless selected_psalms.is_a?(Array)
 
           psalm_slugs = {
             1 => "compline_cum_invocarem",    # Psalm 4
@@ -191,7 +191,7 @@ module DailyOffice
               lines << line_item(psalm.content, type: "congregation")
 
               sections << {
-                name: [psalm.title, psalm.reference].compact.join(" ").presence || "Salmo",
+                name: [ psalm.title, psalm.reference ].compact.join(" ").presence || "Salmo",
                 slug: psalm_slugs[psalm_num],
                 lines: lines
               }
@@ -320,10 +320,10 @@ module DailyOffice
 
           # If no preference set, use first prayer as default
           if selected_collects.nil?
-            selected_collects = [1]
+            selected_collects = [ 1 ]
           else
             # Ensure it's an array
-            selected_collects = [selected_collects] unless selected_collects.is_a?(Array)
+            selected_collects = [ selected_collects ] unless selected_collects.is_a?(Array)
           end
 
           selected_collects.each_with_index do |collect_num, index|
@@ -335,7 +335,7 @@ module DailyOffice
             end
           end
 
-           # Rubric before antiphon
+          # Rubric before antiphon
           rubric = fetch_liturgical_text("compline_rubric_before_antiphon")
           if rubric
             lines << line_item(rubric.content, type: "rubric")

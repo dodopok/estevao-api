@@ -1787,7 +1787,7 @@ LiturgicalText.find_or_create_by!(slug: 'compline_cum_invocarem', prayer_book_id
     Grandes da terra, até quando difamarão minha glória? *
     Até quando amarão a vaidade e buscarão a mentira?
     Saibam que o SENHOR distingue quem lhe é benquisto; *
-    o SENHOR ouve, quando a ele clamo. 
+    o SENHOR ouve, quando a ele clamo.#{' '}
     Tremam e não pequem mais. *
     Consultem, em seus corações,
     e no silêncio de seus leitos.
@@ -2023,7 +2023,7 @@ LiturgicalText.find_or_create_by!(slug: 'compline_starting_prayer', prayer_book_
     **E a ti chegue o nosso clamor.**
     O Senhor está aqui.
     **O seu Espírito está conosco.**
-    Oremos. 
+    Oremos.#{' '}
   TEXT
   lt.language = 'pt-BR'
 end
