@@ -78,7 +78,7 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/estevao_api_test
         run: |
-          bin/rails db:migrate
+          bin/rails db:test:prepare
           RAILS_ENV=test bundle exec rake parallel:prepare[2]
 
       - name: Run tests
