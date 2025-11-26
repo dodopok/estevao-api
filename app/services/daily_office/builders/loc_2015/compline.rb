@@ -179,9 +179,9 @@ module DailyOffice
           selected_psalms = [ selected_psalms ] unless selected_psalms.is_a?(Array)
 
           psalm_slugs = {
-            1 => "compline_cum_invocarem",    # Psalm 4
-            2 => "compline_qui_habitat",      # Psalm 91
-            3 => "compline_ecce_nunc"         # Psalm 134
+            1 => "cum_invocarem",    # Psalm 4
+            2 => "qui_habitat",      # Psalm 91
+            3 => "ecce_nunc"         # Psalm 134
           }
 
           selected_psalms.each do |psalm_num|
@@ -191,7 +191,7 @@ module DailyOffice
               lines << line_item(psalm.content, type: "congregation")
 
               sections << {
-                name: [ psalm.title, psalm.reference ].compact.join(" ").presence || "Salmo",
+                name: [ psalm.title, psalm.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Salmo",
                 slug: psalm_slugs[psalm_num],
                 lines: lines
               }
@@ -289,7 +289,7 @@ module DailyOffice
           lines = []
 
           # Rubric before prayers
-          rubric = fetch_liturgical_text("compline_rubric_before_prayers")
+          rubric = fetch_liturgical_text("rubric_before_prayers")
           if rubric
             lines << line_item(rubric.content, type: "rubric")
             lines << line_item("", type: "spacer")

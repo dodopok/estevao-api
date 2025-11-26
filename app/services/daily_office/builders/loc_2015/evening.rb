@@ -4,21 +4,629 @@ module DailyOffice
   module Builders
     module Loc2015
       module Evening
-        # Evening Prayer (Oração da Tarde) specific implementation
-        # TODO: Implement evening prayer methods following the same pattern as morning_prayer.rb
+        # General collects available for evening prayer
+        GENERAL_COLLECT_SLUGS = %w[
+          for_peace
+          for_grace
+          for_protection
+          for_christ_presence
+          evening_for_all_authorities
+          evening_for_clergy
+          evening_for_parish_family
+        ].freeze
 
         def assemble_evening_prayer
-          # TODO: Implement evening prayer assembly
-          # Similar structure to morning prayer but with evening-specific texts and canticles
-          []
+          [
+            build_welcome(:evening),
+            build_opening_sentence(:evening),
+            build_evening_confession,
+            build_absolution,
+            build_evening_invitatory,
+            build_evening_invitatory_canticle,
+            build_psalms(:evening),
+            build_first_reading,
+            build_first_canticle,
+            build_second_reading,
+            build_second_canticle,
+            build_creed,
+            build_offertory,
+            build_lords_prayer,
+            build_collect_of_the_day,
+            build_general_collects,
+            build_general_thanksgiving,
+            build_chrysostom_prayer,
+            build_dismissal
+          ].compact
         end
 
-        # Add evening-specific build methods here following the same pattern as morning prayer
-        # Examples:
-        # - build_evening_opening_sentence
-        # - build_evening_invitatory (Phos Hilaron)
-        # - build_magnificat or build_nunc_dimittis
-        # - etc.
+        # ============================================================================
+        # SECTION: Opening Components
+        # ============================================================================
+
+        # WELCOME - Separate module for Acolhida
+        def build_welcome(office_type)
+          lines = []
+          # Welcome text (traditional or contemporary based on preference)
+          welcome_slug = preferences[:welcome_style] == "contemporary" ?
+                        "evening_welcome_contemporary" : "evening_welcome_traditional"
+          welcome = fetch_liturgical_text(welcome_slug)
+
+          lines << line_item(welcome.content, type: "leader")
+
+          # Rubric for opening sentence
+          rubric = fetch_liturgical_text("opening_sentence_rubric")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          {
+            name: "Acolhida",
+            slug: "welcome",
+            lines: lines
+          }
+        end
+
+        # PSALMS - Delegate to psalm_builder with LOC-specific rubric
+        def build_psalms(office_type)
+          # Get psalms from psalm_builder component
+          result = psalm_builder.build_psalms(office_type)
+          return nil unless result
+
+          lines = []
+
+          # Add LOC-specific rubric about Gloria Patri
+          rubric = fetch_liturgical_text("rubric_gloria_patri")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Add the psalm lines from the component
+          lines.concat(result[:lines])
+
+          {
+            name: "Salmos",
+            slug: "psalms",
+            lines: lines
+          }
+        end
+
+        # 1. OPENING SENTENCE (Sentenças Iniciais)
+        def build_opening_sentence(office_type)
+          lines = []
+
+          # General opening sentence (always include one of 1-8)
+          general_num = preferences[:opening_sentence_general] || rand(1..8)
+          general = fetch_liturgical_text("evening_opening_sentence_#{general_num}")
+          if general
+            lines << line_item(general.content, type: "leader")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Post opening sentence rubric
+          post_rubric = fetch_liturgical_text("evening_rubric_post_opening_sentence")
+          if post_rubric
+            lines << line_item(post_rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Season-specific opening sentence (if available)
+          seasonal_slug = evening_season_specific_opening_sentence_slug(office_type)
+          seasonal = fetch_liturgical_text(seasonal_slug) if seasonal_slug
+
+          if seasonal
+            lines << line_item(seasonal.content, type: "leader")
+          end
+
+          # Rubric after opening
+          after_opening = fetch_liturgical_text("evening_rubric_after_opening")
+          if after_opening
+            lines << line_item(after_opening.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          return nil if lines.empty?
+
+          {
+            name: "Sentenças Iniciais",
+            slug: "opening_sentence",
+            lines: lines
+          }
+        end
+
+        # 2. CONFESSION
+        def build_evening_confession
+          lines = []
+
+          # Rubric before confession
+          rubric = fetch_liturgical_text("evening_rubric_before_confession")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Opening invitation to confession (long or short)
+          invitation_slug = preferences[:confession_invitation] == "short" ?
+                           "evening_confession_short" : "evening_confession_long"
+          invitation = fetch_liturgical_text(invitation_slug)
+          if invitation
+            lines << line_item(invitation.content, type: "leader")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Post-opening rubric
+          post_opening = fetch_liturgical_text("rubric_post_opening_confession")
+          if post_opening
+            lines << line_item(post_opening.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Confession prayer (3 options)
+          confession_num = preferences[:confession_prayer] || 1
+          confession = fetch_liturgical_text("evening_after_confession_#{confession_num}")
+          return nil unless confession
+
+          lines << line_item(confession.content, type: "congregation")
+          lines << line_item("", type: "spacer")
+
+          # Post-confession rubric
+          post_confession = fetch_liturgical_text("rubric_post_confession")
+          if post_confession
+            lines << line_item(post_confession.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Prayer after confession (if no priest for absolution)
+          if preferences[:include_prayer_after_confession]
+            prayer_num = preferences[:prayer_after_confession] || 1
+            after_prayer = fetch_liturgical_text("prayer_after_confession_#{prayer_num}")
+            if after_prayer
+              lines << line_item(after_prayer.content, type: "congregation")
+            end
+          end
+
+          absolution = fetch_liturgical_text("absolution")
+          return nil unless absolution
+
+          lines << line_item(absolution.content, type: "leader")
+          lines << line_item("", type: "spacer")
+
+          # Post-absolution rubric
+          rubric = fetch_liturgical_text("rubric_post_absolution")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+          end
+
+          {
+            name: "Confissão e Absolvição de Pecados",
+            slug: "confession",
+            lines: lines
+          }
+        end
+
+        # ============================================================================
+        # SECTION: Invitatory and Psalms
+        # ============================================================================
+
+        # 4. INVITATORY (Antiphon)
+        def build_evening_invitatory
+          invocation = fetch_liturgical_text("evening_invocation")
+          return nil unless invocation
+
+          lines = [
+            line_item(invocation.content, type: "responsive"),
+            line_item("", type: "spacer")
+          ]
+
+          # Post-invocation rubric
+          rubric = fetch_liturgical_text("evening_rubric_post_invocation")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+          end
+
+          {
+            name: "Invitatório e Salmo",
+            slug: "invitatory",
+            lines: lines
+          }
+        end
+
+        # 5. INVITATORY CANTICLE
+        def build_evening_invitatory_canticle
+          lines = []
+
+          # Invitatory canticle (Phos Hilaron, Ecce Nunc, or Pascha Nostrum during Easter)
+          canticle_slug = evening_invitatory_canticle_slug
+          canticle = fetch_liturgical_text(canticle_slug)
+
+          return nil unless canticle
+
+          lines << line_item(canticle.content, type: "congregation")
+
+          {
+            name: [ canticle&.title, canticle&.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Cântico",
+            slug: "invitatory_canticle",
+            lines: lines
+          }
+        end
+
+        # ============================================================================
+        # SECTION: Readings and Canticles
+        # ============================================================================
+
+        # 6. FIRST READING (delegate to reading_builder with LOC-specific rubrics)
+        def build_first_reading
+          build_reading_module(
+            type: :first,
+            announcement_slug: "first_reading",
+            rubric_slugs: {
+              pre: "rubric_first_reading",
+              post: "rubric_post_first_reading",
+              response: "canticle_post_first_reading",
+              end: "rubric_end_first_reading"
+            },
+            reading_key: :first_reading,
+            module_name: "Leituras da Palavra de Deus"
+          )
+        end
+
+        # 7. FIRST CANTICLE
+        def build_first_canticle
+          # Choose canticle: magnificat, bonum_est_confiteri, or benedictus
+          canticle_num = preferences[:first_canticle] || 1
+          canticle_slug = case canticle_num
+          when 2 then "bonum_est_confiteri"
+          when 3 then "benedictus"
+          else "magnificat"
+          end
+
+          canticle = fetch_liturgical_text(canticle_slug)
+          return nil unless canticle
+
+          lines = []
+          lines << line_item(canticle.content, type: "congregation")
+
+          {
+            name: [ canticle&.title, canticle&.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Cântico",
+            slug: "first_canticle",
+            lines: lines
+          }
+        end
+
+        # 8. SECOND READING
+        def build_second_reading
+          build_reading_module(
+            type: :second,
+            announcement_slug: "second_reading",
+            rubric_slugs: {
+              pre: "rubric_second_reading",
+              post: "rubric_post_second_reading",
+              response: "canticle_post_second_reading",
+              end: "rubric_end_second_reading"
+            },
+            reading_key: :second_reading,
+            module_name: "Segunda Leitura"
+          )
+        end
+
+        # 9. SECOND CANTICLE
+        def build_second_canticle
+          # Choose canticle: nunc_dimittis, deus_misereatur, or dignus_es
+          canticle_num = preferences[:second_canticle] || 1
+          canticle_slug = case canticle_num
+          when 2 then "deus_misereatur"
+          when 3 then "dignus_es"
+          else "nunc_dimittis"
+          end
+
+          canticle = fetch_liturgical_text(canticle_slug)
+          return nil unless canticle
+
+          lines = []
+          lines << line_item(canticle.content, type: "congregation")
+
+          # End rubric (mentions Creed)
+          end_rubric = fetch_liturgical_text("rubric_end_second_canticle")
+          if end_rubric
+            lines << line_item("", type: "spacer")
+            lines << line_item(end_rubric.content, type: "rubric")
+          end
+
+          {
+            name: [ canticle&.title, canticle&.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Cântico",
+            slug: "second_canticle",
+            lines: lines
+          }
+        end
+
+        # ============================================================================
+        # SECTION: Affirmation of Faith and Offering
+        # ============================================================================
+
+        # 10. CREED
+        def build_creed
+          lines = []
+
+          # Choose between Apostles' Creed and Affirmation of Faith
+          if preferences[:use_affirmation_of_faith]
+            # Rubric for affirmation
+            rubric = fetch_liturgical_text("evening_rubric_post_apostles_creed")
+            if rubric
+              lines << line_item(rubric.content, type: "rubric")
+              lines << line_item("", type: "spacer")
+            end
+
+            affirmation = fetch_liturgical_text("evening_affirmation_of_faith")
+            return nil unless affirmation
+
+            lines << line_item(affirmation.content, type: "congregation")
+
+            {
+              name: "Afirmação de Fé",
+              slug: "creed",
+              lines: lines
+            }
+          else
+            # Standard or paraphrase Apostles' Creed
+            creed_slug = preferences[:creed_paraphrase] ? "apostles_creed_paraphrase" : "apostles_creed"
+            creed = fetch_liturgical_text(creed_slug)
+            return nil unless creed
+
+            lines << line_item(creed.content, type: "congregation")
+
+            {
+              name: preferences[:creed_paraphrase] ? "Paráfrase do Credo Apostólico" : "Credo Apostólico",
+              slug: "creed",
+              lines: lines
+            }
+          end
+        end
+
+        def build_offertory
+          lines = []
+
+          # Offertory rubric
+          end_rubric = fetch_liturgical_text("rubric_offertory")
+          if end_rubric
+            lines << line_item("", type: "spacer")
+            lines << line_item(end_rubric.content, type: "rubric")
+          end
+
+          {
+            name: "Ofertório",
+            slug: "offertory",
+            lines: lines
+          }
+        end
+
+        # ============================================================================
+        # SECTION: Prayers and Collects
+        # ============================================================================
+
+        # 11. LORD'S PRAYER
+        def build_lords_prayer
+          lines = []
+
+          # Rubric before prayers
+          rubric = fetch_liturgical_text("rubric_before_prayers")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Invocation (2 options)
+          invocation_num = preferences[:our_father_invocation] || 1
+          invocation = fetch_liturgical_text("invocation_our_father_#{invocation_num}")
+          if invocation
+            lines << line_item(invocation.content, type: "responsive")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Lord's Prayer
+          lords_prayer = fetch_liturgical_text("our_father")
+          return nil unless lords_prayer
+
+          lines << line_item(lords_prayer.content, type: "congregation")
+          lines << line_item("", type: "spacer")
+
+          # Rubric after Our Father
+          after_rubric = fetch_liturgical_text("rubric_after_our_father")
+          if after_rubric
+            lines << line_item(after_rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Evening closing prayer or mercy prayer
+          if preferences[:use_evening_closing_prayer]
+            closing_prayer = fetch_liturgical_text("evening_closing_prayer")
+            lines << line_item(closing_prayer.content, type: "responsive") if closing_prayer
+          else
+            prayer_num = preferences[:mercy_prayer] || 1
+            suffrages = fetch_liturgical_text("mercy_prayer_#{prayer_num}")
+            lines << line_item(suffrages.content, type: "responsive") if suffrages
+          end
+
+          {
+            name: "Orações",
+            slug: "lords_prayer",
+            lines: lines
+          }
+        end
+
+        def build_collect_of_the_day
+          lines = []
+
+          # Rubric for collect of the day
+          rubric = fetch_liturgical_text("rubric_collect_of_the_day")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Collect of the Day (from CollectService)
+          if @collects
+            lines << line_item(@collects)
+            lines << line_item("", type: "spacer")
+          end
+
+          {
+            name: "Coleta do Dia",
+            slug: "collect_of_the_day",
+            lines: lines
+          }
+        end
+
+        # 13. COLLECTS
+        def build_general_collects
+          lines = []
+
+          # Rubric for general collects
+          general_rubric = fetch_liturgical_text("rubric_general_collects")
+          if general_rubric
+            lines << line_item(general_rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # General collects (can include all or select based on preferences)
+          selected_collects = preferences[:general_collects] || GENERAL_COLLECT_SLUGS
+
+          selected_collects.each do |slug|
+            collect = fetch_liturgical_text(slug)
+            if collect
+              lines << line_item(collect.content, type: "leader")
+              lines << line_item("", type: "spacer")
+            end
+          end
+
+          # Rubric after prayers
+          after_prayers = fetch_liturgical_text("evening_rubric_post_prayers")
+          lines << line_item(after_prayers.content, type: "rubric") if after_prayers
+
+          {
+            name: "Coletas Gerais",
+            slug: "general_collects",
+            lines: lines
+          }
+        end
+
+        # 14. GENERAL THANKSGIVING
+        def build_general_thanksgiving
+          lines = []
+
+          # Opening of general thanksgiving
+          opening = fetch_liturgical_text("opening_general_thanksgiving")
+          if opening
+            lines << line_item(opening.content, type: "leader")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Rubric after opening
+          rubric = fetch_liturgical_text("rubric_after_opening_general_thanksgiving")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Thanksgiving prayer (2 options)
+          thanksgiving_num = preferences[:thanksgiving_prayer] || 1
+          thanksgiving = fetch_liturgical_text("general_thanksgiving_#{thanksgiving_num}")
+          return nil unless thanksgiving
+
+          lines << line_item(thanksgiving.content, type: "congregation")
+
+          {
+            name: "Geral Ação de Graças",
+            slug: "thanksgiving",
+            lines: lines
+          }
+        end
+
+        # 15. CHRYSOSTOM PRAYER
+        def build_chrysostom_prayer
+          prayer = fetch_liturgical_text("chrysostom_prayer")
+          return nil unless prayer
+
+          {
+            name: "Oração de São João Crisóstomo",
+            slug: "chrysostom",
+            lines: [
+              line_item(prayer.content, type: "leader")
+            ]
+          }
+        end
+
+        # ============================================================================
+        # SECTION: Concluding Prayers and Dismissal
+        # ============================================================================
+
+        # 16. DISMISSAL
+        def build_dismissal
+          lines = []
+
+          # Concluding prayers rubric
+          rubric = fetch_liturgical_text("rubric_concluding_prayers")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Concluding sentence
+          concluding = fetch_liturgical_text("opening_concluding_prayers")
+          if concluding
+            lines << line_item(concluding.content, type: "responsive")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Evening-specific rubric
+          evening_rubric = fetch_liturgical_text("evening_rubric_post_concluding_prayers")
+          if evening_rubric
+            lines << line_item(evening_rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Dismissal blessing (4 options)
+          dismissal_num = preferences[:dismissal_blessing] || 1
+          dismissal = fetch_liturgical_text("dismissal_#{dismissal_num}")
+          return nil unless dismissal
+
+          lines << line_item(dismissal.content, type: "leader")
+
+          # Post-dismissal rubric
+          post_rubric = fetch_liturgical_text("rubric_post_dismissal")
+          if post_rubric
+            lines << line_item("", type: "spacer")
+            lines << line_item(post_rubric.content, type: "rubric")
+          end
+
+          {
+            name: "Orações Conclusivas",
+            slug: "dismissal",
+            lines: lines
+          }
+        end
+
+        private
+
+        # Get season-specific opening sentence slug
+        def evening_season_specific_opening_sentence_slug(office_type)
+          season = day_info[:liturgical_season]
+          season_slug = season_to_opening_sentence_slug(season, feast_day: day_info[:feast_day])
+          return nil unless season_slug
+
+          "evening_opening_sentence_#{season_slug}"
+        end
+
+        # Choose invitatory canticle based on season
+        def evening_invitatory_canticle_slug
+          season = day_info[:liturgical_season]
+
+          # Use Pascha Nostrum during Easter season
+          return "pascha_nostrum" if season&.downcase == "páscoa"
+
+          # Use Ecce Nunc or Phos Hilaron based on preference
+          preferences[:invitatory_canticle] == "ecce_nunc" ? "ecce_nunc" : "phos_hilaron"
+        end
       end
     end
   end

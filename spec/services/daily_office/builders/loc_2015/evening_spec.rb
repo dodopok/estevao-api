@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe DailyOffice::Builders::Loc2015::Morning do
+RSpec.describe DailyOffice::Builders::Loc2015::Evening do
   # Create a test class that includes the module
   let(:test_class) do
     Class.new(DailyOffice::Builders::Loc2015Builder) do
-      include DailyOffice::Builders::Loc2015::Morning
+      include DailyOffice::Builders::Loc2015::Evening
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
   end
 
   let(:date) { Date.new(2025, 11, 25) }
-  let(:builder) { test_class.new(date: date, office_type: :morning) }
+  let(:builder) { test_class.new(date: date, office_type: :evening) }
 
   before do
     # Ensure prayer book exists
@@ -42,11 +42,18 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       expect(described_class::GENERAL_COLLECT_SLUGS).to be_a(Array)
       expect(described_class::GENERAL_COLLECT_SLUGS).to include('for_peace')
       expect(described_class::GENERAL_COLLECT_SLUGS).to include('for_grace')
+      expect(described_class::GENERAL_COLLECT_SLUGS).to include('for_protection')
       expect(described_class::GENERAL_COLLECT_SLUGS).to be_frozen
     end
 
-    it 'has 6 general collect slugs' do
-      expect(described_class::GENERAL_COLLECT_SLUGS.length).to eq(6)
+    it 'has 7 general collect slugs' do
+      expect(described_class::GENERAL_COLLECT_SLUGS.length).to eq(7)
+    end
+
+    it 'includes evening-specific collects' do
+      expect(described_class::GENERAL_COLLECT_SLUGS).to include('for_protection')
+      expect(described_class::GENERAL_COLLECT_SLUGS).to include('for_christ_presence')
+      expect(described_class::GENERAL_COLLECT_SLUGS).to include('evening_for_all_authorities')
     end
   end
 
@@ -54,19 +61,19 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
   # SECTION: Assembly Method
   # ==========================================================================
 
-  describe '#assemble_morning_prayer' do
-    it 'returns full morning prayer structure' do
-      modules = builder.assemble_morning_prayer
+  describe '#assemble_evening_prayer' do
+    it 'returns full evening prayer structure' do
+      modules = builder.assemble_evening_prayer
 
       expect(modules).to be_an(Array)
       expect(modules).to all(be_a(Hash))
     end
 
     it 'includes all expected module types' do
-      modules = builder.assemble_morning_prayer
+      modules = builder.assemble_evening_prayer
       module_slugs = modules.map { |m| m[:slug] }
 
-      # Core LOC 2015 structure
+      # Core LOC 2015 Evening structure
       expect(module_slugs).to include('welcome')
       expect(module_slugs).to include('opening_sentence')
       expect(module_slugs).to include('confession')
@@ -75,26 +82,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       expect(module_slugs).to include('dismissal')
     end
 
-    it 'returns family rite when preference is set' do
-      family_builder = test_class.new(
-        date: date,
-        office_type: :morning,
-        preferences: { prayer_book_code: 'loc_2015', family_rite: true }
-      )
-
-      # Family rite uses BaseBuilder implementation which may have different requirements
-      begin
-        modules = family_builder.assemble_morning_prayer
-        expect(modules).to be_an(Array)
-        expect(modules).to all(be_a(Hash))
-      rescue TypeError, NoMethodError => e
-        skip "Family rite requires complete base builder implementation: #{e.message}"
-      end
-    end
-
     context 'regression tests (golden master)' do
       it 'maintains exact structure for each module' do
-        modules = builder.assemble_morning_prayer
+        modules = builder.assemble_evening_prayer
 
         modules.each do |mod|
           expect(mod).to have_key(:name)
@@ -110,7 +100,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       end
 
       it 'preserves line types for all modules' do
-        modules = builder.assemble_morning_prayer
+        modules = builder.assemble_evening_prayer
         all_line_types = modules.flat_map { |m| m[:lines].map { |l| l[:type] } }.uniq
 
         # Expected line types in LOC 2015
@@ -126,7 +116,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
 
   describe '#build_welcome' do
     it 'returns welcome module structure' do
-      result = builder.build_welcome(:morning)
+      result = builder.build_welcome(:evening)
 
       if result
         expect(result).to have_key(:name)
@@ -140,18 +130,18 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
     it 'respects welcome_style preference' do
       traditional_builder = test_class.new(
         date: date,
-        office_type: :morning,
+        office_type: :evening,
         preferences: { welcome_style: 'traditional' }
       )
       contemporary_builder = test_class.new(
         date: date,
-        office_type: :morning,
+        office_type: :evening,
         preferences: { welcome_style: 'contemporary' }
       )
 
       # Both should return valid structures (content may differ)
-      trad_result = traditional_builder.build_welcome(:morning)
-      cont_result = contemporary_builder.build_welcome(:morning)
+      trad_result = traditional_builder.build_welcome(:evening)
+      cont_result = contemporary_builder.build_welcome(:evening)
 
       expect(trad_result).to be_a(Hash) if trad_result
       expect(cont_result).to be_a(Hash) if cont_result
@@ -160,7 +150,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
 
   describe '#build_opening_sentence' do
     it 'returns opening sentence module structure' do
-      result = builder.build_opening_sentence(:morning)
+      result = builder.build_opening_sentence(:evening)
 
       if result
         expect(result).to have_key(:name)
@@ -172,50 +162,66 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
     end
 
     it 'includes rubric and general opening sentence' do
-      result = builder.build_opening_sentence(:morning)
+      result = builder.build_opening_sentence(:evening)
 
       if result
         line_types = result[:lines].map { |l| l[:type] }
-        expect(line_types).to include('rubric')
         expect(line_types).to include('leader')
+      end
+    end
+
+    it 'handles 8 general opening sentences' do
+      (1..8).each do |num|
+        test_builder = test_class.new(
+          date: date,
+          office_type: :evening,
+          preferences: { opening_sentence_general: num }
+        )
+        result = test_builder.build_opening_sentence(:evening)
+        expect(result).to be_a(Hash) if result
       end
     end
   end
 
-  describe '#build_morning_confession' do
+  describe '#build_evening_confession' do
     it 'returns confession module structure' do
-      result = builder.build_morning_confession
+      result = builder.build_evening_confession
 
       if result
         expect(result).to have_key(:name)
         expect(result).to have_key(:slug)
         expect(result).to have_key(:lines)
         expect(result[:slug]).to eq('confession')
-        expect(result[:name]).to eq('Confissão de Pecados')
+        expect(result[:name]).to eq('Confissão e Absolvição de Pecados')
       end
     end
 
     it 'includes congregation response' do
-      result = builder.build_morning_confession
+      result = builder.build_evening_confession
 
       if result
         line_types = result[:lines].map { |l| l[:type] }
         expect(line_types).to include('congregation')
       end
     end
-  end
 
-  describe '#build_absolution' do
-    it 'returns absolution module structure' do
-      result = builder.build_absolution
+    it 'respects confession_invitation preference' do
+      short_builder = test_class.new(
+        date: date,
+        office_type: :evening,
+        preferences: { confession_invitation: 'short' }
+      )
+      long_builder = test_class.new(
+        date: date,
+        office_type: :evening,
+        preferences: { confession_invitation: 'long' }
+      )
 
-      if result
-        expect(result).to have_key(:name)
-        expect(result).to have_key(:slug)
-        expect(result).to have_key(:lines)
-        expect(result[:slug]).to eq('absolution')
-        expect(result[:name]).to eq('Absolvição')
-      end
+      short_result = short_builder.build_evening_confession
+      long_result = long_builder.build_evening_confession
+
+      expect(short_result).to be_a(Hash) if short_result
+      expect(long_result).to be_a(Hash) if long_result
     end
   end
 
@@ -223,41 +229,32 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
   # SECTION: Invitatory and Psalms
   # ==========================================================================
 
-  describe '#build_morning_invitatory' do
+  describe '#build_evening_invitatory' do
     it 'returns invitatory module structure' do
-      result = builder.build_morning_invitatory
+      result = builder.build_evening_invitatory
 
       if result
         expect(result).to have_key(:name)
         expect(result).to have_key(:slug)
         expect(result).to have_key(:lines)
         expect(result[:slug]).to eq('invitatory')
+        expect(result[:name]).to eq('Invitatório e Salmo')
       end
     end
 
-    it 'uses Lent-specific invocation during Lent' do
-      # Mock Lent season
-      allow(builder).to receive(:is_lent?).and_return(true)
-      allow(builder).to receive(:fetch_liturgical_text).and_call_original
+    it 'includes responsive elements' do
+      result = builder.build_evening_invitatory
 
-      builder.build_morning_invitatory
-
-      expect(builder).to have_received(:fetch_liturgical_text).with('morning_invocation_lent')
-    end
-
-    it 'uses regular invocation outside Lent' do
-      allow(builder).to receive(:is_lent?).and_return(false)
-      allow(builder).to receive(:fetch_liturgical_text).and_call_original
-
-      builder.build_morning_invitatory
-
-      expect(builder).to have_received(:fetch_liturgical_text).with('morning_invocation')
+      if result
+        line_types = result[:lines].map { |l| l[:type] }
+        expect(line_types).to include('responsive')
+      end
     end
   end
 
-  describe '#build_morning_invitatory_canticle' do
+  describe '#build_evening_invitatory_canticle' do
     it 'returns invitatory canticle module structure' do
-      result = builder.build_morning_invitatory_canticle
+      result = builder.build_evening_invitatory_canticle
 
       if result
         expect(result).to have_key(:name)
@@ -266,11 +263,34 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
         expect(result[:slug]).to eq('invitatory_canticle')
       end
     end
+
+    it 'uses Pascha Nostrum during Easter' do
+      allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Páscoa' })
+      slug = builder.send(:evening_invitatory_canticle_slug)
+      expect(slug).to eq('pascha_nostrum')
+    end
+
+    it 'uses Phos Hilaron by default' do
+      allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Tempo Comum' })
+      slug = builder.send(:evening_invitatory_canticle_slug)
+      expect(slug).to eq('phos_hilaron')
+    end
+
+    it 'uses Ecce Nunc when preference is set' do
+      ecce_builder = test_class.new(
+        date: date,
+        office_type: :evening,
+        preferences: { invitatory_canticle: 'ecce_nunc' }
+      )
+      allow(ecce_builder).to receive(:day_info).and_return({ liturgical_season: 'Tempo Comum' })
+      slug = ecce_builder.send(:evening_invitatory_canticle_slug)
+      expect(slug).to eq('ecce_nunc')
+    end
   end
 
   describe '#build_psalms' do
     it 'returns psalms module structure' do
-      result = builder.build_psalms(:morning)
+      result = builder.build_psalms(:evening)
 
       if result
         expect(result).to have_key(:name)
@@ -282,7 +302,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
     end
 
     it 'includes LOC-specific rubric' do
-      result = builder.build_psalms(:morning)
+      result = builder.build_psalms(:evening)
 
       if result
         line_types = result[:lines].map { |l| l[:type] }
@@ -337,13 +357,21 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       [ 1, 2, 3 ].each do |canticle_num|
         test_builder = test_class.new(
           date: date,
-          office_type: :morning,
+          office_type: :evening,
           preferences: { first_canticle: canticle_num }
         )
 
         result = test_builder.build_first_canticle
         expect(result).to be_a(Hash) if result
       end
+    end
+
+    it 'uses Magnificat by default' do
+      allow(builder).to receive(:fetch_liturgical_text).and_call_original
+
+      builder.build_first_canticle
+
+      expect(builder).to have_received(:fetch_liturgical_text).with('magnificat')
     end
   end
 
@@ -389,13 +417,21 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       [ 1, 2, 3 ].each do |canticle_num|
         test_builder = test_class.new(
           date: date,
-          office_type: :morning,
+          office_type: :evening,
           preferences: { second_canticle: canticle_num }
         )
 
         result = test_builder.build_second_canticle
         expect(result).to be_a(Hash) if result
       end
+    end
+
+    it 'uses Nunc Dimittis by default' do
+      allow(builder).to receive(:fetch_liturgical_text).and_call_original
+
+      builder.build_second_canticle
+
+      expect(builder).to have_received(:fetch_liturgical_text).with('nunc_dimittis')
     end
   end
 
@@ -415,10 +451,18 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       end
     end
 
+    it 'uses Apostles Creed by default' do
+      result = builder.build_creed
+
+      if result
+        expect(result[:name]).to eq('Credo Apostólico')
+      end
+    end
+
     it 'uses paraphrase when preference is set' do
       paraphrase_builder = test_class.new(
         date: date,
-        office_type: :morning,
+        office_type: :evening,
         preferences: { creed_paraphrase: true }
       )
 
@@ -429,11 +473,17 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       end
     end
 
-    it 'uses standard creed by default' do
-      result = builder.build_creed
+    it 'uses Affirmation of Faith when preference is set' do
+      affirmation_builder = test_class.new(
+        date: date,
+        office_type: :evening,
+        preferences: { use_affirmation_of_faith: true }
+      )
+
+      result = affirmation_builder.build_creed
 
       if result
-        expect(result[:name]).to eq('Credo Apostólico')
+        expect(result[:name]).to eq('Afirmação de Fé')
       end
     end
   end
@@ -475,6 +525,19 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
         expect(line_types).to include('responsive')
       end
     end
+
+    it 'uses evening closing prayer when preference is set' do
+      evening_builder = test_class.new(
+        date: date,
+        office_type: :evening,
+        preferences: { use_evening_closing_prayer: true }
+      )
+      allow(evening_builder).to receive(:fetch_liturgical_text).and_call_original
+
+      evening_builder.build_lords_prayer
+
+      expect(evening_builder).to have_received(:fetch_liturgical_text).with('evening_closing_prayer')
+    end
   end
 
   describe '#build_collect_of_the_day' do
@@ -510,8 +573,8 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
     it 'respects general_collects preference' do
       custom_builder = test_class.new(
         date: date,
-        office_type: :morning,
-        preferences: { general_collects: [ 'for_peace', 'for_grace' ] }
+        office_type: :evening,
+        preferences: { general_collects: [ 'for_peace', 'for_protection' ] }
       )
 
       result = custom_builder.build_general_collects
@@ -564,7 +627,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       end
     end
 
-    it 'includes leader and congregation responses' do
+    it 'includes leader and responsive elements' do
       result = builder.build_dismissal
 
       if result
@@ -577,7 +640,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       [ 1, 2, 3, 4 ].each do |blessing_num|
         test_builder = test_class.new(
           date: date,
-          office_type: :morning,
+          office_type: :evening,
           preferences: { dismissal_blessing: blessing_num }
         )
 
@@ -591,66 +654,60 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
   # SECTION: Helper Methods
   # ==========================================================================
 
-  describe '#morning_season_specific_opening_sentence_slug' do
+  describe '#evening_season_specific_opening_sentence_slug' do
     it 'returns correct slug for Advent' do
       allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Advento', feast_day: false })
-      slug = builder.send(:morning_season_specific_opening_sentence_slug, :morning)
-      expect(slug).to eq('morning_opening_sentence_advent')
+      slug = builder.send(:evening_season_specific_opening_sentence_slug, :evening)
+      expect(slug).to eq('evening_opening_sentence_advent')
     end
 
     it 'returns correct slug for Christmas' do
       allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Natal', feast_day: false })
-      slug = builder.send(:morning_season_specific_opening_sentence_slug, :morning)
-      expect(slug).to eq('morning_opening_sentence_christmas')
+      slug = builder.send(:evening_season_specific_opening_sentence_slug, :evening)
+      expect(slug).to eq('evening_opening_sentence_christmas')
     end
 
     it 'returns correct slug for Lent' do
       allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Quaresma', feast_day: false })
-      slug = builder.send(:morning_season_specific_opening_sentence_slug, :morning)
-      expect(slug).to eq('morning_opening_sentence_lent')
+      slug = builder.send(:evening_season_specific_opening_sentence_slug, :evening)
+      expect(slug).to eq('evening_opening_sentence_lent')
     end
 
     it 'returns correct slug for Easter' do
       allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Páscoa', feast_day: false })
-      slug = builder.send(:morning_season_specific_opening_sentence_slug, :morning)
-      expect(slug).to eq('morning_opening_sentence_easter')
-    end
-
-    it 'returns correct slug for feast days' do
-      allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Tempo Comum', feast_day: true })
-      slug = builder.send(:morning_season_specific_opening_sentence_slug, :morning)
-      expect(slug).to eq('morning_opening_sentence_common_feast')
+      slug = builder.send(:evening_season_specific_opening_sentence_slug, :evening)
+      expect(slug).to eq('evening_opening_sentence_easter')
     end
 
     it 'returns nil for ordinary time without feast' do
       allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Tempo Comum', feast_day: false })
-      slug = builder.send(:morning_season_specific_opening_sentence_slug, :morning)
+      slug = builder.send(:evening_season_specific_opening_sentence_slug, :evening)
       expect(slug).to be_nil
     end
   end
 
-  describe '#morning_invitatory_canticle_slug' do
+  describe '#evening_invitatory_canticle_slug' do
     it 'returns pascha_nostrum during Easter' do
       allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Páscoa' })
-      slug = builder.send(:morning_invitatory_canticle_slug)
+      slug = builder.send(:evening_invitatory_canticle_slug)
       expect(slug).to eq('pascha_nostrum')
     end
 
-    it 'returns jubilate when preference is set' do
-      jubilate_builder = test_class.new(
+    it 'returns ecce_nunc when preference is set' do
+      ecce_builder = test_class.new(
         date: date,
-        office_type: :morning,
-        preferences: { invitatory_canticle: 'jubilate' }
+        office_type: :evening,
+        preferences: { invitatory_canticle: 'ecce_nunc' }
       )
-      allow(jubilate_builder).to receive(:day_info).and_return({ liturgical_season: 'Tempo Comum' })
-      slug = jubilate_builder.send(:morning_invitatory_canticle_slug)
-      expect(slug).to eq('jubilate')
+      allow(ecce_builder).to receive(:day_info).and_return({ liturgical_season: 'Tempo Comum' })
+      slug = ecce_builder.send(:evening_invitatory_canticle_slug)
+      expect(slug).to eq('ecce_nunc')
     end
 
-    it 'returns venite by default' do
+    it 'returns phos_hilaron by default' do
       allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Tempo Comum' })
-      slug = builder.send(:morning_invitatory_canticle_slug)
-      expect(slug).to eq('venite')
+      slug = builder.send(:evening_invitatory_canticle_slug)
+      expect(slug).to eq('phos_hilaron')
     end
   end
 
@@ -660,13 +717,13 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
 
   describe 'preference variations' do
     it 'handles different opening sentence preferences' do
-      (1..7).each do |num|
+      (1..8).each do |num|
         test_builder = test_class.new(
           date: date,
-          office_type: :morning,
+          office_type: :evening,
           preferences: { opening_sentence_general: num }
         )
-        result = test_builder.build_opening_sentence(:morning)
+        result = test_builder.build_opening_sentence(:evening)
         expect(result).to be_a(Hash) if result
       end
     end
@@ -675,10 +732,10 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       (1..3).each do |num|
         test_builder = test_class.new(
           date: date,
-          office_type: :morning,
+          office_type: :evening,
           preferences: { confession_prayer: num }
         )
-        result = test_builder.build_morning_confession
+        result = test_builder.build_evening_confession
         expect(result).to be_a(Hash) if result
       end
     end
@@ -687,7 +744,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       [ true, false ].each do |paraphrase|
         test_builder = test_class.new(
           date: date,
-          office_type: :morning,
+          office_type: :evening,
           preferences: { creed_paraphrase: paraphrase }
         )
         result = test_builder.build_creed
@@ -696,13 +753,13 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
     end
 
     it 'handles invitatory canticle preference' do
-      %w[jubilate venite].each do |canticle|
+      %w[ecce_nunc phos_hilaron].each do |canticle|
         test_builder = test_class.new(
           date: date,
-          office_type: :morning,
+          office_type: :evening,
           preferences: { invitatory_canticle: canticle }
         )
-        result = test_builder.build_morning_invitatory_canticle
+        result = test_builder.build_evening_invitatory_canticle
         expect(result).to be_a(Hash) if result
       end
     end
@@ -711,10 +768,22 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       [ 1, 2 ].each do |num|
         test_builder = test_class.new(
           date: date,
-          office_type: :morning,
+          office_type: :evening,
           preferences: { thanksgiving_prayer: num }
         )
         result = test_builder.build_general_thanksgiving
+        expect(result).to be_a(Hash) if result
+      end
+    end
+
+    it 'handles evening closing prayer preference' do
+      [ true, false ].each do |use_evening|
+        test_builder = test_class.new(
+          date: date,
+          office_type: :evening,
+          preferences: { use_evening_closing_prayer: use_evening }
+        )
+        result = test_builder.build_lords_prayer
         expect(result).to be_a(Hash) if result
       end
     end

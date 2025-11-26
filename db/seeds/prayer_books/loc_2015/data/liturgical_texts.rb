@@ -45,7 +45,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_welcome_contemporary', prayer_b
 end
 
 # Rubrica da Sentença de Abertura
-LiturgicalText.find_or_create_by!(slug: 'morning_opening_sentence_rubric', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'opening_sentence_rubric', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
     Guarda-se um momento de silêncio.
@@ -343,7 +343,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_opening_confession_2', prayer_b
 end
 
 # Rubrica da Confissão
-LiturgicalText.find_or_create_by!(slug: 'morning_rubric_post_opening_confession', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'rubric_post_opening_confession', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
     As admoestações anteriores podem ser substituídas por um
@@ -420,10 +420,10 @@ LiturgicalText.find_or_create_by!(slug: 'morning_confession_3', prayer_book_id: 
 end
 
 # Rubrica após Confissão
-LiturgicalText.find_or_create_by!(slug: 'morning_rubric_post_confession', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'rubric_post_confession', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
-    A pessoa oficiante, ainda ajoelhada,
+    A pessoa que oficia, ainda ajoelhada,
     lê uma das orações seguintes.
     Estando, porém, presente um(a) bispo(a) ou presbítero(a),
     deve ser usada a Absolvição em lugar das orações a seguir:
@@ -432,7 +432,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_rubric_post_confession', prayer
 end
 
 # Oração após Confissão 1
-LiturgicalText.find_or_create_by!(slug: 'morning_prayer_after_confession_1', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'prayer_after_confession_1', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'confession'
   lt.content = <<~TEXT
     Ó Senhor, suplicamos-te que escutes compassivo nossas
@@ -445,7 +445,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_prayer_after_confession_1', pra
 end
 
 # Oração após Confissão 2
-LiturgicalText.find_or_create_by!(slug: 'morning_prayer_after_confession_2', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'prayer_after_confession_2', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'confession'
   lt.content = <<~TEXT
     Deus Todo-poderoso tenha misericórdia de vocês,
@@ -459,7 +459,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_prayer_after_confession_2', pra
 end
 
 # Absolvição
-LiturgicalText.find_or_create_by!(slug: 'morning_absolution', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'absolution', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'absolution'
   lt.content = <<~TEXT
     O Deus de amor,
@@ -477,7 +477,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_absolution', prayer_book_id: pr
 end
 
 # Rubrica após Absolvição
-LiturgicalText.find_or_create_by!(slug: 'morning_rubric_post_absolution', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'rubric_post_absolution', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
     Então levanta-se quem puder.
@@ -644,7 +644,7 @@ LiturgicalText.find_or_create_by!(slug: 'venite', prayer_book_id: prayer_book.id
     Como era no princípio, é agora e será sempre, *
     por todos os séculos. Amém.
   TEXT
-  lt.reference = '(Salmo 95.1-7; 96.9,13)'
+  lt.reference = 'Salmo 95.1-7; 96.9,13'
   lt.language = 'pt-BR'
 end
 
@@ -670,7 +670,7 @@ LiturgicalText.find_or_create_by!(slug: 'jubilate', prayer_book_id: prayer_book.
     Como era no princípio, é agora e será sempre, *
     por todos os séculos. Amém.
   TEXT
-  lt.reference = '(Salmo 100)'
+  lt.reference = 'Salmo 100'
   lt.language = 'pt-BR'
 end
 
@@ -771,7 +771,7 @@ LiturgicalText.find_or_create_by!(slug: 'canticle_post_first_reading', prayer_bo
 end
 
 # Rubrica ao fim da Primeira Leitura
-LiturgicalText.find_or_create_by!(slug: 'morning_rubric_end_first_reading', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'rubric_end_first_reading', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
     Após a leitura pode-se guardar um momento de silêncio.
@@ -841,7 +841,7 @@ LiturgicalText.find_or_create_by!(slug: 'cantate_domino', prayer_book_id: prayer
     por todos os séculos. Amém.
   TEXT
   lt.language = 'pt-BR'
-  lt.reference = '(Salmo 98)'
+  lt.reference = 'Salmo 98'
 end
 
 # Benedicite Omnia Opera
@@ -914,7 +914,7 @@ LiturgicalText.find_or_create_by!(slug: 'benedicite_omnia_opera', prayer_book_id
     por todos os séculos. Amém.
   TEXT
   lt.language = 'pt-BR'
-  lt.reference = '(Dn 3.57-87)'
+  lt.reference = 'Dn 3.57-87'
 end
 
 # Rubrica da Segunda Leitura
@@ -1046,7 +1046,7 @@ LiturgicalText.find_or_create_by!(slug: 'magna_et_mirabilia', prayer_book_id: pr
     por todos os séculos. Amém.
   TEXT
   lt.language = 'pt-BR'
-  lt.reference = '(Ap 15.3-4)'
+  lt.reference = 'Ap 15.3-4'
 end
 
 # Benedic, anima mea (Salmo 103)
@@ -1077,7 +1077,7 @@ LiturgicalText.find_or_create_by!(slug: 'benedic_anima_mea', prayer_book_id: pra
     por todos os séculos. Amém.
   TEXT
   lt.language = 'pt-BR'
-  lt.reference = '(Salmo 103)'
+  lt.reference = 'Salmo 103'
 end
 
 # Rubrica ao fim da Segunda Leitura
@@ -1157,7 +1157,7 @@ LiturgicalText.find_or_create_by!(slug: 'apostles_creed_paraphrase', prayer_book
 end
 
 # Rubrica do Ofertório
-LiturgicalText.find_or_create_by!(slug: 'morning_rubric_offertory', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'rubric_offertory', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
     Neste momento podem ser recolhidas e apresentadas Ofertas.
@@ -1548,7 +1548,7 @@ LiturgicalText.find_or_create_by!(slug: 'chrysostom_prayer', prayer_book_id: pra
 end
 
 # Rubrica das Orações Conclusivas
-LiturgicalText.find_or_create_by!(slug: 'morning_rubric_concluding_prayers', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'rubric_concluding_prayers', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
     Pode-se acrescentar a seguinte sentença:
@@ -1557,7 +1557,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_rubric_concluding_prayers', pra
 end
 
 # Orações Conclusivas
-LiturgicalText.find_or_create_by!(slug: 'morning_opening_concluding_prayers', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'opening_concluding_prayers', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'opening_sentence'
   lt.content = <<~TEXT
     Bendigamos ao SENHOR.
@@ -1578,7 +1578,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_rubric_dismissal', prayer_book_
 end
 
 # Despedida 1
-LiturgicalText.find_or_create_by!(slug: 'morning_dismissal_1', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'dismissal_1', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'dismissal'
   lt.content = <<~TEXT
     A Graça de nosso Senhor Jesus Cristo,
@@ -1591,7 +1591,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_dismissal_1', prayer_book_id: p
 end
 
 # Despedida 2
-LiturgicalText.find_or_create_by!(slug: 'morning_dismissal_2', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'dismissal_2', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'dismissal'
   lt.content = <<~TEXT
     O Senhor nos abençoe e nos guarde.
@@ -1605,7 +1605,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_dismissal_2', prayer_book_id: p
 end
 
 # Despedida 3
-LiturgicalText.find_or_create_by!(slug: 'morning_dismissal_3', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'dismissal_3', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'dismissal'
   lt.content = <<~TEXT
     Que o Deus da esperança
@@ -1618,7 +1618,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_dismissal_3', prayer_book_id: p
 end
 
 # Despedida 4
-LiturgicalText.find_or_create_by!(slug: 'morning_dismissal_4', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'dismissal_4', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'dismissal'
   lt.content = <<~TEXT
     Glória a Deus,
@@ -1635,7 +1635,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_dismissal_4', prayer_book_id: p
 end
 
 # Rubrica após a Despedida
-LiturgicalText.find_or_create_by!(slug: 'morning_rubric_post_dismissal', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'rubric_post_dismissal', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
     Estando porém presente um(a) bispo(a) ou presbítero(a),
@@ -1777,7 +1777,7 @@ LiturgicalText.find_or_create_by!(slug: 'compline_rubric_before_psalms', prayer_
 end
 
 # Cum invocarem
-LiturgicalText.find_or_create_by!(slug: 'compline_cum_invocarem', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'cum_invocarem', prayer_book_id: prayer_book.id) do |lt|
   lt.title = 'Cum invocarem'
   lt.category = 'canticle'
   lt.content = <<~TEXT
@@ -1805,12 +1805,12 @@ LiturgicalText.find_or_create_by!(slug: 'compline_cum_invocarem', prayer_book_id
     Como era no princípio, é agora e será sempre, *
     por todos os séculos. Amém.
   TEXT
-  lt.reference = '(Salmo 4)'
+  lt.reference = 'Salmo 4'
   lt.language = 'pt-BR'
 end
 
 # Qui habitat
-LiturgicalText.find_or_create_by!(slug: 'compline_qui_habitat', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'qui_habitat', prayer_book_id: prayer_book.id) do |lt|
   lt.title = 'Qui habitat'
   lt.category = 'canticle'
   lt.content = <<~TEXT
@@ -1854,12 +1854,12 @@ LiturgicalText.find_or_create_by!(slug: 'compline_qui_habitat', prayer_book_id: 
     Como era no princípio, é agora e será sempre, *
     por todos os séculos. Amém.
   TEXT
-  lt.reference = '(Salmo 91)'
+  lt.reference = 'Salmo 91'
   lt.language = 'pt-BR'
 end
 
 # Ecce Nunc
-LiturgicalText.find_or_create_by!(slug: 'compline_ecce_nunc', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'ecce_nunc', prayer_book_id: prayer_book.id) do |lt|
   lt.title = 'Ecce Nunc'
   lt.category = 'canticle'
   lt.content = <<~TEXT
@@ -1875,7 +1875,7 @@ LiturgicalText.find_or_create_by!(slug: 'compline_ecce_nunc', prayer_book_id: pr
     Como era no princípio, é agora e será sempre, *
     por todos os séculos. Amém.
   TEXT
-  lt.reference = '(Salmo 134)'
+  lt.reference = 'Salmo 134'
   lt.language = 'pt-BR'
 end
 
@@ -2179,6 +2179,7 @@ LiturgicalText.find_or_create_by!(slug: 'nunc_dimittis', prayer_book_id: prayer_
     Como era no princípio, é agora e será sempre, *
     por todos os séculos. Amém.
   TEXT
+  lt.reference = 'S. Lucas 2.29'
   lt.language = 'pt-BR'
 end
 
@@ -2326,7 +2327,7 @@ LiturgicalText.find_or_create_by!(slug: 'lucerna_pedibus_meis', prayer_book_id: 
     por todos os séculos. Amém.
   TEXT
   lt.title = 'Lucerna pedibus meis'
-  lt.reference = '(Salmo 119, XIV)'
+  lt.reference = 'Salmo 119, XIV'
   lt.language = 'pt-BR'
 end
 
@@ -2356,7 +2357,7 @@ LiturgicalText.find_or_create_by!(slug: 'levavi_oculos', prayer_book_id: prayer_
     por todos os séculos. Amém.
   TEXT
   lt.title = 'Levavi oculos'
-  lt.reference = '(Salmo 121)'
+  lt.reference = 'Salmo 121'
   lt.language = 'pt-BR'
 end
 
@@ -2384,7 +2385,7 @@ LiturgicalText.find_or_create_by!(slug: 'in_convertendo', prayer_book_id: prayer
     por todos os séculos. Amém.
   TEXT
   lt.title = 'In convertendo'
-  lt.reference = '(Salmo 126)'
+  lt.reference = 'Salmo 126'
   lt.language = 'pt-BR'
 end
 
@@ -2444,7 +2445,7 @@ LiturgicalText.find_or_create_by!(slug: 'midday_reading_3', prayer_book_id: pray
 end
 
 # Rubrica antes das orações
-LiturgicalText.find_or_create_by!(slug: 'midday_rubric_before_prayers', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'rubric_before_prayers', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
     Estando as pessoas que puderem em pé ou
@@ -2476,7 +2477,7 @@ LiturgicalText.find_or_create_by!(slug: 'midday_our_father', prayer_book_id: pra
 end
 
 # Rubrica após a oração do Pai Nosso
-LiturgicalText.find_or_create_by!(slug: 'midday_rubric_after_our_father', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'rubric_after_our_father', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
     A seguir são realizadas as seguintes orações:
@@ -2558,5 +2559,962 @@ LiturgicalText.find_or_create_by!(slug: 'midday_dismissal_lent', prayer_book_id:
   TEXT
   lt.language = 'pt-BR'
 end
+
+## Oração da Tarde
+
+# Rubrica antes da Acolhida
+LiturgicalText.find_or_create_by!(slug: 'morning_rubric_before_welcome', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    O Ofício inicia com uma das seguintes saudações,
+    ou ainda com uma saudação espontânea:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Acolhida Tradicional
+LiturgicalText.find_or_create_by!(slug: 'evening_welcome_traditional', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Estamos aqui na presença de Deus,
+    para oferecer-lhe, através do nosso Senhor Jesus Cristo,
+    nossa adoração, louvor e ação de graças;
+    para confessar os nossos pecados;
+    ouvir sua santa Palavra,
+    orar pelas nossas próprias necessidades
+    e pelas necessidades do mundo.
+    A fim de que possamos conhecer mais
+    verdadeiramente a grandeza do amor de Deus
+    e proclamar através de nossas vidas os frutos de sua graça.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Acolhida Contemporânea
+LiturgicalText.find_or_create_by!(slug: 'evening_welcome_contemporary', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Venham minhas irmãs e irmãos, ao Deus da Vida,
+    Venham ao Pai Materno que permanece
+    ao lado das pessoas pobres.
+    Venham ao Filho Fraterno que luta
+    com as que buscam a liberdade.
+    Venham à Ruáh divina, Espírito Santo de amor
+    que capacita a todas as que promovem a justiça.
+    **Glória e louvor à Santa e Bendita Trindade,
+    que restaura as nossas forças e renova a sua Igreja.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# opening_sentence_rubric
+
+# Sentença de Abertura 1
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_1', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Eu amo, SENHOR, a habitação da tua casa
+    e o lugar onde assiste a tua glória. (Sl 26.8)
+    **Suba a minha oração perante a tua face qual incenso, e
+    minhas mãos levantadas sejam o sacrifício da tarde.** __(Sl 141.2)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura 2
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_2', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Sejam bem aceitas as palavras de minha boca, e o meditar
+    de meu coração, perante a tua face, ó SENHOR, rocha
+    minha e redentor meu! (Sl 19.15)
+    **Envia a tua luz e a tua verdade, para que elas me
+    guiem; e me levem ao teu santo monte e à tua morada.** __(Sl 43.3)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura 3
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_3', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    O dia e a noite são teus;
+    formaste a luz e o sol.
+    **Estabeleceste os limites da terra;
+    verão e inverno tu os formaste.** __(Sl 74.16,17)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura 4
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_4', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Adorem ao SENHOR na beleza da santidade;
+    trema à sua presença toda a terra.
+    **Na presença do SENHOR, porque ele vem, sim, vem
+    julgar a terra; julgará o mundo com justiça, e os povos
+    com a sua verdade.**
+    __(Sl 96.9,13)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura 5
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_5', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Bendigo ao SENHOR que aconselha;
+    até de noite meu coração me instrui.
+    **Trago sempre o SENHOR diante de mim;
+    enquanto estiver à minha direita, nada jamais me abalará.**
+    __(Sl 16.7-8)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura 6
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_6', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    A tua palavra é lâmpada para os meus pés,
+    e luz para o meu caminho. __(Sl 119.105)__
+    **Firma os meus passos em teu caminho,
+    para que meus pés não vacilem.** __(Sl 17.5)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura 7
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_7', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Mesmo que eu dissesse: Cubram-me só trevas,
+    e a luz se torne noite ao meu redor,
+    **As trevas não seriam demasiado escuras para ti;
+    antes, a noite resplandece como o dia
+    e as trevas como a luz.** __(Sl 139.11-12)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura 8
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_8', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Jesus disse: Eu sou a luz do mundo;
+    quem me segue de modo algum andará em trevas,
+    mas terá a luz da vida. __(Jo 8.12)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica após a Sentença de Abertura
+LiturgicalText.find_or_create_by!(slug: 'evening_rubric_post_opening_sentence', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Além das sentenças gerais devem ser usadas as seguintes sentenças
+    ocasionais de acordo com a quadra do Ano Cristão.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Advento
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_advent', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Vigiem, porque vocês não sabem quando
+    o dono da casa voltará; pode ser à tarde, à meia-noite,
+    de madrugada ou pelo amanhecer. __(Mc 13.35)__
+    **Para que quando vier não nos encontre dormindo.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Natal
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_christmas', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Não tenham medo! Eu anuncio para vocês
+    a Boa Nova, que será uma grande alegria
+    para todo o povo: Hoje na cidade de Davi,
+    nasceu para vocês um Salvador. __(Jo 2.10,11)__
+    **Grande será o seu domínio,
+    e a Paz não terá fim!** __(Is 9.7a)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Epifania
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_epiphany', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Os povos se encaminharão para a tua luz,
+    e as autoridades das nações para o resplendor
+    da tua aurora. __(Is 60.3)__
+    **Também te dei como luz da humanidade,
+    para seres a minha salvação até as
+    extremidades da terra.** __(Is 49.6)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Quaresma
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_lent', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Rasguem o coração, e não as roupas! Convertam-se
+    ao Senhor seu Deus; porque ele é piedoso e compassivo,
+    tardio em irar-se e cheio de amor. __(Jl 2.13)__
+    **Ao SENHOR, nosso Deus,
+    pertencem a misericórdia e o perdão.** __(Dn 9.9)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Semana Santa
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_holy_week', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Temos nos dispersado quais ovelhas desgarradas,
+    e seguimos os nossos próprios caminhos.
+    **Mas o SENHOR fez cair sobre Ele o nosso pecado.**
+    __(Is 53.6)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Paixão
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_good_friday', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Mas Cristo esvaziou-se a si mesmo, assumindo a forma
+    de servo, fazendo-se semelhante aos seres humanos.
+    **Humilhou-se a si mesmo, tornando-se obediente
+    até a morte, e morte de cruz.** __(Fl 2.7-8)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Páscoa
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_easter', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Aleluia! Cristo ressuscitou! __(Mc 16.6)__
+    **Verdadeiramente o SENHOR ressuscitou. Aleluia!**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Ascensão
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_ascension', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Temos um grande sumo sacerdote, que atravessou os céus:
+    Jesus, Filho de Deus. Por isso mantenhamos
+    firme a fé que professamos.
+    **Portanto, aproximemo-nos do trono da graça com
+    plena confiança, para que alcancemos misericórdia,
+    encontremos graça, e recebamos ajuda em
+    tempo oportuno.** __(Hb 4.14-16)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Festa do Santo Nome
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_holy_name', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Para que o nome de nosso Senhor Jesus Cristo
+    seja glorificado em vocês, e vocês nele,
+    segundo a graça do nosso Deus. __(2 Ts 1.12)__
+    **Para que acreditemos que Jesus é o Cristo,
+    o Filho de Deus, e para que, acreditando,
+    tenhamos vida em seu nome.** __(Jo 20.31)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Pentecostes
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_pentecost', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Deus tem derramado o seu amor em nossos corações,
+    por meio do Espírito Santo que ele nos deu. __(Rm 5.5)__
+    **Pois todas as pessoas que são guiadas pelo
+    Espírito de Deus são filhas de Deus.** __(Rm 8.14)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Trindade
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_trinity', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Como são grandes as riquezas de Deus! Como são
+    profundos o seu conhecimento e a sua sabedoria!
+    **Quem pode explicar as suas decisões?
+    Quem pode entender os seus planos?** __(Rm 11.33)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Todos os Santos (e festa de um Santo ou Santa)
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_all_saints', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Quanto a nós, temos esta grande multidão de
+    testemunhas ao nosso redor. Corramos com
+    coragem a corrida que está à nossa frente.
+    **Continuemos com os nossos olhos fixos em Jesus,
+    pois dele depende a nossa fé, e está sentado à direita
+    do trono de Deus.** __(Hb 12.1,2)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Sentença de Abertura Ação de Graças e dias festivos
+LiturgicalText.find_or_create_by!(slug: 'evening_opening_sentence_thanksgiving', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Rendam graças ao SENHOR, invoquem o seu Nome;
+    façam conhecidos os seus feitos entre os povos.
+    **Cantem-lhe, cantem-lhe louvores; meditem
+    em todas as suas maravilhas.** __(Sl 105.1,2)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica após a abertura da Ação de Graças
+LiturgicalText.find_or_create_by!(slug: 'evening_rubric_after_opening', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    A Confissão de Pecados pode ser omitida, exceto nas quadras
+    penitenciais ou quando a Oração da Tarde for a principal
+    Celebração Dominical, passando-se das Sentenças Introdutórias
+    diretamente para: “Abre, ó Senhor, os nossos lábios...”
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica antes da Confissão
+LiturgicalText.find_or_create_by!(slug: 'evening_rubric_before_confession', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Então quem oficia diz:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Confissão - longa
+LiturgicalText.find_or_create_by!(slug: 'evening_confession_long', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'confession'
+  lt.content = <<~TEXT
+    Queridas irmãs e irmãos,
+    as Santas Escrituras nos lembram
+    que não é possível dissimular
+    nem encobrir ante a face de Deus
+    os nossos muitos pecados e maldades,
+    e nos movem a reconhecê-los e confessá-los
+    com corações humildes e penitentes,
+    a fim de que possamos obter o perdão
+    por sua infinita bondade e misericórdia.
+    Reconheçamos e confessemos os nossos pecados
+    com pureza e humildade de coração, dizendo:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Confissão - curta
+LiturgicalText.find_or_create_by!(slug: 'evening_confession_short', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'confession'
+  lt.content = <<~TEXT
+    Confessemos humildemente os nossos pecados
+    a Deus Todo-poderoso.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# rubric_post_opening_confession
+
+# Pós Confissão 1
+LiturgicalText.find_or_create_by!(slug: 'evening_after_confession_1', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'confession'
+  lt.content = <<~TEXT
+    **Justo e compassivo Deus,
+    nós chegamos à tua presença procurando misericórdia,
+    perdão e restauração de vida.
+    Reconhecemos o silêncio de nossa consciência
+    e nossa falta de interesse em relação
+    às injustiças que acontecem ao nosso redor.
+    Confessamos toda a nossa infidelidade passada:
+    o orgulho, a falsidade e a impaciência de nossas vidas;
+    os nossos desejos e atitudes egoístas;
+    a nossa raiva diante de nossas próprias frustrações
+    e também o nosso descuido na oração e no culto.
+    Perdoa a nossa relutância em agir segundo
+    a tua vontade e por tua grande misericórdia
+    restaura as nossas vidas de acordo com tua amorosa
+    bondade, por Jesus Cristo nosso Senhor. Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Pós Confissão 2
+LiturgicalText.find_or_create_by!(slug: 'evening_after_confession_2', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'confession'
+  lt.content = <<~TEXT
+    **Ó Deus de misericórdia;
+    temos errado e temo-nos apartado dos
+    teus caminhos quais ovelhas desgarradas.
+    Temos por demais seguido os caprichos
+    e desejos de nossos corações.
+    Pecamos contra as tuas santas leis.
+    Deixamos de fazer o que devíamos ter feito.
+    E temos feito o que não devíamos fazer.
+    Tu, porém, ó Senhor, tem misericórdia de nós.
+    Perdoa, ó Deus, as pessoas que confessam
+    as suas culpas.
+    Restaura as que são penitentes,
+    segundo as tuas promessas declaradas à humanidade,
+    em Cristo Jesus nosso Senhor.
+    E concede por amor dele, ó Deus,
+    que de hoje em diante levemos vida sóbria,
+    piedosa e justa.
+    À glória do teu santo Nome. Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Pós Confissão 3
+LiturgicalText.find_or_create_by!(slug: 'evening_after_confession_3', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'confession'
+  lt.content = <<~TEXT
+    **Deus Santíssimo e misericordioso,
+    confessamos a ti e mutuamente
+    todo o mal que temos cometido,
+    por nossa insensibilidade à dor e
+    às necessidades das outras pessoas;
+    por nossa indiferença diante
+    das injustiças e da violência;
+    por todos os nossos falsos juízos,
+    pela falta de caridade em nossos
+    pensamentos sobre os nossos semelhantes;
+    pelo preconceito e menosprezo daquelas
+    pessoas que são diferentes de nós;
+    pelo abuso, destruição e contaminação da tua criação
+    e pela falta de preocupação com
+    as crianças e as futuras gerações.
+    Aceita o nosso arrependimento, Senhor,
+    por tua misericórdia e sê bondoso para conosco.
+    Ouve a nossa oração quando a ti
+    confessamos os nossos muitos pecados,
+    e pela tua fidelidade e justiça concede-nos teu perdão.
+    Por Jesus Cristo, nosso Senhor. Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# rubric_post_confession
+
+# prayer_after_confession_1 ou prayer_after_confession_2
+
+# absolution
+
+# rubric_post_absolution
+
+# Invitatório
+LiturgicalText.find_or_create_by!(slug: 'evening_invocation', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'invocation'
+  lt.content = <<~TEXT
+    Abre, ó SENHOR, os nossos lábios.
+    **E a nossa boca proclamará o teu louvor.**
+    Ó Deus, digna-te salvar-nos.
+    **Senhor, apressa-te em socorrer-nos.**
+    Adoremos ao SENHOR.
+    **Bendigamos a Deus.**
+    Glória ao Pai, e ao Filho,
+    e ao Espírito Santo;
+    **Como era no princípio, é agora e será sempre,
+    por todos os séculos. Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica após o Invitatório
+LiturgicalText.find_or_create_by!(slug: 'evening_rubric_post_invocation', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    É recitado em uníssono ou entoado um dos
+    Cânticos abaixo, que podem ser substituídos
+    por um hino adequado, bem como por um dos
+    Salmos Invitatórios (Venite ou Jubilate) às páginas 71 e 72.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# ecce_nunc ou phos hilaron (pascha_nostrum na páscoa até pentecostes)
+
+# Phos Hilaron
+LiturgicalText.find_or_create_by!(slug: 'phos_hilaron', prayer_book_id: prayer_book.id) do |lt|
+  lt.title = 'Phos Hilaron'
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    Salve, alegre luz, puro esplendor *
+    da gloriosa face paternal,
+    Salve, Jesus, bendito Salvador, *
+    Cristo ressuscitado e imortal.
+    No horizonte o sol já declinou, *
+    brilham da noite as luzes cintilantes:
+    ao Pai, ao Filho, ao Espírito de amor *
+    cantemos nossos hinos exultantes.
+    De santas vozes sobe a adoração *
+    prestada a ti, Jesus, Filho de Deus.
+    A criação inteira canta glória,
+    o universo, a terra, os novos céus.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.reference = 'Luz Radiante'
+  lt.language = 'pt-BR'
+end
+
+# rubric_gloria_patri
+
+# rubric_first_reading
+
+# first_reading
+
+# rubric_post_first_reading
+
+# canticle_post_first_reading
+
+# rubric_end_first_reading
+
+# Magnificat
+LiturgicalText.find_or_create_by!(slug: 'magnificat', prayer_book_id: prayer_book.id) do |lt|
+  lt.title = 'Magnificat'
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    A minha alma engrandece ao Senhor, *
+    e o meu espírito se alegra em Deus meu Salvador.
+    Porquanto considerou *
+    a humildade de sua serva
+    Pois eis que desde agora, *
+    as gerações todas me chamarão bem-aventurada.
+    Grandes coisas me fez o Poderoso; *
+    e santo é o seu Nome.
+    E a sua misericórdia é de geração em geração *
+    sobre as pessoas que o temem.
+    Com seu braço agiu valorosamente, *
+    e dispersou as soberbas pelo intento de seus corações.
+    Depôs dos tronos as poderosas, *
+    e exaltou as humildes.
+    As famintas encheu de bens, *
+    e as ricas despediu vazias.
+    Recordando-se de misericórdia, auxiliou a Israel, seu servo, *
+    como prometeu as primeiras gerações,
+    a Abraão e sua posteridade para sempre.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.reference = 'S. Lucas 1.46'
+  lt.language = 'pt-BR'
+end
+
+# Bonum est confiteri
+LiturgicalText.find_or_create_by!(slug: 'bonum_est_confiteri', prayer_book_id: prayer_book.id) do |lt|
+  lt.title = 'Bonum est confiteri'
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    BOM é louvar ao SENHOR, *
+    e ao teu Nome, ó altíssimo, cantar louvores.
+    Anunciar de manhã a tua misericórdia *
+    e à noite a tua fidelidade.
+    Tangendo a lira e a citara, *
+    com a harpa em harmonioso acorde.
+    Pois me alegraste, SENHOR, pelos teus feitos, *
+    exultarei nas obras de tuas mãos.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.reference = 'Salmo 92'
+  lt.language = 'pt-BR'
+end
+
+# Benedictus
+LiturgicalText.find_or_create_by!(slug: 'benedictus', prayer_book_id: prayer_book.id) do |lt|
+  lt.title = 'Benedictus'
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    Bendito seja o SENHOR Deus de Israel, *
+    porque visitou e redimiu o seu povo;
+    E nos suscitou um poderoso Salvador *
+    na casa de Davi seu servo;
+    Como falou desde o princípio, *
+    pela boca dos seus santos e santas,
+    no tempo dos profetas e profetisas.
+    Para nos livrar de quem nos quer mal, *
+    e da mão de quem nos odeia.
+    Usando de misericórdia para com nossos pais e mães, *
+    e lembrar-se de sua santa aliança;
+    E do juramento que fez a Abraão, *
+    nosso pai,
+    De conceder-nos que, livres da mão
+    de quem nos quer mal, *
+    o servíssemos sem temor;
+    Em santidade e justiça na sua presença, *
+    todos os dias de nossa vida.
+    E tu, ó menino, serás chamado profeta do Altíssimo, *
+    porque hás de ir adiante da face do Senhor,
+    a preparar os seus caminhos;
+    Para dar ao seu povo conhecimento da salvação, *
+    na remissão dos seus pecados;
+    Graças à entranhável misericórdia de nosso Deus, *
+    com que a aurora do alto nos visitou;
+    Para iluminar quem está nas trevas e
+    nas sombras da morte; *
+    guiar nossos pés ao caminho da paz.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.reference = 'O Cântico de Zacarias – S. Lucas 1.68-79'
+  lt.language = 'pt-BR'
+end
+
+# rubric_second_reading
+
+# second_reading
+
+# rubric_post_second_reading
+
+# nunc_dimittis
+
+# Deus misereatur
+LiturgicalText.find_or_create_by!(slug: 'deus_misereatur', prayer_book_id: prayer_book.id) do |lt|
+  lt.title = 'Deus misereatur'
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    DEUS tenha misericórdia de nós e nos abençoe; *
+    e sua face resplandeça sobre nós.
+    Para que se conheça na terra o teu caminho, *
+    e entre todos os povos a tua salvação.
+    Louvem-te as nações, ó Deus; *
+    rendam-te graças todos os povos.
+    Alegrem-se e cantem as nações, *
+    pois julgas com retidão e guias os povos sobre a terra.
+    Louvem-te as nações, ó Deus, *
+    rendam-te graças todos os povos.
+    A terra produz as suas riquezas; *
+    e Deus, o nosso Deus, nos abençoa.
+    DEUS nos abençoa, *
+    e todos os confins da terra o temerão.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.reference = 'Salmo 67'
+  lt.language = 'pt-BR'
+end
+
+# Dignus es
+LiturgicalText.find_or_create_by!(slug: 'dignus_es', prayer_book_id: prayer_book.id) do |lt|
+  lt.title = 'Dignus es'
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    Digno és tu, Senhor nosso Deus,
+    de receber glória e honra e poder, *
+    porque todas as coisas tu criaste,
+    e por tua vontade existem e foram criadas.
+    Digno és, ó Cristo, porque foste morto, *
+    com teu sangue resgataste homens e mulheres
+    para Deus.
+    Procedentes de toda tribo, língua, povo e nação, *
+    e os constituíste reino e sacerdotes e sacerdotisas
+    para nosso Deus.
+    Àquele que está sentado no trono e ao Cordeiro
+    seja o louvor, e a honra, e a glória, *
+    e o domínio pelos séculos dos séculos.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.reference = 'Ap 4.11; 5.9-10,13'
+  lt.language = 'pt-BR'
+end
+
+# rubric_end_second_canticle
+
+# apostles_creed
+
+# Rubrica após o Credo dos Apóstolos
+LiturgicalText.find_or_create_by!(slug: 'evening_rubric_post_apostles_creed', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Ou é dita a seguinte Afirmação de Fé, desde que o
+    Credo seja dito, ao menos, uma vez por semana.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Afirmação de Fé
+LiturgicalText.find_or_create_by!(slug: 'evening_affirmation_of_faith', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Como resposta à Palavra de Deus
+    façamos a nossa afirmação de fé:
+
+    **Cremos em Deus;
+    Cremos na força das pessoas pobres,
+    Na audácia das pessoas poetas,
+    Na ousadia das profetas,
+    Na inspiração das artistas.
+
+    Cremos em Jesus,
+    Cremos na humildade para servir,
+    Na coragem de transformar,
+    Na alegria de celebrar,
+    No respeito às diferenças,
+    No pão para toda mesa,
+    No conforto para toda tristeza.
+
+    Cremos no Espírito,
+    Cremos na esperança de recomeçar,
+    Na beleza do gesto solidário,
+    Na justiça para toda opressão,
+    Na compaixão diante da dor,
+    No amor, dádiva divino-humana. Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# rubric_offertory
+
+# rubric_before_prayers
+
+# invocation_our_father_1 ou invocation_our_father_2
+
+# our_father
+
+# rubric_after_our_father
+
+# mercy_prayer_1 ou evening_closing_prayer
+
+# Oração de Encerramento
+LiturgicalText.find_or_create_by!(slug: 'evening_closing_prayer', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Para que esta noite seja santa, boa e pacífica,
+    **Nós oramos, Senhor.**
+    Para que teus santos anjos nos conduzam
+    pelos caminhos da paz e da bondade,
+    **Nós oramos, Senhor.**
+    Para que nos perdoes e absolvas de nossos pecados e ofensas,
+    **Nós oramos, Senhor.**
+    Para que haja paz na tua Igreja e em todo o mundo,
+    **Nós oramos, Senhor.**
+    Para que vivamos com fé, esperança e constante amor,
+    **Nós oramos, Senhor.**
+    Que o teu Espírito Santo nos una em comunhão
+    com (N._______) e com todos os teus santos e santas,
+    de maneira que alcancemos nesta vida o conhecimento
+    da tua vontade, e na vindoura a vida eterna.
+    **Nós oramos, Senhor.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# rubric_collect_of_the_day
+
+# rubric_general_collects
+
+# for_peace, for_grace
+
+# Por proteção
+LiturgicalText.find_or_create_by!(slug: 'for_protection', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Ó Deus,
+    que és a vida daquelas pessoas que estão vivas
+    e a luz das que morreram na fé;
+    que és a força das que trabalham,
+    e o descanso eterno das que já partiram:
+    Damos-te graças pelas bênçãos deste dia que termina,
+    e humildemente oramos pela tua santa proteção
+    durante a noite que começa.
+    Guarda-nos em segurança,
+    e livra-nos de todos os perigos;
+    Isto te pedimos por amor daquele que
+    por nós morreu e ressuscitou, teu Filho,
+    nosso Salvador Jesus Cristo.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Pela presença de Cristo
+LiturgicalText.find_or_create_by!(slug: 'for_christ_presence', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Fica conosco, Senhor Jesus,
+    agora que a noite se aproxima e o dia já findou.
+    Sê nosso companheiro no caminho,
+    anima nossos corações e desperta nossa esperança,
+    para que te conheçamos tal como te revelas
+    nas Escrituras e no partir do pão.
+    Concede-nos isto por amor do teu nome.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Por todas as autoridades
+LiturgicalText.find_or_create_by!(slug: 'evening_for_all_authorities', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Ó Senhor, que nos governas,
+    e de quem a glória enche toda a terra;
+    ao teu misericordioso cuidado
+    encomendamos nossa Pátria,
+    a fim de que, sob o amparo de tua providência,
+    habitemos em tua paz e em segurança.
+    Concede à(ao) Presidente da República,
+    e à todas as outras autoridades,
+    sabedoria e força para conhecer e praticar a tua vontade.
+    Enche-as de amor à verdade e à justiça.
+    Faze-as sempre zelosas da sua missão para servirem
+    este povo no temor do teu santo Nome;
+    mediante Jesus Cristo nosso Senhor,
+    que vive e reina contigo
+    e o Espírito Santo, um só Deus, pelos séculos sem fim.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Pela liderança clerical
+LiturgicalText.find_or_create_by!(slug: 'evening_for_clergy', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Onipotente e sempiterno Deus,
+    do qual procede toda a boa dádiva e dom perfeito;
+    envia lá do alto sobre os nossos bispos e bispas,
+    clérigos e clérigas e as congregações
+    confiadas a seus cuidados,
+    o poder do Santo Espírito,
+    e para que verdadeiramente te agradem,
+    espalha continuamente sobre
+    toda a liderança clerical o orvalho de tua bênção.
+    Concede-nos isto, ó Senhor, à honra de teu Filho
+    que se fez nosso irmão, Jesus Cristo.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Pela família paroquial
+LiturgicalText.find_or_create_by!(slug: 'evening_for_parish_family', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Deus cheio de graça,
+    humildemente suplicamos
+    por nossa comunidade paroquial.
+    Enche-a de tua verdade e paz,
+    e dá-lhe flexibilidade para aceitar
+    a ação de teu Santo Espírito.
+    Em um mundo repleto de violência e ódio,#{' '}
+    dá-lhe coragem para semear o amor e a harmonia.
+    Em um mundo marcado pela violência
+    da discriminação e da desigualdade,
+    cria nela a capacidade de abrir-se em amor,
+    de tal forma que possa acolher todas as pessoas
+    que te buscam; por Jesus Cristo nosso Senhor
+    e Salvador. **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Litania por toda a humanidade
+LiturgicalText.find_or_create_by!(slug: 'litania_for_all_humanity', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Sobre a Igreja Una, Santa, Católica e Apostólica,
+    **Envia, ó Deus, teu Santo Espírito.**
+    Sobre aquelas pessoas que proclamam o Evangelho,
+    **Envia, ó Deus, a tua sabedoria.**
+    Sobre aquelas que declaram a tua presença e amor,
+    **Envia, ó Deus, a tua inspiração.**
+    Sobre aquelas que ministram os sacramentos,
+    **Envia, ó Deus, o teu fortalecimento.**
+    Sobre as tuas fiéis testemunhas,
+    **Envia, ó Deus, o teu conhecimento.**
+    Sobre as pessoas recém-convertidas,
+    **Envia, ó Deus, a tua proteção.**
+    Sobre as que perderam a esperança e a alegria,
+    **Envia, ó Deus, a tua misericórdia.**
+    Sobre as que se encontram amedrontadas e enfermas,
+    **Envia, ó Deus, a cura e a restauração.**
+    Sobre aquelas pessoas que têm poder,
+    **Envia, ó Deus, a humildade e a responsabilidade.**
+    Sobre nós e sobre nossas vidas,
+    **Envia, ó Deus, a tua paz, que transcende
+    todo entendimento.**
+    Sobre aquelas que morreram na paz de Cristo,
+    **Envia, ó Deus, a tua luz perpétua, na companhia de
+    todos os santos e santas. Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica após as Orações
+LiturgicalText.find_or_create_by!(slug: 'evening_rubric_post_prayers', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Aqui podem ser usadas uma das intercessões
+    deste livro ou litanias autorizadas.
+    As Orações são concluídas uma das seguintes Orações Gerais de
+    Ação de Graças, podendo ser precedidas por uma música ou hino:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# opening_general_thanksgiving
+
+# rubric_after_opening_general_thanksgiving
+
+# general_thanksgiving_1
+
+# general_thanksgiving_2
+
+# chrysostom_prayer
+
+# rubric_concluding_prayers
+
+# opening_concluding_prayers
+
+# Rubrica após as Orações Conclusivas
+LiturgicalText.find_or_create_by!(slug: 'evening_rubric_post_concluding_prayers', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    A Oração da Tarde termina com uma das seguintes Orações
+    Conclusivas, podendo ainda serem substituídas por um outro
+    versículo adequado das Sagradas Escrituras:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# dismissal_1 ou dismissal_2 ou dismissal_3 ou dismissal_4
+
+# rubric_post_dismissal
 
 puts "Created #{LiturgicalText.count} liturgical texts"
