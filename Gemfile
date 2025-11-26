@@ -43,6 +43,12 @@ gem "jwt"
 # Firebase Cloud Messaging for push notifications
 gem "fcm"
 
+# Excel file generation and reading
+gem "caxlsx"
+gem "caxlsx_rails"
+gem "write_xlsx"
+gem "roo"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -59,4 +65,16 @@ group :development, :test do
   # RSpec for testing
   gem "rspec-rails", "~> 8.0"
   gem "rswag-specs"
+
+  # Parallel test execution
+  gem "parallel_tests"
+
+  # Test data factories
+  gem "factory_bot_rails"
+
+  # Additional RSpec matchers
+  gem "shoulda-matchers", "~> 6.0"
+
+  # Code coverage
+  gem "simplecov", require: false
 end

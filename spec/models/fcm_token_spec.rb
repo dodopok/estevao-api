@@ -4,7 +4,13 @@ require "rails_helper"
 
 RSpec.describe FcmToken, type: :model do
   describe "associations" do
-    it { should belong_to(:user) }
+    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123") }
+    let(:fcm_token) { FcmToken.create!(user: user, token: "test_token", platform: "android") }
+
+    it "belongs to user" do
+      expect(fcm_token).to respond_to(:user)
+      expect(fcm_token.user).to eq(user)
+    end
   end
 
   describe "validations" do

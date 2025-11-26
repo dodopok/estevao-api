@@ -1,4 +1,4 @@
-if Rails.env.development?
+if Rails.env.development? && defined?(DEBUGGER__)
   require "debug/session"
   Rails.logger.info "Starting debug session"
   # the port can be anything

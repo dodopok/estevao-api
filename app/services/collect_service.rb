@@ -1,10 +1,19 @@
 # Serviço para buscar coletas (orações) litúrgicas para uma data específica
 class CollectService
-  attr_reader :date, :calendar
+  attr_reader :date, :calendar, :prayer_book_code
 
-  def initialize(date)
+  def initialize(date, prayer_book_code: "loc_2015")
     @date = date
     @calendar = LiturgicalCalendar.new(date.year)
+    @prayer_book_code = prayer_book_code
+  end
+
+  def prayer_book
+    @prayer_book ||= PrayerBook.find_by_code(@prayer_book_code)
+  end
+
+  def prayer_book_id
+    prayer_book&.id
   end
 
   # Retorna a(s) coleta(s) para o dia
@@ -19,12 +28,15 @@ class CollectService
 
   private
 
-  # 1. Buscar por celebração fixa (santo, festa, etc)
+  # 1. Buscar por celebração (usa CelebrationResolver para prioridades)
   def find_by_celebration
-    celebration = Celebration.fixed.for_date(date.month, date.day).first
+    resolver = CelebrationResolver.new(date.year, prayer_book_code: prayer_book_code)
+    celebration = resolver.resolve_for_date(date)
     return [] unless celebration
 
-    Collect.for_celebration(celebration.id).in_language("pt-BR")
+    Collect.for_celebration(celebration.id)
+           .for_prayer_book_id(prayer_book_id)
+           .in_language("pt-BR")
   end
 
   # 2. Buscar por domingo (Proper ou nome do domingo)
@@ -34,7 +46,9 @@ class CollectService
     # Tentar por Proper primeiro (domingos do Tempo Comum)
     proper_num = calendar.proper_number(date)
     if proper_num
-      collects = Collect.for_sunday("proper_#{proper_num}").in_language("pt-BR")
+      collects = Collect.for_sunday("proper_#{proper_num}")
+                        .for_prayer_book_id(prayer_book_id)
+                        .in_language("pt-BR")
       return collects if collects.any?
     end
 
@@ -42,7 +56,9 @@ class CollectService
     sunday_ref = SundayReferenceMapper.map(date, calendar)
     return [] unless sunday_ref
 
-    Collect.for_sunday(sunday_ref).in_language("pt-BR")
+    Collect.for_sunday(sunday_ref)
+           .for_prayer_book_id(prayer_book_id)
+           .in_language("pt-BR")
   end
 
   # 3. Buscar pela coleta do último domingo
@@ -54,7 +70,9 @@ class CollectService
     # Tentar buscar a coleta desse domingo
     proper_num = calendar.proper_number(last_sunday)
     if proper_num
-      collects = Collect.for_sunday("proper_#{proper_num}").in_language("pt-BR")
+      collects = Collect.for_sunday("proper_#{proper_num}")
+                        .for_prayer_book_id(prayer_book_id)
+                        .in_language("pt-BR")
       return collects if collects.any?
     end
 
@@ -62,7 +80,9 @@ class CollectService
     sunday_ref = SundayReferenceMapper.map(last_sunday, calendar)
     return [] unless sunday_ref
 
-    Collect.for_sunday(sunday_ref).in_language("pt-BR")
+    Collect.for_sunday(sunday_ref)
+           .for_prayer_book_id(prayer_book_id)
+           .in_language("pt-BR")
   end
 
   # Encontra o domingo anterior à data atual
@@ -78,7 +98,7 @@ class CollectService
     return nil if collects.nil? || collects.empty?
 
     if collects.count == 1
-      { text: collects.first.text, preface: collects.first.preface }
+      [ { text: collects.first.text, preface: collects.first.preface } ]
     else
       collects.map { |c| { text: c.text, preface: c.preface } }
     end

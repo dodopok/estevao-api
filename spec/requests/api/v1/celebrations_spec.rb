@@ -13,8 +13,22 @@ RSpec.describe 'api/v1/celebrations', type: :request do
     get('search celebration') do
       tags api_tags
       produces content_type
+      security [ { bearer_auth: [] }, {} ]
+      parameter name: 'Authorization', in: :header, type: :string, required: false,
+                description: 'Optional Firebase auth token (Bearer)'
+      parameter name: 'prayer_book_code', in: :query, required: false,
+                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
+                schema: {
+                  type: :string,
+                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
+                }
+      parameter name: 'q', in: :query, type: :string, required: false, description: 'Search query'
 
       response(200, 'successful') do
+        let(:Authorization) { '' }
+        let(:prayer_book_code) { 'loc_2015' }
+        let(:q) { 'natal' }
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -52,6 +66,15 @@ RSpec.describe 'api/v1/celebrations', type: :request do
     get('by_date celebration') do
       tags api_tags
       produces content_type
+      security [ { bearer_auth: [] }, {} ]
+      parameter name: 'Authorization', in: :header, type: :string, required: false,
+                description: 'Optional Firebase auth token (Bearer)'
+      parameter name: 'prayer_book_code', in: :query, required: false,
+                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
+                schema: {
+                  type: :string,
+                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
+                }
 
       response(200, 'successful') do
         let(:month) { '01' }
@@ -73,6 +96,15 @@ RSpec.describe 'api/v1/celebrations', type: :request do
     get('list celebrations') do
       tags api_tags
       produces content_type
+      security [ { bearer_auth: [] }, {} ]
+      parameter name: 'Authorization', in: :header, type: :string, required: false,
+                description: 'Optional Firebase auth token (Bearer)'
+      parameter name: 'prayer_book_code', in: :query, required: false,
+                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
+                schema: {
+                  type: :string,
+                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
+                }
 
       response(200, 'successful') do
         after do |example|
@@ -93,9 +125,33 @@ RSpec.describe 'api/v1/celebrations', type: :request do
     get('show celebration') do
       tags api_tags
       produces content_type
+      security [ { bearer_auth: [] }, {} ]
+      parameter name: 'Authorization', in: :header, type: :string, required: false,
+                description: 'Optional Firebase auth token (Bearer)'
+      parameter name: 'prayer_book_code', in: :query, required: false,
+                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
+                schema: {
+                  type: :string,
+                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
+                }
 
       response(200, 'successful') do
-        let(:id) { '1' }
+        let(:Authorization) { '' }
+        let(:prayer_book_code) { 'loc_2015' }
+        let(:id) do
+          prayer_book = PrayerBook.find_or_create_by!(code: 'loc_2015') do |pb|
+            pb.name = 'Livro de Oração Comum 2015'
+            pb.year = 2015
+            pb.is_default = true
+          end
+          celebration = Celebration.create!(
+            name: 'Teste',
+            celebration_type: :principal_feast,
+            rank: 50,
+            prayer_book: prayer_book
+          )
+          celebration.id
+        end
 
         after do |example|
           example.metadata[:response][:content] = {

@@ -1,10 +1,15 @@
 module Api
   module V1
     class CelebrationsController < ApplicationController
+      include Authenticatable
+
+      before_action :authenticate_user_optional
+
       # GET /api/v1/celebrations
       # Lista todas as celebrações
       def index
-        celebrations = Celebration.all.by_rank
+        prayer_book = PrayerBook.find_by_code(prayer_book_code)
+        celebrations = Celebration.where(prayer_book_id: prayer_book.id).by_rank
 
         # Filtros opcionais
         celebrations = celebrations.where(celebration_type: params[:type]) if params[:type].present?
@@ -19,7 +24,8 @@ module Api
       # GET /api/v1/celebrations/:id
       # Detalhes de uma celebração específica
       def show
-        celebration = Celebration.find(params[:id])
+        prayer_book = PrayerBook.find_by_code(prayer_book_code)
+        celebration = Celebration.where(prayer_book_id: prayer_book.id).find(params[:id])
 
         render json: {
           celebracao: format_celebration_detailed(celebration)
@@ -38,7 +44,10 @@ module Api
           return
         end
 
-        celebrations = Celebration.where("name ILIKE ?", "%#{query}%").by_rank
+        prayer_book = PrayerBook.find_by_code(prayer_book_code)
+        celebrations = Celebration.where(prayer_book_id: prayer_book.id)
+                                  .where("name ILIKE ?", "%#{query}%")
+                                  .by_rank
 
         render json: {
           total: celebrations.count,
@@ -57,7 +66,10 @@ module Api
           return
         end
 
-        celebrations = Celebration.for_date(month, day).by_rank
+        prayer_book = PrayerBook.find_by_code(prayer_book_code)
+        celebrations = Celebration.where(prayer_book_id: prayer_book.id)
+                                  .for_date(month, day)
+                                  .by_rank
 
         render json: {
           mes: month,
@@ -140,6 +152,14 @@ module Api
           "lesser_feast" => "Festas Menores (texto simples) - outros santos e dias comemorativos",
           "commemoration" => "Comemorações - menções nas intercessões apenas"
         }[type] || ""
+      end
+
+      def prayer_book_code
+        # Priority: URL param > User preference > Default
+        return params[:prayer_book_code] if params[:prayer_book_code].present?
+        return current_user.preferences["prayer_book_code"] if current_user&.preferences&.dig("prayer_book_code")
+
+        "loc_2015"
       end
     end
   end

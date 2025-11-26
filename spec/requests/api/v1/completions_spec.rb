@@ -49,6 +49,15 @@ RSpec.describe 'api/v1/completions', type: :request do
       }
 
       response(201, 'created') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:completion) { { completion: { office_type: 'morning', duration_seconds: 600 } } }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  message: { type: :string, example: 'Office completed successfully' },
@@ -70,6 +79,9 @@ RSpec.describe 'api/v1/completions', type: :request do
       end
 
       response(401, 'unauthorized') do
+        let(:Authorization) { '' }
+        let(:completion) { { completion: { office_type: 'morning' } } }
+
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'Unauthorized' }
@@ -79,6 +91,15 @@ RSpec.describe 'api/v1/completions', type: :request do
       end
 
       response(422, 'unprocessable entity') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:completion) { { completion: { office_type: '' } } }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'Validation failed: User already completed this office today' }
@@ -105,6 +126,15 @@ RSpec.describe 'api/v1/completions', type: :request do
                 required: true
 
       response(200, 'successful') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:id) do
+          user = create(:user)
+          completion = create(:completion, user: user)
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:current_user).and_return(user)
+          completion.id
+        end
+
         schema type: :object,
                properties: {
                  message: { type: :string, example: 'Completion removed successfully' },
@@ -116,6 +146,9 @@ RSpec.describe 'api/v1/completions', type: :request do
       end
 
       response(401, 'unauthorized') do
+        let(:Authorization) { '' }
+        let(:id) { 1 }
+
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'Unauthorized' }
@@ -125,6 +158,15 @@ RSpec.describe 'api/v1/completions', type: :request do
       end
 
       response(404, 'not found') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:id) { 99999 }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'Completion not found' }

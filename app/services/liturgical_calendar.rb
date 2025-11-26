@@ -1,9 +1,10 @@
 # Serviço principal para gerar o calendário litúrgico de um ano
 class LiturgicalCalendar
-  attr_reader :year, :easter_calc
+  attr_reader :year, :easter_calc, :prayer_book_code
 
-  def initialize(year)
+  def initialize(year, prayer_book_code: "loc_2015")
     @year = year
+    @prayer_book_code = prayer_book_code
     @easter_calc = EasterCalculator.new(year)
   end
 
@@ -90,7 +91,7 @@ class LiturgicalCalendar
     when "Quaresma"
       if date >= movable[:palm_sunday] && date <= movable[:good_friday]
         date == movable[:good_friday] ? "vermelho" : "vermelho"
-      elsif date == movable[:ash_wednesday] + 21.days # 4º Domingo na Quaresma
+      elsif date == movable[:first_sunday_in_lent] + 21.days # 4º Domingo na Quaresma
         "rosa"
       else
         "roxo"
@@ -107,7 +108,7 @@ class LiturgicalCalendar
   # Retorna a celebração principal do dia
   def celebration_for_date(date)
     # Usa o CelebrationResolver para aplicar regras de transferência e hierarquia
-    resolver = CelebrationResolver.new(year)
+    resolver = CelebrationResolver.new(year, prayer_book_code: prayer_book_code)
     celebration = resolver.resolve_for_date(date)
 
     return nil unless celebration

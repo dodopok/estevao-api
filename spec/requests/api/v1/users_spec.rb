@@ -25,6 +25,14 @@ RSpec.describe 'api/v1/users', type: :request do
                 required: true
 
       response(200, 'successful') do
+        let(:Authorization) { 'Bearer mock-token' }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  id: { type: :integer, example: 1 },
@@ -68,6 +76,8 @@ RSpec.describe 'api/v1/users', type: :request do
       end
 
       response(401, 'unauthorized') do
+        let(:Authorization) { '' }
+
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'Unauthorized' }
@@ -127,6 +137,15 @@ RSpec.describe 'api/v1/users', type: :request do
       }
 
       response(200, 'successful') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:preferences) { { preferences: { version: 'loc_2015', language: 'pt-BR' } } }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  message: { type: :string, example: 'Preferences updated successfully' },
@@ -148,6 +167,9 @@ RSpec.describe 'api/v1/users', type: :request do
       end
 
       response(401, 'unauthorized') do
+        let(:Authorization) { '' }
+        let(:preferences) { { preferences: { version: 'loc_2015' } } }
+
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'Unauthorized' }
@@ -175,6 +197,15 @@ RSpec.describe 'api/v1/users', type: :request do
                 required: false
 
       response(200, 'successful') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:limit) { 30 }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  completions: {
@@ -199,6 +230,9 @@ RSpec.describe 'api/v1/users', type: :request do
       end
 
       response(401, 'unauthorized') do
+        let(:Authorization) { '' }
+        let(:limit) { 30 }
+
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'Unauthorized' }
@@ -233,6 +267,15 @@ RSpec.describe 'api/v1/users', type: :request do
       }
 
       response(200, 'successful') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:fcm_token_data) { { fcm_token: 'test-token-123', platform: 'android' } }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  message: { type: :string, example: 'Token FCM salvo com sucesso' },
@@ -243,6 +286,9 @@ RSpec.describe 'api/v1/users', type: :request do
       end
 
       response(401, 'unauthorized') do
+        let(:Authorization) { '' }
+        let(:fcm_token_data) { { fcm_token: 'test-token-123' } }
+
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'Unauthorized' }
@@ -252,6 +298,15 @@ RSpec.describe 'api/v1/users', type: :request do
       end
 
       response(422, 'unprocessable entity') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:fcm_token_data) { { platform: 'android' } }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'FCM token is required' }
@@ -276,6 +331,16 @@ RSpec.describe 'api/v1/users', type: :request do
       parameter name: :fcm_token, in: :query, type: :string, description: 'FCM token to remove', required: true
 
       response(200, 'successful') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:fcm_token) { 'test-token-123' }
+
+        before do
+          user = create(:user)
+          user.fcm_tokens.create!(token: 'test-token-123', platform: 'android')
+          allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  message: { type: :string, example: 'Token FCM removido com sucesso' }
@@ -285,6 +350,9 @@ RSpec.describe 'api/v1/users', type: :request do
       end
 
       response(401, 'unauthorized') do
+        let(:Authorization) { '' }
+        let(:fcm_token) { 'test-token-123' }
+
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'Unauthorized' }
@@ -294,6 +362,15 @@ RSpec.describe 'api/v1/users', type: :request do
       end
 
       response(422, 'unprocessable entity') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:fcm_token) { '' }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  error: { type: :string, example: 'FCM token is required' }

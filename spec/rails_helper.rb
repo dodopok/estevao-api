@@ -12,6 +12,9 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 
+# Load support files
+Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
+
 RSpec.configure do |config|
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
@@ -20,4 +23,28 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
+  # Parallel tests configuration
+  if ENV['TEST_ENV_NUMBER']
+    config.default_formatter = 'progress'
+  end
+
+  # FactoryBot configuration
+  config.include FactoryBot::Syntax::Methods
+
+  # Shoulda Matchers configuration
+  config.include(Shoulda::Matchers::ActiveModel, type: :model)
+  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+
+  config.before(:each, type: :request) do
+    host! 'localhost'
+  end
+end
+
+# Shoulda Matchers configuration
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end

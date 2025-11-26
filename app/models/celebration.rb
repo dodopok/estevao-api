@@ -16,6 +16,7 @@ class Celebration < ApplicationRecord
   validates :fixed_day, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31 }, allow_nil: true
 
   # Relacionamentos
+  belongs_to :prayer_book
   has_many :collects, dependent: :destroy
   has_many :lectionary_readings, dependent: :destroy
 
@@ -24,6 +25,13 @@ class Celebration < ApplicationRecord
   scope :movable, -> { where(movable: true) }
   scope :by_rank, -> { order(rank: :asc) }
   scope :for_date, ->(month, day) { where(fixed_month: month, fixed_day: day) }
+  scope :for_prayer_book_id, ->(prayer_book_id) {
+    where(prayer_book_id: prayer_book_id)
+  }
+  scope :for_prayer_book, ->(code) {
+    prayer_book = PrayerBook.find_by(code: code)
+    where(prayer_book_id: prayer_book&.id)
+  }
 
   # Método para verificar se é uma festa principal
   def principal_feast?

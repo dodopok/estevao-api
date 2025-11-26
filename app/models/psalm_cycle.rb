@@ -1,4 +1,7 @@
 class PsalmCycle < ApplicationRecord
+  # Relacionamentos
+  belongs_to :prayer_book
+
   # Validações
   validates :cycle_type, presence: true, inclusion: { in: %w[weekly monthly] }
   validates :day_of_week, presence: true, inclusion: { in: 0..6 }
@@ -10,6 +13,10 @@ class PsalmCycle < ApplicationRecord
   scope :monthly, -> { where(cycle_type: "monthly") }
   scope :for_office, ->(office_type) { where(office_type: office_type) }
   scope :for_day, ->(day_of_week) { where(day_of_week: day_of_week) }
+  scope :for_prayer_book, ->(code) {
+    prayer_book = PrayerBook.find_by(code: code)
+    where(prayer_book_id: prayer_book&.id)
+  }
 
   # Find psalms for a specific date and office
   def self.find_for_date_and_office(date, office_type, cycle_type: "weekly")
@@ -35,11 +42,11 @@ class PsalmCycle < ApplicationRecord
   end
 
   # Get the actual Psalm objects for this cycle
-  def psalms(translation: "loc_2015")
+  def psalms(prayer_book_code: "loc_2015")
     return [] unless psalm_numbers.is_a?(Array)
 
     psalm_numbers.map do |number|
-      Psalm.find_psalm(number, translation: translation)
+      Psalm.find_psalm(number, prayer_book_code: prayer_book_code)
     end.compact
   end
 

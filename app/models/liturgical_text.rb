@@ -1,16 +1,21 @@
 class LiturgicalText < ApplicationRecord
+  # Relacionamentos
+  belongs_to :prayer_book
+
   # Validações
-  validates :slug, presence: true, uniqueness: { scope: :version }
+  validates :slug, presence: true, uniqueness: { scope: :prayer_book_id }
   validates :category, presence: true
   validates :content, presence: true
-  validates :version, presence: true
   validates :language, presence: true
 
   # Scopes
   scope :by_category, ->(category) { where(category: category) }
   scope :by_slug, ->(slug) { where(slug: slug) }
-  scope :by_version, ->(version) { where(version: version) }
   scope :for_season, ->(season_slug) { where("slug LIKE ?", "%#{season_slug}%") }
+  scope :for_prayer_book, ->(code) {
+    prayer_book = PrayerBook.find_by(code: code)
+    where(prayer_book_id: prayer_book&.id)
+  }
 
   # Categories constants
   CATEGORIES = {
@@ -26,9 +31,10 @@ class LiturgicalText < ApplicationRecord
     rubric: "rubric"
   }.freeze
 
-  # Helper method to find text by slug and version
-  def self.find_text(slug, version: "loc_2015")
-    find_by(slug: slug, version: version)
+  # Helper method to find text by slug and prayer book code
+  def self.find_text(slug, prayer_book_code: "loc_2015")
+    prayer_book = PrayerBook.find_by(code: prayer_book_code)
+    find_by(slug: slug, prayer_book_id: prayer_book&.id)
   end
 
   # Helper to get content safely

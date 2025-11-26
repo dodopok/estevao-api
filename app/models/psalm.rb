@@ -1,16 +1,22 @@
 class Psalm < ApplicationRecord
+  # Relacionamentos
+  belongs_to :prayer_book
+
   # Validações
-  validates :number, presence: true, uniqueness: { scope: :translation }
+  validates :number, presence: true, uniqueness: { scope: :prayer_book_id }
   validates :verses, presence: true
-  validates :translation, presence: true
 
   # Scopes
   scope :by_number, ->(number) { where(number: number) }
-  scope :by_translation, ->(translation) { where(translation: translation) }
+  scope :for_prayer_book, ->(code) {
+    prayer_book = PrayerBook.find_by(code: code)
+    where(prayer_book_id: prayer_book&.id)
+  }
 
-  # Find psalm by number and optional translation
-  def self.find_psalm(number, translation: "loc_2015")
-    find_by(number: number, translation: translation)
+  # Find psalm by number and optional prayer book code
+  def self.find_psalm(number, prayer_book_code: "loc_2015")
+    prayer_book = PrayerBook.find_by(code: prayer_book_code)
+    find_by(number: number, prayer_book_id: prayer_book&.id)
   end
 
   # Get verses as formatted text

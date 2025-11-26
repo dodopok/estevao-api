@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::FcmTokens", type: :request do
+  include ActiveSupport::Testing::TimeHelpers
+
   let(:user) { User.create!(email: "test@example.com", provider_uid: "firebase123") }
   let(:token) { "fake_firebase_token" }
   let(:headers) { { "Authorization" => "Bearer #{token}" } }
@@ -49,7 +51,7 @@ RSpec.describe "Api::V1::FcmTokens", type: :request do
              params: { platform: "android" },
              headers: headers
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         json_response = JSON.parse(response.body)
         expect(json_response["error"]).to eq("FCM token is required")
       end
@@ -95,7 +97,7 @@ RSpec.describe "Api::V1::FcmTokens", type: :request do
                params: {},
                headers: headers
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         json_response = JSON.parse(response.body)
         expect(json_response["error"]).to eq("FCM token is required")
       end

@@ -3,6 +3,7 @@ class Collect < ApplicationRecord
   # pois uma coleta pode ser de uma celebração OU de um domingo/quadra
   belongs_to :celebration, optional: true
   belongs_to :season, class_name: "LiturgicalSeason", optional: true
+  belongs_to :prayer_book
 
   # Validações
   validates :text, presence: true
@@ -14,6 +15,11 @@ class Collect < ApplicationRecord
   scope :for_season, ->(season_id) { where(season_id: season_id) }
   scope :for_sunday, ->(sunday_ref) { where(sunday_reference: sunday_ref) }
   scope :in_language, ->(lang) { where(language: lang) }
+  scope :for_prayer_book_id, ->(prayer_book_id) { where(prayer_book_id: prayer_book_id) }
+  scope :for_prayer_book, ->(code) {
+    prayer_book = PrayerBook.find_by(code: code)
+    where(prayer_book_id: prayer_book&.id)
+  }
 
   private
 

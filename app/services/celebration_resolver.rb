@@ -1,10 +1,19 @@
 # Serviço para resolver transferências de festas conforme as regras litúrgicas
 class CelebrationResolver
-  attr_reader :year, :easter_calc
+  attr_reader :year, :easter_calc, :prayer_book_code, :prayer_book
 
-  def initialize(year)
+  def initialize(year, prayer_book_code: "loc_2015")
     @year = year
+    @prayer_book_code = prayer_book_code
     @easter_calc = EasterCalculator.new(year)
+  end
+
+  def prayer_book
+    @prayer_book ||= PrayerBook.find_by_code(prayer_book_code)
+  end
+
+  def prayer_book_id
+    prayer_book&.id
   end
 
   # Resolve qual celebração deve ser observada numa data específica,
@@ -48,19 +57,21 @@ class CelebrationResolver
   def collect_candidates(date)
     candidates = []
 
-    # Candidatos fixos
-    fixed_celebrations = Celebration.fixed.for_date(date.month, date.day)
+    # Candidatos fixos (filtrados por prayer_book)
+    fixed_celebrations = Celebration.for_prayer_book_id(prayer_book_id)
+                                    .fixed
+                                    .for_date(date.month, date.day)
     candidates.concat(fixed_celebrations.to_a)
 
-    # Candidatos móveis que caem nesta data
-    Celebration.movable.each do |cel|
+    # Candidatos móveis que caem nesta data (filtrados por prayer_book)
+    Celebration.movable.for_prayer_book_id(prayer_book_id).each do |cel|
       if calculate_movable_date(cel) == date
         candidates << cel
       end
     end
 
-    # Candidatos transferidos para esta data
-    Celebration.where(can_be_transferred: true).each do |cel|
+    # Candidatos transferidos para esta data (filtrados por prayer_book)
+    Celebration.for_prayer_book_id(prayer_book_id).where(can_be_transferred: true).each do |cel|
       next if cel.movable? # já tratado acima
 
       transferred_date = actual_date_for_celebration(cel)
@@ -76,9 +87,13 @@ class CelebrationResolver
     # Ordena por rank (menor = maior precedência)
     sorted = celebrations.sort_by(&:rank)
 
-    # Festa Principal ou Dia Santo Principal sempre tem precedência (mesmo em domingos)
-    principal = sorted.find { |c| c.principal_feast? || c.major_holy_day? }
-    return principal if principal
+    # Festa Principal tem maior precedência
+    principal_feast = sorted.find { |c| c.principal_feast? }
+    return principal_feast if principal_feast
+
+    # Depois Dia Santo Principal
+    major_holy_day = sorted.find { |c| c.major_holy_day? }
+    return major_holy_day if major_holy_day
 
     # Domingos em quadras principais (Advento, Natal, Quaresma, Páscoa) têm precedência sobre festas menores
     # MAS: Festas Principais e Dias Santos Principais já foram tratados acima

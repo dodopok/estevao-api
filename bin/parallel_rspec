@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Script to run RSpec tests in parallel
+
+set -e
+
+# Get number of processors (default to 4)
+PROCESSORS=${PARALLEL_TEST_PROCESSORS:-4}
+
+echo "Running RSpec tests in parallel with $PROCESSORS processes..."
+
+# Run tests in parallel (parallel_tests will handle database setup automatically)
+bundle exec parallel_rspec -n $PROCESSORS spec/
