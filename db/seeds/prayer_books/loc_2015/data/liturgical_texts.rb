@@ -495,7 +495,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_invocation', prayer_book_id: pr
     **E na terra paz,
     boa-vontade entre todas as suas criaturas.**
     Louvemos ao SENHOR.
-    [Aleluia!]
+    Aleluia!
   TEXT
   lt.language = 'pt-BR'
 end
@@ -2211,6 +2211,350 @@ LiturgicalText.find_or_create_by!(slug: 'compline_final_rubric', prayer_book_id:
   lt.content = <<~TEXT
     Não há bênção nem tampouco hino final.
     Todas as pessoas se retiram em silêncio.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+## Oração do Meio-dia
+
+# Rubrica de abertura
+LiturgicalText.find_or_create_by!(slug: 'midday_rubric_opening', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    O Ofício inicia com uma das seguintes saudações,
+    ou ainda com uma saudação espontânea:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Preparação
+LiturgicalText.find_or_create_by!(slug: 'midday_preparation', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Na presença de nosso Deus
+    temos paz e somos felizes.
+    Reunimo-nos aqui, no auge do dia
+    a fim de louvar aquele que é
+    o sol da justiça,
+    a luz que brilha entre as trevas
+    e a razão do nosso viver.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica de abertura
+LiturgicalText.find_or_create_by!(slug: 'midday_rubric_opening', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    O Ofício inicia com uma das seguintes saudações,
+    ou ainda com uma saudação espontânea:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica do invitatório
+LiturgicalText.find_or_create_by!(slug: 'midday_rubric_invitation', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Estando **de pé** quem puder,
+    quem oficia proclama: 
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Invitatório
+LiturgicalText.find_or_create_by!(slug: 'midday_invitation', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'invocation'
+  lt.content = <<~TEXT
+    Apressa-te, ó Deus, em nos livrar.
+    **Senhor, apressa-te em socorrer-nos.**
+    Glória ao Pai e ao Filho
+    e ao Espírito Santo;
+    **como era no princípio, é agora e será sempre,
+    por todos os séculos. Amém. Aleluia!**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Invitatório para Quaresma
+LiturgicalText.find_or_create_by!(slug: 'midday_invitation_lent', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'invocation'
+  lt.content = <<~TEXT
+    Apressa-te, ó Deus, em nos livrar.
+    **Senhor, apressa-te em socorrer-nos.**
+    Glória ao Pai e ao Filho
+    e ao Espírito Santo;
+    **como era no princípio, é agora e será sempre,
+    por todos os séculos. Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Invitatório para Quaresma
+LiturgicalText.find_or_create_by!(slug: 'midday_rubric_psalm', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Um dos seguintes salmos é recitado, ou cantado:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Lucerna pedibus meis
+LiturgicalText.find_or_create_by!(slug: 'lucerna_pedibus_meis', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    A TUA palavra é lâmpada para os meus pés, *
+    e luz para o meu caminho.
+    Fiz juramento e vou cumpri-lo, *
+    que guardarei teus justos juízos.
+    Estou em grande aflição; *
+    vivifica-me, ó SENHOR, segundo a tua palavra.
+    Aceita, ó SENHOR, as oferendas voluntárias
+    de minha boca, *
+    e ensina-me os teus juízos.
+    Estou sempre em perigo, *
+    contudo, não me esqueço da tua lei.
+    Pessoas injustas me armaram ciladas, *
+    todavia, não me desvio dos teus preceitos.
+    Tomei por herança eterna os teus testemunhos, *
+    pois são o gozo do meu coração.
+    Inclinei o meu coração a cumprir a tua lei, *
+    para sempre, até o fim.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.title = 'Lucerna pedibus meis'
+  lt.reference = '(Salmo 119, XIV)'
+  lt.language = 'pt-BR'
+end
+
+# Levavi oculos
+LiturgicalText.find_or_create_by!(slug: 'levavi_oculos', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    PARA os montes elevo os meus olhos; *
+    donde há de vir o meu auxílio?
+    Meu auxílio vem do SENHOR, *
+    que fez o céu e a terra.
+    Não deixará vacilar o teu pé; *
+    aquele que te guarda jamais adormece.
+    Eis que não adormece e nem dormirá *
+    o que guarda o seu povo.
+    O SENHOR é quem te guarda; *
+    o SENHOR é a tua sombra à tua direita.
+    O sol não te molestará de dia, *
+    nem a lua, de noite.
+    O SENHOR te guarda de todo o mal; *
+    ele guarda a tua alma.
+    O SENHOR guarda a tua chegada e a tua partida, *
+    desde agora e para sempre.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.title = 'Levavi oculos'
+  lt.reference = '(Salmo 121)'
+  lt.language = 'pt-BR'
+end
+
+# In convertendo
+LiturgicalText.find_or_create_by!(slug: 'in_convertendo', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    QUANDO o SENHOR nos fez voltar do cativeiro, *
+    estávamos como sonhando.
+    Era toda risonha a nossa boca,
+    e jubiloso cântico a nossa língua; *
+    dizia-se então entre as nações:
+    grandes coisas fez em seu favor o Senhor.
+    Na verdade, maravilhas fez por nós o SENHOR, *
+    por isso estamos cheios de júbilo.
+    Reconduze, ó SENHOR, as pessoas cativas, *
+    como as torrentes do Sul.
+    Quem semeia em lágrimas, *
+    ceifará com alegria.
+    Quem leva chorando a preciosa semente para semear, *
+    tornará cantando de alegria, sobraçando grandes feixes.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.title = 'In convertendo'
+  lt.reference = '(Salmo 126)'
+  lt.language = 'pt-BR'
+end
+
+# Rubrica antes das leituras
+LiturgicalText.find_or_create_by!(slug: 'midday_rubric_before_readings', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Algumas passagens bíblicas, como as
+    que estão a seguir, podem ser feitas.
+    Outras passagens bíblicas podem ser
+    anunciadas por quem oficia.
+    Entre as passagens bíblicas, diferentes pessoas
+    podem partilhar suas meditações.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Leitura 1
+LiturgicalText.find_or_create_by!(slug: 'midday_reading_1', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Desde o Oriente até o Ocidente,
+    é grande o meu nome entre as nações. 
+    E em todo lugar se oferece incenso ao meu nome
+    e uma oferta pura,
+    pois grande é o meu nome entre as nações.
+    Assim diz o Senhor. __(Ml 1.11)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Leitura 2
+LiturgicalText.find_or_create_by!(slug: 'midday_reading_2', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    E a esperança não engana,
+    pois o amor de Deus foi derramado
+    em nossos corações pelo Espírito Santo que nos foi dado. __(Rm 5.5) __
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Leitura 3
+LiturgicalText.find_or_create_by!(slug: 'midday_reading_3', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Se alguém está em Cristo, é nova criatura.
+    As coisas antigas passaram;
+    eis que uma realidade nova apareceu. 
+
+    Tudo isso vem de Deus,
+    que nos reconciliou consigo por meio de Cristo,
+    e nos confiou o ministério da reconciliação.
+    __(II Co 5.17-18)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica antes das orações
+LiturgicalText.find_or_create_by!(slug: 'midday_rubric_before_prayers', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Estando as pessoas que puderem em pé ou
+    ajoelhadas, é dita a Oração do Pai nosso:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Oração do Pai Nosso - Meio-dia
+LiturgicalText.find_or_create_by!(slug: 'midday_our_father', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    O Senhor seja com vocês.
+    **Seja também contigo.**
+    Oremos.
+    **Pai nosso, que estás nos céus.
+    Santificado seja o teu Nome.
+    Venha o teu Reino.
+    Seja feita a tua vontade, assim na terra como no céu.
+    O pão nosso de cada dia nos dá hoje.
+    Perdoa-nos as nossas ofensas,
+    assim como nós perdoamos a quem nos tem ofendido.
+    E não nos deixes cair em tentação,
+    mas livra-nos do mal;
+    pois teu é o Reino, o poder e a glória para sempre.
+    Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica após a oração do Pai Nosso
+LiturgicalText.find_or_create_by!(slug: 'midday_rubric_after_our_father', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    A seguir são realizadas as seguintes orações:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Oração - Meio-dia
+LiturgicalText.find_or_create_by!(slug: 'midday_prayer', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Salvador bendito,
+    nesta hora, estavas pendurado no madeiro,
+    estendendo teus braços amorosos por nós.
+    Concede que todos os povos da terra
+    possam buscar-te e encontrar salvação,
+    mediante a tua grande misericórdia.
+    **Amém.**
+
+    Deus da Missão,
+    nesta mesma hora, chamaste a teu servo,
+    o Apóstolo Paulo,
+    para proclamar o teu amor a todas as pessoas.
+    Ilumina grandiosamente este mundo
+    com o brilho da tua glória,
+    de modo que todas as nações
+    possam adorar-te e servir-te,
+    tu que vives e reinas com o Filho
+    e com o Espírito Santo, um só Deus, agora e sempre.
+    **Amém.**
+
+    Querido Jesus,
+    deste-nos a paz, deixaste-nos a paz.
+    Perdoa nossos pecados, nós te pedimos,
+    e infunde em nossos corações o desejo
+    de te amar mais e mais,
+    para que nossa vida possa refletir
+    a tua magnífica luz, que alcança todas as nações.
+    Na certeza da tua compaixão
+    para conosco, oramos.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica após a oração do Meio-dia
+LiturgicalText.find_or_create_by!(slug: 'midday_rubric_after_prayer', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Podem ser feitas orações constantes deste livro, ou espontâneas
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Despedida
+LiturgicalText.find_or_create_by!(slug: 'midday_dismissal', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'dismissal'
+  lt.content = <<~TEXT
+    O Espírito de Deus habita em nosso meio,
+    transformando corações,
+    quebrando barreiras
+    e trazendo a paz.
+    Bendigamos ao Senhor! Aleluia!
+    Graças rendamos a Deus! Aleluia!
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Despedida - Quaresma e ocasiões penitenciais
+LiturgicalText.find_or_create_by!(slug: 'midday_dismissal_lent', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'dismissal'
+  lt.content = <<~TEXT
+    O Espírito de Deus habita em nosso meio,
+    transformando corações,
+    quebrando barreiras
+    e trazendo a paz.
+    Bendigamos ao Senhor!
+    Graças rendamos a Deus!
   TEXT
   lt.language = 'pt-BR'
 end
