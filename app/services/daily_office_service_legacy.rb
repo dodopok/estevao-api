@@ -1,6 +1,7 @@
 # Service to assemble complete Daily Office liturgies
 # Generates structured JSON for Morning Prayer, Evening Prayer, Midday Prayer, and Compline
-class DailyOfficeService
+# Legacy version - kept for reference, use DailyOfficeService instead
+class DailyOfficeServiceLegacy
   attr_reader :date, :office_type, :prefs, :day_info, :readings
 
   def initialize(date:, office_type: :morning, preferences: {})
