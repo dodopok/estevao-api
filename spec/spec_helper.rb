@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+ENV["RAILS_ENV"] = 'test'
 
 # Code coverage configuration
 require 'simplecov'
@@ -29,4 +29,6 @@ RSpec.configure do |config|
 
   # Filter out backtrace from gems
   config.filter_gems_from_backtrace 'factory_bot'
+
+  config.example_status_persistence_file_path = "tmp/examples.txt"
 end

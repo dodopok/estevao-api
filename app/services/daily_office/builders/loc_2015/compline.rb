@@ -1,0 +1,423 @@
+# frozen_string_literal: true
+
+module DailyOffice
+  module Builders
+    module Loc2015
+      module Compline
+        # Compline (Oração da Noite/Completas) specific implementation
+        # Final collects available for Compline
+        COMPLINE_FINAL_PRAYER_SLUGS = %w[
+          compline_final_prayer_1
+          compline_final_prayer_2
+          compline_final_prayer_3
+          compline_final_prayer_4
+          compline_final_prayer_5
+          compline_final_prayer_6
+        ].freeze
+
+        def assemble_compline
+          [
+            build_compline_opening,
+            build_compline_brief_lesson,
+            build_compline_confession,
+            build_compline_absolution,
+            build_compline_psalms_title,
+            build_compline_psalms,
+            build_compline_readings,
+            build_compline_response,
+            build_compline_kyrie,
+            build_compline_lords_prayer,
+            build_compline_antiphon,
+            build_compline_nunc_dimittis,
+            build_compline_dismissal
+          ].flatten.compact
+        end
+
+        # ============================================================================
+        # SECTION: Opening and Preparation
+        # ============================================================================
+
+        # 1. OPENING/PREPARATION
+        def build_compline_opening
+          lines = []
+
+          # Opening rubric
+          rubric = fetch_liturgical_text("compline_rubric_opening")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Preparation sentence
+          preparation = fetch_liturgical_text("compline_preparation")
+          if preparation
+            lines << line_item(preparation.content, type: "responsive")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Post-preparation rubric
+          post_prep_rubric = fetch_liturgical_text("compline_rubric_post_preparation")
+          if post_prep_rubric
+            lines << line_item(post_prep_rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          return nil if lines.empty?
+
+          {
+            name: "Preparação",
+            slug: "opening",
+            lines: lines
+          }
+        end
+
+        def build_compline_brief_lesson
+          lines = []
+
+          # Brief lesson
+          brief_lesson = fetch_liturgical_text("compline_brief_lesson")
+          if brief_lesson
+            lines << line_item(brief_lesson.content, type: "leader")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Silence rubric
+          silence_rubric = fetch_liturgical_text("compline_rubric_silence")
+          lines << line_item(silence_rubric.content, type: "rubric") if silence_rubric
+
+          return nil if lines.empty?
+
+          {
+            name: "Lição Breve",
+            slug: "brief_lesson",
+            lines: lines
+          }
+        end
+
+        # ============================================================================
+        # SECTION: Confession and Absolution
+        # ============================================================================
+
+        # 2. CONFESSION
+        def build_compline_confession
+          lines = []
+
+          # Confession prayer
+          confession = fetch_liturgical_text("compline_confession")
+          return nil unless confession
+
+          lines << line_item(confession.content, type: "congregation")
+          lines << line_item("", type: "spacer")
+
+          # Silence rubric
+          silence_rubric = fetch_liturgical_text("compline_rubric_silence")
+          lines << line_item(silence_rubric.content, type: "rubric") if silence_rubric
+
+          # Post-confession response
+          post_confession = fetch_liturgical_text("compline_post_confession")
+          if post_confession
+            lines << line_item(post_confession.content, type: "congregation")
+          end
+
+          {
+            name: "Confissão",
+            slug: "confession",
+            lines: lines
+          }
+        end
+
+        # 3. ABSOLUTION
+        def build_compline_absolution
+          lines = []
+
+          # Absolution prayer
+          absolution = fetch_liturgical_text("compline_absolution")
+          return nil unless absolution
+
+          lines << line_item(absolution.content, type: "responsive")
+          lines << line_item("", type: "spacer")
+
+          # Post-absolution rubric (mentions hymn)
+          rubric = fetch_liturgical_text("compline_rubric_post_absolution")
+          lines << line_item(rubric.content, type: "rubric") if rubric
+
+          {
+            name: "Súplica de Perdão",
+            slug: "absolution",
+            lines: lines
+          }
+        end
+
+        def build_compline_psalms_title
+          lines = []
+
+          # Rubric before psalms
+          rubric = fetch_liturgical_text("compline_rubric_before_psalms")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+          end
+
+          return nil if lines.empty?
+
+          {
+            name: "Salmodia",
+            slug: "psalms",
+            lines: lines
+          }
+        end
+
+        # ============================================================================
+        # SECTION: Psalms
+        # ============================================================================
+
+        # 4. PSALMS
+        def build_compline_psalms
+          sections = []
+
+          # Get selected psalms (default to all 3)
+          selected_psalms = preferences[:compline_psalms] || [1, 2, 3]
+          selected_psalms = [selected_psalms] unless selected_psalms.is_a?(Array)
+
+          psalm_slugs = {
+            1 => "compline_cum_invocarem",    # Psalm 4
+            2 => "compline_qui_habitat",      # Psalm 91
+            3 => "compline_ecce_nunc"         # Psalm 134
+          }
+
+          selected_psalms.each do |psalm_num|
+            psalm = fetch_liturgical_text(psalm_slugs[psalm_num])
+            if psalm
+              lines = []
+              lines << line_item(psalm.content, type: "congregation")
+
+              sections << {
+                name: [psalm.title, psalm.reference].compact.join(" ").presence || "Salmo",
+                slug: psalm_slugs[psalm_num],
+                lines: lines
+              }
+            end
+          end
+
+          # Add silence rubric as the last section after all psalms
+          if sections.any?
+            silence_rubric = fetch_liturgical_text("compline_rubric_silence")
+            if silence_rubric
+              sections.last[:lines] << line_item("", type: "spacer")
+              sections.last[:lines] << line_item(silence_rubric.content, type: "rubric")
+            end
+          end
+
+          sections
+        end
+
+        # ============================================================================
+        # SECTION: Readings and Responsory
+        # ============================================================================
+
+        # 5. READINGS
+        def build_compline_readings
+          lines = []
+
+          # Rubric before lessons
+          rubric = fetch_liturgical_text("compline_rubric_before_lessons")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Brief lesson (3 options: Jeremiah, Matthew, Hebrews)
+          lesson_num = preferences[:compline_lesson] || 1
+          lesson = fetch_liturgical_text("compline_brief_lesson_#{lesson_num}")
+          if lesson
+            lines << line_item(lesson.content, type: "leader")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Post-lessons rubric (mentions Te Lucis hymn)
+          post_rubric = fetch_liturgical_text("compline_rubric_post_lessons")
+          lines << line_item(post_rubric.content, type: "rubric") if post_rubric
+
+          # Silence rubric
+          silence_rubric = fetch_liturgical_text("compline_rubric_silence")
+          lines << line_item(silence_rubric.content, type: "rubric") if silence_rubric
+
+          return nil if lines.empty?
+
+          {
+            name: "Lições Breves",
+            slug: "readings",
+            lines: lines
+          }
+        end
+
+        # 6. BRIEF RESPONSE
+        def build_compline_response
+          response = fetch_liturgical_text("compline_brief_response")
+          return nil unless response
+
+          {
+            name: "Responsório Breve",
+            slug: "response",
+            lines: [
+              line_item(response.content, type: "responsive")
+            ]
+          }
+        end
+
+        # ============================================================================
+        # SECTION: Kyrie and Prayers
+        # ============================================================================
+
+        # 7. KYRIE
+        def build_compline_kyrie
+          # Choose translated or original based on preference
+          kyrie_slug = preferences[:kyrie_language] == "original" ? "kyrie_original" : "kyrie_translated"
+          kyrie = fetch_liturgical_text(kyrie_slug)
+          return nil unless kyrie
+
+          {
+            name: "Kyrie Eleison",
+            slug: "kyrie",
+            lines: [
+              line_item(kyrie.content, type: "congregation")
+            ]
+          }
+        end
+
+        # 8. LORD'S PRAYER
+        def build_compline_lords_prayer
+          lines = []
+
+          # Rubric before prayers
+          rubric = fetch_liturgical_text("compline_rubric_before_prayers")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Our Father (Compline version - said silently until end)
+          our_father = fetch_liturgical_text("compline_our_father")
+          if our_father
+            lines << line_item(our_father.content, type: "congregation")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Starting prayer responses
+          starting_prayer = fetch_liturgical_text("compline_starting_prayer")
+          lines << line_item(starting_prayer.content, type: "responsive") if starting_prayer
+
+          return nil if lines.empty?
+
+          # Rubric before final prayers
+          rubric = fetch_liturgical_text("compline_rubric_before_final_prayer")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Final prayers (6 options - can select multiple)
+          selected_collects = preferences[:compline_collects]
+
+          # If no preference set, use first prayer as default
+          if selected_collects.nil?
+            selected_collects = [1]
+          else
+            # Ensure it's an array
+            selected_collects = [selected_collects] unless selected_collects.is_a?(Array)
+          end
+
+          selected_collects.each_with_index do |collect_num, index|
+            collect = fetch_liturgical_text("compline_final_prayer_#{collect_num}")
+            if collect
+              lines << line_item(collect.content, type: "leader")
+              # Add spacer between collects, but not after the last one
+              lines << line_item("", type: "spacer") if index < selected_collects.length - 1
+            end
+          end
+
+           # Rubric before antiphon
+          rubric = fetch_liturgical_text("compline_rubric_before_antiphon")
+          if rubric
+            lines << line_item(rubric.content, type: "rubric")
+            lines << line_item("", type: "spacer")
+          end
+
+          return nil if lines.empty?
+
+          {
+            name: "Orações",
+            slug: "lords_prayer",
+            lines: lines
+          }
+        end
+
+        def build_compline_antiphon
+          lines = []
+
+          # Antiphon
+          antiphon = fetch_liturgical_text("compline_antiphon")
+          if antiphon
+            lines << line_item(antiphon.content, type: "congregation")
+          end
+
+          {
+            name: "Antífona",
+            slug: "antiphon",
+            lines: lines
+          }
+        end
+
+        # ============================================================================
+        # SECTION: Nunc Dimittis and Dismissal
+        # ============================================================================
+
+        # 10. NUNC DIMITTIS
+        def build_compline_nunc_dimittis
+          lines = []
+
+          # Nunc Dimittis (Song of Simeon)
+          nunc_dimittis = fetch_liturgical_text("nunc_dimittis")
+          return nil unless nunc_dimittis
+
+          lines << line_item(nunc_dimittis.content, type: "congregation")
+
+          {
+            name: "Nunc Dimittis",
+            slug: "nunc_dimittis",
+            lines: lines
+          }
+        end
+
+        # 11. DISMISSAL
+        def build_compline_dismissal
+          lines = []
+
+          # Antiphon
+          antiphon = fetch_liturgical_text("compline_antiphon")
+          if antiphon
+            lines << line_item(antiphon.content, type: "congregation")
+          end
+
+          # Final prayer
+          final_prayer = fetch_liturgical_text("compline_final_prayer")
+          if final_prayer
+            lines << line_item(final_prayer.content, type: "responsive")
+            lines << line_item("", type: "spacer")
+          end
+
+          # Final rubric (no blessing, leave in silence)
+          rubric = fetch_liturgical_text("compline_final_rubric")
+          lines << line_item(rubric.content, type: "rubric") if rubric
+
+          return nil if lines.empty?
+
+          {
+            name: "Antífona",
+            slug: "dismissal",
+            lines: lines
+          }
+        end
+      end
+    end
+  end
+end

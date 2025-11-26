@@ -1644,4 +1644,575 @@ LiturgicalText.find_or_create_by!(slug: 'morning_rubric_post_dismissal', prayer_
   lt.language = 'pt-BR'
 end
 
+## Oração da Noite (Complines/Completas)
+
+# Rubrica de abertura
+LiturgicalText.find_or_create_by!(slug: 'compline_rubric_opening', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Guarda-se um momento de silêncio.
+    Estando de pé as pessoas que puderem,
+    quem oficia inicia com as seguintes sentenças:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Preparação
+LiturgicalText.find_or_create_by!(slug: 'compline_preparation', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    O Senhor Onipotente nos conceda uma
+    noite tranquila e a paz na derradeira hora.
+    **Amém.**
+    Nosso auxílio está no nome do Senhor.
+    **Que fez o céu e a terra.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica após a Preparação
+LiturgicalText.find_or_create_by!(slug: 'compline_rubric_post_preparation', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Silêncio
+    Pode ser dita a seguinte lição breve:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Preparação
+LiturgicalText.find_or_create_by!(slug: 'compline_brief_lesson', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'opening_sentence'
+  lt.content = <<~TEXT
+    Irmãs e irmãos,
+    estejam alertas e vigiem, porque o inimigo de vocês,
+    o diabo, anda ao redor como um leão,
+    rugindo e procurando a quem possa devorar.
+    Resistam-lhe firmes na fé. __(I Pe 5.8-9a)__
+
+    Tu, porém, Senhor, tem misericórdia de nós.
+    **Graças rendamos a Deus.**
+    O nosso auxílio está no nome do Senhor.
+    **Que fez os Céus e a Terra.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica de Silêncio
+LiturgicalText.find_or_create_by!(slug: 'compline_rubric_silence', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Silêncio
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Confissão
+LiturgicalText.find_or_create_by!(slug: 'compline_confession', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'confession'
+  lt.content = <<~TEXT
+    Confessamos a Deus Todo-Poderoso,
+    **Pai, Filho e Espírito Santo,
+    que temos pecado excessivamente,
+    por pensamentos, palavras e ações,
+    por nossa culpa, por nossa própria culpa,
+    por nossa máxima culpa.
+    Por isso rogamos a Deus
+    que tenha misericórdia de nós.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Resposta após a Confissão
+LiturgicalText.find_or_create_by!(slug: 'compline_post_confession', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'confession'
+  lt.content = <<~TEXT
+    **Deus Todo-Poderoso tenha misericórdia de nós,
+    perdoe os nossos pecados e nos conduza à vida eterna.
+    Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Súplica de Perdão
+LiturgicalText.find_or_create_by!(slug: 'compline_absolution', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'absolution'
+  lt.content = <<~TEXT
+    O Senhor nos enriqueça com sua graça,
+    **nos honre com sua bênção celestial;
+    nos defenda de toda a adversidade,
+    e nos afaste de todo o mal.
+    O Senhor receba as nossas orações
+    e graciosamente nos absolva
+    de nossas faltas e pecados. Amém.**
+    Converte-nos, ó Deus nosso Salvador.
+    **E afasta de nós a tua ira.**
+    Ó Deus, vem em nosso auxílio.
+    **Senhor, apressa-te em socorrer-nos.**
+    Glória ao Pai e ao Filho;
+    e ao Espírito Santo;
+    **Como era no princípio, é agora e será sempre,
+    por todos os séculos. Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica após a Súplica de Perdão
+LiturgicalText.find_or_create_by!(slug: 'compline_rubric_post_absolution', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Pode cantar-se um hino.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica antes dos Salmos
+LiturgicalText.find_or_create_by!(slug: 'compline_rubric_before_psalms', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Podem ser recitados ou cantados um ou mais dos seguintes
+    salmos, bem como outras seleções adequadas do Saltério.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Cum invocarem
+LiturgicalText.find_or_create_by!(slug: 'compline_cum_invocarem', prayer_book_id: prayer_book.id) do |lt|
+  lt.title = 'Cum invocarem'
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    RESPONDE ao meu clamor, DEUS de minha justiça,
+    tu que na angústia me dás alívio. *
+    Compadece-te de mim e escuta minha súplica.
+    Grandes da terra, até quando difamarão minha glória? *
+    Até quando amarão a vaidade e buscarão a mentira?
+    Saibam que o SENHOR distingue quem lhe é benquisto; *
+    o SENHOR ouve, quando a ele clamo. 
+    Tremam e não pequem mais. *
+    Consultem, em seus corações,
+    e no silêncio de seus leitos.
+    Ofereçam sacrifícios de justiça *
+    e descansem no SENHOR.
+    Muitas pessoas dizem: ah! quem nos mostrará prosperidade? *
+    Levanta sobre nós, SENHOR, a luz da tua face.
+    Puseste em meu coração mais alegria que a delas *
+    quando tem abundante o trigo e o vinho.
+    Em paz me deitarei e logo dormirei; *
+    porque, SENHOR, só tu me fazes habitar
+    em segurança.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.reference = '(Salmo 4)'
+  lt.language = 'pt-BR'
+end
+
+# Qui habitat
+LiturgicalText.find_or_create_by!(slug: 'compline_qui_habitat', prayer_book_id: prayer_book.id) do |lt|
+  lt.title = 'Qui habitat'
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    Quem habita sob a proteção do Altíssimo, *
+    à sombra do Onipotente repousará.
+    Direi do SENHOR: Ele é meu refúgio e fortaleza, *
+    DEUS meu, em quem eu confio.
+    Ele te livrará das ciladas, *
+    e da peste perniciosa.
+    Cobrir-te-á com as suas penas; sob suas asas encontrarás
+    refúgio; *
+    a sua verdade será o teu amparo e escudo.
+    Não terás medo do terror da noite, *
+    nem da seta, que voa de dia.
+    Nem da peste que se propaga, *
+    nem da mortandade que assola ao meio-dia.
+    Podem cair mil ao teu lado e dez mil à tua direita, *
+    mas não te atingirão.
+    Contemplarás com os teus olhos, *
+    e verás o castigo de quem pratica a injustiça.
+    Porque tu, SENHOR, és o meu refúgio, *
+    fizeste no Altíssimo a tua habitação.
+    Nenhum mal te sucederá, *
+    nem praga alguma se acercará da tua tenda.
+    Porque de ti encarregará ele seus anjos, *
+    para te guardarem em todos os teus caminhos.
+    Eles te sustentarão em suas mãos, *
+    para que não tropeces em alguma pedra.
+    Pisarás o leão e a cobra, *
+    calcarás aos pés o filho do leão e a serpente.
+    Pois a quem me consagrou seu amor, eu libertarei; *
+    vou lhe dar salvação, porque conheceu o
+    meu Nome.
+    Clamará por mim e eu lhe responderei; *
+    junto estarei na sua angústia;
+    encontrará libertação e lhe glorificarei.
+    Eu lhe darei a satisfação de uma longa vida, *
+    e lhe mostrarei minha salvação.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.reference = '(Salmo 91)'
+  lt.language = 'pt-BR'
+end
+
+# Ecce Nunc
+LiturgicalText.find_or_create_by!(slug: 'compline_ecce_nunc', prayer_book_id: prayer_book.id) do |lt|
+  lt.title = 'Ecce Nunc'
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    BENDIGAM ao SENHOR, todas as pessoas
+    que servem ao SENHOR, *
+    vocês que ministram à noite na casa do SENHOR.
+    Ergam as mãos para o santuário *
+    e bendigam ao SENHOR.
+    De Sião te abençoe o SENHOR, *
+    que fez os céus e a terra.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.reference = '(Salmo 134)'
+  lt.language = 'pt-BR'
+end
+
+# Rubrica antes das Lições
+LiturgicalText.find_or_create_by!(slug: 'compline_rubric_before_lessons', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Quem oficia lê uma ou mais das seguintes
+    passagens bíblicas.
+    Outras passagens bíblicas podem
+    ser anunciadas por quem oficia.
+    Entre as passagens bíblicas, diferentes pessoas
+    podem partilhar suas meditações.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Lição Breve 1
+LiturgicalText.find_or_create_by!(slug: 'compline_brief_lesson_1', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Tu estás em nosso meio, ó Senhor,
+    e nós pertencemos a ti; não nos abandones!
+    Por amor do teu nome não nos desprezes;
+    não desonres o teu trono glorioso.
+    Lembra-te da tua aliança conosco e não a quebres.
+    Podem os céus, por si mesmos, produzir chuvas copiosas?
+    Somente tu o podes, Senhor, nosso Deus!
+    Portanto, a nossa esperança está em ti,
+    pois tu fazes todas essas coisas. __(Jr 14.9-22)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Lição Breve 2
+LiturgicalText.find_or_create_by!(slug: 'compline_brief_lesson_2', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Venham a mim, todas as pessoas que estão cansadas
+    e sobrecarregadas, e eu lhes darei descanso.
+    Tomem sobre vocês o meu jugo e aprendam de mim,
+    pois sou manso e humilde de coração,
+    e vocês encontrarão descanso.
+    Pois o meu jugo é suave e o meu fardo é leve. __(Mt 11.28-30)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Lição Breve 3
+LiturgicalText.find_or_create_by!(slug: 'compline_brief_lesson_3', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    O Deus da paz,
+    que pelo sangue da eterna aliança tirou da morte
+    o nosso Senhor Jesus, o grande Pastor das ovelhas,
+    aperfeiçoe vocês em todo o bem para
+    fazerem a sua vontade,
+    e opere em vocês o que lhe é agradável,
+    mediante Jesus Cristo, a quem seja a glória para
+    todo o sempre. Amém. __(Hb 13.20-21)__
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica após as Lições
+LiturgicalText.find_or_create_by!(slug: 'compline_rubric_post_lessons', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Estando de pé quem puder, é
+    é cantado o hino Te Lucis ou
+    outro hino vespertino adequado.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Responsório Breve
+LiturgicalText.find_or_create_by!(slug: 'compline_brief_response', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Nas tuas mãos, Senhor, entrego o meu espírito.
+    **Nas tuas mãos, Senhor, entrego o meu espírito.**
+    Pois tu me redimiste, Senhor, verdadeiro Deus.
+    **Entrego o meu espírito.**
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    **Nas tuas mãos, Senhor, entrego o meu espírito.**
+    Guarda-nos, Senhor, como a pupila dos olhos.
+    **Protege-nos à sombra de tuas asas.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Kyrie Eleison - Traduzido
+LiturgicalText.find_or_create_by!(slug: 'kyrie_translated', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Senhor, tem piedade de nós.
+    **Cristo, tem piedade de nós.
+    Senhor, tem piedade de nós.
+    Sim, tem piedade de nós.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Kyrie Eleison - Original
+LiturgicalText.find_or_create_by!(slug: 'kyrie_original', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    **Kyrie Eleison.
+    Christe Eleison.
+    Kyrie Eleison.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica antes das Orações
+LiturgicalText.find_or_create_by!(slug: 'compline_rubric_before_prayers', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Estando as pessoas que puderem em pé ou ajoelhadas,
+    é dita a Oração do Pai nosso da seguinte forma:
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Oração do Pai Nosso - Completas
+LiturgicalText.find_or_create_by!(slug: 'compline_our_father', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Pai nosso... --(é rezado em silêncio até...)--
+    **mas livra-nos do mal;
+    pois teu é o Reino, o poder e a glória para sempre.
+    Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Oração - Completas
+LiturgicalText.find_or_create_by!(slug: 'compline_starting_prayer', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Digna-te, ó Senhor, durante esta noite.
+    **Guardar-nos sem pecado.**
+    Ouve, ó Senhor, a nossa oração.
+    **E a ti chegue o nosso clamor.**
+    O Senhor está aqui.
+    **O seu Espírito está conosco.**
+    Oremos. 
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica antes das Orações Finais
+LiturgicalText.find_or_create_by!(slug: 'compline_rubric_before_final_prayer', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Pode ser dita uma ou mais das seguintes orações e coletas
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Oração Final - Completas 1
+LiturgicalText.find_or_create_by!(slug: 'compline_final_prayer_1', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Ilumina, suplicamos-te,
+    Senhor Deus, as nossas trevas e,
+    misericordioso, defende-nos de todos
+    os perigos e ciladas desta noite;
+    por amor de teu único Filho,
+    nosso Salvador Jesus Cristo.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Oração Final - Completas 2
+LiturgicalText.find_or_create_by!(slug: 'compline_final_prayer_2', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Sê presente conosco, ó Deus de misericórdia,
+    e protege-nos no silêncio desta noite,
+    de sorte que nós, diante das aflições e mudanças
+    deste mundo inconstante, repousemos na confiança
+    do teu amor imutável e eterno;
+    por Jesus Cristo, nosso Senhor.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Oração Final - Completas 3
+LiturgicalText.find_or_create_by!(slug: 'compline_final_prayer_3', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Ó radiante sol da justiça, olha para nós,
+    E ilumina esta noite com a tua resplendorosa presença,
+    para que assim de noite como de dia,
+    teu povo glorifique teu santo nome;
+    por Jesus Cristo, nosso Senhor.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Oração Final - Completas 4
+LiturgicalText.find_or_create_by!(slug: 'compline_final_prayer_4', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Damos-te graças, ó Deus,
+    por nos teres revelado teu filho Jesus Cristo,
+    através da luz da sua ressurreição:
+    Concede que assim como cantamos
+    tua glória ao declinar este dia,
+    também transbordemos de alegria
+    ao alvorecer de cada novo dia,
+    quando renovamos nossa esperança
+    no mistério pascal;
+    por Jesus Cristo, nosso Senhor.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Oração Final - Completas 5
+LiturgicalText.find_or_create_by!(slug: 'compline_final_prayer_5', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Olha, ó Senhor amado, as pessoas que
+    trabalham, ou vigiam, ou choram esta noite.
+    Manda que teus anjos guardem as que dormem.
+    Cuida das enfermas, Cristo Senhor,
+    dá repouso às cansadas,
+    abençoa as que estão à beira da morte,
+    consola as que sofrem,
+    compadece-te das aflitas, defende as alegres.
+    Tudo isto te suplicamos somente por teu grande amor.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Oração Final - Completas 6
+LiturgicalText.find_or_create_by!(slug: 'compline_final_prayer_6', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Ó Deus,
+    tua providência inesgotável sustenta
+    o mundo em que vivemos
+    e também as nossas próprias vidas.
+    Protege e ampara, dia e noite,
+    as pessoas que trabalham enquanto outras dormem,
+    e concede que jamais esqueçamos
+    que nossa vida comunitária
+    depende do desempenho de nossas tarefas mútuas.
+    Por Jesus Cristo, nosso Senhor.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Rubrica antes da Antífona
+LiturgicalText.find_or_create_by!(slug: 'compline_rubric_before_antiphon', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Podem ser feitas orações espontâneas, ou serem usadas a
+    coleta do dia ou quaisquer das coletas e orações contidas
+    nos Ofícios Diários da Palavra, bem como as Orações
+    para Ocasiões Variadas contidas neste livro.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Completas - Antífona
+LiturgicalText.find_or_create_by!(slug: 'compline_antiphon', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    **Guia-nos, Senhor, durante o dia,
+    e guarda-nos enquanto dormimos.
+    Que em nosso despertar vigiemos com Cristo e,
+    no silêncio da noite, descansemos em paz.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Nunc Dimittis
+LiturgicalText.find_or_create_by!(slug: 'nunc_dimittis', prayer_book_id: prayer_book.id) do |lt|
+  lt.title = 'Nunc Dimittis'
+  lt.category = 'canticle'
+  lt.content = <<~TEXT
+    Eis que agora, SENHOR, despedes em paz o teu servo, *
+    segundo a tua palavra;
+    Pois já os meus olhos viram *
+    a tua salvação,
+    A qual tu preparaste *
+    perante a face de todos os povos:
+    Luz para iluminar as nações *
+    e glória de Israel teu povo.
+    Glória ao Pai e ao Filho; *
+    e ao Espírito Santo;
+    Como era no princípio, é agora e será sempre, *
+    por todos os séculos. Amém.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Completas - Oração Final
+LiturgicalText.find_or_create_by!(slug: 'compline_final_prayer', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'prayer'
+  lt.content = <<~TEXT
+    Em paz nos deitaremos e descansaremos.
+    **Pois só tu, Senhor, nos fazes habitar em segurança.**
+    O Senhor está aqui.
+    **O seu Espírito está conosco.**
+    Bendigamos ao Senhor.
+    **Demos graças a Deus.**
+    O Senhor misericordioso, Pai, Filho e Espírito Santo,
+    nos abençoe e nos guarde.
+    **Amém.**
+
+    A Divina proteção permaneça conosco para sempre.
+    **E com nossos irmãos e irmãs ausentes. Amém.**
+    Que as vidas das pessoas fiéis,
+    pela misericórdia de Deus, descansem em paz.
+    **Amém.**
+  TEXT
+  lt.language = 'pt-BR'
+end
+
+# Completas - Rubrica Final
+LiturgicalText.find_or_create_by!(slug: 'compline_final_rubric', prayer_book_id: prayer_book.id) do |lt|
+  lt.category = 'rubric'
+  lt.content = <<~TEXT
+    Não há bênção nem tampouco hino final.
+    Todas as pessoas se retiram em silêncio.
+  TEXT
+  lt.language = 'pt-BR'
+end
+
 puts "Created #{LiturgicalText.count} liturgical texts"
