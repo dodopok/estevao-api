@@ -80,7 +80,10 @@ module Api
       end
 
       def options_params
-        params.require(:options).permit!
+        params.require(:options).permit(
+          lectionary: [ :reading_type ],
+          daily_office: [ :use_family_rite ]
+        )
       end
     end
   end
