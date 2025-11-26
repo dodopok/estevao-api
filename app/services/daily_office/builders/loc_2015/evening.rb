@@ -19,10 +19,10 @@ module DailyOffice
           [
             build_welcome(:evening),
             build_opening_sentence(:evening),
-            build_confession,
+            build_evening_confession,
             build_absolution,
-            build_invitatory,
-            build_invitatory_canticle,
+            build_evening_invitatory,
+            build_evening_invitatory_canticle,
             build_psalms(:evening),
             build_first_reading,
             build_first_canticle,
@@ -112,7 +112,7 @@ module DailyOffice
           end
 
           # Season-specific opening sentence (if available)
-          seasonal_slug = season_specific_opening_sentence_slug(office_type)
+          seasonal_slug = evening_season_specific_opening_sentence_slug(office_type)
           seasonal = fetch_liturgical_text(seasonal_slug) if seasonal_slug
 
           if seasonal
@@ -136,7 +136,7 @@ module DailyOffice
         end
 
         # 2. CONFESSION
-        def build_confession
+        def build_evening_confession
           lines = []
 
           # Rubric before confession
@@ -210,7 +210,7 @@ module DailyOffice
         # ============================================================================
 
         # 4. INVITATORY (Antiphon)
-        def build_invitatory
+        def build_evening_invitatory
           invocation = fetch_liturgical_text("evening_invocation")
           return nil unless invocation
 
@@ -233,11 +233,11 @@ module DailyOffice
         end
 
         # 5. INVITATORY CANTICLE
-        def build_invitatory_canticle
+        def build_evening_invitatory_canticle
           lines = []
 
           # Invitatory canticle (Phos Hilaron, Ecce Nunc, or Pascha Nostrum during Easter)
-          canticle_slug = invitatory_canticle_slug
+          canticle_slug = evening_invitatory_canticle_slug
           canticle = fetch_liturgical_text(canticle_slug)
 
           return nil unless canticle
@@ -609,7 +609,7 @@ module DailyOffice
         private
 
         # Get season-specific opening sentence slug
-        def season_specific_opening_sentence_slug(office_type)
+        def evening_season_specific_opening_sentence_slug(office_type)
           season = day_info[:liturgical_season]
           season_slug = season_to_opening_sentence_slug(season, feast_day: day_info[:feast_day])
           return nil unless season_slug
@@ -618,7 +618,7 @@ module DailyOffice
         end
 
         # Choose invitatory canticle based on season
-        def invitatory_canticle_slug
+        def evening_invitatory_canticle_slug
           season = day_info[:liturgical_season]
 
           # Use Pascha Nostrum during Easter season
