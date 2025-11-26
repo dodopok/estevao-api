@@ -95,6 +95,12 @@ RSpec.describe 'api/v1/prayer_book_user_preferences', type: :request do
         let(:prayer_book_code) { 'loc_2015' }
         let(:Authorization) { 'Bearer mock-token' }
 
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::PrayerBookUserPreferencesController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::PrayerBookUserPreferencesController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  prayer_book_code: { type: :string, example: 'loc_2015' },
@@ -129,6 +135,7 @@ RSpec.describe 'api/v1/prayer_book_user_preferences', type: :request do
 
       response(401, 'Unauthorized') do
         let(:prayer_book_code) { 'loc_2015' }
+        let(:Authorization) { 'Bearer invalid-token' }
 
         run_test! do
           # No auth provided
@@ -138,6 +145,12 @@ RSpec.describe 'api/v1/prayer_book_user_preferences', type: :request do
       response(404, 'Prayer book not found') do
         let(:prayer_book_code) { 'nonexistent' }
         let(:Authorization) { 'Bearer mock-token' }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::PrayerBookUserPreferencesController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::PrayerBookUserPreferencesController).to receive(:current_user).and_return(user)
+        end
 
         run_test! do
           # Needs auth mocking in test
@@ -198,6 +211,12 @@ RSpec.describe 'api/v1/prayer_book_user_preferences', type: :request do
           }
         end
 
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::PrayerBookUserPreferencesController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::PrayerBookUserPreferencesController).to receive(:current_user).and_return(user)
+        end
+
         schema type: :object,
                properties: {
                  message: { type: :string, example: 'Preferências salvas com sucesso' },
@@ -214,6 +233,7 @@ RSpec.describe 'api/v1/prayer_book_user_preferences', type: :request do
 
       response(401, 'Unauthorized') do
         let(:prayer_book_code) { 'loc_2015' }
+        let(:Authorization) { 'Bearer invalid-token' }
         let(:options) { { options: {} } }
 
         run_test! do
@@ -225,6 +245,12 @@ RSpec.describe 'api/v1/prayer_book_user_preferences', type: :request do
         let(:prayer_book_code) { 'nonexistent' }
         let(:Authorization) { 'Bearer mock-token' }
         let(:options) { { options: {} } }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::PrayerBookUserPreferencesController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::PrayerBookUserPreferencesController).to receive(:current_user).and_return(user)
+        end
 
         run_test! do
           # Needs auth mocking in test
@@ -242,6 +268,12 @@ RSpec.describe 'api/v1/prayer_book_user_preferences', type: :request do
               }
             }
           }
+        end
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::PrayerBookUserPreferencesController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::PrayerBookUserPreferencesController).to receive(:current_user).and_return(user)
         end
 
         schema type: :object,

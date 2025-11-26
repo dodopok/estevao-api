@@ -35,7 +35,7 @@ test:
   <% if ENV["DATABASE_URL"].present? %>
   url: <%= ENV["DATABASE_URL"] %>
   <% else %>
-  database: estevao_api_test
+  database: estevao_api_test<%= ENV["TEST_ENV_NUMBER"] %>
   <% end %>
 
 # Production uses individual environment variables or DATABASE_URL

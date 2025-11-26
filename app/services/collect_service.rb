@@ -28,9 +28,10 @@ class CollectService
 
   private
 
-  # 1. Buscar por celebração fixa (santo, festa, etc)
+  # 1. Buscar por celebração (usa CelebrationResolver para prioridades)
   def find_by_celebration
-    celebration = Celebration.fixed.for_date(date.month, date.day).first
+    resolver = CelebrationResolver.new(date.year, prayer_book_code: prayer_book_code)
+    celebration = resolver.resolve_for_date(date)
     return [] unless celebration
 
     Collect.for_celebration(celebration.id)
@@ -97,7 +98,7 @@ class CollectService
     return nil if collects.nil? || collects.empty?
 
     if collects.count == 1
-      [{ text: collects.first.text, preface: collects.first.preface }]
+      [ { text: collects.first.text, preface: collects.first.preface } ]
     else
       collects.map { |c| { text: c.text, preface: c.preface } }
     end

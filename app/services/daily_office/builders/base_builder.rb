@@ -15,6 +15,31 @@ module DailyOffice
         @day_info = liturgical_calendar.day_info(@date)
         @readings = ReadingService.new(@date, prayer_book_code: @preferences[:prayer_book_code]).find_readings || {}
         @collects = CollectService.new(@date, prayer_book_code: @preferences[:prayer_book_code]).find_collects || {}
+
+        # Initialize component builders
+        initialize_builders
+      end
+
+      def initialize_builders
+        @psalm_builder = Components::PsalmBuilder.new(
+          date: @date,
+          preferences: @preferences
+        )
+        @canticle_builder = Components::CanticleBuilder.new(
+          date: @date,
+          preferences: @preferences,
+          day_info: @day_info
+        )
+        @reading_builder = Components::ReadingBuilder.new(
+          date: @date,
+          preferences: @preferences,
+          readings: @readings
+        )
+        @prayer_builder = Components::PrayerBuilder.new(
+          date: @date,
+          preferences: @preferences,
+          day_info: @day_info
+        )
       end
 
       def prayer_book

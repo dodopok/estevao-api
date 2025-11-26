@@ -3,8 +3,21 @@
 module DailyOffice
   module Builders
     class Loc2015Builder < BaseBuilder
+      include Concerns::SeasonMapper
+      include Concerns::ReadingFormatter
+
       # LOC 2015 (IEAB) specific implementation
       # Implements all methods using LOC 2015 specific liturgical texts
+
+      # General collects available for morning prayer
+      GENERAL_COLLECT_SLUGS = %w[
+        for_peace
+        for_grace
+        for_all_authorities
+        for_clergy
+        for_parish_family
+        for_all_humanity
+      ].freeze
 
       def initialize(date:, office_type:, preferences: {})
         super
@@ -56,6 +69,10 @@ module DailyOffice
         ].compact
       end
 
+      # ============================================================================
+      # SECTION: Opening Components
+      # ============================================================================
+
       # WELCOME - Separate module for Acolhida
       def build_welcome(office_type)
         # Welcome text (traditional or contemporary based on preference)
@@ -90,17 +107,6 @@ module DailyOffice
 
         # Add the psalm lines from the component
         lines.concat(result[:lines])
-
-        # # Rubric for Gloria Patri
-        # rubric = fetch_liturgical_text("rubric_gloria_patri")
-        # if rubric
-        #   lines << line_item(rubric.content, type: "rubric")
-        #   lines << line_item("", type: "spacer")
-        # end
-
-        # # Gloria Patri
-        # gloria = fetch_liturgical_text("gloria_patri")
-        # lines << line_item(gloria.content, type: "congregation") if gloria
 
         {
           name: "Salmos",
@@ -225,6 +231,10 @@ module DailyOffice
         }
       end
 
+      # ============================================================================
+      # SECTION: Invitatory and Psalms
+      # ============================================================================
+
       # 4. INVITATORY (Antiphon)
       def build_invitatory
         # Use Lent-specific invocation (without Alleluia) during Lent
@@ -232,7 +242,7 @@ module DailyOffice
 
         invocation = fetch_liturgical_text(slug)
 
-        lines = [line_item(invocation.content, type: "responsive")]
+        lines = [ line_item(invocation.content, type: "responsive") ]
 
         # Pre-invitatory antiphon (season-specific)
         antiphon_slug = season_specific_antiphon
@@ -262,82 +272,30 @@ module DailyOffice
         lines << line_item(canticle.content, type: "congregation")
 
         {
-          name: [canticle&.title, canticle&.reference].compact.join(" ").presence || "Cântico",
+          name: [ canticle&.title, canticle&.reference ].compact.join(" ").presence || "Cântico",
           slug: "invitatory_canticle",
           lines: lines
         }
       end
 
+      # ============================================================================
+      # SECTION: Readings and Canticles
+      # ============================================================================
+
       # 6. FIRST READING (delegate to reading_builder with LOC-specific rubrics)
       def build_first_reading
-        lines = []
-
-        # Pre-reading rubric
-        rubric = fetch_liturgical_text("rubric_first_reading")
-        lines << line_item(rubric.content, type: "rubric") if rubric
-        lines << line_item("", type: "spacer")
-
-        # Reading announcement template
-        announcement_template = fetch_liturgical_text("first_reading")
-        if announcement_template
-          if readings[:first_reading]
-            reading = readings[:first_reading]
-
-            # Build verse range string
-            verse_range = if reading[:verse_start] && reading[:verse_end]
-                            "#{reading[:verse_start]}-#{reading[:verse_end]}"
-                          elsif reading[:verse_start]
-                            reading[:verse_start].to_s
-                          else
-                            ""
-                          end
-
-            announcement = announcement_template.content
-                            .gsub("{{book_name}}", reading[:book_name] || "")
-                            .gsub("{{chapter}}", reading[:chapter]&.to_s || "")
-                            .gsub("{{verse}}", verse_range)
-          else
-            # No reading available, fill placeholders with underscores
-            announcement = announcement_template.content
-                            .gsub("{{book_name}}", "_______________")
-                            .gsub("{{chapter}}", "___")
-                            .gsub("{{verse}}", "___")
-          end
-          lines << line_item(announcement, type: "leader")
-          lines << line_item("", type: "spacer")
-        end
-
-        # Post-reading rubric
-        post_rubric = fetch_liturgical_text("rubric_post_first_reading")
-        if post_rubric
-          lines << line_item(post_rubric.content, type: "rubric")
-          lines << line_item("", type: "spacer")
-        end
-
-        # Actual reading content (from readings service)
-        # Note: The actual Bible text would need to be fetched separately
-        # For now, we just show the reference
-        if readings[:first_reading]
-          lines << line_item(readings[:first_reading][:reference], type: "reading")
-          lines << line_item("", type: "spacer")
-        end
-
-        # Response after reading
-        response = fetch_liturgical_text("canticle_post_first_reading")
-        lines << line_item(response.content, type: "responsive") if response
-
-        # End rubric
-        end_rubric = fetch_liturgical_text("morning_rubric_end_first_reading")
-        if end_rubric
-          lines << line_item("", type: "spacer")
-          lines << line_item(end_rubric.content, type: "rubric")
-        end
-
-        {
-          name: "Leituras da Palavra de Deus",
-          slug: "first_reading",
-          lines: lines
-        }
+        build_reading_module(
+          type: :first,
+          announcement_slug: "first_reading",
+          rubric_slugs: {
+            pre: "rubric_first_reading",
+            post: "rubric_post_first_reading",
+            response: "canticle_post_first_reading",
+            end: "morning_rubric_end_first_reading"
+          },
+          reading_key: :first_reading,
+          module_name: "Leituras da Palavra de Deus"
+        )
       end
 
       # 7. FIRST CANTICLE
@@ -365,74 +323,18 @@ module DailyOffice
 
       # 8. SECOND READING
       def build_second_reading
-        lines = []
-
-        # Pre-reading rubric
-        rubric = fetch_liturgical_text("rubric_second_reading")
-        lines << line_item(rubric.content, type: "rubric") if rubric
-        lines << line_item("", type: "spacer")
-
-        # Reading announcement template
-        announcement_template = fetch_liturgical_text("second_reading")
-        if announcement_template
-          if readings[:second_reading]
-            reading = readings[:second_reading]
-
-            # Build verse range string
-            verse_range = if reading[:verse_start] && reading[:verse_end]
-                            "#{reading[:verse_start]}-#{reading[:verse_end]}"
-                          elsif reading[:verse_start]
-                            reading[:verse_start].to_s
-                          else
-                            ""
-                          end
-
-            announcement = announcement_template.content
-                            .gsub("{{book_name}}", reading[:book_name] || "")
-                            .gsub("{{chapter}}", reading[:chapter]&.to_s || "")
-                            .gsub("{{verse}}", verse_range)
-          else
-            # No reading available, fill placeholders with underscores
-            announcement = announcement_template.content
-                            .gsub("{{book_name}}", "_______________")
-                            .gsub("{{chapter}}", "___")
-                            .gsub("{{verse}}", "___")
-          end
-          lines << line_item(announcement, type: "leader")
-          lines << line_item("", type: "spacer")
-        end
-
-        # Post-reading rubric
-        post_rubric = fetch_liturgical_text("rubric_post_second_reading")
-        if post_rubric
-          lines << line_item(post_rubric.content, type: "rubric")
-          lines << line_item("", type: "spacer")
-        end
-
-        # Actual reading content
-        # Note: The actual Bible text would need to be fetched separately
-        # For now, we just show the reference
-        if readings[:second_reading]
-          lines << line_item(readings[:second_reading][:reference], type: "reading")
-          lines << line_item("", type: "spacer")
-        end
-
-        # Response after reading
-        response = fetch_liturgical_text("canticle_post_second_reading")
-        lines << line_item(response.content, type: "responsive") if response
-
-        # End rubric (mentions Creed)
-        end_rubric = fetch_liturgical_text("rubric_end_second_reading")
-        if end_rubric
-          lines << line_item("", type: "spacer")
-          lines << line_item(end_rubric.content, type: "rubric")
-        end
-
-        {
-          name: "Segunda Leitura",
-          slug: "second_reading",
-          lines: lines
-        }
+        build_reading_module(
+          type: :second,
+          announcement_slug: "second_reading",
+          rubric_slugs: {
+            pre: "rubric_second_reading",
+            post: "rubric_post_second_reading",
+            response: "canticle_post_second_reading",
+            end: "rubric_end_second_reading"
+          },
+          reading_key: :second_reading,
+          module_name: "Segunda Leitura"
+        )
       end
 
       # 9. SECOND CANTICLE
@@ -459,11 +361,15 @@ module DailyOffice
         end
 
         {
-          name: [canticle&.title, canticle&.reference].compact.join(" ").presence || "Cântico",
+          name: [ canticle&.title, canticle&.reference ].compact.join(" ").presence || "Cântico",
           slug: "second_canticle",
           lines: lines
         }
       end
+
+      # ============================================================================
+      # SECTION: Affirmation of Faith and Offering
+      # ============================================================================
 
       # 10. CREED
       def build_creed
@@ -486,7 +392,7 @@ module DailyOffice
       def build_offertory
         lines = []
 
-         # End rubric (mentions Creed)
+        # End rubric (mentions Creed)
         end_rubric = fetch_liturgical_text("morning_rubric_offertory")
         if end_rubric
           lines << line_item("", type: "spacer")
@@ -499,6 +405,10 @@ module DailyOffice
           lines: lines
         }
       end
+
+      # ============================================================================
+      # SECTION: Prayers and Collects
+      # ============================================================================
 
       # 11. LORD'S PRAYER
       def build_lords_prayer
@@ -572,8 +482,7 @@ module DailyOffice
         end
 
         # General collects (6 options - can include all or select based on preferences)
-        general_collect_slugs = %w[for_peace for_grace for_all_authorities for_clergy for_parish_family for_all_humanity]
-        selected_collects = preferences[:general_collects] || general_collect_slugs
+        selected_collects = preferences[:general_collects] || GENERAL_COLLECT_SLUGS
 
         selected_collects.each do |slug|
           collect = fetch_liturgical_text(slug)
@@ -654,6 +563,10 @@ module DailyOffice
         }
       end
 
+      # ============================================================================
+      # SECTION: Concluding Prayers and Dismissal
+      # ============================================================================
+
       # 16. DISMISSAL
       def build_dismissal
         lines = []
@@ -703,57 +616,29 @@ module DailyOffice
 
       private
 
-      # Helper: Get season-specific opening sentence slug
+      # ============================================================================
+      # SECTION: Season-Specific Helpers
+      # ============================================================================
+
+      # Get season-specific opening sentence slug
       def season_specific_opening_sentence_slug(office_type)
         season = day_info[:liturgical_season]
-
-        # Map season to specific opening sentence slugs
-        season_slug = case season&.downcase
-        when "advento" then "advent"
-        when "natal" then "christmas"
-        when "epifania" then "epiphany"
-        when "quaresma" then "lent"
-        when "semana santa" then "holy_week"
-        when "sexta-feira santa" then "good_friday"
-        when "páscoa" then "easter"
-        when "ascensão" then "ascension"
-        when "santo nome" then "holy_name"
-        when "pentecostes" then "pentecost"
-        when "trindade" then "trinity"
-        when "todos os santos" then "all_saints"
-        else
-          # Check if it's a feast day
-          return "morning_opening_sentence_common_feast" if day_info[:feast_day]
-          # No seasonal sentence for ordinary time
-          return nil
-        end
+        season_slug = season_to_opening_sentence_slug(season, feast_day: day_info[:feast_day])
+        return nil unless season_slug
 
         "morning_opening_sentence_#{season_slug}"
       end
 
-      # Helper: Get season-specific pre-invitatory antiphon
+      # Get season-specific pre-invitatory antiphon
       def season_specific_antiphon
         season = day_info[:liturgical_season]
-
-        season_slug = case season&.downcase
-        when "advento" then "advent"
-        when "natal" then "christmas"
-        when "epifania" then "epiphany"
-        when "quaresma" then "lent"
-        when "páscoa" then "easter"
-        when "ascensão" then "ascension"
-        when "pentecostes" then "pentecost"
-        when "trindade" then "trinity"
-        when "anunciação" then "anunciation"
-        else
-          return "morning_before_invocation_common_feast" if day_info[:feast_day]
-          return nil
-        end
+        season_slug = season_to_antiphon_slug(season, feast_day: day_info[:feast_day])
+        return nil unless season_slug
 
         "morning_before_invocation_#{season_slug}"
       end
 
-      # Helper: Choose invitatory canticle based on season
+      # Choose invitatory canticle based on season
       def invitatory_canticle_slug
         season = day_info[:liturgical_season]
 
@@ -764,21 +649,26 @@ module DailyOffice
         preferences[:invitatory_canticle] == "jubilate" ? "jubilate" : "venite"
       end
 
-      # Helper: Check if current season is Lent
+      # Check if current season is Lent
       def is_lent?
-        season = day_info[:liturgical_season]
-        season&.downcase == "quaresma" || season&.downcase == "semana santa"
+        lent_season?(day_info[:liturgical_season])
       end
 
-      # Helper: Fetch liturgical text from database
+      # ============================================================================
+      # SECTION: Database and Formatting Helpers
+      # ============================================================================
+
+      # Fetch liturgical text from database
       def fetch_liturgical_text(slug)
+        return nil unless prayer_book
+
         LiturgicalText.find_by(
           slug: slug,
           prayer_book_id: prayer_book.id
         )
       end
 
-      # Helper: Create line item
+      # Create line item
       def line_item(text, type: "text")
         { text: text, type: type }
       end

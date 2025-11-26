@@ -73,18 +73,15 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Setup database
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/estevao_api_test
-        run: |
-          bin/rails db:create
-          bin/rails db:migrate
-
       - name: Run tests
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/estevao_api_test
+          PARALLEL_TEST_PROCESSORS: 2
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails test
+        run: |
+          bin/rails db:create db:schema:load
+          bundle exec rake parallel:create RAILS_ENV=test
+          bundle exec rake parallel:load_schema RAILS_ENV=test
+          bundle exec parallel_rspec -n 2 spec/

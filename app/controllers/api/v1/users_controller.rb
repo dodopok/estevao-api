@@ -63,9 +63,9 @@ module Api
         # Encontra ou cria o token
         fcm_token = current_user.fcm_tokens.find_or_initialize_by(token: token)
         fcm_token.platform = platform
-        fcm_token.touch # Atualiza o updated_at
 
         if fcm_token.save
+          fcm_token.touch unless fcm_token.previously_new_record? # Atualiza o updated_at se já existia
           render json: {
             message: "Token FCM salvo com sucesso",
             fcm_token: token

@@ -16,20 +16,25 @@ RSpec.describe "api/v1/prayer_books", type: :request do
       description "Returns all available Prayer Books (LOCs), ordered by default and year"
 
       response(200, "successful") do
-        schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   code: { type: :string, example: "loc_2015" },
-                   name: { type: :string, example: "Livro de Oração Comum - IEAB 2015" },
-                   year: { type: :integer, example: 2015 },
-                   jurisdiction: { type: :string, example: "Igreja Episcopal Anglicana do Brasil" },
-                   description: { type: :string, nullable: true },
-                   thumbnail_url: { type: :string, nullable: true },
-                   pdf_url: { type: :string, nullable: true },
-                   is_default: { type: :boolean, example: true }
-                 },
-                 required: %w[code name year is_default]
+        schema type: :object,
+               properties: {
+                 prayer_books: {
+                   type: :array,
+                   items: {
+                     type: :object,
+                     properties: {
+                       code: { type: :string, example: "loc_2015" },
+                       name: { type: :string, example: "Livro de Oração Comum - IEAB 2015" },
+                       year: { type: :integer, example: 2015 },
+                       jurisdiction: { type: :string, example: "Igreja Episcopal Anglicana do Brasil" },
+                       description: { type: :string, nullable: true },
+                       thumbnail_url: { type: :string, nullable: true },
+                       pdf_url: { type: :string, nullable: true },
+                       is_default: { type: :boolean, example: true }
+                     },
+                     required: %w[code name year is_default]
+                   }
+                 }
                }
 
         after do |example|

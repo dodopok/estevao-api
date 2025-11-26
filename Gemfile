@@ -65,4 +65,16 @@ group :development, :test do
   # RSpec for testing
   gem "rspec-rails", "~> 8.0"
   gem "rswag-specs"
+
+  # Parallel test execution
+  gem "parallel_tests"
+
+  # Test data factories
+  gem "factory_bot_rails"
+
+  # Additional RSpec matchers
+  gem "shoulda-matchers", "~> 6.0"
+
+  # Code coverage
+  gem "simplecov", require: false
 end

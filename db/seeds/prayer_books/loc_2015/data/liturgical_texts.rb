@@ -385,7 +385,7 @@ LiturgicalText.find_or_create_by!(slug: 'morning_confession_2', prayer_book_id: 
     para subjugar diferenças,
     gerando desigualdades em todas as esferas sociais,
     tanto privadas quanto públicas.
-    
+
     Perdoa nossa omissão e silêncio, ó Deus de justiça,
     e tem misericórdia de nós de acordo
     com tua amorosa bondade.
@@ -902,7 +902,7 @@ LiturgicalText.find_or_create_by!(slug: 'benedicite_omnia_opera', prayer_book_id
     louvem-no e exaltem-no para sempre.
     Pessoas santas de coração bendigam ao SENHOR, *
     louvem-no e exaltem-no para sempre.
-    
+
     __(Doxologia)__
     Bendigamos ao SENHOR: Pai, Filho e Espírito Santo, *
     O louvemos e exaltemos para sempre.

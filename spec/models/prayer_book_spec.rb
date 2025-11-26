@@ -4,11 +4,49 @@ require 'rails_helper'
 
 RSpec.describe PrayerBook, type: :model do
   describe 'associations' do
-    it { should have_many(:collects).dependent(:restrict_with_error) }
-    it { should have_many(:lectionary_readings).dependent(:restrict_with_error) }
-    it { should have_many(:liturgical_texts).dependent(:restrict_with_error) }
-    it { should have_many(:psalms).dependent(:restrict_with_error) }
-    it { should have_many(:psalm_cycles).dependent(:restrict_with_error) }
+    let(:prayer_book) { PrayerBook.create!(code: 'test_associations', name: 'Test') }
+
+    it 'has many collects' do
+      expect(prayer_book).to respond_to(:collects)
+      expect(prayer_book.collects).to eq([])
+    end
+
+    it 'has many lectionary_readings' do
+      expect(prayer_book).to respond_to(:lectionary_readings)
+      expect(prayer_book.lectionary_readings).to eq([])
+    end
+
+    it 'has many liturgical_texts' do
+      expect(prayer_book).to respond_to(:liturgical_texts)
+      expect(prayer_book.liturgical_texts).to eq([])
+    end
+
+    it 'has many psalms' do
+      expect(prayer_book).to respond_to(:psalms)
+      expect(prayer_book.psalms).to eq([])
+    end
+
+    it 'has many psalm_cycles' do
+      expect(prayer_book).to respond_to(:psalm_cycles)
+      expect(prayer_book.psalm_cycles).to eq([])
+    end
+
+    it 'has many prayer_book_user_preferences' do
+      expect(prayer_book).to respond_to(:prayer_book_user_preferences)
+      expect(prayer_book.prayer_book_user_preferences).to eq([])
+    end
+
+    it 'configures restrict_with_error dependency for core associations' do
+      expect(prayer_book.association(:collects).options[:dependent]).to eq(:restrict_with_error)
+      expect(prayer_book.association(:lectionary_readings).options[:dependent]).to eq(:restrict_with_error)
+      expect(prayer_book.association(:liturgical_texts).options[:dependent]).to eq(:restrict_with_error)
+      expect(prayer_book.association(:psalms).options[:dependent]).to eq(:restrict_with_error)
+      expect(prayer_book.association(:psalm_cycles).options[:dependent]).to eq(:restrict_with_error)
+    end
+
+    it 'configures destroy dependency for prayer_book_user_preferences' do
+      expect(prayer_book.association(:prayer_book_user_preferences).options[:dependent]).to eq(:destroy)
+    end
   end
 
   describe 'validations' do
@@ -25,8 +63,8 @@ RSpec.describe PrayerBook, type: :model do
     end
 
     it 'requires unique code' do
-      PrayerBook.create!(code: 'loc_2015', name: 'Test Book 1')
-      prayer_book = PrayerBook.new(code: 'loc_2015', name: 'Test Book 2')
+      PrayerBook.create!(code: 'test_unique_1', name: 'Test Book 1')
+      prayer_book = PrayerBook.new(code: 'test_unique_1', name: 'Test Book 2')
 
       expect(prayer_book).not_to be_valid
       expect(prayer_book.errors[:code]).to include('has already been taken')
@@ -41,8 +79,11 @@ RSpec.describe PrayerBook, type: :model do
   describe 'scopes' do
     describe '.default' do
       it 'returns only default prayer books' do
-        default_book = PrayerBook.create!(code: 'default', name: 'Default', is_default: true)
-        _other_book = PrayerBook.create!(code: 'other', name: 'Other', is_default: false)
+        # Clear existing default books to avoid conflicts
+        PrayerBook.where(is_default: true).update_all(is_default: false)
+
+        default_book = PrayerBook.create!(code: 'default_test', name: 'Default', is_default: true)
+        _other_book = PrayerBook.create!(code: 'other_test', name: 'Other', is_default: false)
 
         expect(PrayerBook.default).to contain_exactly(default_book)
       end
@@ -51,32 +92,37 @@ RSpec.describe PrayerBook, type: :model do
 
   describe '.find_by_code!' do
     it 'finds prayer book by code' do
-      prayer_book = PrayerBook.create!(code: 'loc_2015', name: 'LOC 2015')
+      prayer_book = PrayerBook.create!(code: 'test_find_by_code', name: 'Test Book')
 
-      expect(PrayerBook.find_by_code!('loc_2015')).to eq(prayer_book)
+      expect(PrayerBook.find_by_code!('test_find_by_code')).to eq(prayer_book)
     end
 
     it 'raises error when prayer book not found' do
       expect {
-        PrayerBook.find_by_code!('nonexistent')
+        PrayerBook.find_by_code!('definitely_nonexistent_code_xyz')
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
   describe '.find_by_code_or_default' do
-    let!(:default_book) { PrayerBook.create!(code: 'default', name: 'Default', is_default: true) }
+    before do
+      # Clear existing default books and create a fresh one for these tests
+      PrayerBook.where(is_default: true).update_all(is_default: false)
+    end
+
+    let!(:default_book) { PrayerBook.create!(code: 'default_test_2', name: 'Default', is_default: true) }
 
     context 'when code is provided and exists' do
       it 'returns the prayer book with that code' do
-        specific_book = PrayerBook.create!(code: 'specific', name: 'Specific', is_default: false)
+        specific_book = PrayerBook.create!(code: 'specific_test', name: 'Specific', is_default: false)
 
-        expect(PrayerBook.find_by_code_or_default('specific')).to eq(specific_book)
+        expect(PrayerBook.find_by_code_or_default('specific_test')).to eq(specific_book)
       end
     end
 
     context 'when code is provided but does not exist' do
       it 'returns the default prayer book' do
-        expect(PrayerBook.find_by_code_or_default('nonexistent')).to eq(default_book)
+        expect(PrayerBook.find_by_code_or_default('definitely_nonexistent_xyz')).to eq(default_book)
       end
     end
 

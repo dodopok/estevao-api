@@ -153,14 +153,15 @@ module DailyOffice
       end
 
       def build_collects
-        collects_data = CollectService.new(date, prayer_book_code: prayer_book_code).find_collects || {}
+        collects_data = CollectService.new(date, prayer_book_code: prayer_book_code).find_collects || []
+        collect_text = collects_data.first&.dig(:text) || ""
 
         {
           name: "Coletas",
           slug: "collects",
           lines: [
             line_item("Coleta do Dia", type: "heading"),
-            line_item(collects_data[:text], type: "leader"),
+            line_item(collect_text, type: "leader"),
             line_item("", type: "spacer"),
             line_item("Coleta pela Paz", type: "heading"),
             line_item(fetch_liturgical_text("collect_peace")&.content || "", type: "leader"),
@@ -172,15 +173,16 @@ module DailyOffice
       end
 
       def build_simple_collect
-        collects_data = CollectService.new(date, prayer_book_code: prayer_book_code).find_collects || {}
-        return nil unless collects_data[:text]
+        collects_data = CollectService.new(date, prayer_book_code: prayer_book_code).find_collects || []
+        collect_text = collects_data.first&.dig(:text)
+        return nil unless collect_text
 
         {
           name: "Coleta do Dia",
           slug: "collect",
           lines: [
             line_item("Coleta do Dia", type: "heading"),
-            line_item(collects_data[:text], type: "leader")
+            line_item(collect_text, type: "leader")
           ]
         }
       end

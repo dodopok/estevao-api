@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+# Code coverage configuration
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter '/spec/'
+  add_filter '/test/'
+  add_filter '/config/'
+  add_filter '/vendor/'
+
+  add_group 'Models', 'app/models'
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Services', 'app/services'
+  add_group 'Jobs', 'app/jobs'
+end if ENV['COVERAGE']
+
 require 'rspec/expectations'
 
 RSpec.configure do |config|
@@ -12,4 +26,7 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  # Filter out backtrace from gems
+  config.filter_gems_from_backtrace 'factory_bot'
 end

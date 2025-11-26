@@ -1,0 +1,3 @@
+# Number of parallel processes (default: number of CPU cores)
+# You can override this by setting PARALLEL_TEST_PROCESSORS environment variable
+# -n 4

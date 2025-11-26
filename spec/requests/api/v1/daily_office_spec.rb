@@ -60,8 +60,8 @@ RSpec.describe "api/v1/daily_office", type: :request do
                properties: {
                  date: { type: :string, example: "2025-11-22" },
                  office_type: { type: :string, example: "morning" },
-                 season: { type: :string, example: "Tempo Comum" },
-                 color: { type: :string, example: "verde" },
+                 season: { type: :string, example: "Tempo Comum", nullable: true },
+                 color: { type: :string, example: "verde", nullable: true },
                  celebration: { type: :object, nullable: true },
                  saint: { type: :object, nullable: true },
                  modules: {
@@ -141,8 +141,8 @@ RSpec.describe "api/v1/daily_office", type: :request do
                properties: {
                  date: { type: :string, example: "2025-12-25" },
                  office_type: { type: :string, example: "morning" },
-                 season: { type: :string, example: "Natal" },
-                 color: { type: :string, example: "branco" },
+                 season: { type: :string, example: "Natal", nullable: true },
+                 color: { type: :string, example: "branco", nullable: true },
                  celebration: { type: :object, nullable: true },
                  saint: { type: :object, nullable: true },
                  modules: {

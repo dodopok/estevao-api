@@ -25,6 +25,10 @@ RSpec.describe 'api/v1/celebrations', type: :request do
       parameter name: 'q', in: :query, type: :string, required: false, description: 'Search query'
 
       response(200, 'successful') do
+        let(:Authorization) { '' }
+        let(:prayer_book_code) { 'loc_2015' }
+        let(:q) { 'natal' }
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -132,7 +136,22 @@ RSpec.describe 'api/v1/celebrations', type: :request do
                 }
 
       response(200, 'successful') do
-        let(:id) { '1' }
+        let(:Authorization) { '' }
+        let(:prayer_book_code) { 'loc_2015' }
+        let(:id) do
+          prayer_book = PrayerBook.find_or_create_by!(code: 'loc_2015') do |pb|
+            pb.name = 'Livro de Oração Comum 2015'
+            pb.year = 2015
+            pb.is_default = true
+          end
+          celebration = Celebration.create!(
+            name: 'Teste',
+            celebration_type: :principal_feast,
+            rank: 50,
+            prayer_book: prayer_book
+          )
+          celebration.id
+        end
 
         after do |example|
           example.metadata[:response][:content] = {

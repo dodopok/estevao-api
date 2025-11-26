@@ -4,7 +4,20 @@ require "rails_helper"
 
 RSpec.describe NotificationLog, type: :model do
   describe "associations" do
-    it { should belong_to(:user) }
+    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123") }
+    let(:notification_log) do
+      NotificationLog.create!(
+        user: user,
+        notification_type: "test",
+        title: "Test",
+        body: "Test body"
+      )
+    end
+
+    it "belongs to user" do
+      expect(notification_log).to respond_to(:user)
+      expect(notification_log.user).to eq(user)
+    end
   end
 
   describe "validations" do

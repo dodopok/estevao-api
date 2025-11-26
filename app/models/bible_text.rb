@@ -71,10 +71,10 @@ class BibleText < ApplicationRecord
     clean_ref = clean_ref.split(/\s+or\s+/i).first.strip
 
     # Remove optional verses in parentheses
-    clean_ref = clean_ref.gsub(/\s*\([^)]+\)/, '')
+    clean_ref = clean_ref.gsub(/\s*\([^)]+\)/, "")
 
     # Handle multiple verse ranges - take first segment
-    clean_ref = clean_ref.split(',').first.strip
+    clean_ref = clean_ref.split(",").first.strip
 
     # Remove letter suffixes from verses (e.g., "15a" -> "15")
     clean_ref = clean_ref.gsub(/(\d+)[a-z]/, '\1')
