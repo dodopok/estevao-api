@@ -1741,9 +1741,8 @@ LiturgicalText.find_or_create_by!(slug: 'compline_absolution', prayer_book_id: p
     O Senhor nos enriqueça com sua graça,
     **nos honre com sua bênção celestial;
     nos defenda de toda a adversidade,
-    e nos afaste de todo o mal.**
-
-    **O Senhor receba as nossas orações
+    e nos afaste de todo o mal.
+    O Senhor receba as nossas orações
     e graciosamente nos absolva
     de nossas faltas e pecados. Amém.**
     Converte-nos, ó Deus nosso Salvador.
