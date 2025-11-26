@@ -2256,8 +2256,8 @@ end
 LiturgicalText.find_or_create_by!(slug: 'midday_rubric_invitation', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
-    Estando **de pé** quem puder,
-    quem oficia proclama: 
+    Estando de pé quem puder,
+    quem oficia proclama:#{' '}
   TEXT
   lt.language = 'pt-BR'
 end
@@ -2407,7 +2407,7 @@ LiturgicalText.find_or_create_by!(slug: 'midday_reading_1', prayer_book_id: pray
   lt.category = 'prayer'
   lt.content = <<~TEXT
     Desde o Oriente até o Ocidente,
-    é grande o meu nome entre as nações. 
+    é grande o meu nome entre as nações.#{' '}
     E em todo lugar se oferece incenso ao meu nome
     e uma oferta pura,
     pois grande é o meu nome entre as nações.
@@ -2433,7 +2433,7 @@ LiturgicalText.find_or_create_by!(slug: 'midday_reading_3', prayer_book_id: pray
   lt.content = <<~TEXT
     Se alguém está em Cristo, é nova criatura.
     As coisas antigas passaram;
-    eis que uma realidade nova apareceu. 
+    eis que uma realidade nova apareceu.#{' '}
 
     Tudo isso vem de Deus,
     que nos reconciliou consigo por meio de Cristo,

@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe DailyOffice::Builders::Loc2015::MorningPrayer do
+RSpec.describe DailyOffice::Builders::Loc2015::Morning do
   # Create a test class that includes the module
   let(:test_class) do
     Class.new(DailyOffice::Builders::Loc2015Builder) do
-      include DailyOffice::Builders::Loc2015::MorningPrayer
+      include DailyOffice::Builders::Loc2015::Morning
     end
   end
 

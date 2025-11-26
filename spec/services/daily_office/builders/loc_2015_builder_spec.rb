@@ -91,16 +91,16 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
       expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::SharedHelpers)
     end
 
-    it 'includes Loc2015::MorningPrayer module' do
-      expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::MorningPrayer)
+    it 'includes Loc2015::Morning module' do
+      expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::Morning)
     end
 
-    it 'includes Loc2015::EveningPrayer module' do
-      expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::EveningPrayer)
+    it 'includes Loc2015::Evening module' do
+      expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::Evening)
     end
 
-    it 'includes Loc2015::MiddayPrayer module' do
-      expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::MiddayPrayer)
+    it 'includes Loc2015::Midday module' do
+      expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::Midday)
     end
 
     it 'includes Loc2015::Compline module' do

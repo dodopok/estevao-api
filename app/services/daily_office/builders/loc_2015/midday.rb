@@ -3,7 +3,7 @@
 module DailyOffice
   module Builders
     module Loc2015
-      module MiddayPrayer
+      module Midday
         # Midday Prayer (Oração do Meio-Dia) specific implementation
 
         def assemble_midday_prayer
@@ -106,8 +106,8 @@ module DailyOffice
           sections = []
 
           # Get selected psalms from preferences (default to all 3)
-          selected_psalms = preferences[:midday_psalms] || [1, 2, 3]
-          selected_psalms = [selected_psalms] unless selected_psalms.is_a?(Array)
+          selected_psalms = preferences[:midday_psalms] || [ 1, 2, 3 ]
+          selected_psalms = [ selected_psalms ] unless selected_psalms.is_a?(Array)
 
           psalm_slugs = {
             1 => "lucerna_pedibus_meis",  # Psalm 119:105-112
@@ -122,7 +122,7 @@ module DailyOffice
               lines << line_item(psalm.content, type: "congregation")
 
               sections << {
-                name: [psalm.title, psalm.reference].compact.join(" ").presence || "Salmo",
+                name: [ psalm.title, psalm.reference ].compact.join(" ").presence || "Salmo",
                 slug: psalm_slugs[psalm_num],
                 lines: lines
               }
