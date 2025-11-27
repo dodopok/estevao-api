@@ -47,7 +47,7 @@ module Api
       private
 
       def completion_params
-        params.require(:completion).permit(:office_type, :date, :duration_seconds)
+        params.permit(:office_type, :date, :duration_seconds)
       end
     end
   end
