@@ -33,9 +33,11 @@ class User < ApplicationRecord
   end
 
   # Marca um ofício como completo e atualiza streak
-  def complete_office!(office_type, duration_seconds: nil)
+  def complete_office!(office_type, date: nil, duration_seconds: nil)
+    date_reference = date.present? ? Date.parse(date.to_s) : Date.today
+
     completion = completions.create!(
-      date_reference: Date.today,
+      date_reference:,
       office_type:,
       duration_seconds:
     )

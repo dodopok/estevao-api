@@ -12,6 +12,7 @@ module Api
       def create
         completion = current_user.complete_office!(
           completion_params[:office_type],
+          date: completion_params[:date],
           duration_seconds: completion_params[:duration_seconds]
         )
 
@@ -46,7 +47,7 @@ module Api
       private
 
       def completion_params
-        params.require(:completion).permit(:office_type, :duration_seconds)
+        params.permit(:office_type, :date, :duration_seconds)
       end
     end
   end
