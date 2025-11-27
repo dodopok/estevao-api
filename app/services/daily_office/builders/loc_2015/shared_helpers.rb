@@ -6,6 +6,24 @@ module DailyOffice
       module SharedHelpers
         private
 
+        # Generates a random number within the given range using an optional seed.
+        # When a seed is provided via preferences[:seed], the randomization is deterministic.
+        # This allows sharing the same office configuration via QR code or link.
+        #
+        # @param range [Range] The range of numbers to select from (e.g., 1..7)
+        # @param key [Symbol] A unique identifier for this randomization point
+        # @return [Integer] A random number within the range
+        def seeded_random(range, key:)
+          if preferences[:seed]
+            # Use seed + key hash to ensure different randomization points
+            # produce different but deterministic results
+            Random.new(preferences[:seed] + key.hash).rand(range)
+          else
+            # No seed provided, use standard random behavior
+            rand(range)
+          end
+        end
+
         def fetch_liturgical_text(slug)
           return nil unless prayer_book
 

@@ -155,6 +155,9 @@ module Api
             confession_type: params[:confession_type] || prefs[:confession_type] || "long"
           }
 
+          # Adiciona seed se fornecido via params (para compartilhamento via QR code/link)
+          base_prefs[:seed] = params[:seed].to_i if params[:seed].present?
+
           # Adiciona as opções específicas do Prayer Book
           base_prefs.merge(pb_prefs.symbolize_keys)
         else
@@ -162,7 +165,7 @@ module Api
           prayer_book_code = params[:prayer_book_code] || "loc_2015"
           prayer_book = PrayerBook.find_by(code: prayer_book_code)
 
-          {
+          base_prefs = {
             prayer_book_code: prayer_book_code,
             language: params[:language] || "pt-BR",
             bible_version: params[:bible_version] || "nvi",
@@ -170,6 +173,11 @@ module Api
             creed_type: (params[:creed_type]&.to_sym || :apostles),
             confession_type: params[:confession_type] || "long"
           }.merge(prayer_book&.default_options&.symbolize_keys || {})
+
+          # Adiciona seed se fornecido via params (para compartilhamento via QR code/link)
+          base_prefs[:seed] = params[:seed].to_i if params[:seed].present?
+
+          base_prefs
         end
     end
 

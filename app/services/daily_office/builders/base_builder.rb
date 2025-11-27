@@ -11,6 +11,9 @@ module DailyOffice
         @office_type = office_type.to_sym
         @preferences = default_preferences.merge(preferences)
 
+        # Generate seed if not provided (for sharing consistent office configurations)
+        @preferences[:seed] ||= generate_seed
+
         # Load day info and readings
         @day_info = liturgical_calendar.day_info(@date)
         @readings = ReadingService.new(@date, prayer_book_code: @preferences[:prayer_book_code]).find_readings || {}
@@ -68,7 +71,8 @@ module DailyOffice
             prayer_book_code: preferences[:prayer_book_code],
             prayer_book_name: prayer_book&.name,
             bible_version: preferences[:bible_version],
-            language: preferences[:language]
+            language: preferences[:language],
+            seed: preferences[:seed]
           }
         }
       end
@@ -200,6 +204,14 @@ module DailyOffice
 
       def prayer_book
         @prayer_book ||= PrayerBook.find_by(code: preferences[:prayer_book_code])
+      end
+
+      # Generates a deterministic seed based on date and office type
+      # This allows the same day/office combination to have consistent randomization
+      # when no specific seed is provided
+      def generate_seed
+        # Use date and office type to create a unique but deterministic seed
+        "#{date.to_time.to_i}_#{office_type}".hash
       end
     end
   end

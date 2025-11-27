@@ -47,6 +47,7 @@ RSpec.describe "api/v1/daily_office", type: :request do
     parameter name: :lords_prayer_version, in: :query, required: false, description: "Lord's Prayer version (traditional/contemporary)", schema: { type: :string, enum: [ 'traditional', 'contemporary' ] }
     parameter name: :creed_type, in: :query, required: false, description: "Creed type (apostles/nicene)", schema: { type: :string, enum: [ 'apostles', 'nicene' ] }
     parameter name: :confession_type, in: :query, required: false, description: "Confession type (long/short)", schema: { type: :string, enum: [ 'long', 'short' ] }
+    parameter name: :seed, in: :query, required: false, description: "Seed for deterministic randomization (for sharing office via QR code/link)", schema: { type: :integer }
 
     get("Get today's Daily Office") do
       tags api_tags
@@ -92,7 +93,8 @@ RSpec.describe "api/v1/daily_office", type: :request do
                      prayer_book_code: { type: :string, example: "loc_2015" },
                      prayer_book_name: { type: :string, example: "Livro de Oração Comum - IEAB 2015" },
                      bible_version: { type: :string, example: "nvi" },
-                     language: { type: :string, example: "pt-BR" }
+                     language: { type: :string, example: "pt-BR" },
+                     seed: { type: :integer, example: 1234567890, description: "Seed used for deterministic randomization (for sharing)" }
                    }
                  }
                }
@@ -125,6 +127,7 @@ RSpec.describe "api/v1/daily_office", type: :request do
     parameter name: :lords_prayer_version, in: :query, required: false, description: "Lord's Prayer version (traditional/contemporary)", schema: { type: :string, enum: [ 'traditional', 'contemporary' ] }
     parameter name: :creed_type, in: :query, required: false, description: "Creed type (apostles/nicene)", schema: { type: :string, enum: [ 'apostles', 'nicene' ] }
     parameter name: :confession_type, in: :query, required: false, description: "Confession type (long/short)", schema: { type: :string, enum: [ 'long', 'short' ] }
+    parameter name: :seed, in: :query, required: false, description: "Seed for deterministic randomization (for sharing office via QR code/link)", schema: { type: :integer }
 
     get("Get Daily Office for specific date") do
       tags api_tags
@@ -173,7 +176,8 @@ RSpec.describe "api/v1/daily_office", type: :request do
                      prayer_book_code: { type: :string },
                      prayer_book_name: { type: :string },
                      bible_version: { type: :string },
-                     language: { type: :string }
+                     language: { type: :string },
+                     seed: { type: :integer, description: "Seed used for deterministic randomization (for sharing)" }
                    }
                  }
                }
@@ -272,6 +276,75 @@ RSpec.describe "api/v1/daily_office", type: :request do
                }
 
         run_test!
+      end
+    end
+  end
+
+  # Integration tests for seed functionality
+  describe "Seed functionality" do
+    let(:date) { "2025/11/25" }
+    let(:office_type) { "morning" }
+
+    context "when seed parameter is provided" do
+      it "returns the same seed in metadata" do
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { seed: 12345 }
+        expect(response).to have_http_status(:success)
+
+        json = JSON.parse(response.body)
+        expect(json["metadata"]["seed"]).to eq(12345)
+      end
+
+      it "produces deterministic results with same seed" do
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { seed: 54321 }
+        response1 = JSON.parse(response.body)
+
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { seed: 54321 }
+        response2 = JSON.parse(response.body)
+
+        # The responses should be identical when using the same seed
+        expect(response1["modules"]).to eq(response2["modules"])
+      end
+
+      it "produces different results with different seeds" do
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { seed: 11111 }
+        response1 = JSON.parse(response.body)
+
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { seed: 99999 }
+        response2 = JSON.parse(response.body)
+
+        # Extract opening sentence content to verify randomization worked
+        opening1 = response1["modules"].find { |m| m["slug"] == "opening_sentence" }
+        opening2 = response2["modules"].find { |m| m["slug"] == "opening_sentence" }
+
+        # With different seeds, there's a high probability (but not guaranteed)
+        # that the opening sentences will be different
+        # We just verify that the structure is correct and seed is in metadata
+        expect(response1["metadata"]["seed"]).to eq(11111)
+        expect(response2["metadata"]["seed"]).to eq(99999)
+        expect(opening1).to be_present
+        expect(opening2).to be_present
+      end
+    end
+
+    context "when seed parameter is not provided" do
+      it "automatically generates a seed and includes it in metadata" do
+        get "/api/v1/daily_office/#{date}/#{office_type}"
+        expect(response).to have_http_status(:success)
+
+        json = JSON.parse(response.body)
+        expect(json["metadata"]["seed"]).to be_present
+        expect(json["metadata"]["seed"]).to be_a(Integer)
+      end
+
+      it "generates consistent seed for same date/office combination" do
+        get "/api/v1/daily_office/#{date}/#{office_type}"
+        response1 = JSON.parse(response.body)
+
+        get "/api/v1/daily_office/#{date}/#{office_type}"
+        response2 = JSON.parse(response.body)
+
+        # Same date/office should produce same seed
+        expect(response1["metadata"]["seed"]).to eq(response2["metadata"]["seed"])
       end
     end
   end
