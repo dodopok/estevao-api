@@ -28,29 +28,29 @@ RSpec.describe 'api/v1/completions', type: :request do
       parameter name: :completion, in: :body, schema: {
         type: :object,
         properties: {
-          completion: {
-            type: :object,
-            properties: {
-              office_type: {
-                type: :string,
-                enum: %w[morning midday evening compline],
-                example: 'morning'
-              },
-              duration_seconds: {
-                type: :integer,
-                example: 600,
-                description: 'Optional: duration in seconds spent on the office'
-              }
-            },
-            required: [ 'office_type' ]
+          office_type: {
+            type: :string,
+            enum: %w[morning midday evening compline],
+            example: 'morning'
+          },
+          date: {
+            type: :string,
+            format: :date,
+            example: '2025-11-22',
+            description: 'Optional: date reference for the completion (defaults to today)'
+          },
+          duration_seconds: {
+            type: :integer,
+            example: 600,
+            description: 'Optional: duration in seconds spent on the office'
           }
         },
-        required: [ 'completion' ]
+        required: [ 'office_type' ]
       }
 
       response(201, 'created') do
         let(:Authorization) { 'Bearer mock-token' }
-        let(:completion) { { completion: { office_type: 'morning', duration_seconds: 600 } } }
+        let(:completion) { { office_type: 'morning', duration_seconds: 600 } }
 
         before do
           user = create(:user)
@@ -80,7 +80,7 @@ RSpec.describe 'api/v1/completions', type: :request do
 
       response(401, 'unauthorized') do
         let(:Authorization) { '' }
-        let(:completion) { { completion: { office_type: 'morning' } } }
+        let(:completion) { { office_type: 'morning' } }
 
         schema type: :object,
                properties: {
@@ -92,7 +92,7 @@ RSpec.describe 'api/v1/completions', type: :request do
 
       response(422, 'unprocessable entity') do
         let(:Authorization) { 'Bearer mock-token' }
-        let(:completion) { { completion: { office_type: '' } } }
+        let(:completion) { { office_type: '' } }
 
         before do
           user = create(:user)
