@@ -149,7 +149,7 @@ module DailyOffice
 
           # Get selected reading (from preference or random)
           reading_num = preferences[:midday_reading]
-          reading_num ||= rand(1..3) # Random selection if no preference
+          reading_num ||= seeded_random(1..3, key: :midday_reading) # Random selection if no preference
 
           reading = fetch_liturgical_text("midday_reading_#{reading_num}")
           if reading

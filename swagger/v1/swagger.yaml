@@ -506,16 +506,6 @@ paths:
                         type: string
                         format: date-time
                         example: '2025-11-22T08:30:00Z'
-        '401':
-          description: unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: Unauthorized
         '404':
           description: not completed
           content:
@@ -718,6 +708,13 @@ paths:
         enum:
         - long
         - short
+    - name: seed
+      in: query
+      required: false
+      description: Seed for deterministic randomization (for sharing office via QR
+        code/link)
+      schema:
+        type: integer
     get:
       summary: Get today's Daily Office
       tags:
@@ -804,6 +801,11 @@ paths:
                       language:
                         type: string
                         example: pt-BR
+                      seed:
+                        type: integer
+                        example: 1234567890
+                        description: Seed used for deterministic randomization (for
+                          sharing)
         '400':
           description: invalid office type
   "/api/v1/daily_office/{year}/{month}/{day}/{office_type}":
@@ -895,6 +897,13 @@ paths:
         enum:
         - long
         - short
+    - name: seed
+      in: query
+      required: false
+      description: Seed for deterministic randomization (for sharing office via QR
+        code/link)
+      schema:
+        type: integer
     get:
       summary: Get Daily Office for specific date
       tags:
@@ -963,6 +972,10 @@ paths:
                         type: string
                       language:
                         type: string
+                      seed:
+                        type: integer
+                        description: Seed used for deterministic randomization (for
+                          sharing)
         '400':
           description: invalid office type
   "/api/v1/daily_office/{year}/{month}/{day}/{office_type}/family":

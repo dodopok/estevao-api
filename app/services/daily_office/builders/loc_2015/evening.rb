@@ -97,7 +97,7 @@ module DailyOffice
           lines = []
 
           # General opening sentence (always include one of 1-8)
-          general_num = preferences[:opening_sentence_general] || rand(1..8)
+          general_num = preferences[:opening_sentence_general] || seeded_random(1..8, key: :evening_opening_sentence)
           general = fetch_liturgical_text("evening_opening_sentence_#{general_num}")
           if general
             lines << line_item(general.content, type: "leader")
