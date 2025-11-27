@@ -416,25 +416,112 @@ paths:
             schema:
               type: object
               properties:
-                completion:
-                  type: object
-                  properties:
-                    office_type:
-                      type: string
-                      enum:
-                      - morning
-                      - midday
-                      - evening
-                      - compline
-                      example: morning
-                    duration_seconds:
-                      type: integer
-                      example: 600
-                      description: 'Optional: duration in seconds spent on the office'
-                  required:
-                  - office_type
+                office_type:
+                  type: string
+                  enum:
+                  - morning
+                  - midday
+                  - evening
+                  - compline
+                  example: morning
+                date:
+                  type: string
+                  format: date
+                  example: '2025-11-22'
+                  description: 'Optional: date reference for the completion (defaults
+                    to today)'
+                duration_seconds:
+                  type: integer
+                  example: 600
+                  description: 'Optional: duration in seconds spent on the office'
               required:
-              - completion
+              - office_type
+  "/api/v1/completions/{year}/{month}/{day}/{office_type}":
+    parameters:
+    - name: year
+      in: path
+      description: Year
+      required: true
+      example: 2025
+      schema:
+        type: integer
+    - name: month
+      in: path
+      description: Month
+      required: true
+      example: 11
+      schema:
+        type: integer
+    - name: day
+      in: path
+      description: Day
+      required: true
+      example: 22
+      schema:
+        type: integer
+    - name: office_type
+      in: path
+      description: Office type
+      required: true
+      enum:
+      - morning
+      - midday
+      - evening
+      - compline
+      example: morning
+      schema:
+        type: string
+    get:
+      summary: Check if office was completed
+      tags:
+      - Completions
+      description: Checks if a specific Daily Office was completed for a given date
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Office completed
+                  completion:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: '2025-11-22T08:30:00Z'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '404':
+          description: not completed
+          content:
+            application/json:
+              schema:
+                type: object
   "/api/v1/completions/{id}":
     parameters:
     - name: id
@@ -654,9 +741,11 @@ paths:
                   season:
                     type: string
                     example: Tempo Comum
+                    nullable: true
                   color:
                     type: string
                     example: verde
+                    nullable: true
                   celebration:
                     type: object
                     nullable: true
@@ -828,9 +917,11 @@ paths:
                   season:
                     type: string
                     example: Natal
+                    nullable: true
                   color:
                     type: string
                     example: branco
+                    nullable: true
                   celebration:
                     type: object
                     nullable: true
@@ -1548,39 +1639,42 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    code:
-                      type: string
-                      example: loc_2015
-                    name:
-                      type: string
-                      example: Livro de Oração Comum - IEAB 2015
-                    year:
-                      type: integer
-                      example: 2015
-                    jurisdiction:
-                      type: string
-                      example: Igreja Episcopal Anglicana do Brasil
-                    description:
-                      type: string
-                      nullable: true
-                    thumbnail_url:
-                      type: string
-                      nullable: true
-                    pdf_url:
-                      type: string
-                      nullable: true
-                    is_default:
-                      type: boolean
-                      example: true
-                  required:
-                  - code
-                  - name
-                  - year
-                  - is_default
+                type: object
+                properties:
+                  prayer_books:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: loc_2015
+                        name:
+                          type: string
+                          example: Livro de Oração Comum - IEAB 2015
+                        year:
+                          type: integer
+                          example: 2015
+                        jurisdiction:
+                          type: string
+                          example: Igreja Episcopal Anglicana do Brasil
+                        description:
+                          type: string
+                          nullable: true
+                        thumbnail_url:
+                          type: string
+                          nullable: true
+                        pdf_url:
+                          type: string
+                          nullable: true
+                        is_default:
+                          type: boolean
+                          example: true
+                      required:
+                      - code
+                      - name
+                      - year
+                      - is_default
   "/api/v1/prayer_books/{code}":
     parameters:
     - name: code

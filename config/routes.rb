@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
       # Rotas de completions (marcar ofícios como completados)
       resources :completions, only: [ :create, :destroy ]
+      get "completions/:year/:month/:day/:office_type", to: "completions#show"
 
       # Rotas de notificações (admin apenas)
       post "notifications/send", to: "notifications#send_to_users"

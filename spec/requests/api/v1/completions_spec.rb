@@ -110,6 +110,74 @@ RSpec.describe 'api/v1/completions', type: :request do
     end
   end
 
+  path '/api/v1/completions/{year}/{month}/{day}/{office_type}' do
+    parameter name: 'year', in: :path, type: :integer, description: 'Year', required: true, example: 2025
+    parameter name: 'month', in: :path, type: :integer, description: 'Month', required: true, example: 11
+    parameter name: 'day', in: :path, type: :integer, description: 'Day', required: true, example: 22
+    parameter name: 'office_type', in: :path, type: :string, description: 'Office type', required: true,
+              enum: %w[morning midday evening compline], example: 'morning'
+
+    get('Check if office was completed') do
+      tags api_tags
+      produces content_type
+      description 'Checks if a specific Daily Office was completed for a given date'
+      security [ { bearer_auth: [] } ]
+
+      parameter name: 'Authorization',
+                in: :header,
+                type: :string,
+                description: 'Firebase ID Token (format: Bearer <token>)',
+                required: true
+
+      response(200, 'completed') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:year) { 2025 }
+        let(:month) { 11 }
+        let(:day) { 22 }
+        let(:office_type) { 'morning' }
+
+        before do
+          user = create(:user)
+          create(:completion, user: user, date_reference: Date.new(2025, 11, 22), office_type: 'morning')
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:current_user).and_return(user)
+        end
+
+        schema type: :object,
+               properties: {
+                 message: { type: :string, example: 'Office completed' },
+                 completion: {
+                   type: :object,
+                   properties: {
+                     id: { type: :integer, example: 1 },
+                     created_at: { type: :string, format: 'date-time', example: '2025-11-22T08:30:00Z' }
+                   }
+                 }
+               }
+
+        run_test!
+      end
+
+      response(404, 'not completed') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:year) { 2025 }
+        let(:month) { 11 }
+        let(:day) { 22 }
+        let(:office_type) { 'morning' }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::CompletionsController).to receive(:current_user).and_return(user)
+        end
+
+        schema type: :object
+
+        run_test!
+      end
+    end
+  end
+
   path '/api/v1/completions/{id}' do
     parameter name: 'id', in: :path, type: :integer, description: 'Completion ID', required: true
 
