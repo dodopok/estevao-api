@@ -85,6 +85,20 @@ end
 # Coletas e leituras já foram carregados por livro de oração acima
 
 # ================================================================================
+# REGRAS DE VIDA
+# ================================================================================
+
+puts "\n" + "="*80
+puts "CARREGANDO REGRAS DE VIDA"
+puts "="*80
+
+if File.exist?(Rails.root.join('db/seeds/life_rules.rb'))
+  load Rails.root.join('db/seeds/life_rules.rb')
+else
+  puts "⚠️  Arquivo de regras de vida não encontrado."
+end
+
+# ================================================================================
 # RESUMO FINAL
 # ================================================================================
 
@@ -105,5 +119,6 @@ puts "  • #{Collect.count} coletas"
 puts "  • #{LiturgicalText.count} textos litúrgicos"
 puts "  • #{Psalm.count} salmos"
 puts "  • #{PsalmCycle.count} ciclos de salmos"
+puts "  • #{LifeRule.count} regras de vida"
 
 puts "\n✅ Banco de dados populado com sucesso!"
