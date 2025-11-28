@@ -1200,6 +1200,401 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/life_rules":
+    get:
+      summary: List life rules
+      tags:
+      - Life Rules
+      description: Returns public approved life rules and user's own life rules
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      - name: search
+        in: query
+        description: Search by title
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 'Sort by popularity (value: "popular")'
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  life_rules:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        icon:
+                          type: string
+                        title:
+                          type: string
+                        description:
+                          type: string
+                        is_public:
+                          type: boolean
+                        approved:
+                          type: boolean
+                        adoption_count:
+                          type: integer
+                        is_owner:
+                          type: boolean
+                        created_at:
+                          type: string
+                          format: date-time
+    post:
+      summary: Create a life rule
+      tags:
+      - Life Rules
+      description: Creates a new life rule for the authenticated user (replaces existing
+        one)
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  life_rule:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      icon:
+                        type: string
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      is_public:
+                        type: boolean
+                      approved:
+                        type: boolean
+                      adoption_count:
+                        type: integer
+                      is_owner:
+                        type: boolean
+                      created_at:
+                        type: string
+                        format: date-time
+                      steps:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            order:
+                              type: integer
+                            title:
+                              type: string
+                            description:
+                              type: string
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                icon:
+                  type: string
+                  example: "\U0001F4D6"
+                title:
+                  type: string
+                  example: Morning Routine
+                description:
+                  type: string
+                  example: My daily morning routine
+                is_public:
+                  type: boolean
+                  example: false
+                life_rule_steps_attributes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      order:
+                        type: integer
+                        example: 1
+                      title:
+                        type: string
+                        example: Wake up early
+                      description:
+                        type: string
+                        example: Wake up at 6 AM
+              required:
+              - icon
+              - title
+  "/api/v1/life_rules/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Show a life rule
+      tags:
+      - Life Rules
+      description: Shows a specific life rule (must be public approved or owned by
+        user)
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  life_rule:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      icon:
+                        type: string
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      is_public:
+                        type: boolean
+                      approved:
+                        type: boolean
+                      adoption_count:
+                        type: integer
+                      is_owner:
+                        type: boolean
+                      created_at:
+                        type: string
+                        format: date-time
+                      steps:
+                        type: array
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    patch:
+      summary: Update a life rule
+      tags:
+      - Life Rules
+      description: Updates a life rule (only if owned by user)
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  life_rule:
+                    type: object
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                icon:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                is_public:
+                  type: boolean
+    delete:
+      summary: Delete a life rule
+      tags:
+      - Life Rules
+      description: Deletes a life rule (only if owned by user)
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  "/api/v1/life_rules/{id}/adopt":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: Adopt a life rule
+      tags:
+      - Life Rules
+      description: Adopts a public approved life rule (creates a copy for current
+        user)
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  life_rule:
+                    type: object
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  "/api/v1/life_rules/{id}/approve":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: Approve a life rule
+      tags:
+      - Life Rules
+      description: Approves a life rule (admin only)
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  life_rule:
+                    type: object
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
   "/api/v1/notifications/send":
     post:
       summary: Send notifications to specific users

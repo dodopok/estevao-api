@@ -62,6 +62,14 @@ Rails.application.routes.draw do
       get "prayer_books/:prayer_book_code/features", to: "prayer_book_user_preferences#features"
       get "prayer_books/:prayer_book_code/preferences", to: "prayer_book_user_preferences#show"
       patch "prayer_books/:prayer_book_code/preferences", to: "prayer_book_user_preferences#update"
+
+      # Rotas de regras de vida
+      resources :life_rules, only: [ :index, :show, :create, :update, :destroy ] do
+        member do
+          post :adopt
+          post :approve
+        end
+      end
     end
   end
 
