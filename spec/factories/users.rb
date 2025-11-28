@@ -5,6 +5,7 @@ FactoryBot.define do
     name { "Test User" }
     current_streak { 0 }
     longest_streak { 0 }
+    admin { false }
     preferences do
       {
         "notifications" => true,
@@ -19,6 +20,10 @@ FactoryBot.define do
         "creed_type" => "apostles",
         "confession_type" => "long"
       }
+    end
+
+    trait :admin do
+      admin { true }
     end
 
     trait :with_streak do

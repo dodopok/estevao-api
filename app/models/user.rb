@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :fcm_tokens, dependent: :destroy
   has_many :notification_logs, dependent: :destroy
   has_many :prayer_book_user_preferences, dependent: :destroy
+  has_one :life_rule, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :provider_uid, presence: true
