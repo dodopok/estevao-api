@@ -6,7 +6,9 @@ module Api
       include Authenticatable
 
       before_action :authenticate_user!
-      before_action :set_life_rule, only: %i[show update destroy approve]
+      before_action :set_life_rule, only: %i[show]
+      before_action :set_life_rule_for_owner_action, only: %i[update destroy]
+      before_action :set_life_rule_for_admin_action, only: %i[approve]
       before_action :authorize_owner!, only: %i[update destroy]
       before_action :authorize_admin!, only: %i[approve]
 
@@ -111,6 +113,20 @@ module Api
         @life_rule = LifeRule.where(user: current_user)
                              .or(LifeRule.public_rules)
                              .find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        render json: { error: "Life rule not found" }, status: :not_found
+      end
+
+      # Para update/destroy: busca qualquer regra para verificar ownership e retornar 403 se não for dono
+      def set_life_rule_for_owner_action
+        @life_rule = LifeRule.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        render json: { error: "Life rule not found" }, status: :not_found
+      end
+
+      # Para approve: admin pode aprovar qualquer regra pública (mesmo não aprovada)
+      def set_life_rule_for_admin_action
+        @life_rule = LifeRule.where(is_public: true).find(params[:id])
       rescue ActiveRecord::RecordNotFound
         render json: { error: "Life rule not found" }, status: :not_found
       end
