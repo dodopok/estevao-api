@@ -11,6 +11,6 @@ class CreateLifeRuleSteps < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :life_rule_steps, [:life_rule_id, :order], unique: true
+    add_index :life_rule_steps, [ :life_rule_id, :order ], unique: true
   end
 end

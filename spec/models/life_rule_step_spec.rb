@@ -65,7 +65,7 @@ RSpec.describe LifeRuleStep, type: :model do
       step2 = create(:life_rule_step, life_rule: life_rule, order: 2)
 
       steps = life_rule.life_rule_steps.to_a
-      expect(steps).to eq([step1, step2, step3])
+      expect(steps).to eq([ step1, step2, step3 ])
     end
   end
 end

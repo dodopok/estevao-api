@@ -16,7 +16,7 @@ RSpec.describe 'api/v1/life_rules', type: :request do
       tags api_tags
       produces content_type
       description 'Returns public approved life rules and user\'s own life rules'
-      security [{ bearer_auth: [] }]
+      security [ { bearer_auth: [] } ]
 
       parameter name: 'Authorization',
                 in: :header,
@@ -76,7 +76,7 @@ RSpec.describe 'api/v1/life_rules', type: :request do
       produces content_type
       consumes content_type
       description 'Creates a new life rule for the authenticated user (replaces existing one)'
-      security [{ bearer_auth: [] }]
+      security [ { bearer_auth: [] } ]
 
       parameter name: 'Authorization',
                 in: :header,
@@ -187,7 +187,7 @@ RSpec.describe 'api/v1/life_rules', type: :request do
       tags api_tags
       produces content_type
       description 'Shows a specific life rule (must be public approved or owned by user)'
-      security [{ bearer_auth: [] }]
+      security [ { bearer_auth: [] } ]
 
       parameter name: 'Authorization',
                 in: :header,
@@ -252,7 +252,7 @@ RSpec.describe 'api/v1/life_rules', type: :request do
       produces content_type
       consumes content_type
       description 'Updates a life rule (only if owned by user)'
-      security [{ bearer_auth: [] }]
+      security [ { bearer_auth: [] } ]
 
       parameter name: 'Authorization',
                 in: :header,
@@ -317,7 +317,7 @@ RSpec.describe 'api/v1/life_rules', type: :request do
       tags api_tags
       produces content_type
       description 'Deletes a life rule (only if owned by user)'
-      security [{ bearer_auth: [] }]
+      security [ { bearer_auth: [] } ]
 
       parameter name: 'Authorization',
                 in: :header,
@@ -373,7 +373,7 @@ RSpec.describe 'api/v1/life_rules', type: :request do
       tags api_tags
       produces content_type
       description 'Adopts a public approved life rule (creates a copy for current user)'
-      security [{ bearer_auth: [] }]
+      security [ { bearer_auth: [] } ]
 
       parameter name: 'Authorization',
                 in: :header,
@@ -428,7 +428,7 @@ RSpec.describe 'api/v1/life_rules', type: :request do
       tags api_tags
       produces content_type
       description 'Approves a life rule (admin only)'
-      security [{ bearer_auth: [] }]
+      security [ { bearer_auth: [] } ]
 
       parameter name: 'Authorization',
                 in: :header,

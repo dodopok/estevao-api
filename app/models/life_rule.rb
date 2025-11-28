@@ -8,8 +8,8 @@ class LifeRule < ApplicationRecord
 
   validates :icon, presence: true
   validates :title, presence: true
-  validates :is_public, inclusion: { in: [true, false] }
-  validates :approved, inclusion: { in: [true, false] }
+  validates :is_public, inclusion: { in: [ true, false ] }
+  validates :approved, inclusion: { in: [ true, false ] }
   validates :user_id, uniqueness: true
 
   accepts_nested_attributes_for :life_rule_steps, allow_destroy: true

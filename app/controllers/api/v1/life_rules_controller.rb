@@ -20,7 +20,7 @@ module Api
 
         # Apply filters
         life_rules = life_rules.search_by_title(params[:search]) if params[:search].present?
-        life_rules = life_rules.by_popularity if params[:sort] == 'popular'
+        life_rules = life_rules.by_popularity if params[:sort] == "popular"
 
         render json: {
           life_rules: life_rules.map { |rule| serialize_life_rule(rule) }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_25_191610) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_28_000003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -107,6 +107,35 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_191610) do
     t.index ["date_reference", "service_type", "prayer_book_id"], name: "index_lectionary_readings_on_date_service_prayer_book"
     t.index ["prayer_book_id"], name: "index_lectionary_readings_on_prayer_book_id"
     t.index ["reading_type"], name: "index_lectionary_readings_on_reading_type"
+  end
+
+  create_table "life_rule_steps", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.bigint "life_rule_id", null: false
+    t.integer "order", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["life_rule_id", "order"], name: "index_life_rule_steps_on_life_rule_id_and_order", unique: true
+    t.index ["life_rule_id"], name: "index_life_rule_steps_on_life_rule_id"
+  end
+
+  create_table "life_rules", force: :cascade do |t|
+    t.integer "adoption_count", default: 0, null: false
+    t.boolean "approved", default: false, null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "icon", null: false
+    t.boolean "is_public", default: false, null: false
+    t.bigint "original_life_rule_id"
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["adoption_count"], name: "index_life_rules_on_adoption_count"
+    t.index ["approved"], name: "index_life_rules_on_approved"
+    t.index ["is_public"], name: "index_life_rules_on_is_public"
+    t.index ["original_life_rule_id"], name: "index_life_rules_on_original_life_rule_id"
+    t.index ["user_id"], name: "index_life_rules_on_user_id", unique: true
   end
 
   create_table "liturgical_colors", force: :cascade do |t|
@@ -213,6 +242,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_191610) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.integer "current_streak", default: 0
     t.string "email", null: false
@@ -235,6 +265,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_191610) do
   add_foreign_key "fcm_tokens", "users"
   add_foreign_key "lectionary_readings", "celebrations"
   add_foreign_key "lectionary_readings", "prayer_books"
+  add_foreign_key "life_rule_steps", "life_rules"
+  add_foreign_key "life_rules", "life_rules", column: "original_life_rule_id"
+  add_foreign_key "life_rules", "users"
   add_foreign_key "liturgical_texts", "prayer_books", on_delete: :restrict
   add_foreign_key "notification_logs", "users"
   add_foreign_key "prayer_book_user_preferences", "prayer_books"
