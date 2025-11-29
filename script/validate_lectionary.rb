@@ -63,7 +63,7 @@ class LectionaryValidator
 
     begin
       calendar = LiturgicalCalendar.new(date.year)
-      reading_service = ReadingService.new(date, prayer_book_code: prayer_book_code)
+      reading_service = ReadingService.for(date, prayer_book_code: prayer_book_code)
       collect_service = CollectService.new(date, prayer_book_code: prayer_book_code)
 
       season = calendar.season_for_date(date)
@@ -182,6 +182,13 @@ class LectionaryValidator
       puts "⚠️  Dias de semana SEM leituras (#{@results[:weekdays][:missing_readings].size}):"
       @results[:weekdays][:missing_readings].first(15).each { |d| puts "   - #{d}" }
       puts "   ... e mais #{@results[:weekdays][:missing_readings].size - 15}" if @results[:weekdays][:missing_readings].size > 15
+    end
+
+    if @results[:weekdays][:missing_collect].any?
+      puts
+      puts "⚠️  Dias de semana SEM coleta (#{@results[:weekdays][:missing_collect].size}):"
+      @results[:weekdays][:missing_collect].first(20).each { |d| puts "   - #{d}" }
+      puts "   ... e mais #{@results[:weekdays][:missing_collect].size - 20}" if @results[:weekdays][:missing_collect].size > 20
     end
     puts
 

@@ -554,6 +554,245 @@ RSpec.describe LiturgicalCalendar do
     end
   end
 
+  describe '#description' do
+    let(:calendar) { described_class.new(2025) }
+
+    context 'principal feasts' do
+      it 'returns only the feast name for principal feasts' do
+        # Create Natal (Christmas)
+        create(:celebration,
+          name: "Natividade de nosso Senhor Jesus Cristo",
+          celebration_type: :principal_feast,
+          rank: 1,
+          movable: false,
+          fixed_month: 12,
+          fixed_day: 25,
+          liturgical_color: "branco",
+          prayer_book: prayer_book)
+
+        date = Date.new(2025, 12, 25)
+        expect(calendar.description(date)).to eq([ "Natividade de nosso Senhor Jesus Cristo" ])
+      end
+
+      it 'returns Pentecostes for Pentecost Sunday' do
+        create(:celebration,
+          name: "Pentecostes",
+          celebration_type: :principal_feast,
+          rank: 3,
+          movable: true,
+          calculation_rule: "pentecost",
+          liturgical_color: "vermelho",
+          prayer_book: prayer_book)
+
+        date = Date.new(2025, 6, 8) # Pentecost 2025
+        description = calendar.description(date)
+        # Principal feast returns only the feast name
+        expect(description.first).to eq("Pentecostes")
+        expect(description).to include("Pentecostes")
+      end
+
+      it 'returns Pentecostes from special movable days when no celebration exists' do
+        # Without a Pentecost celebration in DB, it still recognizes the day
+        date = Date.new(2025, 6, 8) # Pentecost 2025
+        description = calendar.description(date)
+        expect(description).to include("Pentecostes")
+      end
+
+      it 'appends (movido) when a principal feast is transferred' do
+        create(:celebration,
+          name: "Anunciação de Nosso Senhor",
+          celebration_type: :principal_feast,
+          rank: 6,
+          movable: false,
+          fixed_month: 3,
+          fixed_day: 25,
+          can_be_transferred: true,
+          liturgical_color: "branco",
+          prayer_book: prayer_book)
+
+        # In 2024, March 25 falls in Holy Week, so it should be transferred
+        calendar_2024 = described_class.new(2024)
+        transferred_date = Date.new(2024, 4, 8) # Monday after Easter
+
+        description = calendar_2024.description(transferred_date)
+        expect(description).to include("Anunciação de Nosso Senhor (movido)")
+      end
+    end
+
+    context 'lesser feasts and saints' do
+      it 'does not include lesser feasts in description' do
+        date = Date.new(2025, 11, 16) # Margaret of Scotland (lesser feast)
+        description = calendar.description(date)
+
+        expect(description).not_to include("Margaret of Scotland")
+        # Should include week after Pentecost (actual number depends on calculation)
+        expect(description.any? { |d| d.include?("Semana após Pentecostes") }).to be true
+      end
+
+      it 'does not include commemorations in description' do
+        create(:celebration,
+          name: "Bernard",
+          celebration_type: :commemoration,
+          rank: 250,
+          movable: false,
+          fixed_month: 8,
+          fixed_day: 20,
+          liturgical_color: "branco",
+          prayer_book: prayer_book)
+
+        date = Date.new(2025, 8, 20)
+        description = calendar.description(date)
+
+        expect(description).not_to include("Bernard")
+        expect(description).to include("10ª Semana após Pentecostes")
+      end
+
+      it 'does not include festivals in description' do
+        create(:celebration,
+          name: "André, Apóstolo",
+          celebration_type: :festival,
+          rank: 50,
+          movable: false,
+          fixed_month: 11,
+          fixed_day: 30,
+          liturgical_color: "vermelho",
+          prayer_book: prayer_book)
+
+        date = Date.new(2025, 11, 30) # First Sunday of Advent
+        description = calendar.description(date)
+
+        expect(description).not_to include("André, Apóstolo")
+        expect(description).to include("1ª Semana do Advento")
+      end
+    end
+
+    context 'Holy Week' do
+      it 'returns correct names for Holy Week days' do
+        movable = calendar.easter_calc.all_movable_dates
+
+        expect(calendar.description(movable[:palm_sunday])).to eq([ "Domingo de Ramos" ])
+        expect(calendar.description(movable[:palm_sunday] + 1.day)).to eq([ "Segunda-feira Santa" ])
+        expect(calendar.description(movable[:palm_sunday] + 2.days)).to eq([ "Terça-feira Santa" ])
+        expect(calendar.description(movable[:palm_sunday] + 3.days)).to eq([ "Quarta-feira Santa" ])
+        expect(calendar.description(movable[:maundy_thursday])).to eq([ "Quinta-feira Santa" ])
+        expect(calendar.description(movable[:good_friday])).to eq([ "Sexta-feira da Paixão" ])
+        expect(calendar.description(movable[:holy_saturday])).to eq([ "Sábado Santo" ])
+      end
+    end
+
+    context 'special movable days' do
+      it 'returns Quarta-feira de Cinzas for Ash Wednesday' do
+        movable = calendar.easter_calc.all_movable_dates
+        expect(calendar.description(movable[:ash_wednesday])).to include("Quarta-feira de Cinzas")
+      end
+
+      it 'returns Páscoa for Easter Sunday' do
+        movable = calendar.easter_calc.all_movable_dates
+        description = calendar.description(movable[:easter])
+        # Returns either 'Páscoa' (from celebration) or 'Domingo da Páscoa' (from special_movable_day_name)
+        expect(description.any? { |d| d.include?("Páscoa") }).to be true
+      end
+
+      it 'returns Santíssima Trindade for Trinity Sunday' do
+        movable = calendar.easter_calc.all_movable_dates
+        expect(calendar.description(movable[:trinity_sunday])).to include("Santíssima Trindade")
+      end
+
+      it 'returns Ascensão for Ascension Day' do
+        movable = calendar.easter_calc.all_movable_dates
+        expect(calendar.description(movable[:ascension])).to include("Ascensão")
+      end
+
+      it 'returns Cristo Rei do Universo for Christ the King' do
+        movable = calendar.easter_calc.all_movable_dates
+        expect(calendar.description(movable[:christ_the_king])).to include("Cristo Rei do Universo")
+      end
+
+      it 'returns Batismo de nosso Senhor for Baptism of the Lord' do
+        movable = calendar.easter_calc.all_movable_dates
+        expect(calendar.description(movable[:baptism_of_the_lord])).to include("Batismo de nosso Senhor Jesus Cristo")
+      end
+    end
+
+    context 'Advent season' do
+      it 'returns week of Advent for Advent days' do
+        date = Date.new(2025, 12, 1) # Monday of 1st week of Advent
+        expect(calendar.description(date)).to include("1ª Semana do Advento")
+
+        date = Date.new(2025, 12, 15) # Monday of 3rd week of Advent
+        expect(calendar.description(date)).to include("3ª Semana do Advento")
+      end
+    end
+
+    context 'Christmas season' do
+      it 'returns Oitava do Natal for Christmas octave days' do
+        date = Date.new(2025, 12, 28) # During Christmas octave
+        expect(calendar.description(date)).to include("Oitava do Natal")
+      end
+    end
+
+    context 'Easter season' do
+      it 'returns Oitava da Páscoa for Easter octave days' do
+        movable = calendar.easter_calc.all_movable_dates
+        date = movable[:easter] + 3.days # Wednesday of Easter week
+        expect(calendar.description(date)).to include("Oitava da Páscoa")
+      end
+
+      it 'returns week of Easter for days after the octave' do
+        movable = calendar.easter_calc.all_movable_dates
+        date = movable[:easter] + 14.days # 3rd Sunday of Easter
+        expect(calendar.description(date)).to include("3ª Semana da Páscoa")
+      end
+    end
+
+    context 'Lent season' do
+      it 'returns week of Lent for Lenten days' do
+        date = Date.new(2025, 3, 10) # Monday of 1st week of Lent
+        expect(calendar.description(date)).to include("1ª Semana da Quaresma")
+
+        date = Date.new(2025, 3, 24) # Monday of 3rd week of Lent
+        expect(calendar.description(date)).to include("3ª Semana da Quaresma")
+      end
+    end
+
+    context 'Epiphany season' do
+      it 'returns week after Epiphany for Epiphany season days' do
+        date = Date.new(2025, 1, 15) # Wednesday of 1st week after Epiphany
+        expect(calendar.description(date)).to include("1ª Semana após a Epifania")
+      end
+    end
+
+    context 'Ordinary Time after Pentecost' do
+      it 'returns multiple nomenclatures for Ordinary Time Sundays' do
+        date = Date.new(2025, 8, 17) # Proper 15
+
+        description = calendar.description(date)
+
+        expect(description).to include("Próprio 15")
+        expect(description).to include("20ª Semana do Tempo Comum")
+        expect(description).to include("10ª Semana após Pentecostes")
+      end
+
+      it 'returns week after Pentecost for weekdays in Ordinary Time' do
+        date = Date.new(2025, 8, 20) # Wednesday after Proper 15
+        description = calendar.description(date)
+
+        expect(description).to include("10ª Semana após Pentecostes")
+      end
+    end
+
+    context 'day_info includes description' do
+      it 'includes description array in day_info response' do
+        date = Date.new(2025, 8, 17)
+        info = calendar.day_info(date)
+
+        expect(info).to have_key(:description)
+        expect(info[:description]).to be_an(Array)
+        expect(info[:description]).not_to be_empty
+      end
+    end
+  end
+
   describe 'celebration display' do
     it 'celebration appears even when color is not used' do
       # Saint Francis on Sunday (October 4, 2026)

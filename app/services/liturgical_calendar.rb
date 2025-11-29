@@ -13,6 +13,7 @@ class LiturgicalCalendar
     {
       date: date.strftime("%d/%m/%Y"),
       sunday_name: sunday_name(date),
+      description: description(date),
       day_of_week: day_name_br(date),
       liturgical_season: season_for_date(date),
       color: color_for_date(date),
@@ -386,6 +387,162 @@ class LiturgicalCalendar
 
     LectionaryReading.cycle_for_year(liturgical_year_number)
   end
+
+  # Retorna array de descrições para o dia
+  # Inclui nome de festas, nome da semana, múltiplas nomenclaturas para Tempo Comum
+  def description(date)
+    descriptions = []
+    movable = easter_calc.all_movable_dates
+
+    # 1. Verificar se há celebração no dia (exceto festas menores/santos)
+    celebration = celebration_for_date(date)
+    if celebration
+      # Para festas principais e dias santos maiores, retorna apenas a festa
+      if celebration[:type] == "principal_feast" || celebration[:type] == "major_holy_day"
+        feast_name = celebration[:name]
+        feast_name = "#{feast_name} (movido)" if celebration[:transferred]
+        descriptions << feast_name
+        return descriptions
+      end
+      # Festas menores (lesser_feast, commemoration, festival) não aparecem no description
+    end
+
+    # 2. Verificar dias especiais da Semana Santa
+    if date >= movable[:palm_sunday] && date <= movable[:holy_saturday]
+      holy_week_name = holy_week_day_name(date, movable)
+      descriptions << holy_week_name if holy_week_name && !descriptions.include?(holy_week_name)
+      return descriptions
+    end
+
+    # 3. Verificar dias especiais móveis (não são celebrações no banco)
+    special_day = special_movable_day_name(date, movable)
+    if special_day && !descriptions.any? { |d| d.include?(special_day) }
+      descriptions << special_day
+    end
+
+    # 4. Adicionar descrição da semana/período
+    week_descriptions = week_period_descriptions(date)
+    week_descriptions.each do |desc|
+      descriptions << desc unless descriptions.include?(desc)
+    end
+
+    descriptions
+  end
+
+  private
+
+  # Nome dos dias da Semana Santa
+  def holy_week_day_name(date, movable)
+    case date
+    when movable[:palm_sunday]
+      "Domingo de Ramos"
+    when movable[:palm_sunday] + 1.day
+      "Segunda-feira Santa"
+    when movable[:palm_sunday] + 2.days
+      "Terça-feira Santa"
+    when movable[:palm_sunday] + 3.days
+      "Quarta-feira Santa"
+    when movable[:maundy_thursday]
+      "Quinta-feira Santa"
+    when movable[:good_friday]
+      "Sexta-feira da Paixão"
+    when movable[:holy_saturday]
+      "Sábado Santo"
+    end
+  end
+
+  # Nomes de dias móveis especiais
+  def special_movable_day_name(date, movable)
+    case date
+    when movable[:ash_wednesday]
+      "Quarta-feira de Cinzas"
+    when movable[:easter]
+      "Domingo da Páscoa"
+    when movable[:pentecost]
+      "Pentecostes"
+    when movable[:trinity_sunday]
+      "Santíssima Trindade"
+    when movable[:ascension]
+      "Ascensão"
+    when movable[:christ_the_king]
+      "Cristo Rei do Universo"
+    when movable[:baptism_of_the_lord]
+      "Batismo de nosso Senhor Jesus Cristo"
+    end
+  end
+
+  # Descrições do período/semana litúrgica
+  def week_period_descriptions(date)
+    descriptions = []
+    season = season_for_date(date)
+    week = week_number(date)
+    movable = easter_calc.all_movable_dates
+
+    case season
+    when "Advento"
+      descriptions << "#{week}ª Semana do Advento"
+
+    when "Natal"
+      if date.month == 12 && date.day >= 25
+        descriptions << "Oitava do Natal"
+      elsif date.month == 1
+        descriptions << "Semana após o Natal"
+      end
+
+    when "Epifania"
+      descriptions << "#{week}ª Semana após a Epifania"
+
+    when "Quaresma"
+      if date < movable[:palm_sunday]
+        descriptions << "#{week}ª Semana da Quaresma"
+      end
+      # Semana Santa já tratada acima
+
+    when "Páscoa"
+      if date > movable[:easter] && date <= movable[:easter] + 7.days
+        descriptions << "Oitava da Páscoa"
+      else
+        descriptions << "#{week}ª Semana da Páscoa"
+      end
+
+    when "Tempo Comum"
+      proper = proper_number(date) if date.sunday?
+      sunday_after = sunday_after_pentecost(date) if date.sunday?
+
+      if date >= movable[:pentecost]
+        # Após Pentecostes: múltiplas nomenclaturas
+        if proper && proper >= 3
+          descriptions << "Próprio #{proper}"
+          # Calcular semana do Tempo Comum (Proper 3 = TC 8, Proper 4 = TC 9, etc.)
+          ordinary_time_week = proper + 5
+          descriptions << "#{ordinary_time_week}ª Semana do Tempo Comum"
+        end
+        if sunday_after && sunday_after > 0
+          descriptions << "#{sunday_after}ª Semana após Pentecostes"
+        elsif !date.sunday?
+          # Para dias da semana, calcular baseado no domingo anterior
+          previous_sunday = date - date.wday.days
+          sunday_after_prev = sunday_after_pentecost(previous_sunday)
+          if sunday_after_prev && sunday_after_prev > 0
+            descriptions << "#{sunday_after_prev}ª Semana após Pentecostes"
+          end
+          proper_prev = proper_number(previous_sunday)
+          if proper_prev && proper_prev >= 3 && descriptions.empty?
+            descriptions << "Próprio #{proper_prev}"
+            ordinary_time_week = proper_prev + 5
+            descriptions << "#{ordinary_time_week}ª Semana do Tempo Comum"
+          end
+        end
+      else
+        # Antes da Quaresma
+        descriptions << "#{week}ª Semana do Tempo Comum"
+      end
+    end
+
+    descriptions
+  end
+
+  public
 
   # Translation helpers
   def translate_season(season_pt)

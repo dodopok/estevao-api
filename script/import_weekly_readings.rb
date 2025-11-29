@@ -8,20 +8,21 @@
 # Purpose:
 #   Import daily office readings from CSV file into lectionary_readings table
 #
-# CSV Structure:
-#   ano,semana,dia,salmo,antigo testamento,novo testamento
-#   Ano A,Semana próxima ao Primeiro Domingo do Advento,Qui,Salmo 122,...
+# CSV Structure (v2):
+#   ano,semana,dia,tipo,salmo,antigo_testamento,novo_testamento
+#   Ano A,Primeiro Domingo do Advento,Qui,,Salmo 122,...
+#   Ano C,Próprio 21,Qui,Complementar,Salmo 146,...
 #
 # Mapping Logic:
 #   1. Week names (Portuguese) → date_reference base (English)
 #   2. Day names (Portuguese) → weekday suffix (English)
 #   3. Fixed dates (DD Mon) → month_day format
-#   4. Reading type from day modifiers: (Complementar) or (Semicontínua)
+#   4. Reading type from 'tipo' column: Complementar or Semicontínua
 #   5. Gospel detection: Mateus/Marcos/Lucas/João → gospel field
 #      All other NT books → second_reading field
 #
 # Usage:
-#   rails runner script/import_weekly_readings.rb script/ieab_weekly.csv
+#   rails runner script/import_weekly_readings.rb
 #
 # ================================================================================
 
@@ -32,81 +33,118 @@ class WeeklyReadingsImporter
   # WEEK NAME MAPPING (Portuguese → English date_reference)
   # ============================================================================
   WEEK_NAME_MAPPING = {
-    # Advent Season
-    "Semana próxima ao Primeiro Domingo do Advento" => "1st_sunday_of_advent",
-    "Semana próxima ao Segundo Domingo do Advento" => "2nd_sunday_of_advent",
-    "Semana próxima ao Terceiro Domingo do Advento" => "3rd_sunday_of_advent",
-    "Semana próxima ao Quarto Domingo do Advento" => "4th_sunday_of_advent",
+    # Advent Season (multiple naming conventions)
+    "Primeiro Domingo do Advento" => "1st_sunday_of_advent",
+    "Segundo Domingo do Advento" => "2nd_sunday_of_advent",
+    "Terceiro Domingo do Advento" => "3rd_sunday_of_advent",
+    "Quarto Domingo do Advento" => "4th_sunday_of_advent",
+    "Advento 1" => "1st_sunday_of_advent",
+    "Advento 2" => "2nd_sunday_of_advent",
+    "Advento 3" => "3rd_sunday_of_advent",
+    "Advento 4" => "4th_sunday_of_advent",
 
     # Christmas Season
-    "Semana próxima à Natividade" => "week_of_christmas",
+    "Natividade de nosso Senhor Jesus Cristo" => "week_of_christmas",
+    "Natal" => "week_of_christmas",
     "Primeiro Domingo após o Natal" => "first_sunday_after_christmas",
 
     # Epiphany Season
-    "Semana próxima à Epifania" => "week_of_epiphany",
-    "Tempo Comum 1 (Batismo de Cristo)" => "baptism_of_christ",
+    "Epifania de nosso Senhor Jesus Cristo" => "week_of_epiphany",
+    "Epifania" => "week_of_epiphany",
+    "Batismo de nosso Senhor Jesus Cristo" => "baptism_of_christ",
+    "Batismo" => "baptism_of_christ",
     "Último Domingo depois da Epifania" => "last_sunday_after_epiphany",
+    "Último Epifania" => "last_sunday_after_epiphany",
 
-    # Ordinary Time (before Lent)
-    "Tempo Comum 2" => "ordinary_time_2",
-    "Tempo Comum 3" => "ordinary_time_3",
-    "Tempo Comum 4" => "ordinary_time_4",
-    "Tempo Comum 5" => "ordinary_time_5",
-    "Tempo Comum 6 / Próprio 1" => "proper_1",
-    "Tempo Comum 7 / Próprio 2" => "proper_2",
-    "Tempo Comum 8 / Próprio 3" => "proper_3",
-    "Tempo Comum 9 / Próprio 4" => "proper_4",
+    # Ordinary Time after Epiphany (multiple naming conventions)
+    "Segundo Domingo depois da Epifania" => "2nd_sunday_after_epiphany",
+    "Terceiro Domingo depois da Epifania" => "3rd_sunday_after_epiphany",
+    "Quarto Domingo depois da Epifania" => "4th_sunday_after_epiphany",
+    "Quinto Domingo depois da Epifania" => "5th_sunday_after_epiphany",
+    "Sexto Domingo depois da Epifania" => "6th_sunday_after_epiphany",
+    "Sétimo Domingo depois da Epifania" => "7th_sunday_after_epiphany",
+    "Oitavo Domingo depois da Epifania" => "8th_sunday_after_epiphany",
+    "Nono Domingo depois da Epifania" => "9th_sunday_after_epiphany",
+    "Epifania 2" => "2nd_sunday_after_epiphany",
+    "Epifania 3" => "3rd_sunday_after_epiphany",
+    "Epifania 4" => "4th_sunday_after_epiphany",
+    "Epifania 5" => "5th_sunday_after_epiphany",
+    "Epifania 6" => "6th_sunday_after_epiphany",
+    "Epifania 7" => "7th_sunday_after_epiphany",
+    "Epifania 8" => "8th_sunday_after_epiphany",
+    "Epifania 9" => "9th_sunday_after_epiphany",
 
-    # Lent Season
-    "Semana próxima ao Primeiro Domingo da Quaresma" => "1st_sunday_of_lent",
-    "Semana próxima ao Segundo Domingo da Quaresma" => "2nd_sunday_of_lent",
-    "Semana próxima ao Terceiro Domingo da Quaresma" => "3rd_sunday_of_lent",
-    "Semana próxima ao Quarto Domingo da Quaresma" => "4th_sunday_of_lent",
-    "Semana próxima ao Quinto Domingo da Quaresma" => "5th_sunday_of_lent",
+    # Lent Season (multiple naming conventions)
+    "Quarta-feira de Cinzas" => "ash_wednesday",
+    "Primeiro Domingo da Quaresma" => "1st_sunday_of_lent",
+    "Segundo Domingo da Quaresma" => "2nd_sunday_of_lent",
+    "Terceiro Domingo da Quaresma" => "3rd_sunday_of_lent",
+    "Quarto Domingo da Quaresma" => "4th_sunday_of_lent",
+    "Quinto Domingo da Quaresma" => "5th_sunday_of_lent",
+    "Quaresma 1" => "1st_sunday_of_lent",
+    "Quaresma 2" => "2nd_sunday_of_lent",
+    "Quaresma 3" => "3rd_sunday_of_lent",
+    "Quaresma 4" => "4th_sunday_of_lent",
+    "Quaresma 5" => "5th_sunday_of_lent",
 
     # Holy Week
-    "Semana Santa / Domingo de Ramos" => "holy_week",
+    "Domingo de Ramos" => "palm_sunday",
+    "Ramos" => "palm_sunday",
+    "Semana Santa" => "holy_week",
 
-    # Easter Season
-    "Semana próxima ao Segundo Domingo da Páscoa" => "2nd_sunday_of_easter",
-    "Semana próxima ao Terceiro Domingo da Páscoa" => "3rd_sunday_of_easter",
-    "Semana próxima ao Quarto Domingo da Páscoa" => "4th_sunday_of_easter",
-    "Semana próxima ao Quinto Domingo da Páscoa" => "5th_sunday_of_easter",
-    "Semana próxima ao Sexto Domingo da Páscoa" => "6th_sunday_of_easter",
-    "Semana próxima ao Sétimo Domingo da Páscoa" => "7th_sunday_of_easter",
+    # Easter Season (multiple naming conventions)
+    "Domingo de Páscoa" => "easter_sunday",
+    "Páscoa 1" => "easter_sunday",
+    "Segundo Domingo da Páscoa" => "2nd_sunday_of_easter",
+    "Terceiro Domingo da Páscoa" => "3rd_sunday_of_easter",
+    "Quarto Domingo da Páscoa" => "4th_sunday_of_easter",
+    "Quinto Domingo da Páscoa" => "5th_sunday_of_easter",
+    "Sexto Domingo da Páscoa" => "6th_sunday_of_easter",
+    "Sétimo Domingo da Páscoa" => "7th_sunday_of_easter",
+    "Páscoa 2" => "2nd_sunday_of_easter",
+    "Páscoa 3" => "3rd_sunday_of_easter",
+    "Páscoa 4" => "4th_sunday_of_easter",
+    "Páscoa 5" => "5th_sunday_of_easter",
+    "Páscoa 6" => "6th_sunday_of_easter",
+    "Páscoa 7" => "7th_sunday_of_easter",
+    "Ascensão de nosso Senhor Jesus Cristo" => "ascension",
 
     # Pentecost
-    "Semana próxima a Pentecostes" => "week_of_pentecost",
-    "Semana Próxima à Santíssima Trindade" => "trinity_sunday",
+    "Dia de Pentecostes" => "pentecost",
+    "Pentecostes" => "pentecost",
+    "Santíssima Trindade" => "trinity_sunday",
+    "Trindade" => "trinity_sunday",
 
     # Ordinary Time (after Pentecost) - Propers
-    "Próprio 3 / Tempo Comum 8" => "proper_3",
-    "Próprio 4 / Tempo Comum 9" => "proper_4",
-    "Próprio 5 / Tempo Comum 10" => "proper_5",
-    "Próprio 6 / Tempo Comum 11" => "proper_6",
-    "Próprio 7 / Tempo Comum 12" => "proper_7",
-    "Próprio 8 / Tempo Comum 13" => "proper_8",
-    "Próprio 9 / Tempo Comum 14" => "proper_9",
-    "Próprio 10 / Tempo Comum 15" => "proper_10",
-    "Próprio 11 / Tempo Comum 16" => "proper_11",
-    "Próprio 12 / Tempo Comum 17" => "proper_12",
-    "Próprio 13 / Tempo Comum 18" => "proper_13",
-    "Próprio 14 / Tempo Comum 19" => "proper_14",
-    "Próprio 15 / Tempo Comum 20" => "proper_15",
-    "Próprio 16 / Tempo Comum 21" => "proper_16",
-    "Próprio 17 / Tempo Comum 22" => "proper_17",
-    "Próprio 18 / Tempo Comum 23" => "proper_18",
-    "Próprio 19 / Tempo Comum 24" => "proper_19",
-    "Próprio 20 / Tempo Comum 25" => "proper_20",
-    "Próprio 21 / Tempo Comum 26" => "proper_21",
-    "Próprio 22 / Tempo Comum 27" => "proper_22",
-    "Próprio 23 / Tempo Comum 28" => "proper_23",
-    "Próprio 24 / Tempo Comum 29" => "proper_24",
-    "Próprio 25 / Tempo Comum 30" => "proper_25",
-    "Próprio 26 / Tempo Comum 31" => "proper_26",
-    "Próprio 27 / Tempo Comum 32" => "proper_27",
-    "Próprio 28 / Tempo Comum 33" => "proper_28",
-    "Próprio 29 / Tempo Comum 34 (Cristo Rei)" => "christ_the_king"
+    "Próprio 1" => "proper_1",
+    "Próprio 2" => "proper_2",
+    "Próprio 3" => "proper_3",
+    "Próprio 4" => "proper_4",
+    "Próprio 5" => "proper_5",
+    "Próprio 6" => "proper_6",
+    "Próprio 7" => "proper_7",
+    "Próprio 8" => "proper_8",
+    "Próprio 9" => "proper_9",
+    "Próprio 10" => "proper_10",
+    "Próprio 11" => "proper_11",
+    "Próprio 12" => "proper_12",
+    "Próprio 13" => "proper_13",
+    "Próprio 14" => "proper_14",
+    "Próprio 15" => "proper_15",
+    "Próprio 16" => "proper_16",
+    "Próprio 17" => "proper_17",
+    "Próprio 18" => "proper_18",
+    "Próprio 19" => "proper_19",
+    "Próprio 20" => "proper_20",
+    "Próprio 21" => "proper_21",
+    "Próprio 22" => "proper_22",
+    "Próprio 23" => "proper_23",
+    "Próprio 24" => "proper_24",
+    "Próprio 25" => "proper_25",
+    "Próprio 26" => "proper_26",
+    "Próprio 27" => "proper_27",
+    "Próprio 28" => "proper_28",
+    "Próprio 29" => "christ_the_king"
   }.freeze
 
   # ============================================================================
@@ -126,6 +164,16 @@ class WeeklyReadingsImporter
   # ============================================================================
   MONTH_MAPPING = {
     "Jan" => "january",
+    "Fev" => "february",
+    "Mar" => "march",
+    "Abr" => "april",
+    "Mai" => "may",
+    "Jun" => "june",
+    "Jul" => "july",
+    "Ago" => "august",
+    "Set" => "september",
+    "Out" => "october",
+    "Nov" => "november",
     "Dez" => "december"
   }.freeze
 
@@ -134,11 +182,14 @@ class WeeklyReadingsImporter
   # ============================================================================
   GOSPEL_BOOKS = %w[Mateus Marcos Lucas João].freeze
 
+  # Default CSV path
+  DEFAULT_CSV_PATH = 'script/ieab_weekly_v2.csv'.freeze
+
   # ============================================================================
   # INITIALIZATION
   # ============================================================================
-  def initialize(csv_path)
-    @csv_path = csv_path
+  def initialize(csv_path = nil)
+    @csv_path = csv_path || DEFAULT_CSV_PATH
     @prayer_book = PrayerBook.find_by!(code: 'loc_2015')
     @stats = {
       created: 0,
@@ -177,17 +228,18 @@ class WeeklyReadingsImporter
     cycle = extract_cycle(row['ano'])
     week_name = row['semana']
     day_str = row['dia']
+    tipo = row['tipo']
 
     # Build date_reference
     date_reference = build_date_reference(week_name, day_str)
 
-    # Determine reading_type
-    reading_type = extract_reading_type(day_str)
+    # Determine reading_type from 'tipo' column
+    reading_type = extract_reading_type(tipo)
 
-    # Map readings
+    # Map readings (note: column names use snake_case in v2)
     psalm = row['salmo']
-    first_reading = row['antigo testamento']
-    novo_testamento = row['novo testamento']
+    first_reading = row['antigo_testamento']
+    novo_testamento = row['novo_testamento']
 
     # Detect gospel vs second_reading
     if gospel_book?(novo_testamento)
@@ -224,9 +276,11 @@ class WeeklyReadingsImporter
     ano_str.gsub('Ano ', '')
   end
 
-  def extract_reading_type(day_str)
-    return 'complementary' if day_str.include?('(Complementar)')
-    'semicontinuous'
+  def extract_reading_type(tipo_str)
+    return 'complementary' if tipo_str&.downcase&.include?('complementar')
+    return 'semicontinuous' if tipo_str&.downcase&.include?('semicont')
+    # Default to nil/standard if no type specified (for seasons without two types)
+    nil
   end
 
   # ============================================================================
@@ -248,19 +302,18 @@ class WeeklyReadingsImporter
   # ============================================================================
   def build_date_reference(week_name, day_str)
     # 1. Check if it's a fixed date (e.g., "22 Dez", "2 Jan")
-    if day_str.match?(/^\d+\s+(Jan|Dez)$/)
+    if day_str.match?(/^\d+\s+(Jan|Fev|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dez)$/)
       parts = day_str.split
       day = parts[0].to_i
       month = MONTH_MAPPING[parts[1]]
       return "#{month}_#{day}"
     end
 
-    # 2. Extract base weekday (remove modifiers like "(Complementar)")
-    clean_day = day_str.gsub(/\s*\([^)]+\)/, '').strip
-    weekday = WEEKDAY_MAPPING[clean_day]
+    # 2. Extract base weekday
+    weekday = WEEKDAY_MAPPING[day_str]
 
     if weekday.nil?
-      raise "Unknown weekday: #{clean_day} (original: #{day_str})"
+      raise "Unknown weekday: #{day_str}"
     end
 
     # 3. Map week name to base reference
@@ -323,15 +376,9 @@ end
 # SCRIPT EXECUTION
 # ================================================================================
 if __FILE__ == $0
-  if ARGV.empty?
-    puts "Usage: rails runner script/import_weekly_readings.rb <path_to_csv>"
-    puts "Example: rails runner script/import_weekly_readings.rb script/ieab_weekly.csv"
-    exit 1
-  end
+  csv_path = ARGV[0] # Optional: override default path
 
-  csv_path = ARGV[0]
-
-  unless File.exist?(csv_path)
+  if csv_path && !File.exist?(csv_path)
     puts "Error: File not found: #{csv_path}"
     exit 1
   end

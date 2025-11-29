@@ -7,14 +7,14 @@
 # - Formato: Salmo, Antigo Testamento, Novo Testamento
 # - Tipos: Semicontínua (padrão) e Complementar
 #
-# Fonte: script/ieab_weekly.csv
+# Fonte: script/ieab_weekly_v2.csv
 # Total esperado: ~1,370 leituras
 #
 # ================================================================================
 
 puts "📖 Carregando leituras semanais do Ofício Diário (LOC 2015)..."
 
-csv_path = Rails.root.join('script/ieab_weekly.csv')
+csv_path = Rails.root.join('script/ieab_weekly_v2.csv')
 
 if File.exist?(csv_path)
   require Rails.root.join('script/import_weekly_readings.rb')

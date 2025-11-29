@@ -115,13 +115,14 @@ module Api
           is_sunday: info[:is_sunday],
           is_holy_day: info[:is_holy_day],
           sunday_name: info[:sunday_name],
+          description: info[:description],
           week_of_season: info[:week_of_season],
           proper_week: info[:proper_week],
           sunday_after_pentecost: info[:sunday_after_pentecost],
           celebration: info[:celebration],
           saint: info[:saint],
           collect: CollectService.new(date, prayer_book_code: prayer_book_code).find_collects,
-          readings: ReadingService.new(date, prayer_book_code: prayer_book_code).find_readings
+          readings: ReadingService.for(date, prayer_book_code: prayer_book_code).find_readings
         }
       end
 

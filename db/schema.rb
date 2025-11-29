@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_28_000004) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_29_032806) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -99,7 +99,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_28_000004) do
     t.text "notes"
     t.bigint "prayer_book_id", null: false
     t.string "psalm"
-    t.string "reading_type", default: "semicontinuous", null: false
+    t.string "reading_type"
     t.string "second_reading"
     t.string "service_type"
     t.datetime "updated_at", null: false
