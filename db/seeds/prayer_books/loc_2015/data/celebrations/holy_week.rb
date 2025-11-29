@@ -9,8 +9,8 @@ holy_week_celebrations = [
   {
     name: "Segunda-feira Santa",
     latin_name: "Feria Secunda Maioris Hebdomadae",
-    celebration_type: :lesser_feast,
-    rank: 190,
+    celebration_type: :major_holy_day,
+    rank: 25,
     movable: true,
     calculation_rule: "easter_minus_6_days",
     liturgical_color: "roxo",
@@ -20,8 +20,8 @@ holy_week_celebrations = [
   {
     name: "Terça-feira Santa",
     latin_name: "Feria Tertia Maioris Hebdomadae",
-    celebration_type: :lesser_feast,
-    rank: 191,
+    celebration_type: :major_holy_day,
+    rank: 26,
     movable: true,
     calculation_rule: "easter_minus_5_days",
     liturgical_color: "roxo",
@@ -31,8 +31,8 @@ holy_week_celebrations = [
   {
     name: "Quarta-feira Santa",
     latin_name: "Feria Quarta Maioris Hebdomadae",
-    celebration_type: :lesser_feast,
-    rank: 192,
+    celebration_type: :major_holy_day,
+    rank: 27,
     movable: true,
     calculation_rule: "easter_minus_4_days",
     liturgical_color: "roxo",

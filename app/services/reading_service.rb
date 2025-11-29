@@ -401,6 +401,8 @@ class ReadingService
       week = calendar.week_number(date)
       refs << "#{week.ordinalize}_sunday_of_lent_#{weekday}" if week
       refs << "holy_week_#{weekday}"
+      # Semana Santa: holy_monday, holy_tuesday, holy_wednesday
+      refs << "holy_#{weekday}"
     when "Páscoa"
       week = calendar.week_number(date)
       refs << "#{week.ordinalize}_sunday_of_easter_#{weekday}" if week

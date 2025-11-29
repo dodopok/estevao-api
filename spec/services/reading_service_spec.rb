@@ -1043,4 +1043,212 @@ RSpec.describe ReadingService do
       expect(result).to be false
     end
   end
+
+  describe 'Early Easter years with Propers 1-3' do
+    # Years with early Easter need Propers 1, 2, or 3 for the first weeks of Ordinary Time after Pentecost
+    # 2008: Easter March 23 (needs Proper 2)
+    # 2024: Easter March 31 (needs Proper 3)
+    # 2035: Easter March 25 (needs Proper 2)
+
+    let!(:proper_2_reading) do
+      create(:lectionary_reading,
+        celebration: nil,
+        date_reference: "proper_2",
+        cycle: "A",
+        service_type: "eucharist",
+        first_reading: "Gênesis 6:9-22; 7:24; 8:14-19",
+        psalm: "Salmo 46",
+        second_reading: "Romanos 1:16-17; 3:22b-28",
+        gospel: "Mateus 7:21-29",
+        prayer_book: prayer_book)
+    end
+
+    let!(:proper_3_reading) do
+      create(:lectionary_reading,
+        celebration: nil,
+        date_reference: "proper_3",
+        cycle: "A",
+        service_type: "eucharist",
+        first_reading: "Levítico 19:1-2, 9-18",
+        psalm: "Salmo 119:33-40",
+        second_reading: "1 Coríntios 3:10-11, 16-23",
+        gospel: "Mateus 5:38-48",
+        prayer_book: prayer_book)
+    end
+
+    context 'in 2008 (Easter March 23)' do
+      it 'returns Proper 2 readings for first Sunday after Pentecost (May 18)' do
+        # Pentecost 2008: May 11
+        # First Sunday in Ordinary Time: May 18
+        date = Date.new(2008, 5, 18)
+        service = described_class.new(date, prayer_book_code: 'loc_2015')
+
+        readings = service.find_readings
+
+        expect(readings).to be_present
+        expect(readings[:first_reading][:reference]).to eq("Gênesis 6:9-22; 7:24; 8:14-19")
+      end
+
+      it 'returns Proper 3 readings for second Sunday after Pentecost (May 25)' do
+        date = Date.new(2008, 5, 25)
+        service = described_class.new(date, prayer_book_code: 'loc_2015')
+
+        readings = service.find_readings
+
+        expect(readings).to be_present
+        expect(readings[:first_reading][:reference]).to eq("Levítico 19:1-2, 9-18")
+      end
+    end
+
+    context 'in 2035 (Easter March 25)' do
+      # 2035 is cycle A (same as 2008)
+      it 'returns Proper 2 readings for first Sunday after Pentecost (May 20)' do
+        # Pentecost 2035: May 13
+        # First Sunday in Ordinary Time: May 20
+        # Uses the same Proper 2 reading (cycle A) as 2008
+        date = Date.new(2035, 5, 20)
+        service = described_class.new(date, prayer_book_code: 'loc_2015')
+
+        readings = service.find_readings
+
+        expect(readings).to be_present
+        expect(readings[:first_reading][:reference]).to eq("Gênesis 6:9-22; 7:24; 8:14-19")
+      end
+    end
+  end
+
+  describe 'Holy Week readings (Monday, Tuesday, Wednesday)' do
+    # Holy Week days should have priority over any saint's day
+
+    let!(:holy_monday) do
+      Celebration.find_or_create_by!(calculation_rule: 'easter_minus_6_days', prayer_book: prayer_book) do |c|
+        c.name = 'Segunda-feira Santa'
+        c.celebration_type = :major_holy_day
+        c.rank = 25
+        c.movable = true
+        c.liturgical_color = 'violeta'
+      end
+    end
+
+    let!(:holy_tuesday) do
+      Celebration.find_or_create_by!(calculation_rule: 'easter_minus_5_days', prayer_book: prayer_book) do |c|
+        c.name = 'Terça-feira Santa'
+        c.celebration_type = :major_holy_day
+        c.rank = 26
+        c.movable = true
+        c.liturgical_color = 'violeta'
+      end
+    end
+
+    let!(:holy_wednesday) do
+      Celebration.find_or_create_by!(calculation_rule: 'easter_minus_4_days', prayer_book: prayer_book) do |c|
+        c.name = 'Quarta-feira Santa'
+        c.celebration_type = :major_holy_day
+        c.rank = 27
+        c.movable = true
+        c.liturgical_color = 'violeta'
+      end
+    end
+
+    let!(:st_patrick) do
+      create(:celebration,
+        name: 'São Patrício',
+        celebration_type: :lesser_feast,
+        rank: 110,
+        movable: false,
+        fixed_month: 3,
+        fixed_day: 17,
+        liturgical_color: 'branco',
+        prayer_book: prayer_book)
+    end
+
+    let!(:holy_monday_reading) do
+      create(:lectionary_reading,
+        celebration: holy_monday,
+        date_reference: "holy_monday",
+        cycle: "all",
+        service_type: "eucharist",
+        first_reading: "Isaías 42:1-9",
+        psalm: "Salmo 36:5-11",
+        second_reading: "Hebreus 9:11-15",
+        gospel: "João 12:1-11",
+        prayer_book: prayer_book)
+    end
+
+    let!(:holy_tuesday_reading) do
+      create(:lectionary_reading,
+        celebration: holy_tuesday,
+        date_reference: "holy_tuesday",
+        cycle: "all",
+        service_type: "eucharist",
+        first_reading: "Isaías 49:1-7",
+        psalm: "Salmo 71:1-14",
+        second_reading: "1 Coríntios 1:18-31",
+        gospel: "João 12:20-36",
+        prayer_book: prayer_book)
+    end
+
+    let!(:holy_wednesday_reading) do
+      create(:lectionary_reading,
+        celebration: holy_wednesday,
+        date_reference: "holy_wednesday",
+        cycle: "all",
+        service_type: "eucharist",
+        first_reading: "Isaías 50:4-9a",
+        psalm: "Salmo 70",
+        second_reading: "Hebreus 12:1-3",
+        gospel: "João 13:21-32",
+        prayer_book: prayer_book)
+    end
+
+    context 'in 2008 when St. Patrick falls on Holy Monday (March 17)' do
+      it 'returns Holy Monday readings instead of St. Patrick' do
+        # Easter 2008: March 23
+        # Palm Sunday: March 16
+        # Holy Monday: March 17 (same day as St. Patrick!)
+        date = Date.new(2008, 3, 17)
+        service = described_class.new(date, prayer_book_code: 'loc_2015')
+
+        readings = service.find_readings
+
+        expect(readings).to be_present
+        expect(readings[:first_reading][:reference]).to eq("Isaías 42:1-9")
+        expect(readings[:gospel][:reference]).to eq("João 12:1-11")
+      end
+    end
+
+    context 'in 2025' do
+      it 'returns Holy Monday readings for April 14' do
+        # Easter 2025: April 20
+        # Holy Monday: April 14
+        date = Date.new(2025, 4, 14)
+        service = described_class.new(date, prayer_book_code: 'loc_2015')
+
+        readings = service.find_readings
+
+        expect(readings).to be_present
+        expect(readings[:first_reading][:reference]).to eq("Isaías 42:1-9")
+      end
+
+      it 'returns Holy Tuesday readings for April 15' do
+        date = Date.new(2025, 4, 15)
+        service = described_class.new(date, prayer_book_code: 'loc_2015')
+
+        readings = service.find_readings
+
+        expect(readings).to be_present
+        expect(readings[:first_reading][:reference]).to eq("Isaías 49:1-7")
+      end
+
+      it 'returns Holy Wednesday readings for April 16' do
+        date = Date.new(2025, 4, 16)
+        service = described_class.new(date, prayer_book_code: 'loc_2015')
+
+        readings = service.find_readings
+
+        expect(readings).to be_present
+        expect(readings[:first_reading][:reference]).to eq("Isaías 50:4-9a")
+      end
+    end
+  end
 end
