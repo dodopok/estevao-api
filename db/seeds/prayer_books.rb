@@ -52,7 +52,7 @@ prayer_books_data = [
         available_lords_prayer: [ "traditional" ]
       },
       psalter: {
-        cycle_length: 30,
+        cycle_length: 28,
         supports_seasonal_variations: false
       }
     }

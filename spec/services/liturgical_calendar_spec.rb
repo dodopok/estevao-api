@@ -819,4 +819,90 @@ RSpec.describe LiturgicalCalendar do
       expect(info[:celebration][:color]).to eq("branco")
     end
   end
+
+  describe '#proper_number' do
+    # Test Proper number calculation, especially for early Easter years
+    # that need Propers 1, 2, or 3
+
+    context 'in 2008 (Easter March 23 - very early)' do
+      let(:calendar) { described_class.new(2008) }
+
+      it 'returns Proper 2 for first Sunday in Ordinary Time (May 18)' do
+        # Pentecost 2008: May 11
+        # First Sunday in Ordinary Time: May 18
+        expect(calendar.proper_number(Date.new(2008, 5, 18))).to eq(2)
+      end
+
+      it 'returns Proper 3 for second Sunday in Ordinary Time (May 25)' do
+        expect(calendar.proper_number(Date.new(2008, 5, 25))).to eq(3)
+      end
+
+      it 'returns Proper 4 for third Sunday in Ordinary Time (June 1)' do
+        expect(calendar.proper_number(Date.new(2008, 6, 1))).to eq(4)
+      end
+
+      it 'returns nil for Pentecost Sunday' do
+        # Pentecost is not Ordinary Time
+        expect(calendar.proper_number(Date.new(2008, 5, 11))).to be_nil
+      end
+    end
+
+    context 'in 2024 (Easter March 31)' do
+      let(:calendar) { described_class.new(2024) }
+
+      it 'returns Proper 3 for first Sunday in Ordinary Time (May 26)' do
+        # Pentecost 2024: May 19
+        # Trinity Sunday: May 26
+        # First Sunday in Ordinary Time: May 26
+        expect(calendar.proper_number(Date.new(2024, 5, 26))).to eq(3)
+      end
+    end
+
+    context 'in 2035 (Easter March 25 - very early)' do
+      let(:calendar) { described_class.new(2035) }
+
+      it 'returns Proper 2 for first Sunday in Ordinary Time (May 20)' do
+        # Pentecost 2035: May 13
+        # First Sunday in Ordinary Time: May 20
+        expect(calendar.proper_number(Date.new(2035, 5, 20))).to eq(2)
+      end
+
+      it 'returns Proper 3 for second Sunday in Ordinary Time (May 27)' do
+        expect(calendar.proper_number(Date.new(2035, 5, 27))).to eq(3)
+      end
+    end
+
+    context 'in 2025 (Easter April 20 - normal)' do
+      let(:calendar) { described_class.new(2025) }
+
+      it 'returns Proper 4 for first Sunday in Ordinary Time (June 22)' do
+        # Pentecost 2025: June 8
+        # Trinity Sunday: June 15
+        # First Sunday in Ordinary Time: June 22
+        expect(calendar.proper_number(Date.new(2025, 6, 22))).to eq(7)
+      end
+
+      it 'returns nil for non-Sunday dates' do
+        expect(calendar.proper_number(Date.new(2025, 6, 23))).to be_nil # Monday
+      end
+
+      it 'returns nil for dates outside Ordinary Time' do
+        expect(calendar.proper_number(Date.new(2025, 4, 20))).to be_nil # Easter
+        expect(calendar.proper_number(Date.new(2025, 3, 9))).to be_nil # Lent
+      end
+    end
+
+    context 'end of year propers' do
+      let(:calendar) { described_class.new(2025) }
+
+      it 'returns Proper 29 for Christ the King Sunday' do
+        # Christ the King 2025: November 23
+        expect(calendar.proper_number(Date.new(2025, 11, 23))).to eq(29)
+      end
+
+      it 'returns Proper 28 for the Sunday before Christ the King' do
+        expect(calendar.proper_number(Date.new(2025, 11, 16))).to eq(28)
+      end
+    end
+  end
 end
