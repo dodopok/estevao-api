@@ -249,4 +249,201 @@ RSpec.describe CollectService do
       expect(collects).to be_nil
     end
   end
+
+  describe 'year boundary handling (find_by_season)' do
+    # Test for the fix: when weekday is in January but last Sunday is in December
+    # the service should use the correct calendar year for the Sunday
+
+    let!(:christmas_collect) do
+      create(:collect,
+        celebration: nil,
+        season: nil,
+        sunday_reference: "1st_sunday_after_christmas",
+        text: "Coleta do 1º Domingo após Natal...",
+        language: "pt-BR",
+        prayer_book: prayer_book)
+    end
+
+    context 'when weekday is in January but last Sunday is in December' do
+      it 'finds collect using correct calendar year for the Sunday' do
+        # January 2, 2025 is a Thursday
+        # Last Sunday is December 29, 2024 (1st Sunday after Christmas)
+        date = Date.new(2025, 1, 2)
+        service = described_class.new(date)
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        if collects.is_a?(Array)
+          expect(collects.first[:text]).to include("Natal")
+        else
+          expect(collects[:text]).to include("Natal")
+        end
+      end
+
+      it 'correctly maps 1st Sunday after Christmas across year boundary' do
+        # December 29, 2024 should be 1st Sunday after Christmas
+        # when accessed from January 2025
+        date = Date.new(2025, 1, 3) # Friday
+        service = described_class.new(date)
+
+        # The service should find the collect for 1st Sunday after Christmas
+        collects = service.find_collects
+        expect(collects).not_to be_nil
+      end
+    end
+  end
+
+  describe 'Easter week collect (celebration_id lookup)' do
+    # Test for the fix: weekdays after Easter should find the Easter collect
+    # which is stored by celebration_id, not sunday_reference
+
+    let!(:easter_celebration) do
+      create(:celebration,
+        name: "Páscoa",
+        celebration_type: :principal_feast,
+        rank: 1,
+        movable: true,
+        calculation_rule: "easter",
+        liturgical_color: "branco",
+        prayer_book: prayer_book)
+    end
+
+    let!(:easter_collect) do
+      create(:collect,
+        celebration: easter_celebration,
+        sunday_reference: nil,
+        text: "Ó Deus, que para a nossa redenção...",
+        language: "pt-BR",
+        prayer_book: prayer_book)
+    end
+
+    context 'when weekday is after Easter Sunday' do
+      it 'finds Easter collect for Monday after Easter via find_collect_for_sunday_celebration' do
+        # Easter 2025 is April 20
+        # Monday after Easter is April 21
+        date = Date.new(2025, 4, 21)
+        service = described_class.new(date)
+
+        # Mock the CelebrationResolver to return our test celebration
+        resolver_mock = instance_double(CelebrationResolver)
+        allow(CelebrationResolver).to receive(:new).and_return(resolver_mock)
+        allow(resolver_mock).to receive(:resolve_for_date).and_return(easter_celebration)
+
+        last_sunday = Date.new(2025, 4, 20)
+        sunday_calendar = LiturgicalCalendar.new(last_sunday.year)
+
+        collects = service.send(:find_collect_for_sunday_celebration, last_sunday, sunday_calendar)
+
+        # Should find the Easter collect through celebration lookup
+        expect(collects).not_to be_empty
+        expect(collects.first.text).to include("redenção")
+      end
+
+      it 'returns collects from find_collects when Easter celebration exists in DB' do
+        date = Date.new(2025, 4, 22)
+        service = described_class.new(date)
+
+        # Mock the CelebrationResolver
+        resolver_mock = instance_double(CelebrationResolver)
+        allow(CelebrationResolver).to receive(:new).and_return(resolver_mock)
+        allow(resolver_mock).to receive(:resolve_for_date).and_return(easter_celebration)
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        expect(collects).to be_an(Array)
+        expect(collects.first[:text]).to include("redenção")
+      end
+    end
+  end
+
+  describe 'Pentecost week collect (celebration_id lookup)' do
+    let!(:pentecost_celebration) do
+      create(:celebration,
+        name: "Pentecostes",
+        celebration_type: :principal_feast,
+        rank: 2,
+        movable: true,
+        calculation_rule: "easter_plus_49_days",
+        liturgical_color: "vermelho",
+        prayer_book: prayer_book)
+    end
+
+    let!(:pentecost_collect) do
+      create(:collect,
+        celebration: pentecost_celebration,
+        sunday_reference: nil,
+        text: "Ó Deus, que no dia de Pentecostes...",
+        language: "pt-BR",
+        prayer_book: prayer_book)
+    end
+
+    context 'when weekday is after Pentecost' do
+      it 'finds Pentecost collect via find_collect_for_sunday_celebration' do
+        # Pentecost 2025 is June 8
+        # Monday after Pentecost is June 9
+        date = Date.new(2025, 6, 9)
+        service = described_class.new(date)
+
+        # Mock the CelebrationResolver
+        resolver_mock = instance_double(CelebrationResolver)
+        allow(CelebrationResolver).to receive(:new).and_return(resolver_mock)
+        allow(resolver_mock).to receive(:resolve_for_date).and_return(pentecost_celebration)
+
+        last_sunday = Date.new(2025, 6, 8)
+        sunday_calendar = LiturgicalCalendar.new(last_sunday.year)
+
+        collects = service.send(:find_collect_for_sunday_celebration, last_sunday, sunday_calendar)
+
+        # Should find collects through celebration lookup
+        expect(collects).not_to be_empty
+        expect(collects.first.text).to include("Pentecostes")
+      end
+    end
+  end
+
+  describe 'Trinity Sunday week collect (celebration_id lookup)' do
+    let!(:trinity_celebration) do
+      create(:celebration,
+        name: "Santíssima Trindade",
+        celebration_type: :principal_feast,
+        rank: 3,
+        movable: true,
+        calculation_rule: "easter_plus_56_days",
+        liturgical_color: "branco",
+        prayer_book: prayer_book)
+    end
+
+    let!(:trinity_collect) do
+      create(:collect,
+        celebration: trinity_celebration,
+        sunday_reference: nil,
+        text: "Deus nosso Pai, enviaste ao mundo a Palavra da verdade...",
+        language: "pt-BR",
+        prayer_book: prayer_book)
+    end
+
+    context 'when weekday is after Trinity Sunday' do
+      it 'finds Trinity collect via find_collect_for_sunday_celebration' do
+        # Trinity Sunday 2025 is June 15
+        date = Date.new(2025, 6, 16)
+        service = described_class.new(date)
+
+        # Mock the CelebrationResolver
+        resolver_mock = instance_double(CelebrationResolver)
+        allow(CelebrationResolver).to receive(:new).and_return(resolver_mock)
+        allow(resolver_mock).to receive(:resolve_for_date).and_return(trinity_celebration)
+
+        last_sunday = Date.new(2025, 6, 15)
+        sunday_calendar = LiturgicalCalendar.new(last_sunday.year)
+
+        collects = service.send(:find_collect_for_sunday_celebration, last_sunday, sunday_calendar)
+
+        # Should find collects through celebration lookup
+        expect(collects).not_to be_empty
+        expect(collects.first.text).to include("Palavra da verdade")
+      end
+    end
+  end
 end

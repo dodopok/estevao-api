@@ -732,4 +732,315 @@ RSpec.describe ReadingService do
       end
     end
   end
+
+  describe 'Holy Week readings (moveable feast handling)' do
+    # Test for the fix: Holy Week days (Monday, Tuesday, Wednesday)
+    # should find their specific readings via the moveable feast lookup
+
+    let!(:holy_monday_reading) do
+      create(:lectionary_reading,
+        prayer_book: prayer_book,
+        date_reference: 'holy_monday',
+        cycle: 'all',
+        service_type: 'eucharist',
+        first_reading: 'Isaías 42:1-9',
+        psalm: 'Salmo 36:5-11',
+        second_reading: 'Hebreus 9:11-15',
+        gospel: 'João 12:1-11'
+      )
+    end
+
+    let!(:holy_tuesday_reading) do
+      create(:lectionary_reading,
+        prayer_book: prayer_book,
+        date_reference: 'holy_tuesday',
+        cycle: 'all',
+        service_type: 'eucharist',
+        first_reading: 'Isaías 49:1-7',
+        psalm: 'Salmo 71:1-14',
+        second_reading: '1 Coríntios 1:18-31',
+        gospel: 'João 12:20-36'
+      )
+    end
+
+    let!(:holy_wednesday_reading) do
+      create(:lectionary_reading,
+        prayer_book: prayer_book,
+        date_reference: 'holy_wednesday',
+        cycle: 'all',
+        service_type: 'eucharist',
+        first_reading: 'Isaías 50:4-9a',
+        psalm: 'Salmo 70',
+        second_reading: 'Hebreus 12:1-3',
+        gospel: 'João 13:21-32'
+      )
+    end
+
+    let!(:holy_monday_celebration) do
+      create(:celebration,
+        name: 'Segunda-feira Santa',
+        celebration_type: :lesser_feast,
+        rank: 50,
+        movable: true,
+        calculation_rule: 'easter_minus_6_days',
+        liturgical_color: 'violeta',
+        prayer_book: prayer_book)
+    end
+
+    let!(:holy_tuesday_celebration) do
+      create(:celebration,
+        name: 'Terça-feira Santa',
+        celebration_type: :lesser_feast,
+        rank: 50,
+        movable: true,
+        calculation_rule: 'easter_minus_5_days',
+        liturgical_color: 'violeta',
+        prayer_book: prayer_book)
+    end
+
+    let!(:holy_wednesday_celebration) do
+      create(:celebration,
+        name: 'Quarta-feira Santa',
+        celebration_type: :lesser_feast,
+        rank: 50,
+        movable: true,
+        calculation_rule: 'easter_minus_4_days',
+        liturgical_color: 'violeta',
+        prayer_book: prayer_book)
+    end
+
+    context 'Holy Monday (easter_minus_6_days)' do
+      it 'finds Holy Monday readings' do
+        # Easter 2025 is April 20, so Holy Monday is April 14
+        date = Date.new(2025, 4, 14)
+        service = described_class.new(date)
+
+        readings = service.find_readings
+
+        expect(readings).not_to be_nil
+        expect(readings[:first_reading][:reference]).to eq('Isaías 42:1-9')
+        expect(readings[:gospel][:reference]).to eq('João 12:1-11')
+      end
+    end
+
+    context 'Holy Tuesday (easter_minus_5_days)' do
+      it 'finds Holy Tuesday readings' do
+        # Easter 2025 is April 20, so Holy Tuesday is April 15
+        date = Date.new(2025, 4, 15)
+        service = described_class.new(date)
+
+        readings = service.find_readings
+
+        expect(readings).not_to be_nil
+        expect(readings[:first_reading][:reference]).to eq('Isaías 49:1-7')
+        expect(readings[:gospel][:reference]).to eq('João 12:20-36')
+      end
+    end
+
+    context 'Holy Wednesday (easter_minus_4_days)' do
+      it 'finds Holy Wednesday readings' do
+        # Easter 2025 is April 20, so Holy Wednesday is April 16
+        date = Date.new(2025, 4, 16)
+        service = described_class.new(date)
+
+        readings = service.find_readings
+
+        expect(readings).not_to be_nil
+        expect(readings[:first_reading][:reference]).to eq('Isaías 50:4-9a')
+        expect(readings[:gospel][:reference]).to eq('João 13:21-32')
+      end
+    end
+  end
+
+  describe '#build_celebration_date_references for moveable feasts' do
+    # Test for the fix: build_celebration_date_references should map
+    # calculation_rules to their proper date_references
+
+    context 'with Holy Week celebrations' do
+      let(:holy_monday_celebration) do
+        build(:celebration,
+          name: 'Segunda-feira Santa',
+          calculation_rule: 'easter_minus_6_days')
+      end
+
+      let(:holy_tuesday_celebration) do
+        build(:celebration,
+          name: 'Terça-feira Santa',
+          calculation_rule: 'easter_minus_5_days')
+      end
+
+      let(:holy_wednesday_celebration) do
+        build(:celebration,
+          name: 'Quarta-feira Santa',
+          calculation_rule: 'easter_minus_4_days')
+      end
+
+      it 'maps easter_minus_6_days to holy_monday' do
+        service = described_class.new(Date.new(2025, 4, 14))
+        refs = service.send(:build_celebration_date_references, holy_monday_celebration)
+
+        expect(refs).to include('holy_monday')
+      end
+
+      it 'maps easter_minus_5_days to holy_tuesday' do
+        service = described_class.new(Date.new(2025, 4, 15))
+        refs = service.send(:build_celebration_date_references, holy_tuesday_celebration)
+
+        expect(refs).to include('holy_tuesday')
+      end
+
+      it 'maps easter_minus_4_days to holy_wednesday' do
+        service = described_class.new(Date.new(2025, 4, 16))
+        refs = service.send(:build_celebration_date_references, holy_wednesday_celebration)
+
+        expect(refs).to include('holy_wednesday')
+      end
+    end
+
+    context 'with other moveable feasts' do
+      let(:maundy_thursday) do
+        build(:celebration,
+          name: 'Quinta-Feira Santa',
+          calculation_rule: 'easter_minus_3_days')
+      end
+
+      let(:good_friday) do
+        build(:celebration,
+          name: 'Sexta-Feira da Paixão',
+          calculation_rule: 'easter_minus_2_days')
+      end
+
+      let(:holy_saturday) do
+        build(:celebration,
+          name: 'Sábado Santo',
+          calculation_rule: 'easter_minus_1_days')
+      end
+
+      let(:ascension) do
+        build(:celebration,
+          name: 'Ascensão',
+          calculation_rule: 'easter_plus_39_days')
+      end
+
+      let(:pentecost) do
+        build(:celebration,
+          name: 'Pentecostes',
+          calculation_rule: 'easter_plus_49_days')
+      end
+
+      let(:trinity) do
+        build(:celebration,
+          name: 'Santíssima Trindade',
+          calculation_rule: 'easter_plus_56_days')
+      end
+
+      it 'maps easter_minus_3_days to maundy_thursday and holy_thursday' do
+        service = described_class.new(Date.new(2025, 4, 17))
+        refs = service.send(:build_celebration_date_references, maundy_thursday)
+
+        expect(refs).to include('maundy_thursday')
+        expect(refs).to include('holy_thursday')
+      end
+
+      it 'maps easter_minus_2_days to good_friday' do
+        service = described_class.new(Date.new(2025, 4, 18))
+        refs = service.send(:build_celebration_date_references, good_friday)
+
+        expect(refs).to include('good_friday')
+      end
+
+      it 'maps easter_minus_1_days to holy_saturday' do
+        service = described_class.new(Date.new(2025, 4, 19))
+        refs = service.send(:build_celebration_date_references, holy_saturday)
+
+        expect(refs).to include('holy_saturday')
+        expect(refs).to include('holy_saturday_vigil')
+      end
+
+      it 'maps easter_plus_39_days to ascension' do
+        service = described_class.new(Date.new(2025, 5, 29))
+        refs = service.send(:build_celebration_date_references, ascension)
+
+        expect(refs).to include('ascension')
+        expect(refs).to include('ascension_day')
+      end
+
+      it 'maps easter_plus_49_days to pentecost' do
+        service = described_class.new(Date.new(2025, 6, 8))
+        refs = service.send(:build_celebration_date_references, pentecost)
+
+        expect(refs).to include('pentecost')
+        expect(refs).to include('whitsunday')
+      end
+
+      it 'maps easter_plus_56_days to trinity_sunday' do
+        service = described_class.new(Date.new(2025, 6, 15))
+        refs = service.send(:build_celebration_date_references, trinity)
+
+        expect(refs).to include('trinity_sunday')
+      end
+    end
+  end
+
+  describe '#is_moveable_feast_with_readings?' do
+    # Test for the new method that identifies moveable feasts with their own readings
+
+    let!(:holy_monday_celebration) do
+      create(:celebration,
+        name: 'Segunda-feira Santa',
+        celebration_type: :lesser_feast,
+        rank: 50,
+        movable: true,
+        calculation_rule: 'easter_minus_6_days',
+        liturgical_color: 'violeta',
+        prayer_book: prayer_book)
+    end
+
+    let!(:regular_lesser_feast) do
+      create(:celebration,
+        name: 'Santo Qualquer',
+        celebration_type: :lesser_feast,
+        rank: 250,
+        movable: false,
+        fixed_month: 5,
+        fixed_day: 15,
+        liturgical_color: 'branco',
+        prayer_book: prayer_book)
+    end
+
+    it 'returns true for Holy Week celebrations' do
+      service = described_class.new(Date.new(2025, 4, 14))
+      celebration_info = { id: holy_monday_celebration.id, type: 'lesser_feast' }
+
+      result = service.send(:is_moveable_feast_with_readings?, celebration_info)
+
+      expect(result).to be true
+    end
+
+    it 'returns false for regular lesser feasts' do
+      service = described_class.new(Date.new(2025, 5, 15))
+      celebration_info = { id: regular_lesser_feast.id, type: 'lesser_feast' }
+
+      result = service.send(:is_moveable_feast_with_readings?, celebration_info)
+
+      expect(result).to be false
+    end
+
+    it 'returns false for nil celebration' do
+      service = described_class.new(Date.new(2025, 5, 15))
+
+      result = service.send(:is_moveable_feast_with_readings?, nil)
+
+      expect(result).to be false
+    end
+
+    it 'returns false for celebration without id' do
+      service = described_class.new(Date.new(2025, 5, 15))
+      celebration_info = { type: 'lesser_feast' }
+
+      result = service.send(:is_moveable_feast_with_readings?, celebration_info)
+
+      expect(result).to be false
+    end
+  end
 end

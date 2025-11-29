@@ -19,7 +19,7 @@ RSpec.describe WeeklyReadingsImporter do
   describe 'constants' do
     it 'has week name mapping' do
       expect(WeeklyReadingsImporter::WEEK_NAME_MAPPING).to be_a(Hash)
-      expect(WeeklyReadingsImporter::WEEK_NAME_MAPPING.size).to eq(58)
+      expect(WeeklyReadingsImporter::WEEK_NAME_MAPPING.size).to eq(95)
     end
 
     it 'has weekday mapping' do
@@ -62,38 +62,36 @@ RSpec.describe WeeklyReadingsImporter do
   describe 'week name mapping' do
     it 'maps Advent weeks correctly' do
       mapping = WeeklyReadingsImporter::WEEK_NAME_MAPPING
-      expect(mapping['Semana próxima ao Primeiro Domingo do Advento']).to eq('1st_sunday_of_advent')
-      expect(mapping['Semana próxima ao Segundo Domingo do Advento']).to eq('2nd_sunday_of_advent')
+      expect(mapping['Primeiro Domingo do Advento']).to eq('1st_sunday_of_advent')
+      expect(mapping['Segundo Domingo do Advento']).to eq('2nd_sunday_of_advent')
+      expect(mapping['Advento 1']).to eq('1st_sunday_of_advent')
     end
 
     it 'maps Lent weeks correctly' do
       mapping = WeeklyReadingsImporter::WEEK_NAME_MAPPING
-      expect(mapping['Semana próxima ao Primeiro Domingo da Quaresma']).to eq('1st_sunday_of_lent')
-      expect(mapping['Semana próxima ao Quinto Domingo da Quaresma']).to eq('5th_sunday_of_lent')
+      expect(mapping['Primeiro Domingo da Quaresma']).to eq('1st_sunday_of_lent')
+      expect(mapping['Quinto Domingo da Quaresma']).to eq('5th_sunday_of_lent')
+      expect(mapping['Quaresma 1']).to eq('1st_sunday_of_lent')
     end
 
     it 'maps Easter weeks correctly' do
       mapping = WeeklyReadingsImporter::WEEK_NAME_MAPPING
-      expect(mapping['Semana próxima ao Segundo Domingo da Páscoa']).to eq('2nd_sunday_of_easter')
-    end
-
-    it 'maps Ordinary Time correctly' do
-      mapping = WeeklyReadingsImporter::WEEK_NAME_MAPPING
-      expect(mapping['Tempo Comum 2']).to eq('ordinary_time_2')
-      expect(mapping['Tempo Comum 5']).to eq('ordinary_time_5')
+      expect(mapping['Segundo Domingo da Páscoa']).to eq('2nd_sunday_of_easter')
+      expect(mapping['Páscoa 2']).to eq('2nd_sunday_of_easter')
     end
 
     it 'maps Propers correctly' do
       mapping = WeeklyReadingsImporter::WEEK_NAME_MAPPING
-      expect(mapping['Próprio 3 / Tempo Comum 8']).to eq('proper_3')
-      expect(mapping['Próprio 20 / Tempo Comum 25']).to eq('proper_20')
+      expect(mapping['Próprio 3']).to eq('proper_3')
+      expect(mapping['Próprio 20']).to eq('proper_20')
+      expect(mapping['Próprio 29']).to eq('christ_the_king')
     end
 
     it 'maps special weeks correctly' do
       mapping = WeeklyReadingsImporter::WEEK_NAME_MAPPING
-      expect(mapping['Semana Santa / Domingo de Ramos']).to eq('holy_week')
-      expect(mapping['Semana Próxima à Santíssima Trindade']).to eq('trinity_sunday')
-      expect(mapping['Tempo Comum 1 (Batismo de Cristo)']).to eq('baptism_of_christ')
+      expect(mapping['Semana Santa']).to eq('holy_week')
+      expect(mapping['Santíssima Trindade']).to eq('trinity_sunday')
+      expect(mapping['Batismo de nosso Senhor Jesus Cristo']).to eq('baptism_of_christ')
     end
   end
 
@@ -146,36 +144,29 @@ RSpec.describe WeeklyReadingsImporter do
 
     it 'builds reference for weekday' do
       ref = importer.send(:build_date_reference,
-                          'Semana próxima ao Primeiro Domingo do Advento',
+                          'Primeiro Domingo do Advento',
                           'Qui')
       expect(ref).to eq('1st_sunday_of_advent_thursday')
     end
 
     it 'builds reference for fixed date in December' do
       ref = importer.send(:build_date_reference,
-                          'Semana próxima à Natividade',
+                          'Natal',
                           '22 Dez')
       expect(ref).to eq('december_22')
     end
 
     it 'builds reference for fixed date in January' do
       ref = importer.send(:build_date_reference,
-                          'Semana próxima à Epifania',
+                          'Epifania',
                           '2 Jan')
       expect(ref).to eq('january_2')
     end
 
-    it 'handles complementary modifier' do
+    it 'builds reference for Proper weeks' do
       ref = importer.send(:build_date_reference,
-                          'Próprio 4 / Tempo Comum 9',
-                          'Qui (Complementar)')
-      expect(ref).to eq('proper_4_thursday')
-    end
-
-    it 'handles semicontinuous modifier' do
-      ref = importer.send(:build_date_reference,
-                          'Próprio 4 / Tempo Comum 9',
-                          'Qui (Semicontínua)')
+                          'Próprio 4',
+                          'Qui')
       expect(ref).to eq('proper_4_thursday')
     end
 
@@ -188,7 +179,7 @@ RSpec.describe WeeklyReadingsImporter do
     it 'raises error for unknown weekday' do
       expect {
         importer.send(:build_date_reference,
-                      'Semana próxima ao Primeiro Domingo do Advento',
+                      'Primeiro Domingo do Advento',
                       'XXX')
       }.to raise_error(/Unknown weekday/)
     end
@@ -198,16 +189,16 @@ RSpec.describe WeeklyReadingsImporter do
     let(:importer) { WeeklyReadingsImporter.new('test.csv') }
 
     it 'returns complementary when marked' do
-      expect(importer.send(:extract_reading_type, 'Qui (Complementar)')).to eq('complementary')
+      expect(importer.send(:extract_reading_type, 'Complementar')).to eq('complementary')
     end
 
     it 'returns semicontinuous when marked' do
-      expect(importer.send(:extract_reading_type, 'Qui (Semicontínua)')).to eq('semicontinuous')
+      expect(importer.send(:extract_reading_type, 'Semicontínua')).to eq('semicontinuous')
     end
 
-    it 'returns semicontinuous by default' do
-      expect(importer.send(:extract_reading_type, 'Qui')).to eq('semicontinuous')
-      expect(importer.send(:extract_reading_type, 'Sex')).to eq('semicontinuous')
+    it 'returns nil by default' do
+      expect(importer.send(:extract_reading_type, nil)).to be_nil
+      expect(importer.send(:extract_reading_type, '')).to be_nil
     end
   end
 
@@ -230,10 +221,10 @@ RSpec.describe WeeklyReadingsImporter do
   describe '#import' do
     context 'with valid CSV' do
       before do
-        temp_csv.write("ano,semana,dia,salmo,antigo testamento,novo testamento\n")
-        temp_csv.write("Ano A,Semana próxima ao Primeiro Domingo do Advento,Qui,Salmo 122,Daniel 9.15-19,Tiago 4.1-10\n")
-        temp_csv.write("Ano A,Semana próxima ao Primeiro Domingo do Advento,Sex,Salmo 122,Gênesis 6.1-10,Hebreus 11.1-7\n")
-        temp_csv.write("Ano A,Semana próxima ao Primeiro Domingo do Advento,Sab,Salmo 122,Gênesis 6.11-22,Mateus 24.1-22\n")
+        temp_csv.write("ano,semana,dia,tipo,salmo,antigo_testamento,novo_testamento\n")
+        temp_csv.write("Ano A,Primeiro Domingo do Advento,Qui,,Salmo 122,Daniel 9.15-19,Tiago 4.1-10\n")
+        temp_csv.write("Ano A,Primeiro Domingo do Advento,Sex,,Salmo 122,Gênesis 6.1-10,Hebreus 11.1-7\n")
+        temp_csv.write("Ano A,Primeiro Domingo do Advento,Sab,,Salmo 122,Gênesis 6.11-22,Mateus 24.1-22\n")
         temp_csv.rewind
       end
 
@@ -260,7 +251,7 @@ RSpec.describe WeeklyReadingsImporter do
         expect(reading.first_reading).to eq('Daniel 9.15-19')
         expect(reading.second_reading).to eq('Tiago 4.1-10')
         expect(reading.gospel).to be_nil
-        expect(reading.reading_type).to eq('semicontinuous')
+        expect(reading.reading_type).to be_nil
       end
 
       it 'correctly identifies gospels' do
@@ -280,9 +271,9 @@ RSpec.describe WeeklyReadingsImporter do
 
     context 'with complementary and semicontinuous readings' do
       before do
-        temp_csv.write("ano,semana,dia,salmo,antigo testamento,novo testamento\n")
-        temp_csv.write("Ano A,Próprio 4 / Tempo Comum 9,Qui (Complementar),Salmo 31.1-5,Êxodo 24.1-8,Romanos 2.17-29\n")
-        temp_csv.write("Ano A,Próprio 4 / Tempo Comum 9,Qui (Semicontínua),Salmo 46,Gênesis 1.1–2.4a,Romanos 2.17-29\n")
+        temp_csv.write("ano,semana,dia,tipo,salmo,antigo_testamento,novo_testamento\n")
+        temp_csv.write("Ano A,Próprio 4,Qui,Complementar,Salmo 31.1-5,Êxodo 24.1-8,Romanos 2.17-29\n")
+        temp_csv.write("Ano A,Próprio 4,Qui,Semicontínua,Salmo 46,Gênesis 1.1–2.4a,Romanos 2.17-29\n")
         temp_csv.rewind
       end
 
@@ -320,8 +311,8 @@ RSpec.describe WeeklyReadingsImporter do
 
     context 'with fixed dates' do
       before do
-        temp_csv.write("ano,semana,dia,salmo,antigo testamento,novo testamento\n")
-        temp_csv.write("Ano A,Semana próxima à Natividade,22 Dez,Lucas 1.46b-55 (Cântico),Isaías 33.17-22,Apocalipse 22.6-7\n")
+        temp_csv.write("ano,semana,dia,tipo,salmo,antigo_testamento,novo_testamento\n")
+        temp_csv.write("Ano A,Natal,22 Dez,,Lucas 1.46b-55 (Cântico),Isaías 33.17-22,Apocalipse 22.6-7\n")
         temp_csv.rewind
       end
 
@@ -348,13 +339,13 @@ RSpec.describe WeeklyReadingsImporter do
           cycle: 'A',
           service_type: 'weekly',
           date_reference: '1st_sunday_of_advent_thursday',
-          reading_type: 'semicontinuous',
+          reading_type: nil,
           psalm: 'Old Psalm',
           first_reading: 'Old Reading'
         )
 
-        temp_csv.write("ano,semana,dia,salmo,antigo testamento,novo testamento\n")
-        temp_csv.write("Ano A,Semana próxima ao Primeiro Domingo do Advento,Qui,Salmo 122,Daniel 9.15-19,Tiago 4.1-10\n")
+        temp_csv.write("ano,semana,dia,tipo,salmo,antigo_testamento,novo_testamento\n")
+        temp_csv.write("Ano A,Primeiro Domingo do Advento,Qui,,Salmo 122,Daniel 9.15-19,Tiago 4.1-10\n")
         temp_csv.rewind
       end
 

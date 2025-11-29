@@ -8,7 +8,7 @@ class LectionaryReading < ApplicationRecord
   validates :cycle, presence: true
   validates :service_type, presence: true
   validates :service_type, inclusion: { in: %w[eucharist morning_prayer evening_prayer vigil weekly] }
-  validates :reading_type, inclusion: { in: %w[semicontinuous complementary], allow_nil: false }
+  validates :reading_type, inclusion: { in: %w[semicontinuous complementary] }, allow_nil: true
 
   # Scopes
   scope :for_cycle, ->(cycle) { where(cycle: cycle) }

@@ -2,6 +2,16 @@
 class ReadingService
   attr_reader :date, :calendar, :cycle, :prayer_book_code
 
+  # Factory method que retorna o serviço apropriado baseado no prayer_book_code
+  def self.for(date, prayer_book_code: "loc_2015")
+    case prayer_book_code
+    when "loc_2015"
+      IeabReadingService.new(date)
+    else
+      new(date, prayer_book_code: prayer_book_code)
+    end
+  end
+
   def initialize(date, prayer_book_code: "loc_2015")
     @date = date
     @calendar = LiturgicalCalendar.new(date.year)
@@ -42,10 +52,38 @@ class ReadingService
       return reading if reading
     end
 
+    # Dias da Semana Santa e outras celebrações móveis importantes
+    # (mesmo que sejam lesser_feast, têm leituras próprias)
+    if celebration && is_moveable_feast_with_readings?(celebration)
+      reading = find_by_resolved_celebration(celebration)
+      return reading if reading
+    end
+
     # Leituras semanais, depois celebrações menores, depois data fixa
     find_weekly_reading ||
     find_by_celebration ||
     find_by_fixed_date
+  end
+
+  # Verifica se a celebração é uma festa móvel que tem leituras próprias
+  def is_moveable_feast_with_readings?(celebration)
+    return false unless celebration
+    return false unless celebration[:id]
+
+    cel = Celebration.find_by(id: celebration[:id])
+    return false unless cel&.calculation_rule.present?
+
+    # Dias da Semana Santa e outras festas móveis com leituras próprias
+    moveable_rules_with_readings = %w[
+      easter_minus_6_days
+      easter_minus_5_days
+      easter_minus_4_days
+      easter_minus_3_days
+      easter_minus_2_days
+      easter_minus_1_days
+    ]
+
+    moveable_rules_with_readings.include?(cel.calculation_rule)
   end
 
   # Busca leituras para domingos respeitando hierarquia litúrgica
@@ -121,6 +159,37 @@ class ReadingService
   # Constrói referências possíveis para uma celebração
   def build_celebration_date_references(celebration)
     refs = []
+
+    # Festas móveis: mapear calculation_rule para date_reference
+    if celebration.calculation_rule.present?
+      case celebration.calculation_rule
+      when "easter_minus_6_days"
+        refs << "holy_monday"
+      when "easter_minus_5_days"
+        refs << "holy_tuesday"
+      when "easter_minus_4_days"
+        refs << "holy_wednesday"
+      when "easter_minus_3_days"
+        refs << "maundy_thursday"
+        refs << "holy_thursday"
+      when "easter_minus_2_days"
+        refs << "good_friday"
+      when "easter_minus_1_days"
+        refs << "holy_saturday"
+        refs << "holy_saturday_vigil"
+      when "easter"
+        refs << "easter_sunday"
+        refs << "easter_day"
+      when "easter_plus_39_days"
+        refs << "ascension"
+        refs << "ascension_day"
+      when "easter_plus_49_days"
+        refs << "pentecost"
+        refs << "whitsunday"
+      when "easter_plus_56_days"
+        refs << "trinity_sunday"
+      end
+    end
 
     # Festas fixas: tentar por data
     if celebration.fixed_month && celebration.fixed_day

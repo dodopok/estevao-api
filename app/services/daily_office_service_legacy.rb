@@ -15,7 +15,7 @@ class DailyOfficeServiceLegacy
     @day_info = liturgical_calendar.day_info(@date)
 
     # 2. Fetch the Readings for the Day
-    @readings = ReadingService.new(@date, prayer_book_code: @prefs[:prayer_book_code]).find_readings || {}
+    @readings = ReadingService.for(@date, prayer_book_code: @prefs[:prayer_book_code]).find_readings || {}
 
     # 3. Assemble the Office based on type
     structure = case @office_type
