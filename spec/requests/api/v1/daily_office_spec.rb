@@ -1,6 +1,10 @@
 require "swagger_helper"
 
 RSpec.describe "api/v1/daily_office", type: :request do
+  before(:all) do
+    setup_full_liturgical_data
+  end
+
   def self.api_tags
     "Daily Office"
   end

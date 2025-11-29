@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe DailyOfficeService do
+  before(:all) do
+    setup_full_liturgical_data
+  end
+
   let(:date) { Date.new(2025, 11, 25) }
 
   describe '#initialize' do

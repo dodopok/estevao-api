@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe DailyOffice::Builders::Loc2015::SharedHelpers do
+  before(:all) do
+    setup_full_liturgical_data
+  end
+
   # Create a test class that includes the module
   let(:test_class) do
     Class.new(DailyOffice::Builders::Loc2015Builder) do

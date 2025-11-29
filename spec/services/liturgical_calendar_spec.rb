@@ -65,12 +65,33 @@ RSpec.describe LiturgicalCalendar do
         # During Christmas
         expect(calendar.season_for_date(Date.new(2025, 12, 28))).to eq("Natal")
       end
+
+      it 'correctly identifies Christmas season for early January (before Baptism of the Lord)' do
+        # January 5, 2025 should be Christmas season (before Baptism which is Jan 12)
+        expect(calendar.season_for_date(Date.new(2025, 1, 5))).to eq("Natal")
+
+        # January 1, 2025 should be Christmas season
+        expect(calendar.season_for_date(Date.new(2025, 1, 1))).to eq("Natal")
+
+        # January 6, 2025 (Epiphany) should still be Christmas (before Baptism)
+        expect(calendar.season_for_date(Date.new(2025, 1, 6))).to eq("Natal")
+      end
+
+      it 'ends Christmas season at Baptism of the Lord' do
+        # Baptism of the Lord 2025 is January 12 (first Sunday after Epiphany)
+        # Baptism itself starts Epiphany season
+        expect(calendar.season_for_date(Date.new(2025, 1, 12))).to eq("Epifania")
+      end
     end
 
     context 'Epiphany' do
       it 'correctly identifies Epiphany season' do
-        # During Epiphany (after January 6)
-        expect(calendar.season_for_date(Date.new(2025, 1, 10))).to eq("Epifania")
+        # Epiphany starts at Baptism of the Lord
+        # In 2025, Baptism of the Lord is January 12
+        expect(calendar.season_for_date(Date.new(2025, 1, 12))).to eq("Epifania")
+
+        # During Epiphany (after Baptism of the Lord)
+        expect(calendar.season_for_date(Date.new(2025, 1, 15))).to eq("Epifania")
       end
     end
 
@@ -254,6 +275,19 @@ RSpec.describe LiturgicalCalendar do
       expect(calendar.sunday_name(date)).to eq("1º Domingo do Advento")
     end
 
+    it 'correctly names Christmas Sundays' do
+      # In 2025, Dec 28 is a Sunday (1st Sunday after Christmas)
+      date = Date.new(2025, 12, 28)
+      expect(calendar.sunday_name(date)).to eq("1º Domingo após Natal")
+    end
+
+    it 'correctly names Second Sunday after Christmas' do
+      # When there's a second Sunday before Baptism
+      # In 2025, Jan 5 is a Sunday (2nd Sunday after Christmas)
+      date = Date.new(2025, 1, 5)
+      expect(calendar.sunday_name(date)).to eq("2º Domingo após Natal")
+    end
+
     it 'correctly names Lent Sundays' do
       # First Sunday of Lent
       date = Date.new(2025, 3, 9)
@@ -383,6 +417,24 @@ RSpec.describe LiturgicalCalendar do
   end
 
   describe 'specific cases' do
+    it '2025-01-05 returns Christmas season data (bug fix)' do
+      calendar = described_class.new(2025)
+      date = Date.new(2025, 1, 5)
+      info = calendar.day_info(date)
+
+      # Should be Christmas season, not Ordinary Time
+      expect(info[:liturgical_season]).to eq("Natal")
+
+      # Should be 2nd Sunday after Christmas
+      expect(info[:sunday_name]).to eq("2º Domingo após Natal")
+
+      # Week should be 2 (second week of Christmas)
+      expect(info[:week_of_season]).to eq(2)
+
+      # Color should be white (Christmas color)
+      expect(info[:color]).to eq("branco")
+    end
+
     it '2025-11-16 returns green color (not white from celebration)' do
       calendar = described_class.new(2025)
       date = Date.new(2025, 11, 16)
@@ -427,6 +479,14 @@ RSpec.describe LiturgicalCalendar do
 
       # Second Sunday of Advent
       expect(calendar.week_number(Date.new(2025, 12, 7))).to eq(2)
+    end
+
+    it 'calculates week number correctly in Christmas season' do
+      # First Sunday after Christmas (Dec 28, 2025)
+      expect(calendar.week_number(Date.new(2025, 12, 28))).to eq(1)
+
+      # For 2025, Jan 5 would be second week of Christmas
+      expect(calendar.week_number(Date.new(2025, 1, 5))).to eq(2)
     end
 
     it 'calculates week number correctly in Lent' do

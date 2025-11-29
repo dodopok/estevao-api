@@ -125,4 +125,228 @@ RSpec.describe LectionaryReading, type: :model do
       expect(LectionaryReading.even_or_odd_year?(2025)).to eq('odd')
     end
   end
+
+  describe 'weekly readings' do
+    describe 'validations' do
+      it 'accepts weekly as service_type' do
+        reading = LectionaryReading.new(
+          prayer_book: prayer_book,
+          date_reference: '1st_sunday_of_advent_monday',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'semicontinuous'
+        )
+
+        expect(reading).to be_valid
+      end
+
+      it 'validates all valid service types including weekly' do
+        %w[eucharist morning_prayer evening_prayer vigil weekly].each do |service_type|
+          reading = LectionaryReading.new(
+            prayer_book: prayer_book,
+            date_reference: 'test_ref',
+            cycle: 'A',
+            service_type: service_type,
+            reading_type: 'semicontinuous'
+          )
+
+          expect(reading).to be_valid, "#{service_type} should be valid"
+        end
+      end
+    end
+
+    describe 'scope .weekly' do
+      let!(:weekly_reading) do
+        LectionaryReading.create!(
+          prayer_book: prayer_book,
+          date_reference: '1st_sunday_of_advent_thursday',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'semicontinuous',
+          psalm: 'Salmo 122',
+          first_reading: 'Daniel 9.15-19',
+          second_reading: 'Tiago 4.1-10'
+        )
+      end
+
+      let!(:eucharist_reading) do
+        LectionaryReading.create!(
+          prayer_book: prayer_book,
+          date_reference: '1st_sunday_of_advent',
+          cycle: 'A',
+          service_type: 'eucharist',
+          reading_type: 'semicontinuous',
+          first_reading: 'Isaiah 1:1-5',
+          psalm: 'Psalm 1'
+        )
+      end
+
+      it 'returns only weekly readings' do
+        weekly_readings = LectionaryReading.weekly.where(id: [ weekly_reading.id, eucharist_reading.id ])
+
+        expect(weekly_readings.count).to eq(1)
+        expect(weekly_readings.first).to eq(weekly_reading)
+        expect(weekly_readings.first.service_type).to eq('weekly')
+      end
+
+      it 'does not return eucharistic readings' do
+        weekly_readings = LectionaryReading.weekly.where(id: [ weekly_reading.id, eucharist_reading.id ])
+
+        expect(weekly_readings).not_to include(eucharist_reading)
+      end
+    end
+
+    describe 'gospel vs epistle detection' do
+      it 'stores gospels in gospel field' do
+        reading = LectionaryReading.create!(
+          prayer_book: prayer_book,
+          date_reference: '1st_sunday_of_advent_saturday',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'semicontinuous',
+          psalm: 'Salmo 122',
+          first_reading: 'Gênesis 6.11-22',
+          gospel: 'Mateus 24.1-22'
+        )
+
+        expect(reading.gospel).to eq('Mateus 24.1-22')
+        expect(reading.second_reading).to be_nil
+      end
+
+      it 'stores epistles in second_reading field' do
+        reading = LectionaryReading.create!(
+          prayer_book: prayer_book,
+          date_reference: '1st_sunday_of_advent_thursday',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'semicontinuous',
+          psalm: 'Salmo 122',
+          first_reading: 'Daniel 9.15-19',
+          second_reading: 'Tiago 4.1-10'
+        )
+
+        expect(reading.second_reading).to eq('Tiago 4.1-10')
+        expect(reading.gospel).to be_nil
+      end
+
+      it 'distinguishes João (gospel) from I João (epistle)' do
+        gospel_reading = LectionaryReading.create!(
+          prayer_book: prayer_book,
+          date_reference: 'test_gospel',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'semicontinuous',
+          gospel: 'João 1.1-14'
+        )
+
+        epistle_reading = LectionaryReading.create!(
+          prayer_book: prayer_book,
+          date_reference: 'test_epistle',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'semicontinuous',
+          second_reading: 'I João 5.1-12'
+        )
+
+        expect(gospel_reading.gospel).to be_present
+        expect(gospel_reading.second_reading).to be_nil
+        expect(epistle_reading.second_reading).to be_present
+        expect(epistle_reading.gospel).to be_nil
+      end
+    end
+
+    describe 'complementary vs semicontinuous' do
+      let!(:complementary) do
+        LectionaryReading.create!(
+          prayer_book: prayer_book,
+          date_reference: 'test_proper_thursday_spec',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'complementary',
+          psalm: 'Salmo 31.1-5, 19-24',
+          first_reading: 'Êxodo 24.1-8',
+          second_reading: 'Romanos 2.17-29'
+        )
+      end
+
+      let!(:semicontinuous) do
+        LectionaryReading.create!(
+          prayer_book: prayer_book,
+          date_reference: 'test_proper_thursday_spec',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'semicontinuous',
+          psalm: 'Salmo 46',
+          first_reading: 'Gênesis 1.1–2.4a',
+          second_reading: 'Romanos 2.17-29'
+        )
+      end
+
+      it 'allows both reading types for same date_reference' do
+        readings = LectionaryReading.where(
+          date_reference: 'test_proper_thursday_spec',
+          cycle: 'A',
+          service_type: 'weekly'
+        )
+
+        expect(readings.count).to eq(2)
+        expect(readings.pluck(:reading_type)).to contain_exactly('complementary', 'semicontinuous')
+      end
+
+      it 'retrieves correct reading by type' do
+        comp_reading = LectionaryReading.find_by(
+          date_reference: 'test_proper_thursday_spec',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'complementary'
+        )
+
+        semi_reading = LectionaryReading.find_by(
+          date_reference: 'test_proper_thursday_spec',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'semicontinuous'
+        )
+
+        expect(comp_reading.psalm).to eq('Salmo 31.1-5, 19-24')
+        expect(semi_reading.psalm).to eq('Salmo 46')
+      end
+    end
+
+    describe 'fixed dates' do
+      it 'supports fixed date references' do
+        reading = LectionaryReading.create!(
+          prayer_book: prayer_book,
+          date_reference: 'december_22',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'semicontinuous',
+          psalm: 'Lucas 1.46b-55 (Cântico)',
+          first_reading: 'Isaías 33.17-22',
+          second_reading: 'Apocalipse 22.6-7, 18-20'
+        )
+
+        expect(reading).to be_valid
+        expect(reading.date_reference).to eq('december_22')
+      end
+    end
+
+    describe 'canticles instead of psalms' do
+      it 'accepts canticles in psalm field' do
+        reading = LectionaryReading.create!(
+          prayer_book: prayer_book,
+          date_reference: 'week_of_christmas_monday',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'semicontinuous',
+          psalm: 'I Samuel 2.1-10 (Cântico)',
+          first_reading: 'Gênesis 17.15-22',
+          second_reading: 'Gálatas 4.8-20'
+        )
+
+        expect(reading).to be_valid
+        expect(reading.psalm).to include('Cântico')
+      end
+    end
+  end
 end

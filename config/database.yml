@@ -25,6 +25,9 @@ development:
   url: <%= ENV["DATABASE_URL"] %>
   <% else %>
   database: estevao_api_development
+  host: <%= ENV.fetch("DB_HOST", "db") %>
+  username: <%= ENV.fetch("POSTGRES_USER", "postgres") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", "postgres") %>
   <% end %>
 
 # Warning: The database defined as "test" will be erased and
@@ -36,6 +39,9 @@ test:
   url: <%= ENV["DATABASE_URL"] %>
   <% else %>
   database: estevao_api_test<%= ENV["TEST_ENV_NUMBER"] %>
+  host: <%= ENV.fetch("DB_HOST", "db") %>
+  username: <%= ENV.fetch("POSTGRES_USER", "postgres") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", "postgres") %>
   <% end %>
 
 # Production uses individual environment variables or DATABASE_URL

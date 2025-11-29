@@ -76,6 +76,9 @@ load Rails.root.join("#{base_path}/readings/special.rb")
 # Leituras Complementares (exemplos)
 load Rails.root.join("#{base_path}/readings/complementary_examples.rb")
 
+# Leituras Semanais do Ofício Diário
+load Rails.root.join("#{base_path}/readings/weekly_office.rb")
+
 puts "✓ Leituras carregadas com sucesso"
 
 # ================================================================================

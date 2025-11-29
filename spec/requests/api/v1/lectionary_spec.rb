@@ -1,6 +1,11 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/lectionary', type: :request do
+  before(:all) do
+    setup_liturgical_foundation
+    setup_basic_celebrations
+  end
+
   def self.api_tags
     'Lectionary'
   end

@@ -7,7 +7,7 @@ class LectionaryReading < ApplicationRecord
   validates :date_reference, presence: true
   validates :cycle, presence: true
   validates :service_type, presence: true
-  validates :service_type, inclusion: { in: %w[eucharist morning_prayer evening_prayer vigil] }
+  validates :service_type, inclusion: { in: %w[eucharist morning_prayer evening_prayer vigil weekly] }
   validates :reading_type, inclusion: { in: %w[semicontinuous complementary], allow_nil: false }
 
   # Scopes
@@ -25,6 +25,7 @@ class LectionaryReading < ApplicationRecord
   scope :for_reading_type, ->(type) { where(reading_type: type) }
   scope :semicontinuous, -> { where(reading_type: "semicontinuous") }
   scope :complementary, -> { where(reading_type: "complementary") }
+  scope :weekly, -> { where(service_type: "weekly") }
 
   # Método para determinar o ciclo baseado no ano litúrgico
   def self.cycle_for_year(year)

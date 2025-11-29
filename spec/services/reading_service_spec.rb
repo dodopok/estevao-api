@@ -34,7 +34,7 @@ RSpec.describe ReadingService do
     create(:lectionary_reading,
       celebration: celebration,
       date_reference: "3-19",
-      cycle: "ABC",
+      cycle: "all",
       service_type: "eucharist",
       first_reading: "Deuteronômio 33:13-16",
       psalm: "Salmo 89:2-9",
@@ -80,11 +80,12 @@ RSpec.describe ReadingService do
     end
 
     context 'for weekdays' do
-      it 'determines even/odd year' do
-        # 2026 is even
+      it 'determines A/B/C cycle' do
+        # 2026 is Cycle A
         service = described_class.new(Date.new(2026, 1, 5)) # Monday
 
-        expect([ "even", "odd" ]).to include(service.cycle)
+        expect([ "A", "B", "C" ]).to include(service.cycle)
+        expect(service.cycle).to eq("A")
       end
     end
   end
@@ -259,6 +260,234 @@ RSpec.describe ReadingService do
       # 2026: Cycle A
       service_2026 = described_class.new(Date.new(2026, 11, 15))
       expect(service_2026.cycle).to eq("A") if Date.new(2026, 11, 15).sunday?
+    end
+
+    it 'uses A/B/C cycle for weekly readings (not even/odd)' do
+      # December 4, 2025 is a Thursday in Advent
+      # 2025 liturgical year starts with Cycle A (Advent 2025)
+      service = described_class.new(Date.new(2025, 12, 4))
+
+      expect(service.cycle).to eq("A")
+    end
+  end
+
+  describe 'weekly readings' do
+    let!(:weekly_advent_reading) do
+      create(:lectionary_reading,
+        prayer_book: prayer_book,
+        date_reference: '1st_sunday_of_advent_thursday',
+        cycle: 'A',
+        service_type: 'weekly',
+        reading_type: 'semicontinuous',
+        psalm: 'Salmo 122',
+        first_reading: 'Daniel 9.15-19',
+        second_reading: 'Tiago 4.1-10'
+      )
+    end
+
+    let!(:weekly_proper_reading) do
+      create(:lectionary_reading,
+        prayer_book: prayer_book,
+        date_reference: 'proper_20_saturday',
+        cycle: 'C',
+        service_type: 'weekly',
+        reading_type: 'semicontinuous',
+        psalm: 'Salmo 145.1-8',
+        first_reading: 'Sofonias 2.13-15',
+        gospel: 'Mateus 19.23-30'
+      )
+    end
+
+    let!(:weekly_fixed_date_reading) do
+      create(:lectionary_reading,
+        prayer_book: prayer_book,
+        date_reference: 'december_22',
+        cycle: 'A',
+        service_type: 'weekly',
+        reading_type: 'semicontinuous',
+        psalm: 'Lucas 1.46b-55 (Cântico)',
+        first_reading: 'Isaías 33.17-22',
+        second_reading: 'Apocalipse 22.6-7, 18-20'
+      )
+    end
+
+    describe '#find_weekly_reading' do
+      it 'returns nil for Sunday dates' do
+        service = described_class.new(Date.new(2025, 12, 7)) # Sunday
+        reading = service.send(:find_weekly_reading)
+
+        expect(reading).to be_nil
+      end
+
+      it 'finds weekly readings for weekdays' do
+        # Thursday in first week of Advent 2025 (Cycle A)
+        service = described_class.new(Date.new(2025, 12, 4))
+        reading = service.send(:find_weekly_reading)
+
+        expect(reading).not_to be_nil
+        expect(reading.service_type).to eq('weekly')
+      end
+
+      it 'finds readings by proper number' do
+        # Saturday, September 27, 2025 (Proper 20, Cycle C)
+        service = described_class.new(Date.new(2025, 9, 27))
+        reading = service.send(:find_weekly_reading)
+
+        expect(reading).not_to be_nil
+        expect(reading.date_reference).to eq('proper_20_saturday')
+      end
+
+      it 'finds readings by fixed date' do
+        # December 22, 2025 (Cycle A)
+        service = described_class.new(Date.new(2025, 12, 22))
+        reading = service.send(:find_weekly_reading)
+
+        expect(reading).not_to be_nil
+        expect(reading.date_reference).to eq('december_22')
+      end
+    end
+
+    describe '#build_weekly_date_references' do
+      it 'builds correct references for Advent weekdays' do
+        # Thursday in first week of Advent
+        service = described_class.new(Date.new(2025, 12, 4))
+        refs = service.send(:build_weekly_date_references)
+
+        expect(refs).to include('1st_sunday_of_advent_thursday')
+        expect(refs).to include('december_4')
+      end
+
+      it 'builds proper references for Ordinary Time' do
+        # Saturday in Proper 20 week
+        service = described_class.new(Date.new(2025, 9, 27))
+        refs = service.send(:build_weekly_date_references)
+
+        expect(refs).to include('proper_20_saturday')
+        expect(refs).to include('september_27')
+      end
+
+      it 'builds references for fixed dates' do
+        service = described_class.new(Date.new(2025, 12, 22))
+        refs = service.send(:build_weekly_date_references)
+
+        expect(refs).to include('december_22')
+      end
+    end
+
+    describe '#weekday_name' do
+      it 'returns correct weekday names' do
+        service = described_class.new(Date.new(2025, 12, 1)) # Monday
+        expect(service.send(:weekday_name, Date.new(2025, 12, 1))).to eq('monday')
+        expect(service.send(:weekday_name, Date.new(2025, 12, 4))).to eq('thursday')
+        expect(service.send(:weekday_name, Date.new(2025, 12, 6))).to eq('saturday')
+      end
+    end
+
+    describe '#find_most_recent_sunday_date' do
+      it 'returns the same date for Sunday' do
+        sunday = Date.new(2025, 12, 7) # Sunday
+        service = described_class.new(sunday)
+
+        expect(service.send(:find_most_recent_sunday_date)).to eq(sunday)
+      end
+
+      it 'returns previous Sunday for Monday' do
+        monday = Date.new(2025, 12, 8)
+        expected_sunday = Date.new(2025, 12, 7)
+        service = described_class.new(monday)
+
+        expect(service.send(:find_most_recent_sunday_date)).to eq(expected_sunday)
+      end
+
+      it 'returns previous Sunday for Saturday' do
+        saturday = Date.new(2025, 12, 6)
+        expected_sunday = Date.new(2025, 11, 30)
+        service = described_class.new(saturday)
+
+        expect(service.send(:find_most_recent_sunday_date)).to eq(expected_sunday)
+      end
+    end
+
+    describe 'integration: find_readings for weekdays' do
+      it 'finds weekly readings instead of eucharistic for weekdays' do
+        # Thursday in Advent (has weekly reading)
+        service = described_class.new(Date.new(2025, 12, 4))
+        readings = service.find_readings
+
+        # Should find the weekly reading
+        expect(readings).not_to be_nil
+        if readings
+          expect(readings[:psalm][:reference]).to eq('Salmo 122')
+          expect(readings[:first_reading][:reference]).to eq('Daniel 9.15-19')
+        end
+      end
+
+      it 'prioritizes weekly readings over celebration for weekdays' do
+        # Create a celebration on a weekday
+        celebration = create(:celebration,
+          name: "Test Saint",
+          fixed_month: 12,
+          fixed_day: 4,
+          prayer_book: prayer_book
+        )
+
+        service = described_class.new(Date.new(2025, 12, 4))
+        readings = service.find_readings
+
+        # Should find weekly reading first (if exists)
+        expect(readings).not_to be_nil
+      end
+
+      it 'finds eucharistic readings for Sundays' do
+        # Sunday should still use eucharistic readings
+        service = described_class.new(Date.new(2025, 12, 7))
+
+        # Should NOT call find_weekly_reading for Sundays
+        expect(service).not_to receive(:find_weekly_reading)
+        service.find_readings
+      end
+    end
+
+    describe 'complementary vs semicontinuous' do
+      let!(:complementary_reading) do
+        create(:lectionary_reading,
+          prayer_book: prayer_book,
+          date_reference: 'proper_4_thursday',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'complementary',
+          psalm: 'Salmo 31.1-5, 19-24',
+          first_reading: 'Êxodo 24.1-8'
+        )
+      end
+
+      let!(:semicontinuous_reading) do
+        create(:lectionary_reading,
+          prayer_book: prayer_book,
+          date_reference: 'proper_4_thursday',
+          cycle: 'A',
+          service_type: 'weekly',
+          reading_type: 'semicontinuous',
+          psalm: 'Salmo 46',
+          first_reading: 'Gênesis 1.1–2.4a'
+        )
+      end
+
+      it 'can retrieve either reading type based on preference' do
+        # For now, just verify both exist and can be found
+        comp = LectionaryReading.find_by(
+          date_reference: 'proper_4_thursday',
+          reading_type: 'complementary'
+        )
+        semi = LectionaryReading.find_by(
+          date_reference: 'proper_4_thursday',
+          reading_type: 'semicontinuous'
+        )
+
+        expect(comp).not_to be_nil
+        expect(semi).not_to be_nil
+        expect(comp.psalm).not_to eq(semi.psalm)
+      end
     end
   end
 end
