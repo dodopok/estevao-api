@@ -28,7 +28,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     )
 
     @christmas = create(:celebration,
-      name: "Natal",
+      name: "Natividade de nosso Senhor Jesus Cristo",
       celebration_type: "principal_feast",
       rank: 2,
       movable: false,
