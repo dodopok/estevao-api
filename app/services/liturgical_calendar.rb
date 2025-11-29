@@ -307,6 +307,7 @@ class LiturgicalCalendar
 
       # Map of Proper numbers to their target dates (month, day)
       # Working backwards from Proper 29 (Nov 23) in increments of 7 days
+      # Propers 1-3 are only used in years when Easter falls early (before April 14)
       proper_dates = {
         29 => [ 11, 23 ], # Christ the King
         28 => [ 11, 16 ],
@@ -333,7 +334,10 @@ class LiturgicalCalendar
         7 => [ 6, 22 ],
         6 => [ 6, 15 ],
         5 => [ 6, 8 ],
-        4 => [ 6, 1 ]
+        4 => [ 6, 1 ],
+        3 => [ 5, 25 ],
+        2 => [ 5, 18 ],
+        1 => [ 5, 11 ]
       }
 
       # Find the Proper by finding the closest Sunday to each reference date
