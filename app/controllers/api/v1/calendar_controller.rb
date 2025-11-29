@@ -115,6 +115,7 @@ module Api
           is_sunday: info[:is_sunday],
           is_holy_day: info[:is_holy_day],
           sunday_name: info[:sunday_name],
+          description: info[:description],
           week_of_season: info[:week_of_season],
           proper_week: info[:proper_week],
           sunday_after_pentecost: info[:sunday_after_pentecost],
