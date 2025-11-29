@@ -314,9 +314,12 @@ class ReadingService
     # Construir date_reference baseado na semana litúrgica
     week_refs = build_weekly_date_references
 
+    # Ciclos possíveis: A/B/C (anual) e odd/even (bienal baseado no ano civil)
+    weekly_cycles = build_weekly_cycles
+
     week_refs.each do |ref|
       reading = LectionaryReading.for_date_reference(ref)
-                                 .where(cycle: [ cycle, "A", "B", "C" ]) # Busca no ciclo específico
+                                 .where(cycle: weekly_cycles)
                                  .for_prayer_book_id(prayer_book_id)
                                  .weekly
                                  .first
@@ -324,6 +327,14 @@ class ReadingService
     end
 
     nil
+  end
+
+  # Constrói os ciclos possíveis para leituras semanais
+  # Alguns prayer books usam A/B/C (ciclo trienal)
+  # Outros usam odd/even (ciclo bienal baseado no ano civil)
+  def build_weekly_cycles
+    odd_even_cycle = date.year.odd? ? "odd" : "even"
+    [ cycle, "A", "B", "C", odd_even_cycle, "all" ]
   end
 
   # Constrói lista de possíveis referências para leituras semanais
