@@ -187,6 +187,11 @@ class ReadingService
     when "Natal"
       refs << "week_of_christmas_#{weekday}"
       refs << "first_sunday_after_christmas_#{weekday}"
+      # Para dias próximos ao Batismo do Senhor (início de Janeiro)
+      if date.month == 1
+        refs << "baptism_of_christ_#{weekday}"
+        refs << "week_of_epiphany_#{weekday}"
+      end
     when "Epifania"
       refs << "week_of_epiphany_#{weekday}"
       refs << "baptism_of_christ_#{weekday}"
