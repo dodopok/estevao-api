@@ -20,22 +20,148 @@ class ReadingService
   # Retorna as leituras para o dia
   def find_readings
     reading = if date.sunday?
-                # Domingos: leituras eucarísticas
-                find_by_celebration ||
-                find_by_proper ||
-                find_by_sunday ||
-                find_by_fixed_date
+                # Domingos: verificar hierarquia litúrgica
+                find_sunday_readings
     else
-                # Dias de semana: leituras semanais (weekly) primeiro, depois outras
-                find_weekly_reading ||
-                find_by_celebration ||
-                find_by_fixed_date
+                # Dias de semana: verificar festas principais primeiro
+                find_weekday_readings
     end
 
     format_response(reading)
   end
 
   private
+
+  # Busca leituras para dias de semana
+  def find_weekday_readings
+    celebration = calendar.celebration_for_date(date)
+
+    # Festas principais e dias santos maiores têm precedência sobre leituras semanais
+    if celebration && (celebration[:type] == "principal_feast" || celebration[:type] == "major_holy_day")
+      reading = find_by_resolved_celebration(celebration)
+      return reading if reading
+    end
+
+    # Leituras semanais, depois celebrações menores, depois data fixa
+    find_weekly_reading ||
+    find_by_celebration ||
+    find_by_fixed_date
+  end
+
+  # Busca leituras para domingos respeitando hierarquia litúrgica
+  def find_sunday_readings
+    celebration = calendar.celebration_for_date(date)
+
+    # Festas principais e dias santos maiores sempre têm precedência
+    if celebration && (celebration[:type] == "principal_feast" || celebration[:type] == "major_holy_day")
+      reading = find_by_resolved_celebration(celebration)
+      return reading if reading
+    end
+
+    # Domingos em quadras principais têm precedência sobre festivais menores
+    if sunday_in_major_season?
+      reading = find_by_proper || find_by_sunday
+      return reading if reading
+    end
+
+    # Para outros domingos, festivais podem ter precedência
+    find_by_celebration ||
+    find_by_proper ||
+    find_by_sunday ||
+    find_by_fixed_date
+  end
+
+  # Busca leituras pela celebração resolvida (considera transferências e festas móveis)
+  def find_by_resolved_celebration(celebration_info)
+    return nil unless celebration_info
+
+    celebration = Celebration.find_by(id: celebration_info[:id])
+    return nil unless celebration
+
+    # Tentar por celebration_id
+    reading = LectionaryReading.where(celebration_id: celebration.id, cycle: [ "all", cycle ])
+                               .for_prayer_book_id(prayer_book_id)
+                               .service_type_eucharist
+                               .first
+    return reading if reading
+
+    # Tentar pelo nome parameterizado
+    celebration_ref = celebration.name.parameterize(separator: "_")
+    reading = LectionaryReading.for_date_reference(celebration_ref)
+                               .where(cycle: [ cycle, "all" ])
+                               .for_prayer_book_id(prayer_book_id)
+                               .service_type_eucharist
+                               .first
+    return reading if reading
+
+    # Tentar por calculation_rule (ex: "all_saints", "easter_plus_49_days")
+    if celebration.calculation_rule.present?
+      reading = LectionaryReading.for_date_reference(celebration.calculation_rule)
+                                 .where(cycle: [ cycle, "all" ])
+                                 .for_prayer_book_id(prayer_book_id)
+                                 .service_type_eucharist
+                                 .first
+      return reading if reading
+    end
+
+    # Tentar por date_references conhecidos para festas principais fixas
+    special_refs = build_celebration_date_references(celebration)
+    special_refs.each do |ref|
+      reading = LectionaryReading.for_date_reference(ref)
+                                 .where(cycle: [ cycle, "all" ])
+                                 .for_prayer_book_id(prayer_book_id)
+                                 .service_type_eucharist
+                                 .first
+      return reading if reading
+    end
+
+    nil
+  end
+
+  # Constrói referências possíveis para uma celebração
+  def build_celebration_date_references(celebration)
+    refs = []
+
+    # Festas fixas: tentar por data
+    if celebration.fixed_month && celebration.fixed_day
+      # Formato "month_day"
+      month_name = Date::MONTHNAMES[celebration.fixed_month]&.downcase
+      refs << "#{month_name}_#{celebration.fixed_day}" if month_name
+
+      # Referências especiais conhecidas
+      case [ celebration.fixed_month, celebration.fixed_day ]
+      when [ 12, 25 ]
+        refs << "christmas_day"
+        refs << "christmas"
+      when [ 12, 24 ]
+        refs << "christmas_eve"
+      when [ 1, 1 ]
+        refs << "holy_name"
+      when [ 1, 6 ]
+        refs << "epiphany"
+      when [ 3, 25 ]
+        refs << "annunciation"
+      when [ 11, 1 ]
+        refs << "all_saints"
+      when [ 8, 6 ]
+        refs << "transfiguration"
+      when [ 2, 2 ]
+        refs << "presentation_of_the_lord"
+        refs << "presentation"
+      end
+    end
+
+    refs
+  end
+
+  # Verifica se o domingo está em uma quadra principal
+  # onde o domingo tem precedência sobre festivais menores
+  def sunday_in_major_season?
+    return false unless date.sunday?
+
+    season = calendar.season_for_date(date)
+    %w[Advento Quaresma Páscoa].include?(season)
+  end
 
   # Determina o ciclo litúrgico (A, B, C para leituras semanais e domingos)
   def determine_cycle

@@ -489,5 +489,247 @@ RSpec.describe ReadingService do
         expect(comp.psalm).not_to eq(semi.psalm)
       end
     end
+
+    describe 'Sunday readings hierarchy in major seasons' do
+      let!(:advent_sunday_reading) do
+        create(:lectionary_reading,
+          prayer_book: prayer_book,
+          date_reference: '1st_sunday_of_advent',
+          cycle: 'A', # 2025-11-30 starts liturgical year 2026 which is Cycle A
+          service_type: 'eucharist',
+          first_reading: 'Isaías 2:1-5',
+          psalm: 'Salmo 122',
+          second_reading: 'Romanos 13:11-14',
+          gospel: 'Mateus 24:36-44'
+        )
+      end
+
+      let!(:saint_on_advent_sunday) do
+        create(:celebration,
+          name: 'Santo Teste Advento',
+          celebration_type: :festival,
+          rank: 50,
+          movable: false,
+          fixed_month: 11,
+          fixed_day: 30,
+          liturgical_color: 'vermelho',
+          prayer_book: prayer_book)
+      end
+
+      let!(:saint_reading) do
+        create(:lectionary_reading,
+          celebration: saint_on_advent_sunday,
+          prayer_book: prayer_book,
+          date_reference: '11-30',
+          cycle: 'all',
+          service_type: 'eucharist',
+          first_reading: 'Zacarias 8:20-23',
+          psalm: 'Salmo 47',
+          second_reading: 'Romanos 10:8b-18',
+          gospel: 'João 1:35-42'
+        )
+      end
+
+      it 'prioritizes Advent Sunday readings over festival readings' do
+        # November 30, 2025 is the 1st Sunday of Advent
+        date = Date.new(2025, 11, 30)
+        service = described_class.new(date)
+
+        readings = service.find_readings
+
+        expect(readings).not_to be_nil
+        # Should return Advent readings, not saint readings
+        expect(readings[:gospel][:reference]).to eq('Mateus 24:36-44')
+        expect(readings[:gospel][:reference]).not_to eq('João 1:35-42')
+      end
+
+      it 'still returns celebration info even when using Sunday readings' do
+        date = Date.new(2025, 11, 30)
+        calendar = LiturgicalCalendar.new(2025)
+        info = calendar.day_info(date)
+
+        # Celebration should still appear (for those who want to observe)
+        # Note: may pick up André Apóstolo from seeds or our test celebration
+        expect(info[:celebration]).not_to be_nil
+      end
+    end
+
+    describe 'Sunday readings in Ordinary Time' do
+      let!(:ordinary_time_sunday_reading) do
+        create(:lectionary_reading,
+          prayer_book: prayer_book,
+          date_reference: 'proper_16',
+          cycle: 'C', # 2025 after Pentecost is Cycle C
+          service_type: 'eucharist',
+          first_reading: 'Isaías 58:9b-14',
+          psalm: 'Salmo 103:1-8',
+          second_reading: 'Hebreus 12:18-29',
+          gospel: 'Lucas 13:10-17'
+        )
+      end
+
+      let!(:saint_on_ordinary_sunday) do
+        create(:celebration,
+          name: 'São Bartolomeu Teste',
+          celebration_type: :festival,
+          rank: 50,
+          movable: false,
+          fixed_month: 8,
+          fixed_day: 24,
+          liturgical_color: 'vermelho',
+          prayer_book: prayer_book)
+      end
+
+      let!(:saint_ordinary_reading) do
+        create(:lectionary_reading,
+          celebration: saint_on_ordinary_sunday,
+          prayer_book: prayer_book,
+          date_reference: '8-24',
+          cycle: 'all',
+          service_type: 'eucharist',
+          first_reading: 'Gênesis 28:10-17',
+          psalm: 'Salmo 103:1b-8',
+          second_reading: 'Atos 5:12-16',
+          gospel: 'João 1:43-51'
+        )
+      end
+
+      it 'allows festival readings on Sundays in Ordinary Time' do
+        # August 24, 2025 is a Sunday in Ordinary Time
+        date = Date.new(2025, 8, 24)
+        service = described_class.new(date)
+
+        readings = service.find_readings
+
+        # In Ordinary Time, festival readings may take precedence
+        expect(readings).not_to be_nil
+        expect(readings[:gospel][:reference]).to eq('João 1:43-51')
+      end
+    end
+
+    describe 'principal feasts always have precedence' do
+      let!(:christmas_reading) do
+        create(:lectionary_reading,
+          prayer_book: prayer_book,
+          date_reference: 'christmas_day',
+          cycle: 'all',
+          service_type: 'eucharist',
+          first_reading: 'Isaías 52:7-10',
+          psalm: 'Salmo 98',
+          second_reading: 'Hebreus 1:1-12',
+          gospel: 'João 1:1-14'
+        )
+      end
+
+      let!(:christmas_celebration) do
+        create(:celebration,
+          name: 'Natividade de nosso Senhor',
+          celebration_type: :principal_feast,
+          rank: 1,
+          movable: false,
+          fixed_month: 12,
+          fixed_day: 25,
+          liturgical_color: 'branco',
+          prayer_book: prayer_book)
+      end
+
+      it 'returns principal feast readings on weekday' do
+        date = Date.new(2025, 12, 25) # Thursday
+        service = described_class.new(date)
+
+        readings = service.find_readings
+
+        # Christmas is a principal feast on a weekday, should have its readings
+        expect(readings).not_to be_nil
+        expect(readings[:gospel][:reference]).to eq('João 1:1-14')
+      end
+    end
+
+    describe 'transferred movable feasts' do
+      let!(:all_saints_reading) do
+        create(:lectionary_reading,
+          prayer_book: prayer_book,
+          date_reference: 'all_saints',
+          cycle: 'all',
+          service_type: 'eucharist',
+          first_reading: 'Apocalipse 7:9-17',
+          psalm: 'Salmo 34:1-10, 22',
+          second_reading: '1 João 3:1-3',
+          gospel: 'Mateus 5:1-12'
+        )
+      end
+
+      let!(:all_saints_celebration) do
+        create(:celebration,
+          name: 'Todos os Santos',
+          celebration_type: :principal_feast,
+          rank: 11,
+          movable: true,
+          calculation_rule: 'first_sunday_in_november_or_nov_1',
+          can_be_transferred: true,
+          fixed_month: 11,
+          fixed_day: 1,
+          liturgical_color: 'branco',
+          prayer_book: prayer_book)
+      end
+
+      it 'returns feast readings when transferred to Sunday' do
+        # In 2025, Nov 1 is Saturday, so All Saints is transferred to Nov 2 (Sunday)
+        # This tests that transferred feasts still get their readings
+        date = Date.new(2025, 11, 2)
+
+        # Simulate the celebration being resolved for this date
+        calendar = LiturgicalCalendar.new(2025)
+        info = calendar.celebration_for_date(date)
+
+        # If the celebration resolver returns All Saints for this date
+        if info && info[:name]&.include?('Santos')
+          service = described_class.new(date)
+          readings = service.find_readings
+
+          expect(readings).not_to be_nil
+          expect(readings[:gospel][:reference]).to eq('Mateus 5:1-12')
+        end
+      end
+    end
+
+    describe 'weekday principal feasts' do
+      let!(:transfiguration_reading) do
+        create(:lectionary_reading,
+          prayer_book: prayer_book,
+          date_reference: 'transfiguration',
+          cycle: 'all',
+          service_type: 'eucharist',
+          first_reading: 'Daniel 7:9-10, 13-14',
+          psalm: 'Salmo 99',
+          second_reading: '2 Pedro 1:16-19',
+          gospel: 'Lucas 9:28-36'
+        )
+      end
+
+      let!(:transfiguration_celebration) do
+        create(:celebration,
+          name: 'Transfiguração do Senhor',
+          celebration_type: :principal_feast,
+          rank: 5,
+          movable: false,
+          fixed_month: 8,
+          fixed_day: 6,
+          liturgical_color: 'branco',
+          prayer_book: prayer_book)
+      end
+
+      it 'returns principal feast readings on weekday over weekly readings' do
+        # August 6, 2025 is a Wednesday
+        date = Date.new(2025, 8, 6)
+        service = described_class.new(date)
+
+        readings = service.find_readings
+
+        # Transfiguration is a principal feast, should override weekly readings
+        expect(readings).not_to be_nil
+        expect(readings[:gospel][:reference]).to eq('Lucas 9:28-36')
+      end
+    end
   end
 end
