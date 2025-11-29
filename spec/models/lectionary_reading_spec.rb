@@ -182,7 +182,7 @@ RSpec.describe LectionaryReading, type: :model do
       end
 
       it 'returns only weekly readings' do
-        weekly_readings = LectionaryReading.weekly.where(id: [weekly_reading.id, eucharist_reading.id])
+        weekly_readings = LectionaryReading.weekly.where(id: [ weekly_reading.id, eucharist_reading.id ])
 
         expect(weekly_readings.count).to eq(1)
         expect(weekly_readings.first).to eq(weekly_reading)
@@ -190,7 +190,7 @@ RSpec.describe LectionaryReading, type: :model do
       end
 
       it 'does not return eucharistic readings' do
-        weekly_readings = LectionaryReading.weekly.where(id: [weekly_reading.id, eucharist_reading.id])
+        weekly_readings = LectionaryReading.weekly.where(id: [ weekly_reading.id, eucharist_reading.id ])
 
         expect(weekly_readings).not_to include(eucharist_reading)
       end

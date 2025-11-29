@@ -73,7 +73,7 @@ module LiturgicalDataHelper
       pb.is_default = true
       pb.features = {
         "lectionary" => {
-          "reading_types" => ["semicontinuous", "complementary"],
+          "reading_types" => [ "semicontinuous", "complementary" ],
           "default_reading_type" => "semicontinuous",
           "supports_vigil" => false
         },
@@ -90,7 +90,7 @@ module LiturgicalDataHelper
       pb.is_default = false
       pb.features = {
         "lectionary" => {
-          "reading_types" => ["semicontinuous", "complementary"],
+          "reading_types" => [ "semicontinuous", "complementary" ],
           "default_reading_type" => "semicontinuous",
           "supports_vigil" => false
         },

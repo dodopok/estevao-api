@@ -25,12 +25,12 @@ class ReadingService
                 find_by_proper ||
                 find_by_sunday ||
                 find_by_fixed_date
-              else
+    else
                 # Dias de semana: leituras semanais (weekly) primeiro, depois outras
                 find_weekly_reading ||
                 find_by_celebration ||
                 find_by_fixed_date
-              end
+    end
 
     format_response(reading)
   end

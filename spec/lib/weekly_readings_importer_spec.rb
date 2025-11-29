@@ -9,7 +9,7 @@ RSpec.describe WeeklyReadingsImporter do
       pb.name = 'Test LOC 2015'
     end
   end
-  let(:temp_csv) { Tempfile.new(['weekly_readings', '.csv']) }
+  let(:temp_csv) { Tempfile.new([ 'weekly_readings', '.csv' ]) }
 
   after do
     temp_csv.close
