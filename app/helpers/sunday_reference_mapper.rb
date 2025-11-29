@@ -39,8 +39,23 @@ class SundayReferenceMapper
       # Verificar se é um domingo após Natal
       return CHRISTMAS_SUNDAYS[sunday_name] if CHRISTMAS_SUNDAYS.key?(sunday_name)
 
+      # Verificar se é o último domingo após Epifania (Transfiguração)
+      if is_last_sunday_after_epiphany?(date, calendar)
+        return "last_sunday_after_epiphany"
+      end
+
       # Converter domingos numerados
       parse_numbered_sunday(sunday_name)
+    end
+
+    # Verifica se a data é o último domingo após Epifania
+    def is_last_sunday_after_epiphany?(date, calendar)
+      return false unless date.sunday?
+      return false unless calendar.season_for_date(date) == "Epifania"
+
+      # O último domingo da Epifania é o domingo antes da Quarta-feira de Cinzas
+      easter_calc = calendar.easter_calc
+      date == easter_calc.last_sunday_after_epiphany
     end
 
     private
@@ -68,9 +83,14 @@ class SundayReferenceMapper
       season = match[3]
 
       ordinal = to_ordinal(number)
-      prep = translate_preposition(preposition)
       translated_season = translate_season(season)
 
+      # Epifania usa "after" em vez de "of" (ex: 2nd_sunday_after_epiphany)
+      if season == "Epifania"
+        return "#{ordinal}_sunday_after_#{translated_season}"
+      end
+
+      prep = translate_preposition(preposition)
       "#{ordinal}_sunday_#{prep}_#{translated_season}"
     end
 

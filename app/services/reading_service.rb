@@ -193,8 +193,15 @@ class ReadingService
         refs << "week_of_epiphany_#{weekday}"
       end
     when "Epifania"
+      week = calendar.week_number(date)
+      # O CSV usa "Tempo Comum X" para semanas da Epifania
+      # O week number na Epifania começa em 1 (Batismo), então Tempo Comum 2 = week 2
+      # Adicionar +1 porque o Batismo é week 1 mas não tem Tempo Comum 1
+      refs << "ordinary_time_#{week + 1}_#{weekday}" if week && week >= 1
+      refs << "ordinary_time_#{week}_#{weekday}" if week && week >= 1
       refs << "week_of_epiphany_#{weekday}"
       refs << "baptism_of_christ_#{weekday}"
+      refs << "last_sunday_after_epiphany_#{weekday}"
     when "Quaresma"
       week = calendar.week_number(date)
       refs << "#{week.ordinalize}_sunday_of_lent_#{weekday}" if week
@@ -205,7 +212,15 @@ class ReadingService
       refs << "week_of_pentecost_#{weekday}"
       refs << "trinity_sunday_#{weekday}"
     when "Tempo Comum"
-      # Já tratado pelo proper_number acima
+      # Verificar se estamos na semana entre Pentecostes e Trindade
+      easter_calc = EasterCalculator.new(date.year)
+      pentecost = easter_calc.pentecost
+      trinity = pentecost + 7  # Trindade = domingo após Pentecostes
+
+      if date > pentecost && date < trinity
+        refs << "week_of_pentecost_#{weekday}"
+        refs << "trinity_sunday_#{weekday}"
+      end
     end
 
     refs
