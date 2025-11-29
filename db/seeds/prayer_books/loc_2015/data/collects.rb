@@ -106,12 +106,12 @@ end
 
 christmas_epiphany_collects = [
   {
-    sunday_reference: "1st_sunday_of_christmas",
+    sunday_reference: "1st_sunday_after_christmas",
     text: "Onipotente Deus, que derramaste sobre nós a nova luz do teu Verbo feito carne; concede que essa mesma luz, acesa em nossos corações, brilhe em nossas vidas; por Jesus Cristo, nosso Senhor, que vive e reina contigo, na unidade do Espírito Santo, um só Deus, agora e sempre. Amém.",
     language: "pt-BR"
   },
   {
-    sunday_reference: "2nd_sunday_of_christmas",
+    sunday_reference: "2nd_sunday_after_christmas",
     text: "Ó Deus, que maravilhosamente criaste e ainda mais maravilhosamente restauraste a dignidade da natureza humana; concede que participemos da vida divinal de teu Filho Jesus Cristo, que se humilhou para participar de nossa humanidade, o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
     language: "pt-BR"
   },

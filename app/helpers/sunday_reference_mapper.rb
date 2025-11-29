@@ -11,6 +11,12 @@ class SundayReferenceMapper
     "Batismo de nosso Senhor Jesus Cristo" => "baptism_of_the_lord"
   }.freeze
 
+  # Mapa de domingos após Natal (usam "after" em vez de "of")
+  CHRISTMAS_SUNDAYS = {
+    "1º Domingo após Natal" => "1st_sunday_after_christmas",
+    "2º Domingo após Natal" => "2nd_sunday_after_christmas"
+  }.freeze
+
   # Tradução de quadras litúrgicas (português -> inglês)
   SEASON_TRANSLATIONS = {
     "Advento" => "advent",
@@ -30,6 +36,9 @@ class SundayReferenceMapper
       # Verificar se é um domingo especial
       return SPECIAL_SUNDAYS[sunday_name] if SPECIAL_SUNDAYS.key?(sunday_name)
 
+      # Verificar se é um domingo após Natal
+      return CHRISTMAS_SUNDAYS[sunday_name] if CHRISTMAS_SUNDAYS.key?(sunday_name)
+
       # Converter domingos numerados
       parse_numbered_sunday(sunday_name)
     end
@@ -39,7 +48,18 @@ class SundayReferenceMapper
     # Converte domingos numerados para formato de referência
     # "1º Domingo do Advento" -> "1st_sunday_of_advent"
     # "4º Domingo na Quaresma" -> "4th_sunday_in_lent"
+    # "1º Domingo após Natal" -> "1st_sunday_after_christmas"
     def parse_numbered_sunday(sunday_name)
+      # Primeiro, verificar domingos "após" (ex: "1º Domingo após Natal")
+      match_after = sunday_name.match(/(\d+)º Domingo após (.+)/)
+      if match_after
+        number = match_after[1].to_i
+        season = match_after[2]
+        ordinal = to_ordinal(number)
+        translated_season = translate_season(season)
+        return "#{ordinal}_sunday_after_#{translated_season}"
+      end
+
       match = sunday_name.match(/(\d+)º Domingo (do|no|da|na) (.+)/)
       return sunday_name.parameterize(separator: "_") unless match
 

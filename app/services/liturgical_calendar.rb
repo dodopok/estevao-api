@@ -30,23 +30,28 @@ class LiturgicalCalendar
   # Retorna a quadra litúrgica para uma data
   def season_for_date(date)
     movable = easter_calc.all_movable_dates
+    baptism = movable[:baptism_of_the_lord]
+
+    # Verificar primeiro se estamos no início de Janeiro (Natal do ano anterior)
+    # Ex: 5 de Janeiro 2025 pertence ao Natal que começou em 25 Dez 2024
+    # O Batismo do Senhor marca o fim do Natal e início da Epifania
+    if date.month == 1 && date < baptism
+      return "Natal"
+    end
 
     # Advento: do 1º Domingo do Advento até 24 de dezembro
     if date >= movable[:first_sunday_of_advent] && date <= Date.new(year, 12, 24)
       return "Advento"
     end
 
-    # Natal: 25 de dezembro até 6 de janeiro (Epifania)
-    # Pode cruzar o ano novo
+    # Natal: 25 de dezembro até véspera do Batismo do Senhor do próximo ano
     christmas_start = Date.new(year, 12, 25)
-    epiphany = Date.new(year + 1, 1, 6)
-    if date >= christmas_start && date <= epiphany
+    if date >= christmas_start
       return "Natal"
     end
 
-    # Epifania: 7 de janeiro até véspera da Quarta de Cinzas
-    epiphany_start_date = Date.new(year, 1, 7)
-    if date >= epiphany_start_date && date < movable[:ash_wednesday]
+    # Epifania: do Batismo do Senhor até véspera da Quarta de Cinzas
+    if date >= baptism && date < movable[:ash_wednesday]
       return "Epifania"
     end
 
@@ -154,6 +159,12 @@ class LiturgicalCalendar
       "Batismo de nosso Senhor Jesus Cristo"
     else
       week = week_number(date)
+
+      # Tratamento especial para o tempo de Natal
+      if season == "Natal"
+        return "#{week}º Domingo após Natal"
+      end
+
       preposition = case season
       when "Tempo Comum" then "no"
       when "Quaresma" then "na"
@@ -172,9 +183,15 @@ class LiturgicalCalendar
     case season
     when "Advento"
       ((date - movable[:first_sunday_of_advent]).to_i / 7) + 1
+    when "Natal"
+      # Contar domingos após o Natal
+      # 25-31 de dezembro = semana 1
+      # 1-6 de janeiro (antes do Batismo) = semana 2
+      christmas = date.month == 12 ? Date.new(year, 12, 25) : Date.new(year - 1, 12, 25)
+      ((date - christmas).to_i / 7) + 1
     when "Epifania"
-      # Count weeks from the Monday after Epiphany season starts
-      start_date = epiphany_season_start
+      # Count weeks from Baptism of the Lord
+      start_date = movable[:baptism_of_the_lord]
       ((date - start_date).to_i / 7) + 1
     when "Quaresma"
       ((date - movable[:first_sunday_in_lent]).to_i / 7) + 1

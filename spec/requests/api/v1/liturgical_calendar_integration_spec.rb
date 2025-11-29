@@ -595,4 +595,78 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
       expect(json.keys.any?).to be true
     end
   end
+
+  # === INTEGRATION TESTS: CHRISTMAS SEASON DATES ===
+
+  describe "Integration: Christmas season dates" do
+    before do
+      # Create collects for Christmas Sundays
+      Collect.create!(
+        sunday_reference: "1st_sunday_after_christmas",
+        text: "Coleta do 1º Domingo após Natal",
+        language: "pt-BR",
+        prayer_book: @prayer_book
+      )
+
+      Collect.create!(
+        sunday_reference: "2nd_sunday_after_christmas",
+        text: "Coleta do 2º Domingo após Natal",
+        language: "pt-BR",
+        prayer_book: @prayer_book
+      )
+
+      # Create readings for Christmas Sundays
+      LectionaryReading.create!(
+        date_reference: "2nd_sunday_after_christmas",
+        cycle: "all",
+        service_type: "eucharist",
+        first_reading: "Jeremias 31:7-14",
+        psalm: "Salmo 147:12-20",
+        second_reading: "Efésios 1:3-14",
+        gospel: "João 1:10-18",
+        prayer_book: @prayer_book
+      )
+    end
+
+    it "5 de Janeiro 2025 retorna tempo de Natal e leituras corretas" do
+      get "/api/v1/calendar/2025/01/05"
+
+      expect(response).to have_http_status(:success)
+      json = JSON.parse(response.body)
+
+      # Deve ser tempo de Natal, não Tempo Comum
+      expect(json["liturgical_season"]).to eq("Natal")
+      expect(json["liturgical_color"]).to eq("branco")
+      expect(json["sunday_name"]).to eq("2º Domingo após Natal")
+      expect(json["week_of_season"]).to eq(2)
+
+      # Deve retornar coleta
+      expect(json["collect"]).to be_present
+
+      # Deve retornar leituras
+      expect(json["readings"]).to be_present
+    end
+
+    it "28 de Dezembro 2025 retorna 1º Domingo após Natal" do
+      get "/api/v1/calendar/2025/12/28"
+
+      expect(response).to have_http_status(:success)
+      json = JSON.parse(response.body)
+
+      expect(json["liturgical_season"]).to eq("Natal")
+      expect(json["liturgical_color"]).to eq("branco")
+      expect(json["sunday_name"]).to eq("1º Domingo após Natal")
+      expect(json["week_of_season"]).to eq(1)
+    end
+
+    it "12 de Janeiro 2025 retorna Batismo do Senhor (início da Epifania)" do
+      get "/api/v1/calendar/2025/01/12"
+
+      expect(response).to have_http_status(:success)
+      json = JSON.parse(response.body)
+
+      expect(json["liturgical_season"]).to eq("Epifania")
+      expect(json["sunday_name"]).to eq("Batismo de nosso Senhor Jesus Cristo")
+    end
+  end
 end
