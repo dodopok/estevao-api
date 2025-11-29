@@ -24,6 +24,11 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
+  # Define spec types for directories that aren't recognized by default
+  config.define_derived_metadata(file_path: %r{/spec/services/}) do |metadata|
+    metadata[:type] = :service
+  end
+
   # Parallel tests configuration
   if ENV['TEST_ENV_NUMBER']
     config.default_formatter = 'progress'

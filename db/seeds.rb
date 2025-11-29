@@ -3,6 +3,13 @@
 # Este arquivo orquestra o carregamento de todos os dados do sistema
 # ================================================================================
 
+# Não executar seeds em ambiente de testes
+# Os testes devem usar factories (FactoryBot) para criar seus próprios dados
+if Rails.env.test?
+  puts "⚠️  Seeds desabilitados em ambiente de testes. Use factories para criar dados de teste."
+  return
+end
+
 puts "🌱 Iniciando seeds do Calendário Litúrgico Anglicano..."
 
 # Mostra totais antes da limpeza

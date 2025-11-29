@@ -1,14 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe "Liturgical Calendar Integration", type: :request do
+  before(:all) do
+    # Setup foundational liturgical data
+    setup_liturgical_foundation
+  end
+
   before do
     # Create required test data for complete integration tests
-    @prayer_book = create(:prayer_book, :default)
+    @prayer_book = @loc_2015 || PrayerBook.find_by(code: "loc_2015")
 
-    @advent_season = LiturgicalSeason.find_or_create_by!(name: "Advento") { |s| s.color = "violeta" }
-    @christmas_season = LiturgicalSeason.find_or_create_by!(name: "Natal") { |s| s.color = "branco" }
-    @lent_season = LiturgicalSeason.find_or_create_by!(name: "Quaresma") { |s| s.color = "roxo" }
-    @easter_season = LiturgicalSeason.find_or_create_by!(name: "Páscoa") { |s| s.color = "branco" }
+    # Seasons are already created by setup_liturgical_foundation
+    @advent_season = @advent
+    @christmas_season = @christmas
+    @lent_season = @lent
+    @easter_season = @easter
 
     # Create test celebrations
     @easter = create(:celebration,
@@ -321,10 +327,14 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
 
   describe "Integration: Collects" do
     it "fluxo completo: coletas são incluídas quando disponíveis" do
-      # Cria coleta para Natal
+      # Busca a celebração que será resolvida pelo CelebrationResolver
+      resolver = CelebrationResolver.new(2025, prayer_book_code: "loc_2015")
+      christmas_celebration = resolver.resolve_for_date(Date.new(2025, 12, 25))
+
+      # Cria coleta para Natal usando a celebração que será resolvida
       create(:collect,
         prayer_book: @prayer_book,
-        celebration_id: @christmas.id,
+        celebration_id: christmas_celebration.id,
         text: "Deus Onipotente, que destes vosso Filho unigênito...",
         language: "pt-BR"
       )

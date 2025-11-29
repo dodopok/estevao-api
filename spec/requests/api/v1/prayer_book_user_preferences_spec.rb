@@ -3,6 +3,11 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/prayer_book_user_preferences', type: :request do
+  # Setup basic liturgical data before all tests
+  before(:all) do
+    setup_liturgical_foundation
+  end
+
   def self.api_tags
     'Prayer Book Preferences'
   end

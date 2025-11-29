@@ -31,7 +31,7 @@ def create_reading_by_celebration(celebration_name, reading_data, prayer_book_id
     return false
   end
 
-  year = reading_data[:year] || "ABC"
+  year = reading_data[:year] || "all"
 
   existing = LectionaryReading.find_by(
     celebration_id: celebration.id,
@@ -79,7 +79,7 @@ end
 
 # Santo Nome de Jesus (1 de janeiro)
 if create_reading_by_celebration("Santo Nome de Jesus", {
-  year: "ABC",
+  year: "all",
   first_reading: "Isaías 9:2-7",
   psalm: "Salmo 8",
   second_reading: "Atos 4:8-12",
@@ -92,7 +92,7 @@ end
 
 # Conversão de São Paulo (25 de janeiro)
 if create_reading_by_celebration("Conversão de São Paulo", {
-  year: "ABC",
+  year: "all",
   first_reading: "Atos 26:9-23",
   psalm: "Salmo 67",
   second_reading: "Gálatas 1:11-24",
@@ -123,7 +123,7 @@ else
 end
 
 if create_reading_by_celebration("Apresentação de nosso Senhor Jesus Cristo no Templo", {
-  year: "ABC",
+  year: "all",
   first_reading: "Malaquias 3:1-4",
   psalm: "Salmo 24",
   second_reading: "Hebreus 2:14-18",
@@ -143,7 +143,7 @@ wesley = Celebration.find_by("name LIKE ?", "%Wesley%")
 if wesley
   existing = LectionaryReading.find_by(
     celebration_id: wesley.id,
-    cycle: "ABC",
+    cycle: "all",
     service_type: "eucharist",
     prayer_book_id: prayer_book.id
   )
@@ -151,7 +151,7 @@ if wesley
     LectionaryReading.create!(
       celebration_id: wesley.id,
       date_reference: "#{wesley.fixed_month}-#{wesley.fixed_day}",
-      cycle: "ABC",
+      cycle: "all",
       service_type: "eucharist",
       first_reading: "Êxodo 3:1-15",
       psalm: "Salmo 31",
@@ -167,7 +167,7 @@ end
 
 # São José (19 de março)
 if create_reading_by_celebration("São José", {
-  year: "ABC",
+  year: "all",
   first_reading: "Deuteronômio 33:13-16",
   psalm: "Salmo 89:2-9",
   second_reading: "Filipenses 4:5-8",
@@ -183,14 +183,14 @@ cranmer = Celebration.find_by("name LIKE ?", "%Cranmer%")
 if cranmer
   existing = LectionaryReading.find_by(
     celebration_id: cranmer.id,
-    cycle: "ABC",
+    cycle: "all",
     service_type: "eucharist",
   )
   if existing.nil?
     LectionaryReading.create!(
       celebration_id: cranmer.id,
       date_reference: "#{cranmer.fixed_month}-#{cranmer.fixed_day}",
-      cycle: "ABC",
+      cycle: "all",
       service_type: "eucharist",
       first_reading: "Êxodo 3:1-15",
       psalm: "Salmo 31",
@@ -220,7 +220,7 @@ else
 end
 
 if create_reading_by_celebration("Anunciação de Nosso Senhor", {
-  year: "ABC",
+  year: "all",
   first_reading: "Isaías 7:10-14",
   psalm: "Salmo 113",
   second_reading: "Romanos 5:12-17",
@@ -237,7 +237,7 @@ end
 
 # São Marcos (25 de abril)
 if create_reading_by_celebration("São Marcos Evangelista", {
-  year: "ABC",
+  year: "all",
   first_reading: "Isaías 52:7-10",
   psalm: "Salmo 119:9-16",
   second_reading: "Efésios 4:7-16",
@@ -254,7 +254,7 @@ end
 
 # São Filipe e São Tiago (1 de maio)
 if create_reading_by_celebration("São Matias", {
-  year: "ABC",
+  year: "all",
   first_reading: "Provérbios 4:10-18",
   psalm: "Salmo 84",
   second_reading: "1 Coríntios 12:4-13",
@@ -267,7 +267,7 @@ end
 
 # São Matias (14 de maio)
 if create_reading_by_celebration("São Matias", {
-  year: "ABC",
+  year: "all",
   first_reading: "Isaías 22:15-22",
   psalm: "Salmo 16",
   second_reading: "Atos 1:15-26",
@@ -294,7 +294,7 @@ else
 end
 
 if create_reading_by_celebration("Visitação da Bem-Aventurada Virgem Maria", {
-  year: "ABC",
+  year: "all",
   first_reading: "Sofonias 3:14-18a",
   psalm: "Salmo 113",
   second_reading: "Efésios 5:18b-20",
@@ -311,7 +311,7 @@ end
 
 # São Barnabé (11 de junho)
 if create_reading_by_celebration("São Barnabé", {
-  year: "ABC",
+  year: "all",
   first_reading: "Jó 29:11-16",
   psalm: "Salmo 112",
   second_reading: "Atos 11:19-30",
@@ -324,7 +324,7 @@ end
 
 # Natividade de João Batista (24 de junho)
 if create_reading_by_celebration("Natividade de São João Batista", {
-  year: "ABC",
+  year: "all",
   first_reading: "Isaías 40:1-11",
   psalm: "Salmo 119:161-168",
   second_reading: "Atos 13:16-25",
@@ -351,7 +351,7 @@ else
 end
 
 if create_reading_by_celebration("São Pedro e São Paulo", {
-  year: "ABC",
+  year: "all",
   first_reading: "Jonas 3",
   psalm: "Salmo 34:2-10",
   second_reading: "2 Timóteo 4:1-8",
@@ -368,7 +368,7 @@ end
 
 # São Tomé (3 de julho)
 if create_reading_by_celebration("São Tomé", {
-  year: "ABC",
+  year: "all",
   first_reading: "Jó 42:1-6",
   psalm: "Salmo 126",
   second_reading: "Hebreus 10:35-11:1",
@@ -381,7 +381,7 @@ end
 
 # Santa Maria Madalena (22 de julho)
 if create_reading_by_celebration("Santa Maria Madalena", {
-  year: "ABC",
+  year: "all",
   first_reading: "Cantares 3:1-4a",
   psalm: "Salmo 63:2-10",
   second_reading: "2 Coríntios 5:14-17",
@@ -408,7 +408,7 @@ else
 end
 
 if create_reading_by_celebration("São Tiago", {
-  year: "ABC",
+  year: "all",
   first_reading: "Jeremias 45",
   psalm: "Salmo 15",
   second_reading: "Atos 11:27-12:3",
@@ -439,7 +439,7 @@ else
 end
 
 if create_reading_by_celebration("Transfiguração de nosso Senhor Jesus Cristo", {
-  year: "ABC",
+  year: "all",
   first_reading: "Êxodo 34:29-35",
   psalm: "Salmo 99",
   second_reading: "2 Coríntios 3:4-18",
@@ -466,7 +466,7 @@ else
 end
 
 if create_reading_by_celebration("São Bartolomeu", {
-  year: "ABC",
+  year: "all",
   first_reading: "Gênesis 28:10-17",
   psalm: "Salmo 103:1b-8",
   second_reading: "Atos 5:12-16",
@@ -539,7 +539,7 @@ else
 end
 
 if create_reading_by_celebration("Mateus, Apóstolo e Evangelista", {
-  year: "ABC",
+  year: "all",
   first_reading: "Provérbios 3:9-18",
   psalm: "Salmo 19",
   second_reading: "2 Timóteo 3:14-17",
@@ -552,7 +552,7 @@ end
 
 # São Miguel e Todos os Anjos (29 de setembro)
 if create_reading_by_celebration("Arcanjo Miguel e Todos os Anjos", {
-  year: "ABC",
+  year: "all",
   first_reading: "Jó 38:1-7",
   psalm: "Salmo 148:1-6",
   second_reading: "Apocalipse 12:7-12",
@@ -583,7 +583,7 @@ else
 end
 
 if create_reading_by_celebration("Lucas, Evangelista", {
-  year: "ABC",
+  year: "all",
   first_reading: "Isaías 61:1-6",
   psalm: "Salmo 147:1-7",
   second_reading: "Atos 1:1-8",
@@ -610,7 +610,7 @@ else
 end
 
 if create_reading_by_celebration("Simão e Judas, Apóstolos", {
-  year: "ABC",
+  year: "all",
   first_reading: "Isaías 28:9-16",
   psalm: "Salmo 119:89-96",
   second_reading: "Apocalipse 21:9-14",
@@ -626,14 +626,14 @@ luther = Celebration.find_by("name LIKE ?", "%Lutero%") || Celebration.find_by("
 if luther
   existing = LectionaryReading.find_by(
     celebration_id: luther.id,
-    cycle: "ABC",
+    cycle: "all",
     service_type: "eucharist",
   )
   if existing.nil?
     LectionaryReading.create!(
       celebration_id: luther.id,
       date_reference: "#{luther.fixed_month}-#{luther.fixed_day}",
-      cycle: "ABC",
+      cycle: "all",
       service_type: "eucharist",
       first_reading: "Êxodo 3:1-15",
       psalm: "Salmo 31",
@@ -667,7 +667,7 @@ else
 end
 
 if create_reading_by_celebration("Todos os Santos e Santas", {
-  year: "ABC",
+  year: "all",
   first_reading: "Jeremias 31:31-34",
   psalm: "Salmo 150",
   second_reading: "Apocalipse 7:2-4,9-14",
@@ -694,7 +694,7 @@ else
 end
 
 if create_reading_by_celebration("André, Apóstolo", {
-  year: "ABC",
+  year: "all",
   first_reading: "Zacarias 8:20-23",
   psalm: "Salmo 47",
   second_reading: "Romanos 10:8b-18",
@@ -726,7 +726,7 @@ end
 
 # Santo Estevão (26 de dezembro)
 if create_reading_by_celebration("Estêvão, Diácono e Protomártir", {
-  year: "ABC",
+  year: "all",
   first_reading: "2 Crônicas 24:17-22",
   psalm: "Salmo 31:2-6",
   second_reading: "Atos 6:8-10; 7:54-60",
@@ -753,7 +753,7 @@ else
 end
 
 if create_reading_by_celebration("João, Apóstolo e Evangelista", {
-  year: "ABC",
+  year: "all",
   first_reading: "Isaías 6:1-8",
   psalm: "Salmo 97",
   second_reading: "1 João 1",
@@ -780,7 +780,7 @@ else
 end
 
 if create_reading_by_celebration("Santos Inocentes", {
-  year: "ABC",
+  year: "all",
   first_reading: "Jeremias 31:15-17",
   psalm: "Salmo 124",
   second_reading: "1 Pedro 4:12-16",
@@ -796,14 +796,14 @@ wycliff = Celebration.find_by("name LIKE ?", "%Wycliff%")
 if wycliff
   existing = LectionaryReading.find_by(
     celebration_id: wycliff.id,
-    cycle: "ABC",
+    cycle: "all",
     service_type: "eucharist",
   )
   if existing.nil?
     LectionaryReading.create!(
       celebration_id: wycliff.id,
       date_reference: "#{wycliff.fixed_month}-#{wycliff.fixed_day}",
-      cycle: "ABC",
+      cycle: "all",
       service_type: "eucharist",
       first_reading: "Êxodo 3:1-15",
       psalm: "Salmo 31",

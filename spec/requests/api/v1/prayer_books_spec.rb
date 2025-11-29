@@ -1,6 +1,10 @@
 require "swagger_helper"
 
 RSpec.describe "api/v1/prayer_books", type: :request do
+  before(:all) do
+    setup_liturgical_foundation
+  end
+
   def self.api_tags
     "Prayer Books"
   end
@@ -26,7 +30,7 @@ RSpec.describe "api/v1/prayer_books", type: :request do
                        code: { type: :string, example: "loc_2015" },
                        name: { type: :string, example: "Livro de Oração Comum - IEAB 2015" },
                        year: { type: :integer, example: 2015 },
-                       jurisdiction: { type: :string, example: "Igreja Episcopal Anglicana do Brasil" },
+                       jurisdiction: { type: :string, example: "Igreja Episcopal Anglicana do Brasil", nullable: true },
                        description: { type: :string, nullable: true },
                        thumbnail_url: { type: :string, nullable: true },
                        pdf_url: { type: :string, nullable: true },
@@ -65,7 +69,7 @@ RSpec.describe "api/v1/prayer_books", type: :request do
                  code: { type: :string, example: "loc_2015" },
                  name: { type: :string, example: "Livro de Oração Comum - IEAB 2015" },
                  year: { type: :integer, example: 2015 },
-                 jurisdiction: { type: :string, example: "Igreja Episcopal Anglicana do Brasil" },
+                 jurisdiction: { type: :string, example: "Igreja Episcopal Anglicana do Brasil", nullable: true },
                  description: { type: :string, nullable: true },
                  thumbnail_url: { type: :string, nullable: true },
                  pdf_url: { type: :string, nullable: true },

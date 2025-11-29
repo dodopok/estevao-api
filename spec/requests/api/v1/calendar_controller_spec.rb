@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::CalendarController", type: :request do
   before do
-    # Create minimal required test data
-    @prayer_book = create(:prayer_book, :default)
+    # Create minimal required test data - use loc_2015 so CelebrationResolver finds celebrations correctly
+    @prayer_book = PrayerBook.find_by_code('loc_2015')
 
     @easter = create(:celebration,
       name: "Páscoa",
