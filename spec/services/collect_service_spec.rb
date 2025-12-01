@@ -331,9 +331,8 @@ RSpec.describe CollectService do
         allow(resolver_mock).to receive(:resolve_for_date).and_return(easter_celebration)
 
         last_sunday = Date.new(2025, 4, 20)
-        sunday_calendar = LiturgicalCalendar.new(last_sunday.year)
 
-        collects = service.send(:find_collect_for_sunday_celebration, last_sunday, sunday_calendar)
+        collects = service.send(:find_collect_for_sunday_celebration, last_sunday)
 
         # Should find the Easter collect through celebration lookup
         expect(collects).not_to be_empty
@@ -392,9 +391,8 @@ RSpec.describe CollectService do
         allow(resolver_mock).to receive(:resolve_for_date).and_return(pentecost_celebration)
 
         last_sunday = Date.new(2025, 6, 8)
-        sunday_calendar = LiturgicalCalendar.new(last_sunday.year)
 
-        collects = service.send(:find_collect_for_sunday_celebration, last_sunday, sunday_calendar)
+        collects = service.send(:find_collect_for_sunday_celebration, last_sunday)
 
         # Should find collects through celebration lookup
         expect(collects).not_to be_empty
@@ -436,9 +434,8 @@ RSpec.describe CollectService do
         allow(resolver_mock).to receive(:resolve_for_date).and_return(trinity_celebration)
 
         last_sunday = Date.new(2025, 6, 15)
-        sunday_calendar = LiturgicalCalendar.new(last_sunday.year)
 
-        collects = service.send(:find_collect_for_sunday_celebration, last_sunday, sunday_calendar)
+        collects = service.send(:find_collect_for_sunday_celebration, last_sunday)
 
         # Should find collects through celebration lookup
         expect(collects).not_to be_empty
