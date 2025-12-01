@@ -9,6 +9,7 @@ class CelebrationResolver
     @prayer_book_code = prayer_book_code
     @easter_calc = easter_calc || EasterCalculator.new(year)
     @season_determinator = Liturgical::SeasonDeterminator.new(year, easter_calc: @easter_calc)
+    @transfer_rules = Liturgical::TransferRules.new(year, easter_calc: @easter_calc)
   end
 
   # Resolve qual celebração deve ser observada numa data específica,
@@ -128,133 +129,9 @@ class CelebrationResolver
     easter_calc.all_movable_dates[movable_key]
   end
 
+  # Delegate transfer logic to Liturgical::TransferRules
   def transfer_if_needed(celebration, original_date)
-    # Regras específicas de transferência baseadas nas normas
-
-    # ANUNCIAÇÃO (25 de março)
-    if celebration.name =~ /Anunciação/
-      return transfer_annunciation(original_date)
-    end
-
-    # JOSÉ DE NAZARÉ e MARCOS, EVANGELISTA
-    # Se caem entre Domingo de Ramos e Segundo Domingo da Páscoa
-    if [ "José de Nazaré", "Marcos, Evangelista" ].include?(celebration.name)
-      return transfer_if_holy_week(original_date)
-    end
-
-    # FESTIVAIS que caem em domingo (exceto período protegido)
-    if celebration.festival? && original_date.sunday?
-      return transfer_festival_on_sunday(celebration, original_date)
-    end
-
-    # ASCENSÃO pode ser transferida para domingo seguinte (pastoral)
-    if celebration.name =~ /Ascensão/
-      # Por padrão, quinta-feira, mas pode ser transferida
-      # Retorna a data original (quinta-feira)
-      return original_date
-    end
-
-    # Todos os Santos pode ser transferido para domingo mais próximo
-    if celebration.name =~ /Todos os Santos/
-      return transfer_all_saints(original_date)
-    end
-
-    # Se não há regra específica, mantém a data original
-    original_date
-  end
-
-  def transfer_annunciation(original_date)
-    # 25 de março
-    movable = easter_calc.all_movable_dates
-    palm_sunday = movable[:palm_sunday]
-    second_easter = movable[:second_sunday_of_easter]
-
-    # Se cai num domingo, transfere para segunda-feira
-    if original_date.sunday?
-      return original_date + 1.day
-    end
-
-    # Se cai entre Domingo de Ramos (inclusive) e Segundo Domingo da Páscoa (inclusive)
-    if original_date >= palm_sunday && original_date <= second_easter
-      # Transfere para segunda-feira após Segundo Domingo da Páscoa
-      return second_easter + 1.day
-    end
-
-    original_date
-  end
-
-  def transfer_if_holy_week(original_date)
-    movable = easter_calc.all_movable_dates
-    palm_sunday = movable[:palm_sunday]
-    second_easter = movable[:second_sunday_of_easter]
-
-    # Se cai entre Domingo de Ramos e Segundo Domingo da Páscoa
-    if original_date >= palm_sunday && original_date <= second_easter
-      # Transfere para segunda-feira após Segundo Domingo da Páscoa
-      # Se Anunciação já foi transferida para lá, usa terça-feira
-      monday_after = second_easter + 1.day
-
-      # Verifica se Anunciação está ocupando segunda-feira
-      annunciation = Celebration.find_by(name: "Anunciação de nosso Senhor Jesus Cristo à Bem-Aventurada Virgem Maria")
-      if annunciation
-        annunciation_date = Date.new(year, 3, 25)
-        if transfer_annunciation(annunciation_date) == monday_after
-          return second_easter + 2.days # Terça-feira
-        end
-      end
-
-      return monday_after
-    end
-
-    original_date
-  end
-
-  def transfer_festival_on_sunday(celebration, original_date)
-    # Festivais geralmente não são celebrados em domingos específicos
-    # Exceções: domingos entre Cristo Rei e Batismo do Senhor,
-    # e entre Último Domingo após Epifania e Santíssima Trindade
-
-    movable = easter_calc.all_movable_dates
-    christ_the_king = movable[:christ_the_king]
-    baptism = movable[:baptism_of_the_lord]
-    last_epiphany = movable[:last_sunday_after_epiphany]
-    trinity = movable[:trinity_sunday]
-
-    # Período protegido onde festivais não podem ser celebrados em domingo
-    protected_period = (
-      (original_date >= christ_the_king && original_date <= baptism) ||
-      (original_date >= last_epiphany && original_date <= trinity)
-    )
-
-    if protected_period
-      # Transfere para próxima segunda-feira
-      return original_date + 1.day
-    end
-
-    # Fora do período protegido, pode usar coleta/leituras do festival no domingo
-    # mas geralmente transfere para segunda
-    original_date + 1.day
-  end
-
-  def transfer_all_saints(original_date)
-    # 1º de novembro
-    # Pode ser celebrado no domingo entre 30 de outubro e 5 de novembro
-
-    # Se cai num domingo, mantém
-    return original_date if original_date.sunday?
-
-    # Procura o domingo mais próximo no intervalo permitido
-    start_range = Date.new(year, 10, 30)
-    end_range = Date.new(year, 11, 5)
-
-    (start_range..end_range).each do |date|
-      if date.sunday?
-        return date
-      end
-    end
-
-    # Se não encontrou domingo no intervalo, mantém 1º de novembro
-    original_date
+    @transfer_rules.transfer_if_needed(celebration, original_date)
   end
 
   # Verifica se uma data está em período protegido (não pode ter festivais menores)
