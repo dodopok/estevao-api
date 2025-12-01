@@ -16,7 +16,7 @@ class LiturgicalCalendar
       date: date.strftime("%d/%m/%Y"),
       sunday_name: sunday_name(date),
       description: description(date),
-      day_of_week: day_name_br(date),
+      day_of_week: Liturgical::Translator.day_name_pt(date),
       liturgical_season: season_for_date(date),
       color: color_for_date(date),
       celebration: celebration_for_date(date),
@@ -430,40 +430,21 @@ class LiturgicalCalendar
 
   public
 
-  # Translation helpers
+  # Translation helpers - delegated to Liturgical::Translator
   def translate_season(season_pt)
-    translations = {
-      "Advento" => "Advent",
-      "Natal" => "Christmas",
-      "Epifania" => "Epiphany",
-      "Quaresma" => "Lent",
-      "Páscoa" => "Easter",
-      "Tempo Comum" => "Ordinary Time"
-    }
-    translations[season_pt] || season_pt
+    Liturgical::Translator.season(season_pt)
   end
 
   def translate_color(color_pt)
-    translations = {
-      "branco" => "white",
-      "vermelho" => "red",
-      "roxo" => "purple",
-      "violeta" => "violet",
-      "rosa" => "rose",
-      "verde" => "green",
-      "preto" => "black"
-    }
-    translations[color_pt] || color_pt
+    Liturgical::Translator.color(color_pt)
   end
 
   def day_name_en(date)
-    names = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
-    names[date.wday]
+    Liturgical::Translator.day_name_en(date)
   end
 
   def day_name_br(date)
-    names = %w[Domingo Segunda-feira Terça-feira Quarta-feira Quinta-feira Sexta-feira Sábado]
-    names[date.wday]
+    Liturgical::Translator.day_name_pt(date)
   end
 
   private
