@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CelebrationResolver do
+RSpec.describe Liturgical::CelebrationResolver do
   let(:prayer_book) do
     PrayerBook.find_or_create_by!(code: 'loc_2015') do |pb|
       pb.name = 'Livro de Oração Comum 2015'

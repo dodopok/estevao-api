@@ -41,7 +41,7 @@ module Reading
     def celebration_references(celebration)
       refs = []
 
-      # From calculation_rule - use canonical mapping from CelebrationResolver
+      # From calculation_rule - use canonical mapping from Liturgical::CelebrationResolver
       if celebration.calculation_rule.present?
         rule_refs = Liturgical::CelebrationResolver::CALCULATION_RULE_TO_DATE_REFERENCES[celebration.calculation_rule]
         refs.concat(rule_refs) if rule_refs
@@ -167,7 +167,7 @@ module Reading
     end
 
     def ordinary_time_week_references(weekday, refs)
-      easter_calc = EasterCalculator.new(date.year)
+      easter_calc = Liturgical::EasterCalculator.new(date.year)
       pentecost = easter_calc.pentecost
       trinity = pentecost + 7
 

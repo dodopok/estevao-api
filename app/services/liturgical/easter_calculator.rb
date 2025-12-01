@@ -3,7 +3,7 @@
 module Liturgical
   # Serviço para calcular a data da Páscoa e outras datas móveis
   # Usa o algoritmo de Computus (algoritmo de Gauss)
-  class EasterCalculator
+  class Liturgical::EasterCalculator
     attr_reader :year
 
     # Constantes para dias relativos à Páscoa

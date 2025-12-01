@@ -2,7 +2,7 @@
 
 module Liturgical
   # Determina a quadra (season) litúrgica e verifica períodos principais
-  # Centraliza lógica duplicada de LiturgicalCalendar e CelebrationResolver
+  # Centraliza lógica duplicada de LiturgicalCalendar e Liturgical::CelebrationResolver
   class SeasonDeterminator
     MAJOR_SEASONS = %w[Advento Natal Quaresma Páscoa].freeze
 
@@ -10,7 +10,7 @@ module Liturgical
 
     def initialize(year, easter_calc: nil)
       @year = year
-      @easter_calc = easter_calc || EasterCalculator.new(year)
+      @easter_calc = easter_calc || Liturgical::EasterCalculator.new(year)
     end
 
     # Retorna a quadra litúrgica para uma data

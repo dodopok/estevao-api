@@ -12,7 +12,7 @@
 ### ✅ Backend Rails - Já Implementado
 
 - [x] Modelos principais (Celebration, Collect, LectionaryReading, LiturgicalSeason, LiturgicalColor)
-- [x] Serviços de calendário litúrgico (LiturgicalCalendar, EasterCalculator, CelebrationResolver)
+- [x] Serviços de calendário litúrgico (LiturgicalCalendar, Liturgical::EasterCalculator, Liturgical::CelebrationResolver)
 - [x] API v1 endpoints básicos (calendar, celebrations, lectionary)
 - [x] Seeds de leituras, celebrações, santos e coletas
 - [x] Testes (171 testes, 613 asserções)

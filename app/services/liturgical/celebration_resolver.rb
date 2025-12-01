@@ -2,7 +2,7 @@
 
 module Liturgical
   # Serviço para resolver transferências de festas conforme as regras litúrgicas
-  class CelebrationResolver
+  class Liturgical::CelebrationResolver
     include PrayerBookAware
 
     attr_reader :year, :easter_calc

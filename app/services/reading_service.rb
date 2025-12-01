@@ -23,7 +23,7 @@ class ReadingService
   def self.for(date, prayer_book_code: "loc_2015", calendar: nil)
     case prayer_book_code
     when "loc_2015"
-      IeabReadingService.new(date, calendar: calendar)
+      Reading::Loc2015Service.new(date, calendar: calendar)
     else
       new(date, prayer_book_code: prayer_book_code, calendar: calendar)
     end

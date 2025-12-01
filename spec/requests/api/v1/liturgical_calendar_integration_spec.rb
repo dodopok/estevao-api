@@ -327,8 +327,8 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
 
   describe "Integration: Collects" do
     it "fluxo completo: coletas são incluídas quando disponíveis" do
-      # Busca a celebração que será resolvida pelo CelebrationResolver
-      resolver = CelebrationResolver.new(2025, prayer_book_code: "loc_2015")
+      # Busca a celebração que será resolvida pelo Liturgical::CelebrationResolver
+      resolver = Liturgical::CelebrationResolver.new(2025, prayer_book_code: "loc_2015")
       christmas_celebration = resolver.resolve_for_date(Date.new(2025, 12, 25))
 
       # Cria coleta para Natal usando a celebração que será resolvida

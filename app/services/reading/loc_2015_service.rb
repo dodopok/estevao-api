@@ -7,7 +7,7 @@
 # Esta classe sobrescreve apenas os métodos necessários do ReadingService
 # para implementar essa lógica específica.
 #
-class IeabReadingService < ReadingService
+class Reading::Loc2015Service < ReadingService
   # Dias de preparação (antes do domingo)
   PREPARATION_DAYS = [ 4, 5, 6 ].freeze # Thursday, Friday, Saturday
 
@@ -122,7 +122,7 @@ class IeabReadingService < ReadingService
       refs << "trinity_sunday_#{weekday}"
     when "Tempo Comum"
       # Verificar semanas especiais após Pentecostes
-      easter_calc = EasterCalculator.new(reference_sunday.year)
+      easter_calc = Liturgical::EasterCalculator.new(reference_sunday.year)
       pentecost = easter_calc.pentecost
       trinity = pentecost + 7
 

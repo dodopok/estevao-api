@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Liturgical::TransferRules do
   let(:year) { 2025 }
-  let(:easter_calc) { EasterCalculator.new(year) }
+  let(:easter_calc) { Liturgical::EasterCalculator.new(year) }
   let(:transfer_rules) { described_class.new(year, easter_calc: easter_calc) }
 
   # Create a mock celebration for testing
@@ -24,7 +24,7 @@ RSpec.describe Liturgical::TransferRules do
 
       context "when Annunciation falls on Sunday" do
         let(:year) { 2029 } # In 2029, March 25 is Sunday
-        let(:easter_calc) { EasterCalculator.new(year) }
+        let(:easter_calc) { Liturgical::EasterCalculator.new(year) }
         let(:transfer_rules) { described_class.new(year, easter_calc: easter_calc) }
         let(:original_date) { Date.new(2029, 3, 25) }
 
@@ -36,7 +36,7 @@ RSpec.describe Liturgical::TransferRules do
       context "when Annunciation falls during Holy Week" do
         # Find a year where March 25 falls in Holy Week
         let(:year) { 2024 } # Easter 2024 is March 31, Palm Sunday is March 24
-        let(:easter_calc) { EasterCalculator.new(year) }
+        let(:easter_calc) { Liturgical::EasterCalculator.new(year) }
         let(:transfer_rules) { described_class.new(year, easter_calc: easter_calc) }
         let(:original_date) { Date.new(2024, 3, 25) }
 
@@ -52,7 +52,7 @@ RSpec.describe Liturgical::TransferRules do
 
       context "when November 1 is a Sunday" do
         let(:year) { 2026 } # In 2026, November 1 is Sunday
-        let(:easter_calc) { EasterCalculator.new(year) }
+        let(:easter_calc) { Liturgical::EasterCalculator.new(year) }
         let(:transfer_rules) { described_class.new(year, easter_calc: easter_calc) }
         let(:original_date) { Date.new(2026, 11, 1) }
 
@@ -101,7 +101,7 @@ RSpec.describe Liturgical::TransferRules do
         # In 2024, Palm Sunday is March 24, so March 19 is before Palm Sunday
         # Need a year where March 19 is during Holy Week
         let(:year) { 2027 } # Easter 2027 is March 28, Palm Sunday is March 21
-        let(:easter_calc) { EasterCalculator.new(year) }
+        let(:easter_calc) { Liturgical::EasterCalculator.new(year) }
         let(:transfer_rules) { described_class.new(year, easter_calc: easter_calc) }
         let(:original_date) { Date.new(2027, 3, 19) }
 

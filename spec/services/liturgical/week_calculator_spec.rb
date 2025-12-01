@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Liturgical::WeekCalculator do
   let(:year) { 2025 }
-  let(:easter_calc) { EasterCalculator.new(year) }
+  let(:easter_calc) { Liturgical::EasterCalculator.new(year) }
   let(:season_determinator) { Liturgical::SeasonDeterminator.new(year, easter_calc: easter_calc) }
   let(:week_calculator) do
     described_class.new(
@@ -46,8 +46,8 @@ RSpec.describe Liturgical::WeekCalculator do
         # For a date in January, it's the second week of Christmas from previous year
         january_first = Date.new(2026, 1, 1)
         calculator_2026 = described_class.new(
-          season_determinator: Liturgical::SeasonDeterminator.new(2026, easter_calc: EasterCalculator.new(2026)),
-          easter_calc: EasterCalculator.new(2026)
+          season_determinator: Liturgical::SeasonDeterminator.new(2026, easter_calc: Liturgical::EasterCalculator.new(2026)),
+          easter_calc: Liturgical::EasterCalculator.new(2026)
         )
         expect(calculator_2026.week_number(january_first)).to eq(2)
       end

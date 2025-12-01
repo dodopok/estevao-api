@@ -5,7 +5,7 @@ class LiturgicalCalendar
   def initialize(year, prayer_book_code: "loc_2015")
     @year = year
     @prayer_book_code = prayer_book_code
-    @easter_calc = EasterCalculator.new(year)
+    @easter_calc = Liturgical::EasterCalculator.new(year)
     @season_determinator = Liturgical::SeasonDeterminator.new(year, easter_calc: @easter_calc)
     @proper_calculator = Liturgical::ProperCalculator.new(year, easter_calc: @easter_calc)
     @color_determinator = Liturgical::ColorDeterminator.new(
@@ -53,8 +53,8 @@ class LiturgicalCalendar
 
   # Retorna a celebração principal do dia
   def celebration_for_date(date)
-    # Usa o CelebrationResolver para aplicar regras de transferência e hierarquia
-    resolver = CelebrationResolver.new(year, prayer_book_code: prayer_book_code, easter_calc: easter_calc)
+    # Usa o Liturgical::CelebrationResolver para aplicar regras de transferência e hierarquia
+    resolver = Liturgical::CelebrationResolver.new(year, prayer_book_code: prayer_book_code, easter_calc: easter_calc)
     celebration = resolver.resolve_for_date(date)
 
     return nil unless celebration

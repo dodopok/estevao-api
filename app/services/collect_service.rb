@@ -29,15 +29,15 @@ class CollectService
 
   attr_reader :language
 
-  # Memoized CelebrationResolver for the date's year
+  # Memoized Liturgical::CelebrationResolver for the date's year
   def resolver
-    @resolver ||= CelebrationResolver.new(date.year, prayer_book_code: prayer_book_code)
+    @resolver ||= Liturgical::CelebrationResolver.new(date.year, prayer_book_code: prayer_book_code)
   end
 
-  # Memoized CelebrationResolver for a specific year
+  # Memoized Liturgical::CelebrationResolver for a specific year
   def resolver_for_year(year)
     @resolvers ||= {}
-    @resolvers[year] ||= CelebrationResolver.new(year, prayer_book_code: prayer_book_code)
+    @resolvers[year] ||= Liturgical::CelebrationResolver.new(year, prayer_book_code: prayer_book_code)
   end
 
   # Common query for collects by celebration
@@ -58,7 +58,7 @@ class CollectService
            .in_language(language)
   end
 
-  # 1. Buscar por celebração (usa CelebrationResolver para prioridades)
+  # 1. Buscar por celebração (usa Liturgical::CelebrationResolver para prioridades)
   def find_by_celebration
     celebration = resolver.resolve_for_date(date)
     collects_for_celebration(celebration)

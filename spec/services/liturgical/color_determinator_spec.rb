@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Liturgical::ColorDeterminator do
   let(:year) { 2025 }
-  let(:easter_calc) { EasterCalculator.new(year) }
+  let(:easter_calc) { Liturgical::EasterCalculator.new(year) }
   let(:season_determinator) { Liturgical::SeasonDeterminator.new(year, easter_calc: easter_calc) }
   let(:color_determinator) do
     described_class.new(

@@ -45,7 +45,7 @@ module Liturgical
 
     def initialize(year, easter_calc: nil)
       @year = year
-      @easter_calc = easter_calc || EasterCalculator.new(year)
+      @easter_calc = easter_calc || Liturgical::EasterCalculator.new(year)
     end
 
     # Calcula o número do proper para uma data específica
