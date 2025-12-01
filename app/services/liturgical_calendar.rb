@@ -12,6 +12,10 @@ class LiturgicalCalendar
       season_determinator: @season_determinator,
       easter_calc: @easter_calc
     )
+    @week_calculator = Liturgical::WeekCalculator.new(
+      season_determinator: @season_determinator,
+      easter_calc: @easter_calc
+    )
   end
 
   # Retorna as informações litúrgicas completas de um dia específico
@@ -113,45 +117,9 @@ class LiturgicalCalendar
   end
 
   # Número da semana na quadra
+  # Delegado ao Liturgical::WeekCalculator
   def week_number(date)
-    season = season_for_date(date)
-    movable = easter_calc.all_movable_dates
-
-    case season
-    when "Advento"
-      ((date - movable[:first_sunday_of_advent]).to_i / 7) + 1
-    when "Natal"
-      # Contar domingos após o Natal
-      # 25-31 de dezembro = semana 1
-      # 1-6 de janeiro (antes do Batismo) = semana 2
-      christmas = date.month == 12 ? Date.new(year, 12, 25) : Date.new(year - 1, 12, 25)
-      ((date - christmas).to_i / 7) + 1
-    when "Epifania"
-      # Count weeks from Baptism of the Lord
-      start_date = movable[:baptism_of_the_lord]
-      ((date - start_date).to_i / 7) + 1
-    when "Quaresma"
-      ((date - movable[:first_sunday_in_lent]).to_i / 7) + 1
-    when "Páscoa"
-      ((date - movable[:easter]).to_i / 7) + 1
-    when "Tempo Comum"
-      # Ordinary Time has two parts: before Lent and after Pentecost
-      if date < movable[:ash_wednesday]
-        # Before Lent - count from Baptism of the Lord
-        baptism = movable[:baptism_of_the_lord]
-        # Find the Sunday on or after baptism
-        first_sunday = baptism.sunday? ? baptism : baptism + (7 - baptism.wday).days
-        ((date - first_sunday).to_i / 7) + 1
-      else
-        # After Pentecost
-        trinity = movable[:trinity_sunday]
-        # First Sunday in Ordinary Time after Pentecost is the Sunday after Trinity
-        first_sunday_after_pentecost = trinity + 7.days
-        ((date - first_sunday_after_pentecost).to_i / 7) + 1
-      end
-    else
-      nil
-    end
+    @week_calculator.week_number(date)
   end
 
   # Retorna todas as festas e dias santos do mês
@@ -176,27 +144,9 @@ class LiturgicalCalendar
   end
 
   # Calcula qual domingo após Pentecostes (retorna nil se não estiver no tempo após Pentecostes)
+  # Delegado ao Liturgical::WeekCalculator
   def sunday_after_pentecost(date)
-    return nil unless date.sunday?
-
-    season = season_for_date(date)
-    return nil unless season == "Tempo Comum"
-
-    movable = easter_calc.all_movable_dates
-
-    # Only count if we're after Pentecost
-    return nil if date < movable[:pentecost]
-
-    # Count Sundays after Pentecost
-    # Trinity Sunday is the first Sunday after Pentecost
-    trinity = movable[:trinity_sunday]
-
-    # First Sunday in Ordinary Time after Trinity is the first Sunday after Pentecost in Ordinary Time
-    first_sunday_after_pentecost = trinity + 7.days
-
-    # Calculate which Sunday after Pentecost
-    weeks_after = ((date - movable[:pentecost]).to_i / 7)
-    weeks_after if weeks_after >= 0
+    @week_calculator.sunday_after_pentecost(date)
   end
 
   # Retorna informações sobre o santo do dia
