@@ -122,19 +122,11 @@ class BibleText < ApplicationRecord
     html = "<div class='bible-passage'>"
     html += "<p class='passage-reference'>#{reference}</p>"
 
-    current_paragraph = []
-
-    verses.each do |verse|
-      verse_html = "<sup>#{verse.verse}</sup>#{verse.text}"
-
-      if verse.verse_type == "poetry"
-        html += "<p class='poetry-line'>#{verse_html}</p>"
-      else
-        current_paragraph << verse_html
-      end
+    verse_texts = verses.map do |verse|
+      "<sup>#{verse.verse}</sup>#{verse.text}"
     end
 
-    html += "<p>#{current_paragraph.join(' ')}</p>" if current_paragraph.any?
+    html += "<p>#{verse_texts.join(' ')}</p>"
     html += "</div>"
     html
   end

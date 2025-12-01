@@ -86,9 +86,11 @@ module DailyOffice
         return [] unless content&.dig(:verses)
 
         content[:verses].map do |verse|
-          line_type = verse[:type] == "poetry" ? "poetry" : "reading_text"
-          verse[:verse_number] = verse[:number] # Include verse number if needed
-          line_item("#{verse[:text]}", type: line_type)
+          {
+            text: verse[:text],
+            type: "reading_text",
+            verse_number: verse[:number]
+          }
         end
       end
 
