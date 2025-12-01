@@ -2,7 +2,7 @@
 # DIAS SANTOS PRINCIPAIS (4 celebrações - Rank 20-23)
 # ================================================================================
 
-puts "✝️  Criando Dias Santos Principais..."
+Rails.logger.info "✝️  Criando Dias Santos Principais..."
 
 prayer_book = PrayerBook.find_by_code('loc_2015')
 
@@ -55,5 +55,5 @@ major_holy_days = [
 
 major_holy_days.each do |holy_day|
   Celebration.create!(holy_day.merge(prayer_book_id: prayer_book&.id))
-  puts "  ✓ #{holy_day[:name]}"
+  Rails.logger.info "  ✓ #{holy_day[:name]}"
 end

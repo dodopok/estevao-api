@@ -6,7 +6,7 @@
 # O Dia de Todos os Santos pode ser observado no domingo seguinte.
 # ================================================================================
 
-puts "⭐ Criando Festas Principais - LOCB 2008..."
+Rails.logger.info "⭐ Criando Festas Principais - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -99,5 +99,5 @@ principal_feasts = [
 
 principal_feasts.each do |feast|
   Celebration.create!(feast.merge(prayer_book_id: prayer_book&.id))
-  puts "  ✓ #{feast[:name]}"
+  Rails.logger.info "  ✓ #{feast[:name]}"
 end

@@ -1,7 +1,7 @@
 # Santos Adicionais da Tradição Anglicana/Episcopal
 # Complementa com santos importantes da história da igreja e reforma anglicana
 
-puts "🕊️  Carregando santos da tradição anglicana..."
+Rails.logger.info "🕊️  Carregando santos da tradição anglicana..."
 
 prayer_book = PrayerBook.find_by(code: "loc_2015")
 
@@ -110,9 +110,9 @@ anglican_saints.each do |saint|
     print "." if count % 10 == 0
   else
     skipped += 1
-    puts "⚠️  Santo já existe: #{saint[:name]} (#{saint[:fixed_month]}/#{saint[:fixed_day]})"
+    Rails.logger.info "⚠️  Santo já existe: #{saint[:name]} (#{saint[:fixed_month]}/#{saint[:fixed_day]})"
   end
 end
 
-puts "\n✅ #{count} santos anglicanos adicionados!"
-puts "⏭️  #{skipped} santos já existiam no banco de dados." if skipped > 0
+Rails.logger.info "\n✅ #{count} santos anglicanos adicionados!"
+Rails.logger.info "⏭️  #{skipped} santos já existiam no banco de dados." if skipped > 0

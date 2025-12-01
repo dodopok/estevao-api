@@ -3,7 +3,7 @@
 # Cor litúrgica: Roxo
 # ================================================================================
 
-puts "📖 Criando Leituras do Advento - LOCB 2008..."
+Rails.logger.info "📖 Criando Leituras do Advento - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -129,4 +129,4 @@ advent_readings.each do |reading|
   LectionaryReading.create!(reading.merge(prayer_book_id: prayer_book&.id))
 end
 
-puts "  ✓ #{advent_readings.count} leituras do Advento criadas"
+Rails.logger.info "  ✓ #{advent_readings.count} leituras do Advento criadas"

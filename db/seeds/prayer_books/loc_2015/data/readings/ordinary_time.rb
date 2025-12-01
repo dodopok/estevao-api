@@ -13,7 +13,7 @@
 #
 # ================================================================================
 
-puts "📖 Carregando leituras do Tempo Comum..."
+Rails.logger.info "📖 Carregando leituras do Tempo Comum..."
 
 # Buscar o prayer book
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
@@ -953,5 +953,5 @@ ordinary_time_readings.each do |reading|
   end
 end
 
-puts "\n✅ #{count} leituras do Tempo Comum criadas!"
-puts "⏭️  #{skipped} já existiam." if skipped > 0
+Rails.logger.info "\n✅ #{count} leituras do Tempo Comum criadas!"
+Rails.logger.info "⏭️  #{skipped} já existiam." if skipped > 0

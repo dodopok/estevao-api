@@ -2,7 +2,7 @@
 # TODO: Replace with complete 150 psalms from LOC 2015
 # This creates a few example psalms to demonstrate the structure
 
-puts "Creating example Psalms..."
+Rails.logger.info "Creating example Psalms..."
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
 
 # Psalm 1
@@ -96,5 +96,5 @@ Psalm.find_or_create_by!(number: 134, prayer_book_id: prayer_book.id) do |p|
   ]
 end
 
-puts "Created #{Psalm.count} example psalms"
-puts "NOTE: You need to add all 150 psalms from LOC 2015. These are just examples."
+Rails.logger.info "Created #{Psalm.count} example psalms"
+Rails.logger.info "NOTE: You need to add all 150 psalms from LOC 2015. These are just examples."

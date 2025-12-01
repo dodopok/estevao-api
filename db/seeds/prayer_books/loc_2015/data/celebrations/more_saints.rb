@@ -1,7 +1,7 @@
 # Santos Adicionais do Calendário Litúrgico Anglicano
 # Este arquivo adiciona mais festas menores e comemorações
 
-puts "🕊️  Carregando santos adicionais..."
+Rails.logger.info "🕊️  Carregando santos adicionais..."
 
 prayer_book = PrayerBook.find_by(code: "loc_2015")
 
@@ -143,5 +143,5 @@ additional_saints.each do |saint|
   end
 end
 
-puts "\n✅ #{count} santos adicionais criados!"
-puts "⏭️  #{skipped} já existiam." if skipped > 0
+Rails.logger.info "\n✅ #{count} santos adicionais criados!"
+Rails.logger.info "⏭️  #{skipped} já existiam." if skipped > 0

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-puts "Seeding Prayer Books..."
+Rails.logger.info "Seeding Prayer Books..."
 
 prayer_books_data = [
   {
@@ -178,7 +178,7 @@ prayer_books_data.each do |data|
   pb.is_default = data[:is_default]
   pb.features = data[:features] if data[:features].present?
   pb.save!
-  puts "✓ LOC Criado/Atualizado: #{data[:code]}"
+  Rails.logger.info "✓ LOC Criado/Atualizado: #{data[:code]}"
 end
 
-puts "Prayer Books seeded successfully!"
+Rails.logger.info "Prayer Books seeded successfully!"

@@ -1,7 +1,7 @@
 # Seeds for Liturgical Texts
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
 
-puts "Criando textos do Ofício Diário para LOC 2015..."
+Rails.logger.info "Criando textos do Ofício Diário para LOC 2015..."
 
 ## Oração da Manhã
 
@@ -3517,4 +3517,4 @@ end
 
 # rubric_post_dismissal
 
-puts "Created #{LiturgicalText.count} liturgical texts"
+Rails.logger.info "Created #{LiturgicalText.count} liturgical texts"

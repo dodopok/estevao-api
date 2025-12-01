@@ -2,7 +2,7 @@
 # COLETAS DA SEMANA SANTA - LOCB 2008
 # ================================================================================
 
-puts "🙏 Criando Coletas da Semana Santa - LOCB 2008..."
+Rails.logger.info "🙏 Criando Coletas da Semana Santa - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -81,4 +81,4 @@ holy_week_collects.each do |collect|
   Collect.create!(collect.merge(prayer_book_id: prayer_book&.id))
 end
 
-puts "  ✓ #{holy_week_collects.count} coletas da Semana Santa criadas"
+Rails.logger.info "  ✓ #{holy_week_collects.count} coletas da Semana Santa criadas"

@@ -7,7 +7,7 @@
 # Para implementação completa, seria necessário adicionar leituras complementares
 # para todos os domingos onde o LOC oferece essa opção.
 
-puts "📖 Carregando leituras complementares de exemplo (LOC 2015)..."
+Rails.logger.info "📖 Carregando leituras complementares de exemplo (LOC 2015)..."
 
 complementary_readings = [
   # Primeiro Domingo após Pentecostes - Trindade (Ano A)
@@ -93,5 +93,5 @@ complementary_readings.each do |reading_data|
   )
 end
 
-puts "✅ #{complementary_readings.count} leituras complementares de exemplo criadas!"
-puts "   (Estas são apenas exemplos para demonstração do sistema)"
+Rails.logger.info "✅ #{complementary_readings.count} leituras complementares de exemplo criadas!"
+Rails.logger.info "   (Estas são apenas exemplos para demonstração do sistema)"

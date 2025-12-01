@@ -4,7 +4,7 @@
 # Organizadas por mês
 # ================================================================================
 
-puts "📅 Criando Comemorações - LOCB 2008..."
+Rails.logger.info "📅 Criando Comemorações - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -227,7 +227,7 @@ commemorations.each do |comm|
   }
 
   Celebration.create!(data)
-  puts "  ✓ #{comm[:fixed_month]}/#{comm[:fixed_day]} - #{comm[:name]}"
+  Rails.logger.info "  ✓ #{comm[:fixed_month]}/#{comm[:fixed_day]} - #{comm[:name]}"
 end
 
-puts "  📅 Total: #{commemorations.count} comemorações criadas"
+Rails.logger.info "  📅 Total: #{commemorations.count} comemorações criadas"

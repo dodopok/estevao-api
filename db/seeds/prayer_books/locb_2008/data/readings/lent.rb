@@ -3,7 +3,7 @@
 # Cor litúrgica: Roxo
 # ================================================================================
 
-puts "📖 Criando Leituras da Quaresma - LOCB 2008..."
+Rails.logger.info "📖 Criando Leituras da Quaresma - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -169,4 +169,4 @@ lent_readings.each do |reading|
   LectionaryReading.create!(reading.merge(prayer_book_id: prayer_book&.id))
 end
 
-puts "  ✓ #{lent_readings.count} leituras da Quaresma criadas"
+Rails.logger.info "  ✓ #{lent_readings.count} leituras da Quaresma criadas"

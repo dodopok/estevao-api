@@ -2,7 +2,7 @@
 # ESTAÇÕES LITÚRGICAS (6 estações)
 # ================================================================================
 
-puts "📅 Criando quadras litúrgicas..."
+Rails.logger.info "📅 Criando quadras litúrgicas..."
 
 seasons = [
   { name: "Advento", color: "violeta", description: "Tempo de preparação para o Natal" },
@@ -15,5 +15,5 @@ seasons = [
 
 seasons.each do |season_data|
   LiturgicalSeason.create!(season_data)
-  puts "  ✓ #{season_data[:name]}"
+  Rails.logger.info "  ✓ #{season_data[:name]}"
 end

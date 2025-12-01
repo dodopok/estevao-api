@@ -2,7 +2,7 @@
 # COLETAS PARA OCASIÕES ESPECIAIS - LOCB 2008
 # ================================================================================
 
-puts "🙏 Criando Coletas para Ocasiões Especiais - LOCB 2008..."
+Rails.logger.info "🙏 Criando Coletas para Ocasiões Especiais - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -109,5 +109,5 @@ special_occasions_collects.each do |collect|
   end
 end
 
-puts "✅ Coletas para Ocasiões Especiais criadas: #{count}"
-puts "⏭️  Coletas já existentes: #{skipped}" if skipped > 0
+Rails.logger.info "✅ Coletas para Ocasiões Especiais criadas: #{count}"
+Rails.logger.info "⏭️  Coletas já existentes: #{skipped}" if skipped > 0

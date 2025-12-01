@@ -6,7 +6,7 @@
 # de comemoração ou de observância.
 # ================================================================================
 
-puts "✝️  Criando Dias Santos - LOCB 2008..."
+Rails.logger.info "✝️  Criando Dias Santos - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -108,7 +108,7 @@ other_feasts_of_our_lord = [
 
 other_feasts_of_our_lord.each do |feast|
   Celebration.create!(feast.merge(prayer_book_id: prayer_book&.id))
-  puts "  ✓ #{feast[:name]}"
+  Rails.logger.info "  ✓ #{feast[:name]}"
 end
 
 # ================================================================================
@@ -232,5 +232,5 @@ major_calendar_feasts = [
 
 major_calendar_feasts.each do |feast|
   Celebration.create!(feast.merge(prayer_book_id: prayer_book&.id))
-  puts "  ✓ #{feast[:name]}"
+  Rails.logger.info "  ✓ #{feast[:name]}"
 end

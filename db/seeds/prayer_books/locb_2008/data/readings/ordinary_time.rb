@@ -10,7 +10,7 @@
 #
 # ================================================================================
 
-puts "📖 Criando Leituras do Tempo Comum II (Próprios) - LOCB 2008..."
+Rails.logger.info "📖 Criando Leituras do Tempo Comum II (Próprios) - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -967,5 +967,5 @@ ordinary_time_readings.each do |reading|
   end
 end
 
-puts "\n✅ Leituras do Tempo Comum criadas: #{count}"
-puts "⏭️  Leituras já existentes: #{skipped}" if skipped > 0
+Rails.logger.info "\n✅ Leituras do Tempo Comum criadas: #{count}"
+Rails.logger.info "⏭️  Leituras já existentes: #{skipped}" if skipped > 0

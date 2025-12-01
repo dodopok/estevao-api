@@ -3,7 +3,7 @@
 # Baseado no Livro de Oração Comum da IEAB - LOC 2015
 # ================================================================================
 
-puts "📿 Carregando coletas do ano litúrgico (LOC 2015 IEAB)..."
+Rails.logger.info "📿 Carregando coletas do ano litúrgico (LOC 2015 IEAB)..."
 
 # Buscar o prayer book
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
@@ -15,8 +15,8 @@ def create_collect(attrs, prayer_book_id)
 
   # Pula se não tem nenhuma referência válida
   if attrs[:celebration_id].nil? && attrs[:season_id].nil? && attrs[:sunday_reference].nil?
-    puts "⚠️  Coleta sem referência válida - pulando"
-    puts attrs
+    Rails.logger.info "⚠️  Coleta sem referência válida - pulando"
+    Rails.logger.info attrs
     return false
   end
 
@@ -798,5 +798,5 @@ end
 # RESUMO FINAL
 # ================================================================================
 
-puts "\n✅ #{count} coletas criadas com sucesso!"
-puts "⏭️  #{skipped} coletas já existiam no banco de dados." if skipped > 0
+Rails.logger.info "\n✅ #{count} coletas criadas com sucesso!"
+Rails.logger.info "⏭️  #{skipped} coletas já existiam no banco de dados." if skipped > 0

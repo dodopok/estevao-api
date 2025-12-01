@@ -2,7 +2,7 @@
 # CORES LITÚRGICAS (9 cores)
 # ================================================================================
 
-puts "📊 Criando cores litúrgicas..."
+Rails.logger.info "📊 Criando cores litúrgicas..."
 
 colors = [
   { name: "branco", hex_code: "#FFFFFF", usage_description: "Natal, Páscoa, Festas do Senhor, Santos não-mártires, Funerais" },
@@ -18,5 +18,5 @@ colors = [
 
 colors.each do |color_data|
   LiturgicalColor.create!(color_data)
-  puts "  ✓ #{color_data[:name]}"
+  Rails.logger.info "  ✓ #{color_data[:name]}"
 end

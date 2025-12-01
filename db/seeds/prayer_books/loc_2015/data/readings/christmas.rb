@@ -12,7 +12,7 @@
 #
 # ================================================================================
 
-puts "📖 Carregando leituras do Tempo de Natal..."
+Rails.logger.info "📖 Carregando leituras do Tempo de Natal..."
 
 # Buscar o prayer book
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
@@ -150,5 +150,5 @@ christmas_readings.each do |reading|
   end
 end
 
-puts "\n✅ #{count} leituras do Tempo de Natal criadas!"
-puts "⏭️  #{skipped} já existiam." if skipped > 0
+Rails.logger.info "\n✅ #{count} leituras do Tempo de Natal criadas!"
+Rails.logger.info "⏭️  #{skipped} já existiam." if skipped > 0

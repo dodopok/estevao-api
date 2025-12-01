@@ -4,7 +4,7 @@
 # Oração Matutina e Oração Vespertina
 # ================================================================================
 
-puts "📖 Criando Ciclo de Salmos - LOCB 2008..."
+Rails.logger.info "📖 Criando Ciclo de Salmos - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by!(code: 'locb_2008')
 
@@ -146,8 +146,8 @@ week_4_evening = {
     end
   end
 
-  puts "  ✓ Semana #{week_num} criada"
+  Rails.logger.info "  ✓ Semana #{week_num} criada"
 end
 
 total_cycles = PsalmCycle.where(prayer_book_id: prayer_book.id).count
-puts "  📖 Total: #{total_cycles} ciclos de salmos criados (4 semanas × 7 dias × 2 ofícios)"
+Rails.logger.info "  📖 Total: #{total_cycles} ciclos de salmos criados (4 semanas × 7 dias × 2 ofícios)"

@@ -3,7 +3,7 @@
 # Santos, doutores da Igreja e outras comemorações
 # ================================================================================
 
-puts "🕊️  Criando Festas Menores..."
+Rails.logger.info "🕊️  Criando Festas Menores..."
 
 prayer_book = PrayerBook.find_by_code('loc_2015')
 
@@ -32,5 +32,5 @@ lesser_feasts = [
 
 lesser_feasts.each do |feast|
   Celebration.create!(feast.merge(prayer_book_id: prayer_book&.id, movable: false, can_be_transferred: false))
-  puts "  ✓ #{feast[:name]}"
+  Rails.logger.info "  ✓ #{feast[:name]}"
 end

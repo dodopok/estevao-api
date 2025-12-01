@@ -3,7 +3,7 @@
 # Cor litúrgica: Vermelho
 # ================================================================================
 
-puts "🙏 Criando Coletas de Pentecostes - LOCB 2008..."
+Rails.logger.info "🙏 Criando Coletas de Pentecostes - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -51,5 +51,5 @@ pentecost_collects.each do |collect|
   end
 end
 
-puts "✅ Coletas de Pentecostes criadas: #{count}"
-puts "⏭️  Coletas já existentes: #{skipped}" if skipped > 0
+Rails.logger.info "✅ Coletas de Pentecostes criadas: #{count}"
+Rails.logger.info "⏭️  Coletas já existentes: #{skipped}" if skipped > 0

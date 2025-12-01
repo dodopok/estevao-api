@@ -3,7 +3,7 @@
 # Cor litúrgica: Verde
 # ================================================================================
 
-puts "🙏 Criando Coletas do Tempo Comum I - LOCB 2008..."
+Rails.logger.info "🙏 Criando Coletas do Tempo Comum I - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -68,4 +68,4 @@ epiphany_collects.each do |collect|
   Collect.create!(collect.merge(prayer_book_id: prayer_book&.id))
 end
 
-puts "  ✓ #{epiphany_collects.count} coletas do Tempo Comum I criadas"
+Rails.logger.info "  ✓ #{epiphany_collects.count} coletas do Tempo Comum I criadas"

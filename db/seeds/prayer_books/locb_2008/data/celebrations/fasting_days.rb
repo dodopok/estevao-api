@@ -3,7 +3,7 @@
 # Quarta-feira de Cinzas e Sexta-feira da Paixão
 # ================================================================================
 
-puts "🙏 Criando Dias de Jejum - LOCB 2008..."
+Rails.logger.info "🙏 Criando Dias de Jejum - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -34,7 +34,7 @@ fasting_days = [
 
 fasting_days.each do |day|
   Celebration.create!(day.merge(prayer_book_id: prayer_book&.id))
-  puts "  ✓ #{day[:name]}"
+  Rails.logger.info "  ✓ #{day[:name]}"
 end
 
 # ================================================================================

@@ -3,4 +3,4 @@
 # Coletas para LOC 1987
 # TODO: Adicionar coletas específicas desta edição
 
-puts "  ⚠️  LOC 1987: Coletas ainda não implementadas"
+Rails.logger.info "  ⚠️  LOC 1987: Coletas ainda não implementadas"

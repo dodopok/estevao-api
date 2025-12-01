@@ -13,7 +13,7 @@
 #
 # ================================================================================
 
-puts "📖 Carregando leituras da Semana Santa e Páscoa..."
+Rails.logger.info "📖 Carregando leituras da Semana Santa e Páscoa..."
 
 # Buscar o prayer book
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
@@ -251,5 +251,5 @@ holy_week_easter_readings.each do |reading|
   end
 end
 
-puts "\n✅ #{count} leituras da Semana Santa e Páscoa criadas!"
-puts "⏭️  #{skipped} já existiam." if skipped > 0
+Rails.logger.info "\n✅ #{count} leituras da Semana Santa e Páscoa criadas!"
+Rails.logger.info "⏭️  #{skipped} já existiam." if skipped > 0

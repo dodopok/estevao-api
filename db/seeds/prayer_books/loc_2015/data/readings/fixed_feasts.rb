@@ -14,7 +14,7 @@
 #
 # ================================================================================
 
-puts "📖 Carregando leituras dos dias santos e festas fixas..."
+Rails.logger.info "📖 Carregando leituras dos dias santos e festas fixas..."
 
 # Buscar o prayer book
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
@@ -27,7 +27,7 @@ def create_reading_by_celebration(celebration_name, reading_data, prayer_book_id
   celebration = Celebration.find_by(name: celebration_name)
 
   unless celebration
-    puts "⚠️  Celebração não encontrada: #{celebration_name}"
+    Rails.logger.info "⚠️  Celebração não encontrada: #{celebration_name}"
     return false
   end
 
@@ -817,5 +817,5 @@ if wycliff
   end
 end
 
-puts "\n✅ #{count} leituras de dias santos e festas fixas criadas!"
-puts "⏭️  #{skipped} já existiam." if skipped > 0
+Rails.logger.info "\n✅ #{count} leituras de dias santos e festas fixas criadas!"
+Rails.logger.info "⏭️  #{skipped} já existiam." if skipped > 0

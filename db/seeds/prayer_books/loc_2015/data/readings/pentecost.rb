@@ -12,7 +12,7 @@
 #
 # ================================================================================
 
-puts "📖 Carregando leituras de Pentecostes e Trindade..."
+Rails.logger.info "📖 Carregando leituras de Pentecostes e Trindade..."
 
 # Buscar o prayer book
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
@@ -99,5 +99,5 @@ pentecost_readings.each do |reading|
   end
 end
 
-puts "\n✅ #{count} leituras de Pentecostes e Trindade criadas!"
-puts "⏭️  #{skipped} já existiam." if skipped > 0
+Rails.logger.info "\n✅ #{count} leituras de Pentecostes e Trindade criadas!"
+Rails.logger.info "⏭️  #{skipped} já existiam." if skipped > 0

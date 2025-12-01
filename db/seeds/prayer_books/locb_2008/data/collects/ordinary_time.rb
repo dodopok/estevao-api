@@ -4,7 +4,7 @@
 # Cor litúrgica: Verde
 # ================================================================================
 
-puts "🙏 Criando Coletas do Tempo Comum II (Próprios) - LOCB 2008..."
+Rails.logger.info "🙏 Criando Coletas do Tempo Comum II (Próprios) - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -291,5 +291,5 @@ ordinary_time_collects.each do |collect|
   end
 end
 
-puts "\n✅ Coletas do Tempo Comum criadas: #{count}"
-puts "⏭️  Coletas já existentes: #{skipped}" if skipped > 0
+Rails.logger.info "\n✅ Coletas do Tempo Comum criadas: #{count}"
+Rails.logger.info "⏭️  Coletas já existentes: #{skipped}" if skipped > 0

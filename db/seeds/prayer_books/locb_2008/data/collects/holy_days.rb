@@ -2,7 +2,7 @@
 # COLETAS DOS DIAS SANTOS E FESTAS MAIORES - LOCB 2008
 # ================================================================================
 
-puts "🙏 Criando Coletas dos Dias Santos e Festas Maiores - LOCB 2008..."
+Rails.logger.info "🙏 Criando Coletas dos Dias Santos e Festas Maiores - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -244,5 +244,5 @@ holy_days_collects.each do |collect|
   end
 end
 
-puts "✅ Coletas dos Dias Santos criadas: #{count}"
-puts "⏭️  Coletas já existentes: #{skipped}" if skipped > 0
+Rails.logger.info "✅ Coletas dos Dias Santos criadas: #{count}"
+Rails.logger.info "⏭️  Coletas já existentes: #{skipped}" if skipped > 0

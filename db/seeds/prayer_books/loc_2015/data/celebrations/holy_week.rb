@@ -1,7 +1,7 @@
 # Celebrações da Semana Santa
 # Complementa com celebrações da Semana Santa que não estão no seeds principal
 
-puts "✝️  Carregando celebrações da Semana Santa..."
+Rails.logger.info "✝️  Carregando celebrações da Semana Santa..."
 
 prayer_book = PrayerBook.find_by_code('loc_2015')
 
@@ -82,5 +82,5 @@ holy_week_celebrations.each do |celebration|
   end
 end
 
-puts "\n✅ #{count} celebrações da Semana Santa adicionadas!"
-puts "⏭️  #{skipped} celebrações já existiam no banco de dados." if skipped > 0
+Rails.logger.info "\n✅ #{count} celebrações da Semana Santa adicionadas!"
+Rails.logger.info "⏭️  #{skipped} celebrações já existiam no banco de dados." if skipped > 0

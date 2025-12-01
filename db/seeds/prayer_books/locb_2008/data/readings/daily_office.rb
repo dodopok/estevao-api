@@ -14,7 +14,7 @@
 csv_path = Rails.root.join('db/seeds/prayer_books/locb_2008/data/daily_readings.csv')
 
 if File.exist?(csv_path)
-  require Rails.root.join('script/import_locb_2008_daily_readings.rb')
+  require Rails.root.join('db/seeds/prayer_books/locb_2008/data/readings/daily_readings.rb')
 
   importer = Locb2008DailyReadingsImporter.new(csv_path, @prayer_book)
   importer.import
@@ -32,8 +32,8 @@ if File.exist?(csv_path)
     cycle: 'even'
   ).count
 
-  puts "✓ #{odd_count} leituras diárias (anos ímpares) carregadas" if odd_count > 0
-  puts "✓ #{even_count} leituras diárias (anos pares) carregadas" if even_count > 0
+  Rails.logger.info "✓ #{odd_count} leituras diárias (anos ímpares) carregadas" if odd_count > 0
+  Rails.logger.info "✓ #{even_count} leituras diárias (anos pares) carregadas" if even_count > 0
 else
-  puts "⚠️  CSV não encontrado: #{csv_path}"
+  Rails.logger.info "⚠️  CSV não encontrado: #{csv_path}"
 end

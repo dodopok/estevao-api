@@ -3,7 +3,7 @@
 # (Seguem o Lecionário Diário)
 # ================================================================================
 
-puts "🙏 Criando Coletas Comuns para Comemorações - LOCB 2008..."
+Rails.logger.info "🙏 Criando Coletas Comuns para Comemorações - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -58,5 +58,5 @@ common_collects.each do |collect|
   end
 end
 
-puts "✅ Coletas Comuns criadas: #{count}"
-puts "⏭️  Coletas já existentes: #{skipped}" if skipped > 0
+Rails.logger.info "✅ Coletas Comuns criadas: #{count}"
+Rails.logger.info "⏭️  Coletas já existentes: #{skipped}" if skipped > 0
