@@ -3,7 +3,7 @@
 # Cor litúrgica: Branco
 # ================================================================================
 
-puts "🙏 Criando Coletas do Natal - LOCB 2008..."
+Rails.logger.info "🙏 Criando Coletas do Natal - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -54,4 +54,4 @@ christmas_collects.each do |collect|
   Collect.create!(collect.merge(prayer_book_id: prayer_book&.id))
 end
 
-puts "  ✓ #{christmas_collects.count} coletas do Natal criadas"
+Rails.logger.info "  ✓ #{christmas_collects.count} coletas do Natal criadas"

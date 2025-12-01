@@ -1,7 +1,7 @@
 # Observâncias Especiais da Tradição Anglicana/Episcopal
 # Dias de ação de graças, rogação, e outras celebrações nacionais
 
-puts "📖 Carregando observâncias especiais..."
+Rails.logger.info "📖 Carregando observâncias especiais..."
 
 # Buscar o prayer book
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
@@ -205,5 +205,5 @@ special_observances.each do |reading|
   end
 end
 
-puts "\n✅ #{count} observâncias especiais criadas!"
-puts "⏭️  #{skipped} já existiam." if skipped > 0
+Rails.logger.info "\n✅ #{count} observâncias especiais criadas!"
+Rails.logger.info "⏭️  #{skipped} já existiam." if skipped > 0

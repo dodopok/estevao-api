@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require Rails.root.join('script/import_weekly_readings.rb')
+require Rails.root.join('db/seeds/prayer_books/loc_2015/data/daily_readings.rb')
 
 RSpec.describe WeeklyReadingsImporter do
   let!(:prayer_book) do

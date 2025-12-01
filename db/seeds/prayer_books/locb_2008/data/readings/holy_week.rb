@@ -2,7 +2,7 @@
 # LEITURAS DA SEMANA SANTA - LOCB 2008
 # ================================================================================
 
-puts "📖 Criando Leituras da Semana Santa - LOCB 2008..."
+Rails.logger.info "📖 Criando Leituras da Semana Santa - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -169,4 +169,4 @@ holy_week_readings.each do |reading|
   LectionaryReading.create!(reading.merge(prayer_book_id: prayer_book&.id))
 end
 
-puts "  ✓ #{holy_week_readings.count} leituras da Semana Santa criadas"
+Rails.logger.info "  ✓ #{holy_week_readings.count} leituras da Semana Santa criadas"

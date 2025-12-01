@@ -71,7 +71,7 @@ module Api
         # Retorna informações resumidas do ano
         render json: {
           year: year,
-          movable_dates: EasterCalculator.new(year).all_movable_dates,
+          movable_dates: Liturgical::EasterCalculator.new(year).all_movable_dates,
           seasons_summary: seasons_summary(calendar),
           important_dates: important_dates_summary(year)
         }
@@ -144,7 +144,7 @@ module Api
       end
 
       def important_dates_summary(year)
-        calc = EasterCalculator.new(year)
+        calc = Liturgical::EasterCalculator.new(year)
         movable = calc.all_movable_dates
 
         {

@@ -5,7 +5,7 @@
 # Regras de vida pré-definidas para o sistema
 # ================================================================================
 
-puts "\n📿 Carregando Regras de Vida..."
+Rails.logger.info "\n📿 Carregando Regras de Vida..."
 
 # Precisamos de um usuário "sistema" para associar às regras públicas pré-definidas
 system_user = User.find_or_create_by!(email: "system@estevao.app") do |user|
@@ -99,5 +99,5 @@ steps.each do |step_attrs|
   sao_bernardo_rule.life_rule_steps.create!(step_attrs)
 end
 
-puts "  ✅ Regra de São Bernardo criada com #{sao_bernardo_rule.life_rule_steps.count} passos"
-puts "  📊 Total de Regras de Vida: #{LifeRule.count}"
+Rails.logger.info "  ✅ Regra de São Bernardo criada com #{sao_bernardo_rule.life_rule_steps.count} passos"
+Rails.logger.info "  📊 Total de Regras de Vida: #{LifeRule.count}"

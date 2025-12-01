@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe EasterCalculator do
+RSpec.describe Liturgical::EasterCalculator do
   describe 'Easter date calculation' do
     it 'calculates Easter date correctly for known years' do
       known_easters = {

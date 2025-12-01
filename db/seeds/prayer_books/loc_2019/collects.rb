@@ -3,4 +3,4 @@
 # Coletas para LOC 2019 (ACNA)
 # TODO: Adicionar coletas específicas desta edição
 
-puts "  ⚠️  LOC 2019: Coletas ainda não implementadas"
+Rails.logger.info "  ⚠️  LOC 2019: Coletas ainda não implementadas"

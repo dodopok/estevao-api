@@ -2,7 +2,7 @@
 # FESTAS PRINCIPAIS (13 celebrações - Rank 0-12)
 # ================================================================================
 
-puts "⭐ Criando Festas Principais..."
+Rails.logger.info "⭐ Criando Festas Principais..."
 
 prayer_book = PrayerBook.find_by_code('loc_2015')
 
@@ -178,5 +178,5 @@ principal_feasts = [
 
 principal_feasts.each do |feast|
   Celebration.create!(feast.merge(prayer_book_id: prayer_book&.id))
-  puts "  ✓ #{feast[:name]}"
+  Rails.logger.info "  ✓ #{feast[:name]}"
 end

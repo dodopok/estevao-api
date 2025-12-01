@@ -3,7 +3,7 @@
 # Cor litúrgica: Branco
 # ================================================================================
 
-puts "📖 Criando Leituras do Natal - LOCB 2008..."
+Rails.logger.info "📖 Criando Leituras do Natal - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -122,4 +122,4 @@ christmas_readings.each do |reading|
   LectionaryReading.create!(reading.merge(prayer_book_id: prayer_book&.id))
 end
 
-puts "  ✓ #{christmas_readings.count} leituras do Natal criadas"
+Rails.logger.info "  ✓ #{christmas_readings.count} leituras do Natal criadas"

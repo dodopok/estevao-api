@@ -3,7 +3,7 @@
 # Cor litúrgica: Roxo
 # ================================================================================
 
-puts "🙏 Criando Coletas da Quaresma - LOCB 2008..."
+Rails.logger.info "🙏 Criando Coletas da Quaresma - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -50,4 +50,4 @@ lent_collects.each do |collect|
   Collect.create!(collect.merge(prayer_book_id: prayer_book&.id))
 end
 
-puts "  ✓ #{lent_collects.count} coletas da Quaresma criadas"
+Rails.logger.info "  ✓ #{lent_collects.count} coletas da Quaresma criadas"

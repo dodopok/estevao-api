@@ -2,7 +2,7 @@
 # LEITURAS PARA OCASIÕES ESPECIAIS - LOCB 2008
 # ================================================================================
 
-puts "📖 Criando Leituras para Ocasiões Especiais - LOCB 2008..."
+Rails.logger.info "📖 Criando Leituras para Ocasiões Especiais - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -169,5 +169,5 @@ special_occasions_readings.each do |reading|
   end
 end
 
-puts "✅ Leituras para Ocasiões Especiais criadas: #{count}"
-puts "⏭️  Leituras já existentes: #{skipped}" if skipped > 0
+Rails.logger.info "✅ Leituras para Ocasiões Especiais criadas: #{count}"
+Rails.logger.info "⏭️  Leituras já existentes: #{skipped}" if skipped > 0

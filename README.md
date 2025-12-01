@@ -284,8 +284,8 @@ bundle exec puma -C config/puma.rb
 ### Serviços
 
 - **LiturgicalCalendar**: Calcula o calendário litúrgico completo
-- **EasterCalculator**: Calcula a Páscoa e datas móveis relacionadas (algoritmo Computus)
-- **CelebrationResolver**: Resolve precedência entre celebrações conforme hierarquia litúrgica
+- **Liturgical::EasterCalculator**: Calcula a Páscoa e datas móveis relacionadas (algoritmo Computus)
+- **Liturgical::CelebrationResolver**: Resolve precedência entre celebrações conforme hierarquia litúrgica
 - **ReadingService**: Busca leituras do lecionário por celebração, Proper ou domingo
 - **CollectService**: Busca coletas apropriadas para cada celebração e estação
 - **SundayReferenceMapper**: Mapeia datas para referências de domingos

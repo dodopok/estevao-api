@@ -10,7 +10,7 @@
 #
 # ================================================================================
 
-puts "📖 Carregando leituras da Quaresma..."
+Rails.logger.info "📖 Carregando leituras da Quaresma..."
 
 # Buscar o prayer book
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
@@ -242,5 +242,5 @@ lent_readings.each do |reading|
   end
 end
 
-puts "\n✅ #{count} leituras da Quaresma criadas!"
-puts "⏭️  #{skipped} já existiam." if skipped > 0
+Rails.logger.info "\n✅ #{count} leituras da Quaresma criadas!"
+Rails.logger.info "⏭️  #{skipped} já existiam." if skipped > 0

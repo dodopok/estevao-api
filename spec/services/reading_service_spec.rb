@@ -177,34 +177,7 @@ RSpec.describe ReadingService do
     end
   end
 
-  describe '#build_fixed_date_references' do
-    it 'builds fixed date references correctly' do
-      service = described_class.new(Date.new(2025, 12, 25))
-
-      refs = service.send(:build_fixed_date_references)
-
-      expect(refs).to include("december_25")
-      expect(refs).to include("christmas_day")
-    end
-
-    it 'builds references for Epiphany' do
-      service = described_class.new(Date.new(2025, 1, 6))
-
-      refs = service.send(:build_fixed_date_references)
-
-      expect(refs).to include("january_6")
-      expect(refs).to include("epiphany")
-    end
-
-    it 'builds references for Christmas Eve' do
-      service = described_class.new(Date.new(2025, 12, 24))
-
-      refs = service.send(:build_fixed_date_references)
-
-      expect(refs).to include("december_24")
-      expect(refs).to include("christmas_eve")
-    end
-  end
+  # Tests for #build_fixed_date_references moved to spec/services/reading/reference_builder_spec.rb
 
   describe '#format_response' do
     let(:service) { described_class.new(Date.new(2025, 1, 1)) }
@@ -347,66 +320,8 @@ RSpec.describe ReadingService do
       end
     end
 
-    describe '#build_weekly_date_references' do
-      it 'builds correct references for Advent weekdays' do
-        # Thursday in first week of Advent
-        service = described_class.new(Date.new(2025, 12, 4))
-        refs = service.send(:build_weekly_date_references)
-
-        expect(refs).to include('1st_sunday_of_advent_thursday')
-        expect(refs).to include('december_4')
-      end
-
-      it 'builds proper references for Ordinary Time' do
-        # Saturday in Proper 20 week
-        service = described_class.new(Date.new(2025, 9, 27))
-        refs = service.send(:build_weekly_date_references)
-
-        expect(refs).to include('proper_20_saturday')
-        expect(refs).to include('september_27')
-      end
-
-      it 'builds references for fixed dates' do
-        service = described_class.new(Date.new(2025, 12, 22))
-        refs = service.send(:build_weekly_date_references)
-
-        expect(refs).to include('december_22')
-      end
-    end
-
-    describe '#weekday_name' do
-      it 'returns correct weekday names' do
-        service = described_class.new(Date.new(2025, 12, 1)) # Monday
-        expect(service.send(:weekday_name, Date.new(2025, 12, 1))).to eq('monday')
-        expect(service.send(:weekday_name, Date.new(2025, 12, 4))).to eq('thursday')
-        expect(service.send(:weekday_name, Date.new(2025, 12, 6))).to eq('saturday')
-      end
-    end
-
-    describe '#find_most_recent_sunday_date' do
-      it 'returns the same date for Sunday' do
-        sunday = Date.new(2025, 12, 7) # Sunday
-        service = described_class.new(sunday)
-
-        expect(service.send(:find_most_recent_sunday_date)).to eq(sunday)
-      end
-
-      it 'returns previous Sunday for Monday' do
-        monday = Date.new(2025, 12, 8)
-        expected_sunday = Date.new(2025, 12, 7)
-        service = described_class.new(monday)
-
-        expect(service.send(:find_most_recent_sunday_date)).to eq(expected_sunday)
-      end
-
-      it 'returns previous Sunday for Saturday' do
-        saturday = Date.new(2025, 12, 6)
-        expected_sunday = Date.new(2025, 11, 30)
-        service = described_class.new(saturday)
-
-        expect(service.send(:find_most_recent_sunday_date)).to eq(expected_sunday)
-      end
-    end
+    # Tests for #build_weekly_date_references, #weekday_name, and #find_most_recent_sunday_date
+    # moved to spec/services/reading/reference_builder_spec.rb
 
     describe 'integration: find_readings for weekdays' do
       it 'finds weekly readings instead of eucharistic for weekdays' do
@@ -852,138 +767,11 @@ RSpec.describe ReadingService do
     end
   end
 
-  describe '#build_celebration_date_references for moveable feasts' do
-    # Test for the fix: build_celebration_date_references should map
-    # calculation_rules to their proper date_references
+  # Tests for #build_celebration_date_references for moveable feasts
+  # moved to spec/services/reading/reference_builder_spec.rb
 
-    context 'with Holy Week celebrations' do
-      let(:holy_monday_celebration) do
-        build(:celebration,
-          name: 'Segunda-feira Santa',
-          calculation_rule: 'easter_minus_6_days')
-      end
-
-      let(:holy_tuesday_celebration) do
-        build(:celebration,
-          name: 'Terça-feira Santa',
-          calculation_rule: 'easter_minus_5_days')
-      end
-
-      let(:holy_wednesday_celebration) do
-        build(:celebration,
-          name: 'Quarta-feira Santa',
-          calculation_rule: 'easter_minus_4_days')
-      end
-
-      it 'maps easter_minus_6_days to holy_monday' do
-        service = described_class.new(Date.new(2025, 4, 14))
-        refs = service.send(:build_celebration_date_references, holy_monday_celebration)
-
-        expect(refs).to include('holy_monday')
-      end
-
-      it 'maps easter_minus_5_days to holy_tuesday' do
-        service = described_class.new(Date.new(2025, 4, 15))
-        refs = service.send(:build_celebration_date_references, holy_tuesday_celebration)
-
-        expect(refs).to include('holy_tuesday')
-      end
-
-      it 'maps easter_minus_4_days to holy_wednesday' do
-        service = described_class.new(Date.new(2025, 4, 16))
-        refs = service.send(:build_celebration_date_references, holy_wednesday_celebration)
-
-        expect(refs).to include('holy_wednesday')
-      end
-    end
-
-    context 'with other moveable feasts' do
-      let(:maundy_thursday) do
-        build(:celebration,
-          name: 'Quinta-Feira Santa',
-          calculation_rule: 'easter_minus_3_days')
-      end
-
-      let(:good_friday) do
-        build(:celebration,
-          name: 'Sexta-Feira da Paixão',
-          calculation_rule: 'easter_minus_2_days')
-      end
-
-      let(:holy_saturday) do
-        build(:celebration,
-          name: 'Sábado Santo',
-          calculation_rule: 'easter_minus_1_days')
-      end
-
-      let(:ascension) do
-        build(:celebration,
-          name: 'Ascensão',
-          calculation_rule: 'easter_plus_39_days')
-      end
-
-      let(:pentecost) do
-        build(:celebration,
-          name: 'Pentecostes',
-          calculation_rule: 'easter_plus_49_days')
-      end
-
-      let(:trinity) do
-        build(:celebration,
-          name: 'Santíssima Trindade',
-          calculation_rule: 'easter_plus_56_days')
-      end
-
-      it 'maps easter_minus_3_days to maundy_thursday and holy_thursday' do
-        service = described_class.new(Date.new(2025, 4, 17))
-        refs = service.send(:build_celebration_date_references, maundy_thursday)
-
-        expect(refs).to include('maundy_thursday')
-        expect(refs).to include('holy_thursday')
-      end
-
-      it 'maps easter_minus_2_days to good_friday' do
-        service = described_class.new(Date.new(2025, 4, 18))
-        refs = service.send(:build_celebration_date_references, good_friday)
-
-        expect(refs).to include('good_friday')
-      end
-
-      it 'maps easter_minus_1_days to holy_saturday' do
-        service = described_class.new(Date.new(2025, 4, 19))
-        refs = service.send(:build_celebration_date_references, holy_saturday)
-
-        expect(refs).to include('holy_saturday')
-        expect(refs).to include('holy_saturday_vigil')
-      end
-
-      it 'maps easter_plus_39_days to ascension' do
-        service = described_class.new(Date.new(2025, 5, 29))
-        refs = service.send(:build_celebration_date_references, ascension)
-
-        expect(refs).to include('ascension')
-        expect(refs).to include('ascension_day')
-      end
-
-      it 'maps easter_plus_49_days to pentecost' do
-        service = described_class.new(Date.new(2025, 6, 8))
-        refs = service.send(:build_celebration_date_references, pentecost)
-
-        expect(refs).to include('pentecost')
-        expect(refs).to include('whitsunday')
-      end
-
-      it 'maps easter_plus_56_days to trinity_sunday' do
-        service = described_class.new(Date.new(2025, 6, 15))
-        refs = service.send(:build_celebration_date_references, trinity)
-
-        expect(refs).to include('trinity_sunday')
-      end
-    end
-  end
-
-  describe '#is_moveable_feast_with_readings?' do
-    # Test for the new method that identifies moveable feasts with their own readings
+  describe '#movable_feast_with_readings?' do
+    # Test for the method that identifies moveable feasts with their own readings
 
     let!(:holy_monday_celebration) do
       create(:celebration,
@@ -1012,7 +800,7 @@ RSpec.describe ReadingService do
       service = described_class.new(Date.new(2025, 4, 14))
       celebration_info = { id: holy_monday_celebration.id, type: 'lesser_feast' }
 
-      result = service.send(:is_moveable_feast_with_readings?, celebration_info)
+      result = service.send(:movable_feast_with_readings?, celebration_info)
 
       expect(result).to be true
     end
@@ -1021,7 +809,7 @@ RSpec.describe ReadingService do
       service = described_class.new(Date.new(2025, 5, 15))
       celebration_info = { id: regular_lesser_feast.id, type: 'lesser_feast' }
 
-      result = service.send(:is_moveable_feast_with_readings?, celebration_info)
+      result = service.send(:movable_feast_with_readings?, celebration_info)
 
       expect(result).to be false
     end
@@ -1029,7 +817,7 @@ RSpec.describe ReadingService do
     it 'returns false for nil celebration' do
       service = described_class.new(Date.new(2025, 5, 15))
 
-      result = service.send(:is_moveable_feast_with_readings?, nil)
+      result = service.send(:movable_feast_with_readings?, nil)
 
       expect(result).to be false
     end
@@ -1038,7 +826,7 @@ RSpec.describe ReadingService do
       service = described_class.new(Date.new(2025, 5, 15))
       celebration_info = { type: 'lesser_feast' }
 
-      result = service.send(:is_moveable_feast_with_readings?, celebration_info)
+      result = service.send(:movable_feast_with_readings?, celebration_info)
 
       expect(result).to be false
     end

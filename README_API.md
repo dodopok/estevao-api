@@ -13,7 +13,7 @@ API RESTful para fornecer informações sobre o ano litúrgico anglicano, inclui
   - `liturgical_colors` - Cores litúrgicas e seu significado
 
 ### ✅ Cálculo de Datas Móveis
-- **EasterCalculator** implementado com algoritmo de Computus (Gauss)
+- **Liturgical::EasterCalculator** implementado com algoritmo de Computus (Gauss)
 - Calcula automaticamente:
   - Data da Páscoa
   - Quarta-feira de Cinzas
@@ -26,7 +26,7 @@ API RESTful para fornecer informações sobre o ano litúrgico anglicano, inclui
   - Primeiro Domingo do Advento
 
 ### ✅ Lógica de Hierarquia e Transferência
-- **CelebrationResolver** implementa todas as regras das normas:
+- **Liturgical::CelebrationResolver** implementa todas as regras das normas:
   - Hierarquia: Festas Principais > Dias Santos > Festivais > Festas Menores
   - Transferência da Anunciação quando cai em domingo ou Semana Santa
   - Transferência de José de Nazaré e Marcos quando caem na Semana Santa
@@ -287,7 +287,7 @@ end
 
 ```bash
 # Testar cálculo da Páscoa
-bin/rails runner "puts EasterCalculator.new(2025).easter_date"
+bin/rails runner "puts Liturgical::EasterCalculator.new(2025).easter_date"
 # => 2025-04-20
 
 # Testar calendário de um dia

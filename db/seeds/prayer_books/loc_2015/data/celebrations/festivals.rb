@@ -3,7 +3,7 @@
 # Apóstolos, Evangelistas e dias santos de alta importância
 # ================================================================================
 
-puts "🎉 Criando Festivais..."
+Rails.logger.info "🎉 Criando Festivais..."
 
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
 
@@ -37,5 +37,5 @@ festivals = [
 
 festivals.each do |festival|
   Celebration.create!(festival.merge(prayer_book_id: prayer_book&.id, movable: false, can_be_transferred: true))
-  puts "  ✓ #{festival[:name]}"
+  Rails.logger.info "  ✓ #{festival[:name]}"
 end

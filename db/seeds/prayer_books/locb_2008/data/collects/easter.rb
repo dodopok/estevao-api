@@ -3,7 +3,7 @@
 # Cor litúrgica: Branco ou Dourado
 # ================================================================================
 
-puts "🙏 Criando Coletas do Tempo Pascal - LOCB 2008..."
+Rails.logger.info "🙏 Criando Coletas do Tempo Pascal - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -161,4 +161,4 @@ easter_collects.each do |collect|
   Collect.create!(collect.merge(prayer_book_id: prayer_book&.id))
 end
 
-puts "  ✓ #{easter_collects.count} coletas do Tempo Pascal criadas"
+Rails.logger.info "  ✓ #{easter_collects.count} coletas do Tempo Pascal criadas"

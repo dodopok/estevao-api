@@ -12,7 +12,7 @@
 #
 # ================================================================================
 
-puts "📖 Carregando leituras do Tempo Pascal..."
+Rails.logger.info "📖 Carregando leituras do Tempo Pascal..."
 
 # Buscar o prayer book
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
@@ -264,5 +264,5 @@ easter_season_readings.each do |reading|
   end
 end
 
-puts "\n✅ #{count} leituras do Tempo Pascal criadas!"
-puts "⏭️  #{skipped} já existiam." if skipped > 0
+Rails.logger.info "\n✅ #{count} leituras do Tempo Pascal criadas!"
+Rails.logger.info "⏭️  #{skipped} já existiam." if skipped > 0

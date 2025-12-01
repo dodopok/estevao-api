@@ -12,19 +12,19 @@
 #
 # ================================================================================
 
-puts "📖 Carregando leituras semanais do Ofício Diário (LOC 2015)..."
+Rails.logger.info "📖 Carregando leituras semanais do Ofício Diário (LOC 2015)..."
 
-csv_path = Rails.root.join('script/ieab_weekly_v2.csv')
+csv_path = Rails.root.join('db/seeds/prayer_books/loc_2015/data/daily_readings.csv')
 
 if File.exist?(csv_path)
-  require Rails.root.join('script/import_weekly_readings.rb')
+  require Rails.root.join('db/seeds/prayer_books/loc_2015/data/daily_readings.rb')
 
   importer = WeeklyReadingsImporter.new(csv_path)
   importer.import
 
   total_weekly = LectionaryReading.where(service_type: 'weekly').count
-  puts "✓ #{total_weekly} leituras semanais carregadas"
+  Rails.logger.info "✓ #{total_weekly} leituras semanais carregadas"
 else
-  puts "⚠️  CSV não encontrado: #{csv_path}"
-  puts "   Pulando importação de leituras semanais"
+  Rails.logger.info "⚠️  CSV não encontrado: #{csv_path}"
+  Rails.logger.info "   Pulando importação de leituras semanais"
 end

@@ -8,9 +8,9 @@ base_path = 'db/seeds/prayer_books/loc_2015/data'
 # CELEBRAÇÕES (organizadas por categoria)
 # ================================================================================
 
-puts "\n" + "="*80
-puts "CARREGANDO CELEBRAÇÕES - LOC 2015"
-puts "="*80
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO CELEBRAÇÕES - LOC 2015"
+Rails.logger.info "="*80
 
 # Festas Principais
 load Rails.root.join("#{base_path}/celebrations/principal_feasts.rb")
@@ -33,15 +33,15 @@ load Rails.root.join("#{base_path}/celebrations/more_saints.rb")
 # Santos Anglicanos
 load Rails.root.join("#{base_path}/celebrations/anglican_saints.rb")
 
-puts "✓ Celebrações carregadas com sucesso"
+Rails.logger.info "✓ Celebrações carregadas com sucesso"
 
 # ================================================================================
 # LEITURAS DO LECIONÁRIO (organizadas por tempo litúrgico)
 # ================================================================================
 
-puts "\n" + "="*80
-puts "CARREGANDO LEITURAS DO LECIONÁRIO - LOC 2015"
-puts "="*80
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO LEITURAS DO LECIONÁRIO - LOC 2015"
+Rails.logger.info "="*80
 
 # Advento
 load Rails.root.join("#{base_path}/readings/advent.rb")
@@ -79,27 +79,27 @@ load Rails.root.join("#{base_path}/readings/complementary_examples.rb")
 # Leituras Semanais do Ofício Diário
 load Rails.root.join("#{base_path}/readings/weekly_office.rb")
 
-puts "✓ Leituras carregadas com sucesso"
+Rails.logger.info "✓ Leituras carregadas com sucesso"
 
 # ================================================================================
 # COLETAS
 # ================================================================================
 
-puts "\n" + "="*80
-puts "CARREGANDO COLETAS - LOC 2015"
-puts "="*80
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO COLETAS - LOC 2015"
+Rails.logger.info "="*80
 
 load Rails.root.join("#{base_path}/collects.rb")
 
-puts "✓ Coletas carregadas com sucesso"
+Rails.logger.info "✓ Coletas carregadas com sucesso"
 
 # ================================================================================
 # OFÍCIO DIÁRIO - TEXTOS LITÚRGICOS, SALMOS E CICLOS
 # ================================================================================
 
-puts "\n" + "="*80
-puts "CARREGANDO OFÍCIO DIÁRIO - LOC 2015"
-puts "="*80
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO OFÍCIO DIÁRIO - LOC 2015"
+Rails.logger.info "="*80
 
 # Textos Litúrgicos
 load Rails.root.join("#{base_path}/liturgical_texts.rb")
@@ -110,8 +110,8 @@ load Rails.root.join("#{base_path}/psalms.rb")
 # Ciclos de Salmos
 load Rails.root.join("#{base_path}/psalm_cycles.rb")
 
-puts "✓ Ofício Diário carregado com sucesso"
+Rails.logger.info "✓ Ofício Diário carregado com sucesso"
 
-puts "\n" + "="*80
-puts "LOC 2015 - CARREGAMENTO COMPLETO ✓"
-puts "="*80
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "LOC 2015 - CARREGAMENTO COMPLETO ✓"
+Rails.logger.info "="*80

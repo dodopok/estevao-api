@@ -2,7 +2,7 @@
 # LEITURAS DOS DIAS SANTOS E FESTAS MAIORES - LOCB 2008
 # ================================================================================
 
-puts "📖 Criando Leituras dos Dias Santos e Festas Maiores - LOCB 2008..."
+Rails.logger.info "📖 Criando Leituras dos Dias Santos e Festas Maiores - LOCB 2008..."
 
 prayer_book = PrayerBook.find_by_code('locb_2008')
 
@@ -356,5 +356,5 @@ holy_days_readings.each do |reading|
   end
 end
 
-puts "✅ Leituras dos Dias Santos criadas: #{count}"
-puts "⏭️  Leituras já existentes: #{skipped}" if skipped > 0
+Rails.logger.info "✅ Leituras dos Dias Santos criadas: #{count}"
+Rails.logger.info "⏭️  Leituras já existentes: #{skipped}" if skipped > 0

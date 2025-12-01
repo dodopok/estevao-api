@@ -22,7 +22,7 @@
 #      All other NT books → second_reading field
 #
 # Usage:
-#   rails runner script/import_weekly_readings.rb
+#   rails runner db/seeds/prayer_books/loc_2015/data/daily_readings.rb
 #
 # ================================================================================
 
@@ -203,10 +203,10 @@ class WeeklyReadingsImporter
   # IMPORT MAIN METHOD
   # ============================================================================
   def import
-    puts "\n" + "="*80
-    puts "IMPORTING WEEKLY READINGS FROM: #{@csv_path}"
-    puts "="*80
-    puts ""
+    Rails.logger.info "\n" + "="*80
+    Rails.logger.info "IMPORTING WEEKLY READINGS FROM: #{@csv_path}"
+    Rails.logger.info "="*80
+    Rails.logger.info ""
 
     row_count = 0
     CSV.foreach(@csv_path, headers: true, encoding: 'UTF-8') do |row|
@@ -352,23 +352,23 @@ class WeeklyReadingsImporter
   # STATISTICS REPORTING
   # ============================================================================
   def report_stats
-    puts "\n\n" + "="*80
-    puts "IMPORT COMPLETED"
-    puts "="*80
-    puts "✅ Created: #{@stats[:created]}"
-    puts "🔄 Updated: #{@stats[:updated]}"
-    puts "⏭️  Skipped: #{@stats[:skipped]}"
-    puts "📊 Total processed: #{@stats[:created] + @stats[:updated] + @stats[:skipped]}"
+    Rails.logger.info "\n\n" + "="*80
+    Rails.logger.info "IMPORT COMPLETED"
+    Rails.logger.info "="*80
+    Rails.logger.info "✅ Created: #{@stats[:created]}"
+    Rails.logger.info "🔄 Updated: #{@stats[:updated]}"
+    Rails.logger.info "⏭️  Skipped: #{@stats[:skipped]}"
+    Rails.logger.info "📊 Total processed: #{@stats[:created] + @stats[:updated] + @stats[:skipped]}"
 
     if @stats[:errors].any?
-      puts "\n❌ ERRORS (#{@stats[:errors].count}):"
-      @stats[:errors].first(10).each { |err| puts "   #{err}" }
+      Rails.logger.info "\n❌ ERRORS (#{@stats[:errors].count}):"
+      @stats[:errors].first(10).each { |err| Rails.logger.info "   #{err}" }
       if @stats[:errors].count > 10
-        puts "   ... and #{@stats[:errors].count - 10} more errors"
+        Rails.logger.info "   ... and #{@stats[:errors].count - 10} more errors"
       end
     end
 
-    puts "="*80
+    Rails.logger.info "="*80
   end
 end
 
@@ -379,12 +379,12 @@ if __FILE__ == $0
   csv_path = ARGV[0] # Optional: override default path
 
   if csv_path && !File.exist?(csv_path)
-    puts "Error: File not found: #{csv_path}"
+    Rails.logger.info "Error: File not found: #{csv_path}"
     exit 1
   end
 
-  puts "Starting Weekly Readings Import..."
+  Rails.logger.info "Starting Weekly Readings Import..."
   importer = WeeklyReadingsImporter.new(csv_path)
   importer.import
-  puts "\n✓ Import completed successfully!"
+  Rails.logger.info "\n✓ Import completed successfully!"
 end

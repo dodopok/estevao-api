@@ -2,7 +2,7 @@
 # Creates both weekly and monthly cycles
 # TODO: Verify with LOC 2015 which cycle system is used and adjust accordingly
 
-puts "Creating Psalm Cycles..."
+Rails.logger.info "Creating Psalm Cycles..."
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
 
 # Weekly Cycle (Simple 7-day cycle)
@@ -91,9 +91,9 @@ end
   end
 end
 
-puts "Created #{PsalmCycle.count} psalm cycles (weekly)"
-puts "NOTE: This is a simplified weekly cycle. Consult LOC 2015 for the official cycle."
-puts "      LOC may use a 30-day (monthly) cycle instead. If so, you'll need to create 30 entries per office type."
+Rails.logger.info "Created #{PsalmCycle.count} psalm cycles (weekly)"
+Rails.logger.info "NOTE: This is a simplified weekly cycle. Consult LOC 2015 for the official cycle."
+Rails.logger.info "      LOC may use a 30-day (monthly) cycle instead. If so, you'll need to create 30 entries per office type."
 
 # Monthly Cycle (30-day cycle) - Example structure
 # Uncomment and populate if LOC 2015 uses monthly cycle
