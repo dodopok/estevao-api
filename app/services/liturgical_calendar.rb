@@ -8,6 +8,10 @@ class LiturgicalCalendar
     @easter_calc = EasterCalculator.new(year)
     @season_determinator = Liturgical::SeasonDeterminator.new(year, easter_calc: @easter_calc)
     @proper_calculator = Liturgical::ProperCalculator.new(year, easter_calc: @easter_calc)
+    @color_determinator = Liturgical::ColorDeterminator.new(
+      season_determinator: @season_determinator,
+      easter_calc: @easter_calc
+    )
   end
 
   # Retorna as informações litúrgicas completas de um dia específico
@@ -37,44 +41,10 @@ class LiturgicalCalendar
   end
 
   # Determina a cor litúrgica para uma data
+  # Delegado ao Liturgical::ColorDeterminator
   def color_for_date(date)
     celebration = celebration_for_date(date)
-
-    # Se há uma FESTA PRINCIPAL ou DIA SANTO PRINCIPAL, usa SEMPRE a cor da celebração
-    # (sobrescreve tudo, incluindo domingos e quadras litúrgicas)
-    if celebration && celebration[:color]
-      if celebration[:type] == "principal_feast" || celebration[:type] == "major_holy_day"
-        return celebration[:color]
-      end
-    end
-
-    # Para festivais e festas menores: mantém a cor da quadra litúrgica
-    # A celebração aparece em 'celebration', mas não altera a cor litúrgica principal
-
-    # Usa a cor da quadra
-    season = season_for_date(date)
-    movable = easter_calc.all_movable_dates
-
-    case season
-    when "Advento"
-      date == movable[:first_sunday_of_advent] + 14.days ? "rosa" : "violeta"
-    when "Natal", "Páscoa"
-      "branco"
-    when "Quaresma"
-      if date >= movable[:palm_sunday] && date <= movable[:good_friday]
-        date == movable[:good_friday] ? "vermelho" : "vermelho"
-      elsif date == movable[:first_sunday_in_lent] + 21.days # 4º Domingo na Quaresma
-        "rosa"
-      else
-        "roxo"
-      end
-    when "Tempo Comum"
-      "verde"
-    when "Epifania"
-      "verde"
-    else
-      "verde"
-    end
+    @color_determinator.color_for(date, celebration: celebration)
   end
 
   # Retorna a celebração principal do dia
