@@ -468,41 +468,6 @@ class LiturgicalCalendar
 
   private
 
-  # Celebração móvel para uma data específica
-  def movable_celebration_for_date(date)
-    movable = easter_calc.all_movable_dates
-
-    movable_celebrations = {
-      movable[:easter] => Celebration.find_by(name: "Páscoa"),
-      movable[:ash_wednesday] => Celebration.find_by(name: "Quarta-Feira de Cinzas"),
-      movable[:good_friday] => Celebration.find_by(name: "Sexta-Feira da Paixão"),
-      movable[:maundy_thursday] => Celebration.find_by(name: "Quinta-Feira Santa"),
-      movable[:ascension] => Celebration.find_by(name: "Ascensão de nosso Senhor Jesus Cristo"),
-      movable[:pentecost] => Celebration.find_by(name: "Pentecostes"),
-      movable[:trinity_sunday] => Celebration.find_by(name: "Santíssima Trindade"),
-      movable[:baptism_of_the_lord] => Celebration.find_by(name: "Batismo de nosso Senhor Jesus Cristo"),
-      movable[:christ_the_king] => Celebration.find_by(name: "Cristo Rei do Universo")
-    }
-
-    movable_celebrations[date]
-  end
-
-  # Fim da quadra da Epifania
-  def epiphany_season_end
-    easter_calc.ash_wednesday - 1.day
-  end
-
-  # Início da quadra da Epifania
-  def epiphany_season_start
-    Date.new(year, 1, 7) # Dia depois da Epifania
-  end
-
-  # Nome do dia da semana em português
-  def day_name_pt(date)
-    names = %w[Domingo Segunda-feira Terça-feira Quarta-feira Quinta-feira Sexta-feira Sábado]
-    names[date.wday]
-  end
-
   # Verifica se uma celebração foi transferida para esta data
   def transferred?(celebration, date)
     return false if celebration.movable?
