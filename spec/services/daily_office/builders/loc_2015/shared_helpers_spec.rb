@@ -110,8 +110,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::SharedHelpers do
       end
 
       it 'returns different results for different keys with same seed' do
-        result1 = builder_with_seed.send(:seeded_random, 1..10, key: :test_key_1)
-        result2 = builder_with_seed.send(:seeded_random, 1..10, key: :test_key_2)
+        # Use a large range to make collision statistically insignificant
+        result1 = builder_with_seed.send(:seeded_random, 1..1_000_000, key: :test_key_1)
+        result2 = builder_with_seed.send(:seeded_random, 1..1_000_000, key: :test_key_2)
         expect(result1).not_to eq(result2)
       end
 
