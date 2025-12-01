@@ -102,41 +102,30 @@ class CelebrationResolver
     sorted.first
   end
 
+  # Mapeia calculation_rule para a chave correspondente em all_movable_dates
+  CALCULATION_RULE_TO_MOVABLE_DATE = {
+    "easter" => :easter,
+    "easter_minus_46_days" => :ash_wednesday,
+    "easter_minus_6_days" => :holy_monday,
+    "easter_minus_5_days" => :holy_tuesday,
+    "easter_minus_4_days" => :holy_wednesday,
+    "easter_minus_3_days" => :maundy_thursday,
+    "easter_minus_2_days" => :good_friday,
+    "easter_minus_1_day" => :holy_saturday,
+    "easter_plus_39_days" => :ascension,
+    "easter_plus_49_days" => :pentecost,
+    "first_sunday_after_pentecost" => :trinity_sunday,
+    "first_sunday_after_epiphany" => :baptism_of_the_lord,
+    "sunday_before_advent" => :christ_the_king
+  }.freeze
+
   def calculate_movable_date(celebration)
     return nil unless celebration.movable?
 
-    movable_dates = easter_calc.all_movable_dates
+    movable_key = CALCULATION_RULE_TO_MOVABLE_DATE[celebration.calculation_rule]
+    return nil unless movable_key
 
-    case celebration.calculation_rule
-    when "easter"
-      movable_dates[:easter]
-    when "easter_minus_46_days"
-      movable_dates[:ash_wednesday]
-    when "easter_minus_6_days"
-      movable_dates[:holy_monday]
-    when "easter_minus_5_days"
-      movable_dates[:holy_tuesday]
-    when "easter_minus_4_days"
-      movable_dates[:holy_wednesday]
-    when "easter_minus_3_days"
-      movable_dates[:maundy_thursday]
-    when "easter_minus_2_days"
-      movable_dates[:good_friday]
-    when "easter_minus_1_day"
-      movable_dates[:holy_saturday]
-    when "easter_plus_39_days"
-      movable_dates[:ascension]
-    when "easter_plus_49_days"
-      movable_dates[:pentecost]
-    when "first_sunday_after_pentecost"
-      movable_dates[:trinity_sunday]
-    when "first_sunday_after_epiphany"
-      movable_dates[:baptism_of_the_lord]
-    when "sunday_before_advent"
-      movable_dates[:christ_the_king]
-    else
-      nil
-    end
+    easter_calc.all_movable_dates[movable_key]
   end
 
   def transfer_if_needed(celebration, original_date)
