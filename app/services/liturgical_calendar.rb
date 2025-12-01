@@ -80,7 +80,7 @@ class LiturgicalCalendar
   # Retorna a celebração principal do dia
   def celebration_for_date(date)
     # Usa o CelebrationResolver para aplicar regras de transferência e hierarquia
-    resolver = CelebrationResolver.new(year, prayer_book_code: prayer_book_code)
+    resolver = CelebrationResolver.new(year, prayer_book_code: prayer_book_code, easter_calc: easter_calc)
     celebration = resolver.resolve_for_date(date)
 
     return nil unless celebration

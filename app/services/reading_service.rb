@@ -5,18 +5,18 @@ class ReadingService
   attr_reader :date, :calendar, :cycle
 
   # Factory method que retorna o serviço apropriado baseado no prayer_book_code
-  def self.for(date, prayer_book_code: "loc_2015")
+  def self.for(date, prayer_book_code: "loc_2015", calendar: nil)
     case prayer_book_code
     when "loc_2015"
-      IeabReadingService.new(date)
+      IeabReadingService.new(date, calendar: calendar)
     else
-      new(date, prayer_book_code: prayer_book_code)
+      new(date, prayer_book_code: prayer_book_code, calendar: calendar)
     end
   end
 
-  def initialize(date, prayer_book_code: "loc_2015")
+  def initialize(date, prayer_book_code: "loc_2015", calendar: nil)
     @date = date
-    @calendar = LiturgicalCalendar.new(date.year)
+    @calendar = calendar || LiturgicalCalendar.new(date.year)
     @cycle = determine_cycle
     @prayer_book_code = prayer_book_code
   end

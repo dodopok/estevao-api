@@ -4,10 +4,10 @@ class CelebrationResolver
 
   attr_reader :year, :easter_calc
 
-  def initialize(year, prayer_book_code: "loc_2015")
+  def initialize(year, prayer_book_code: "loc_2015", easter_calc: nil)
     @year = year
     @prayer_book_code = prayer_book_code
-    @easter_calc = EasterCalculator.new(year)
+    @easter_calc = easter_calc || EasterCalculator.new(year)
     @season_determinator = Liturgical::SeasonDeterminator.new(year, easter_calc: @easter_calc)
   end
 

@@ -4,9 +4,9 @@ class CollectService
 
   attr_reader :date, :calendar
 
-  def initialize(date, prayer_book_code: "loc_2015")
+  def initialize(date, prayer_book_code: "loc_2015", calendar: nil)
     @date = date
-    @calendar = LiturgicalCalendar.new(date.year)
+    @calendar = calendar || LiturgicalCalendar.new(date.year)
     @prayer_book_code = prayer_book_code
   end
 

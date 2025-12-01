@@ -14,8 +14,8 @@ class IeabReadingService < ReadingService
   # Dias de reflexão (depois do domingo)
   REFLECTION_DAYS = [ 1, 2, 3 ].freeze # Monday, Tuesday, Wednesday
 
-  def initialize(date)
-    super(date, prayer_book_code: "loc_2015")
+  def initialize(date, calendar: nil)
+    super(date, prayer_book_code: "loc_2015", calendar: calendar)
   end
 
   private
