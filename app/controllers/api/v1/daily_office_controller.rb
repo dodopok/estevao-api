@@ -91,7 +91,7 @@ module Api
         render json: {
           versions: [ "loc_2015" ],
           languages: [ "pt-BR", "en" ],
-          bible_versions: [ "nvi", "ntlh", "arc" ],
+          bible_versions: BibleText::TRANSLATIONS.keys,
           lords_prayer_versions: [ "traditional", "contemporary" ],
           creed_types: [ "apostles", "nicene" ],
           confession_types: [ "long", "short" ],

@@ -14,8 +14,8 @@ class Reading::Loc2015Service < ReadingService
   # Dias de reflexão (depois do domingo)
   REFLECTION_DAYS = [ 1, 2, 3 ].freeze # Monday, Tuesday, Wednesday
 
-  def initialize(date, calendar: nil)
-    super(date, prayer_book_code: "loc_2015", calendar: calendar)
+  def initialize(date, calendar: nil, translation: "nvi")
+    super(date, prayer_book_code: "loc_2015", calendar: calendar, translation: translation)
   end
 
   private
