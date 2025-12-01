@@ -6,6 +6,7 @@ class LiturgicalCalendar
     @year = year
     @prayer_book_code = prayer_book_code
     @easter_calc = EasterCalculator.new(year)
+    @season_determinator = Liturgical::SeasonDeterminator.new(year, easter_calc: @easter_calc)
     @proper_calculator = Liturgical::ProperCalculator.new(year, easter_calc: @easter_calc)
   end
 
@@ -30,45 +31,9 @@ class LiturgicalCalendar
   end
 
   # Retorna a quadra litúrgica para uma data
+  # Delegado ao Liturgical::SeasonDeterminator
   def season_for_date(date)
-    movable = easter_calc.all_movable_dates
-    baptism = movable[:baptism_of_the_lord]
-
-    # Verificar primeiro se estamos no início de Janeiro (Natal do ano anterior)
-    # Ex: 5 de Janeiro 2025 pertence ao Natal que começou em 25 Dez 2024
-    # O Batismo do Senhor marca o fim do Natal e início da Epifania
-    if date.month == 1 && date < baptism
-      return "Natal"
-    end
-
-    # Advento: do 1º Domingo do Advento até 24 de dezembro
-    if date >= movable[:first_sunday_of_advent] && date <= Date.new(year, 12, 24)
-      return "Advento"
-    end
-
-    # Natal: 25 de dezembro até véspera do Batismo do Senhor do próximo ano
-    christmas_start = Date.new(year, 12, 25)
-    if date >= christmas_start
-      return "Natal"
-    end
-
-    # Epifania: do Batismo do Senhor até véspera da Quarta de Cinzas
-    if date >= baptism && date < movable[:ash_wednesday]
-      return "Epifania"
-    end
-
-    # Quaresma: Quarta de Cinzas até Sábado Santo
-    if date >= movable[:ash_wednesday] && date <= movable[:holy_saturday]
-      return "Quaresma"
-    end
-
-    # Páscoa: Domingo de Páscoa até Pentecostes
-    if date >= movable[:easter] && date <= movable[:pentecost]
-      return "Páscoa"
-    end
-
-    # Caso contrário: Tempo Comum
-    "Tempo Comum"
+    @season_determinator.season_for_date(date)
   end
 
   # Determina a cor litúrgica para uma data
@@ -548,8 +513,8 @@ class LiturgicalCalendar
 
   # Verifica se uma data está em uma quadra litúrgica principal
   # onde os domingos têm precedência sobre festivais menores
+  # Delegado ao Liturgical::SeasonDeterminator
   def in_major_season?(date)
-    season = season_for_date(date)
-    [ "Advento", "Natal", "Quaresma", "Páscoa" ].include?(season)
+    @season_determinator.in_major_season?(date)
   end
 end

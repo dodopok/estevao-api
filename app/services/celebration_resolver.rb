@@ -6,6 +6,7 @@ class CelebrationResolver
     @year = year
     @prayer_book_code = prayer_book_code
     @easter_calc = EasterCalculator.new(year)
+    @season_determinator = Liturgical::SeasonDeterminator.new(year, easter_calc: @easter_calc)
   end
 
   def prayer_book
@@ -274,43 +275,15 @@ class CelebrationResolver
   end
 
   # Verifica se uma data está em período protegido (não pode ter festivais menores)
+  # Delegado ao Liturgical::SeasonDeterminator
   def in_protected_period?(date)
-    movable = easter_calc.all_movable_dates
-    palm_sunday = movable[:palm_sunday]
-    second_easter = movable[:second_sunday_of_easter]
-
-    # Semana Santa até Segundo Domingo da Páscoa
-    (date >= palm_sunday && date <= second_easter)
+    @season_determinator.in_protected_period?(date)
   end
 
   # Verifica se uma data está em uma quadra litúrgica principal
   # onde os domingos têm precedência sobre festivais menores
+  # Delegado ao Liturgical::SeasonDeterminator
   def in_major_season?(date)
-    movable = easter_calc.all_movable_dates
-
-    # Advento (do 1º Domingo do Advento até 24 de dezembro)
-    if date >= movable[:first_sunday_of_advent] && date <= Date.new(year, 12, 24)
-      return true
-    end
-
-    # Natal (25 de dezembro até 6 de janeiro do próximo ano - Epifania)
-    # Durante o Natal, domingos têm precedência
-    christmas_start = Date.new(year, 12, 25)
-    epiphany = Date.new(year + 1, 1, 6)
-    if date >= christmas_start && date <= epiphany
-      return true
-    end
-
-    # Quaresma (Quarta-feira de Cinzas até Sábado Santo)
-    if date >= movable[:ash_wednesday] && date <= movable[:holy_saturday]
-      return true
-    end
-
-    # Páscoa (Domingo de Páscoa até Pentecostes)
-    if date >= movable[:easter] && date <= movable[:pentecost]
-      return true
-    end
-
-    false
+    @season_determinator.in_major_season?(date)
   end
 end
