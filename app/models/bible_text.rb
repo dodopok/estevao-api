@@ -34,6 +34,26 @@ class BibleText < ApplicationRecord
     "3 Jo\u00E3o" => 64, "Judas" => 65, "Apocalipse" => 66
   }.freeze
 
+  # Reverse mapping: book_id (1-66) => book name in Portuguese
+  BOOKS_BY_ID = BOOKS.invert.freeze
+
+  # Available Bible translations with metadata
+  TRANSLATIONS = {
+    "acf" => { name: "Almeida Corrigida Fiel", publisher: "SBTB", year: 1994 },
+    "ara" => { name: "Almeida Revista e Atualizada", publisher: "SBB", year: 1993 },
+    "arc" => { name: "Almeida Revista e Corrigida", publisher: "SBB", year: 1995 },
+    "as21" => { name: "Almeida Século XXI", publisher: "Vida Nova", year: 2008 },
+    "jfaa" => { name: "João Ferreira de Almeida Atualizada", publisher: "SBB", year: 2011 },
+    "kja" => { name: "King James Atualizada", publisher: "Abba Press", year: 1999 },
+    "kjf" => { name: "King James Fiel", publisher: "BV Books", year: 2020 },
+    "naa" => { name: "Nova Almeida Atualizada", publisher: "SBB", year: 2017 },
+    "nbv" => { name: "Nova Bíblia Viva", publisher: "Mundo Cristão", year: 2010 },
+    "ntlh" => { name: "Nova Tradução na Linguagem de Hoje", publisher: "SBB", year: 2000 },
+    "nvi" => { name: "Nova Versão Internacional", publisher: "Vida", year: 2011 },
+    "nvt" => { name: "Nova Versão Transformadora", publisher: "Mundo Cristão", year: 2016 },
+    "tb" => { name: "Tradução Brasileira", publisher: "SBB", year: 2010 }
+  }.freeze
+
   # Find verses for a passage reference like "João 3:16-17" or "Salmos 23"
   def self.fetch_passage(reference, translation: "nvi")
     parsed = parse_reference(reference)
@@ -61,6 +81,7 @@ class BibleText < ApplicationRecord
   # - Letter suffixes: "2 Pedro 3:8-15a"
   # - Alternatives with "or": "Baruque 5:1-9 or Malaquias 3:1-4" (returns first option)
   # - Optional verses: "Lucas 1:39-45 (46-55)" (ignores optional part)
+  # - Dot separator: "Gênesis 9.1-17" (uses dot instead of colon)
   def self.parse_reference(reference)
     return nil if reference.blank?
 
@@ -80,8 +101,9 @@ class BibleText < ApplicationRecord
     clean_ref = clean_ref.gsub(/(\d+)[a-z]/, '\1')
 
     # Enhanced regex to handle books with numbers
-    # Captures: (optional number + book name) (chapter) (optional :verse) (optional -verse_end)
-    match = clean_ref.match(/^(\d*\s*[^\d:]+?)\s*(\d+)(?::(\d+)(?:-(\d+))?)?$/)
+    # Captures: (optional number + book name) (chapter) (optional [:.]verse) (optional -verse_end)
+    # Supports both : and . as separators between chapter and verse
+    match = clean_ref.match(/^(\d*\s*[^\d:.]+?)\s*(\d+)(?:[:.](\d+)(?:-(\d+))?)?$/)
     return nil unless match
 
     {
@@ -100,19 +122,11 @@ class BibleText < ApplicationRecord
     html = "<div class='bible-passage'>"
     html += "<p class='passage-reference'>#{reference}</p>"
 
-    current_paragraph = []
-
-    verses.each do |verse|
-      verse_html = "<sup>#{verse.verse}</sup>#{verse.text}"
-
-      if verse.verse_type == "poetry"
-        html += "<p class='poetry-line'>#{verse_html}</p>"
-      else
-        current_paragraph << verse_html
-      end
+    verse_texts = verses.map do |verse|
+      "<sup>#{verse.verse}</sup>#{verse.text}"
     end
 
-    html += "<p>#{current_paragraph.join(' ')}</p>" if current_paragraph.any?
+    html += "<p>#{verse_texts.join(' ')}</p>"
     html += "</div>"
     html
   end

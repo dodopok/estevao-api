@@ -16,7 +16,11 @@ module DailyOffice
 
         # Load day info and readings
         @day_info = liturgical_calendar.day_info(@date)
-        @readings = ReadingService.for(@date, prayer_book_code: @preferences[:prayer_book_code]).find_readings || {}
+        @readings = ReadingService.for(
+          @date,
+          prayer_book_code: @preferences[:prayer_book_code],
+          translation: @preferences[:bible_version] || "nvi"
+        ).find_readings || {}
         @collects = CollectService.new(@date, prayer_book_code: @preferences[:prayer_book_code]).find_collects || {}
 
         # Initialize component builders

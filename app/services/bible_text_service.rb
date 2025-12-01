@@ -30,8 +30,7 @@ class BibleTextService
       verses: verses.map do |v|
         {
           number: v.verse,
-          text: v.text,
-          type: v.verse_type || "prose"
+          text: v.text
         }
       end
     }

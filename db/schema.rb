@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_29_032806) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_01_210620) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,7 +23,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_29_032806) do
     t.string "translation", default: "nvi"
     t.datetime "updated_at", null: false
     t.integer "verse", null: false
-    t.string "verse_type"
     t.index ["book", "chapter", "verse", "translation"], name: "index_bible_texts_on_verse_lookup"
     t.index ["book_number", "chapter", "verse", "translation"], name: "index_bible_texts_on_book_number_lookup"
   end

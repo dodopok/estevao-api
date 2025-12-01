@@ -604,9 +604,19 @@ paths:
                     items:
                       type: string
                     example:
-                    - nvi
-                    - ntlh
+                    - acf
+                    - ara
                     - arc
+                    - as21
+                    - jfaa
+                    - kja
+                    - kjf
+                    - naa
+                    - nbv
+                    - ntlh
+                    - nvi
+                    - nvt
+                    - tb
                   lords_prayer_versions:
                     type: array
                     items:
@@ -670,9 +680,19 @@ paths:
       schema:
         type: string
         enum:
-        - nvi
-        - ntlh
+        - acf
+        - ara
         - arc
+        - as21
+        - jfaa
+        - kja
+        - kjf
+        - naa
+        - nbv
+        - ntlh
+        - nvi
+        - nvt
+        - tb
     - name: language
       in: query
       required: false
@@ -859,9 +879,19 @@ paths:
       schema:
         type: string
         enum:
-        - nvi
-        - ntlh
+        - acf
+        - ara
         - arc
+        - as21
+        - jfaa
+        - kja
+        - kjf
+        - naa
+        - nbv
+        - ntlh
+        - nvi
+        - nvt
+        - tb
     - name: language
       in: query
       required: false
@@ -2066,6 +2096,7 @@ paths:
                         jurisdiction:
                           type: string
                           example: Igreja Episcopal Anglicana do Brasil
+                          nullable: true
                         description:
                           type: string
                           nullable: true
@@ -2116,6 +2147,7 @@ paths:
                   jurisdiction:
                     type: string
                     example: Igreja Episcopal Anglicana do Brasil
+                    nullable: true
                   description:
                     type: string
                     nullable: true

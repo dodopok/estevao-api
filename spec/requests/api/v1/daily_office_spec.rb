@@ -24,7 +24,7 @@ RSpec.describe "api/v1/daily_office", type: :request do
                properties: {
                  versions: { type: :array, items: { type: :string }, example: [ "loc_2015" ] },
                  languages: { type: :array, items: { type: :string }, example: [ "pt-BR", "en" ] },
-                 bible_versions: { type: :array, items: { type: :string }, example: [ "nvi", "ntlh", "arc" ] },
+                 bible_versions: { type: :array, items: { type: :string }, example: BibleText::TRANSLATIONS.keys },
                  lords_prayer_versions: { type: :array, items: { type: :string }, example: [ "traditional", "contemporary" ] },
                  creed_types: { type: :array, items: { type: :string }, example: [ "apostles", "nicene" ] },
                  confession_types: { type: :array, items: { type: :string }, example: [ "long", "short" ] },
@@ -46,7 +46,7 @@ RSpec.describe "api/v1/daily_office", type: :request do
   path "/api/v1/daily_office/today/{office_type}" do
     parameter name: "office_type", in: :path, required: true, description: "Type of office (morning, midday, evening, compline)", schema: { type: :string, enum: [ 'morning', 'midday', 'evening', 'compline' ] }
     parameter name: :prayer_book_code, in: :query, required: false, description: "Prayer book code (default: loc_2015)", schema: { type: :string, enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ] }
-    parameter name: :bible_version, in: :query, required: false, description: "Bible translation (default: nvi)", schema: { type: :string, enum: [ 'nvi', 'ntlh', 'arc' ] }
+    parameter name: :bible_version, in: :query, required: false, description: "Bible translation (default: nvi)", schema: { type: :string, enum: BibleText::TRANSLATIONS.keys }
     parameter name: :language, in: :query, required: false, description: "Language (default: pt-BR)", schema: { type: :string, enum: [ 'pt-BR' ] }
     parameter name: :lords_prayer_version, in: :query, required: false, description: "Lord's Prayer version (traditional/contemporary)", schema: { type: :string, enum: [ 'traditional', 'contemporary' ] }
     parameter name: :creed_type, in: :query, required: false, description: "Creed type (apostles/nicene)", schema: { type: :string, enum: [ 'apostles', 'nicene' ] }
@@ -126,7 +126,7 @@ RSpec.describe "api/v1/daily_office", type: :request do
     parameter name: "day", in: :path, type: :string, description: "Day (1-31)", required: true
     parameter name: "office_type", in: :path, required: true, description: "Type of office (morning, midday, evening, compline)", schema: { type: :string, enum: [ 'morning', 'midday', 'evening', 'compline' ] }
     parameter name: :prayer_book_code, in: :query, required: false, description: "Prayer book code (default: loc_2015)", schema: { type: :string, enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ] }
-    parameter name: :bible_version, in: :query, required: false, description: "Bible translation (default: nvi)", schema: { type: :string, enum: [ 'nvi', 'ntlh', 'arc' ] }
+    parameter name: :bible_version, in: :query, required: false, description: "Bible translation (default: nvi)", schema: { type: :string, enum: BibleText::TRANSLATIONS.keys }
     parameter name: :language, in: :query, required: false, description: "Language (default: pt-BR)", schema: { type: :string, enum: [ 'pt-BR' ] }
     parameter name: :lords_prayer_version, in: :query, required: false, description: "Lord's Prayer version (traditional/contemporary)", schema: { type: :string, enum: [ 'traditional', 'contemporary' ] }
     parameter name: :creed_type, in: :query, required: false, description: "Creed type (apostles/nicene)", schema: { type: :string, enum: [ 'apostles', 'nicene' ] }

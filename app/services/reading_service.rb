@@ -17,23 +17,24 @@ class ReadingService
   # Seasons where Sunday takes precedence over minor festivals
   MAJOR_SEASONS = %w[Advento Quaresma Páscoa].freeze
 
-  attr_reader :date, :calendar, :cycle
+  attr_reader :date, :calendar, :cycle, :translation
 
   # Factory method que retorna o serviço apropriado baseado no prayer_book_code
-  def self.for(date, prayer_book_code: "loc_2015", calendar: nil)
+  def self.for(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi")
     case prayer_book_code
     when "loc_2015"
-      Reading::Loc2015Service.new(date, calendar: calendar)
+      Reading::Loc2015Service.new(date, calendar: calendar, translation: translation)
     else
-      new(date, prayer_book_code: prayer_book_code, calendar: calendar)
+      new(date, prayer_book_code: prayer_book_code, calendar: calendar, translation: translation)
     end
   end
 
-  def initialize(date, prayer_book_code: "loc_2015", calendar: nil)
+  def initialize(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi")
     @date = date
     @calendar = calendar || LiturgicalCalendar.new(date.year)
     @cycle = determine_cycle
     @prayer_book_code = prayer_book_code
+    @translation = translation
   end
 
   # Retorna as leituras para o dia
@@ -207,19 +208,31 @@ class ReadingService
     }.compact
   end
 
-  # Enriquece uma referência de leitura com componentes parseados
+  # Enriquece uma referência de leitura com componentes parseados e texto bíblico
   def enrich_reading(reference)
     return nil if reference.blank?
 
     parsed = BibleText.parse_reference(reference)
     return { reference: reference } unless parsed
 
-    {
+    result = {
       reference: reference,
       book_name: parsed[:book],
       chapter: parsed[:chapter],
       verse_start: parsed[:verse_start],
       verse_end: parsed[:verse_end]
     }
+
+    # Buscar o conteúdo do texto bíblico
+    content = fetch_bible_content(reference)
+    result[:content] = content if content
+
+    result
+  end
+
+  # Busca o conteúdo do texto bíblico
+  def fetch_bible_content(reference)
+    bible_service = BibleTextService.new(translation: translation)
+    bible_service.fetch_passage_structured(reference)
   end
 end

@@ -37,6 +37,16 @@ module DailyOffice
           lines << line_item("", type: "spacer")
         end
 
+        # Actual reading content - now includes Bible text
+        if readings[reading_key]
+          # Add Bible text content if available
+          if readings[reading_key][:content]
+            lines.concat(format_bible_content(readings[reading_key][:content]))
+          end
+
+          lines << line_item("", type: "spacer")
+        end
+
         # Post-reading rubric
         if rubric_slugs[:post]
           post_rubric = fetch_liturgical_text(rubric_slugs[:post])
@@ -44,12 +54,6 @@ module DailyOffice
             lines << line_item(post_rubric.content, type: "rubric")
             lines << line_item("", type: "spacer")
           end
-        end
-
-        # Actual reading content
-        if readings[reading_key]
-          lines << line_item(readings[reading_key][:reference], type: "reading")
-          lines << line_item("", type: "spacer")
         end
 
         # Response after reading
@@ -72,6 +76,22 @@ module DailyOffice
           slug: "#{type}_reading",
           lines: lines
         }
+      end
+
+      # Format Bible content into line items
+      #
+      # @param content [Hash] structured Bible content from BibleTextService
+      # @return [Array<Hash>] array of line items
+      def format_bible_content(content)
+        return [] unless content&.dig(:verses)
+
+        content[:verses].map do |verse|
+          {
+            text: verse[:text],
+            type: "reading_text",
+            verse_number: verse[:number]
+          }
+        end
       end
 
       # Format reading announcement with book, chapter, and verse
