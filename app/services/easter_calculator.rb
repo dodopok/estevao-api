@@ -1,7 +1,38 @@
+# frozen_string_literal: true
+
 # Serviço para calcular a data da Páscoa e outras datas móveis
 # Usa o algoritmo de Computus (algoritmo de Gauss)
 class EasterCalculator
   attr_reader :year
+
+  # Constantes para dias relativos à Páscoa
+  DAYS_BEFORE_EASTER = {
+    ash_wednesday: 46,
+    first_sunday_in_lent: 42,
+    palm_sunday: 7,
+    holy_monday: 6,
+    holy_tuesday: 5,
+    holy_wednesday: 4,
+    maundy_thursday: 3,
+    good_friday: 2,
+    holy_saturday: 1
+  }.freeze
+
+  DAYS_AFTER_EASTER = {
+    second_sunday_of_easter: 7,
+    ascension: 39,
+    pentecost: 49
+  }.freeze
+
+  # Dias após Pentecostes
+  DAYS_AFTER_PENTECOST = {
+    trinity_sunday: 7
+  }.freeze
+
+  # Dias após Trindade
+  DAYS_AFTER_TRINITY = {
+    corpus_christi: 4
+  }.freeze
 
   def initialize(year)
     @year = year
@@ -16,130 +47,116 @@ class EasterCalculator
 
   # Quarta-feira de Cinzas (46 dias antes da Páscoa)
   def ash_wednesday
-    easter_date - 46.days
+    @ash_wednesday ||= easter_date - DAYS_BEFORE_EASTER[:ash_wednesday].days
   end
 
   # Primeiro Domingo na Quaresma (6 domingos antes da Páscoa)
   def first_sunday_in_lent
-    easter_date - 42.days
+    @first_sunday_in_lent ||= easter_date - DAYS_BEFORE_EASTER[:first_sunday_in_lent].days
   end
 
   # Domingo de Ramos (domingo antes da Páscoa)
   def palm_sunday
-    easter_date - 7.days
+    @palm_sunday ||= easter_date - DAYS_BEFORE_EASTER[:palm_sunday].days
   end
 
   # Segunda-feira Santa
   def holy_monday
-    easter_date - 6.days
+    @holy_monday ||= easter_date - DAYS_BEFORE_EASTER[:holy_monday].days
   end
 
   # Terça-feira Santa
   def holy_tuesday
-    easter_date - 5.days
+    @holy_tuesday ||= easter_date - DAYS_BEFORE_EASTER[:holy_tuesday].days
   end
 
   # Quarta-feira Santa
   def holy_wednesday
-    easter_date - 4.days
+    @holy_wednesday ||= easter_date - DAYS_BEFORE_EASTER[:holy_wednesday].days
   end
 
   # Quinta-feira Santa (quinta-feira antes da Páscoa)
   def maundy_thursday
-    easter_date - 3.days
+    @maundy_thursday ||= easter_date - DAYS_BEFORE_EASTER[:maundy_thursday].days
   end
 
   # Sexta-feira da Paixão (sexta-feira antes da Páscoa)
   def good_friday
-    easter_date - 2.days
+    @good_friday ||= easter_date - DAYS_BEFORE_EASTER[:good_friday].days
   end
 
   # Sábado Santo
   def holy_saturday
-    easter_date - 1.day
+    @holy_saturday ||= easter_date - DAYS_BEFORE_EASTER[:holy_saturday].days
   end
 
   # Segundo Domingo da Páscoa
   def second_sunday_of_easter
-    easter_date + 7.days
+    @second_sunday_of_easter ||= easter_date + DAYS_AFTER_EASTER[:second_sunday_of_easter].days
   end
 
   # Ascensão (40 dias após a Páscoa, quinta-feira)
   def ascension
-    easter_date + 39.days
+    @ascension ||= easter_date + DAYS_AFTER_EASTER[:ascension].days
   end
 
   # Pentecostes (50 dias após a Páscoa)
   def pentecost
-    easter_date + 49.days
+    @pentecost ||= easter_date + DAYS_AFTER_EASTER[:pentecost].days
   end
 
   # Santíssima Trindade (primeiro domingo depois de Pentecostes)
   def trinity_sunday
-    pentecost + 7.days
+    @trinity_sunday ||= pentecost + DAYS_AFTER_PENTECOST[:trinity_sunday].days
   end
 
-  # Dias de Rogações (quarta, sexta e sábado antes da Ascensão)
+  # Dias de Rogações (segunda, terça e quarta antes da Ascensão)
   def rogation_days
-    [
-      ascension - 3.days,  # Segunda-feira
-      ascension - 1.day,   # Quarta-feira
-      ascension - 2.days   # Sexta-feira (correção: deve ser antes)
-    ].sort
+    @rogation_days ||= [
+      ascension - 3.days, # Segunda-feira
+      ascension - 2.days, # Terça-feira
+      ascension - 1.day   # Quarta-feira
+    ]
   end
 
   # Corpus Christi (quinta-feira após Trindade)
   def corpus_christi
-    trinity_sunday + 4.days
+    @corpus_christi ||= trinity_sunday + DAYS_AFTER_TRINITY[:corpus_christi].days
   end
 
   # Primeiro Domingo do Advento (4 domingos antes do Natal)
   def first_sunday_of_advent
-    christmas = Date.new(year, 12, 25)
-    # Encontra o domingo mais próximo antes do Natal
-    days_until_sunday = christmas.wday == 0 ? 7 : christmas.wday
-    nearest_sunday = christmas - days_until_sunday.days
-
-    # Volta 3 domingos (total de 4 domingos do Advento)
-    nearest_sunday - 21.days
+    @first_sunday_of_advent ||= calculate_first_sunday_of_advent
   end
 
   # Cristo Rei (domingo anterior ao Advento)
   def christ_the_king
-    first_sunday_of_advent - 7.days
+    @christ_the_king ||= first_sunday_of_advent - 7.days
   end
 
   # Epifania (6 de janeiro)
   def epiphany
-    Date.new(year, 1, 6)
+    @epiphany ||= Date.new(year, 1, 6)
   end
 
   # Batismo do Senhor (primeiro domingo depois da Epifania)
   def baptism_of_the_lord
-    epi = epiphany
-    # Se Epifania cair num domingo, Batismo é no domingo seguinte
-    if epi.sunday?
-      epi + 7.days
-    else
-      # Próximo domingo após Epifania
-      days_until_sunday = 7 - epi.wday
-      epi + days_until_sunday.days
-    end
+    @baptism_of_the_lord ||= calculate_baptism_of_the_lord
   end
 
   # Último Domingo depois da Epifania (domingo antes da Quarta-feira de Cinzas)
   def last_sunday_after_epiphany
-    ash_wednesday - (ash_wednesday.wday == 0 ? 7 : ash_wednesday.wday).days
+    @last_sunday_after_epiphany ||= calculate_last_sunday_after_epiphany
   end
 
   # Transfiguração (6 de agosto)
   def transfiguration
-    Date.new(year, 8, 6)
+    @transfiguration ||= Date.new(year, 8, 6)
   end
 
   # Retorna um hash com todas as datas móveis importantes
   def all_movable_dates
-    {
+    @all_movable_dates ||= {
       easter: easter_date,
       ash_wednesday: ash_wednesday,
       first_sunday_in_lent: first_sunday_in_lent,
@@ -186,5 +203,32 @@ class EasterCalculator
     day = ((h + l - 7 * m + 114) % 31) + 1
 
     Date.new(year, month, day)
+  end
+
+  def calculate_first_sunday_of_advent
+    christmas = Date.new(year, 12, 25)
+    # Encontra o domingo mais próximo antes do Natal
+    days_until_sunday = christmas.wday == 0 ? 7 : christmas.wday
+    nearest_sunday = christmas - days_until_sunday.days
+
+    # Volta 3 domingos (total de 4 domingos do Advento)
+    nearest_sunday - 21.days
+  end
+
+  def calculate_baptism_of_the_lord
+    epi = epiphany
+    # Se Epifania cair num domingo, Batismo é no domingo seguinte
+    if epi.sunday?
+      epi + 7.days
+    else
+      # Próximo domingo após Epifania
+      days_until_sunday = 7 - epi.wday
+      epi + days_until_sunday.days
+    end
+  end
+
+  def calculate_last_sunday_after_epiphany
+    ash_wed = ash_wednesday
+    ash_wed - (ash_wed.wday == 0 ? 7 : ash_wed.wday).days
   end
 end
