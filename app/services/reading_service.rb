@@ -1,6 +1,8 @@
 # Serviço para buscar leituras do lecionário para uma data específica
 class ReadingService
-  attr_reader :date, :calendar, :cycle, :prayer_book_code
+  include PrayerBookAware
+
+  attr_reader :date, :calendar, :cycle
 
   # Factory method que retorna o serviço apropriado baseado no prayer_book_code
   def self.for(date, prayer_book_code: "loc_2015")
@@ -17,14 +19,6 @@ class ReadingService
     @calendar = LiturgicalCalendar.new(date.year)
     @cycle = determine_cycle
     @prayer_book_code = prayer_book_code
-  end
-
-  def prayer_book
-    @prayer_book ||= PrayerBook.find_by_code(@prayer_book_code)
-  end
-
-  def prayer_book_id
-    prayer_book&.id
   end
 
   # Retorna as leituras para o dia

@@ -1,19 +1,13 @@
 # Serviço para buscar coletas (orações) litúrgicas para uma data específica
 class CollectService
-  attr_reader :date, :calendar, :prayer_book_code
+  include PrayerBookAware
+
+  attr_reader :date, :calendar
 
   def initialize(date, prayer_book_code: "loc_2015")
     @date = date
     @calendar = LiturgicalCalendar.new(date.year)
     @prayer_book_code = prayer_book_code
-  end
-
-  def prayer_book
-    @prayer_book ||= PrayerBook.find_by_code(@prayer_book_code)
-  end
-
-  def prayer_book_id
-    prayer_book&.id
   end
 
   # Retorna a(s) coleta(s) para o dia

@@ -1,20 +1,14 @@
 # Serviço para resolver transferências de festas conforme as regras litúrgicas
 class CelebrationResolver
-  attr_reader :year, :easter_calc, :prayer_book_code, :prayer_book
+  include PrayerBookAware
+
+  attr_reader :year, :easter_calc
 
   def initialize(year, prayer_book_code: "loc_2015")
     @year = year
     @prayer_book_code = prayer_book_code
     @easter_calc = EasterCalculator.new(year)
     @season_determinator = Liturgical::SeasonDeterminator.new(year, easter_calc: @easter_calc)
-  end
-
-  def prayer_book
-    @prayer_book ||= PrayerBook.find_by_code(prayer_book_code)
-  end
-
-  def prayer_book_id
-    prayer_book&.id
   end
 
   # Resolve qual celebração deve ser observada numa data específica,
