@@ -6,20 +6,6 @@ module Reading
   class ReferenceBuilder
     WEEKDAY_NAMES = %w[sunday monday tuesday wednesday thursday friday saturday].freeze
 
-    # Maps calculation rules to their possible date references
-    CALCULATION_RULE_REFERENCES = {
-      "easter_minus_6_days" => %w[holy_monday],
-      "easter_minus_5_days" => %w[holy_tuesday],
-      "easter_minus_4_days" => %w[holy_wednesday],
-      "easter_minus_3_days" => %w[maundy_thursday holy_thursday],
-      "easter_minus_2_days" => %w[good_friday],
-      "easter_minus_1_days" => %w[holy_saturday holy_saturday_vigil],
-      "easter" => %w[easter_sunday easter_day],
-      "easter_plus_39_days" => %w[ascension ascension_day],
-      "easter_plus_49_days" => %w[pentecost whitsunday],
-      "easter_plus_56_days" => %w[trinity_sunday]
-    }.freeze
-
     # Maps fixed dates to their special references
     SPECIAL_DATE_REFERENCES = {
       [ 12, 25 ] => %w[christmas_day christmas],
@@ -55,9 +41,9 @@ module Reading
     def celebration_references(celebration)
       refs = []
 
-      # From calculation_rule
+      # From calculation_rule - use canonical mapping from CelebrationResolver
       if celebration.calculation_rule.present?
-        rule_refs = CALCULATION_RULE_REFERENCES[celebration.calculation_rule]
+        rule_refs = Liturgical::CelebrationResolver::CALCULATION_RULE_TO_DATE_REFERENCES[celebration.calculation_rule]
         refs.concat(rule_refs) if rule_refs
       end
 
