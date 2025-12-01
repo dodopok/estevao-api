@@ -38,7 +38,7 @@ namespace :bible do
   end
 
   desc "Import a single Bible translation from SQLite to PostgreSQL"
-  task :import_translation, [:translation] => :environment do |_t, args|
+  task :import_translation, [ :translation ] => :environment do |_t, args|
     translation = args[:translation]&.upcase
 
     unless TRANSLATIONS.include?(translation)
@@ -86,7 +86,7 @@ namespace :bible do
   end
 
   desc "Clear and re-import a specific translation"
-  task :reimport_translation, [:translation] => :environment do |_t, args|
+  task :reimport_translation, [ :translation ] => :environment do |_t, args|
     translation = args[:translation]&.downcase
 
     unless BibleText::TRANSLATIONS.key?(translation)
