@@ -5,17 +5,26 @@
 [![Rails Version](https://img.shields.io/badge/rails-8.1.1-red.svg)](https://rubyonrails.org)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-API RESTful para Calendário Litúrgico Anglicano, fornecendo informações sobre celebrações, leituras do lecionário, cores litúrgicas e o calendário litúrgico completo.
+**API RESTful completa para a vida espiritual anglicana**, fornecendo calendário litúrgico, ofícios diários, leituras bíblicas, regras de vida espiritual e muito mais.
 
-## Descrição
+## 📖 Visão Geral
 
-API completa desenvolvida em Rails 8.1.1 para fornecer dados do calendário litúrgico anglicano, incluindo:
+Backend Rails 8.1 desenvolvido para aplicativos de oração e espiritualidade anglicana, oferecendo:
 
-- **Calendário Litúrgico**: Informações diárias, mensais e anuais sobre estações litúrgicas, domingos e dias santos
-- **Celebrações**: Festas principais, dias santos, festivais e comemorações de santos
-- **Lecionário**: Leituras bíblicas organizadas por ciclos (A, B, C) para Eucaristia e Ofícios Diários
-- **Coletas**: Orações próprias para cada celebração e estação litúrgica
-- **Cores Litúrgicas**: Cores apropriadas para cada tempo e celebração
+### 🎯 Funcionalidades Principais
+
+- **📅 Calendário Litúrgico**: Informações diárias, mensais e anuais sobre estações litúrgicas, domingos e dias santos
+- **🙏 Ofício Diário**: Oração da Manhã, Meio-Dia, Tarde e Completas completas e formatadas (LOC 2015)
+- **📚 Lecionário**: Leituras bíblicas organizadas por ciclos (A, B, C) para Eucaristia e Ofícios Diários
+- **📖 Textos Bíblicos**: Integração com múltiplas traduções da Bíblia (12+ traduções)
+- **✝️ Celebrações**: Festas principais, dias santos, festivais e comemorações de santos
+- **🕊️ Coletas**: Orações próprias para cada celebração e estação litúrgica
+- **🎨 Cores Litúrgicas**: Cores apropriadas para cada tempo e celebração
+- **📿 Regras de Vida**: Sistema de regras de vida espiritual com aprovação e adoção
+- **👤 Autenticação**: Sistema de usuários com Firebase Authentication
+- **🔔 Notificações**: Sistema de notificações push (Firebase Cloud Messaging)
+- **📊 Tracking**: Sistema de completions para acompanhar ofícios realizados
+- **📕 Prayer Books**: Suporte a múltiplos livros de oração com preferências personalizadas
 
 ## Tecnologias
 
@@ -119,101 +128,112 @@ Todos os jobs são executados automaticamente em:
 - Pull Requests
 - Push para branch `main`
 
-## Endpoints da API
+## 📡 Endpoints da API
 
-### Raiz da API
+> 📘 **Documentação Completa**: Acesse `/api-docs` para a documentação interativa (Swagger/OpenAPI)
+
+### 🏠 Raiz da API
 ```
 GET /
 ```
 Retorna informações gerais da API e lista de endpoints disponíveis.
 
-### Calendário Litúrgico
+### 📅 Calendário Litúrgico
 
-#### Informações de um dia específico
+```bash
+GET /api/v1/calendar/today                      # Informações do dia atual
+GET /api/v1/calendar/:year/:month/:day          # Dia específico
+GET /api/v1/calendar/:year/:month               # Calendário mensal
+GET /api/v1/calendar/:year                       # Resumo anual
 ```
-GET /api/v1/calendar/:year/:month/:day
-```
-Retorna informações litúrgicas completas de um dia, incluindo estação, cor litúrgica, celebração, coleta e leituras.
 
-**Exemplo**: `/api/v1/calendar/2025/12/25`
+**Exemplo de resposta** (`/api/v1/calendar/2025/12/25`):
+```json
+{
+  "data": "2025-12-25",
+  "dia_da_semana": "Quinta-feira",
+  "quadra_liturgica": "Natal",
+  "cor_liturgica": "branco",
+  "celebracao": {
+    "nome": "Natividade de nosso Senhor Jesus Cristo",
+    "tipo": "principal_feast"
+  }
+}
+```
 
-#### Calendário de um mês
-```
-GET /api/v1/calendar/:year/:month
-```
-Retorna o calendário litúrgico de um mês completo.
+### ✝️ Celebrações
 
-**Exemplo**: `/api/v1/calendar/2025/12`
+```bash
+GET /api/v1/celebrations                        # Listar todas
+GET /api/v1/celebrations/:id                    # Detalhes
+GET /api/v1/celebrations/search?q=termo         # Buscar
+GET /api/v1/celebrations/date/:month/:day       # Por data
+GET /api/v1/celebrations/types                  # Tipos disponíveis
+```
 
-#### Informações de um ano
-```
-GET /api/v1/calendar/:year
-```
-Retorna datas móveis (Páscoa, Advento, etc.) e resumo das estações litúrgicas do ano.
+### 📚 Lecionário (Leituras)
 
-**Exemplo**: `/api/v1/calendar/2025`
+```bash
+GET /api/v1/lectionary/:year/:month/:day                  # Leituras do dia
+GET /api/v1/lectionary/:year/:month/:day/all_services     # Todos os ofícios
+GET /api/v1/lectionary/cycle/:year                        # Info do ciclo
+```
 
-### Celebrações
+### 🙏 Ofício Diário
 
-#### Listar todas as celebrações
+```bash
+GET /api/v1/daily_office/today/:office_type                         # Ofício de hoje
+GET /api/v1/daily_office/:year/:month/:day/:office_type            # Data específica
+GET /api/v1/daily_office/:year/:month/:day/:office_type/family     # Rito familiar
+GET /api/v1/daily_office/preferences                               # Opções disponíveis
 ```
-GET /api/v1/celebrations
-```
-Parâmetros opcionais:
-- `type`: Filtrar por tipo de celebração
-- `movable`: Filtrar celebrações móveis (true/false)
 
-#### Detalhes de uma celebração
-```
-GET /api/v1/celebrations/:id
-```
-Retorna informações completas incluindo coletas e leituras.
+**Tipos de ofício**: `morning` | `midday` | `evening` | `compline`
 
-#### Buscar celebrações
-```
-GET /api/v1/celebrations/search?q=termo
-```
-Busca celebrações por nome.
+### 👤 Usuários e Autenticação
 
-**Exemplo**: `/api/v1/celebrations/search?q=Maria`
+```bash
+GET    /api/v1/users/me                        # Perfil do usuário
+PATCH  /api/v1/users/preferences                # Atualizar preferências
+GET    /api/v1/users/completions                # Histórico de ofícios
+POST   /api/v1/users/fcm_token                  # Registrar token push
+DELETE /api/v1/users/fcm_token                  # Remover token
+```
 
-#### Celebrações em uma data
-```
-GET /api/v1/celebrations/date/:month/:day
-```
-Retorna celebrações fixas em um mês/dia específico.
+### ✅ Completions (Tracking de Ofícios)
 
-**Exemplo**: `/api/v1/celebrations/date/12/25`
+```bash
+POST   /api/v1/completions                                        # Marcar como completo
+DELETE /api/v1/completions/:id                                    # Desmarcar
+GET    /api/v1/completions/:year/:month/:day/:office_type        # Verificar status
+```
 
-#### Tipos de celebrações
-```
-GET /api/v1/celebrations/types
-```
-Lista todos os tipos de celebração disponíveis.
+### 🔔 Notificações (Admin)
 
-### Lecionário (Leituras)
+```bash
+POST /api/v1/notifications/send         # Enviar para usuários específicos
+POST /api/v1/notifications/broadcast    # Broadcast para todos
+```
 
-#### Leituras de um dia
-```
-GET /api/v1/lectionary/:year/:month/:day
-```
-Retorna as leituras bíblicas para Eucaristia do dia especificado.
+### 📕 Livros de Oração (Prayer Books)
 
-**Exemplo**: `/api/v1/lectionary/2025/12/25`
+```bash
+GET   /api/v1/prayer_books                                    # Listar todos
+GET   /api/v1/prayer_books/:code                              # Detalhes
+GET   /api/v1/prayer_books/:code/features                     # Features disponíveis
+GET   /api/v1/prayer_books/:code/preferences                  # Preferências do usuário
+PATCH /api/v1/prayer_books/:code/preferences                  # Atualizar preferências
+```
 
-#### Leituras de todos os ofícios
-```
-GET /api/v1/lectionary/:year/:month/:day/all_services
-```
-Retorna leituras para Eucaristia, Oração da Manhã e Oração da Tarde.
+### 📿 Regras de Vida
 
-#### Informações do ciclo
+```bash
+GET  /api/v1/life_rules                 # Listar regras
+GET  /api/v1/life_rules/:id             # Detalhes
+POST /api/v1/life_rules                 # Criar nova (usuário)
+POST /api/v1/life_rules/:id/adopt       # Adotar uma regra
+POST /api/v1/life_rules/:id/approve     # Aprovar regra (admin)
 ```
-GET /api/v1/lectionary/cycle/:year
-```
-Retorna o ciclo do lecionário (A, B ou C) para o ano especificado.
-
-**Exemplo**: `/api/v1/lectionary/cycle/2025`
 
 ## Deploy com Docker
 
@@ -271,24 +291,63 @@ bundle exec puma -C config/puma.rb
 - Cache habilitado para melhor performance
 - Aplicação usa variáveis de ambiente (não requer RAILS_MASTER_KEY)
 
-## Modelos de Dados
+## 🗂️ Modelos de Dados
 
 ### Principais Modelos
 
-- **Celebration**: Festas, dias santos e comemorações
-- **LectionaryReading**: Leituras bíblicas organizadas por ciclo
-- **Collect**: Orações próprias para celebrações e estações
-- **LiturgicalSeason**: Estações do ano litúrgico
-- **LiturgicalColor**: Cores litúrgicas
+**Litúrgicos**:
+- `Celebration` - Festas, dias santos e comemorações
+- `LectionaryReading` - Leituras bíblicas organizadas por ciclo
+- `Collect` - Orações próprias para celebrações e estações
+- `LiturgicalSeason` - Estações do ano litúrgico
+- `LiturgicalColor` - Cores litúrgicas
+- `LiturgicalText` - Textos fixos dos ofícios (sentenças, confissões, cânticos, etc.)
 
-### Serviços
+**Ofício Diário**:
+- `Psalm` - Salmos completos com versículos
+- `PsalmCycle` - Ciclos de leitura dos salmos (semanal/mensal)
+- `BibleText` - Textos bíblicos em múltiplas traduções
 
-- **LiturgicalCalendar**: Calcula o calendário litúrgico completo
-- **Liturgical::EasterCalculator**: Calcula a Páscoa e datas móveis relacionadas (algoritmo Computus)
-- **Liturgical::CelebrationResolver**: Resolve precedência entre celebrações conforme hierarquia litúrgica
-- **ReadingService**: Busca leituras do lecionário por celebração, Proper ou domingo
-- **CollectService**: Busca coletas apropriadas para cada celebração e estação
-- **SundayReferenceMapper**: Mapeia datas para referências de domingos
+**Usuários e Tracking**:
+- `User` - Usuários autenticados (Firebase)
+- `Completion` - Registro de ofícios completados
+- `FcmToken` - Tokens para notificações push
+- `NotificationLog` - Histórico de notificações enviadas
+
+**Prayer Books e Preferências**:
+- `PrayerBook` - Livros de oração disponíveis (LOC 2015, etc.)
+- `PrayerBookUserPreference` - Preferências do usuário por livro
+
+**Regras de Vida**:
+- `LifeRule` - Regras de vida espiritual
+- `LifeRuleStep` - Passos/práticas de cada regra
+
+### 🔧 Serviços Principais
+
+**Calendário e Liturgia**:
+- `LiturgicalCalendar` - Calcula o calendário litúrgico completo
+- `Liturgical::EasterCalculator` - Calcula a Páscoa e datas móveis (algoritmo Computus)
+- `Liturgical::CelebrationResolver` - Resolve precedência entre celebrações
+- `Liturgical::ColorDeterminator` - Determina cores litúrgicas
+- `Liturgical::SeasonDeterminator` - Identifica estações litúrgicas
+- `Liturgical::TransferRules` - Regras de transferência de celebrações
+- `Liturgical::Translator` - Tradução de termos litúrgicos
+
+**Leituras e Textos**:
+- `ReadingService` - Busca leituras do lecionário
+- `Reading::Loc2015Service` - Leituras específicas do LOC 2015
+- `CollectService` - Busca coletas apropriadas
+- `BibleTextService` - Busca textos bíblicos completos
+
+**Ofício Diário**:
+- `DailyOfficeService` - Monta ofícios completos
+- `DailyOffice::Builders::*` - Builders para cada tipo de ofício
+- `DailyOffice::Components::*` - Componentes (salmos, cânticos, leituras, orações)
+
+**Notificações**:
+- `NotificationService` - Envio de notificações
+- `FcmService` - Integração com Firebase Cloud Messaging
+- `FirebaseAuthService` - Autenticação Firebase
 
 ## Funcionalidades
 
@@ -309,6 +368,37 @@ A API implementa corretamente a hierarquia de celebrações:
 - **Dias de semana**: Anos pares e ímpares (bienal)
 - Cálculo automático baseado no ano litúrgico (que inicia no Advento)
 
-## Licença
+## 📚 Documentação Adicional
 
-Este projeto está sob a licença MIT.
+Este projeto possui documentação técnica detalhada em arquivos separados:
+
+- **[ROADMAP.md](ROADMAP.md)** - Roadmap completo de desenvolvimento do projeto (Fases 1-10)
+- **[DAILY_OFFICE_GUIDE.md](DAILY_OFFICE_GUIDE.md)** - Guia completo do sistema de Ofício Diário
+- **[DAILY_OFFICE_ARCHITECTURE.md](DAILY_OFFICE_ARCHITECTURE.md)** - Arquitetura técnica do Daily Office
+- **[FIREBASE_SETUP.md](FIREBASE_SETUP.md)** - Configuração do Firebase Authentication
+- **[NOTIFICATIONS_SETUP.md](NOTIFICATIONS_SETUP.md)** - Configuração de notificações push (FCM)
+- **[PRAYER_BOOK_PREFERENCES.md](PRAYER_BOOK_PREFERENCES.md)** - Sistema de Prayer Books e preferências
+- **[README_API.md](README_API.md)** - Documentação detalhada da API
+- **[TODO.md](TODO.md)** - Lista de melhorias e próximos passos (veja este arquivo!)
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Por favor:
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/MinhaFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## ✨ Créditos
+
+Desenvolvido com base nas **Normas para o Ano Cristão da Igreja Episcopal Anglicana do Brasil (IEAB)** e no **Livro de Oração Comum 2015**.
+
+---
+
+**Tecnologia a serviço da vida espiritual** 🙏
