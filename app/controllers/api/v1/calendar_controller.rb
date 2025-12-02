@@ -124,7 +124,7 @@ module Api
           celebration: info[:celebration],
           saint: info[:saint],
           collect: CollectService.new(date, prayer_book_code: resolved_prayer_book_code).find_collects,
-          readings: ReadingService.for(date, prayer_book_code: resolved_prayer_book_code).find_readings
+          readings: ReadingService.for(date, prayer_book_code: resolved_prayer_book_code, translation: resolved_bible_version).find_readings
         }
       end
 
