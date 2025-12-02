@@ -5,7 +5,7 @@ module Api
     class LifeRulesController < ApplicationController
       include Authenticatable
 
-      before_action :authenticate_user!
+      before_action :authenticate_user!, except: %i[index show]
       before_action :set_life_rule, only: %i[show]
       before_action :set_life_rule_for_owner_action, only: %i[update destroy]
       before_action :set_life_rule_for_admin_action, only: %i[approve]
@@ -162,7 +162,7 @@ module Api
           is_public: life_rule.is_public,
           approved: life_rule.approved,
           adoption_count: life_rule.adoption_count,
-          is_owner: life_rule.user_id == current_user.id,
+          is_owner: life_rule.user_id == current_user&.id,
           created_at: life_rule.created_at
         }
 
