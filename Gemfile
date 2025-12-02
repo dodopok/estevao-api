@@ -55,7 +55,7 @@ gem "roo"
 # SQLite for reading external Bible translation files
 gem "sqlite3", "~> 2.0"
 
-gem 'newrelic_rpm'
+gem "newrelic_rpm"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
