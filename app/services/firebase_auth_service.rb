@@ -64,11 +64,16 @@ class FirebaseAuthService
     private
 
     def find_or_create_user(payload)
+      # Primeiro tenta encontrar por provider_uid (Firebase UID)
       user = User.find_by(provider_uid: payload["sub"])
 
+      # Se não encontrar por provider_uid, tenta por email
+      user ||= User.find_by(email: payload["email"]) if payload["email"].present?
+
       if user
-        # Atualiza informações se mudaram
+        # Atualiza informações se mudaram (incluindo provider_uid caso tenha encontrado por email)
         user.update(
+          provider_uid: payload["sub"],
           email: payload["email"],
           name: payload["name"],
           photo_url: payload["picture"]
