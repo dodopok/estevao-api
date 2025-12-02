@@ -17,26 +17,32 @@ RSpec.describe "api/v1/prayer_books", type: :request do
     get("list prayer books") do
       tags api_tags
       produces content_type
-      description "Returns all available Prayer Books (LOCs), ordered by default and year"
+      description "Returns all available Prayer Books (LOCs), ordered by recommended and year"
 
       response(200, "successful") do
         schema type: :object,
                properties: {
-                 prayer_books: {
+                 data: {
                    type: :array,
                    items: {
                      type: :object,
                      properties: {
+                       id: { type: :string, example: "loc_2015" },
                        code: { type: :string, example: "loc_2015" },
                        name: { type: :string, example: "Livro de Oração Comum - IEAB 2015" },
-                       year: { type: :integer, example: 2015 },
-                       jurisdiction: { type: :string, example: "Igreja Episcopal Anglicana do Brasil", nullable: true },
+                       full_name: { type: :string, example: "Livro de Oração Comum - IEAB 2015" },
                        description: { type: :string, nullable: true },
+                       language: { type: :string, example: "pt-BR" },
+                       jurisdiction: { type: :string, example: "Igreja Episcopal Anglicana do Brasil", nullable: true },
+                       year: { type: :integer, example: 2015 },
+                       is_recommended: { type: :boolean, example: true },
+                       image_url: { type: :string, nullable: true },
                        thumbnail_url: { type: :string, nullable: true },
                        pdf_url: { type: :string, nullable: true },
-                       is_default: { type: :boolean, example: true }
+                       created_at: { type: :string, format: :datetime },
+                       updated_at: { type: :string, format: :datetime }
                      },
-                     required: %w[code name year is_default]
+                     required: %w[id code name is_recommended]
                    }
                  }
                }
@@ -66,16 +72,27 @@ RSpec.describe "api/v1/prayer_books", type: :request do
 
         schema type: :object,
                properties: {
-                 code: { type: :string, example: "loc_2015" },
-                 name: { type: :string, example: "Livro de Oração Comum - IEAB 2015" },
-                 year: { type: :integer, example: 2015 },
-                 jurisdiction: { type: :string, example: "Igreja Episcopal Anglicana do Brasil", nullable: true },
-                 description: { type: :string, nullable: true },
-                 thumbnail_url: { type: :string, nullable: true },
-                 pdf_url: { type: :string, nullable: true },
-                 is_default: { type: :boolean, example: true }
-               },
-               required: %w[code name year is_default]
+                 data: {
+                   type: :object,
+                   properties: {
+                     id: { type: :string, example: "loc_2015" },
+                     code: { type: :string, example: "loc_2015" },
+                     name: { type: :string, example: "Livro de Oração Comum - IEAB 2015" },
+                     full_name: { type: :string, example: "Livro de Oração Comum - IEAB 2015" },
+                     description: { type: :string, nullable: true },
+                     language: { type: :string, example: "pt-BR" },
+                     jurisdiction: { type: :string, example: "Igreja Episcopal Anglicana do Brasil", nullable: true },
+                     year: { type: :integer, example: 2015 },
+                     is_recommended: { type: :boolean, example: true },
+                     image_url: { type: :string, nullable: true },
+                     thumbnail_url: { type: :string, nullable: true },
+                     pdf_url: { type: :string, nullable: true },
+                     created_at: { type: :string, format: :datetime },
+                     updated_at: { type: :string, format: :datetime }
+                   },
+                   required: %w[id code name is_recommended]
+                 }
+               }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -92,7 +109,13 @@ RSpec.describe "api/v1/prayer_books", type: :request do
 
         schema type: :object,
                properties: {
-                 error: { type: :string, example: "Prayer book not found" }
+                 error: {
+                   type: :object,
+                   properties: {
+                     code: { type: :string },
+                     message: { type: :string }
+                   }
+                 }
                }
 
         after do |example|

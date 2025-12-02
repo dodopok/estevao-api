@@ -6,13 +6,18 @@ class PrayerBook < ApplicationRecord
   has_many :liturgical_texts, dependent: :restrict_with_error
   has_many :psalms, dependent: :restrict_with_error
   has_many :psalm_cycles, dependent: :restrict_with_error
-  has_many :prayer_book_user_preferences, dependent: :destroy
+  has_many :celebrations, dependent: :restrict_with_error
+  has_many :preference_categories, -> { order(:position) }, dependent: :destroy
+  has_many :preference_definitions, through: :preference_categories
+  has_many :user_onboardings, dependent: :restrict_with_error
 
   validates :code, presence: true, uniqueness: true
   validates :name, presence: true
   validates :year, numericality: { only_integer: true, allow_nil: true }
 
-  scope :default, -> { where(is_default: true) }
+  scope :active, -> { all } # All prayer books are active for now
+  scope :recommended, -> { where(is_recommended: true) }
+  scope :default, -> { where(is_recommended: true) } # Alias for backwards compatibility
 
   def self.find_by_code!(code)
     find_by!(code: code)

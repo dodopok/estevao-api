@@ -8,10 +8,10 @@ prayer_books_data = [
     name: "Livro de Oração Comum - 1987",
     year: 1987,
     jurisdiction: "Igreja Episcopal Anglicana do Brasil",
-    description: "Versão do LOC da Igreja Episcopal Anglicana do Brasil de 1984 - Revisão de Julho de 1987",
+    description: "Versão do LOC da Igreja Episcopal Anglicana do Brasil de 1984 - Revisão de Julho de 1987 - Usado pela IECB",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-1987.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-1987.pdf",
-    is_default: false,
+    is_recommended: false,
     features: {
       lectionary: {
         reading_types: [ "semicontinuous" ],
@@ -38,7 +38,7 @@ prayer_books_data = [
     description: "Adotado pela Diocese do Recife - Comunhão Anglicana Sob Autoridade Primacial da Igreja Anglicana do Cone Sul da América",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/locb-2008.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/locb-2008.pdf",
-    is_default: false,
+    is_recommended: false,
     features: {
       lectionary: {
         reading_types: [ "semicontinuous" ],
@@ -65,7 +65,7 @@ prayer_books_data = [
     description: "Adotado pela Igreja Anglicana Reformada do Brasil, tradução do LOC da Igreja da Inglaterra de 1662",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-1662.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-1662.pdf",
-    is_default: false,
+    is_recommended: false,
     features: {
       lectionary: {
         reading_types: [ "semicontinuous" ],
@@ -92,7 +92,7 @@ prayer_books_data = [
     description: "LOC atual da IEAB, parte de uma nova geração de Livros de Oração",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2012.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2012.pdf",
-    is_default: false,
+    is_recommended: false,
     features: {
       lectionary: {
         reading_types: [ "semicontinuous" ],
@@ -119,7 +119,7 @@ prayer_books_data = [
     description: "LOC atual da IEAB, parte de uma nova geração de Livros de Oração",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2015.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2015.pdf",
-    is_default: true,
+    is_recommended: true,
     features: {
       lectionary: {
         reading_types: [ "semicontinuous", "complementary" ],
@@ -140,13 +140,13 @@ prayer_books_data = [
   },
   {
     code: "loc_2019",
-    name: "Livro de Oração Comum - IEAB - 2019",
+    name: "Livro de Oração Comum - ACNA - 2019",
     year: 2019,
     jurisdiction: "Anglican Church in North America",
     description: "LOC da ACNA, com Ofícios e Lecionário traduzidos pelo Rev. Douglas Araujo",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2019.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2019.pdf",
-    is_default: false,
+    is_recommended: false,
     features: {
       lectionary: {
         reading_types: [ "semicontinuous", "complementary" ],
@@ -175,7 +175,7 @@ prayer_books_data.each do |data|
   pb.description = data[:description]
   pb.thumbnail_url = data[:thumbnail_url]
   pb.pdf_url = data[:pdf_url]
-  pb.is_default = data[:is_default]
+  pb.is_recommended = data[:is_recommended]
   pb.features = data[:features] if data[:features].present?
   pb.save!
   Rails.logger.info "✓ LOC Criado/Atualizado: #{data[:code]}"

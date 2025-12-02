@@ -70,7 +70,7 @@ module LiturgicalDataHelper
     @loc_2015 = PrayerBook.find_or_create_by!(code: "loc_2015") do |pb|
       pb.name = "Livro de Oração Comum - IEAB - 2015"
       pb.year = 2015
-      pb.is_default = true
+      pb.is_recommended = true
       pb.features = {
         "lectionary" => {
           "reading_types" => [ "semicontinuous", "complementary" ],
@@ -87,7 +87,7 @@ module LiturgicalDataHelper
     @loc_2019 = PrayerBook.find_or_create_by!(code: "loc_2019") do |pb|
       pb.name = "Livro de Oração Comum - IEAB - 2019"
       pb.year = 2019
-      pb.is_default = false
+      pb.is_recommended = false
       pb.features = {
         "lectionary" => {
           "reading_types" => [ "semicontinuous", "complementary" ],
@@ -96,6 +96,24 @@ module LiturgicalDataHelper
         },
         "daily_office" => {
           "supports_family_rite" => true
+        },
+        "psalter" => {}
+      }
+    end
+
+    # Prayer book that doesn't support family rite (for testing)
+    @loc_1987 = PrayerBook.find_or_create_by!(code: "loc_1987") do |pb|
+      pb.name = "Livro de Oração Comum - 1987"
+      pb.year = 1987
+      pb.is_recommended = false
+      pb.features = {
+        "lectionary" => {
+          "reading_types" => [ "semicontinuous" ],
+          "default_reading_type" => "semicontinuous",
+          "supports_vigil" => false
+        },
+        "daily_office" => {
+          "supports_family_rite" => false
         },
         "psalter" => {}
       }

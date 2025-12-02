@@ -50,6 +50,13 @@ else
   puts "⚠️  Arquivo de livros de oração não encontrado."
 end
 
+# Versões de Bíblia
+if File.exist?(Rails.root.join('db/seeds/bible_versions.rb'))
+  load Rails.root.join('db/seeds/bible_versions.rb')
+else
+  puts "⚠️  Arquivo de versões de Bíblia não encontrado."
+end
+
 # Cores Litúrgicas
 if File.exist?(Rails.root.join('db/seeds/colors.rb'))
   load Rails.root.join('db/seeds/colors.rb')
@@ -62,6 +69,13 @@ if File.exist?(Rails.root.join('db/seeds/seasons.rb'))
   load Rails.root.join('db/seeds/seasons.rb')
 else
   puts "⚠️  Arquivo de estações litúrgicas não encontrado."
+end
+
+# Categorias e Definições de Preferências
+if File.exist?(Rails.root.join('db/seeds/preferences.rb'))
+  load Rails.root.join('db/seeds/preferences.rb')
+else
+  puts "⚠️  Arquivo de preferências não encontrado."
 end
 
 # ================================================================================
@@ -127,5 +141,8 @@ puts "  • #{LiturgicalText.count} textos litúrgicos"
 puts "  • #{Psalm.count} salmos"
 puts "  • #{PsalmCycle.count} ciclos de salmos"
 puts "  • #{LifeRule.count} regras de vida"
+puts "  • #{BibleVersion.count} versões de Bíblia"
+puts "  • #{PreferenceCategory.count} categorias de preferências"
+puts "  • #{PreferenceDefinition.count} definições de preferências"
 
 puts "\n✅ Banco de dados populado com sucesso!"

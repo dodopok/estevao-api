@@ -15,10 +15,7 @@ FactoryBot.define do
         "version" => "loc_2015",
         "prayer_book_code" => "loc_2015",
         "language" => "pt-BR",
-        "bible_version" => "nvi",
-        "lords_prayer_version" => "traditional",
-        "creed_type" => "apostles",
-        "confession_type" => "long"
+        "bible_version" => "nvi"
       }
     end
 
@@ -35,6 +32,14 @@ FactoryBot.define do
     trait :with_completions do
       after(:create) do |user|
         create_list(:completion, 3, user: user)
+      end
+    end
+
+    trait :with_onboarding do
+      after(:create) do |user|
+        prayer_book = create(:prayer_book, :with_preferences)
+        bible_version = create(:bible_version)
+        create(:user_onboarding, user: user, prayer_book: prayer_book, bible_version: bible_version)
       end
     end
   end

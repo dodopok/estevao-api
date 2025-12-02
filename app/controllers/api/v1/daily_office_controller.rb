@@ -2,20 +2,23 @@ module Api
   module V1
     class DailyOfficeController < ApplicationController
       include Authenticatable
+      include Concerns::PreferencesResolver
 
       before_action :authenticate_user_optional
+      before_action :validate_preferences!, except: [ :preferences ]
 
       # GET /api/v1/daily_office/today/:office_type
       # Returns today's office
       def today
         date = Date.today
         office_type = parse_office_type
+        cache_key = build_office_cache_key(date, office_type)
 
-        response = Rails.cache.fetch("daily_office_#{date}_#{office_type}_#{preferences_hash}", expires_in: 1.day) do
+        response = Rails.cache.fetch(cache_key, expires_in: 1.day) do
           service = DailyOfficeService.new(
             date: date,
             office_type: office_type,
-            preferences: user_preferences
+            preferences: resolved_preferences
           )
           service.call
         end
@@ -33,12 +36,13 @@ module Api
       def show
         date = parse_date
         office_type = parse_office_type
+        cache_key = build_office_cache_key(date, office_type)
 
-        response = Rails.cache.fetch("daily_office_#{date}_#{office_type}_#{preferences_hash}", expires_in: 1.day) do
+        response = Rails.cache.fetch(cache_key, expires_in: 1.day) do
           service = DailyOfficeService.new(
             date: date,
             office_type: office_type,
-            preferences: user_preferences
+            preferences: resolved_preferences
           )
           service.call
         end
@@ -56,23 +60,24 @@ module Api
       def family_rite
         date = parse_date
         office_type = parse_office_type
-        prayer_book_code = user_preferences[:prayer_book_code]
+        prayer_book = resolved_prayer_book
 
         # Verifica se o Prayer Book suporta rito familiar
-        prayer_book = PrayerBook.find_by(code: prayer_book_code)
-        unless prayer_book&.supports_family_rite?
+        unless prayer_book.supports_family_rite?
           return render json: {
-            error: "O Prayer Book '#{prayer_book_code}' não suporta rito familiar"
+            error: "O Prayer Book '#{resolved_prayer_book_code}' não suporta rito familiar"
           }, status: :unprocessable_entity
         end
 
         # Gera o ofício com flag de rito familiar
-        preferences = user_preferences.merge(family_rite: true)
-        response = Rails.cache.fetch("daily_office_family_#{date}_#{office_type}_#{preferences.hash}", expires_in: 1.day) do
+        family_prefs = resolved_preferences.merge(family_rite: true)
+        cache_key = build_office_cache_key(date, office_type, family: true)
+
+        response = Rails.cache.fetch(cache_key, expires_in: 1.day) do
           service = DailyOfficeService.new(
             date: date,
             office_type: office_type,
-            preferences: preferences
+            preferences: family_prefs
           )
           service.call
         end
@@ -89,9 +94,9 @@ module Api
       # Returns available preferences options
       def preferences
         render json: {
-          versions: [ "loc_2015" ],
+          versions: PrayerBook.active.pluck(:code),
           languages: [ "pt-BR", "en" ],
-          bible_versions: BibleText::TRANSLATIONS.keys,
+          bible_versions: BibleVersion.active.pluck(:code),
           lords_prayer_versions: [ "traditional", "contemporary" ],
           creed_types: [ "apostles", "nicene" ],
           confession_types: [ "long", "short" ],
@@ -136,50 +141,21 @@ module Api
         raise ArgumentError, "Invalid day for the specified month" unless day.between?(1, 31)
       end
 
-      def user_preferences
-        # Se usuário autenticado, usa preferências dele (params sobrescrevem)
-        if current_user
-          prefs = current_user.preferences.symbolize_keys
-          prayer_book_code = params[:prayer_book_code] || prefs[:prayer_book_code] || "loc_2015"
+      # Build cache key with relevant preferences for Daily Office
+      def build_office_cache_key(date, office_type, family: false)
+        relevant_prefs = resolved_preferences.slice(
+          :prayer_book_code,
+          :bible_version,
+          :lords_prayer_version,
+          :confession_type,
+          :creed_type
+        ).sort.to_h
 
-          # Busca as preferências específicas do Prayer Book do usuário
-          pb_prefs = current_user.prayer_book_preferences_for(prayer_book_code)
+        prefs_hash = Digest::MD5.hexdigest(relevant_prefs.to_json)[0..7]
+        family_suffix = family ? "/family" : ""
 
-          # Merge de preferências: globais < específicas do PB < params
-          base_prefs = {
-            prayer_book_code: prayer_book_code,
-            language: params[:language] || prefs[:language] || "pt-BR",
-            bible_version: params[:bible_version] || prefs[:bible_version] || "nvi",
-            lords_prayer_version: params[:lords_prayer_version] || prefs[:lords_prayer_version] || "traditional",
-            creed_type: (params[:creed_type]&.to_sym || prefs[:creed_type]&.to_sym || :apostles),
-            confession_type: params[:confession_type] || prefs[:confession_type] || "long"
-          }
-
-          # Adiciona seed se fornecido via params (para compartilhamento via QR code/link)
-          base_prefs[:seed] = params[:seed].to_i if params[:seed].present?
-
-          # Adiciona as opções específicas do Prayer Book
-          base_prefs.merge(pb_prefs.symbolize_keys)
-        else
-          # Usuário não autenticado - usa defaults ou params
-          prayer_book_code = params[:prayer_book_code] || "loc_2015"
-          prayer_book = PrayerBook.find_by(code: prayer_book_code)
-
-          base_prefs = {
-            prayer_book_code: prayer_book_code,
-            language: params[:language] || "pt-BR",
-            bible_version: params[:bible_version] || "nvi",
-            lords_prayer_version: params[:lords_prayer_version] || "traditional",
-            creed_type: (params[:creed_type]&.to_sym || :apostles),
-            confession_type: params[:confession_type] || "long"
-          }.merge(prayer_book&.default_options&.symbolize_keys || {})
-
-          # Adiciona seed se fornecido via params (para compartilhamento via QR code/link)
-          base_prefs[:seed] = params[:seed].to_i if params[:seed].present?
-
-          base_prefs
-        end
-    end
+        "daily_office/#{date}/#{office_type}/#{prefs_hash}#{family_suffix}"
+      end
 
       # Adiciona dados do usuário autenticado na resposta
       def add_user_data(response, date, office_type)
@@ -196,11 +172,6 @@ module Api
             completed_at: completion&.created_at
           }
         )
-      end
-
-      # Create a hash of preferences for cache key
-      def preferences_hash
-        Digest::MD5.hexdigest(user_preferences.to_json)
       end
     end
   end

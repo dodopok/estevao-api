@@ -6,6 +6,8 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     setup_liturgical_foundation
   end
 
+  let(:default_preferences) { { prayer_book_code: 'loc_2015' }.to_json }
+
   before do
     # Create required test data for complete integration tests
     @prayer_book = @loc_2015 || PrayerBook.find_by(code: "loc_2015")
@@ -78,7 +80,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
   describe "Complete workflow: Day" do
     it "fluxo completo: domingo no Tempo Comum retorna dados corretos" do
       # 16 de novembro de 2025 - Domingo no Tempo Comum
-      get "/api/v1/calendar/2025/11/16"
+      get "/api/v1/calendar/2025/11/16", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -102,7 +104,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "fluxo completo: Natal retorna celebração e cor correta" do
-      get "/api/v1/calendar/2025/12/25"
+      get "/api/v1/calendar/2025/12/25", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -118,7 +120,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "fluxo completo: Vigília Pascal tem precedência sobre Sábado Santo" do
-      get "/api/v1/calendar/2026/4/4"
+      get "/api/v1/calendar/2026/4/4", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -162,19 +164,19 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
       )
 
       # Segunda-feira Santa: 30/03/2026
-      get "/api/v1/calendar/2026/3/30"
+      get "/api/v1/calendar/2026/3/30", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
       expect(json["celebration"]["name"]).to eq("Segunda-feira Santa")
 
       # Terça-feira Santa: 31/03/2026
-      get "/api/v1/calendar/2026/3/31"
+      get "/api/v1/calendar/2026/3/31", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
       expect(json["celebration"]["name"]).to eq("Terça-feira Santa")
 
       # Quarta-feira Santa: 01/04/2026
-      get "/api/v1/calendar/2026/4/1"
+      get "/api/v1/calendar/2026/4/1", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
       expect(json["celebration"]["name"]).to eq("Quarta-feira Santa")
@@ -185,7 +187,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
 
   describe "Complete workflow: Month" do
     it "fluxo completo: calendário mensal retorna todos os dias" do
-      get "/api/v1/calendar/2025/12"
+      get "/api/v1/calendar/2025/12", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -210,14 +212,14 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "fluxo completo: calendário mensal mantém consistência entre dias" do
-      get "/api/v1/calendar/2025/11"
+      get "/api/v1/calendar/2025/11", params: { preferences: default_preferences }
       month_json = JSON.parse(response.body)
 
       # Pega um dia específico do mês
       day_16 = month_json["days"].find { |d| d["date"] == "16/11/2025" }
 
       # Busca o mesmo dia individualmente
-      get "/api/v1/calendar/2025/11/16"
+      get "/api/v1/calendar/2025/11/16", params: { preferences: default_preferences }
       day_json = JSON.parse(response.body)
 
       # Compara campos importantes - devem ser idênticos
@@ -232,7 +234,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
 
   describe "Complete workflow: Year" do
     it "fluxo completo: resumo anual retorna datas móveis corretas" do
-      get "/api/v1/calendar/2025"
+      get "/api/v1/calendar/2025", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -254,7 +256,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "fluxo completo: resumo anual inclui todas as quadras" do
-      get "/api/v1/calendar/2025"
+      get "/api/v1/calendar/2025", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -287,7 +289,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
         gospel: "Luke 2:1-20"
       )
 
-      get "/api/v1/calendar/2025/12/25"
+      get "/api/v1/calendar/2025/12/25", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -309,7 +311,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
         gospel: "Luke 2:1-20"
       )
 
-      get "/api/v1/lectionary/2025/12/25"
+      get "/api/v1/lectionary/2025/12/25", params: { preferences: default_preferences }
 
       # 404 é OK se não encontrou leituras
       expect([ 200, 404 ]).to include(response.status)
@@ -339,7 +341,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
         language: "pt-BR"
       )
 
-      get "/api/v1/calendar/2025/12/25"
+      get "/api/v1/calendar/2025/12/25", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -358,7 +360,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
       )
 
       # Data no Advento sem celebração específica
-      get "/api/v1/calendar/2025/12/1"
+      get "/api/v1/calendar/2025/12/1", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -372,7 +374,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
 
   describe "Integration: Celebrations" do
     it "fluxo completo: endpoint de celebrações lista todas" do
-      get "/api/v1/celebrations"
+      get "/api/v1/celebrations", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -387,7 +389,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
 
     it "fluxo completo: busca de celebrações funciona" do
       # URI encode para evitar problemas com caracteres especiais
-      get "/api/v1/celebrations/search?q=#{CGI.escape('Páscoa')}"
+      get "/api/v1/celebrations/search?q=#{CGI.escape('Páscoa')}", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -402,7 +404,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "fluxo completo: celebrações por data retorna correto" do
-      get "/api/v1/celebrations/date/12/25"
+      get "/api/v1/celebrations/date/12/25", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -424,12 +426,12 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
       Rails.cache.clear
 
       # Primeira requisição
-      get "/api/v1/calendar/2025/12/25"
+      get "/api/v1/calendar/2025/12/25", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       first_response = response.body
 
       # Segunda requisição (pode usar cache)
-      get "/api/v1/calendar/2025/12/25"
+      get "/api/v1/calendar/2025/12/25", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       second_response = response.body
 
@@ -442,7 +444,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
 
   describe "Integration: Validations" do
     it "fluxo completo: validação de data inválida funciona" do
-      get "/api/v1/calendar/2025/13/45"
+      get "/api/v1/calendar/2025/13/45", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:bad_request)
       json = JSON.parse(response.body)
@@ -452,7 +454,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "fluxo completo: validação de ano fora do range funciona" do
-      get "/api/v1/calendar/1800/1/1"
+      get "/api/v1/calendar/1800/1/1", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:bad_request)
       json = JSON.parse(response.body)
@@ -461,7 +463,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "fluxo completo: validação de mês inválido funciona" do
-      get "/api/v1/calendar/2025/15"
+      get "/api/v1/calendar/2025/15", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:bad_request)
       json = JSON.parse(response.body)
@@ -474,7 +476,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
 
   describe "Integration: Edge cases" do
     it "fluxo completo: ano bissexto funciona corretamente" do
-      get "/api/v1/calendar/2024/2/29"
+      get "/api/v1/calendar/2024/2/29", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -483,20 +485,20 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "fluxo completo: 29 de fevereiro em ano não bissexto retorna erro" do
-      get "/api/v1/calendar/2025/2/29"
+      get "/api/v1/calendar/2025/2/29", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:bad_request)
     end
 
     it "fluxo completo: virada de ano funciona corretamente" do
       # 31 de dezembro
-      get "/api/v1/calendar/2025/12/31"
+      get "/api/v1/calendar/2025/12/31", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       dec_json = JSON.parse(response.body)
       expect(dec_json["date"]).to eq("31/12/2025")
 
       # 1 de janeiro
-      get "/api/v1/calendar/2026/1/1"
+      get "/api/v1/calendar/2026/1/1", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       jan_json = JSON.parse(response.body)
       expect(jan_json["date"]).to eq("01/01/2026")
@@ -508,12 +510,12 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
   describe "Integration: Liturgical cycles" do
     it "fluxo completo: ciclo litúrgico muda corretamente no Advento" do
       # Antes do Advento 2025 (ainda é ano litúrgico 2024)
-      get "/api/v1/calendar/2025/11/15"
+      get "/api/v1/calendar/2025/11/15", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       before_advent = JSON.parse(response.body)
 
       # Durante Advento 2025 (já é ano litúrgico 2025 = Ciclo C)
-      get "/api/v1/calendar/2025/12/7"
+      get "/api/v1/calendar/2025/12/7", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       during_advent = JSON.parse(response.body)
 
@@ -526,7 +528,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "fluxo completo: endpoint de ciclo retorna correto" do
-      get "/api/v1/lectionary/cycle/2025"
+      get "/api/v1/lectionary/cycle/2025", params: { preferences: default_preferences }
 
       # Endpoint pode não existir ou retornar 404
       # Apenas verifica que não quebra
@@ -548,7 +550,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
 
       5.times do
         start = Time.now
-        get "/api/v1/calendar/2025/12/25"
+        get "/api/v1/calendar/2025/12/25", params: { preferences: default_preferences }
         elapsed = Time.now - start
         times << elapsed
 
@@ -572,7 +574,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
       ]
 
       endpoints.each do |endpoint|
-        get endpoint
+        get endpoint, params: { preferences: default_preferences }
         expect(response).to have_http_status(:success)
         expect(response.content_type).to eq("application/json; charset=utf-8"),
           "#{endpoint} deveria retornar JSON"
@@ -629,7 +631,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "5 de Janeiro 2025 retorna tempo de Natal e leituras corretas" do
-      get "/api/v1/calendar/2025/01/05"
+      get "/api/v1/calendar/2025/01/05", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -648,7 +650,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "28 de Dezembro 2025 retorna 1º Domingo após Natal" do
-      get "/api/v1/calendar/2025/12/28"
+      get "/api/v1/calendar/2025/12/28", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
@@ -660,7 +662,7 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     end
 
     it "12 de Janeiro 2025 retorna Batismo do Senhor (início da Epifania)" do
-      get "/api/v1/calendar/2025/01/12"
+      get "/api/v1/calendar/2025/01/12", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
