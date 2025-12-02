@@ -41,6 +41,7 @@ env:
     - SECRET_KEY_BASE
     - POSTGRES_PASSWORD
     - FIREBASE_SERVER_KEY
+    - NEW_RELIC_LICENSE_KEY
   clear:
     # Firebase Project ID for Authentication
     # Get this from Firebase Console: Settings > Project settings > General > Project ID
