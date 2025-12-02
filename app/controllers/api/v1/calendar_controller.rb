@@ -2,16 +2,19 @@ module Api
   module V1
     class CalendarController < ApplicationController
       include Authenticatable
+      include Concerns::PreferencesResolver
 
       before_action :authenticate_user_optional
+      before_action :validate_preferences!
+
       # GET /api/v1/calendar/today
       # Retorna informações litúrgicas do dia de hoje
       def today
         date = Date.today
+        cache_key = "calendar/today/#{date}/#{resolved_prayer_book_code}"
 
-        # Cache the response for 1 day since liturgical data doesn't change
-        response = Rails.cache.fetch("liturgical_day_#{date}_#{prayer_book_code}", expires_in: 1.day) do
-          calendar = LiturgicalCalendar.new(date.year, prayer_book_code: prayer_book_code)
+        response = Rails.cache.fetch(cache_key, expires_in: 1.day) do
+          calendar = LiturgicalCalendar.new(date.year, prayer_book_code: resolved_prayer_book_code)
           info = calendar.day_info(date)
           format_day_response(info, date)
         end
@@ -25,10 +28,10 @@ module Api
       # Retorna informações litúrgicas de um dia específico
       def day
         date = parse_date
+        cache_key = "calendar/day/#{date}/#{resolved_prayer_book_code}"
 
-        # Cache the response for 1 day since liturgical data doesn't change
-        response = Rails.cache.fetch("liturgical_day_#{date}_#{prayer_book_code}", expires_in: 1.day) do
-          calendar = LiturgicalCalendar.new(date.year, prayer_book_code: prayer_book_code)
+        response = Rails.cache.fetch(cache_key, expires_in: 1.day) do
+          calendar = LiturgicalCalendar.new(date.year, prayer_book_code: resolved_prayer_book_code)
           info = calendar.day_info(date)
           format_day_response(info, date)
         end
@@ -42,17 +45,17 @@ module Api
       # Retorna o calendário litúrgico de um mês
       def month
         year = params[:year].to_i
-        month = params[:month].to_i
+        month_num = params[:month].to_i
 
-        validate_year_month(year, month)
+        validate_year_month(year, month_num)
 
-        calendar = LiturgicalCalendar.new(year, prayer_book_code: prayer_book_code)
-        days = calendar.month_calendar(month)
+        calendar = LiturgicalCalendar.new(year, prayer_book_code: resolved_prayer_book_code)
+        days = calendar.month_calendar(month_num)
 
         render json: {
           year: year,
-          month: month,
-          month_name: month_name_pt(month),
+          month: month_num,
+          month_name: month_name_pt(month_num),
           days: days.map { |info| format_day_response(info, Date.parse(info[:date])) }
         }
       rescue ArgumentError => e
@@ -62,18 +65,17 @@ module Api
       # GET /api/v1/calendar/:year
       # Retorna o calendário litúrgico completo de um ano
       def year
-        year = params[:year].to_i
+        year_num = params[:year].to_i
 
-        validate_year(year)
+        validate_year(year_num)
 
-        calendar = LiturgicalCalendar.new(year, prayer_book_code: prayer_book_code)
+        calendar = LiturgicalCalendar.new(year_num, prayer_book_code: resolved_prayer_book_code)
 
-        # Retorna informações resumidas do ano
         render json: {
-          year: year,
-          movable_dates: Liturgical::EasterCalculator.new(year).all_movable_dates,
+          year: year_num,
+          movable_dates: Liturgical::EasterCalculator.new(year_num).all_movable_dates,
           seasons_summary: seasons_summary(calendar),
-          important_dates: important_dates_summary(year)
+          important_dates: important_dates_summary(year_num)
         }
       rescue ArgumentError => e
         render json: { error: "Ano inválido: #{e.message}" }, status: :bad_request
@@ -121,17 +123,9 @@ module Api
           sunday_after_pentecost: info[:sunday_after_pentecost],
           celebration: info[:celebration],
           saint: info[:saint],
-          collect: CollectService.new(date, prayer_book_code: prayer_book_code).find_collects,
-          readings: ReadingService.for(date, prayer_book_code: prayer_book_code).find_readings
+          collect: CollectService.new(date, prayer_book_code: resolved_prayer_book_code).find_collects,
+          readings: ReadingService.for(date, prayer_book_code: resolved_prayer_book_code).find_readings
         }
-      end
-
-      def prayer_book_code
-        # Priority: URL param > User preference > Default
-        return params[:prayer_book_code] if params[:prayer_book_code].present?
-        return current_user.preferences["prayer_book_code"] if current_user&.preferences&.dig("prayer_book_code")
-
-        "loc_2015"
       end
 
       def seasons_summary(calendar)

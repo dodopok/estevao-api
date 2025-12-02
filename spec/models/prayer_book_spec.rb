@@ -31,9 +31,14 @@ RSpec.describe PrayerBook, type: :model do
       expect(prayer_book.psalm_cycles).to eq([])
     end
 
-    it 'has many prayer_book_user_preferences' do
-      expect(prayer_book).to respond_to(:prayer_book_user_preferences)
-      expect(prayer_book.prayer_book_user_preferences).to eq([])
+    it 'has many preference_categories' do
+      expect(prayer_book).to respond_to(:preference_categories)
+      expect(prayer_book.preference_categories).to eq([])
+    end
+
+    it 'has many user_onboardings' do
+      expect(prayer_book).to respond_to(:user_onboardings)
+      expect(prayer_book.user_onboardings).to eq([])
     end
 
     it 'configures restrict_with_error dependency for core associations' do
@@ -44,8 +49,12 @@ RSpec.describe PrayerBook, type: :model do
       expect(prayer_book.association(:psalm_cycles).options[:dependent]).to eq(:restrict_with_error)
     end
 
-    it 'configures destroy dependency for prayer_book_user_preferences' do
-      expect(prayer_book.association(:prayer_book_user_preferences).options[:dependent]).to eq(:destroy)
+    it 'configures destroy dependency for preference_categories' do
+      expect(prayer_book.association(:preference_categories).options[:dependent]).to eq(:destroy)
+    end
+
+    it 'configures restrict_with_error dependency for user_onboardings' do
+      expect(prayer_book.association(:user_onboardings).options[:dependent]).to eq(:restrict_with_error)
     end
   end
 
@@ -77,15 +86,15 @@ RSpec.describe PrayerBook, type: :model do
   end
 
   describe 'scopes' do
-    describe '.default' do
-      it 'returns only default prayer books' do
-        # Clear existing default books to avoid conflicts
-        PrayerBook.where(is_default: true).update_all(is_default: false)
+    describe '.recommended' do
+      it 'returns only recommended prayer books' do
+        # Clear existing recommended books to avoid conflicts
+        PrayerBook.where(is_recommended: true).update_all(is_recommended: false)
 
-        default_book = PrayerBook.create!(code: 'default_test', name: 'Default', is_default: true)
-        _other_book = PrayerBook.create!(code: 'other_test', name: 'Other', is_default: false)
+        recommended_book = PrayerBook.create!(code: 'recommended_test', name: 'Recommended', is_recommended: true)
+        _other_book = PrayerBook.create!(code: 'other_test', name: 'Other', is_recommended: false)
 
-        expect(PrayerBook.default).to contain_exactly(default_book)
+        expect(PrayerBook.recommended).to contain_exactly(recommended_book)
       end
     end
   end
@@ -106,35 +115,35 @@ RSpec.describe PrayerBook, type: :model do
 
   describe '.find_by_code_or_default' do
     before do
-      # Clear existing default books and create a fresh one for these tests
-      PrayerBook.where(is_default: true).update_all(is_default: false)
+      # Clear existing recommended books and create a fresh one for these tests
+      PrayerBook.where(is_recommended: true).update_all(is_recommended: false)
     end
 
-    let!(:default_book) { PrayerBook.create!(code: 'default_test_2', name: 'Default', is_default: true) }
+    let!(:recommended_book) { PrayerBook.create!(code: 'recommended_test_2', name: 'Recommended', is_recommended: true) }
 
     context 'when code is provided and exists' do
       it 'returns the prayer book with that code' do
-        specific_book = PrayerBook.create!(code: 'specific_test', name: 'Specific', is_default: false)
+        specific_book = PrayerBook.create!(code: 'specific_test', name: 'Specific', is_recommended: false)
 
         expect(PrayerBook.find_by_code_or_default('specific_test')).to eq(specific_book)
       end
     end
 
     context 'when code is provided but does not exist' do
-      it 'returns the default prayer book' do
-        expect(PrayerBook.find_by_code_or_default('definitely_nonexistent_xyz')).to eq(default_book)
+      it 'returns the recommended prayer book' do
+        expect(PrayerBook.find_by_code_or_default('definitely_nonexistent_xyz')).to eq(recommended_book)
       end
     end
 
     context 'when code is nil' do
-      it 'returns the default prayer book' do
-        expect(PrayerBook.find_by_code_or_default(nil)).to eq(default_book)
+      it 'returns the recommended prayer book' do
+        expect(PrayerBook.find_by_code_or_default(nil)).to eq(recommended_book)
       end
     end
 
     context 'when code is empty string' do
-      it 'returns the default prayer book' do
-        expect(PrayerBook.find_by_code_or_default('')).to eq(default_book)
+      it 'returns the recommended prayer book' do
+        expect(PrayerBook.find_by_code_or_default('')).to eq(recommended_book)
       end
     end
   end

@@ -43,6 +43,10 @@ Rails.application.routes.draw do
       post "users/fcm_token", to: "users#save_fcm_token"
       delete "users/fcm_token", to: "users#delete_fcm_token"
 
+      # Rotas de onboarding
+      post "users/onboarding", to: "onboarding#create"
+      get "users/me/onboarding", to: "onboarding#show"
+
       # Rotas de completions (marcar ofícios como completados)
       resources :completions, only: [ :create, :destroy ]
       get "completions/:year/:month/:day/:office_type", to: "completions#show"
@@ -58,10 +62,11 @@ Rails.application.routes.draw do
         end
       end
 
-      # Rotas de preferências específicas por Prayer Book
-      get "prayer_books/:prayer_book_code/features", to: "prayer_book_user_preferences#features"
-      get "prayer_books/:prayer_book_code/preferences", to: "prayer_book_user_preferences#show"
-      patch "prayer_books/:prayer_book_code/preferences", to: "prayer_book_user_preferences#update"
+      # Rotas de preferências dinâmicas por Prayer Book
+      get "prayer_books/:prayer_book_code/preferences", to: "preferences#show"
+
+      # Rotas de versões de Bíblia
+      resources :bible_versions, only: [ :index ]
 
       # Rotas de regras de vida
       resources :life_rules, only: [ :index, :show, :create, :update, :destroy ] do

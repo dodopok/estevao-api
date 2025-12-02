@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_01_210620) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_02_000006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -25,6 +25,24 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_210620) do
     t.integer "verse", null: false
     t.index ["book", "chapter", "verse", "translation"], name: "index_bible_texts_on_verse_lookup"
     t.index ["book_number", "chapter", "verse", "translation"], name: "index_bible_texts_on_book_number_lookup"
+  end
+
+  create_table "bible_versions", force: :cascade do |t|
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "full_name"
+    t.boolean "is_active", default: true
+    t.boolean "is_recommended", default: false
+    t.string "language", default: "pt-BR"
+    t.string "license"
+    t.string "name", null: false
+    t.string "publisher"
+    t.datetime "updated_at", null: false
+    t.integer "year"
+    t.index ["code"], name: "index_bible_versions_on_code", unique: true
+    t.index ["is_active", "is_recommended"], name: "index_bible_versions_on_is_active_and_is_recommended"
+    t.index ["language"], name: "index_bible_versions_on_language"
   end
 
   create_table "celebrations", force: :cascade do |t|
@@ -185,24 +203,13 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_210620) do
     t.index ["user_id"], name: "index_notification_logs_on_user_id"
   end
 
-  create_table "prayer_book_user_preferences", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.jsonb "options", default: {}, null: false
-    t.bigint "prayer_book_id", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["options"], name: "index_prayer_book_user_preferences_on_options", using: :gin
-    t.index ["prayer_book_id"], name: "index_prayer_book_user_preferences_on_prayer_book_id"
-    t.index ["user_id", "prayer_book_id"], name: "index_pb_user_prefs_on_user_and_prayer_book", unique: true
-    t.index ["user_id"], name: "index_prayer_book_user_preferences_on_user_id"
-  end
-
   create_table "prayer_books", force: :cascade do |t|
     t.string "code", null: false
     t.datetime "created_at", null: false
     t.text "description"
     t.jsonb "features", default: {}, null: false
-    t.boolean "is_default"
+    t.string "image_url"
+    t.boolean "is_recommended"
     t.string "jurisdiction"
     t.string "name"
     t.string "pdf_url"
@@ -211,7 +218,41 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_210620) do
     t.integer "year"
     t.index ["code"], name: "index_prayer_books_on_code", unique: true
     t.index ["features"], name: "index_prayer_books_on_features", using: :gin
-    t.index ["is_default"], name: "index_prayer_books_on_is_default"
+    t.index ["is_recommended"], name: "index_prayer_books_on_is_recommended"
+  end
+
+  create_table "preference_categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "icon"
+    t.string "key", null: false
+    t.string "name", null: false
+    t.integer "position", default: 0, null: false
+    t.bigint "prayer_book_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prayer_book_id", "key"], name: "index_preference_categories_on_prayer_book_id_and_key", unique: true
+    t.index ["prayer_book_id", "position"], name: "index_preference_categories_on_prayer_book_id_and_position"
+    t.index ["prayer_book_id"], name: "index_preference_categories_on_prayer_book_id"
+  end
+
+  create_table "preference_definitions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "default_value"
+    t.jsonb "depends_on"
+    t.text "description"
+    t.string "key", null: false
+    t.string "name", null: false
+    t.jsonb "options", default: []
+    t.integer "position", default: 0, null: false
+    t.string "pref_type", null: false
+    t.bigint "preference_category_id", null: false
+    t.boolean "required", default: false
+    t.datetime "updated_at", null: false
+    t.jsonb "validation_rules", default: {}
+    t.index ["pref_type"], name: "index_preference_definitions_on_pref_type"
+    t.index ["preference_category_id", "key"], name: "idx_pref_definitions_on_category_and_key", unique: true
+    t.index ["preference_category_id", "position"], name: "idx_pref_definitions_on_category_and_position"
+    t.index ["preference_category_id"], name: "index_preference_definitions_on_preference_category_id"
   end
 
   create_table "psalm_cycles", force: :cascade do |t|
@@ -238,6 +279,23 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_210620) do
     t.jsonb "verses", default: {}, null: false
     t.index ["number", "prayer_book_id"], name: "index_psalms_on_number_and_prayer_book_id", unique: true
     t.index ["prayer_book_id"], name: "index_psalms_on_prayer_book_id"
+  end
+
+  create_table "user_onboardings", force: :cascade do |t|
+    t.bigint "bible_version_id", null: false
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.string "mode", default: "basic", null: false
+    t.boolean "onboarding_completed", default: true
+    t.bigint "prayer_book_id", null: false
+    t.jsonb "preferences", default: {}, null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["bible_version_id"], name: "index_user_onboardings_on_bible_version_id"
+    t.index ["onboarding_completed"], name: "index_user_onboardings_on_onboarding_completed"
+    t.index ["prayer_book_id"], name: "index_user_onboardings_on_prayer_book_id"
+    t.index ["preferences"], name: "index_user_onboardings_on_preferences", using: :gin
+    t.index ["user_id"], name: "index_user_onboardings_on_user_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -269,8 +327,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_210620) do
   add_foreign_key "life_rules", "users"
   add_foreign_key "liturgical_texts", "prayer_books", on_delete: :restrict
   add_foreign_key "notification_logs", "users"
-  add_foreign_key "prayer_book_user_preferences", "prayer_books"
-  add_foreign_key "prayer_book_user_preferences", "users"
+  add_foreign_key "preference_categories", "prayer_books"
+  add_foreign_key "preference_definitions", "preference_categories"
   add_foreign_key "psalm_cycles", "prayer_books"
   add_foreign_key "psalms", "prayer_books", on_delete: :restrict
+  add_foreign_key "user_onboardings", "bible_versions"
+  add_foreign_key "user_onboardings", "prayer_books"
+  add_foreign_key "user_onboardings", "users"
 end

@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :completions, dependent: :destroy
   has_many :fcm_tokens, dependent: :destroy
   has_many :notification_logs, dependent: :destroy
-  has_many :prayer_book_user_preferences, dependent: :destroy
+  has_one :user_onboarding, dependent: :destroy
   has_one :life_rule, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
@@ -19,10 +19,7 @@ class User < ApplicationRecord
     "version" => "loc_2015",
     "prayer_book_code" => "loc_2015",
     "language" => "pt-BR",
-    "bible_version" => "nvi",
-    "lords_prayer_version" => "traditional",
-    "creed_type" => "apostles",
-    "confession_type" => "long"
+    "bible_version" => "nvi"
   }.freeze
 
   # Define preferências padrão ao criar usuário
@@ -86,21 +83,30 @@ class User < ApplicationRecord
     (Date.today - last_completed_office_at.to_date).to_i > 1
   end
 
-  # Retorna as preferências específicas do Prayer Book para este usuário
-  def prayer_book_preferences_for(prayer_book_code)
-    prayer_book = PrayerBook.find_by(code: prayer_book_code)
-    return {} unless prayer_book
-
-    pref = prayer_book_user_preferences.find_by(prayer_book: prayer_book)
-    pref&.options_with_defaults || prayer_book.default_options
+  # Check if user has completed onboarding
+  def onboarding_completed?
+    user_onboarding&.onboarding_completed || false
   end
 
-  # Retorna ou cria as preferências para um Prayer Book
-  def find_or_initialize_prayer_book_preference(prayer_book_code)
-    prayer_book = PrayerBook.find_by(code: prayer_book_code)
-    return nil unless prayer_book
+  # Get onboarding preferences for a specific key
+  def onboarding_preference(key)
+    user_onboarding&.preference_value(key)
+  end
 
-    prayer_book_user_preferences.find_or_initialize_by(prayer_book: prayer_book)
+  # Get all effective preferences (from onboarding with defaults applied)
+  def effective_preferences
+    return {} unless user_onboarding
+
+    prefs = user_onboarding.preferences_with_defaults.symbolize_keys
+    prefs[:prayer_book_code] = user_onboarding.prayer_book.code
+    prefs[:bible_version] = user_onboarding.bible_version.code
+    prefs[:mode] = user_onboarding.mode
+    prefs
+  end
+
+  # Legacy method for backwards compatibility - delegates to effective_preferences
+  def prayer_book_preferences_for(_prayer_book_code)
+    effective_preferences
   end
 
   private

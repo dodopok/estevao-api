@@ -14,7 +14,7 @@
 csv_path = Rails.root.join('db/seeds/prayer_books/locb_2008/data/daily_readings.csv')
 
 if File.exist?(csv_path)
-  require Rails.root.join('db/seeds/prayer_books/locb_2008/data/readings/daily_readings.rb')
+  require Rails.root.join('db/seeds/prayer_books/locb_2008/data/daily_readings.rb')
 
   importer = Locb2008DailyReadingsImporter.new(csv_path, @prayer_book)
   importer.import

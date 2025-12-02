@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::CalendarController", type: :request do
+  let(:default_preferences) { { prayer_book_code: 'loc_2015' }.to_json }
+
   before do
     # Create minimal required test data - use loc_2015 so Liturgical::CelebrationResolver finds celebrations correctly
     @prayer_book = PrayerBook.find_by(code: 'loc_2015') || create(:prayer_book, :loc_2015)
@@ -27,7 +29,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
   describe "GET /api/v1/calendar/today" do
     it "returns information for current day" do
       today = Date.today
-      get "/api/v1/calendar/today"
+      get "/api/v1/calendar/today", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -44,7 +46,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
   # === /day ENDPOINT TESTS ===
   describe "GET /api/v1/calendar/:year/:month/:day" do
     it "returns information for a specific day" do
-      get "/api/v1/calendar/2025/11/16"
+      get "/api/v1/calendar/2025/11/16", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -66,7 +68,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
     end
 
     it "returns 400 for invalid date" do
-      get "/api/v1/calendar/2025/13/32"
+      get "/api/v1/calendar/2025/13/32", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:bad_request)
 
@@ -76,7 +78,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
     end
 
     it "returns 400 for year out of range" do
-      get "/api/v1/calendar/1800/1/1"
+      get "/api/v1/calendar/1800/1/1", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:bad_request)
 
@@ -89,12 +91,12 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
       Rails.cache.clear
 
       # First request
-      get "/api/v1/calendar/2025/12/25"
+      get "/api/v1/calendar/2025/12/25", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       first_response = JSON.parse(response.body)
 
       # Second request (may or may not use cache depending on configuration)
-      get "/api/v1/calendar/2025/12/25"
+      get "/api/v1/calendar/2025/12/25", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       second_response = JSON.parse(response.body)
 
@@ -112,7 +114,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
         language: "pt-BR"
       )
 
-      get "/api/v1/calendar/2025/12/1"
+      get "/api/v1/calendar/2025/12/1", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -139,7 +141,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
         prayer_book: @prayer_book
       )
 
-      get "/api/v1/calendar/2025/11/16"
+      get "/api/v1/calendar/2025/11/16", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -172,7 +174,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
         prayer_book: @prayer_book
       )
 
-      get "/api/v1/calendar/2026/4/4"
+      get "/api/v1/calendar/2026/4/4", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -217,19 +219,19 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
       )
 
       # Test Monday of Holy Week
-      get "/api/v1/calendar/2026/3/30"
+      get "/api/v1/calendar/2026/3/30", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
       expect(json["celebration"]["name"]).to eq("Segunda-feira Santa")
 
       # Test Tuesday of Holy Week
-      get "/api/v1/calendar/2026/3/31"
+      get "/api/v1/calendar/2026/3/31", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
       expect(json["celebration"]["name"]).to eq("Terça-feira Santa")
 
       # Test Wednesday of Holy Week
-      get "/api/v1/calendar/2026/4/1"
+      get "/api/v1/calendar/2026/4/1", params: { preferences: default_preferences }
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
       expect(json["celebration"]["name"]).to eq("Quarta-feira Santa")
@@ -239,7 +241,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
   # === /month ENDPOINT TESTS ===
   describe "GET /api/v1/calendar/:year/:month" do
     it "returns calendar for the month" do
-      get "/api/v1/calendar/2025/12"
+      get "/api/v1/calendar/2025/12", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -254,7 +256,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
     end
 
     it "returns 400 for invalid month" do
-      get "/api/v1/calendar/2025/13"
+      get "/api/v1/calendar/2025/13", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:bad_request)
 
@@ -263,7 +265,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
     end
 
     it "each day has complete structure" do
-      get "/api/v1/calendar/2025/11"
+      get "/api/v1/calendar/2025/11", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -282,7 +284,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
   # === /year ENDPOINT TESTS ===
   describe "GET /api/v1/calendar/:year" do
     it "returns summary for the year" do
-      get "/api/v1/calendar/2025"
+      get "/api/v1/calendar/2025", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -295,7 +297,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
     end
 
     it "returns correct movable dates" do
-      get "/api/v1/calendar/2025"
+      get "/api/v1/calendar/2025", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -309,7 +311,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
     end
 
     it "returns translated important dates" do
-      get "/api/v1/calendar/2025"
+      get "/api/v1/calendar/2025", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -324,7 +326,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
     end
 
     it "returns 400 for invalid year" do
-      get "/api/v1/calendar/1500"
+      get "/api/v1/calendar/1500", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:bad_request)
 
@@ -333,7 +335,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
     end
 
     it "returns seasons summary" do
-      get "/api/v1/calendar/2025"
+      get "/api/v1/calendar/2025", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -354,7 +356,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
     it "endpoints respond within acceptable time" do
       start_time = Time.now
 
-      get "/api/v1/calendar/2025/12/25"
+      get "/api/v1/calendar/2025/12/25", params: { preferences: default_preferences }
 
       elapsed = Time.now - start_time
 
@@ -368,11 +370,11 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
   describe "Consistency" do
     it "day returned in month corresponds to day endpoint" do
       # Fetch the month
-      get "/api/v1/calendar/2025/11"
+      get "/api/v1/calendar/2025/11", params: { preferences: default_preferences }
       month_json = JSON.parse(response.body)
 
       # Fetch day 16 specifically
-      get "/api/v1/calendar/2025/11/16"
+      get "/api/v1/calendar/2025/11/16", params: { preferences: default_preferences }
       day_json = JSON.parse(response.body)
 
       # Find day 16 in the month
@@ -389,7 +391,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
   describe "Edge Cases" do
     it "works for leap years" do
       # February 29, 2024 (leap year)
-      get "/api/v1/calendar/2024/2/29"
+      get "/api/v1/calendar/2024/2/29", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -398,13 +400,13 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
     end
 
     it "returns error for February 29 in non-leap year" do
-      get "/api/v1/calendar/2025/2/29"
+      get "/api/v1/calendar/2025/2/29", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:bad_request)
     end
 
     it "works for December 31" do
-      get "/api/v1/calendar/2025/12/31"
+      get "/api/v1/calendar/2025/12/31", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -413,7 +415,7 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
     end
 
     it "works for January 1" do
-      get "/api/v1/calendar/2025/1/1"
+      get "/api/v1/calendar/2025/1/1", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
 
@@ -425,14 +427,14 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
   # === JSON FORMAT TESTS ===
   describe "JSON Format" do
     it "response has Content-Type application/json" do
-      get "/api/v1/calendar/2025/12/25"
+      get "/api/v1/calendar/2025/12/25", params: { preferences: default_preferences }
 
       expect(response).to have_http_status(:success)
       expect(response.content_type).to eq("application/json; charset=utf-8")
     end
 
     it "response structure is consistent" do
-      get "/api/v1/calendar/2025/7/15" # Date without celebration
+      get "/api/v1/calendar/2025/7/15", params: { preferences: default_preferences } # Date without celebration
 
       expect(response).to have_http_status(:success)
 

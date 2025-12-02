@@ -74,7 +74,7 @@ RSpec.describe Reading::ReferenceBuilder do
       PrayerBook.find_or_create_by!(code: "loc_2015") do |pb|
         pb.name = "Livro de Oração Comum 2015"
         pb.year = 2015
-        pb.is_default = true
+        pb.is_recommended = true
       end
     end
 

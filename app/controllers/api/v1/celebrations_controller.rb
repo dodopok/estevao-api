@@ -2,13 +2,15 @@ module Api
   module V1
     class CelebrationsController < ApplicationController
       include Authenticatable
+      include Concerns::PreferencesResolver
 
       before_action :authenticate_user_optional
+      before_action :validate_preferences!, except: [ :types ]
 
       # GET /api/v1/celebrations
       # Lista todas as celebrações
       def index
-        prayer_book = PrayerBook.find_by_code(prayer_book_code)
+        prayer_book = resolved_prayer_book
         celebrations = Celebration.where(prayer_book_id: prayer_book.id).by_rank
 
         # Filtros opcionais
@@ -24,7 +26,7 @@ module Api
       # GET /api/v1/celebrations/:id
       # Detalhes de uma celebração específica
       def show
-        prayer_book = PrayerBook.find_by_code(prayer_book_code)
+        prayer_book = resolved_prayer_book
         celebration = Celebration.where(prayer_book_id: prayer_book.id).find(params[:id])
 
         render json: {
@@ -44,7 +46,7 @@ module Api
           return
         end
 
-        prayer_book = PrayerBook.find_by_code(prayer_book_code)
+        prayer_book = resolved_prayer_book
         celebrations = Celebration.where(prayer_book_id: prayer_book.id)
                                   .where("name ILIKE ?", "%#{query}%")
                                   .by_rank
@@ -66,7 +68,7 @@ module Api
           return
         end
 
-        prayer_book = PrayerBook.find_by_code(prayer_book_code)
+        prayer_book = resolved_prayer_book
         celebrations = Celebration.where(prayer_book_id: prayer_book.id)
                                   .for_date(month, day)
                                   .by_rank
@@ -152,14 +154,6 @@ module Api
           "lesser_feast" => "Festas Menores (texto simples) - outros santos e dias comemorativos",
           "commemoration" => "Comemorações - menções nas intercessões apenas"
         }[type] || ""
-      end
-
-      def prayer_book_code
-        # Priority: URL param > User preference > Default
-        return params[:prayer_book_code] if params[:prayer_book_code].present?
-        return current_user.preferences["prayer_book_code"] if current_user&.preferences&.dig("prayer_book_code")
-
-        "loc_2015"
       end
     end
   end

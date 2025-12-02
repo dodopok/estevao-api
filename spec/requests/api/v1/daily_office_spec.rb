@@ -13,6 +13,8 @@ RSpec.describe "api/v1/daily_office", type: :request do
     "application/json"
   end
 
+  let(:preferences) { { prayer_book_code: 'loc_2015' }.to_json }
+
   path "/api/v1/daily_office/preferences" do
     get("Get available preferences") do
       tags api_tags
@@ -44,14 +46,11 @@ RSpec.describe "api/v1/daily_office", type: :request do
   end
 
   path "/api/v1/daily_office/today/{office_type}" do
-    parameter name: "office_type", in: :path, required: true, description: "Type of office (morning, midday, evening, compline)", schema: { type: :string, enum: [ 'morning', 'midday', 'evening', 'compline' ] }
-    parameter name: :prayer_book_code, in: :query, required: false, description: "Prayer book code (default: loc_2015)", schema: { type: :string, enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ] }
-    parameter name: :bible_version, in: :query, required: false, description: "Bible translation (default: nvi)", schema: { type: :string, enum: BibleText::TRANSLATIONS.keys }
-    parameter name: :language, in: :query, required: false, description: "Language (default: pt-BR)", schema: { type: :string, enum: [ 'pt-BR' ] }
-    parameter name: :lords_prayer_version, in: :query, required: false, description: "Lord's Prayer version (traditional/contemporary)", schema: { type: :string, enum: [ 'traditional', 'contemporary' ] }
-    parameter name: :creed_type, in: :query, required: false, description: "Creed type (apostles/nicene)", schema: { type: :string, enum: [ 'apostles', 'nicene' ] }
-    parameter name: :confession_type, in: :query, required: false, description: "Confession type (long/short)", schema: { type: :string, enum: [ 'long', 'short' ] }
-    parameter name: :seed, in: :query, required: false, description: "Seed for deterministic randomization (for sharing office via QR code/link)", schema: { type: :integer }
+    parameter name: "office_type", in: :path, required: true,
+              description: "Type of office (morning, midday, evening, compline)",
+              schema: { type: :string, enum: [ 'morning', 'midday', 'evening', 'compline' ] }
+    parameter name: 'preferences', in: :query, type: :string, required: true,
+              description: 'User preferences as JSON string. Required: prayer_book_code. Optional: bible_version, language, lords_prayer_version, creed_type, confession_type, seed'
 
     get("Get today's Daily Office") do
       tags api_tags
@@ -124,14 +123,11 @@ RSpec.describe "api/v1/daily_office", type: :request do
     parameter name: "year", in: :path, type: :string, description: "Year (1900-2200)", required: true
     parameter name: "month", in: :path, type: :string, description: "Month (1-12)", required: true
     parameter name: "day", in: :path, type: :string, description: "Day (1-31)", required: true
-    parameter name: "office_type", in: :path, required: true, description: "Type of office (morning, midday, evening, compline)", schema: { type: :string, enum: [ 'morning', 'midday', 'evening', 'compline' ] }
-    parameter name: :prayer_book_code, in: :query, required: false, description: "Prayer book code (default: loc_2015)", schema: { type: :string, enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ] }
-    parameter name: :bible_version, in: :query, required: false, description: "Bible translation (default: nvi)", schema: { type: :string, enum: BibleText::TRANSLATIONS.keys }
-    parameter name: :language, in: :query, required: false, description: "Language (default: pt-BR)", schema: { type: :string, enum: [ 'pt-BR' ] }
-    parameter name: :lords_prayer_version, in: :query, required: false, description: "Lord's Prayer version (traditional/contemporary)", schema: { type: :string, enum: [ 'traditional', 'contemporary' ] }
-    parameter name: :creed_type, in: :query, required: false, description: "Creed type (apostles/nicene)", schema: { type: :string, enum: [ 'apostles', 'nicene' ] }
-    parameter name: :confession_type, in: :query, required: false, description: "Confession type (long/short)", schema: { type: :string, enum: [ 'long', 'short' ] }
-    parameter name: :seed, in: :query, required: false, description: "Seed for deterministic randomization (for sharing office via QR code/link)", schema: { type: :integer }
+    parameter name: "office_type", in: :path, required: true,
+              description: "Type of office (morning, midday, evening, compline)",
+              schema: { type: :string, enum: [ 'morning', 'midday', 'evening', 'compline' ] }
+    parameter name: 'preferences', in: :query, type: :string, required: true,
+              description: 'User preferences as JSON string. Required: prayer_book_code'
 
     get("Get Daily Office for specific date") do
       tags api_tags
@@ -218,15 +214,20 @@ RSpec.describe "api/v1/daily_office", type: :request do
     parameter name: :year, in: :path, required: true, schema: { type: :integer }, example: 2025
     parameter name: :month, in: :path, required: true, schema: { type: :integer }, example: 11
     parameter name: :day, in: :path, required: true, schema: { type: :integer }, example: 25
-    parameter name: :office_type, in: :path, required: true, description: "Type of office (morning or evening only)", schema: { type: :string, enum: [ 'morning', 'evening' ] }
-    parameter name: :prayer_book_code, in: :query, required: false, description: "Prayer book code (default uses user preference or loc_2015)", schema: { type: :string, enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ] }
+    parameter name: :office_type, in: :path, required: true,
+              description: "Type of office (morning or evening only)",
+              schema: { type: :string, enum: [ 'morning', 'evening' ] }
+    parameter name: 'preferences', in: :query, type: :string, required: true,
+              description: 'User preferences as JSON string. Required: prayer_book_code'
 
     get("Get family rite daily office") do
       tags api_tags
       produces content_type
       description "Returns a simplified family rite version of the daily office with reduced components (8 components instead of 15-18)"
 
-      parameter name: 'Authorization', in: :header, required: false, description: 'Optional Firebase auth token (Bearer)', schema: { type: :string }
+      parameter name: 'Authorization', in: :header, required: false,
+                description: 'Optional Firebase auth token (Bearer)',
+                schema: { type: :string }
 
       response(200, "successful") do
         let(:year) { "2025" }
@@ -272,7 +273,7 @@ RSpec.describe "api/v1/daily_office", type: :request do
         let(:month) { "11" }
         let(:day) { "25" }
         let(:office_type) { "morning" }
-        let(:prayer_book_code) { "loc_1987" }
+        let(:preferences) { { prayer_book_code: 'loc_1987' }.to_json }
 
         schema type: :object,
                properties: {
@@ -288,10 +289,12 @@ RSpec.describe "api/v1/daily_office", type: :request do
   describe "Seed functionality" do
     let(:date) { "2025/11/25" }
     let(:office_type) { "morning" }
+    let(:base_preferences) { { prayer_book_code: 'loc_2015' } }
 
     context "when seed parameter is provided" do
       it "returns the same seed in metadata" do
-        get "/api/v1/daily_office/#{date}/#{office_type}", params: { seed: 12345 }
+        prefs = base_preferences.merge(seed: 12345)
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { preferences: prefs.to_json }
         expect(response).to have_http_status(:success)
 
         json = JSON.parse(response.body)
@@ -299,10 +302,11 @@ RSpec.describe "api/v1/daily_office", type: :request do
       end
 
       it "produces deterministic results with same seed" do
-        get "/api/v1/daily_office/#{date}/#{office_type}", params: { seed: 54321 }
+        prefs = base_preferences.merge(seed: 54321)
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { preferences: prefs.to_json }
         response1 = JSON.parse(response.body)
 
-        get "/api/v1/daily_office/#{date}/#{office_type}", params: { seed: 54321 }
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { preferences: prefs.to_json }
         response2 = JSON.parse(response.body)
 
         # The responses should be identical when using the same seed
@@ -310,10 +314,12 @@ RSpec.describe "api/v1/daily_office", type: :request do
       end
 
       it "produces different results with different seeds" do
-        get "/api/v1/daily_office/#{date}/#{office_type}", params: { seed: 11111 }
+        prefs1 = base_preferences.merge(seed: 11111)
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { preferences: prefs1.to_json }
         response1 = JSON.parse(response.body)
 
-        get "/api/v1/daily_office/#{date}/#{office_type}", params: { seed: 99999 }
+        prefs2 = base_preferences.merge(seed: 99999)
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { preferences: prefs2.to_json }
         response2 = JSON.parse(response.body)
 
         # Extract opening sentence content to verify randomization worked
@@ -332,7 +338,7 @@ RSpec.describe "api/v1/daily_office", type: :request do
 
     context "when seed parameter is not provided" do
       it "automatically generates a seed and includes it in metadata" do
-        get "/api/v1/daily_office/#{date}/#{office_type}"
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { preferences: base_preferences.to_json }
         expect(response).to have_http_status(:success)
 
         json = JSON.parse(response.body)
@@ -341,10 +347,10 @@ RSpec.describe "api/v1/daily_office", type: :request do
       end
 
       it "generates consistent seed for same date/office combination" do
-        get "/api/v1/daily_office/#{date}/#{office_type}"
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { preferences: base_preferences.to_json }
         response1 = JSON.parse(response.body)
 
-        get "/api/v1/daily_office/#{date}/#{office_type}"
+        get "/api/v1/daily_office/#{date}/#{office_type}", params: { preferences: base_preferences.to_json }
         response2 = JSON.parse(response.body)
 
         # Same date/office should produce same seed

@@ -2,8 +2,11 @@ module Api
   module V1
     class LectionaryController < ApplicationController
       include Authenticatable
+      include Concerns::PreferencesResolver
 
       before_action :authenticate_user_optional
+      before_action :validate_preferences!
+
       # GET /api/v1/lectionary/:year/:month/:day
       # Retorna as leituras para um dia específico
       def day
@@ -105,9 +108,13 @@ module Api
         end
       end
 
+      def resolved_reading_type
+        resolved_preferences[:reading_type] || "semicontinuous"
+      end
+
       def find_readings_for_date(date, cycle, service_type = "eucharist")
-        prayer_book = PrayerBook.find_by_code(prayer_book_code)
-        reading_type = get_user_reading_type_preference(prayer_book.code)
+        prayer_book = resolved_prayer_book
+        reading_type = resolved_reading_type
 
         # Primeiro tenta encontrar por celebração fixa
         celebration = Celebration.fixed.for_date(date.month, date.day).where(prayer_book_id: prayer_book.id).first
@@ -162,26 +169,6 @@ module Api
                       .first if reading_type != "semicontinuous"
 
         reading
-      end
-
-      # Helper method para obter a preferência de reading_type do usuário
-      def get_user_reading_type_preference(prayer_book_code)
-        return params[:reading_type] if params[:reading_type].present?
-
-        if current_user
-          prefs = current_user.prayer_book_preferences_for(prayer_book_code)
-          return prefs.dig("lectionary", "reading_type") if prefs.dig("lectionary", "reading_type").present?
-        end
-
-        "semicontinuous"
-      end
-
-      def prayer_book_code
-        # Priority: URL param > User preference > Default
-        return params[:prayer_book_code] if params[:prayer_book_code].present?
-        return current_user.preferences["prayer_book_code"] if current_user&.preferences&.dig("prayer_book_code")
-
-        "loc_2015"
       end
 
       def format_readings_response(reading, date, cycle)

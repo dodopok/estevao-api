@@ -3,7 +3,7 @@ FactoryBot.define do
     sequence(:code) { |n| "prayer_book_#{n}" }
     sequence(:name) { |n| "Prayer Book #{n}" }
     year { 2015 }
-    is_default { false }
+    is_recommended { false }
     features do
       {
         "lectionary" => {
@@ -18,8 +18,13 @@ FactoryBot.define do
       }
     end
 
+    trait :recommended do
+      is_recommended { true }
+    end
+
+    # Alias for backwards compatibility
     trait :default do
-      is_default { true }
+      is_recommended { true }
     end
 
     trait :loc_2015 do
@@ -32,6 +37,13 @@ FactoryBot.define do
       code { "bcp_1979" }
       name { "Book of Common Prayer 1979" }
       year { 1979 }
+    end
+
+    trait :with_preferences do
+      after(:create) do |prayer_book|
+        category = create(:preference_category, prayer_book: prayer_book)
+        create(:preference_definition, preference_category: category)
+      end
     end
   end
 end

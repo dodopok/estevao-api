@@ -9,6 +9,15 @@ RSpec.describe 'api/v1/calendar', type: :request do
     'application/json'
   end
 
+  before do
+    PrayerBook.find_or_create_by!(code: 'loc_2015') do |pb|
+      pb.name = 'Livro de Oração Comum 2015'
+      pb.language = 'pt-BR'
+    end
+  end
+
+  let(:preferences) { { prayer_book_code: 'loc_2015' }.to_json }
+
   path '/api/v1/calendar/today' do
     get('today calendar') do
       tags api_tags
@@ -16,12 +25,8 @@ RSpec.describe 'api/v1/calendar', type: :request do
       security [ { bearer_auth: [] }, {} ]
       parameter name: 'Authorization', in: :header, type: :string, required: false,
                 description: 'Optional Firebase auth token (Bearer)'
-      parameter name: 'prayer_book_code', in: :query, required: false,
-                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
-                schema: {
-                  type: :string,
-                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
-                }
+      parameter name: 'preferences', in: :query, type: :string, required: true,
+                description: 'User preferences as JSON string. Required fields: prayer_book_code. Example: {"prayer_book_code":"loc_2015","bible_version":"nvi"}'
 
       response(200, 'successful') do
         after do |example|
@@ -31,6 +36,11 @@ RSpec.describe 'api/v1/calendar', type: :request do
             }
           }
         end
+        run_test!
+      end
+
+      response(400, 'missing prayer_book_code') do
+        let(:preferences) { {}.to_json }
         run_test!
       end
     end
@@ -47,12 +57,8 @@ RSpec.describe 'api/v1/calendar', type: :request do
       security [ { bearer_auth: [] }, {} ]
       parameter name: 'Authorization', in: :header, type: :string, required: false,
                 description: 'Optional Firebase auth token (Bearer)'
-      parameter name: 'prayer_book_code', in: :query, required: false,
-                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
-                schema: {
-                  type: :string,
-                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
-                }
+      parameter name: 'preferences', in: :query, type: :string, required: true,
+                description: 'User preferences as JSON string. Required: prayer_book_code'
 
       response(200, 'successful') do
         let(:year) { '2024' }
@@ -81,12 +87,8 @@ RSpec.describe 'api/v1/calendar', type: :request do
       security [ { bearer_auth: [] }, {} ]
       parameter name: 'Authorization', in: :header, type: :string, required: false,
                 description: 'Optional Firebase auth token (Bearer)'
-      parameter name: 'prayer_book_code', in: :query, required: false,
-                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
-                schema: {
-                  type: :string,
-                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
-                }
+      parameter name: 'preferences', in: :query, type: :string, required: true,
+                description: 'User preferences as JSON string. Required: prayer_book_code'
 
       response(200, 'successful') do
         let(:year) { '2024' }
@@ -113,12 +115,8 @@ RSpec.describe 'api/v1/calendar', type: :request do
       security [ { bearer_auth: [] }, {} ]
       parameter name: 'Authorization', in: :header, type: :string, required: false,
                 description: 'Optional Firebase auth token (Bearer)'
-      parameter name: 'prayer_book_code', in: :query, required: false,
-                description: 'Prayer book code (default: loc_2015). If authenticated, uses user\'s preference if not provided',
-                schema: {
-                  type: :string,
-                  enum: [ 'loc_1987', 'locb_2008', 'loc_1662', 'loc_2012', 'loc_2015', 'loc_2019' ]
-                }
+      parameter name: 'preferences', in: :query, type: :string, required: true,
+                description: 'User preferences as JSON string. Required: prayer_book_code'
 
       response(200, 'successful') do
         let(:year) { '2024' }
