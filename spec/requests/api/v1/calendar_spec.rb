@@ -9,6 +9,13 @@ RSpec.describe 'api/v1/calendar', type: :request do
     'application/json'
   end
 
+  before do
+    PrayerBook.find_or_create_by!(code: 'loc_2015') do |pb|
+      pb.name = 'Livro de Oração Comum 2015'
+      pb.language = 'pt-BR'
+    end
+  end
+
   let(:preferences) { { prayer_book_code: 'loc_2015' }.to_json }
 
   path '/api/v1/calendar/today' do
