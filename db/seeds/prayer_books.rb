@@ -85,13 +85,13 @@ prayer_books_data = [
     }
   },
   {
-    code: "loc_2012",
-    name: "Livro de Oração Comum Contemporâneo - IAB - 2012",
-    year: 2012,
+    code: "loc_2021",
+    name: "Livro de Oração Comum Contemporâneo - IAB - 2021",
+    year: 2021,
     jurisdiction: "Igreja Anglicana no Brasil",
     description: "LOC atual da IEAB, parte de uma nova geração de Livros de Oração",
-    thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2012.png",
-    pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2012.pdf",
+    thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2021.png",
+    pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2021.pdf",
     is_recommended: false,
     features: {
       lectionary: {
