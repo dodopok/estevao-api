@@ -6,6 +6,8 @@ module Api
       include Authenticatable
 
       before_action :authenticate_user!, except: %i[index show]
+      before_action :authenticate_user_optional, only: %i[index show]
+
       before_action :set_life_rule, only: %i[show]
       before_action :set_life_rule_for_owner_action, only: %i[update destroy]
       before_action :set_life_rule_for_admin_action, only: %i[approve]
