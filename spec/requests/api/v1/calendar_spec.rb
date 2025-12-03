@@ -12,7 +12,6 @@ RSpec.describe 'api/v1/calendar', type: :request do
   before do
     PrayerBook.find_or_create_by!(code: 'loc_2015') do |pb|
       pb.name = 'Livro de Oração Comum 2015'
-      pb.language = 'pt-BR'
     end
   end
 

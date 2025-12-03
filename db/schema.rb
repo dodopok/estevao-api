@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_02_000006) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_03_181513) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -281,6 +281,23 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_02_000006) do
     t.index ["prayer_book_id"], name: "index_psalms_on_prayer_book_id"
   end
 
+  create_table "shared_offices", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "date", null: false
+    t.datetime "expires_at", null: false
+    t.string "office_type", null: false
+    t.string "prayer_book_code", null: false
+    t.jsonb "preferences", default: {}
+    t.bigint "seed", null: false
+    t.string "short_code", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["date", "office_type", "prayer_book_code"], name: "idx_on_date_office_type_prayer_book_code_ae0f27ea4d"
+    t.index ["expires_at"], name: "index_shared_offices_on_expires_at"
+    t.index ["short_code"], name: "index_shared_offices_on_short_code", unique: true
+    t.index ["user_id"], name: "index_shared_offices_on_user_id"
+  end
+
   create_table "user_onboardings", force: :cascade do |t|
     t.bigint "bible_version_id", null: false
     t.datetime "completed_at"
@@ -331,6 +348,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_02_000006) do
   add_foreign_key "preference_definitions", "preference_categories"
   add_foreign_key "psalm_cycles", "prayer_books"
   add_foreign_key "psalms", "prayer_books", on_delete: :restrict
+  add_foreign_key "shared_offices", "users"
   add_foreign_key "user_onboardings", "bible_versions"
   add_foreign_key "user_onboardings", "prayer_books"
   add_foreign_key "user_onboardings", "users"

@@ -68,6 +68,10 @@ Rails.application.routes.draw do
       # Rotas de versões de Bíblia
       resources :bible_versions, only: [ :index ]
 
+      # Rotas de compartilhamento de ofício
+      post "shared_offices", to: "shared_offices#create"
+      get "shared_offices/:code", to: "shared_offices#show"
+
       # Rotas de regras de vida
       resources :life_rules, only: [ :index, :show, :create, :update, :destroy ] do
         member do

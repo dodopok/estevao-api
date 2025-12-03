@@ -2052,6 +2052,205 @@ paths:
                         type: string
                       message:
                         type: string
+  "/api/v1/shared_offices":
+    post:
+      summary: Create shared office link
+      tags:
+      - Shared Offices
+      description: Creates a shareable link for an office configuration including
+        preferences and seed
+      parameters: []
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  short_code:
+                    type: string
+                    example: zHaD2NJ
+                    description: Unique 7-character code for the shared link
+                  share_path:
+                    type: string
+                    example: "/o/zHaD2NJ"
+                    description: Path to use in the app deep link
+                  expires_at:
+                    type: string
+                    format: date-time
+                    example: '2026-01-02T12:00:00Z'
+                    description: Expiration timestamp (30 days from creation)
+                  date:
+                    type: string
+                    format: date
+                    example: '2025-12-03'
+                  office_type:
+                    type: string
+                    example: morning
+                  prayer_book_code:
+                    type: string
+                    example: loc_2015
+                required:
+                - short_code
+                - share_path
+                - expires_at
+                - date
+                - office_type
+                - prayer_book_code
+        '400':
+          description: bad request - invalid office type
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: 'Tipo de ofício inválido. Use: morning, midday, evening,
+                      compline'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                  example: '2025-12-03'
+                  description: Date of the office (YYYY-MM-DD)
+                office_type:
+                  type: string
+                  enum:
+                  - morning
+                  - midday
+                  - evening
+                  - compline
+                  example: morning
+                  description: Type of office
+                prayer_book_code:
+                  type: string
+                  example: loc_2015
+                  description: Prayer book code
+                seed:
+                  type: integer
+                  example: 12345678
+                  description: Randomization seed for deterministic office generation
+                preferences:
+                  type: object
+                  description: User preferences for the office
+                  properties:
+                    bible_version:
+                      type: string
+                      example: nvi
+                    lords_prayer_version:
+                      type: string
+                      example: traditional
+                    confession_type:
+                      type: string
+                      example: long
+                    creed_type:
+                      type: string
+                      example: apostles
+              required:
+              - date
+              - office_type
+              - prayer_book_code
+              - seed
+  "/api/v1/shared_offices/{code}":
+    get:
+      summary: Get shared office by code
+      tags:
+      - Shared Offices
+      description: Returns the shared office data for a given short code. Use this
+        data to open the office with the same configuration.
+      parameters:
+      - name: code
+        in: path
+        description: The 7-character short code
+        example: zHaD2NJ
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  short_code:
+                    type: string
+                    example: zHaD2NJ
+                  date:
+                    type: string
+                    format: date
+                    example: '2025-12-03'
+                  office_type:
+                    type: string
+                    example: morning
+                  prayer_book_code:
+                    type: string
+                    example: loc_2015
+                  seed:
+                    type: integer
+                    example: 12345678
+                    description: Use this seed when generating the office
+                  preferences:
+                    type: object
+                    description: Preferences to apply when generating the office
+                    properties:
+                      bible_version:
+                        type: string
+                        example: nvi
+                      lords_prayer_version:
+                        type: string
+                        example: traditional
+                      confession_type:
+                        type: string
+                        example: long
+                      creed_type:
+                        type: string
+                        example: apostles
+                  expires_at:
+                    type: string
+                    format: date-time
+                    example: '2026-01-02T12:00:00Z'
+                  created_by:
+                    type: string
+                    nullable: true
+                    example: João Silva
+                    description: Name of the user who created the link (if authenticated)
+                required:
+                - short_code
+                - date
+                - office_type
+                - prayer_book_code
+                - seed
+                - preferences
+                - expires_at
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Link não encontrado
+        '410':
+          description: gone - link expired
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Este link expirou
   "/api/v1/users/me":
     get:
       summary: Get current user profile
