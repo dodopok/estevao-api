@@ -61,7 +61,7 @@ RSpec.describe SharedOffice, type: :model do
         active = create(:shared_office)
         _expired = create(:shared_office, :expired)
 
-        expect(SharedOffice.active).to eq([active])
+        expect(SharedOffice.active).to eq([ active ])
       end
     end
 
@@ -70,7 +70,7 @@ RSpec.describe SharedOffice, type: :model do
         _active = create(:shared_office)
         expired = create(:shared_office, :expired)
 
-        expect(SharedOffice.expired).to eq([expired])
+        expect(SharedOffice.expired).to eq([ expired ])
       end
     end
   end

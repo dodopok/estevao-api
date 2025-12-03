@@ -6,7 +6,7 @@ module Api
       include Authenticatable
 
       before_action :authenticate_user_optional
-      before_action :set_shared_office, only: [:show]
+      before_action :set_shared_office, only: [ :show ]
 
       # POST /api/v1/shared_offices
       # Creates a new shared office link
@@ -71,7 +71,7 @@ module Api
       end
 
       def validate_create_params!
-        required = [:date, :office_type, :prayer_book_code, :seed]
+        required = [ :date, :office_type, :prayer_book_code, :seed ]
         missing = required.select { |key| params[key].blank? }
 
         if missing.any?

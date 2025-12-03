@@ -15,6 +15,6 @@ class CreateSharedOffices < ActiveRecord::Migration[8.1]
 
     add_index :shared_offices, :short_code, unique: true
     add_index :shared_offices, :expires_at
-    add_index :shared_offices, [:date, :office_type, :prayer_book_code]
+    add_index :shared_offices, [ :date, :office_type, :prayer_book_code ]
   end
 end
