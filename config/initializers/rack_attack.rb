@@ -2,14 +2,14 @@
 
 class Rack::Attack
   # Throttle onboarding requests to 10 per hour per IP
-  throttle("onboarding/ip", limit: 10, period: 1.hour) do |req|
+  throttle("onboarding/ip", limit: 60, period: 1.hour) do |req|
     if req.path == "/api/v1/users/onboarding" && req.post?
       req.ip
     end
   end
 
   # Throttle onboarding requests to 10 per hour per user (by Authorization header)
-  throttle("onboarding/user", limit: 10, period: 1.hour) do |req|
+  throttle("onboarding/user", limit: 60, period: 1.hour) do |req|
     if req.path == "/api/v1/users/onboarding" && req.post?
       # Extract user identifier from Authorization header if present
       auth_header = req.get_header("HTTP_AUTHORIZATION")
