@@ -27,12 +27,15 @@ puts "  • #{Collect.count} coletas"
 
 # Limpa dados existentes
 puts "\n🗑️  Limpando dados existentes..."
+PreferenceDefinition.destroy_all
+PreferenceCategory.destroy_all
 LectionaryReading.destroy_all
 Collect.destroy_all
 Celebration.destroy_all
 LiturgicalColor.destroy_all
 LiturgicalSeason.destroy_all
 LiturgicalText.destroy_all
+PrayerBook.destroy_all
 # Note: Prayer books não são limpos pois são dados mestres
 
 # ================================================================================
