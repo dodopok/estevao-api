@@ -180,6 +180,82 @@ RSpec.describe 'api/v1/life_rules', type: :request do
     end
   end
 
+  path '/api/v1/life_rules/my' do
+    get('Get current user\'s life rule') do
+      tags api_tags
+      produces content_type
+      description 'Returns the life rule owned by the current authenticated user'
+      security [ { bearer_auth: [] } ]
+
+      parameter name: 'Authorization',
+                in: :header,
+                type: :string,
+                description: 'Firebase ID Token (format: Bearer <token>)',
+                required: true
+
+      response(200, 'successful') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:user) { create(:user) }
+
+        before do
+          create(:life_rule, :with_steps, user: user)
+          allow_any_instance_of(Api::V1::LifeRulesController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::LifeRulesController).to receive(:current_user).and_return(user)
+        end
+
+        schema type: :object,
+               properties: {
+                 life_rule: {
+                   type: :object,
+                   properties: {
+                     id: { type: :integer },
+                     icon: { type: :string },
+                     title: { type: :string },
+                     description: { type: :string },
+                     is_public: { type: :boolean },
+                     approved: { type: :boolean },
+                     adoption_count: { type: :integer },
+                     is_owner: { type: :boolean },
+                     created_at: { type: :string, format: 'date-time' },
+                     steps: {
+                       type: :array,
+                       items: {
+                         type: :object,
+                         properties: {
+                           id: { type: :integer },
+                           order: { type: :integer },
+                           title: { type: :string },
+                           description: { type: :string }
+                         }
+                       }
+                     }
+                   }
+                 }
+               }
+
+        run_test!
+      end
+
+      response(404, 'not found') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:user) { create(:user) }
+
+        before do
+          # User has no life rule
+          allow_any_instance_of(Api::V1::LifeRulesController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::LifeRulesController).to receive(:current_user).and_return(user)
+        end
+
+        schema type: :object,
+               properties: {
+                 error: { type: :string }
+               }
+
+        run_test!
+      end
+    end
+  end
+
   path '/api/v1/life_rules/{id}' do
     parameter name: :id, in: :path, type: :integer
 

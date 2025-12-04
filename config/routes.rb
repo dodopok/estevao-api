@@ -74,6 +74,9 @@ Rails.application.routes.draw do
 
       # Rotas de regras de vida
       resources :life_rules, only: [ :index, :show, :create, :update, :destroy ] do
+        collection do
+          get :my
+        end
         member do
           post :adopt
           post :approve

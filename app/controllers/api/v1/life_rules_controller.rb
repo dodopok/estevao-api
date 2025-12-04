@@ -31,6 +31,18 @@ module Api
         }
       end
 
+      # GET /api/v1/life_rules/:my
+      # Shows the user specific life rule
+      def my
+        life_rule = LifeRule.where(user: current_user).first!
+
+        render json: {
+          life_rule: serialize_life_rule(life_rule, include_steps: true)
+        }
+      rescue ActiveRecord::RecordNotFound
+        render json: { error: "Life rule not found" }, status: :not_found
+      end
+
       # GET /api/v1/life_rules/:id
       # Shows a specific life rule (must be public approved or owned by user)
       def show

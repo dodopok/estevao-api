@@ -1231,6 +1231,73 @@ paths:
               required:
               - icon
               - title
+  "/api/v1/life_rules/my":
+    get:
+      summary: Get current user's life rule
+      tags:
+      - Life Rules
+      description: Returns the life rule owned by the current authenticated user
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  life_rule:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      icon:
+                        type: string
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      is_public:
+                        type: boolean
+                      approved:
+                        type: boolean
+                      adoption_count:
+                        type: integer
+                      is_owner:
+                        type: boolean
+                      created_at:
+                        type: string
+                        format: date-time
+                      steps:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            order:
+                              type: integer
+                            title:
+                              type: string
+                            description:
+                              type: string
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
   "/api/v1/life_rules/{id}":
     parameters:
     - name: id
