@@ -36,6 +36,18 @@ RSpec.describe 'api/v1/life_rules', type: :request do
                 description: 'Sort by popularity (value: "popular")',
                 required: false
 
+      parameter name: :limit,
+                in: :query,
+                type: :integer,
+                description: 'Number of results to return (default: 20, max: 100)',
+                required: false
+
+      parameter name: :offset,
+                in: :query,
+                type: :integer,
+                description: 'Number of results to skip (default: 0)',
+                required: false
+
       response(200, 'successful') do
         let(:Authorization) { 'Bearer mock-token' }
 
@@ -64,10 +76,107 @@ RSpec.describe 'api/v1/life_rules', type: :request do
                        created_at: { type: :string, format: 'date-time' }
                      }
                    }
+                 },
+                 pagination: {
+                   type: :object,
+                   properties: {
+                     total: { type: :integer },
+                     limit: { type: :integer },
+                     offset: { type: :integer },
+                     count: { type: :integer }
+                   },
+                   required: %w[total limit offset count]
                  }
-               }
+               },
+               required: %w[life_rules pagination]
 
         run_test!
+      end
+
+      context 'with pagination' do
+        let(:Authorization) { 'Bearer mock-token' }
+
+        before do
+          user = create(:user)
+          # Create 25 public approved rules
+          create_list(:life_rule, 25, :public_approved)
+          # Create user's own rule
+          create(:life_rule, user: user)
+
+          allow_any_instance_of(Api::V1::LifeRulesController)
+            .to receive(:authenticate_user!)
+            .and_return(true)
+          allow_any_instance_of(Api::V1::LifeRulesController)
+            .to receive(:current_user)
+            .and_return(user)
+        end
+
+        it 'returns first 20 items with correct metadata' do
+          get '/api/v1/life_rules', headers: { 'Authorization' => 'Bearer mock-token' }
+
+          data = JSON.parse(response.body)
+          expect(response.status).to eq(200)
+          expect(data['life_rules'].size).to eq(20)
+          expect(data['pagination']['total']).to eq(26)
+          expect(data['pagination']['limit']).to eq(20)
+          expect(data['pagination']['offset']).to eq(0)
+          expect(data['pagination']['count']).to eq(20)
+        end
+
+        it 'returns correct page with custom limit and offset' do
+          get '/api/v1/life_rules?limit=5&offset=10', headers: { 'Authorization' => 'Bearer mock-token' }
+
+          data = JSON.parse(response.body)
+          expect(response.status).to eq(200)
+          expect(data['life_rules'].size).to eq(5)
+          expect(data['pagination']['limit']).to eq(5)
+          expect(data['pagination']['offset']).to eq(10)
+        end
+
+        it 'returns empty array with offset beyond total' do
+          get '/api/v1/life_rules?offset=100', headers: { 'Authorization' => 'Bearer mock-token' }
+
+          data = JSON.parse(response.body)
+          expect(response.status).to eq(200)
+          expect(data['life_rules']).to be_empty
+          expect(data['pagination']['total']).to eq(26)
+          expect(data['pagination']['count']).to eq(0)
+        end
+
+        it 'caps limit at 100' do
+          get '/api/v1/life_rules?limit=500', headers: { 'Authorization' => 'Bearer mock-token' }
+
+          data = JSON.parse(response.body)
+          expect(response.status).to eq(200)
+          expect(data['pagination']['limit']).to eq(100)
+        end
+      end
+
+      context 'with search filter' do
+        let(:Authorization) { 'Bearer mock-token' }
+
+        before do
+          user = create(:user)
+          create(:life_rule, :public_approved, title: 'Morning Prayer')
+          create(:life_rule, :public_approved, title: 'Evening Prayer')
+          create(:life_rule, :public_approved, title: 'Daily Reading')
+
+          allow_any_instance_of(Api::V1::LifeRulesController)
+            .to receive(:authenticate_user!)
+            .and_return(true)
+          allow_any_instance_of(Api::V1::LifeRulesController)
+            .to receive(:current_user)
+            .and_return(user)
+        end
+
+        it 'paginates filtered results correctly' do
+          get '/api/v1/life_rules?search=Prayer', headers: { 'Authorization' => 'Bearer mock-token' }
+
+          data = JSON.parse(response.body)
+          expect(response.status).to eq(200)
+          expect(data['pagination']['total']).to eq(2)
+          expect(data['life_rules'].size).to eq(2)
+        end
       end
     end
 

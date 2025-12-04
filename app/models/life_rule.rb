@@ -17,7 +17,7 @@ class LifeRule < ApplicationRecord
   scope :approved, -> { where(approved: true) }
   scope :public_rules, -> { where(is_public: true, approved: true) }
   scope :by_popularity, -> { order(adoption_count: :desc) }
-  scope :search_by_title, ->(query) { where("title ILIKE ?", "%#{query}%") }
+  scope :search_by_title, ->(query) { where("life_rules.title ILIKE ?", "%#{query}%") }
 
   # Cria uma cópia desta regra para outro usuário
   # Destrói a regra anterior do usuário antes de criar a nova

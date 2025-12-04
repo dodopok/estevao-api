@@ -17,6 +17,7 @@ module Api
       # GET /api/v1/life_rules
       # Returns public approved rules + user's own rules
       def index
+        # Build base query
         life_rules = LifeRule.where(user: current_user)
                              .or(LifeRule.public_rules)
                              .includes(:life_rule_steps)
@@ -26,8 +27,25 @@ module Api
         life_rules = life_rules.search_by_title(params[:search]) if params[:search].present?
         life_rules = life_rules.by_popularity if params[:sort] == "popular"
 
+        # Get total count before pagination
+        total_count = life_rules.count(:id)
+
+        # Parse and validate pagination parameters
+        limit = parse_limit(params[:limit])
+        offset = parse_offset(params[:offset])
+
+        # Apply pagination
+        paginated_rules = life_rules.limit(limit).offset(offset)
+
+        # Render with pagination metadata
         render json: {
-          life_rules: life_rules.map { |rule| serialize_life_rule(rule) }
+          life_rules: paginated_rules.map { |rule| serialize_life_rule(rule) },
+          pagination: {
+            total: total_count,
+            limit: limit,
+            offset: offset,
+            count: paginated_rules.size
+          }
         }
       end
 
@@ -192,6 +210,18 @@ module Api
         end
 
         result
+      end
+
+      def parse_limit(param)
+        limit = (param || 20).to_i
+        # Ensure limit is between 1 and 100
+        [ [ limit, 1 ].max, 100 ].min
+      end
+
+      def parse_offset(param)
+        offset = (param || 0).to_i
+        # Ensure offset is non-negative
+        [ offset, 0 ].max
       end
     end
   end

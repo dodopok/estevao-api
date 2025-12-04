@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_03_181513) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_04_174043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -148,8 +148,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_03_181513) do
     t.string "title", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.index "lower((title)::text)", name: "index_life_rules_on_lower_title"
     t.index ["adoption_count"], name: "index_life_rules_on_adoption_count"
     t.index ["approved"], name: "index_life_rules_on_approved"
+    t.index ["is_public", "approved"], name: "index_life_rules_on_public_approved", where: "((is_public = true) AND (approved = true))"
     t.index ["is_public"], name: "index_life_rules_on_is_public"
     t.index ["original_life_rule_id"], name: "index_life_rules_on_original_life_rule_id"
     t.index ["user_id"], name: "index_life_rules_on_user_id", unique: true
