@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe NotificationService do
-  let(:user) { User.create!(email: "test@example.com", provider_uid: "firebase123") }
+  let(:user) { User.create!(email: "test@example.com", provider_uid: "firebase123", timezone: "America/Sao_Paulo") }
   let(:fcm_token) { user.fcm_tokens.create!(token: "device_token_123", platform: "android") }
 
   before do
@@ -45,7 +45,7 @@ RSpec.describe NotificationService do
   end
 
   describe ".send_to_users" do
-    let(:user2) { User.create!(email: "test2@example.com", provider_uid: "firebase456") }
+    let(:user2) { User.create!(email: "test2@example.com", provider_uid: "firebase456", timezone: "America/Sao_Paulo") }
 
     before do
       user.fcm_tokens.create!(token: "token1", platform: "android")

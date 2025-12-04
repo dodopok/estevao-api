@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Api::V1::FcmTokens", type: :request do
   include ActiveSupport::Testing::TimeHelpers
 
-  let(:user) { User.create!(email: "test@example.com", provider_uid: "firebase123") }
+  let(:user) { User.create!(email: "test@example.com", provider_uid: "firebase123", timezone: "America/Sao_Paulo") }
   let(:token) { "fake_firebase_token" }
   let(:headers) { { "Authorization" => "Bearer #{token}" } }
 

@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe NotificationLog, type: :model do
   describe "associations" do
-    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123") }
+    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123", timezone: "America/Sao_Paulo") }
     let(:notification_log) do
       NotificationLog.create!(
         user: user,
@@ -21,7 +21,7 @@ RSpec.describe NotificationLog, type: :model do
   end
 
   describe "validations" do
-    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123") }
+    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123", timezone: "America/Sao_Paulo") }
 
     it "validates presence of notification_type" do
       log = NotificationLog.new(user: user, title: "Test", body: "Test body")
@@ -48,7 +48,7 @@ RSpec.describe NotificationLog, type: :model do
   end
 
   describe "scopes" do
-    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123") }
+    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123", timezone: "America/Sao_Paulo") }
 
     before do
       NotificationLog.create!(user: user, notification_type: "test1", title: "T1", body: "B1", sent: true)

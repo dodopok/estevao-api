@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe FcmToken, type: :model do
   describe "associations" do
-    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123") }
+    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123", timezone: "America/Sao_Paulo") }
     let(:fcm_token) { FcmToken.create!(user: user, token: "test_token", platform: "android") }
 
     it "belongs to user" do
@@ -14,7 +14,7 @@ RSpec.describe FcmToken, type: :model do
   end
 
   describe "validations" do
-    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123") }
+    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123", timezone: "America/Sao_Paulo") }
 
     it "validates presence of token" do
       fcm_token = FcmToken.new(user: user, token: nil)
@@ -45,7 +45,7 @@ RSpec.describe FcmToken, type: :model do
   end
 
   describe "scopes" do
-    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123") }
+    let(:user) { User.create!(email: "test@example.com", provider_uid: "test123", timezone: "America/Sao_Paulo") }
 
     describe ".active" do
       it "returns tokens updated within 60 days" do
