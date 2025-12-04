@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_04_174043) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_04_184200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -328,6 +328,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_04_174043) do
     t.string "photo_url"
     t.jsonb "preferences", default: {}, null: false
     t.string "provider_uid"
+    t.string "timezone"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider_uid"], name: "index_users_on_provider_uid"

@@ -16,6 +16,7 @@ module Api
           name: current_user.name,
           photo_url: current_user.photo_url,
           preferences: current_user.preferences,
+          timezone: current_user.timezone,
           current_streak: current_user.current_streak,
           longest_streak: current_user.longest_streak,
           last_completed_office_at: current_user.last_completed_office_at
@@ -87,6 +88,31 @@ module Api
         current_user.fcm_tokens.where(token: token).destroy_all
 
         render json: { message: "Token FCM removido com sucesso" }, status: :ok
+      end
+
+      # PATCH /api/v1/users/timezone
+      # Updates user timezone (for streak calculation)
+      def update_timezone
+        timezone = params[:timezone]
+
+        if timezone.blank?
+          return render json: { error: "Timezone is required" }, status: :unprocessable_entity
+        end
+
+        unless ActiveSupport::TimeZone[timezone]
+          return render json: {
+            error: "Invalid timezone. Use IANA timezone format (e.g., 'America/Sao_Paulo', 'Europe/London')"
+          }, status: :unprocessable_entity
+        end
+
+        if current_user.update(timezone: timezone)
+          render json: {
+            message: "Timezone updated successfully",
+            timezone: current_user.timezone
+          }
+        else
+          render json: { error: current_user.errors.full_messages }, status: :unprocessable_entity
+        end
       end
 
       private

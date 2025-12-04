@@ -153,43 +153,36 @@ curl -X GET https://api.estevao.com/api/v1/users/me \
 ### 6.3 Endpoints Privados (autenticação obrigatória)
 - `GET /api/v1/users/me` - Perfil do usuário
 - `PATCH /api/v1/users/preferences` - Atualizar preferências
+- `PATCH /api/v1/users/timezone` - Atualizar fuso horário do usuário
 - `GET /api/v1/users/completions` - Histórico de completions
 - `POST /api/v1/completions` - Marcar ofício como completo
 - `DELETE /api/v1/completions/:id` - Remover completion
 
-## 7. Sistema de Streaks
+## 7. Sistema de Streaks (Timezone-Aware)
 
 ### Como funciona:
-1. Usuário completa um ofício (POST /api/v1/completions)
-2. Sistema incrementa o streak se completou no dia anterior
-3. Job diário (ResetMissedStreaksJob) roda à 1h da manhã e zera streaks de quem não completou no dia anterior
-4. Regra: precisa completar pelo menos 1 ofício por dia (qualquer tipo: morning, midday, evening ou compline)
+1. Usuário configura seu timezone via `PATCH /api/v1/users/timezone`
+2. Usuário completa um ofício (`POST /api/v1/completions`)
+3. Sistema calcula streak com base na **data local do usuário** (não UTC)
+4. Regra: precisa completar pelo menos 1 ofício por **dia calendário** no timezone do usuário
 
-### Configurar Job Diário:
+### Configuração do Timezone:
+- O app deve enviar o timezone do usuário no formato IANA (ex: `America/Sao_Paulo`, `Europe/London`)
+- O timezone é usado para determinar quando o "dia" do usuário começa e termina
+- Isso evita problemas de esperar 24h exatas entre completions
 
-#### Opção 1: Heroku Scheduler
+### Exemplo de configuração de timezone:
 ```bash
-# No Heroku, adicione o comando:
-rails runner "ResetMissedStreaksJob.perform_now"
-# Agende para rodar diariamente às 1h (UTC)
+curl -X PATCH https://api.estevao.com/api/v1/users/timezone \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"timezone": "America/Sao_Paulo"}'
 ```
 
-#### Opção 2: Cron (servidor próprio)
-```bash
-# crontab -e
-0 1 * * * cd /path/to/estevao-api && rails runner "ResetMissedStreaksJob.perform_now"
-```
-
-#### Opção 3: Gem Whenever
-```ruby
-# Gemfile
-gem 'whenever', require: false
-
-# config/schedule.rb
-every 1.day, at: '1:00 am' do
-  runner "ResetMissedStreaksJob.perform_now"
-end
-```
+### Cálculo do Streak:
+- **Mesmo dia (no timezone do usuário)**: mantém streak atual
+- **Dia anterior**: incrementa streak
+- **Mais de 1 dia atrás**: reseta streak para 1
 
 ## 8. Exemplo de Resposta com Usuário Autenticado
 

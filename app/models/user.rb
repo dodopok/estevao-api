@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :provider_uid, presence: true
+  validates :timezone, presence: true
+  validate :valid_timezone
 
   # Preferências padrões
   DEFAULT_PREFERENCES = {
@@ -25,14 +27,24 @@ class User < ApplicationRecord
   # Define preferências padrão ao criar usuário
   after_initialize :set_default_preferences, if: :new_record?
 
-  # Verifica se completou algum ofício hoje
+  # Retorna a data de "hoje" no fuso horário do usuário
+  def user_today
+    Time.current.in_time_zone(timezone).to_date
+  end
+
+  # Retorna a data de "ontem" no fuso horário do usuário
+  def user_yesterday
+    user_today - 1.day
+  end
+
+  # Verifica se completou algum ofício hoje (baseado no timezone do usuário)
   def completed_today?
-    completions.where(date_reference: Date.today).exists?
+    completions.where(date_reference: user_today).exists?
   end
 
   # Marca um ofício como completo e atualiza streak
   def complete_office!(office_type, date: nil, duration_seconds: nil)
-    date_reference = date.present? ? Date.parse(date.to_s) : Date.today
+    date_reference = date.present? ? Date.parse(date.to_s) : user_today
 
     completion = completions.create!(
       date_reference:,
@@ -44,11 +56,14 @@ class User < ApplicationRecord
     completion
   end
 
-  # Atualiza o streak baseado na última completion
+  # Atualiza o streak baseado na última completion (timezone-aware)
   def update_streak!
     return reset_streak! if last_completed_office_at.nil?
 
-    days_since_last = (Date.today - last_completed_office_at.to_date).to_i
+    last_completed_date = last_completed_office_at.in_time_zone(timezone).to_date
+    today = user_today
+
+    days_since_last = (today - last_completed_date).to_i
 
     case days_since_last
     when 0
@@ -62,12 +77,12 @@ class User < ApplicationRecord
         last_completed_office_at: Time.current
       )
     else
-      # Perdeu o streak
+      # Perdeu o streak (mais de 1 dia sem completar)
       reset_streak!
     end
   end
 
-  # Reseta o streak (usado pelo job noturno)
+  # Reseta o streak para 1 (nova série começando)
   def reset_streak!
     update!(
       current_streak: 1,
@@ -76,11 +91,12 @@ class User < ApplicationRecord
     )
   end
 
-  # Verifica se perdeu o streak (mais de 1 dia sem completar)
+  # Verifica se perdeu o streak (mais de 1 dia sem completar, baseado no timezone)
   def missed_streak?
     return false if last_completed_office_at.nil?
 
-    (Date.today - last_completed_office_at.to_date).to_i > 1
+    last_completed_date = last_completed_office_at.in_time_zone(timezone).to_date
+    (user_today - last_completed_date).to_i > 1
   end
 
   # Check if user has completed onboarding
@@ -113,5 +129,12 @@ class User < ApplicationRecord
 
   def set_default_preferences
     self.preferences = DEFAULT_PREFERENCES.merge(preferences || {})
+  end
+
+  def valid_timezone
+    return if timezone.blank?
+    return if ActiveSupport::TimeZone[timezone].present?
+
+    errors.add(:timezone, "is not a valid timezone (e.g., 'America/Sao_Paulo', 'Europe/London')")
   end
 end

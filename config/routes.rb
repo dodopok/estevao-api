@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       # Rotas de autenticação e usuários
       get "users/me", to: "users#show"
       patch "users/preferences", to: "users#update_preferences"
+      patch "users/timezone", to: "users#update_timezone"
       get "users/completions", to: "users#completions"
       post "users/fcm_token", to: "users#save_fcm_token"
       delete "users/fcm_token", to: "users#delete_fcm_token"

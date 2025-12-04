@@ -3,6 +3,7 @@ FactoryBot.define do
     sequence(:email) { |n| "user#{n}@example.com" }
     sequence(:provider_uid) { |n| "firebase_uid_#{n}" }
     name { "Test User" }
+    timezone { "America/Sao_Paulo" }
     current_streak { 0 }
     longest_streak { 0 }
     admin { false }
