@@ -11,7 +11,7 @@ module Api
       # Retorna informações litúrgicas do dia de hoje
       def today
         date = Date.today
-        cache_key = "calendar/today/#{date}/#{resolved_prayer_book_code}"
+        cache_key = "calendar/today/#{date}/#{resolved_prayer_book_code}/#{resolved_bible_version}"
 
         response = Rails.cache.fetch(cache_key, expires_in: 1.day) do
           calendar = LiturgicalCalendar.new(date.year, prayer_book_code: resolved_prayer_book_code)
@@ -28,7 +28,7 @@ module Api
       # Retorna informações litúrgicas de um dia específico
       def day
         date = parse_date
-        cache_key = "calendar/day/#{date}/#{resolved_prayer_book_code}"
+        cache_key = "calendar/day/#{date}/#{resolved_prayer_book_code}/#{resolved_bible_version}"
 
         response = Rails.cache.fetch(cache_key, expires_in: 1.day) do
           calendar = LiturgicalCalendar.new(date.year, prayer_book_code: resolved_prayer_book_code)
