@@ -77,8 +77,8 @@ end
 # JANEIRO
 # ============================================================================
 
-# Santo Nome de Jesus (1 de janeiro)
-if create_reading_by_celebration("Santo Nome de Jesus", {
+# Santo Nome e Circuncisão de Nosso Senhor Jesus Cristo (1 de janeiro)
+if create_reading_by_celebration("Santo Nome e Circuncisão de Nosso Senhor Jesus Cristo", {
   year: "all",
   first_reading: "Isaías 9:2-7",
   psalm: "Salmo 8",
@@ -219,7 +219,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("Anunciação de Nosso Senhor", {
+if create_reading_by_celebration("Anunciação de Nosso Senhor Jesus Cristo à Bem-Aventurada Virgem Maria", {
   year: "all",
   first_reading: "Isaías 7:10-14",
   psalm: "Salmo 113",

@@ -14,9 +14,6 @@ Rails.logger.info "📖 Carregando leituras do Advento (LOC 2015 IEAB)..."
 # Buscar o prayer book
 prayer_book = PrayerBook.find_by!(code: 'loc_2015')
 
-# Buscar o prayer book
-prayer_book = PrayerBook.find_by!(code: 'loc_2015')
-
 advent_readings = [
   # ============================================================================
   # DOMINGOS DO ADVENTO

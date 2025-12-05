@@ -1,0 +1,42 @@
+[
+{
+    "name": "Segunda-feira Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 25,
+    "movable": true,
+    "calculation_rule": "easter_minus_6_days",
+    "liturgical_color": "roxo",
+    "can_be_transferred": false,
+    "description": "Segunda-feira da Semana Santa"
+  },
+  {
+    "name": "Terça-feira Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 26,
+    "movable": true,
+    "calculation_rule": "easter_minus_5_days",
+    "liturgical_color": "roxo",
+    "can_be_transferred": false,
+    "description": "Terça-feira da Semana Santa"
+  },
+  {
+    "name": "Quarta-feira Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 27,
+    "movable": true,
+    "calculation_rule": "easter_minus_4_days",
+    "liturgical_color": "roxo",
+    "can_be_transferred": false,
+    "description": "Quarta-feira da Semana Santa"
+  },
+  {
+    "name": "Sábado Santo",
+    "celebration_type": "major_holy_day",
+    "rank": 23,
+    "movable": true,
+    "calculation_rule": "easter_minus_1_day",
+    "liturgical_color": "preto",
+    "can_be_transferred": false,
+    "description": "Dia de silêncio e espera pela Ressurreição"
+  }
+]

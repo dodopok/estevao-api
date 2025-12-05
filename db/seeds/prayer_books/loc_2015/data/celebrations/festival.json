@@ -1,0 +1,219 @@
+[
+ {
+    "celebration_type": "festival",
+    "name": "Confissão de Pedro",
+    "description": "Apóstolo",
+    "fixed_month": 1,
+    "fixed_day": 18,
+    "liturgical_color": "white"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Conversão de Paulo",
+    "description": "Apóstolo",
+    "fixed_month": 1,
+    "fixed_day": 25,
+    "liturgical_color": "white"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Matias",
+    "description": "Apóstolo",
+    "fixed_month": 2,
+    "fixed_day": 24,
+    "liturgical_color": "red"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "José de Nazaré",
+    "fixed_month": 3,
+    "fixed_day": 19,
+    "liturgical_color": "white"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Marcos",
+    "description": "Evangelista",
+    "fixed_month": 4,
+    "fixed_day": 25,
+    "liturgical_color": "white"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Felipe e Tiago Menor",
+    "description": "Apóstolos",
+    "fixed_month": 5,
+    "fixed_day": 1,
+    "liturgical_color": "red"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Visitação da Bem-Aventurada Virgem Maria",
+    "fixed_month": 5,
+    "fixed_day": 31,
+    "liturgical_color": "white"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Barnabé",
+    "description": "Apóstolo",
+    "fixed_month": 6,
+    "fixed_day": 11,
+    "liturgical_color": "red"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Natividade de João Batista",
+    "fixed_month": 6,
+    "fixed_day": 24,
+    "liturgical_color": "white"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Pedro e Paulo",
+    "description": "Apóstolos",
+    "fixed_month": 6,
+    "fixed_day": 29,
+    "liturgical_color": "red"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Maria Madalena",
+    "description": "Apóstola",
+    "fixed_month": 7,
+    "fixed_day": 22,
+    "liturgical_color": "white"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Tiago",
+    "description": "Apóstolo",
+    "fixed_month": 7,
+    "fixed_day": 25,
+    "liturgical_color": "red"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Bem-Aventurada Virgem Maria",
+    "fixed_month": 8,
+    "fixed_day": 15,
+    "liturgical_color": "white"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Bartolomeu",
+    "description": "Apóstolo",
+    "fixed_month": 8,
+    "fixed_day": 24,
+    "liturgical_color": "red"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Santa Cruz",
+    "fixed_month": 9,
+    "fixed_day": 14,
+    "liturgical_color": "red"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Mateus",
+    "description": "Apóstolo e Evangelista",
+    "fixed_month": 9,
+    "fixed_day": 21,
+    "liturgical_color": "red"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Arcanjo Miguel e Todos os Anjos",
+    "fixed_month": 9,
+    "fixed_day": 29,
+    "liturgical_color": "white"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Lucas",
+    "description": "Evangelista",
+    "fixed_month": 10,
+    "fixed_day": 18,
+    "liturgical_color": "white"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Tiago de Jerusalém",
+    "fixed_month": 10,
+    "fixed_day": 23,
+    "liturgical_color": "red",
+    "description": "Irmão de nosso Senhor Jesus Cristo e Mártir da Fé",
+    "description_year": "62"
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Simão e Judas",
+    "description": "Apóstolos",
+    "fixed_month": 10,
+    "fixed_day": 28,
+    "liturgical_color": "red"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "André",
+    "description": "Apóstolo",
+    "fixed_month": 11,
+    "fixed_day": 30,
+    "liturgical_color": "red"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Tomé",
+    "description": "Apóstolo",
+    "fixed_month": 12,
+    "fixed_day": 21,
+    "liturgical_color": "red"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Estevão",
+    "fixed_month": 12,
+    "fixed_day": 26,
+    "liturgical_color": "red",
+    "description": "Diácono e Mártir da Fé"
+  },
+  {
+    "celebration_type": "festival",
+    "name": "João",
+    "description": "Apóstolo e Evangelista",
+    "fixed_month": 12,
+    "fixed_day": 27,
+    "liturgical_color": "white"
+    
+  },
+  {
+    "celebration_type": "festival",
+    "name": "Santos Inocentes",
+    "fixed_month": 12,
+    "fixed_day": 28,
+    "liturgical_color": "red"
+    
+  }
+]

@@ -9,7 +9,7 @@ class Celebration < ApplicationRecord
   }, validate: true
 
   # Validações
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :prayer_book_id, message: "já existe para este livro de oração" }
   validates :celebration_type, presence: true
   validates :rank, presence: true, numericality: { only_integer: true }
   validates :fixed_month, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }, allow_nil: true

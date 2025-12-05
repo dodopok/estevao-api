@@ -1039,4 +1039,88 @@ RSpec.describe ReadingService do
       end
     end
   end
+
+  describe 'Ash Wednesday readings' do
+    # Ash Wednesday is a movable feast (Easter - 46 days)
+    # It should always have readings regardless of which year
+
+    let!(:ash_wednesday_celebration) do
+      create(:celebration,
+        name: "Quarta-Feira de Cinzas",
+        celebration_type: :major_holy_day,
+        rank: 20,
+        movable: true,
+        calculation_rule: "easter_minus_46_days",
+        liturgical_color: "roxo",
+        can_be_transferred: false,
+        prayer_book: prayer_book)
+    end
+
+    let!(:ash_wednesday_reading) do
+      create(:lectionary_reading,
+        prayer_book: prayer_book,
+        celebration: ash_wednesday_celebration,
+        date_reference: "ash_wednesday",
+        cycle: "all",
+        service_type: "eucharist",
+        first_reading: "Joel 2:1-2, 12-17 or Isaías 58:1-12",
+        psalm: "Salmo 51:1-17",
+        second_reading: "2 Coríntios 5:20b-6:10",
+        gospel: "Mateus 6:1-6, 16-21")
+    end
+
+    context 'with test data' do
+      it 'finds readings for Ash Wednesday 2025 (March 5)' do
+        # Easter 2025: April 20, Ash Wednesday: March 5
+        date = Date.new(2025, 3, 5)
+        service = described_class.new(date, prayer_book_code: 'loc_2015')
+
+        readings = service.find_readings
+
+        expect(readings).to be_present
+        expect(readings[:first_reading][:reference]).to include("Joel").or include("Isaías")
+        expect(readings[:gospel][:reference]).to include("Mateus 6")
+      end
+
+      it 'finds readings for Ash Wednesday 2026 (February 18)' do
+        # Easter 2026: April 5, Ash Wednesday: February 18
+        date = Date.new(2026, 2, 18)
+        service = described_class.new(date, prayer_book_code: 'loc_2015')
+
+        readings = service.find_readings
+
+        expect(readings).to be_present
+        expect(readings[:gospel][:reference]).to include("Mateus 6")
+      end
+
+      it 'finds readings for Ash Wednesday 2027 (February 10)' do
+        # Easter 2027: March 28, Ash Wednesday: February 10
+        date = Date.new(2027, 2, 10)
+        service = described_class.new(date, prayer_book_code: 'loc_2015')
+
+        readings = service.find_readings
+
+        expect(readings).to be_present
+      end
+
+      it 'Ash Wednesday is always on a Wednesday' do
+        [2025, 2026, 2027, 2028, 2029].each do |year|
+          calc = Liturgical::EasterCalculator.new(year)
+          expect(calc.ash_wednesday.wday).to eq(3), "Ash Wednesday #{year} should be a Wednesday"
+        end
+      end
+    end
+
+    context 'calculation rule mapping' do
+      it 'includes easter_minus_46_days in MOVABLE_RULES_WITH_READINGS' do
+        expect(ReadingService::MOVABLE_RULES_WITH_READINGS).to include('easter_minus_46_days')
+      end
+
+      it 'includes ash_wednesday in CALCULATION_RULE_TO_DATE_REFERENCES' do
+        mapping = Liturgical::CelebrationResolver::CALCULATION_RULE_TO_DATE_REFERENCES
+        expect(mapping).to have_key('easter_minus_46_days')
+        expect(mapping['easter_minus_46_days']).to include('ash_wednesday')
+      end
+    end
+  end
 end

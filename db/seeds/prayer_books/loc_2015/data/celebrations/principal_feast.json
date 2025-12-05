@@ -1,0 +1,170 @@
+[
+  {
+    "name": "Vigília Pascal",
+    "celebration_type": "principal_feast",
+    "rank": 1,
+    "movable": true,
+    "calculation_rule": "easter_minus_1_day",
+    "liturgical_color": "branco",
+    "can_be_transferred": false,
+    "description": "Vigília Pascal - A Mãe de Todas as Vigílias"
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Páscoa",
+    "liturgical_color": "white",
+    "description": "Ressurreição de Nosso Senhor Jesus Cristo",
+    "movable": true,
+    "can_be_transferred": false,
+    "calculation_rule": "easter",
+    "rank": 0
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Vigília de Natal",
+    "fixed_month": 12,
+    "fixed_day": 24,
+    "liturgical_color": "white",
+    "description": "Nascimento de Jesus Cristo",
+    "can_be_transferred": false,
+    "rank": 1
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Natividade de Nosso Senhor Jesus Cristo",
+    "fixed_month": 12,
+    "fixed_day": 25,
+    "liturgical_color": "white",
+    "description": "Natal - Nascimento de Jesus Cristo",
+    "can_be_transferred": false,
+    "rank": 1
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Santo Nome e Circuncisão de Nosso Senhor Jesus Cristo",
+    "fixed_month": 1,
+    "fixed_day": 1,
+    "liturgical_color": "white",
+    "description": "Primeiro dia do ano civil",
+    "can_be_transferred": false,
+    "rank": 2
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Epifania de Nosso Senhor Jesus Cristo",
+    "fixed_month": 1,
+    "fixed_day": 6,
+    "liturgical_color": "white",
+    "description": "Manifestação de Cristo aos gentios",
+    "can_be_transferred": false,
+    "rank": 3
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Batismo de Nosso Senhor Jesus Cristo",
+    "fixed_month": null,
+    "fixed_day": null,
+    "liturgical_color": "white",
+    "description": "Primeiro domingo depois da Epifania",
+    "movable": true,
+    "calculation_rule": "first_sunday_after_epiphany",
+    "can_be_transferred": false,
+    "rank": 4
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Apresentação de Nosso Senhor Jesus Cristo no Templo",
+    "fixed_month": 2,
+    "fixed_day": 2,
+    "liturgical_color": "white",
+    "description": "Candelária - 40 dias após o Natal",
+    "can_be_transferred": false,
+    "rank": 5
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Anunciação de Nosso Senhor Jesus Cristo à Bem-Aventurada Virgem Maria",
+    "fixed_month": 3,
+    "fixed_day": 25,
+    "liturgical_color": "white",
+    "description": "Anunciação do Anjo Gabriel a Maria",
+    "can_be_transferred": true,
+    "transfer_rules": {
+      "conditions": ["if_falls_on_sunday", "if_between_palm_sunday_and_second_easter"],
+      "transfer_to": "monday_after_second_easter_sunday"
+    },
+    "rank": 6
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Ascensão de Nosso Senhor Jesus Cristo",
+    "fixed_month": null,
+    "fixed_day": null,
+    "liturgical_color": "white",
+    "description": "40 dias após a Páscoa",
+    "movable": true,
+    "calculation_rule": "easter_plus_39_days",
+    "can_be_transferred": true,
+    "transfer_rules": {
+      "can_transfer_to": "sunday_after"
+    },
+    "rank": 7
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Pentecostes",
+    "fixed_month": null,
+    "fixed_day": null,
+    "liturgical_color": "red",
+    "description": "50 dias após a Páscoa - Descida do Espírito Santo",
+    "movable": true,
+    "calculation_rule": "easter_plus_49_days",
+    "can_be_transferred": false,
+    "rank": 8
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Santíssima Trindade",
+    "fixed_month": null,
+    "fixed_day": null,
+    "liturgical_color": "white",
+    "description": "Primeiro domingo depois de Pentecostes",
+    "movable": true,
+    "calculation_rule": "first_sunday_after_pentecost",
+    "can_be_transferred": false,
+    "rank": 9
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Transfiguração de Nosso Senhor Jesus Cristo",
+    "fixed_month": 8,
+    "fixed_day": 6,
+    "liturgical_color": "white",
+    "can_be_transferred": false,
+    "rank": 10
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Todos os Santos e Santas",
+    "fixed_month": 11,
+    "fixed_day": 1,
+    "liturgical_color": "white",
+    "can_be_transferred": true,
+    "transfer_rules": {
+      "can_transfer_to": "nearest_sunday"
+    },
+    "rank": 11
+  },
+  {
+    "celebration_type": "principal_feast",
+    "name": "Cristo Rei do Universo",
+    "fixed_month": null,
+    "fixed_day": null,
+    "liturgical_color": "white",
+    "description": "Domingo anterior ao Advento",
+    "movable": true,
+    "calculation_rule": "sunday_before_advent",
+    "can_be_transferred": false,
+    "rank": 12
+  }
+]

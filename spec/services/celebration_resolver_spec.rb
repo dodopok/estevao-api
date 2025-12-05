@@ -336,4 +336,52 @@ RSpec.describe Liturgical::CelebrationResolver do
       expect(result.principal_feast?).to be true
     end
   end
+
+  describe 'Ash Wednesday (easter_minus_46_days)' do
+    let!(:ash_wednesday) do
+      create(:celebration,
+        name: "Quarta-Feira de Cinzas",
+        celebration_type: :major_holy_day,
+        rank: 20,
+        movable: true,
+        calculation_rule: "easter_minus_46_days",
+        liturgical_color: "roxo",
+        can_be_transferred: false,
+        prayer_book: prayer_book)
+    end
+
+    it 'resolves Ash Wednesday for 2025 (March 5)' do
+      # Easter 2025: April 20
+      # Ash Wednesday: April 20 - 46 = March 5
+      resolver = described_class.new(2025)
+      date = Date.new(2025, 3, 5)
+
+      result = resolver.resolve_for_date(date)
+
+      expect(result).to be_present
+      expect(result.name).to eq("Quarta-Feira de Cinzas")
+    end
+
+    it 'resolves Ash Wednesday for 2026 (February 18)' do
+      # Easter 2026: April 5
+      # Ash Wednesday: April 5 - 46 = February 18
+      resolver = described_class.new(2026)
+      date = Date.new(2026, 2, 18)
+
+      result = resolver.resolve_for_date(date)
+
+      expect(result).to be_present
+      expect(result.name).to eq("Quarta-Feira de Cinzas")
+    end
+
+    it 'has ash_wednesday in CALCULATION_RULE_TO_DATE_REFERENCES' do
+      mapping = described_class::CALCULATION_RULE_TO_DATE_REFERENCES
+      expect(mapping['easter_minus_46_days']).to include('ash_wednesday')
+    end
+
+    it 'has easter_minus_46_days in CALCULATION_RULE_TO_MOVABLE_DATE' do
+      mapping = described_class::CALCULATION_RULE_TO_MOVABLE_DATE
+      expect(mapping['easter_minus_46_days']).to eq(:ash_wednesday)
+    end
+  end
 end

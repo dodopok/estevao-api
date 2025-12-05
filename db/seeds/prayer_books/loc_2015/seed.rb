@@ -13,25 +13,7 @@ Rails.logger.info "CARREGANDO CELEBRAÇÕES - LOC 2015"
 Rails.logger.info "="*80
 
 # Festas Principais
-load Rails.root.join("#{base_path}/celebrations/principal_feasts.rb")
-
-# Dias Santos Principais
-load Rails.root.join("#{base_path}/celebrations/major_holy_days.rb")
-
-# Festivais
-load Rails.root.join("#{base_path}/celebrations/festivals.rb")
-
-# Festas Menores
-load Rails.root.join("#{base_path}/celebrations/lesser_feasts.rb")
-
-# Celebrações da Semana Santa
-load Rails.root.join("#{base_path}/celebrations/holy_week.rb")
-
-# Santos Adicionais
-load Rails.root.join("#{base_path}/celebrations/more_saints.rb")
-
-# Santos Anglicanos
-load Rails.root.join("#{base_path}/celebrations/anglican_saints.rb")
+load Rails.root.join("#{base_path}/celebrations/seed_celebrations.rb")
 
 Rails.logger.info "✓ Celebrações carregadas com sucesso"
 

@@ -6,6 +6,7 @@ class ReadingService
 
   # Movable feast calculation rules that have their own readings
   MOVABLE_RULES_WITH_READINGS = %w[
+    easter_minus_46_days
     easter_minus_6_days
     easter_minus_5_days
     easter_minus_4_days

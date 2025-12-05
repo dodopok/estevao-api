@@ -56,7 +56,7 @@ commemorations = [
   { name: "Celebração do Primeiro Culto Protestante no Brasil", fixed_month: 3, fixed_day: 10, description: "Rev. Pierre Richier, calvinista francês, Rio de Janeiro, 1557" },
   { name: "Gregório Magno", fixed_month: 3, fixed_day: 12, description: "Bispo de Roma, 604" },
   { name: "Patrício", fixed_month: 3, fixed_day: 17, description: "Bispo e missionário da Irlanda, 461" },
-  { name: "Cirilo", fixed_month: 3, fixed_day: 18, description: "Bispo de Jerusalém, 386" },
+  { name: "Cirilo de Jerusalém", fixed_month: 3, fixed_day: 18, description: "Bispo de Jerusalém, 386" },
   { name: "Cuthbert", fixed_month: 3, fixed_day: 20, description: "Bispo e missionário de Lindisfarne, 687" },
   { name: "Thomas Cranmer", fixed_month: 3, fixed_day: 21, description: "Arcebispo de Cantuária, 1556" },
   { name: "Jonathan Edwards", fixed_month: 3, fixed_day: 24, description: "Missionário na Nova Inglaterra, 1758" },
@@ -91,7 +91,7 @@ commemorations = [
   { name: "Alcuíno de York", fixed_month: 5, fixed_day: 20, description: "Abade de Tours, 804" },
   { name: "Criação da Diocese do Recife", fixed_month: 5, fixed_day: 20, description: "1976" },
   { name: "Beda, o venerável", fixed_month: 5, fixed_day: 25, description: "Presbítero e monge, 735" },
-  { name: "Agostinho", fixed_month: 5, fixed_day: 26, description: "Primeiro arcebispo de Cantuária, 605" },
+  { name: "Agostinho de Cantuária", fixed_month: 5, fixed_day: 26, description: "Primeiro arcebispo de Cantuária, 605" },
   { name: "João Calvino", fixed_month: 5, fixed_day: 27, description: "1564" },
   { name: "Jerônimo de Praga", fixed_month: 5, fixed_day: 30, description: "Reformador da Igreja da Boêmia, 1430" },
 
@@ -114,7 +114,7 @@ commemorations = [
   { name: "Albano", fixed_month: 6, fixed_day: 22, description: "Primeiro mártir da Grã-Bretanha, 304" },
   { name: "Natividade de João Batista", fixed_month: 6, fixed_day: 24, description: "Natividade de São João Batista" },
   { name: "Confissão de Augsburgo", fixed_month: 6, fixed_day: 25, description: "1530" },
-  { name: "Cirilo", fixed_month: 6, fixed_day: 27, description: "Bispo de Alexandria, 444" },
+  { name: "Cirilo de Alexandria", fixed_month: 6, fixed_day: 27, description: "Bispo de Alexandria, 444" },
   { name: "Irineu", fixed_month: 6, fixed_day: 28, description: "Bispo de Lion, 202" },
   { name: "Sagração de Egmont Machado Krischke", fixed_month: 6, fixed_day: 28, description: "Primeiro Primaz Anglicano do Brasil, 1971" },
   { name: "Pedro e Paulo, apóstolos", fixed_month: 6, fixed_day: 29, description: "Pedro e Paulo, apóstolos" },
@@ -150,7 +150,7 @@ commemorations = [
   { name: "Dia da Escola Bíblica Dominical", fixed_month: 8, fixed_day: 19, description: "Dia da Escola Bíblica Dominical" },
   { name: "Publicação das Institutas da Religião Cristã", fixed_month: 8, fixed_day: 23, description: "João Calvino, 1535" },
   { name: "Bartolomeu, apóstolo", fixed_month: 8, fixed_day: 24, description: "Bartolomeu, apóstolo" },
-  { name: "Agostinho", fixed_month: 8, fixed_day: 28, description: "Bispo de Hipona, 430" },
+  { name: "Agostinho de Hipona", fixed_month: 8, fixed_day: 28, description: "Bispo de Hipona, 430" },
   { name: "Aidan", fixed_month: 8, fixed_day: 31, description: "Abade e bispo de Lindisfarne, 651" },
 
   # ================================================================================

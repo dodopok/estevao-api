@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_04_184200) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_04_200100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -51,6 +51,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_04_184200) do
     t.integer "celebration_type", null: false
     t.datetime "created_at", null: false
     t.text "description"
+    t.string "description_year"
     t.integer "fixed_day"
     t.integer "fixed_month"
     t.string "latin_name"
@@ -64,7 +65,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_04_184200) do
     t.index ["celebration_type"], name: "index_celebrations_on_celebration_type"
     t.index ["fixed_month", "fixed_day"], name: "index_celebrations_on_fixed_month_and_fixed_day"
     t.index ["movable"], name: "index_celebrations_on_movable"
-    t.index ["name"], name: "index_celebrations_on_name"
+    t.index ["name", "prayer_book_id"], name: "index_celebrations_on_name_and_prayer_book_id", unique: true
     t.index ["prayer_book_id"], name: "index_celebrations_on_prayer_book_id"
     t.index ["rank"], name: "index_celebrations_on_rank"
   end

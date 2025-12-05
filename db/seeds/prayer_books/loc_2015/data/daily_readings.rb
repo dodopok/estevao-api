@@ -44,7 +44,7 @@ class WeeklyReadingsImporter
     "Advento 4" => "4th_sunday_of_advent",
 
     # Christmas Season
-    "Natividade de nosso Senhor Jesus Cristo" => "week_of_christmas",
+    "Natividade de Nosso Senhor Jesus Cristo" => "week_of_christmas",
     "Natal" => "week_of_christmas",
     "Primeiro Domingo após o Natal" => "first_sunday_after_christmas",
 
@@ -75,7 +75,7 @@ class WeeklyReadingsImporter
     "Epifania 9" => "9th_sunday_after_epiphany",
 
     # Lent Season (multiple naming conventions)
-    "Quarta-feira de Cinzas" => "ash_wednesday",
+    "Quarta-Feira de Cinzas" => "ash_wednesday",
     "Primeiro Domingo da Quaresma" => "1st_sunday_of_lent",
     "Segundo Domingo da Quaresma" => "2nd_sunday_of_lent",
     "Terceiro Domingo da Quaresma" => "3rd_sunday_of_lent",

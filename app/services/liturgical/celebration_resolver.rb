@@ -30,6 +30,7 @@ module Liturgical
     # Maps calculation rules to their possible date_reference names
     # Used for finding readings in the lectionary
     CALCULATION_RULE_TO_DATE_REFERENCES = {
+      "easter_minus_46_days" => %w[ash_wednesday],
       "easter_minus_6_days" => %w[holy_monday],
       "easter_minus_5_days" => %w[holy_tuesday],
       "easter_minus_4_days" => %w[holy_wednesday],

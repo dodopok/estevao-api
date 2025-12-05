@@ -39,21 +39,23 @@ end
 count = 0
 skipped = 0
 
-# Buscar celebrações que serão usadas
-epifania = Celebration.find_by("name LIKE ?", "%Epifania%") || Celebration.find_by(fixed_month: 1, fixed_day: 6)
-cinzas = Celebration.find_by("name LIKE ?", "%Cinzas%")
-segunda_santa = Celebration.find_by("name LIKE ?", "%Segunda-feira Santa%")
-terca_santa = Celebration.find_by("name LIKE ?", "%Terça-feira Santa%")
-quarta_santa = Celebration.find_by("name LIKE ?", "%Quarta-feira Santa%")
-quinta_santa = Celebration.find_by("name LIKE ?", "%Quinta-Feira Santa%")
-sexta_paixao = Celebration.find_by("name LIKE ?", "%Sexta-Feira%Paixão%")
-sabado_santo = Celebration.find_by("name LIKE ?", "%Sábado Santo%")
-vigilia_pascal = Celebration.find_by("name LIKE ?", "%Vigília Pascal%")
-pascoa = Celebration.find_by("name LIKE ?", "Páscoa") || Celebration.find_by(calculation_rule: "easter")
-ascensao = Celebration.find_by("name LIKE ?", "%Ascensão%")
-pentecostes = Celebration.find_by("name LIKE ?", "%Pentecostes%")
-trindade = Celebration.find_by("name LIKE ?", "%Trindade%")
-transfiguracao = Celebration.find_by("name LIKE ?", "%Transfiguração%")
+# Buscar celebrações que serão usadas (filtradas pelo prayer_book correto)
+celebrations_scope = Celebration.where(prayer_book: prayer_book)
+
+epifania = celebrations_scope.find_by("name LIKE ?", "%Epifania%") || celebrations_scope.find_by(fixed_month: 1, fixed_day: 6)
+cinzas = celebrations_scope.find_by("name LIKE ?", "%Cinzas%")
+segunda_santa = celebrations_scope.find_by("name LIKE ?", "%Segunda-feira Santa%")
+terca_santa = celebrations_scope.find_by("name LIKE ?", "%Terça-feira Santa%")
+quarta_santa = celebrations_scope.find_by("name LIKE ?", "%Quarta-feira Santa%")
+quinta_santa = celebrations_scope.find_by("name LIKE ?", "%Quinta-Feira Santa%")
+sexta_paixao = celebrations_scope.find_by("name LIKE ?", "%Sexta-Feira%Paixão%")
+sabado_santo = celebrations_scope.find_by("name LIKE ?", "%Sábado Santo%")
+vigilia_pascal = celebrations_scope.find_by("name LIKE ?", "%Vigília Pascal%")
+pascoa = celebrations_scope.find_by("name LIKE ?", "Páscoa") || celebrations_scope.find_by(calculation_rule: "easter")
+ascensao = celebrations_scope.find_by("name LIKE ?", "%Ascensão%")
+pentecostes = celebrations_scope.find_by("name LIKE ?", "%Pentecostes%")
+trindade = celebrations_scope.find_by("name LIKE ?", "%Trindade%")
+transfiguracao = celebrations_scope.find_by("name LIKE ?", "%Transfiguração%")
 
 # ================================================================================
 # COLETAS POR ESTAÇÃO LITÚRGICA (season_id)
@@ -476,7 +478,7 @@ end
 
 christmas_celebrations_collects = [
   {
-    celebration_id: Celebration.find_by(fixed_month: 12, fixed_day: 24)&.id,
+    celebration_id: celebrations_scope.find_by(fixed_month: 12, fixed_day: 24)&.id,
     text: "Deus Onipotente, que nos deste teu unigênito Filho para que tomasse sobre si a nossa natureza, e nascesse neste tempo de uma Virgem pura; concede que nós, renascidos e feitos teus filhos por adoção e graça, sejamos de dia em dia renovados por teu Santo Espírito; mediante nosso Senhor Jesus Cristo, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
     language: "pt-BR"
   },
@@ -623,164 +625,164 @@ end
 holy_days_collects = [
   # Janeiro
   {
-    celebration_id: Celebration.find_by(name: "Santo Nome de Jesus")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Santo Nome e Circuncisão de Nosso Senhor Jesus Cristo")&.id,
     text: "Pai misericordioso, ensinaste-nos não haver salvação noutro nome que não seja o de Jesus; ensina-nos a glorificar o seu nome e a tornar conhecida a sua salvação em todo o mundo. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "Conversão de São Paulo")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Conversão de São Paulo")&.id,
     text: "Ó Deus, instruíste o mundo inteiro com a palavra do Apóstolo Paulo de quem celebramos hoje a conversão; concede-nos a graça de, imitando-o, caminharmos para ti e sermos no mundo testemunhas do teu Evangelho. Por nosso Senhor Jesus Cristo, teu Filho, na unidade do Espírito Santo. Amém.",
     language: "pt-BR"
   },
 
   # Fevereiro
   {
-    celebration_id: Celebration.find_by(name: "Apresentação de Cristo no Templo")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Apresentação de Cristo no Templo")&.id,
     text: "Pai onipotente, teu Filho Jesus Cristo foi apresentado no templo, sendo proclamado a glória de Israel e a luz das nações; concede-nos que por Ele sejamos apresentados a ti e possamos refletir a tua glória no mundo. Mediante Jesus Cristo, nosso Senhor Amém.",
     language: "pt-BR"
   },
 
   # Março
   {
-    celebration_id: Celebration.find_by(name: "São José")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São José")&.id,
     text: "Deus onipotente, chamaste José a ser o esposo da Virgem Maria, e o guardião do teu único Filho; abre os nossos olhos e os nossos ouvidos às mensagens da tua santa vontade, e dá-nos a coragem de agir de acordo com ela. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "Thomas Cranmer")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Thomas Cranmer")&.id,
     text: "Recebe, Senhor, nós te rogamos, as preces da tua Igreja, hoje quando nos lembramos de teu servo N. e de sua luta em favor do cristianismo reformado. Concede a nós a coragem deste irmão do passado para que lutemos com fé e coragem pela fé uma vez dada aos santos. Mediante Jesus Cristo, nosso Salvador. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "Anunciação de Nosso Senhor")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Anunciação de Nosso Senhor Jesus Cristo à Bem-Aventurada Virgem Maria")&.id,
     text: "Suplicamos-te, Senhor, que, derrames a tua graça nos nossos corações, para que assim como conhecemos a encarnação de teu Filho Jesus Cristo, também pela sua cruz e paixão alcancemos a glória da sua ressurreição. Mediante o mesmo Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
 
   # Abril
   {
-    celebration_id: Celebration.find_by(name: "São Marcos Evangelista")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Marcos Evangelista")&.id,
     text: "Deus onipotente, iluminaste a tua Igreja através do testemunho inspirado do teu evangelista Marcos; fundamenta-nos firmemente na verdade do Evangelho, e faz-nos fiéis ao seu ensino. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
 
   # Maio
   {
-    celebration_id: Celebration.find_by(name: "São Filipe e São Tiago")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Filipe e São Tiago")&.id,
     text: "Pai eterno, os apóstolos Filipe e Tiago conheceram no teu Filho o caminho vivo e verdadeiro; concede-nos a graça de os seguirmos ao longo desse caminho que conduz à vida eterna. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "São Matias")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Matias")&.id,
     text: "Senhor Deus, o teu servo Matias foi escolhido em substituição de Judas Iscariotes, para ser um dos apóstolos; preserva a tua Igreja de falsos apóstolos, e, pelo ministério de pastores e mestres fiéis, guarda-nos firmes na tua verdade. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "Visitação da Bem-Aventurada Virgem Maria")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Visitação da Bem-Aventurada Virgem Maria")&.id,
     text: "Pai misericordioso, inspiraste a bem-aventurada Virgem Maria a visitar Isabel, que com alegria a saudou como mãe do Senhor; enche-nos da tua graça para que aclamemos o seu Filho como nosso Senhor, o qual vive e reina, contigo e com o Espírito Santo, um só Deus para todo o sempre. Amém.",
     language: "pt-BR"
   },
 
   # Junho
   {
-    celebration_id: Celebration.find_by(name: "São Barnabé")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Barnabé")&.id,
     text: "Senhor Deus, teu Filho Jesus Cristo ensinou-nos ser coisa mais abençoada dar que receber; ajuda-nos, com o exemplo do teu apóstolo Barnabé, a ser magnânimos a julgar e generosos a servir. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "Natividade de São João Batista")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Natividade de São João Batista")&.id,
     text: "Senhor Deus, o teu servo João Batista nasceu maravilhosamente e preparou o caminho para o advento de teu Filho; ajuda-nos a conhecer Jesus Cristo como nosso Salvador e a obter por meio d'Ele o perdão dos nossos pecados. Ele que vive e reina, contigo e com o Espírito Santo, um só Deus, para todo o sempre Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "São Pedro e São Paulo")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Pedro e São Paulo")&.id,
     text: "Deus onipotente, os teus apóstolos Pedro e Paulo glorificaram-te tanto na vida como na morte; inspira a tua Igreja a seguir os seus exemplos e a permanecer firme no único fundamento que é Cristo, nosso Senhor, a quem, contigo e com o Espírito Santo, seja dada honra e glória, agora e para sempre. Amém.",
     language: "pt-BR"
   },
 
   # Julho
   {
-    celebration_id: Celebration.find_by(name: "São Tomé")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Tomé")&.id,
     text: "Deus eterno, o teu apóstolo Tomé duvidou da ressurreição do teu Filho até que a palavra e a vista o convenceram; concede-nos, a nós que não vimos, a graça de não sermos infiéis, mas crentes. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "Santa Maria Madalena")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Santa Maria Madalena")&.id,
     text: "Senhor misericordioso, teu Filho restituiu a Maria Madalena a saúde do corpo e da mente e chamou-a a ser testemunha da sua ressurreição; purifica-nos e renova-nos para te servirmos no poder da vida ressuscitada de Jesus, o qual, contigo e com o Espírito Santo, vive e reina, um só Deus, agora e sempre. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "São Tiago")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Tiago")&.id,
     text: "Senhor Deus, o teu apóstolo Tiago consentiu em deixar seu pai e tudo o que possuía e ainda em sofrer pelo nome do teu Filho; ajuda-nos misericordioso para que nenhum dos laços terrenos nos afastem do teu serviço. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
 
   # Agosto
   {
-    celebration_id: Celebration.find_by(name: "Transfiguração do Senhor")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Transfiguração do Senhor")&.id,
     text: "Deus onipotente, teu Filho revelou-se em glória antes de sofrer na Cruz; concede-nos que pela fé na sua morte e ressurreição triunfemos no poder da sua vitória. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "São Bartolomeu")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Bartolomeu")&.id,
     text: "Deus eterno, deste ao teu apóstolo Bartolomeu a graça de crer e de pregar a tua Palavra; permite que a tua Igreja ame a Palavra em que ele creu e fielmente lhe obedeça e a proclame. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
 
   # Setembro
   {
-    celebration_id: Celebration.find_by(name: "Visitação da Bem-Aventurada Virgem Maria")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Visitação da Bem-Aventurada Virgem Maria")&.id,
     text: "Deus onipotente, escolheste a bem-aventurada Virgem Maria para ser a mãe do teu único Filho; concede-nos a nós, redimidos pelo Sangue de Jesus, a graça de estarmos com ela na glória do teu reino eterno. Mediante Jesus Cristo, nosso Senhor, que vive e reina, contigo e com o Espírito Santo. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "São Mateus")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Mateus")&.id,
     text: "Deus nosso Salvador, teu Filho chamou Mateus a ser apóstolo e evangelista; livra-nos de ser possessivos e amantes do dinheiro e inspira-nos a seguir Jesus Cristo, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e para sempre. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "São Miguel e Todos os Anjos")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Miguel e Todos os Anjos")&.id,
     text: "Senhor Deus das hostes celestiais, criaste os anjos para te adorarem e servirem; concede que, inspirando o nosso culto, eles nos socorram e fortaleçam na nossa luta contra o mal. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
 
   # Outubro
   {
-    celebration_id: Celebration.find_by(name: "São Lucas")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Lucas")&.id,
     text: "Pai de toda a graça, tu inspiraste o médico Lucas a anunciar o amor e o poder de cura do teu Filho; dá à tua Igreja, pela graça do Espírito, o mesmo amor e o mesmo poder de curar. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "São Simão e São Judas")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São Simão e São Judas")&.id,
     text: "Senhor Deus, edificaste a tua Igreja mediante apóstolos e profetas, sendo Jesus Cristo a sua pedra angular; permite que, auxiliados pela sua doutrina, nos reunamos na unidade do Espírito e nos tomemos templo santo aceitável por ti. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
 
   # Novembro
   {
-    celebration_id: Celebration.find_by(name: "Todos os Santos")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Todos os Santos")&.id,
     text: "Senhor de toda a graça, juntaste os teus santos na comunhão da tua Igreja e criaste para eles alegrias que ultrapassam o nosso entendimento; ajuda-nos a imitá-los na nossa vida diária e conduz-nos com eles à glória eterna. Mediante Jesus Cristo, nosso Senhor Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "Santo André")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Santo André")&.id,
     text: "Senhor Deus, pela tua graça o apóstolo André obedeceu à chamada do teu Filho Jesus Cristo e seguiu-o sem demora; concede-nos o dom de nos entregarmos a ti em alegre obediência. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
 
   # Dezembro
   {
-    celebration_id: Celebration.find_by(name: "Santo Estêvão")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Santo Estêvão")&.id,
     text: "Pai celestial, deste ao teu mártir Estevão a graça de orar por aqueles que o apedrejaram; concede que, ao sofrermos pela verdade, imitemos o seu exemplo de perdão. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "São João")&.id,
+    celebration_id: celebrations_scope.find_by(name: "São João")&.id,
     text: "Senhor misericordioso, iluminaste a tua Igreja com o ensino de João; lança sobre nós os brilhantes raios da tua luz para podermos caminhar na tua verdade e chegar finalmente ao teu eterno esplendor. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: Celebration.find_by(name: "Santos Inocentes")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Santos Inocentes")&.id,
     text: "Pai celestial, crianças sofreram às mãos de Herodes, embora nenhum mal tivessem feito; dá-nos a graça de não sermos indiferentes perante a crueldade ou a opressão, mas prontos a defender os fracos da tirania dos fortes. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   }
