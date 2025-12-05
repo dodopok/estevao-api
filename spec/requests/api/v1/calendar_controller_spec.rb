@@ -21,9 +21,8 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
       c.liturgical_color = "branco"
     end
 
-    @advent_season = LiturgicalSeason.find_or_create_by!(name: "Advento") do |season|
-      season.color = "violeta"
-    end
+    @advent_season = LiturgicalSeason.find_by(name: "Advento") ||
+                     LiturgicalSeason.create!(name: "Advento", color: "violeta")
 
     # Clear cache before each test
     Rails.cache.clear

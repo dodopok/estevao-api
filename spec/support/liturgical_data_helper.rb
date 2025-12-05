@@ -42,29 +42,23 @@ module LiturgicalDataHelper
     end
 
     # Quadras litúrgicas
-    @advent = LiturgicalSeason.find_or_create_by!(name: "Advento") do |season|
-      season.color = "violeta"
-    end
+    @advent = LiturgicalSeason.find_by(name: "Advento") ||
+              LiturgicalSeason.create!(name: "Advento", color: "violeta")
 
-    @christmas = LiturgicalSeason.find_or_create_by!(name: "Natal") do |season|
-      season.color = "branco"
-    end
+    @christmas = LiturgicalSeason.find_by(name: "Natal") ||
+                 LiturgicalSeason.create!(name: "Natal", color: "branco")
 
-    @epiphany = LiturgicalSeason.find_or_create_by!(name: "Epifania") do |season|
-      season.color = "verde"
-    end
+    @epiphany = LiturgicalSeason.find_by(name: "Epifania") ||
+                LiturgicalSeason.create!(name: "Epifania", color: "verde")
 
-    @lent = LiturgicalSeason.find_or_create_by!(name: "Quaresma") do |season|
-      season.color = "roxo"
-    end
+    @lent = LiturgicalSeason.find_by(name: "Quaresma") ||
+            LiturgicalSeason.create!(name: "Quaresma", color: "roxo")
 
-    @easter = LiturgicalSeason.find_or_create_by!(name: "Páscoa") do |season|
-      season.color = "branco"
-    end
+    @easter = LiturgicalSeason.find_by(name: "Páscoa") ||
+              LiturgicalSeason.create!(name: "Páscoa", color: "branco")
 
-    @ordinary_time = LiturgicalSeason.find_or_create_by!(name: "Tempo Comum") do |season|
-      season.color = "verde"
-    end
+    @ordinary_time = LiturgicalSeason.find_by(name: "Tempo Comum") ||
+                     LiturgicalSeason.create!(name: "Tempo Comum", color: "verde")
 
     # Prayer Books
     @loc_2015 = PrayerBook.find_or_create_by!(code: "loc_2015") do |pb|
@@ -151,10 +145,10 @@ module LiturgicalDataHelper
       name: "Quarta-Feira de Cinzas",
       prayer_book: pb
     ) do |c|
-      c.celebration_type = "easter_minus_46_days"
+      c.celebration_type = "major_holy_day"
       c.rank = 22
       c.movable = true
-      c.calculation_rule = "ash_wednesday"
+      c.calculation_rule = "easter_minus_46_days"
       c.liturgical_color = "roxo"
     end
   end
