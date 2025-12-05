@@ -73,7 +73,7 @@ def bulk_upsert_celebrations(celebrations_data, prayer_book, type_name)
   Rails.logger.info "  📖 Processando #{celebrations_data.size} #{type_name} (bulk)..."
 
   default_rank = DEFAULT_RANKS[celebrations_data.first['celebration_type']]
-  
+
   records = celebrations_data.each_with_index.map do |data, index|
     attrs = normalize_celebration(data, prayer_book.id, default_rank + index)
     attrs[:created_at] = Time.current

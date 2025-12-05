@@ -14,6 +14,8 @@ class Reading::Loc2015Service < ReadingService
   # Dias de reflexão (depois do domingo)
   REFLECTION_DAYS = [ 1, 2, 3 ].freeze # Monday, Tuesday, Wednesday
 
+  WEEKDAY_NAMES = %w[sunday monday tuesday wednesday thursday friday saturday].freeze
+
   def initialize(date, calendar: nil, translation: "nvi")
     super(date, prayer_book_code: "loc_2015", calendar: calendar, translation: translation)
   end
@@ -21,9 +23,18 @@ class Reading::Loc2015Service < ReadingService
   private
 
   # Sobrescreve para usar a lógica específica do IEAB
+  # Usa o domingo de referência correto baseado no dia da semana
+  def find_weekly_reading
+    return nil if date.sunday?
+
+    refs = build_weekly_date_references
+    query.find_weekly_by_references(refs)
+  end
+
+  # Constrói as referências de data para buscar leituras semanais
   def build_weekly_date_references
     refs = []
-    weekday = weekday_name(date)
+    weekday = weekday_name
 
     # 1. Tentar por data fixa (ex: "december_22" para 22 de dezembro)
     month_name = Date::MONTHNAMES[date.month].downcase
@@ -49,6 +60,11 @@ class Reading::Loc2015Service < ReadingService
     refs.concat(special_week_refs)
 
     refs
+  end
+
+  # Retorna o nome do dia da semana em inglês
+  def weekday_name
+    WEEKDAY_NAMES[date.wday]
   end
 
   # Encontra o domingo de referência baseado na lógica IEAB
@@ -77,6 +93,12 @@ class Reading::Loc2015Service < ReadingService
     days_until_sunday = (7 - date.wday) % 7
     days_until_sunday = 7 if days_until_sunday == 0 # Se for domingo, pegar o próximo
     date + days_until_sunday
+  end
+
+  # Encontra a data do domingo mais recente (anterior ou o próprio dia se for domingo)
+  def find_most_recent_sunday_date
+    days_since_sunday = date.wday
+    date - days_since_sunday
   end
 
   # Mapeia a data do domingo para sua referência

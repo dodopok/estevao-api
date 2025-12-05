@@ -1104,7 +1104,7 @@ RSpec.describe ReadingService do
       end
 
       it 'Ash Wednesday is always on a Wednesday' do
-        [2025, 2026, 2027, 2028, 2029].each do |year|
+        [ 2025, 2026, 2027, 2028, 2029 ].each do |year|
           calc = Liturgical::EasterCalculator.new(year)
           expect(calc.ash_wednesday.wday).to eq(3), "Ash Wednesday #{year} should be a Wednesday"
         end
