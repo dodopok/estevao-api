@@ -23,15 +23,17 @@ RSpec.describe CollectService do
   end
 
   let!(:celebration) do
-    create(:celebration,
+    Celebration.find_or_create_by!(
       name: "São José Teste",
-      celebration_type: :festival,
-      rank: 30,
-      movable: false,
-      fixed_month: 3,
-      fixed_day: 19,
-      liturgical_color: "branco",
-      prayer_book: prayer_book)
+      prayer_book: prayer_book
+    ) do |c|
+      c.celebration_type = :festival
+      c.rank = 30
+      c.movable = false
+      c.fixed_month = 3
+      c.fixed_day = 19
+      c.liturgical_color = "branco"
+    end
   end
 
   let!(:celebration_collect) do
@@ -186,15 +188,17 @@ RSpec.describe CollectService do
   describe 'priority tests' do
     context 'celebration vs sunday' do
       let!(:sunday_celebration) do
-        create(:celebration,
+        Celebration.find_or_create_by!(
           name: "Festa em Domingo",
-          celebration_type: :festival,
-          rank: 30,
-          movable: false,
-          fixed_month: 11,
-          fixed_day: 30, # First Sunday of Advent 2025
-          liturgical_color: "branco",
-          prayer_book: prayer_book)
+          prayer_book: prayer_book
+        ) do |c|
+          c.celebration_type = :festival
+          c.rank = 30
+          c.movable = false
+          c.fixed_month = 11
+          c.fixed_day = 30 # First Sunday of Advent 2025
+          c.liturgical_color = "branco"
+        end
       end
 
       let!(:sunday_celebration_collect) do
@@ -299,14 +303,16 @@ RSpec.describe CollectService do
     # which is stored by celebration_id, not sunday_reference
 
     let!(:easter_celebration) do
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Páscoa",
-        celebration_type: :principal_feast,
-        rank: 1,
-        movable: true,
-        calculation_rule: "easter",
-        liturgical_color: "branco",
-        prayer_book: prayer_book)
+        prayer_book: prayer_book
+      ) do |c|
+        c.celebration_type = :principal_feast
+        c.rank = 1
+        c.movable = true
+        c.calculation_rule = "easter"
+        c.liturgical_color = "branco"
+      end
     end
 
     let!(:easter_collect) do
@@ -359,7 +365,7 @@ RSpec.describe CollectService do
 
   describe 'Pentecost week collect (celebration_id lookup)' do
     let!(:pentecost_celebration) do
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Pentecostes",
         celebration_type: :principal_feast,
         rank: 2,
@@ -403,14 +409,18 @@ RSpec.describe CollectService do
 
   describe 'Trinity Sunday week collect (celebration_id lookup)' do
     let!(:trinity_celebration) do
-      create(:celebration,
+      cel = Celebration.find_or_create_by!(
         name: "Santíssima Trindade",
-        celebration_type: :principal_feast,
-        rank: 3,
-        movable: true,
-        calculation_rule: "easter_plus_56_days",
-        liturgical_color: "branco",
-        prayer_book: prayer_book)
+        prayer_book: prayer_book
+      ) do |c|
+        c.celebration_type = :principal_feast
+        c.rank = 3
+        c.movable = true
+        c.calculation_rule = "easter_plus_56_days"
+        c.liturgical_color = "branco"
+      end
+
+      cel
     end
 
     let!(:trinity_collect) do

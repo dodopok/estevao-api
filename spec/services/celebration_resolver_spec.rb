@@ -19,103 +19,114 @@ RSpec.describe Liturgical::CelebrationResolver do
   end
 
   let!(:easter) do
-    create(:celebration,
-      name: "Páscoa",
-      celebration_type: :principal_feast,
-      rank: 0,
-      movable: true,
-      calculation_rule: "easter",
-      liturgical_color: "branco",
-      can_be_transferred: false,
-      prayer_book: prayer_book)
+    easter = Celebration.find_or_create_by!(name: "Páscoa", prayer_book: prayer_book) do |c|
+      c.celebration_type = :principal_feast
+      c.rank = 0
+      c.movable = true
+      c.calculation_rule = "easter"
+      c.liturgical_color = "branco"
+      c.can_be_transferred = false
+    end
+
+    easter
   end
 
   let!(:holy_saturday) do
-    create(:celebration,
+    holy_saturday = Celebration.find_or_create_by!(
       name: "Sábado Santo",
-      celebration_type: :major_holy_day,
-      rank: 23,
-      movable: true,
-      calculation_rule: "easter_minus_1_day",
-      liturgical_color: "preto",
-      can_be_transferred: false,
-      prayer_book: prayer_book)
+      prayer_book: prayer_book) do |c|
+      c.celebration_type = :major_holy_day
+      c.rank = 23
+      c.movable = true
+      c.calculation_rule = "easter_minus_1_day"
+      c.liturgical_color = "preto"
+      c.can_be_transferred = false
+    end
+
+    holy_saturday
   end
 
   let!(:easter_vigil) do
-    create(:celebration,
-      name: "Vigília Pascal",
-      celebration_type: :principal_feast,
-      rank: 1,
-      movable: true,
-      calculation_rule: "easter_minus_1_day",
-      liturgical_color: "branco",
-      can_be_transferred: false,
-      prayer_book: prayer_book)
+    easter_vigil = Celebration.find_or_create_by!(name: "Vigília Pascal", prayer_book: prayer_book) do |c|
+      c.celebration_type = :principal_feast
+      c.rank = 1
+      c.movable = true
+      c.calculation_rule = "easter_minus_1_day"
+      c.liturgical_color = "branco"
+      c.can_be_transferred = false
+    end
+
+    easter_vigil
   end
 
   let!(:good_friday) do
-    create(:celebration,
-      name: "Sexta-Feira da Paixão",
-      celebration_type: :major_holy_day,
-      rank: 22,
-      movable: true,
-      calculation_rule: "easter_minus_2_days",
-      liturgical_color: "vermelho",
-      can_be_transferred: false,
-      prayer_book: prayer_book)
+    good_friday = Celebration.find_or_create_by!(name: "Sexta-Feira da Paixão", prayer_book: prayer_book) do |c|
+      c.celebration_type = :major_holy_day
+      c.rank = 22
+      c.movable = true
+      c.calculation_rule = "easter_minus_2_days"
+      c.liturgical_color = "vermelho"
+      c.can_be_transferred = false
+    end
+
+    good_friday
   end
 
   let!(:annunciation) do
-    create(:celebration,
-      name: "Anunciação de nosso Senhor Jesus Cristo à Bem-Aventurada Virgem Maria",
-      celebration_type: :principal_feast,
-      rank: 10,
-      movable: false,
-      fixed_month: 3,
-      fixed_day: 25,
-      liturgical_color: "branco",
-      can_be_transferred: true,
-      prayer_book: prayer_book)
+    annunciation = Celebration.find_or_create_by!(name: "Anunciação de nosso Senhor Jesus Cristo à Bem-Aventurada Virgem Maria", prayer_book: prayer_book) do |c|
+      c.celebration_type = :principal_feast
+      c.rank = 10
+      c.movable = false
+      c.fixed_month = 3
+      c.fixed_day = 25
+      c.liturgical_color = "branco"
+      c.can_be_transferred = true
+    end
+
+    annunciation
   end
 
   let!(:saint_joseph) do
-    create(:celebration,
-      name: "José de Nazaré",
-      celebration_type: :festival,
-      rank: 30,
-      movable: false,
-      fixed_month: 3,
-      fixed_day: 19,
-      liturgical_color: "branco",
-      can_be_transferred: true,
-      prayer_book: prayer_book)
+    saint_joseph = Celebration.find_or_create_by!(name: "José de Nazaré", prayer_book: prayer_book) do |c|
+      c.celebration_type = :festival
+      c.rank = 30
+      c.movable = false
+      c.fixed_month = 3
+      c.fixed_day = 19
+      c.liturgical_color = "branco"
+      c.can_be_transferred = true
+    end
+
+    saint_joseph
   end
 
   let!(:all_saints) do
-    create(:celebration,
-      name: "Todos os Santos e Santas",
-      celebration_type: :principal_feast,
-      rank: 11,
-      movable: false,
-      fixed_month: 11,
-      fixed_day: 1,
-      liturgical_color: "branco",
-      can_be_transferred: true,
-      prayer_book: prayer_book)
+    all_saints = Celebration.find_or_create_by!(name: "Todos os Santos e Santas", prayer_book: prayer_book) do |c|
+      c.celebration_type = :principal_feast
+      c.rank = 11
+      c.movable = false
+      c.fixed_month = 11
+      c.fixed_day = 1
+      c.liturgical_color = "branco"
+      c.can_be_transferred = true
+    end
+
+    all_saints
   end
 
   let!(:lesser_feast) do
-    create(:celebration,
-      name: "Santo Teste",
-      celebration_type: :lesser_feast,
-      rank: 250,
-      movable: false,
-      fixed_month: 5,
-      fixed_day: 15,
-      liturgical_color: "branco",
-      can_be_transferred: false,
-      prayer_book: prayer_book)
+    lesser_feast = Celebration.find_or_create_by!(name: "Santo Teste", prayer_book: prayer_book) do |c|
+      c.name = "Santo Teste"
+      c.celebration_type = :lesser_feast
+      c.rank = 250
+      c.movable = false
+      c.fixed_month = 5
+      c.fixed_day = 15
+      c.liturgical_color = "branco"
+      c.can_be_transferred = false
+    end
+
+    lesser_feast
   end
 
   describe 'movable date calculation' do
@@ -339,15 +350,18 @@ RSpec.describe Liturgical::CelebrationResolver do
 
   describe 'Ash Wednesday (easter_minus_46_days)' do
     let!(:ash_wednesday) do
-      create(:celebration,
+      celebration = Celebration.find_or_create_by!(
         name: "Quarta-Feira de Cinzas",
-        celebration_type: :major_holy_day,
-        rank: 20,
-        movable: true,
-        calculation_rule: "easter_minus_46_days",
-        liturgical_color: "roxo",
-        can_be_transferred: false,
-        prayer_book: prayer_book)
+        prayer_book: prayer_book
+      ) do |c|
+        c.celebration_type = :major_holy_day
+        c.rank = 20
+        c.movable = true
+        c.calculation_rule = "easter_minus_46_days"
+        c.liturgical_color = "roxo"
+        c.can_be_transferred = false
+      end
+      celebration
     end
 
     it 'resolves Ash Wednesday for 2025 (March 5)' do

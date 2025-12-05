@@ -19,7 +19,7 @@ RSpec.describe LiturgicalCalendar do
   end
 
   let!(:easter_2025) do
-    create(:celebration,
+    Celebration.find_or_create_by!(
       name: "Páscoa",
       celebration_type: :principal_feast,
       rank: 0,
@@ -30,7 +30,7 @@ RSpec.describe LiturgicalCalendar do
   end
 
   let!(:lesser_feast) do
-    create(:celebration,
+    Celebration.find_or_create_by!(
       name: "Margaret of Scotland",
       celebration_type: :lesser_feast,
       rank: 249,
@@ -177,7 +177,7 @@ RSpec.describe LiturgicalCalendar do
 
       it 'principal feasts on Sundays override season color' do
         # Create Christ the King for 2025
-        create(:celebration,
+        Celebration.find_or_create_by!(
           name: "Cristo Rei do Universo",
           celebration_type: :principal_feast,
           rank: 12,
@@ -194,8 +194,8 @@ RSpec.describe LiturgicalCalendar do
       end
 
       it 'lesser feasts on weekdays keep season color' do
-        # Create a celebration on a weekday
-        create(:celebration,
+       # Create a celebration on a weekday
+       Celebration.find_or_create_by!(
           name: "Santo Teste Segunda",
           celebration_type: :lesser_feast,
           rank: 250,
@@ -213,7 +213,7 @@ RSpec.describe LiturgicalCalendar do
 
       it 'principal feasts override season color even in Lent' do
         # Annunciation falls on March 25
-        create(:celebration,
+        Celebration.find_or_create_by!(
           name: "Anunciação de Nosso Senhor",
           celebration_type: :principal_feast,
           rank: 6,
@@ -232,14 +232,17 @@ RSpec.describe LiturgicalCalendar do
 
       it 'major holy days override season color' do
         # Ash Wednesday
-        create(:celebration,
+        Celebration.find_or_create_by!(
           name: "Quarta-Feira de Cinzas",
-          celebration_type: :major_holy_day,
-          rank: 20,
-          movable: true,
-          calculation_rule: "easter_minus_46_days",
-          liturgical_color: "roxo",
-          prayer_book: prayer_book)
+          prayer_book: prayer_book
+        ) do |c|
+          c.celebration_type = :major_holy_day
+          c.rank = 20
+          c.movable = true
+          c.calculation_rule = "easter_minus_46_days"
+          c.liturgical_color = "roxo"
+          c.can_be_transferred = false
+        end
 
         date = Date.new(2025, 3, 5) # Ash Wednesday 2025
 
@@ -248,7 +251,7 @@ RSpec.describe LiturgicalCalendar do
 
       it 'lesser feasts in Lent keep purple season color' do
         # Saint Patrick falls on March 17 (during Lent)
-        create(:celebration,
+        Celebration.find_or_create_by!(
           name: "São Patrício",
           celebration_type: :lesser_feast,
           rank: 110,
@@ -449,7 +452,7 @@ RSpec.describe LiturgicalCalendar do
 
     it '2026-04-04 returns Easter Vigil information' do
       # Create necessary celebrations
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Vigília Pascal",
         celebration_type: :principal_feast,
         rank: 1,
@@ -530,7 +533,7 @@ RSpec.describe LiturgicalCalendar do
   describe '#holy_day?' do
     it 'correctly identifies major holy days' do
       # Create a principal feast
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Festa Principal Teste",
         celebration_type: :principal_feast,
         rank: 5,
@@ -560,7 +563,7 @@ RSpec.describe LiturgicalCalendar do
     context 'principal feasts' do
       it 'returns only the feast name for principal feasts' do
         # Create Natal (Christmas)
-        create(:celebration,
+        Celebration.find_or_create_by!(
           name: "Natividade de nosso Senhor Jesus Cristo",
           celebration_type: :principal_feast,
           rank: 1,
@@ -575,7 +578,7 @@ RSpec.describe LiturgicalCalendar do
       end
 
       it 'returns Pentecostes for Pentecost Sunday' do
-        create(:celebration,
+        Celebration.find_or_create_by!(
           name: "Pentecostes",
           celebration_type: :principal_feast,
           rank: 3,
@@ -599,7 +602,7 @@ RSpec.describe LiturgicalCalendar do
       end
 
       it 'appends (movido) when a principal feast is transferred' do
-        create(:celebration,
+        Celebration.find_or_create_by!(
           name: "Anunciação de Nosso Senhor",
           celebration_type: :principal_feast,
           rank: 6,
@@ -630,7 +633,7 @@ RSpec.describe LiturgicalCalendar do
       end
 
       it 'does not include commemorations in description' do
-        create(:celebration,
+        Celebration.find_or_create_by!(
           name: "Bernard",
           celebration_type: :commemoration,
           rank: 250,
@@ -648,7 +651,7 @@ RSpec.describe LiturgicalCalendar do
       end
 
       it 'does not include festivals in description' do
-        create(:celebration,
+        Celebration.find_or_create_by!(
           name: "André, Apóstolo",
           celebration_type: :festival,
           rank: 50,
@@ -683,7 +686,7 @@ RSpec.describe LiturgicalCalendar do
     context 'special movable days' do
       it 'returns Quarta-feira de Cinzas for Ash Wednesday' do
         movable = calendar.easter_calc.all_movable_dates
-        expect(calendar.description(movable[:ash_wednesday])).to include("Quarta-feira de Cinzas")
+        expect(calendar.description(movable[:ash_wednesday])).to include("Quarta-Feira de Cinzas")
       end
 
       it 'returns Páscoa for Easter Sunday' do
@@ -796,7 +799,7 @@ RSpec.describe LiturgicalCalendar do
   describe 'celebration display' do
     it 'celebration appears even when color is not used' do
       # Saint Francis on Sunday (October 4, 2026)
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "São Francisco de Assis",
         celebration_type: :lesser_feast,
         rank: 105,

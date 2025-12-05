@@ -151,7 +151,7 @@ module LiturgicalDataHelper
       name: "Quarta-Feira de Cinzas",
       prayer_book: pb
     ) do |c|
-      c.celebration_type = "major_holy_day"
+      c.celebration_type = "easter_minus_46_days"
       c.rank = 22
       c.movable = true
       c.calculation_rule = "ash_wednesday"

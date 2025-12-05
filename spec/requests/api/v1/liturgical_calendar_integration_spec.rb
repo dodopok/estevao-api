@@ -18,58 +18,62 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
     @lent_season = @lent
     @easter_season = @easter
 
-    # Create test celebrations
-    @easter = create(:celebration,
+    @easter = Celebration.find_or_create_by!(
       name: "Páscoa",
-      celebration_type: "principal_feast",
-      rank: 0,
-      movable: true,
-      calculation_rule: "easter",
-      liturgical_color: "branco",
       prayer_book: @prayer_book
-    )
+    ) do |c|
+      c.celebration_type = "principal_feast"
+      c.rank = 0
+      c.movable = true
+      c.calculation_rule = "easter"
+      c.liturgical_color = "branco"
+    end
 
-    @christmas = create(:celebration,
+    @christmas = Celebration.find_or_create_by!(
       name: "Natividade de nosso Senhor Jesus Cristo",
-      celebration_type: "principal_feast",
-      rank: 2,
-      movable: false,
-      fixed_month: 12,
-      fixed_day: 25,
-      liturgical_color: "branco",
       prayer_book: @prayer_book
-    )
+    ) do |c|
+      c.celebration_type = "principal_feast"
+      c.rank = 2
+      c.movable = false
+      c.fixed_month = 12
+      c.fixed_day = 25
+      c.liturgical_color = "branco"
+    end
 
-    @holy_saturday = create(:celebration,
+    @holy_saturday = Celebration.find_or_create_by!(
       name: "Sábado Santo",
-      celebration_type: "major_holy_day",
-      rank: 23,
-      movable: true,
-      calculation_rule: "easter_minus_1_day",
-      liturgical_color: "preto",
       prayer_book: @prayer_book
-    )
+    ) do |c|
+      c.celebration_type = "major_holy_day"
+      c.rank = 23
+      c.movable = true
+      c.calculation_rule = "easter_minus_1_day"
+      c.liturgical_color = "preto"
+    end
 
-    @easter_vigil = create(:celebration,
+    @easter_vigil = Celebration.find_or_create_by!(
       name: "Vigília Pascal",
-      celebration_type: "principal_feast",
-      rank: 1,
-      movable: true,
-      calculation_rule: "easter_minus_1_day",
-      liturgical_color: "branco",
       prayer_book: @prayer_book
-    )
+    ) do |c|
+      c.celebration_type = "principal_feast"
+      c.rank = 1
+      c.movable = true
+      c.calculation_rule = "easter_minus_1_day"
+      c.liturgical_color = "branco"
+    end
 
-    @lesser_feast = create(:celebration,
+    @lesser_feast = Celebration.find_or_create_by!(
       name: "Margaret of Scotland",
-      celebration_type: "lesser_feast",
-      rank: 249,
-      movable: false,
-      fixed_month: 11,
-      fixed_day: 16,
-      liturgical_color: "branco",
       prayer_book: @prayer_book
-    )
+    ) do |c|
+      c.celebration_type = "lesser_feast"
+      c.rank = 249
+      c.movable = false
+      c.fixed_month = 11
+      c.fixed_day = 16
+      c.liturgical_color = "branco"
+    end
 
     # Clear cache
     Rails.cache.clear
@@ -133,35 +137,41 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
 
     it "fluxo completo: Semana Santa 2026 retorna celebrações corretas" do
       # Cria celebrações da Semana Santa
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Segunda-feira Santa",
-        celebration_type: "major_holy_day",
-        rank: 21,
-        movable: true,
-        calculation_rule: "easter_minus_6_days",
-        liturgical_color: "roxo",
         prayer_book: @prayer_book
-      )
+      ) do |c|
+        c.celebration_type = "major_holy_day"
+        c.rank = 21
+        c.movable = true
+        c.calculation_rule = "easter_minus_6_days"
+        c.liturgical_color = "roxo"
+        c.prayer_book = @prayer_book
+      end
 
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Terça-feira Santa",
-        celebration_type: "major_holy_day",
-        rank: 21,
-        movable: true,
-        calculation_rule: "easter_minus_5_days",
-        liturgical_color: "roxo",
         prayer_book: @prayer_book
-      )
+      ) do |c|
+        c.celebration_type = "major_holy_day"
+        c.rank = 21
+        c.movable = true
+        c.calculation_rule = "easter_minus_5_days"
+        c.liturgical_color = "roxo"
+        c.prayer_book = @prayer_book
+      end
 
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Quarta-feira Santa",
-        celebration_type: "major_holy_day",
-        rank: 21,
-        movable: true,
-        calculation_rule: "easter_minus_4_days",
-        liturgical_color: "roxo",
         prayer_book: @prayer_book
-      )
+      ) do |c|
+        c.celebration_type = "major_holy_day"
+        c.rank = 21
+        c.movable = true
+        c.calculation_rule = "easter_minus_4_days"
+        c.liturgical_color = "roxo"
+        c.prayer_book = @prayer_book
+      end
 
       # Segunda-feira Santa: 30/03/2026
       get "/api/v1/calendar/2026/3/30", params: { preferences: default_preferences }

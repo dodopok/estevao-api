@@ -10,15 +10,16 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
       pb.year = 2015
     end
 
-    @easter = create(:celebration,
+    @easter = Celebration.find_or_create_by!(
       name: "Páscoa",
-      celebration_type: "principal_feast",
-      rank: 0,
-      movable: true,
-      calculation_rule: "easter",
-      liturgical_color: "branco",
       prayer_book: @prayer_book
-    )
+    ) do |c|
+      c.celebration_type = "principal_feast"
+      c.rank = 0
+      c.movable = true
+      c.calculation_rule = "easter"
+      c.liturgical_color = "branco"
+    end
 
     @advent_season = LiturgicalSeason.find_or_create_by!(name: "Advento") do |season|
       season.color = "violeta"
@@ -133,16 +134,17 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
 
     it "returns green color for 2025-11-16 (not white)" do
       # Margaret of Scotland - lesser feast with white color
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Margaret of Scotland",
-        celebration_type: "lesser_feast",
-        rank: 249,
-        movable: false,
-        fixed_month: 11,
-        fixed_day: 16,
-        liturgical_color: "branco",
         prayer_book: @prayer_book
-      )
+      ) do |c|
+        c.celebration_type = "lesser_feast"
+        c.rank = 249
+        c.movable = false
+        c.fixed_month = 11
+        c.fixed_day = 16
+        c.liturgical_color = "branco"
+      end
 
       get "/api/v1/calendar/2025/11/16", params: { preferences: default_preferences }
 
@@ -157,25 +159,27 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
 
     it "returns Easter Vigil for 2026-04-04" do
       # Create Easter Vigil and Holy Saturday
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Sábado Santo",
-        celebration_type: "major_holy_day",
-        rank: 23,
-        movable: true,
-        calculation_rule: "easter_minus_1_day",
-        liturgical_color: "preto",
         prayer_book: @prayer_book
-      )
+      ) do |c|
+        c.celebration_type = "major_holy_day"
+        c.rank = 23
+        c.movable = true
+        c.calculation_rule = "easter_minus_1_day"
+        c.liturgical_color = "preto"
+      end
 
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Vigília Pascal",
-        celebration_type: "principal_feast",
-        rank: 1,
-        movable: true,
-        calculation_rule: "easter_minus_1_day",
-        liturgical_color: "branco",
         prayer_book: @prayer_book
-      )
+      ) do |c|
+        c.celebration_type = "principal_feast"
+        c.rank = 1
+        c.movable = true
+        c.calculation_rule = "easter_minus_1_day"
+        c.liturgical_color = "branco"
+      end
 
       get "/api/v1/calendar/2026/4/4", params: { preferences: default_preferences }
 
@@ -191,35 +195,38 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
 
     it "returns correct data for Holy Week 2026 dates" do
       # Create Holy Week celebrations
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Segunda-feira Santa",
-        celebration_type: "major_holy_day",
-        rank: 21,
-        movable: true,
-        calculation_rule: "easter_minus_6_days",
-        liturgical_color: "roxo",
         prayer_book: @prayer_book
-      )
+      ) do |c|
+        c.celebration_type = "major_holy_day"
+        c.rank = 21
+        c.movable = true
+        c.calculation_rule = "easter_minus_6_days"
+        c.liturgical_color = "roxo"
+      end
 
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Terça-feira Santa",
-        celebration_type: "major_holy_day",
-        rank: 21,
-        movable: true,
-        calculation_rule: "easter_minus_5_days",
-        liturgical_color: "roxo",
         prayer_book: @prayer_book
-      )
+      ) do |c|
+        c.celebration_type = "major_holy_day"
+        c.rank = 21
+        c.movable = true
+        c.calculation_rule = "easter_minus_5_days"
+        c.liturgical_color = "roxo"
+      end
 
-      create(:celebration,
+      Celebration.find_or_create_by!(
         name: "Quarta-feira Santa",
-        celebration_type: "major_holy_day",
-        rank: 21,
-        movable: true,
-        calculation_rule: "easter_minus_4_days",
-        liturgical_color: "roxo",
         prayer_book: @prayer_book
-      )
+      ) do |c|
+        c.celebration_type = "major_holy_day"
+        c.rank = 21
+        c.movable = true
+        c.calculation_rule = "easter_minus_4_days"
+        c.liturgical_color = "roxo"
+      end
 
       # Test Monday of Holy Week
       get "/api/v1/calendar/2026/3/30", params: { preferences: default_preferences }

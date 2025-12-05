@@ -1043,30 +1043,37 @@ RSpec.describe ReadingService do
   describe 'Ash Wednesday readings' do
     # Ash Wednesday is a movable feast (Easter - 46 days)
     # It should always have readings regardless of which year
+    # Note: Using find_or_create_by! and update! to ensure correct attributes
 
     let!(:ash_wednesday_celebration) do
-      create(:celebration,
+      celebration = Celebration.find_or_create_by!(
         name: "Quarta-Feira de Cinzas",
-        celebration_type: :major_holy_day,
-        rank: 20,
-        movable: true,
-        calculation_rule: "easter_minus_46_days",
-        liturgical_color: "roxo",
-        can_be_transferred: false,
-        prayer_book: prayer_book)
+        prayer_book: prayer_book
+      ) do |c|
+        c.celebration_type = :major_holy_day
+        c.rank = 20
+        c.movable = true
+        c.calculation_rule = "easter_minus_46_days"
+        c.liturgical_color = "roxo"
+        c.can_be_transferred = false
+      end
+      celebration
     end
 
     let!(:ash_wednesday_reading) do
-      create(:lectionary_reading,
+      # Don't include celebration in find_or_create_by! because existing seed data
+      # has celebration_id: nil. The lookup happens via date_reference.
+      LectionaryReading.find_or_create_by!(
         prayer_book: prayer_book,
-        celebration: ash_wednesday_celebration,
         date_reference: "ash_wednesday",
         cycle: "all",
-        service_type: "eucharist",
-        first_reading: "Joel 2:1-2, 12-17 or Isaías 58:1-12",
-        psalm: "Salmo 51:1-17",
-        second_reading: "2 Coríntios 5:20b-6:10",
-        gospel: "Mateus 6:1-6, 16-21")
+        service_type: "eucharist"
+      ) do |r|
+        r.first_reading = "Joel 2:1-2, 12-17 or Isaías 58:1-12"
+        r.psalm = "Salmo 51:1-17"
+        r.second_reading = "2 Coríntios 5:20b-6:10"
+        r.gospel = "Mateus 6:1-6, 16-21"
+      end
     end
 
     context 'with test data' do
