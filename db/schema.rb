@@ -329,7 +329,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_04_200100) do
     t.string "photo_url"
     t.jsonb "preferences", default: {}, null: false
     t.string "provider_uid"
-    t.string "timezone"
+    t.string "timezone", default: "America/Sao_Paulo", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider_uid"], name: "index_users_on_provider_uid"

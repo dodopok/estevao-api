@@ -19,7 +19,8 @@ RSpec.describe CollectService do
   end
 
   let!(:advent_season) do
-    LiturgicalSeason.find_or_create_by!(name: "Advento") { |s| s.color = "violeta" }
+    LiturgicalSeason.find_by(name: "Advento") ||
+      LiturgicalSeason.create!(name: "Advento", color: "violeta")
   end
 
   let!(:celebration) do
