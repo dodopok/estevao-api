@@ -8,6 +8,8 @@ module Api
       before_action :authenticate_user!
       before_action :set_journal, only: %i[update destroy]
 
+      rescue_from ArgumentError, with: :handle_argument_error
+
       # POST /api/v1/journals
       # Creates a journal entry
       def create
@@ -94,6 +96,8 @@ module Api
       end
 
       def journal_params
+        params.require(:journal).permit(:date_reference, :entry_type, :office_type, :content)
+      rescue ActionController::ParameterMissing
         params.permit(:date_reference, :entry_type, :office_type, :content)
       end
 
@@ -115,8 +119,6 @@ module Api
         day = params[:day].to_i
 
         validate_year_month_day(year, month, day)
-
-        Date.new(year, month, day)
       end
 
       def validate_year(year)
@@ -131,6 +133,15 @@ module Api
       def validate_year_month_day(year, month, day)
         validate_year_month(year, month)
         raise ArgumentError, "Invalid day for the specified month" unless day.between?(1, 31)
+        
+        # Validate the actual date is valid for the given month/year
+        Date.new(year, month, day)
+      rescue Date::Error
+        raise ArgumentError, "Invalid date: #{year}-#{month}-#{day}"
+      end
+
+      def handle_argument_error(exception)
+        render json: { error: exception.message }, status: :bad_request
       end
     end
   end

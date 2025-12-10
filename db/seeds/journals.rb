@@ -12,6 +12,7 @@ if User.any?
   user = User.first
 
   # Cria algumas anotações de exemplo
+  # Note: Content is in Portuguese as it matches the app's primary language (pt-BR)
   [
     {
       date_reference: Date.today,
