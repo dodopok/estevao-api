@@ -52,6 +52,11 @@ Rails.application.routes.draw do
       resources :completions, only: [ :create, :destroy ]
       get "completions/:year/:month/:day/:office_type", to: "completions#show"
 
+      # Rotas de anotações/diário (journals)
+      resources :journals, only: [ :create, :update, :destroy ]
+      get "journals/:year/:month/:day", to: "journals#day"
+      get "journals/:year/:month", to: "journals#month"
+
       # Rotas de notificações (admin apenas)
       post "notifications/send", to: "notifications#send_to_users"
       post "notifications/broadcast", to: "notifications#broadcast"
