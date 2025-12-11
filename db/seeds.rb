@@ -123,6 +123,20 @@ else
 end
 
 # ================================================================================
+# ANOTAÇÕES/DIÁRIO
+# ================================================================================
+
+puts "\n" + "="*80
+puts "CARREGANDO ANOTAÇÕES DE EXEMPLO"
+puts "="*80
+
+if File.exist?(Rails.root.join('db/seeds/journals.rb'))
+  load Rails.root.join('db/seeds/journals.rb')
+else
+  puts "⚠️  Arquivo de anotações não encontrado."
+end
+
+# ================================================================================
 # RESUMO FINAL
 # ================================================================================
 
@@ -147,5 +161,6 @@ puts "  • #{LifeRule.count} regras de vida"
 puts "  • #{BibleVersion.count} versões de Bíblia"
 puts "  • #{PreferenceCategory.count} categorias de preferências"
 puts "  • #{PreferenceDefinition.count} definições de preferências"
+puts "  • #{Journal.count} anotações de diário"
 
 puts "\n✅ Banco de dados populado com sucesso!"

@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :completions, dependent: :destroy
   has_many :fcm_tokens, dependent: :destroy
   has_many :notification_logs, dependent: :destroy
+  has_many :journals, dependent: :destroy
   has_one :user_onboarding, dependent: :destroy
   has_one :life_rule, dependent: :destroy
 
