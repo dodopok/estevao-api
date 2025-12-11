@@ -21,7 +21,7 @@ module Api
             journal: journal_response(journal)
           }, status: :created
         else
-          render json: { error: journal.errors.full_messages.join(', ') }, status: :unprocessable_entity
+          render json: { error: journal.errors.full_messages.join(", ") }, status: :unprocessable_entity
         end
       end
 
@@ -47,7 +47,7 @@ module Api
         validate_year_month(year, month)
 
         journals = current_user.journals.for_month(year, month)
-        
+
         # Group by date and count entries
         entries_by_date = journals.group_by(&:date_reference).transform_values do |entries|
           {
@@ -74,7 +74,7 @@ module Api
             journal: journal_response(@journal)
           }
         else
-          render json: { error: @journal.errors.full_messages.join(', ') }, status: :unprocessable_entity
+          render json: { error: @journal.errors.full_messages.join(", ") }, status: :unprocessable_entity
         end
       end
 
@@ -133,7 +133,7 @@ module Api
       def validate_year_month_day(year, month, day)
         validate_year_month(year, month)
         raise ArgumentError, "Invalid day for the specified month" unless day.between?(1, 31)
-        
+
         # Validate the actual date is valid for the given month/year
         Date.new(year, month, day)
       rescue Date::Error

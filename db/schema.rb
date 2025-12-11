@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_04_200100) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_10_014700) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -105,6 +105,19 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_04_200100) do
     t.bigint "user_id", null: false
     t.index ["user_id", "token"], name: "index_fcm_tokens_on_user_id_and_token", unique: true
     t.index ["user_id"], name: "index_fcm_tokens_on_user_id"
+  end
+
+  create_table "journals", force: :cascade do |t|
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.date "date_reference", null: false
+    t.string "entry_type", null: false
+    t.string "office_type"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "date_reference", "entry_type", "office_type"], name: "index_journals_on_user_date_type_office"
+    t.index ["user_id", "date_reference"], name: "index_journals_on_user_id_and_date_reference"
+    t.index ["user_id"], name: "index_journals_on_user_id"
   end
 
   create_table "lectionary_readings", force: :cascade do |t|
@@ -329,7 +342,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_04_200100) do
     t.string "photo_url"
     t.jsonb "preferences", default: {}, null: false
     t.string "provider_uid"
-    t.string "timezone"
+    t.string "timezone", default: "America/Sao_Paulo", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider_uid"], name: "index_users_on_provider_uid"
@@ -341,6 +354,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_04_200100) do
   add_foreign_key "collects", "prayer_books"
   add_foreign_key "completions", "users"
   add_foreign_key "fcm_tokens", "users"
+  add_foreign_key "journals", "users"
   add_foreign_key "lectionary_readings", "celebrations"
   add_foreign_key "lectionary_readings", "prayer_books"
   add_foreign_key "life_rule_steps", "life_rules"

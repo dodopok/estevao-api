@@ -246,7 +246,7 @@ RSpec.describe 'api/v1/journals', type: :request do
                  dates_with_entries: {
                    type: :array,
                    items: { type: :string, format: :date },
-                   example: ['2025-12-10', '2025-12-15']
+                   example: [ '2025-12-10', '2025-12-15' ]
                  },
                  entries_by_date: {
                    type: :object,

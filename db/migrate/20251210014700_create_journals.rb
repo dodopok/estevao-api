@@ -12,7 +12,7 @@ class CreateJournals < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :journals, %i[user_id date_reference entry_type office_type], 
+    add_index :journals, %i[user_id date_reference entry_type office_type],
               name: 'index_journals_on_user_date_type_office'
     add_index :journals, %i[user_id date_reference]
   end
