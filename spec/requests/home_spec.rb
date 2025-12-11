@@ -18,5 +18,35 @@ RSpec.describe "Home", type: :request do
       expect(json["docs"]).to eq("/api-docs")
       expect(json["endpoints"]).not_to be_nil
     end
+
+    it "includes all API endpoint categories" do
+      get "/"
+
+      json = JSON.parse(response.body)
+      endpoints = json["endpoints"]
+
+      expect(endpoints).to include(
+        "calendar",
+        "celebrations",
+        "lectionary",
+        "daily_office",
+        "users",
+        "onboarding",
+        "completions",
+        "journals",
+        "notifications",
+        "prayer_books",
+        "bible_versions",
+        "shared_offices",
+        "life_rules"
+      )
+    end
+
+    it "includes user account deletion endpoint" do
+      get "/"
+
+      json = JSON.parse(response.body)
+      expect(json.dig("endpoints", "users", "delete_account")).to eq("DELETE /api/v1/users/me")
+    end
   end
 end
