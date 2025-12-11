@@ -28,6 +28,8 @@ services:
       RAILS_ENV: development
       SECRET_KEY_BASE: development_secret_key_base_change_in_production
       FIREBASE_PROJECT_ID: promocoes-teologicas
+      FIREBASE_CLIENT_EMAIL: ${FIREBASE_CLIENT_EMAIL:-}
+      FIREBASE_PRIVATE_KEY: ${FIREBASE_PRIVATE_KEY:-}
       DB_HOST: db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

@@ -18,6 +18,41 @@ class FirebaseAuthService
       find_or_create_user(payload)
     end
 
+    # Deleta um usuário do Firebase Authentication
+    # @param uid [String] O Firebase UID (provider_uid) do usuário
+    # @return [Hash] { success: true } ou { success: false, error: String }
+    # @raise [ArgumentError] se o UID for vazio
+    def delete_user(uid)
+      raise ArgumentError, "UID is required" if uid.blank?
+
+      access_token = fetch_admin_access_token
+      uri = URI("https://identitytoolkit.googleapis.com/v1/projects/#{firebase_project_id}/accounts:delete")
+
+      request = Net::HTTP::Post.new(uri)
+      request["Authorization"] = "Bearer #{access_token}"
+      request["Content-Type"] = "application/json"
+      request.body = { localId: uid }.to_json
+
+      response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+        http.request(request)
+      end
+
+      if response.is_a?(Net::HTTPSuccess)
+        Rails.logger.info("Firebase user #{uid} deleted successfully")
+        { success: true }
+      else
+        error_body = JSON.parse(response.body) rescue { "error" => { "message" => response.body } }
+        error_message = error_body.dig("error", "message") || "Unknown error"
+        Rails.logger.error("Firebase delete_user failed for #{uid}: #{error_message}")
+        { success: false, error: error_message }
+      end
+    rescue ArgumentError
+      raise
+    rescue StandardError => e
+      Rails.logger.error("Firebase delete_user error: #{e.message}")
+      { success: false, error: e.message }
+    end
+
     # Verifica token Firebase
     def verify_token(token)
       raise InvalidTokenError, "Token is blank" if token.blank?
@@ -121,6 +156,31 @@ class FirebaseAuthService
 
     def firebase_project_id
       ENV.fetch("FIREBASE_PROJECT_ID", nil)
+    end
+
+    # Obtém token de acesso OAuth2 usando credenciais do service account
+    def fetch_admin_access_token
+      client_email = ENV.fetch("FIREBASE_CLIENT_EMAIL", nil)
+      private_key = ENV.fetch("FIREBASE_PRIVATE_KEY", nil)
+
+      if client_email.blank? || private_key.blank?
+        raise "Firebase service account credentials not configured. " \
+              "Set FIREBASE_CLIENT_EMAIL and FIREBASE_PRIVATE_KEY environment variables."
+      end
+
+      credentials = {
+        "type" => "service_account",
+        "project_id" => firebase_project_id,
+        "client_email" => client_email,
+        "private_key" => private_key.gsub('\\n', "\n")
+      }
+
+      require "googleauth"
+      authorizer = Google::Auth::ServiceAccountCredentials.make_creds(
+        json_key_io: StringIO.new(credentials.to_json),
+        scope: "https://www.googleapis.com/auth/identitytoolkit"
+      )
+      authorizer.fetch_access_token!["access_token"]
     end
   end
 end

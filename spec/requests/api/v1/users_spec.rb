@@ -380,4 +380,81 @@ RSpec.describe 'api/v1/users', type: :request do
       end
     end
   end
+
+  path '/api/v1/users/me' do
+    delete('Delete user account') do
+      tags api_tags
+      produces content_type
+      description 'Permanently deletes the user account and all associated data. ' \
+                  'This also removes the user from Firebase Authentication. ' \
+                  'This action is irreversible and complies with Apple App Store Guidelines 5.1.1(v).'
+      security [ { bearer_auth: [] } ]
+
+      parameter name: 'Authorization',
+                in: :header,
+                type: :string,
+                description: 'Firebase ID Token (format: Bearer <token>)',
+                required: true
+
+      response(200, 'successful') do
+        let(:Authorization) { 'Bearer mock-token' }
+
+        before do
+          @user = create(:user)
+          # Cria dados associados para verificar que são deletados
+          create(:completion, user: @user)
+          create(:journal, user: @user)
+          create(:fcm_token, user: @user)
+
+          allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(@user)
+          allow(FirebaseAuthService).to receive(:delete_user).and_return({ success: true })
+        end
+
+        schema type: :object,
+               properties: {
+                 message: { type: :string, example: 'Account deleted successfully' }
+               }
+
+        run_test! do |response|
+          expect(User.find_by(id: @user.id)).to be_nil
+          expect(Completion.where(user_id: @user.id).count).to eq(0)
+          expect(Journal.where(user_id: @user.id).count).to eq(0)
+          expect(FcmToken.where(user_id: @user.id).count).to eq(0)
+        end
+      end
+
+      response(401, 'unauthorized') do
+        let(:Authorization) { '' }
+
+        schema type: :object,
+               properties: {
+                 error: { type: :string, example: 'Unauthorized' }
+               }
+
+        run_test!
+      end
+
+      response(502, 'bad gateway - firebase error') do
+        let(:Authorization) { 'Bearer mock-token' }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+          allow(FirebaseAuthService).to receive(:delete_user).and_return({
+            success: false,
+            error: 'USER_NOT_FOUND'
+          })
+        end
+
+        schema type: :object,
+               properties: {
+                 error: { type: :string, example: 'Failed to delete account from Firebase: USER_NOT_FOUND' }
+               }
+
+        run_test!
+      end
+    end
+  end
 end

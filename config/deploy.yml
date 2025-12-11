@@ -41,6 +41,8 @@ env:
     - SECRET_KEY_BASE
     - POSTGRES_PASSWORD
     - FIREBASE_SERVER_KEY
+    - FIREBASE_CLIENT_EMAIL
+    - FIREBASE_PRIVATE_KEY
     - NEW_RELIC_LICENSE_KEY
   clear:
     # Firebase Project ID for Authentication

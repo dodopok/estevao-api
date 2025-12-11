@@ -2869,6 +2869,53 @@ paths:
                   error:
                     type: string
                     example: Unauthorized
+    delete:
+      summary: Delete user account
+      tags:
+      - Users
+      description: Permanently deletes the user account and all associated data. This
+        also removes the user from Firebase Authentication. This action is irreversible
+        and complies with Apple App Store Guidelines 5.1.1(v).
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Account deleted successfully
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '502':
+          description: bad gateway - firebase error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: 'Failed to delete account from Firebase: USER_NOT_FOUND'
   "/api/v1/users/preferences":
     patch:
       summary: Update user preferences

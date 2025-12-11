@@ -90,6 +90,27 @@ module Api
         render json: { message: "Token FCM removido com sucesso" }, status: :ok
       end
 
+      # DELETE /api/v1/users/me
+      # Deletes current user account and all associated data
+      # This also removes the user from Firebase Authentication
+      def destroy
+        # Primeiro deleta no Firebase
+        firebase_result = FirebaseAuthService.delete_user(current_user.provider_uid)
+
+        unless firebase_result[:success]
+          return render json: {
+            error: "Failed to delete account from Firebase: #{firebase_result[:error]}"
+          }, status: :bad_gateway
+        end
+
+        # Depois deleta no banco local (associações serão deletadas via dependent: :destroy)
+        current_user.destroy!
+
+        render json: { message: "Account deleted successfully" }, status: :ok
+      rescue ActiveRecord::RecordNotDestroyed => e
+        render json: { error: "Failed to delete account: #{e.message}" }, status: :unprocessable_entity
+      end
+
       # PATCH /api/v1/users/timezone
       # Updates user timezone (for streak calculation)
       def update_timezone
