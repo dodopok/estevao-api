@@ -958,6 +958,418 @@ paths:
                   error:
                     type: string
                     example: O Prayer Book 'loc_1987' não suporta rito familiar
+  "/api/v1/journals":
+    post:
+      summary: Create journal entry
+      tags:
+      - Journals
+      description: Creates a journal/diary entry for a specific date
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Journal entry created successfully
+                  journal:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      date_reference:
+                        type: string
+                        format: date
+                        example: '2025-12-10'
+                      entry_type:
+                        type: string
+                        example: daily_office
+                      office_type:
+                        type: string
+                        example: morning
+                        nullable: true
+                      content:
+                        type: string
+                        example: Today I reflected on the importance of prayer.
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date_reference:
+                  type: string
+                  format: date
+                  example: '2025-12-10'
+                  description: Date for the journal entry
+                entry_type:
+                  type: string
+                  enum:
+                  - daily_office
+                  - life_rule
+                  example: daily_office
+                  description: Type of journal entry
+                office_type:
+                  type: string
+                  enum:
+                  - morning
+                  - midday
+                  - evening
+                  - compline
+                  example: morning
+                  description: Office type (required when entry_type is daily_office)
+                content:
+                  type: string
+                  example: Today I reflected on the importance of prayer in my daily
+                    life.
+                  description: Content of the journal entry (max 10,000 characters)
+              required:
+              - date_reference
+              - entry_type
+              - content
+  "/api/v1/journals/{year}/{month}/{day}":
+    parameters:
+    - name: year
+      in: path
+      description: Year
+      required: true
+      example: 2025
+      schema:
+        type: integer
+    - name: month
+      in: path
+      description: Month
+      required: true
+      example: 12
+      schema:
+        type: integer
+    - name: day
+      in: path
+      description: Day
+      required: true
+      example: 10
+      schema:
+        type: integer
+    get:
+      summary: Get journal entries for a day
+      tags:
+      - Journals
+      description: Gets all journal entries for a specific date
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date
+                    example: '2025-12-10'
+                  count:
+                    type: integer
+                    example: 2
+                  entries:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        date_reference:
+                          type: string
+                          format: date
+                        entry_type:
+                          type: string
+                        office_type:
+                          type: string
+                          nullable: true
+                        content:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+  "/api/v1/journals/{year}/{month}":
+    parameters:
+    - name: year
+      in: path
+      description: Year
+      required: true
+      example: 2025
+      schema:
+        type: integer
+    - name: month
+      in: path
+      description: Month
+      required: true
+      example: 12
+      schema:
+        type: integer
+    get:
+      summary: Get month overview with entry counts
+      tags:
+      - Journals
+      description: Gets a calendar overview for a month showing which dates have journal
+        entries and their counts
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  year:
+                    type: integer
+                    example: 2025
+                  month:
+                    type: integer
+                    example: 12
+                  total_entries:
+                    type: integer
+                    example: 3
+                  dates_with_entries:
+                    type: array
+                    items:
+                      type: string
+                      format: date
+                    example:
+                    - '2025-12-10'
+                    - '2025-12-15'
+                  entries_by_date:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        count:
+                          type: integer
+                          example: 2
+                        types:
+                          type: object
+                          additionalProperties:
+                            type: integer
+                          example:
+                            daily_office: 1
+                            life_rule: 1
+                    example:
+                      '2025-12-10':
+                        count: 2
+                        types:
+                          daily_office: 1
+                          life_rule: 1
+                      '2025-12-15':
+                        count: 1
+                        types:
+                          daily_office: 1
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+  "/api/v1/journals/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Journal ID
+      required: true
+      schema:
+        type: integer
+    patch:
+      summary: Update journal entry
+      tags:
+      - Journals
+      description: Updates an existing journal entry
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Journal entry updated successfully
+                  journal:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      date_reference:
+                        type: string
+                        format: date
+                      entry_type:
+                        type: string
+                      office_type:
+                        type: string
+                        nullable: true
+                      content:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Journal entry not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: Updated reflection on today's prayer.
+                  description: Updated content of the journal entry
+    delete:
+      summary: Delete journal entry
+      tags:
+      - Journals
+      description: Deletes a journal entry
+      security:
+      - bearer_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'Firebase ID Token (format: Bearer <token>)'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Journal entry deleted successfully
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Journal entry not found
   "/api/v1/lectionary/{year}/{month}/{day}":
     parameters:
     - name: year
