@@ -174,17 +174,20 @@ module DailyOffice
         def build_compline_psalms
           sections = []
 
-          # Get selected psalms (default to all 3)
-          selected_psalms = preferences[:compline_psalms] || [ 1, 2, 3 ]
-          selected_psalms = [ selected_psalms ] unless selected_psalms.is_a?(Array)
-
           psalm_slugs = {
             1 => "cum_invocarem",    # Psalm 4
             2 => "qui_habitat",      # Psalm 91
             3 => "ecce_nunc"         # Psalm 134
           }
 
-          selected_psalms.each do |psalm_num|
+          # Get selected psalms from preferences using resolve_preference
+          selected_psalms = resolve_preference(
+            preferences[:compline_inviting_canticle],
+            [ 1, 2, 3 ],
+            :compline__compline_inviting_canticle
+          ) || [ 1, 2, 3 ]
+
+          Array(selected_psalms).each do |psalm_num|
             psalm = fetch_liturgical_text(psalm_slugs[psalm_num])
             if psalm
               lines = []
@@ -226,11 +229,12 @@ module DailyOffice
           end
 
           # Brief lesson (3 options: Jeremiah, Matthew, Hebrews)
-          lesson_num = preferences[:compline_lesson] || 1
-          lesson = fetch_liturgical_text("compline_brief_lesson_#{lesson_num}")
-          if lesson
-            lines << line_item(lesson.content, type: "leader")
-            lines << line_item("", type: "spacer")
+          Array(resolve_preference(preferences[:compline_lesson], 1..3, :compline__compline_lesson) || 1).each do |lesson_num|
+            lesson = fetch_liturgical_text("compline_brief_lesson_#{lesson_num}")
+            if lesson
+              lines << line_item(lesson.content, type: "leader")
+              lines << line_item("", type: "spacer")
+            end
           end
 
           # Post-lessons rubric (mentions Te Lucis hymn)
@@ -271,7 +275,7 @@ module DailyOffice
         # 7. KYRIE
         def build_compline_kyrie
           # Choose translated or original based on preference
-          kyrie_slug = preferences[:kyrie_language] == "original" ? "kyrie_original" : "kyrie_translated"
+          kyrie_slug = preferences[:office_type] == "traditional" ? "kyrie_original" : "kyrie_translated"
           kyrie = fetch_liturgical_text(kyrie_slug)
           return nil unless kyrie
 
@@ -316,22 +320,14 @@ module DailyOffice
           end
 
           # Final prayers (6 options - can select multiple)
-          selected_collects = preferences[:compline_collects]
+          selected_collects = resolve_preference(preferences[:compline_collects], 1..6, :compline__compline_collects) || [ 1 ]
 
-          # If no preference set, use first prayer as default
-          if selected_collects.nil?
-            selected_collects = [ 1 ]
-          else
-            # Ensure it's an array
-            selected_collects = [ selected_collects ] unless selected_collects.is_a?(Array)
-          end
-
-          selected_collects.each_with_index do |collect_num, index|
+          Array(selected_collects).each_with_index do |collect_num, index|
             collect = fetch_liturgical_text("compline_final_prayer_#{collect_num}")
             if collect
               lines << line_item(collect.content, type: "leader")
               # Add spacer between collects, but not after the last one
-              lines << line_item("", type: "spacer") if index < selected_collects.length - 1
+              lines << line_item("", type: "spacer") if index < Array(selected_collects).length - 1
             end
           end
 

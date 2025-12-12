@@ -403,9 +403,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
   # SECTION: Affirmation of Faith and Offering
   # ==========================================================================
 
-  describe '#build_creed' do
+  describe '#build_morning_creed' do
     it 'returns creed module structure' do
-      result = builder.build_creed
+      result = builder.build_morning_creed
 
       if result
         expect(result).to have_key(:name)
@@ -419,10 +419,10 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       paraphrase_builder = test_class.new(
         date: date,
         office_type: :morning,
-        preferences: { creed_paraphrase: true }
+        preferences: { morning_creed_type: 'apostolic_paraphrase' }
       )
 
-      result = paraphrase_builder.build_creed
+      result = paraphrase_builder.build_morning_creed
 
       if result
         expect(result[:name]).to eq('Paráfrase do Credo Apostólico')
@@ -430,7 +430,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
     end
 
     it 'uses standard creed by default' do
-      result = builder.build_creed
+      result = builder.build_morning_creed
 
       if result
         expect(result[:name]).to eq('Credo Apostólico')
@@ -573,12 +573,12 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       end
     end
 
-    it 'respects dismissal_blessing preference' do
+    it 'respects morning_concluding_prayer preference' do
       [ 1, 2, 3, 4 ].each do |blessing_num|
         test_builder = test_class.new(
           date: date,
           office_type: :morning,
-          preferences: { dismissal_blessing: blessing_num }
+          preferences: { morning_concluding_prayer: blessing_num }
         )
 
         result = test_builder.build_dismissal
@@ -676,7 +676,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
         test_builder = test_class.new(
           date: date,
           office_type: :morning,
-          preferences: { confession_prayer: num }
+          preferences: { morning_confession_prayer_type: num }
         )
         result = test_builder.build_morning_confession
         expect(result).to be_a(Hash) if result
@@ -688,9 +688,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
         test_builder = test_class.new(
           date: date,
           office_type: :morning,
-          preferences: { creed_paraphrase: paraphrase }
+          preferences: { morning_creed_type: 'apostolic_paraphrase' }
         )
-        result = test_builder.build_creed
+        result = test_builder.build_morning_creed
         expect(result).to be_a(Hash) if result
       end
     end

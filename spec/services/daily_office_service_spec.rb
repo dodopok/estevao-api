@@ -94,11 +94,11 @@ RSpec.describe DailyOfficeService do
   end
 
   describe 'family rite support' do
-    it 'passes family_rite preference to builder' do
+    it 'passes office_type preference to builder' do
       service = described_class.new(
         date: date,
         office_type: :morning,
-        preferences: { family_rite: true }
+        preferences: { office_type: 'family' }
       )
 
       result = service.call

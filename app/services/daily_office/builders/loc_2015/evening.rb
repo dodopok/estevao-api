@@ -28,7 +28,7 @@ module DailyOffice
             build_first_canticle,
             build_second_reading,
             build_second_canticle,
-            build_creed,
+            build_evening_creed,
             build_offertory,
             build_lords_prayer,
             build_collect_of_the_day,
@@ -147,7 +147,7 @@ module DailyOffice
           end
 
           # Opening invitation to confession (long or short)
-          invitation_slug = preferences[:confession_invitation] == "short" ?
+          invitation_slug = preferences[:evening_confession_type] == "short" ?
                            "evening_confession_short" : "evening_confession_long"
           invitation = fetch_liturgical_text(invitation_slug)
           if invitation
@@ -163,12 +163,13 @@ module DailyOffice
           end
 
           # Confession prayer (3 options)
-          confession_num = preferences[:confession_prayer] || 1
-          confession = fetch_liturgical_text("evening_after_confession_#{confession_num}")
-          return nil unless confession
+          Array(resolve_preference(preferences[:evening_confession_prayer_type], 1..3, :evening__confession_prayer) || 1).each do |confession_num|
+            confession = fetch_liturgical_text("evening_after_confession_#{confession_num}")
+            next unless confession
 
-          lines << line_item(confession.content, type: "congregation")
-          lines << line_item("", type: "spacer")
+            lines << line_item(confession.content, type: "congregation")
+            lines << line_item("", type: "spacer")
+          end
 
           # Post-confession rubric
           post_confession = fetch_liturgical_text("rubric_post_confession")
@@ -345,11 +346,11 @@ module DailyOffice
         # ============================================================================
 
         # 10. CREED
-        def build_creed
+        def build_evening_creed
           lines = []
 
           # Choose between Apostles' Creed and Affirmation of Faith
-          if preferences[:use_affirmation_of_faith]
+          if preferences[:evening_creed_type] == "faith_affirmation"
             # Rubric for affirmation
             rubric = fetch_liturgical_text("evening_rubric_post_apostles_creed")
             if rubric
@@ -369,14 +370,14 @@ module DailyOffice
             }
           else
             # Standard or paraphrase Apostles' Creed
-            creed_slug = preferences[:creed_paraphrase] ? "apostles_creed_paraphrase" : "apostles_creed"
+            creed_slug = preferences[:evening_creed_type] == "faith_affirmation" ? "evening_affirmation_of_faith" : "apostles_creed"
             creed = fetch_liturgical_text(creed_slug)
             return nil unless creed
 
             lines << line_item(creed.content, type: "congregation")
 
             {
-              name: preferences[:creed_paraphrase] ? "Paráfrase do Credo Apostólico" : "Credo Apostólico",
+              name: preferences[:evening_creed_type] == "faith_affirmation" ? "Afirmação de Fé" : "Credo Apostólico",
               slug: "creed",
               lines: lines
             }
@@ -416,11 +417,12 @@ module DailyOffice
           end
 
           # Invocation (2 options)
-          invocation_num = preferences[:our_father_invocation] || 1
-          invocation = fetch_liturgical_text("invocation_our_father_#{invocation_num}")
-          if invocation
-            lines << line_item(invocation.content, type: "responsive")
-            lines << line_item("", type: "spacer")
+          Array(resolve_preference(preferences[:our_father_invocation], 1..2, :evening__our_father_invocation) || 1).each do |invocation_num|
+            invocation = fetch_liturgical_text("invocation_our_father_#{invocation_num}")
+            if invocation
+              lines << line_item(invocation.content, type: "responsive")
+              lines << line_item("", type: "spacer")
+            end
           end
 
           # Lord's Prayer
@@ -442,9 +444,10 @@ module DailyOffice
             closing_prayer = fetch_liturgical_text("evening_closing_prayer")
             lines << line_item(closing_prayer.content, type: "responsive") if closing_prayer
           else
-            prayer_num = preferences[:mercy_prayer] || 1
-            suffrages = fetch_liturgical_text("mercy_prayer_#{prayer_num}")
-            lines << line_item(suffrages.content, type: "responsive") if suffrages
+            Array(resolve_preference(preferences[:mercy_prayer], 1..3, :evening__mercy_prayer) || 1).each do |prayer_num|
+              suffrages = fetch_liturgical_text("mercy_prayer_#{prayer_num}")
+              lines << line_item(suffrages.content, type: "responsive") if suffrages
+            end
           end
 
           {
@@ -489,9 +492,13 @@ module DailyOffice
           end
 
           # General collects (can include all or select based on preferences)
-          selected_collects = preferences[:general_collects] || GENERAL_COLLECT_SLUGS
+          selected_collects = resolve_preference(
+            preferences[:general_collects],
+            GENERAL_COLLECT_SLUGS,
+            :evening__general_collects
+          ) || GENERAL_COLLECT_SLUGS
 
-          selected_collects.each do |slug|
+          Array(selected_collects).each do |slug|
             collect = fetch_liturgical_text(slug)
             if collect
               lines << line_item(collect.content, type: "leader")
@@ -529,11 +536,12 @@ module DailyOffice
           end
 
           # Thanksgiving prayer (2 options)
-          thanksgiving_num = preferences[:thanksgiving_prayer] || 1
-          thanksgiving = fetch_liturgical_text("general_thanksgiving_#{thanksgiving_num}")
-          return nil unless thanksgiving
+          Array(resolve_preference(preferences[:thanksgiving_prayer], 1..2, :evening__thanksgiving_prayer) || 1).each do |thanksgiving_num|
+            thanksgiving = fetch_liturgical_text("general_thanksgiving_#{thanksgiving_num}")
+            next unless thanksgiving
 
-          lines << line_item(thanksgiving.content, type: "congregation")
+            lines << line_item(thanksgiving.content, type: "congregation")
+          end
 
           {
             name: "Geral Ação de Graças",
@@ -586,11 +594,12 @@ module DailyOffice
           end
 
           # Dismissal blessing (4 options)
-          dismissal_num = preferences[:dismissal_blessing] || 1
-          dismissal = fetch_liturgical_text("dismissal_#{dismissal_num}")
-          return nil unless dismissal
+          Array(resolve_preference(preferences[:evening_concluding_prayer], 1..4, :evening__dismissal_blessing) || 1).each do |dismissal_num|
+            dismissal = fetch_liturgical_text("dismissal_#{dismissal_num}")
+            next unless dismissal
 
-          lines << line_item(dismissal.content, type: "leader")
+            lines << line_item(dismissal.content, type: "leader")
+          end
 
           # Post-dismissal rubric
           post_rubric = fetch_liturgical_text("rubric_post_dismissal")

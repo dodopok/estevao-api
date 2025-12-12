@@ -209,16 +209,16 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
       end
     end
 
-    it 'respects confession_invitation preference' do
+    it 'respects evening_confession_type preference' do
       short_builder = test_class.new(
         date: date,
         office_type: :evening,
-        preferences: { confession_invitation: 'short' }
+        preferences: { evening_confession_type: 'short' }
       )
       long_builder = test_class.new(
         date: date,
         office_type: :evening,
-        preferences: { confession_invitation: 'long' }
+        preferences: { evening_confession_type: 'long' }
       )
 
       short_result = short_builder.build_evening_confession
@@ -443,9 +443,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
   # SECTION: Affirmation of Faith and Offering
   # ==========================================================================
 
-  describe '#build_creed' do
+  describe '#build_evening_creed' do
     it 'returns creed module structure' do
-      result = builder.build_creed
+      result = builder.build_evening_creed
 
       if result
         expect(result).to have_key(:name)
@@ -456,24 +456,10 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
     end
 
     it 'uses Apostles Creed by default' do
-      result = builder.build_creed
+      result = builder.build_evening_creed
 
       if result
         expect(result[:name]).to eq('Credo Apostólico')
-      end
-    end
-
-    it 'uses paraphrase when preference is set' do
-      paraphrase_builder = test_class.new(
-        date: date,
-        office_type: :evening,
-        preferences: { creed_paraphrase: true }
-      )
-
-      result = paraphrase_builder.build_creed
-
-      if result
-        expect(result[:name]).to eq('Paráfrase do Credo Apostólico')
       end
     end
 
@@ -481,10 +467,10 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
       affirmation_builder = test_class.new(
         date: date,
         office_type: :evening,
-        preferences: { use_affirmation_of_faith: true }
+        preferences: { evening_creed_type: 'faith_affirmation' }
       )
 
-      result = affirmation_builder.build_creed
+      result = affirmation_builder.build_evening_creed
 
       if result
         expect(result[:name]).to eq('Afirmação de Fé')
@@ -640,12 +626,12 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
       end
     end
 
-    it 'respects dismissal_blessing preference' do
+    it 'respects evening_concluding_prayer preference' do
       [ 1, 2, 3, 4 ].each do |blessing_num|
         test_builder = test_class.new(
           date: date,
           office_type: :evening,
-          preferences: { dismissal_blessing: blessing_num }
+          preferences: { evening_concluding_prayer: blessing_num }
         )
 
         result = test_builder.build_dismissal
@@ -737,7 +723,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
         test_builder = test_class.new(
           date: date,
           office_type: :evening,
-          preferences: { confession_prayer: num }
+          preferences: { evening_confession_prayer_type: num }
         )
         result = test_builder.build_evening_confession
         expect(result).to be_a(Hash) if result
@@ -749,9 +735,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
         test_builder = test_class.new(
           date: date,
           office_type: :evening,
-          preferences: { creed_paraphrase: paraphrase }
+          preferences: { evening_creed_type: 'faith_affirmation' }
         )
-        result = test_builder.build_creed
+        result = test_builder.build_evening_creed
         expect(result).to be_a(Hash) if result
       end
     end

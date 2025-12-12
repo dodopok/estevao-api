@@ -174,4 +174,329 @@ RSpec.describe DailyOffice::Builders::Loc2015::SharedHelpers do
       end
     end
   end
+
+  describe '#resolve_preference' do
+    let(:preferences_with_seed) { { seed: 12345 } }
+    let(:builder_with_seed) { test_class.new(date: date, office_type: :morning, preferences: preferences_with_seed) }
+
+    # ==========================================================================
+    # SECTION: Range Options (Numeric)
+    # ==========================================================================
+
+    context 'with Range options' do
+      let(:options) { 1..7 }
+      let(:random_key) { :test_numeric }
+
+      context 'when pref_value is nil' do
+        it 'returns nil' do
+          result = builder_with_seed.send(:resolve_preference, nil, options, random_key)
+          expect(result).to be_nil
+        end
+      end
+
+      context 'when pref_value is empty string' do
+        it 'returns nil' do
+          result = builder_with_seed.send(:resolve_preference, '', options, random_key)
+          expect(result).to be_nil
+        end
+      end
+
+      context 'when pref_value is whitespace' do
+        it 'returns nil' do
+          result = builder_with_seed.send(:resolve_preference, '   ', options, random_key)
+          expect(result).to be_nil
+        end
+      end
+
+      context 'when pref_value is "random"' do
+        it 'returns a number within the range using seeded_random' do
+          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          expect(result).to be_a(Integer)
+          expect(options).to include(result)
+        end
+
+        it 'returns deterministic results with same seed' do
+          result1 = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          result2 = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          expect(result1).to eq(result2)
+        end
+
+        it 'returns different results with different random_key' do
+          result1 = builder_with_seed.send(:resolve_preference, 'random', options, :key1)
+          result2 = builder_with_seed.send(:resolve_preference, 'random', options, :key2)
+          expect([ result1, result2 ]).to all(be_a(Integer))
+        end
+      end
+
+      context 'when pref_value is "all"' do
+        it 'returns array of all values in range' do
+          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          expect(result).to eq([ 1, 2, 3, 4, 5, 6, 7 ])
+        end
+
+        it 'works with different ranges' do
+          result = builder_with_seed.send(:resolve_preference, 'all', 1..3, random_key)
+          expect(result).to eq([ 1, 2, 3 ])
+        end
+      end
+
+      context 'when pref_value is a specific integer' do
+        it 'returns the integer' do
+          result = builder_with_seed.send(:resolve_preference, 3, options, random_key)
+          expect(result).to eq(3)
+        end
+      end
+
+      context 'when pref_value is a string integer' do
+        it 'converts and returns the integer' do
+          result = builder_with_seed.send(:resolve_preference, '5', options, random_key)
+          expect(result).to eq(5)
+        end
+      end
+
+      context 'when pref_value is invalid for range' do
+        it 'converts to integer (may be 0 or invalid)' do
+          result = builder_with_seed.send(:resolve_preference, 'invalid', options, random_key)
+          expect(result).to eq(0)
+        end
+      end
+    end
+
+    # ==========================================================================
+    # SECTION: Array Options (Slugs)
+    # ==========================================================================
+
+    context 'with Array options' do
+      let(:options) { %w[venite jubilate pascha_nostrum] }
+      let(:random_key) { :test_slugs }
+
+      context 'when pref_value is nil' do
+        it 'returns nil' do
+          result = builder_with_seed.send(:resolve_preference, nil, options, random_key)
+          expect(result).to be_nil
+        end
+      end
+
+      context 'when pref_value is empty string' do
+        it 'returns nil' do
+          result = builder_with_seed.send(:resolve_preference, '', options, random_key)
+          expect(result).to be_nil
+        end
+      end
+
+      context 'when pref_value is "random"' do
+        it 'returns one slug from the array using seeded_random' do
+          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          expect(result).to be_a(String)
+          expect(options).to include(result)
+        end
+
+        it 'returns deterministic results with same seed' do
+          result1 = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          result2 = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          expect(result1).to eq(result2)
+        end
+
+        it 'returns different results with different random_key' do
+          result1 = builder_with_seed.send(:resolve_preference, 'random', options, :key1)
+          result2 = builder_with_seed.send(:resolve_preference, 'random', options, :key2)
+          expect(options).to include(result1)
+          expect(options).to include(result2)
+        end
+      end
+
+      context 'when pref_value is "all"' do
+        it 'returns the full array of slugs' do
+          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          expect(result).to eq(options)
+        end
+
+        it 'returns the same array object' do
+          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          expect(result).to be(options)
+        end
+      end
+
+      context 'when pref_value is a specific slug' do
+        it 'returns the slug as string' do
+          result = builder_with_seed.send(:resolve_preference, 'jubilate', options, random_key)
+          expect(result).to eq('jubilate')
+        end
+      end
+
+      context 'when pref_value is a slug not in options' do
+        it 'returns the value as-is (builder handles validation)' do
+          result = builder_with_seed.send(:resolve_preference, 'unknown_slug', options, random_key)
+          expect(result).to eq('unknown_slug')
+        end
+      end
+
+      context 'when pref_value is a symbol' do
+        it 'converts to string' do
+          result = builder_with_seed.send(:resolve_preference, :venite, options, random_key)
+          expect(result).to eq('venite')
+        end
+      end
+    end
+
+    # ==========================================================================
+    # SECTION: Edge Cases
+    # ==========================================================================
+
+    context 'edge cases' do
+      let(:random_key) { :edge_cases }
+
+      context 'with empty array options' do
+        let(:options) { [] }
+
+        it 'handles "random" gracefully' do
+          expect {
+            builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          }.not_to raise_error
+        end
+
+        it 'returns empty array for "all"' do
+          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          expect(result).to eq([])
+        end
+      end
+
+      context 'with single-element array' do
+        let(:options) { %w[only_one] }
+
+        it 'returns the only element for "random"' do
+          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          expect(result).to eq('only_one')
+        end
+
+        it 'returns single-element array for "all"' do
+          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          expect(result).to eq([ 'only_one' ])
+        end
+      end
+
+      context 'with single-value range' do
+        let(:options) { 5..5 }
+
+        it 'returns the only value for "random"' do
+          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          expect(result).to eq(5)
+        end
+
+        it 'returns single-element array for "all"' do
+          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          expect(result).to eq([ 5 ])
+        end
+      end
+    end
+
+    # ==========================================================================
+    # SECTION: Integration with Real Preference Keys
+    # ==========================================================================
+
+    context 'integration with real preference patterns' do
+      context 'opening_sentence_general (1..7 range)' do
+        let(:options) { 1..7 }
+        let(:random_key) { :morning__opening_sentence_general }
+
+        it 'handles specific value' do
+          result = builder_with_seed.send(:resolve_preference, '3', options, random_key)
+          expect(result).to eq(3)
+        end
+
+        it 'handles "random"' do
+          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          expect(1..7).to include(result)
+        end
+
+        it 'handles "all"' do
+          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          expect(result).to eq([ 1, 2, 3, 4, 5, 6, 7 ])
+        end
+      end
+
+      context 'first_canticle (slug array)' do
+        let(:options) { %w[benedictus_es_domine cantate_domino benedicite_omnia_opera] }
+        let(:random_key) { :morning__first_canticle }
+
+        it 'handles specific slug' do
+          result = builder_with_seed.send(:resolve_preference, 'cantate_domino', options, random_key)
+          expect(result).to eq('cantate_domino')
+        end
+
+        it 'handles "random"' do
+          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          expect(options).to include(result)
+        end
+
+        it 'handles "all"' do
+          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          expect(result).to eq(options)
+        end
+      end
+
+      context 'general_collects (large slug array)' do
+        let(:options) do
+          %w[
+            for_peace
+            for_grace
+            for_all_authorities
+            for_clergy
+            for_parish_family
+            for_all_humanity
+          ]
+        end
+        let(:random_key) { :morning__general_collects }
+
+        it 'handles "random" to pick one collect' do
+          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          expect(result).to be_a(String)
+          expect(options).to include(result)
+        end
+
+        it 'handles "all" to return all collects' do
+          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          expect(result).to eq(options)
+        end
+
+        it 'handles specific collect slug' do
+          result = builder_with_seed.send(:resolve_preference, 'for_peace', options, random_key)
+          expect(result).to eq('for_peace')
+        end
+      end
+    end
+
+    # ==========================================================================
+    # SECTION: Deterministic Seeding
+    # ==========================================================================
+
+    context 'deterministic seeding behavior' do
+      it 'produces same results across multiple calls with same parameters' do
+        results = 5.times.map do
+          builder_with_seed.send(:resolve_preference, 'random', 1..100, :test_key)
+        end
+
+        expect(results.uniq.size).to eq(1)
+      end
+
+      it 'produces different results with different seeds' do
+        builder1 = test_class.new(date: date, office_type: :morning, preferences: { seed: 111 })
+        builder2 = test_class.new(date: date, office_type: :morning, preferences: { seed: 222 })
+
+        result1 = builder1.send(:resolve_preference, 'random', 1..1000, :test)
+        result2 = builder2.send(:resolve_preference, 'random', 1..1000, :test)
+
+        # Very likely to be different with large range
+        expect(result1).not_to eq(result2)
+      end
+
+      it 'produces different results with different random_keys' do
+        result1 = builder_with_seed.send(:resolve_preference, 'random', 1..1000, :key_a)
+        result2 = builder_with_seed.send(:resolve_preference, 'random', 1..1000, :key_b)
+
+        # Very likely to be different
+        expect(result1).not_to eq(result2)
+      end
+    end
+  end
 end

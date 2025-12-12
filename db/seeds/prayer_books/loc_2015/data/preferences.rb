@@ -71,7 +71,7 @@ loc_2015_preferences = [
     position: 3,
     preferences: [
       {
-        key: "confession_type",
+        key: "morning_confession_type",
         name: "Confissão",
         description: "Formato da confissão de pecados",
         pref_type: "select_one",
@@ -241,7 +241,7 @@ loc_2015_preferences = [
         default_value: "random",
         position: 1,
         options: [
-          { value: "lucerna_pedius_meis", label: "Lucerna pedibus meis", description: "Salmo 119 - \"A TUA palavra é lâmpada para os meus pés\"" },
+          { value: "lucerna_pedibus_meis", label: "Lucerna pedibus meis", description: "Salmo 119 - \"A TUA palavra é lâmpada para os meus pés\"" },
           { value: "levavi_oculos", label: "Levavi oculos", description: "Salmo 121 - \"PARA os montes elevo os meus olhos\"" },
           { value: "in_convertendo", label: "In convertendo", description: "Salmo 126 - \"QUANDO o SENHOR nos fez voltar do cativeiro\"" },
           { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },

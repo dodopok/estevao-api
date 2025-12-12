@@ -83,7 +83,7 @@ module DailyOffice
 
       # These methods can be overridden by subclasses for LOC-specific behavior
       def assemble_morning_prayer
-        return assemble_morning_prayer_family if preferences[:family_rite]
+        return assemble_morning_prayer_family if preferences[:office_type] == "family"
 
         [
           prayer_builder.build_opening_sentence(:morning),
@@ -121,7 +121,7 @@ module DailyOffice
       end
 
       def assemble_evening_prayer
-        return assemble_evening_prayer_family if preferences[:family_rite]
+        return assemble_evening_prayer_family if preferences[:office_type] == "family"
 
         [
           prayer_builder.build_opening_sentence(:evening),
@@ -191,11 +191,7 @@ module DailyOffice
         {
           prayer_book_code: "loc_2015",
           bible_version: "nvi",
-          language: "pt-BR",
-          confession_type: "long",
-          lords_prayer_version: "traditional",
-          creed_type: :apostles,
-          family_rite: false
+          language: "pt-BR"
         }
       end
 

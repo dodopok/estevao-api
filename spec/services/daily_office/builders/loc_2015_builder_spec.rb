@@ -150,8 +150,6 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
       preferences_combinations = [
         { prayer_style: 'traditional' },
         { prayer_style: 'contemporary' },
-        { creed_paraphrase: true },
-        { creed_paraphrase: false },
         { first_canticle: 2 },
         { second_canticle: 3 },
         { invitatory_canticle: 'jubilate' },

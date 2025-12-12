@@ -105,17 +105,20 @@ module DailyOffice
         def build_midday_psalms
           sections = []
 
-          # Get selected psalms from preferences (default to all 3)
-          selected_psalms = preferences[:midday_psalms] || [ 1, 2, 3 ]
-          selected_psalms = [ selected_psalms ] unless selected_psalms.is_a?(Array)
-
           psalm_slugs = {
             1 => "lucerna_pedibus_meis",  # Psalm 119:105-112
             2 => "levavi_oculos",         # Psalm 121
             3 => "in_convertendo"         # Psalm 126
           }
 
-          selected_psalms.each do |psalm_num|
+          # Get selected psalms from preferences using resolve_preference
+          selected_psalms = resolve_preference(
+            preferences[:midday_inviting_canticle],
+            [ 1, 2, 3 ],
+            :midday__midday_inviting_canticle
+          ) || [ 1, 2, 3 ]
+
+          Array(selected_psalms).each do |psalm_num|
             psalm = fetch_liturgical_text(psalm_slugs[psalm_num])
             if psalm
               lines = []
@@ -148,13 +151,12 @@ module DailyOffice
           end
 
           # Get selected reading (from preference or random)
-          reading_num = preferences[:midday_reading]
-          reading_num ||= seeded_random(1..3, key: :midday_reading) # Random selection if no preference
-
-          reading = fetch_liturgical_text("midday_reading_#{reading_num}")
-          if reading
-            lines << line_item(reading.content, type: "leader")
-            lines << line_item("", type: "spacer")
+          Array(resolve_preference(preferences[:midday_reading], 1..3, :midday__midday_reading) || seeded_random(1..3, key: :midday_reading)).each do |reading_num|
+            reading = fetch_liturgical_text("midday_reading_#{reading_num}")
+            if reading
+              lines << line_item(reading.content, type: "leader")
+              lines << line_item("", type: "spacer")
+            end
           end
 
           return nil if lines.empty?
