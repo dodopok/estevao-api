@@ -148,8 +148,8 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
 
     it 'handles all preference combinations' do
       preferences_combinations = [
-        { welcome_style: 'traditional' },
-        { welcome_style: 'contemporary' },
+        { prayer_style: 'traditional' },
+        { prayer_style: 'contemporary' },
         { creed_paraphrase: true },
         { creed_paraphrase: false },
         { first_canticle: 2 },

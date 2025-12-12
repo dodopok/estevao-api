@@ -47,7 +47,7 @@ module DailyOffice
         # WELCOME - Separate module for Acolhida
         def build_welcome(office_type)
           # Welcome text (traditional or contemporary based on preference)
-          welcome_slug = preferences[:welcome_style] == "contemporary" ?
+          welcome_slug = preferences[:prayer_style] == "contemporary" ?
                         "morning_welcome_contemporary" : "morning_welcome_traditional"
           welcome = fetch_liturgical_text(welcome_slug)
           return nil unless welcome

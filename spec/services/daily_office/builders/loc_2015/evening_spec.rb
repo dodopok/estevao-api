@@ -131,16 +131,16 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
       end
     end
 
-    it 'respects welcome_style preference' do
+    it 'respects prayer_style preference' do
       traditional_builder = test_class.new(
         date: date,
         office_type: :evening,
-        preferences: { welcome_style: 'traditional' }
+        preferences: { prayer_style: 'traditional' }
       )
       contemporary_builder = test_class.new(
         date: date,
         office_type: :evening,
-        preferences: { welcome_style: 'contemporary' }
+        preferences: { prayer_style: 'contemporary' }
       )
 
       # Both should return valid structures (content may differ)

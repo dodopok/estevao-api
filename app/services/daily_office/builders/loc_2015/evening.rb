@@ -47,7 +47,7 @@ module DailyOffice
         def build_welcome(office_type)
           lines = []
           # Welcome text (traditional or contemporary based on preference)
-          welcome_slug = preferences[:welcome_style] == "contemporary" ?
+          welcome_slug = preferences[:prayer_style] == "contemporary" ?
                         "evening_welcome_contemporary" : "evening_welcome_traditional"
           welcome = fetch_liturgical_text(welcome_slug)
 
