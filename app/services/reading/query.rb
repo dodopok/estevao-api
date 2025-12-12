@@ -4,30 +4,35 @@ module Reading
   # Query object for LectionaryReading lookups
   # Centralizes common query patterns for readings
   class Query
-    def initialize(prayer_book_id:, cycle:)
+    def initialize(prayer_book_id:, cycle:, reading_type: nil)
       @prayer_book_id = prayer_book_id
       @cycle = cycle
+      @reading_type = reading_type
     end
 
     # Find reading by date reference for eucharist service
     def find_by_reference(reference)
       return nil unless reference
 
-      LectionaryReading.for_date_reference(reference)
-                       .where(cycle: cycles)
-                       .for_prayer_book_id(prayer_book_id)
-                       .service_type_eucharist
-                       .first
+      query = LectionaryReading.for_date_reference(reference)
+                               .where(cycle: cycles)
+                               .for_prayer_book_id(prayer_book_id)
+                               .service_type_eucharist
+
+      query = apply_reading_type_filter(query) if reading_type.present?
+      query.first
     end
 
     # Find reading by celebration ID for eucharist service
     def find_by_celebration_id(celebration_id)
       return nil unless celebration_id
 
-      LectionaryReading.where(celebration_id: celebration_id, cycle: cycles)
-                       .for_prayer_book_id(prayer_book_id)
-                       .service_type_eucharist
-                       .first
+      query = LectionaryReading.where(celebration_id: celebration_id, cycle: cycles)
+                               .for_prayer_book_id(prayer_book_id)
+                               .service_type_eucharist
+
+      query = apply_reading_type_filter(query) if reading_type.present?
+      query.first
     end
 
     # Find reading from multiple references (returns first match)
@@ -43,11 +48,13 @@ module Reading
     def find_weekly(reference)
       return nil unless reference
 
-      LectionaryReading.for_date_reference(reference)
-                       .where(cycle: weekly_cycles)
-                       .for_prayer_book_id(prayer_book_id)
-                       .weekly
-                       .first
+      query = LectionaryReading.for_date_reference(reference)
+                               .where(cycle: weekly_cycles)
+                               .for_prayer_book_id(prayer_book_id)
+                               .weekly
+
+      query = apply_reading_type_filter(query) if reading_type.present?
+      query.first
     end
 
     # Find weekly reading from multiple references
@@ -61,7 +68,7 @@ module Reading
 
     private
 
-    attr_reader :prayer_book_id, :cycle
+    attr_reader :prayer_book_id, :cycle, :reading_type
 
     def cycles
       [ cycle, "all" ]
@@ -72,6 +79,11 @@ module Reading
       # Others use odd/even (biennial cycle based on civil year)
       odd_even = Date.current.year.odd? ? "odd" : "even"
       [ cycle, "A", "B", "C", odd_even, "all" ]
+    end
+
+    # Apply reading_type filter with OR NULL logic
+    def apply_reading_type_filter(query)
+      query.where("reading_type = ? OR reading_type IS NULL", reading_type)
     end
   end
 end

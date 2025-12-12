@@ -11,17 +11,33 @@ module Api
       # Retorna as leituras para um dia específico
       def day
         date = parse_date
-        cycle = determine_cycle(date)
 
-        # Busca leituras
-        readings = find_readings_for_date(date, cycle)
+        # Usa o ReadingService para buscar leituras
+        reading_service = ReadingService.for(
+          date,
+          prayer_book_code: resolved_prayer_book_code,
+          translation: resolved_bible_version,
+          reading_type: resolved_preferences[:reading_type]
+        )
 
-        if readings
-          render json: format_readings_response(readings, date, cycle)
+        readings = reading_service.find_readings
+
+        if readings && readings[:first_reading]
+          render json: {
+            data: date.to_s,
+            dia_da_semana: day_name_pt(date),
+            ciclo: reading_service.cycle,
+            leituras: {
+              primeira_leitura: readings[:first_reading][:reference],
+              salmo: readings[:psalm][:reference],
+              segunda_leitura: readings[:second_reading]&.dig(:reference),
+              evangelho: readings[:gospel]&.dig(:reference)
+            }
+          }
         else
           render json: {
             data: date.to_s,
-            ciclo: cycle,
+            ciclo: reading_service.cycle,
             mensagem: "Leituras não encontradas para esta data. Por favor, adicione-as ao banco de dados."
           }, status: :not_found
         end
@@ -33,19 +49,30 @@ module Api
       # Retorna leituras para todos os ofícios do dia (Eucaristia, Matinas, Vésperas)
       def all_services
         date = parse_date
-        cycle = determine_cycle(date)
 
-        eucharist = find_readings_for_date(date, cycle, "eucharist")
-        morning = find_readings_for_date(date, cycle, "morning_prayer")
-        evening = find_readings_for_date(date, cycle, "evening_prayer")
+        # TODO: Implementar lógica para buscar leituras de múltiplos serviços
+        # Por enquanto, retorna apenas leituras eucarísticas
+        reading_service = ReadingService.for(
+          date,
+          prayer_book_code: resolved_prayer_book_code,
+          translation: resolved_bible_version,
+          reading_type: resolved_preferences[:reading_type]
+        )
+
+        readings = reading_service.find_readings
 
         render json: {
           data: date.to_s,
           dia_da_semana: day_name_pt(date),
-          ciclo: cycle,
-          santa_eucaristia: eucharist ? format_reading(eucharist) : nil,
-          oracao_matutina: morning ? format_reading(morning) : nil,
-          oracao_vespertina: evening ? format_reading(evening) : nil
+          ciclo: reading_service.cycle,
+          santa_eucaristia: readings && readings[:first_reading] ? {
+            primeira_leitura: readings[:first_reading][:reference],
+            salmo: readings[:psalm][:reference],
+            segunda_leitura: readings[:second_reading]&.dig(:reference),
+            evangelho: readings[:gospel]&.dig(:reference)
+          } : nil,
+          oracao_matutina: nil,
+          oracao_vespertina: nil
         }
       rescue ArgumentError => e
         render json: { error: "Data inválida: #{e.message}" }, status: :bad_request
@@ -100,95 +127,12 @@ module Api
         raise ArgumentError, "Data inválida: #{year}-#{month}-#{day}"
       end
 
-      def determine_cycle(date)
-        if date.sunday?
-          LectionaryReading.cycle_for_year(date.year)
-        else
-          LectionaryReading.even_or_odd_year?(date.year)
-        end
+      def resolved_prayer_book_code
+        resolved_preferences[:prayer_book_code] || "loc_2015"
       end
 
-      def resolved_reading_type
-        resolved_preferences[:reading_type] || "semicontinuous"
-      end
-
-      def find_readings_for_date(date, cycle, service_type = "eucharist")
-        prayer_book = resolved_prayer_book
-        reading_type = resolved_reading_type
-
-        # Primeiro tenta encontrar por celebração fixa
-        celebration = Celebration.fixed.for_date(date.month, date.day).where(prayer_book_id: prayer_book.id).first
-
-        if celebration
-          reading = LectionaryReading
-                      .where(celebration_id: celebration.id)
-                      .where(service_type: service_type)
-                      .where(prayer_book_id: prayer_book.id)
-                      .where(reading_type: reading_type)
-                      .where("cycle = ? OR cycle = ?", cycle, "all")
-                      .first
-
-          # Fallback: se não encontrou com o reading_type preferido, tenta semicontinuous
-          reading ||= LectionaryReading
-                        .where(celebration_id: celebration.id)
-                        .where(service_type: service_type)
-                        .where(prayer_book_id: prayer_book.id)
-                        .where(reading_type: "semicontinuous")
-                        .where("cycle = ? OR cycle = ?", cycle, "all")
-                        .first if reading_type != "semicontinuous"
-
-          return reading if reading
-        end
-
-        # Se não encontrou, busca por referência de data (domingo ou dia da semana)
-        calendar = LiturgicalCalendar.new(date.year)
-        date_ref = if date.sunday?
-          calendar.sunday_name(date)&.parameterize(separator: "_")
-        else
-          season = calendar.season_for_date(date)
-          "#{season.parameterize(separator: '_')}_weekday"
-        end
-
-        return nil unless date_ref
-
-        reading = LectionaryReading
-                    .for_date_reference(date_ref)
-                    .where(service_type: service_type)
-                    .where(prayer_book_id: prayer_book.id)
-                    .where(reading_type: reading_type)
-                    .where("cycle = ? OR cycle = ?", cycle, "all")
-                    .first
-
-        # Fallback: se não encontrou com o reading_type preferido, tenta semicontinuous
-        reading ||= LectionaryReading
-                      .for_date_reference(date_ref)
-                      .where(service_type: service_type)
-                      .where(prayer_book_id: prayer_book.id)
-                      .where(reading_type: "semicontinuous")
-                      .where("cycle = ? OR cycle = ?", cycle, "all")
-                      .first if reading_type != "semicontinuous"
-
-        reading
-      end
-
-      def format_readings_response(reading, date, cycle)
-        {
-          data: date.to_s,
-          dia_da_semana: day_name_pt(date),
-          ciclo: cycle,
-          tipo_servico: service_type_pt(reading.service_type),
-          leituras: format_reading(reading)
-        }
-      end
-
-      def format_reading(reading)
-        {
-          primeira_leitura: reading.first_reading,
-          salmo: reading.psalm,
-          segunda_leitura: reading.second_reading,
-          evangelho: reading.gospel,
-          notas: reading.notes
-        }
+      def resolved_bible_version
+        resolved_preferences[:bible_version] || "nvi"
       end
 
       def day_name_pt(date)

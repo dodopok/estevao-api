@@ -187,4 +187,104 @@ RSpec.describe Reading::Loc2015Service do
       expect(service.send(:reflection_day?)).to be false
     end
   end
+
+  describe "reading_type preferences (semicontinuous vs complementary)" do
+    let!(:semicontinuous_reading) do
+      create(:lectionary_reading,
+             prayer_book: prayer_book,
+             date_reference: "proper_4_monday",
+             cycle: "A",
+             service_type: "weekly",
+             reading_type: "semicontinuous",
+             psalm: "Salmo 1",
+             first_reading: "Gênesis 1.1-5",
+             second_reading: "Romanos 1.1-7")
+    end
+
+    let!(:complementary_reading) do
+      create(:lectionary_reading,
+             prayer_book: prayer_book,
+             date_reference: "proper_4_monday",
+             cycle: "A",
+             service_type: "weekly",
+             reading_type: "complementary",
+             psalm: "Salmo 2",
+             first_reading: "Êxodo 1.1-7",
+             second_reading: "Romanos 1.1-7")
+    end
+
+    let!(:nil_reading_type_reading) do
+      create(:lectionary_reading,
+             prayer_book: prayer_book,
+             date_reference: "christmas_day",
+             cycle: "all",
+             service_type: "eucharist",
+             reading_type: nil,
+             psalm: "Salmo 98",
+             first_reading: "Isaías 9.2-7",
+             second_reading: "Tito 2.11-14")
+    end
+
+    context "database queries for reading_type" do
+      it "finds semicontinuous reading when searching with reading_type = semicontinuous" do
+        result = LectionaryReading
+                   .where(prayer_book_id: prayer_book.id)
+                   .where(date_reference: "proper_4_monday")
+                   .where("reading_type = ? OR reading_type IS NULL", "semicontinuous")
+                   .first
+
+        expect(result).to be_present
+        expect(result.reading_type).to eq("semicontinuous")
+        expect(result.psalm).to eq("Salmo 1")
+      end
+
+      it "finds complementary reading when searching with reading_type = complementary" do
+        result = LectionaryReading
+                   .where(prayer_book_id: prayer_book.id)
+                   .where(date_reference: "proper_4_monday")
+                   .where("reading_type = ? OR reading_type IS NULL", "complementary")
+                   .first
+
+        expect(result).to be_present
+        expect(result.reading_type).to eq("complementary")
+        expect(result.psalm).to eq("Salmo 2")
+      end
+
+      it "finds reading with nil reading_type for any preference" do
+        result = LectionaryReading
+                   .where(prayer_book_id: prayer_book.id)
+                   .where(date_reference: "christmas_day")
+                   .where("reading_type = ? OR reading_type IS NULL", "semicontinuous")
+                   .first
+
+        expect(result).to be_present
+        expect(result.reading_type).to be_nil
+        expect(result.psalm).to eq("Salmo 98")
+      end
+
+      it "falls back to nil reading_type when preferred type doesn't exist" do
+        # Create a reading that only exists as nil
+        create(:lectionary_reading,
+               prayer_book: prayer_book,
+               date_reference: "proper_5_tuesday",
+               cycle: "A",
+               service_type: "weekly",
+               reading_type: nil,
+               psalm: "Salmo 50",
+               first_reading: "Jeremias 1.1-10",
+               second_reading: "1 Coríntios 1.1-9")
+
+        # Search for semicontinuous but only nil exists
+        result = LectionaryReading
+                   .where(prayer_book_id: prayer_book.id)
+                   .where(date_reference: "proper_5_tuesday")
+                   .where("reading_type = ? OR reading_type IS NULL", "semicontinuous")
+                   .first
+
+        expect(result).to be_present
+        expect(result.reading_type).to be_nil
+        expect(result.psalm).to eq("Salmo 50")
+      end
+    end
+  end
 end

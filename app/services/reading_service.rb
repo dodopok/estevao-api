@@ -18,24 +18,25 @@ class ReadingService
   # Seasons where Sunday takes precedence over minor festivals
   MAJOR_SEASONS = %w[Advento Quaresma Páscoa].freeze
 
-  attr_reader :date, :calendar, :cycle, :translation
+  attr_reader :date, :calendar, :cycle, :translation, :reading_type
 
   # Factory method que retorna o serviço apropriado baseado no prayer_book_code
-  def self.for(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi")
+  def self.for(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi", reading_type: nil)
     case prayer_book_code
     when "loc_2015"
-      Reading::Loc2015Service.new(date, calendar: calendar, translation: translation)
+      Reading::Loc2015Service.new(date, calendar: calendar, translation: translation, reading_type: reading_type)
     else
-      new(date, prayer_book_code: prayer_book_code, calendar: calendar, translation: translation)
+      new(date, prayer_book_code: prayer_book_code, calendar: calendar, translation: translation, reading_type: reading_type)
     end
   end
 
-  def initialize(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi")
+  def initialize(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi", reading_type: nil)
     @date = date
     @calendar = calendar || LiturgicalCalendar.new(date.year)
     @cycle = determine_cycle
     @prayer_book_code = prayer_book_code
     @translation = translation
+    @reading_type = reading_type
   end
 
   # Retorna as leituras para o dia
@@ -47,7 +48,7 @@ class ReadingService
   private
 
   def query
-    @query ||= Reading::Query.new(prayer_book_id: prayer_book_id, cycle: cycle)
+    @query ||= Reading::Query.new(prayer_book_id: prayer_book_id, cycle: cycle, reading_type: reading_type)
   end
 
   def reference_builder
