@@ -38,7 +38,7 @@ loc_2015_preferences = [
           { value: "traditional", label: "Orações Tradicionais", description: "Linguagem clássica e formal" },
           { value: "contemporary", label: "Orações Contemporâneas", description: "Linguagem moderna e atualizada" }
         ]
-      },
+      }
     ]
   },
   {
@@ -81,7 +81,7 @@ loc_2015_preferences = [
         options: [
           { value: "long", label: "Longa", description: "Irmãs e irmãos em Cristo, na presença de Deus..." },
           { value: "short", label: "Breve", description: "Confessemos humildemente os nossos pecados a Deus Todo-poderoso." },
-          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
         ]
       },
       {
@@ -96,7 +96,7 @@ loc_2015_preferences = [
           { value: "1", label: "1", description: "Misericordioso Deus, confessamos que temos pecado contra ti..." },
           { value: "2", label: "2", description: "Ó Deus, sentimos sobre nossos ombros o peso..." },
           { value: "3", label: "3", description: "Tem misericórdia de nós, ó Deus, segundo a tua benignidade..." },
-          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
         ]
       },
       {
@@ -170,7 +170,7 @@ loc_2015_preferences = [
         options: [
           { value: "1", label: "1", description: "Ó Senhor, mostra-nos a tua misericórdia..." },
           { value: "2", label: "2", description: "Salva, ó Deus, o teu povo..." },
-          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
         ]
       },
       {
@@ -189,7 +189,7 @@ loc_2015_preferences = [
           { value: "for_parish_family", label: "Pela família paroquial", description: "Ó Deus, Espírito Santo, Santificador das pessoas fiéis..." },
           { value: "for_all_humanity", label: "Por toda a humanidade", description: "Ó Deus, Criador e Protetor de todo o gênero humano..." },
           { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
-          { value: "all", label: "Todas", description: "Quero todas as coletas" },
+          { value: "all", label: "Todas", description: "Quero todas as coletas" }
         ]
       },
       {
@@ -204,7 +204,7 @@ loc_2015_preferences = [
           { value: "1", label: "1", description: "Nós te bendizemos por nossa criação..." },
           { value: "2", label: "2", description: "Pelo dom de teu Espírito. Bendito sejas, ó Cristo..." },
           { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
-          { value: "all", label: "Todas", description: "Quero ambas as coletas" },
+          { value: "all", label: "Todas", description: "Quero ambas as coletas" }
         ]
       },
       {
@@ -288,7 +288,7 @@ loc_2015_preferences = [
         options: [
           { value: "long", label: "Longa", description: "Queridas irmãs e irmãos, as Santas Escrituras nos lembram..." },
           { value: "short", label: "Breve", description: "Confessemos humildemente os nossos pecados a Deus Todo-poderoso." },
-          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
         ]
       },
       {
@@ -303,7 +303,7 @@ loc_2015_preferences = [
           { value: "1", label: "1", description: "Justo e compassivo Deus, nós chegamos à tua presença..." },
           { value: "2", label: "2", description: "Ó Deus de misericórdia; temos errado..." },
           { value: "3", label: "3", description: "Deus Santíssimo e misericordioso, confessamos a ti ..." },
-          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
         ]
       },
       {
@@ -377,7 +377,7 @@ loc_2015_preferences = [
         options: [
           { value: "1", label: "1", description: "Ó Senhor, mostra-nos a tua misericórdia..." },
           { value: "2", label: "2", description: "Para que esta noite seja santa, boa e pacífica..." },
-          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
         ]
       },
       {
@@ -398,7 +398,7 @@ loc_2015_preferences = [
           { value: "evening_for_parish_family", label: "Pela família paroquial", description: "Deus cheio de graça, humildemente suplicamos..." },
           { value: "litany_for_all_humanity", label: "Litania por toda a humanidade", description: "Sobre a Igreja Una, Santa, Católica e Apostólica..." },
           { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
-          { value: "all", label: "Todas", description: "Quero todas as coletas" },
+          { value: "all", label: "Todas", description: "Quero todas as coletas" }
         ]
       },
       {
@@ -413,7 +413,7 @@ loc_2015_preferences = [
           { value: "1", label: "1", description: "Nós te bendizemos por nossa criação..." },
           { value: "2", label: "2", description: "Pelo dom de teu Espírito. Bendito sejas, ó Cristo..." },
           { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
-          { value: "all", label: "Todas", description: "Quero ambas as coletas" },
+          { value: "all", label: "Todas", description: "Quero ambas as coletas" }
         ]
       },
       {
