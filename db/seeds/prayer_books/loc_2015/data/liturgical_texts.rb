@@ -3445,7 +3445,7 @@ LiturgicalText.find_or_create_by!(slug: 'evening_for_parish_family', prayer_book
 end
 
 # Litania por toda a humanidade
-LiturgicalText.find_or_create_by!(slug: 'litania_for_all_humanity', prayer_book_id: prayer_book.id) do |lt|
+LiturgicalText.find_or_create_by!(slug: 'litany_for_all_humanity', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'prayer'
   lt.content = <<~TEXT
     Sobre a Igreja Una, Santa, Católica e Apostólica,

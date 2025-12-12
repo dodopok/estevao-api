@@ -74,13 +74,6 @@ else
   puts "⚠️  Arquivo de estações litúrgicas não encontrado."
 end
 
-# Categorias e Definições de Preferências
-if File.exist?(Rails.root.join('db/seeds/preferences.rb'))
-  load Rails.root.join('db/seeds/preferences.rb')
-else
-  puts "⚠️  Arquivo de preferências não encontrado."
-end
-
 # ================================================================================
 # LEITURAS DO LECIONÁRIO E COLETAS POR LIVRO DE ORAÇÃO
 # ================================================================================
