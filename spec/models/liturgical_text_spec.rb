@@ -32,27 +32,27 @@ RSpec.describe LiturgicalText, type: :model do
 
     it 'returns audio URL when it exists' do
       liturgical_text.update(audio_urls: { 'male_1' => '/audio/test.mp3' })
-      expect(liturgical_text.audio_url_for_voice('male_1')).to eq('http://localhost:3000/audio/test.mp3')
+      expect(liturgical_text.audio_url_for_voice('male_1')).to eq('/audio/test.mp3')
     end
 
     it 'accepts symbol as voice key' do
       liturgical_text.update(audio_urls: { 'female_1' => '/audio/female.mp3' })
-      expect(liturgical_text.audio_url_for_voice(:female_1)).to eq('http://localhost:3000/audio/female.mp3')
+      expect(liturgical_text.audio_url_for_voice(:female_1)).to eq('/audio/female.mp3')
     end
   end
 
   describe '#set_audio_url' do
     it 'sets audio URL for a voice' do
       liturgical_text.set_audio_url('male_1', '/audio/new.mp3')
-      expect(liturgical_text.audio_url_for_voice('male_1')).to eq('http://localhost:3000/audio/new.mp3')
+      expect(liturgical_text.audio_url_for_voice('male_1')).to eq('/audio/new.mp3')
     end
 
     it 'preserves existing URLs for other voices' do
       liturgical_text.update(audio_urls: { 'male_1' => '/audio/male.mp3' })
       liturgical_text.set_audio_url('female_1', '/audio/female.mp3')
 
-      expect(liturgical_text.audio_url_for_voice('male_1')).to eq('http://localhost:3000/audio/male.mp3')
-      expect(liturgical_text.audio_url_for_voice('female_1')).to eq('http://localhost:3000/audio/female.mp3')
+      expect(liturgical_text.audio_url_for_voice('male_1')).to eq('/audio/male.mp3')
+      expect(liturgical_text.audio_url_for_voice('female_1')).to eq('/audio/female.mp3')
     end
   end
 
