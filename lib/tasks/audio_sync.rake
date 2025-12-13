@@ -33,12 +33,12 @@ namespace :audio do
 
       prayer_book_code = match[1]
       voice_key = match[2]
-      text_id = match[4].to_i
+      slug = match[5] # Extract slug from filename
       
-      # Find liturgical text
-      text = LiturgicalText.find_by(id: text_id, prayer_book: prayer_book)
+      # Find liturgical text by slug instead of ID
+      text = LiturgicalText.find_by(slug: slug, prayer_book: prayer_book)
       unless text
-        puts "⚠️  Text ##{text_id} not found, skipping: #{file_path}"
+        puts "⚠️  Text '#{slug}' not found, skipping: #{file_path}"
         failed_count += 1
         next
       end
