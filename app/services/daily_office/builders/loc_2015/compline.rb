@@ -176,8 +176,6 @@ module DailyOffice
 
         # 4. PSALMS
         def build_psalms
-          sections = []
-
           psalm_slugs = {
             1 => "cum_invocarem",    # Psalm 4
             2 => "qui_habitat",      # Psalm 91
@@ -185,35 +183,38 @@ module DailyOffice
           }
 
           # Get selected psalms from preferences using resolve_preference
-          selected_psalms = resolve_preference(
+          selected_psalms = Array(resolve_preference(
             :compline_inviting_canticle,
             [ 1, 2, 3 ]
-          ) || [ 1, 2, 3 ]
+          ) || [ 1, 2, 3 ])
 
-          Array(selected_psalms).each do |psalm_num|
+          # Return array of psalm modules (one per psalm)
+          modules = selected_psalms.map do |psalm_num|
             psalm = fetch_liturgical_text(psalm_slugs[psalm_num])
-            if psalm
-              lines = []
-              lines << line_item(psalm.content, type: "congregation")
+            next unless psalm
 
-              sections << {
-                name: [ psalm.title, psalm.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Salmo",
-                slug: psalm_slugs[psalm_num],
-                lines: lines
-              }
-            end
+            {
+              name: [psalm.title, psalm.reference&.then { |ref| "(#{ref})" }].compact.join(" ").presence || "Salmo",
+              slug: psalm_slugs[psalm_num],
+              lines: [
+                line_item(psalm.content, type: "congregation")
+              ]
+            }
+          end.compact
+
+          # Add silence rubric as separate module after all psalms
+          silence_rubric = fetch_liturgical_text("compline_rubric_silence")
+          if silence_rubric && modules.any?
+            modules << {
+              name: "",
+              slug: "rubric_silence",
+              lines: [
+                line_item(silence_rubric.content, type: "rubric")
+              ]
+            }
           end
 
-          # Add silence rubric as the last section after all psalms
-          if sections.any?
-            silence_rubric = fetch_liturgical_text("compline_rubric_silence")
-            if silence_rubric
-              sections.last[:lines] << line_item("", type: "spacer")
-              sections.last[:lines] << line_item(silence_rubric.content, type: "rubric")
-            end
-          end
-
-          sections
+          modules
         end
 
         # ============================================================================
@@ -232,12 +233,11 @@ module DailyOffice
           end
 
           # Brief lesson (3 options: Jeremiah, Matthew, Hebrews)
-          Array(resolve_preference(:compline_lesson, 1..3) || 1).each do |lesson_num|
-            lesson = fetch_liturgical_text("compline_brief_lesson_#{lesson_num}")
-            if lesson
-              lines << line_item(lesson.content, type: "leader")
-              lines << line_item("", type: "spacer")
-            end
+          lesson_num = resolve_preference(:compline_brief_lesson, 1..3) 
+          lesson = fetch_liturgical_text("compline_brief_lesson_#{lesson_num}")
+          if lesson
+            lines << line_item(lesson.content, type: "leader")
+            lines << line_item("", type: "spacer")
           end
 
           # Post-lessons rubric (mentions Te Lucis hymn)
@@ -323,7 +323,7 @@ module DailyOffice
           end
 
           # Final prayers (6 options - can select multiple)
-          selected_collects = resolve_preference(:compline_collects, 1..6) || [ 1 ]
+          selected_collects = resolve_preference(:compline_final_prayer, 1..6)
 
           Array(selected_collects).each_with_index do |collect_num, index|
             collect = fetch_liturgical_text("compline_final_prayer_#{collect_num}")
