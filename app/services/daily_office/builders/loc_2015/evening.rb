@@ -39,7 +39,7 @@ module DailyOffice
             build_general_thanksgiving,
             build_chrysostom_prayer,
             build_dismissal
-          ].compact
+          ].flatten.compact
         end
 
         # ============================================================================
@@ -70,11 +70,10 @@ module DailyOffice
           }
         end
 
-        # PSALMS - Delegate to psalm_builder with LOC-specific rubric
+        # PSALMS - Use readings[:psalm] reference to fetch psalm content
         def build_psalms
-          # Get psalms from psalm_builder component
-          result = psalm_builder.build_psalms(office_type)
-          return nil unless result
+          psalm_ref = readings[:psalm]
+          return nil unless psalm_ref&.dig(:reference)
 
           lines = []
 
@@ -85,8 +84,21 @@ module DailyOffice
             lines << line_item("", type: "spacer")
           end
 
-          # Add the psalm lines from the component
-          lines.concat(result[:lines])
+          # Add psalm reference as heading
+          lines << line_item(psalm_ref[:reference], type: "heading")
+          lines << line_item("", type: "spacer")
+
+          # Add psalm text from Bible (if available in readings)
+          if psalm_ref[:content]
+            lines.concat(format_bible_content(psalm_ref[:content]))
+            lines << line_item("", type: "spacer")
+          end
+
+          # Gloria Patri
+          gloria_patri = fetch_liturgical_text("gloria_patri")
+          if gloria_patri
+            lines << line_item(gloria_patri.content, type: "all")
+          end
 
           {
             name: "Salmos",
@@ -278,24 +290,24 @@ module DailyOffice
         # 7. FIRST CANTICLE
         def build_first_canticle
           # Choose canticle: magnificat, bonum_est_confiteri, or benedictus
-          canticle_num = preferences[:first_canticle] || 1
-          canticle_slug = case canticle_num
-          when 2 then "bonum_est_confiteri"
-          when 3 then "benedictus"
-          else "magnificat"
-          end
+          canticle_slugs = Array(resolve_preference(
+            :evening_post_first_reading_canticle,
+            %w[magnificat bonum_est_confiteri benedictus]
+          ))
 
-          canticle = fetch_liturgical_text(canticle_slug)
-          return nil unless canticle
+          # Return array of canticle modules (one per canticle)
+          canticle_slugs.map do |canticle_slug|
+            canticle = fetch_liturgical_text(canticle_slug)
+            next unless canticle
 
-          lines = []
-          lines << line_item(canticle.content, type: "congregation")
-
-          {
-            name: [ canticle&.title, canticle&.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Cântico",
-            slug: "first_canticle",
-            lines: lines
-          }
+            {
+              name: [canticle.title, canticle.reference&.then { |ref| "(#{ref})" }].compact.join(" ").presence || "Cântico",
+              slug: canticle_slug,
+              lines: [
+                line_item(canticle.content, type: "congregation")
+              ]
+            }
+          end.compact
         end
 
         # 8. SECOND READING
@@ -317,31 +329,40 @@ module DailyOffice
         # 9. SECOND CANTICLE
         def build_second_canticle
           # Choose canticle: nunc_dimittis, deus_misereatur, or dignus_es
-          canticle_num = preferences[:second_canticle] || 1
-          canticle_slug = case canticle_num
-          when 2 then "deus_misereatur"
-          when 3 then "dignus_es"
-          else "nunc_dimittis"
+          canticle_slugs = Array(resolve_preference(
+            :evening_post_second_reading_canticle,
+            %w[nunc_dimittis deus_misereatur dignus_es]
+          ))
+
+          modules = []
+
+          # Return array of canticle modules (one per canticle)
+          canticle_slugs.each do |canticle_slug|
+            canticle = fetch_liturgical_text(canticle_slug)
+            next unless canticle
+
+            modules << {
+              name: [canticle.title, canticle.reference&.then { |ref| "(#{ref})" }].compact.join(" ").presence || "Cântico",
+              slug: canticle_slug,
+              lines: [
+                line_item(canticle.content, type: "congregation")
+              ]
+            }
           end
 
-          canticle = fetch_liturgical_text(canticle_slug)
-          return nil unless canticle
-
-          lines = []
-          lines << line_item(canticle.content, type: "congregation")
-
-          # End rubric (mentions Creed)
+          # Add end rubric as separate module
           end_rubric = fetch_liturgical_text("rubric_end_second_canticle")
           if end_rubric
-            lines << line_item("", type: "spacer")
-            lines << line_item(end_rubric.content, type: "rubric")
+            modules << {
+              name: "",
+              slug: "rubric_end_second_canticle",
+              lines: [
+                line_item(end_rubric.content, type: "rubric")
+              ]
+            }
           end
 
-          {
-            name: [ canticle&.title, canticle&.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Cântico",
-            slug: "second_canticle",
-            lines: lines
-          }
+          modules
         end
 
         # ============================================================================
@@ -420,7 +441,7 @@ module DailyOffice
           end
 
           # Invocation (2 options)
-          Array(resolve_preference(:our_father_invocation, 1..2) || 1).each do |invocation_num|
+          Array(resolve_preference(:evening_post_lords_prayer_prayer, 1..2) || 1).each do |invocation_num|
             invocation = fetch_liturgical_text("invocation_our_father_#{invocation_num}")
             if invocation
               lines << line_item(invocation.content, type: "responsive")
@@ -447,7 +468,7 @@ module DailyOffice
             closing_prayer = fetch_liturgical_text("evening_closing_prayer")
             lines << line_item(closing_prayer.content, type: "responsive") if closing_prayer
           else
-            Array(resolve_preference(:mercy_prayer, 1..3) || 1).each do |prayer_num|
+            Array(resolve_preference(:evening_post_lords_prayer_prayer, 1..3) || 1).each do |prayer_num|
               suffrages = fetch_liturgical_text("mercy_prayer_#{prayer_num}")
               lines << line_item(suffrages.content, type: "responsive") if suffrages
             end
@@ -538,7 +559,7 @@ module DailyOffice
           end
 
           # Thanksgiving prayer (2 options)
-          Array(resolve_preference(:thanksgiving_prayer, 1..2) || 1).each do |thanksgiving_num|
+          Array(resolve_preference(:evening_general_thanksgivings, 1..2) || 1).each do |thanksgiving_num|
             thanksgiving = fetch_liturgical_text("general_thanksgiving_#{thanksgiving_num}")
             next unless thanksgiving
 
@@ -635,8 +656,11 @@ module DailyOffice
           # Use Pascha Nostrum during Easter season
           return "pascha_nostrum" if season&.downcase == "páscoa"
 
-          # Use Ecce Nunc or Phos Hilaron based on preference
-          preferences[:invitatory_canticle] == "ecce_nunc" ? "ecce_nunc" : "phos_hilaron"
+          # Use resolve_preference for user preference between Ecce Nunc and Phos Hilaron
+          resolve_preference(
+            :evening_invitatory_canticle,
+            %w[phos_hilaron ecce_nunc]
+          )
         end
       end
     end

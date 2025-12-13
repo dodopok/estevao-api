@@ -153,8 +153,8 @@ module DailyOffice
             lines << line_item("", type: "spacer")
           end
 
-          # Get selected reading (from preference or random)
-          Array(resolve_preference(:midday_reading, 1..3) || seeded_random(1..3, key: :midday_reading)).each do |reading_num|
+          # Show all three readings sequentially
+          (1..3).each do |reading_num|
             reading = fetch_liturgical_text("midday_reading_#{reading_num}")
             if reading
               lines << line_item(reading.content, type: "leader")

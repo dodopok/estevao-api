@@ -2543,7 +2543,7 @@ LiturgicalText.find_or_create_by!(slug: 'midday_dismissal', prayer_book_id: pray
     quebrando barreiras
     e trazendo a paz.
     Bendigamos ao Senhor! Aleluia!
-    Graças rendamos a Deus! Aleluia!
+    **Graças rendamos a Deus! Aleluia!**
   TEXT
   lt.language = 'pt-BR'
 end
@@ -2557,7 +2557,7 @@ LiturgicalText.find_or_create_by!(slug: 'midday_dismissal_lent', prayer_book_id:
     quebrando barreiras
     e trazendo a paz.
     Bendigamos ao Senhor!
-    Graças rendamos a Deus!
+    **Graças rendamos a Deus!**
   TEXT
   lt.language = 'pt-BR'
 end
