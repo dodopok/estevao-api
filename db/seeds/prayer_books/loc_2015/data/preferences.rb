@@ -153,7 +153,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "apostolic",
-        position: 5,
+        position: 6,
         options: [
           { value: "apostolic", label: "Credo Apostólico", description: "Creio em Deus Pai todo-poderoso..." },
           { value: "apostolic_paraphrase", label: "Paráfrase do Credo Apostólico", description: "Bendigamos a Deus, Pai, Filho e Espírito Santo..." }
@@ -166,7 +166,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 6,
+        position: 7,
         options: [
           { value: "1", label: "1", description: "Ó Senhor, mostra-nos a tua misericórdia..." },
           { value: "2", label: "2", description: "Salva, ó Deus, o teu povo..." },
@@ -180,7 +180,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "for_peace",
-        position: 7,
+        position: 8,
         options: [
           { value: "for_peace", label: "Pela paz", description: "Ó Deus, que és o autor da paz..." },
           { value: "for_grace", label: "Pela graça", description: "Ó Deus Eterno, nosso Pai e Mãe de misericórdia..." },
@@ -199,7 +199,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 8,
+        position: 9,
         options: [
           { value: "1", label: "1", description: "Nós te bendizemos por nossa criação..." },
           { value: "2", label: "2", description: "Pelo dom de teu Espírito. Bendito sejas, ó Cristo..." },
@@ -214,7 +214,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 9,
+        position: 10,
         options: [
           { value: "1", label: "2 Co 13.14", description: "A Graça de nosso Senhor Jesus Cristo..." },
           { value: "2", label: "Nm 6.24-26", description: "O Senhor nos abençoe e nos guarde..." },
@@ -230,7 +230,7 @@ loc_2015_preferences = [
     name: "Oração do Meio-Dia",
     description: "Configure o ofício do meio-dia como preferir",
     icon: "wb_sunny_outlined",
-    position: 4,
+    position: 1,
     preferences: [
       {
         key: "midday_inviting_canticle",
@@ -439,7 +439,7 @@ loc_2015_preferences = [
     name: "Oração da Noite",
     description: "Configure o ofício das completas como preferir",
     icon: "wb_sunny_outlined",
-    position: 4,
+    position: 6,
     preferences: [
       {
         key: "compline_inviting_canticle",

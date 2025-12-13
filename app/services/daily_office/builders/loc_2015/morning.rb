@@ -489,7 +489,7 @@ module DailyOffice
 
           # General collects (6 options - can include all or select based on preferences)
           selected_collects = Array(resolve_preference(
-            preferences[:general_collects],
+            preferences[:morning_general_collects],
             GENERAL_COLLECT_SLUGS,
             :morning__general_collects
           ) || GENERAL_COLLECT_SLUGS)
