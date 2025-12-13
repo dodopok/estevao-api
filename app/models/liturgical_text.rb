@@ -16,7 +16,7 @@ class LiturgicalText < ApplicationRecord
     prayer_book = PrayerBook.find_by(code: code)
     where(prayer_book_id: prayer_book&.id)
   }
-  scope :for_audio_generation, -> { where.not(category: 'rubric') }
+  scope :for_audio_generation, -> { where.not(category: "rubric") }
 
   # Categories constants
   CATEGORIES = {
@@ -58,16 +58,16 @@ class LiturgicalText < ApplicationRecord
   def audio_url_for_voice(voice_key)
     relative_url = audio_urls[voice_key.to_s]
     return nil if relative_url.blank?
-    
+
     # Return full URL with CDN host or fallback to app host
-    cdn_host = ENV.fetch('AUDIO_CDN_HOST', nil)
-    
+    cdn_host = ENV.fetch("AUDIO_CDN_HOST", nil)
+
     if cdn_host.present?
       # CDN configured - return CDN URL
       "#{cdn_host}#{relative_url}"
     elsif Rails.env.production?
       # Production without CDN - use app host
-      app_host = ENV.fetch('APP_HOST', 'https://api.estevao.app')
+      app_host = ENV.fetch("APP_HOST", "https://api.estevao.app")
       "#{app_host}#{relative_url}"
     else
       # Development/test - return relative path (will be served by local server)

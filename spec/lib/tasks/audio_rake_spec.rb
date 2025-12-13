@@ -3,7 +3,7 @@ require 'rake'
 
 RSpec.describe 'audio rake tasks' do
   let(:prayer_book) { PrayerBook.find_or_create_by!(code: 'loc_2015') { |pb| pb.name = 'Liturgia das Horas' } }
-  
+
   before(:all) do
     Rails.application.load_tasks
   end
@@ -41,7 +41,7 @@ RSpec.describe 'audio rake tasks' do
         estimated_cost_usd: 0.01
       })
       allow(GenerateLiturgicalAudioJob).to receive(:perform_now)
-      
+
       # Clean up sessions to avoid conflicts
       AudioGenerationSession.delete_all
     end
@@ -84,13 +84,13 @@ RSpec.describe 'audio rake tasks' do
 
       session = AudioGenerationSession.last
       expect(session.prayer_book_code).to eq('loc_2015')
-      expect(session.voice_keys).to eq(['male_1'])
+      expect(session.voice_keys).to eq([ 'male_1' ])
       expect(session.status).to eq('completed')
     end
 
     it 'warns when generating audio for a rubric' do
       allow(STDIN).to receive(:gets).and_return("yes\n")
-      
+
       expect {
         Rake::Task['audio:generate_text'].reenable
         Rake::Task['audio:generate_text'].invoke('loc_2015', 'instruction', 'male_1')
@@ -99,7 +99,7 @@ RSpec.describe 'audio rake tasks' do
 
     it 'can cancel rubric generation' do
       allow(STDIN).to receive(:gets).and_return("no\n", "no\n")
-      
+
       expect(GenerateLiturgicalAudioJob).not_to receive(:perform_now)
 
       expect {
@@ -124,7 +124,7 @@ RSpec.describe 'audio rake tasks' do
 
     it 'handles invalid voice keys gracefully' do
       allow(STDIN).to receive(:gets).and_return("yes\n")
-      
+
       expect {
         Rake::Task['audio:generate_text'].reenable
         Rake::Task['audio:generate_text'].invoke('loc_2015', 'morning_invocation', 'invalid_voice,male_1')
@@ -140,7 +140,7 @@ RSpec.describe 'audio rake tasks' do
 
     it 'displays updated audio URLs after generation' do
       prayer_text.set_audio_url('male_1', '/audio/test.mp3')
-      
+
       expect {
         Rake::Task['audio:generate_text'].reenable
         Rake::Task['audio:generate_text'].invoke('loc_2015', 'morning_invocation', 'male_1')

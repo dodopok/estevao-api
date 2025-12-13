@@ -138,7 +138,7 @@ RSpec.describe ElevenlabsAudioService do
     it 'removes biblical references in format __(Reference)__' do
       text = "**Excelso é o SENHOR** __(Sl 113.4)__"
       result = service.send(:sanitize_text_for_audio, text)
-      
+
       expect(result).to eq("Excelso é o SENHOR")
       expect(result).not_to include("Sl 113.4")
       expect(result).not_to include("__")
@@ -147,7 +147,7 @@ RSpec.describe ElevenlabsAudioService do
     it 'removes bold markers **text**' do
       text = "**Glória a ti**, ó santa e bendita Trindade"
       result = service.send(:sanitize_text_for_audio, text)
-      
+
       expect(result).to eq("Glória a ti, ó santa e bendita Trindade")
       expect(result).not_to include("**")
     end
@@ -155,7 +155,7 @@ RSpec.describe ElevenlabsAudioService do
     it 'removes italic/underline markers __text__' do
       text = "Confio em __Deus__ sempre"
       result = service.send(:sanitize_text_for_audio, text)
-      
+
       expect(result).to eq("Confio em Deus sempre")
       expect(result).not_to include("__")
     end
@@ -165,9 +165,9 @@ RSpec.describe ElevenlabsAudioService do
         **Graças a Deus que nos dá a vitória por meio
         de nosso Senhor Jesus Cristo.** __(I Co 15.57)__
       TEXT
-      
+
       result = service.send(:sanitize_text_for_audio, text)
-      
+
       expect(result).to include("Graças a Deus")
       expect(result).to include("Jesus Cristo")
       expect(result).not_to include("**")
@@ -178,7 +178,7 @@ RSpec.describe ElevenlabsAudioService do
     it 'cleans up multiple spaces and newlines' do
       text = "Senhor,    abre  os nossos\n\n\n\nlábios"
       result = service.send(:sanitize_text_for_audio, text)
-      
+
       expect(result).to eq("Senhor, abre os nossos\n\nlábios")
     end
 
@@ -191,7 +191,7 @@ RSpec.describe ElevenlabsAudioService do
     it 'preserves plain text without formatting' do
       text = "Senhor, abre os nossos lábios"
       result = service.send(:sanitize_text_for_audio, text)
-      
+
       expect(result).to eq(text)
     end
   end

@@ -23,7 +23,7 @@ namespace :audio do
     end
 
     texts = LiturgicalText.for_prayer_book(prayer_book_code).for_audio_generation
-    rubrics = LiturgicalText.for_prayer_book(prayer_book_code).where(category: 'rubric')
+    rubrics = LiturgicalText.for_prayer_book(prayer_book_code).where(category: "rubric")
     total_characters = texts.sum { |t| t.content.length }
     voice_count = voice_keys.count
 
@@ -69,7 +69,7 @@ namespace :audio do
 
     # Run estimate first with the same voice_keys
     Rake::Task["audio:estimate"].reenable
-    Rake::Task["audio:estimate"].invoke(prayer_book_code, voice_keys.join(','))
+    Rake::Task["audio:estimate"].invoke(prayer_book_code, voice_keys.join(","))
 
     print "\nDo you want to proceed with generation? (yes/no): "
     confirmation = STDIN.gets.chomp.downcase
@@ -255,7 +255,7 @@ namespace :audio do
     end
 
     # Check if it's a rubric
-    if text.category == 'rubric'
+    if text.category == "rubric"
       puts "\nWARNING: This is a rubric (category: #{text.category})"
       puts "Rubrics are typically skipped in audio generation."
       print "Do you want to proceed anyway? (yes/no): "
@@ -299,7 +299,7 @@ namespace :audio do
       prayer_book_code: prayer_book_code,
       voice_keys: voice_keys,
       total_texts: voice_keys.count,
-      status: 'running'
+      status: "running"
     )
 
     voice_keys.each do |voice_key|
@@ -323,7 +323,7 @@ namespace :audio do
 
     # Mark session as completed
     session.update!(
-      status: success_count > 0 ? 'completed' : 'failed',
+      status: success_count > 0 ? "completed" : "failed",
       completed_at: Time.current
     )
 
@@ -344,4 +344,3 @@ namespace :audio do
     puts "========================================\n"
   end
 end
-

@@ -78,7 +78,7 @@ class DailyOfficeService
     when Hash
       # Check if this object has a slug (could be a module or a line)
       slug = obj[:slug] || obj["slug"]
-      
+
       if slug.present?
         text = LiturgicalText.find_text(slug, prayer_book_code: preferences[:prayer_book_code])
         if text

@@ -171,11 +171,11 @@ class User < ApplicationRecord
     return unless premium? # Only premium users have personalized cache
 
     Rails.logger.info "Clearing daily office cache for user #{id} due to preference change"
-    
+
     # Clear cache for last 30 days and next 7 days
     date_range = (30.days.ago.to_date..7.days.from_now.to_date)
-    office_types = [:morning, :midday, :evening, :compline]
-    
+    office_types = [ :morning, :midday, :evening, :compline ]
+
     date_range.each do |date|
       office_types.each do |office_type|
         # We can't rebuild the exact cache key without knowing all preference combinations,

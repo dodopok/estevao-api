@@ -117,7 +117,7 @@ class ElevenlabsAudioService
 
     # Remove biblical references in format: __(Reference)__
     # Examples: __(Sl 113.4)__, __(I Co 15.57)__, __(Jo 4.23-24)__
-    sanitized.gsub!(/\s*__\([^)]+\)__/, '')
+    sanitized.gsub!(/\s*__\([^)]+\)__/, "")
 
     # Remove bold markers: **text** -> text
     sanitized.gsub!(/\*\*([^*]+)\*\*/, '\1')
@@ -132,7 +132,7 @@ class ElevenlabsAudioService
     sanitized.gsub!(/\n{3,}/, "\n\n")
 
     # Clean up multiple spaces (but not newlines)
-    sanitized.gsub!(/ {2,}/, ' ')
+    sanitized.gsub!(/ {2,}/, " ")
 
     sanitized.strip
   end
