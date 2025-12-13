@@ -166,7 +166,7 @@ if wesley
 end
 
 # José (19 de março)
-if create_reading_by_celebration("José", {
+if create_reading_by_celebration("José de Nazaré", {
   year: "all",
   first_reading: "Deuteronômio 33:13-16",
   psalm: "Salmo 89:2-9",
@@ -236,7 +236,7 @@ end
 # ============================================================================
 
 # Marcos (25 de abril)
-if create_reading_by_celebration("Marcos Evangelista", {
+if create_reading_by_celebration("Marcos", {
   year: "all",
   first_reading: "Isaías 52:7-10",
   psalm: "Salmo 119:9-16",
@@ -380,7 +380,7 @@ else
 end
 
 # Santa Maria Madalena (22 de julho)
-if create_reading_by_celebration("Santa Maria Madalena", {
+if create_reading_by_celebration("Maria Madalena", {
   year: "all",
   first_reading: "Cantares 3:1-4a",
   psalm: "Salmo 63:2-10",
@@ -582,7 +582,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("Lucas, Evangelista", {
+if create_reading_by_celebration("Lucas", {
   year: "all",
   first_reading: "Isaías 61:1-6",
   psalm: "Salmo 147:1-7",

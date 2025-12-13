@@ -719,12 +719,12 @@ holy_days_collects = [
 
   # Agosto
   {
-    celebration_id: celebrations_scope.find_by(name: "Transfiguração do Senhor")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Transfiguração de nosso Senhor Jesus Cristo")&.id,
     text: "Deus onipotente, teu Filho revelou-se em glória antes de sofrer na Cruz; concede-nos que pela fé na sua morte e ressurreição triunfemos no poder da sua vitória. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "São Bartolomeu")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Bartolomeu")&.id,
     text: "Deus eterno, deste ao teu apóstolo Bartolomeu a graça de crer e de pregar a tua Palavra; permite que a tua Igreja ame a Palavra em que ele creu e fielmente lhe obedeça e a proclame. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
@@ -741,7 +741,7 @@ holy_days_collects = [
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "São Miguel e Todos os Anjos")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Arcanjo Miguel e Todos os Anjos")&.id,
     text: "Senhor Deus das hostes celestiais, criaste os anjos para te adorarem e servirem; concede que, inspirando o nosso culto, eles nos socorram e fortaleçam na nossa luta contra o mal. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
@@ -760,7 +760,7 @@ holy_days_collects = [
 
   # Novembro
   {
-    celebration_id: celebrations_scope.find_by(name: "Todos os Santos")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Todos os Santos e Santas")&.id,
     text: "Senhor de toda a graça, juntaste os teus santos na comunhão da tua Igreja e criaste para eles alegrias que ultrapassam o nosso entendimento; ajuda-nos a imitá-los na nossa vida diária e conduz-nos com eles à glória eterna. Mediante Jesus Cristo, nosso Senhor Amém.",
     language: "pt-BR"
   },
