@@ -39,21 +39,40 @@ namespace :audio do
       
       # Filename format: {prayer_book_code}_{id}_{slug}.mp3
       # Example: loc_2015_3278_midday_invitation_lent.mp3
-      # parts[0] = prayer_book_code (loc or loc_2015, may contain underscore)
-      # parts[1] = id (if prayer_book is 'loc') OR second part of code (if 'loc_2015')
-      # The slug is everything after {prayer_book_code}_{id}_
+      # Strategy: Remove the prayer_book_code prefix, then first part is ID, rest is slug
       
-      # Try to find the ID (numeric part after prayer book code)
-      id_index = parts.index { |part| part.match?(/^\d+$/) }
+      # Remove prayer book code prefix from filename
+      # prayer_book.code could be 'loc_2015', so we need to handle that
+      pb_code = prayer_book.code # e.g., 'loc_2015'
       
-      if id_index.nil?
-        puts "⚠️  Could not find ID in filename: #{file_path}"
+      unless filename.start_with?(pb_code)
+        puts "⚠️  Filename doesn't start with prayer book code '#{pb_code}': #{file_path}"
         failed_count += 1
         next
       end
       
-      # Slug is everything after the ID
-      slug = parts[(id_index + 1)..-1].join('_')
+      # Remove prayer book code prefix and leading underscore
+      # 'loc_2015_3329_magnificat' -> '3329_magnificat'
+      remainder = filename[(pb_code.length + 1)..-1]
+      remainder_parts = remainder.split('_')
+      
+      # First part should be the ID
+      text_id = remainder_parts[0]
+      unless text_id.match?(/^\d+$/)
+        puts "⚠️  Expected numeric ID after prayer book code in: #{file_path}"
+        failed_count += 1
+        next
+      end
+      
+      # Rest is the slug
+      slug = remainder_parts[1..-1].join('_')
+      
+      # Skip files without slugs (e.g., sample files)
+      if slug.empty?
+        puts "⚠️  No slug found (possibly a sample file), skipping: #{file_path}"
+        failed_count += 1
+        next
+      end
       
       # Find liturgical text by slug
       text = LiturgicalText.find_by(slug: slug, prayer_book: prayer_book)
