@@ -19,12 +19,19 @@ class PrayerBook < ApplicationRecord
   scope :recommended, -> { where(is_recommended: true) }
   scope :default, -> { where(is_recommended: true) } # Alias for backwards compatibility
 
+  # Cache prayer books by code for better performance
+  def self.find_by_code(code)
+    Rails.cache.fetch("prayer_book/#{code}", expires_in: 1.day) do
+      find_by(code: code)
+    end
+  end
+
   def self.find_by_code!(code)
-    find_by!(code: code)
+    find_by_code(code) || raise(ActiveRecord::RecordNotFound, "Couldn't find PrayerBook with code=#{code}")
   end
 
   def self.find_by_code_or_default(code)
-    code.present? ? find_by(code: code) || default.first : default.first
+    code.present? ? find_by_code(code) || default.first : default.first
   end
 
   # Retorna as features do Prayer Book (lectionary, daily_office, etc.)
