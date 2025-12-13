@@ -293,7 +293,7 @@ module DailyOffice
           canticle_slugs = Array(resolve_preference(
             :evening_post_first_reading_canticle,
             %w[magnificat bonum_est_confiteri benedictus]
-          ))
+          ) || "magnificat") # Fallback to magnificat if no preference defined
 
           # Return array of canticle modules (one per canticle)
           canticle_slugs.map do |canticle_slug|
@@ -332,7 +332,7 @@ module DailyOffice
           canticle_slugs = Array(resolve_preference(
             :evening_post_second_reading_canticle,
             %w[nunc_dimittis deus_misereatur dignus_es]
-          ))
+          ) || "nunc_dimittis") # Fallback to nunc_dimittis if no preference defined
 
           modules = []
 
@@ -660,7 +660,7 @@ module DailyOffice
           resolve_preference(
             :evening_invitatory_canticle,
             %w[phos_hilaron ecce_nunc]
-          )
+          ) || "phos_hilaron" # Fallback to phos_hilaron if no preference defined
         end
       end
     end

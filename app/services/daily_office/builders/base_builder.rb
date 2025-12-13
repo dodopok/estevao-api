@@ -101,7 +101,8 @@ module DailyOffice
       # This allows the same day/office combination to have consistent randomization
       # when no specific seed is provided
       def generate_seed
-        # Use date and office type to create a unique but deterministic seed
+        # Use current time and office type to create a unique seed per request
+        # This ensures different users get different randomization for the same day
         "#{Time.current.to_i}_#{office_type}".hash
       end
     end

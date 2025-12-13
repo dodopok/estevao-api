@@ -172,10 +172,12 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
         builder1 = test_class.new(date: Date.new(2025, 1, 1), office_type: :morning)
         builder2 = test_class.new(date: Date.new(2025, 1, 2), office_type: :morning)
 
-        result1 = builder1.send(:seeded_random, 1..1000, key: :date_test)
-        result2 = builder2.send(:seeded_random, 1..1000, key: :date_test)
+        # Test multiple random values to ensure seeds are actually different
+        results1 = 5.times.map { |i| builder1.send(:seeded_random, 1..1000, key: "test_#{i}".to_sym) }
+        results2 = 5.times.map { |i| builder2.send(:seeded_random, 1..1000, key: "test_#{i}".to_sym) }
 
-        expect(result1).not_to eq(result2)
+        # At least one value should be different (extremely unlikely all 5 match by chance)
+        expect(results1).not_to eq(results2)
       end
     end
 
@@ -206,74 +208,86 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
 
       context 'when pref_value is nil' do
         it 'returns nil' do
-          result = builder_with_seed.send(:resolve_preference, nil, options, random_key)
+          builder_with_seed.preferences[random_key] = nil
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to be_nil
         end
       end
 
       context 'when pref_value is empty string' do
         it 'returns nil' do
-          result = builder_with_seed.send(:resolve_preference, '', options, random_key)
+          builder_with_seed.preferences[random_key] = ''
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to be_nil
         end
       end
 
       context 'when pref_value is whitespace' do
         it 'returns nil' do
-          result = builder_with_seed.send(:resolve_preference, '   ', options, random_key)
+          builder_with_seed.preferences[random_key] = '   '
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to be_nil
         end
       end
 
       context 'when pref_value is "random"' do
         it 'returns a number within the range using seeded_random' do
-          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          builder_with_seed.preferences[random_key] = 'random'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to be_a(Integer)
           expect(options).to include(result)
         end
 
         it 'returns deterministic results with same seed' do
-          result1 = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
-          result2 = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          builder_with_seed.preferences[random_key] = 'random'
+          result1 = builder_with_seed.send(:resolve_preference, random_key, options)
+          result2 = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result1).to eq(result2)
         end
 
         it 'returns different results with different random_key' do
-          result1 = builder_with_seed.send(:resolve_preference, 'random', options, :key1)
-          result2 = builder_with_seed.send(:resolve_preference, 'random', options, :key2)
+          builder_with_seed.preferences[:key1] = 'random'
+          builder_with_seed.preferences[:key2] = 'random'
+          result1 = builder_with_seed.send(:resolve_preference, :key1, options)
+          result2 = builder_with_seed.send(:resolve_preference, :key2, options)
           expect([ result1, result2 ]).to all(be_a(Integer))
         end
       end
 
       context 'when pref_value is "all"' do
         it 'returns array of all values in range' do
-          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          builder_with_seed.preferences[random_key] = 'all'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq([ 1, 2, 3, 4, 5, 6, 7 ])
         end
 
         it 'works with different ranges' do
-          result = builder_with_seed.send(:resolve_preference, 'all', 1..3, random_key)
+          builder_with_seed.preferences[random_key] = 'all'
+          result = builder_with_seed.send(:resolve_preference, random_key, 1..3)
           expect(result).to eq([ 1, 2, 3 ])
         end
       end
 
       context 'when pref_value is a specific integer' do
         it 'returns the integer' do
-          result = builder_with_seed.send(:resolve_preference, 3, options, random_key)
+          builder_with_seed.preferences[random_key] = 3
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq(3)
         end
       end
 
       context 'when pref_value is a string integer' do
         it 'converts and returns the integer' do
-          result = builder_with_seed.send(:resolve_preference, '5', options, random_key)
+          builder_with_seed.preferences[random_key] = '5'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq(5)
         end
       end
 
       context 'when pref_value is invalid for range' do
         it 'converts to integer (may be 0 or invalid)' do
-          result = builder_with_seed.send(:resolve_preference, 'invalid', options, random_key)
+          builder_with_seed.preferences[random_key] = 'invalid'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq(0)
         end
       end
@@ -289,34 +303,40 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
 
       context 'when pref_value is nil' do
         it 'returns nil' do
-          result = builder_with_seed.send(:resolve_preference, nil, options, random_key)
+          builder_with_seed.preferences[random_key] = nil
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to be_nil
         end
       end
 
       context 'when pref_value is empty string' do
         it 'returns nil' do
-          result = builder_with_seed.send(:resolve_preference, '', options, random_key)
+          builder_with_seed.preferences[random_key] = ''
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to be_nil
         end
       end
 
       context 'when pref_value is "random"' do
         it 'returns one slug from the array using seeded_random' do
-          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          builder_with_seed.preferences[random_key] = 'random'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to be_a(String)
           expect(options).to include(result)
         end
 
         it 'returns deterministic results with same seed' do
-          result1 = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
-          result2 = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          builder_with_seed.preferences[random_key] = 'random'
+          result1 = builder_with_seed.send(:resolve_preference, random_key, options)
+          result2 = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result1).to eq(result2)
         end
 
         it 'returns different results with different random_key' do
-          result1 = builder_with_seed.send(:resolve_preference, 'random', options, :key1)
-          result2 = builder_with_seed.send(:resolve_preference, 'random', options, :key2)
+          builder_with_seed.preferences[:key1] = 'random'
+          builder_with_seed.preferences[:key2] = 'random'
+          result1 = builder_with_seed.send(:resolve_preference, :key1, options)
+          result2 = builder_with_seed.send(:resolve_preference, :key2, options)
           expect(options).to include(result1)
           expect(options).to include(result2)
         end
@@ -324,33 +344,38 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
 
       context 'when pref_value is "all"' do
         it 'returns the full array of slugs' do
-          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          builder_with_seed.preferences[random_key] = 'all'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq(options)
         end
 
         it 'returns the same array object' do
-          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          builder_with_seed.preferences[random_key] = 'all'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to be(options)
         end
       end
 
       context 'when pref_value is a specific slug' do
         it 'returns the slug as string' do
-          result = builder_with_seed.send(:resolve_preference, 'jubilate', options, random_key)
+          builder_with_seed.preferences[random_key] = 'jubilate'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq('jubilate')
         end
       end
 
       context 'when pref_value is a slug not in options' do
         it 'returns the value as-is (builder handles validation)' do
-          result = builder_with_seed.send(:resolve_preference, 'unknown_slug', options, random_key)
+          builder_with_seed.preferences[random_key] = 'unknown_slug'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq('unknown_slug')
         end
       end
 
       context 'when pref_value is a symbol' do
         it 'converts to string' do
-          result = builder_with_seed.send(:resolve_preference, :venite, options, random_key)
+          builder_with_seed.preferences[random_key] = :venite
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq('venite')
         end
       end
@@ -367,13 +392,15 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
         let(:options) { [] }
 
         it 'handles "random" gracefully' do
+          builder_with_seed.preferences[random_key] = 'random'
           expect {
-            builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+            builder_with_seed.send(:resolve_preference, random_key, options)
           }.not_to raise_error
         end
 
         it 'returns empty array for "all"' do
-          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          builder_with_seed.preferences[random_key] = 'all'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq([])
         end
       end
@@ -382,12 +409,14 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
         let(:options) { %w[only_one] }
 
         it 'returns the only element for "random"' do
-          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          builder_with_seed.preferences[random_key] = 'random'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq('only_one')
         end
 
         it 'returns single-element array for "all"' do
-          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          builder_with_seed.preferences[random_key] = 'all'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq([ 'only_one' ])
         end
       end
@@ -396,12 +425,14 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
         let(:options) { 5..5 }
 
         it 'returns the only value for "random"' do
-          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          builder_with_seed.preferences[random_key] = 'random'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq(5)
         end
 
         it 'returns single-element array for "all"' do
-          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          builder_with_seed.preferences[random_key] = 'all'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq([ 5 ])
         end
       end
@@ -417,17 +448,20 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
         let(:random_key) { :morning__opening_sentence_general }
 
         it 'handles specific value' do
-          result = builder_with_seed.send(:resolve_preference, '3', options, random_key)
+          builder_with_seed.preferences[random_key] = '3'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq(3)
         end
 
         it 'handles "random"' do
-          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          builder_with_seed.preferences[random_key] = 'random'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(1..7).to include(result)
         end
 
         it 'handles "all"' do
-          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          builder_with_seed.preferences[random_key] = 'all'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq([ 1, 2, 3, 4, 5, 6, 7 ])
         end
       end
@@ -437,17 +471,20 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
         let(:random_key) { :morning__first_canticle }
 
         it 'handles specific slug' do
-          result = builder_with_seed.send(:resolve_preference, 'cantate_domino', options, random_key)
+          builder_with_seed.preferences[random_key] = 'cantate_domino'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq('cantate_domino')
         end
 
         it 'handles "random"' do
-          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          builder_with_seed.preferences[random_key] = 'random'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(options).to include(result)
         end
 
         it 'handles "all"' do
-          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          builder_with_seed.preferences[random_key] = 'all'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq(options)
         end
       end
@@ -466,18 +503,21 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
         let(:random_key) { :morning__general_collects }
 
         it 'handles "random" to pick one collect' do
-          result = builder_with_seed.send(:resolve_preference, 'random', options, random_key)
+          builder_with_seed.preferences[random_key] = 'random'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to be_a(String)
           expect(options).to include(result)
         end
 
         it 'handles "all" to return all collects' do
-          result = builder_with_seed.send(:resolve_preference, 'all', options, random_key)
+          builder_with_seed.preferences[random_key] = 'all'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq(options)
         end
 
         it 'handles specific collect slug' do
-          result = builder_with_seed.send(:resolve_preference, 'for_peace', options, random_key)
+          builder_with_seed.preferences[random_key] = 'for_peace'
+          result = builder_with_seed.send(:resolve_preference, random_key, options)
           expect(result).to eq('for_peace')
         end
       end
@@ -489,8 +529,9 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
 
     context 'deterministic seeding behavior' do
       it 'produces same results across multiple calls with same parameters' do
+        builder_with_seed.preferences[:test_key] = 'random'
         results = 5.times.map do
-          builder_with_seed.send(:resolve_preference, 'random', 1..100, :test_key)
+          builder_with_seed.send(:resolve_preference, :test_key, 1..100)
         end
 
         expect(results.uniq.size).to eq(1)
@@ -500,16 +541,20 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
         builder1 = test_class.new(date: date, office_type: :morning, preferences: { seed: 111 })
         builder2 = test_class.new(date: date, office_type: :morning, preferences: { seed: 222 })
 
-        result1 = builder1.send(:resolve_preference, 'random', 1..1000, :test)
-        result2 = builder2.send(:resolve_preference, 'random', 1..1000, :test)
+        builder1.preferences[:test] = 'random'
+        builder2.preferences[:test] = 'random'
+        result1 = builder1.send(:resolve_preference, :test, 1..1000)
+        result2 = builder2.send(:resolve_preference, :test, 1..1000)
 
         # Very likely to be different with large range
         expect(result1).not_to eq(result2)
       end
 
       it 'produces different results with different random_keys' do
-        result1 = builder_with_seed.send(:resolve_preference, 'random', 1..1000, :key_a)
-        result2 = builder_with_seed.send(:resolve_preference, 'random', 1..1000, :key_b)
+        builder_with_seed.preferences[:key_a] = 'random'
+        builder_with_seed.preferences[:key_b] = 'random'
+        result1 = builder_with_seed.send(:resolve_preference, :key_a, 1..1000)
+        result2 = builder_with_seed.send(:resolve_preference, :key_b, 1..1000)
 
         # Very likely to be different
         expect(result1).not_to eq(result2)

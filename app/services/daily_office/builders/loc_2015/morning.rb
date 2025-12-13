@@ -114,7 +114,7 @@ module DailyOffice
           end
 
           # General opening sentence (always include one of 1-7)
-          general_num = resolve_preference(:morning_opening_sentence, 1..7)
+          general_num = resolve_preference(:morning_opening_sentence, 1..7) || 1
           general = fetch_liturgical_text("morning_opening_sentence_#{general_num}")
 
           if general
@@ -166,11 +166,13 @@ module DailyOffice
           end
 
           # Confession prayer (3 options)
-          confession_num = resolve_preference(:morning_confession_prayer_type, 1..3)
+          confession_num = resolve_preference(:morning_confession_prayer_type, 1..3) || 1
           confession = fetch_liturgical_text("morning_confession_#{confession_num}")
 
-          lines << line_item(confession.content, type: "congregation")
-          lines << line_item("", type: "spacer")
+          if confession
+            lines << line_item(confession.content, type: "congregation")
+            lines << line_item("", type: "spacer")
+          end
 
           # Post-confession rubric
           post_confession = fetch_liturgical_text("rubric_post_confession")
@@ -610,11 +612,13 @@ module DailyOffice
           end
 
           # Dismissal blessing (4 options)
-          dismissal_num = resolve_preference(:morning_concluding_prayer, 1..4)
+          dismissal_num = resolve_preference(:morning_concluding_prayer, 1..4) || 1
           dismissal = fetch_liturgical_text("dismissal_#{dismissal_num}")
 
-          lines << line_item(dismissal.content, type: "leader")
-          lines << line_item("", type: "spacer")
+          if dismissal
+            lines << line_item(dismissal.content, type: "leader")
+            lines << line_item("", type: "spacer")
+          end
 
           # Post-dismissal rubric
           post_rubric = fetch_liturgical_text("rubric_post_dismissal")
@@ -652,7 +656,7 @@ module DailyOffice
           resolve_preference(
             :morning_invitatory_canticle,
             %w[venite jubilate]
-          )
+          ) || "venite" # Fallback to venite if no preference defined
         end
       end
     end

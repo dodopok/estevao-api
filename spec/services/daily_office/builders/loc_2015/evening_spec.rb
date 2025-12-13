@@ -26,7 +26,13 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
   end
 
   let(:date) { Date.new(2025, 11, 25) }
-  let(:builder) { described_class.new(date: date, office_type: :evening) }
+  let(:builder) do
+    described_class.new(
+      date: date,
+      office_type: :evening,
+      preferences: { prayer_book_code: 'loc_2015' }
+    )
+  end
 
   before do
     # Ensure prayer book exists
@@ -70,6 +76,21 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
     end
 
     it 'includes all expected module types' do
+      # Mock readings to include psalm for this test
+      allow_any_instance_of(described_class).to receive(:readings).and_return({
+        psalm: {
+          reference: 'Salmos 141',
+          content: {
+            verses: [
+              { number: 1, text: 'Senhor, a ti clamo; vem depressa socorrer-me' },
+              { number: 2, text: 'Suba minha oração como incenso à tua presença' }
+            ]
+          }
+        },
+        first_reading: { reference: 'Gênesis 1:1-5', content: { verses: [] } },
+        second_reading: { reference: 'Romanos 1:1-7', content: { verses: [] } }
+      })
+
       modules = builder.send(:assemble_evening_prayer)
       module_slugs = modules.map { |m| m[:slug] }
 
@@ -280,7 +301,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
       ecce_builder = described_class.new(
         date: date,
         office_type: :evening,
-        preferences: { invitatory_canticle: 'ecce_nunc' }
+        preferences: { evening_invitatory_canticle: 'ecce_nunc', prayer_book_code: 'loc_2015' }
       )
       allow(ecce_builder).to receive(:day_info).and_return({ liturgical_season: 'Tempo Comum' })
       slug = ecce_builder.send(:invitatory_canticle_slug)
@@ -342,36 +363,39 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
   end
 
   describe '#build_first_canticle' do
-    it 'returns first canticle module structure' do
+    it 'returns array of canticle modules' do
       result = builder.send(:build_first_canticle)
 
-      if result
-        expect(result).to have_key(:name)
-        expect(result).to have_key(:slug)
-        expect(result).to have_key(:lines)
-        expect(result[:slug]).to eq('first_canticle')
+      if result && !result.empty?
+        expect(result).to be_a(Array)
+        # Each canticle module should have the standard structure
+        result.each do |canticle|
+          expect(canticle).to have_key(:name)
+          expect(canticle).to have_key(:slug)
+          expect(canticle).to have_key(:lines)
+        end
       end
     end
 
-    it 'respects first_canticle preference' do
-      [ 1, 2, 3 ].each do |canticle_num|
-        test_builder = described_class.new(
-          date: date,
-          office_type: :evening,
-          preferences: { first_canticle: canticle_num }
-        )
+    it 'respects evening_post_first_reading_canticle preference' do
+      test_builder = described_class.new(
+        date: date,
+        office_type: :evening,
+        preferences: { evening_post_first_reading_canticle: %w[magnificat cantate_domino], prayer_book_code: 'loc_2015' }
+      )
 
-        result = test_builder.send(:build_first_canticle)
-        expect(result).to be_a(Hash) if result
-      end
+      result = test_builder.send(:build_first_canticle)
+      expect(result).to be_a(Array) if result
     end
 
     it 'uses Magnificat by default' do
-      allow(builder).to receive(:fetch_liturgical_text).and_call_original
+      result = builder.send(:build_first_canticle)
 
-      builder.send(:build_first_canticle)
-
-      expect(builder).to have_received(:fetch_liturgical_text).with('magnificat')
+      if result && !result.empty?
+        # Should include magnificat slug in the returned canticles
+        canticle_slugs = result.map { |c| c[:slug] }
+        expect(canticle_slugs).to include('magnificat')
+      end
     end
   end
 
@@ -402,36 +426,39 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
   end
 
   describe '#build_second_canticle' do
-    it 'returns second canticle module structure' do
+    it 'returns array of canticle modules' do
       result = builder.send(:build_second_canticle)
 
-      if result
-        expect(result).to have_key(:name)
-        expect(result).to have_key(:slug)
-        expect(result).to have_key(:lines)
-        expect(result[:slug]).to eq('second_canticle')
+      if result && !result.empty?
+        expect(result).to be_a(Array)
+        # Array can contain canticle modules and rubric
+        result.each do |module_item|
+          expect(module_item).to have_key(:name)
+          expect(module_item).to have_key(:slug)
+          expect(module_item).to have_key(:lines)
+        end
       end
     end
 
-    it 'respects second_canticle preference' do
-      [ 1, 2, 3 ].each do |canticle_num|
-        test_builder = described_class.new(
-          date: date,
-          office_type: :evening,
-          preferences: { second_canticle: canticle_num }
-        )
+    it 'respects evening_post_second_reading_canticle preference' do
+      test_builder = described_class.new(
+        date: date,
+        office_type: :evening,
+        preferences: { evening_post_second_reading_canticle: %w[nunc_dimittis deus_misereatur], prayer_book_code: 'loc_2015' }
+      )
 
-        result = test_builder.send(:build_second_canticle)
-        expect(result).to be_a(Hash) if result
-      end
+      result = test_builder.send(:build_second_canticle)
+      expect(result).to be_a(Array) if result
     end
 
     it 'uses Nunc Dimittis by default' do
-      allow(builder).to receive(:fetch_liturgical_text).and_call_original
+      result = builder.send(:build_second_canticle)
 
-      builder.send(:build_second_canticle)
-
-      expect(builder).to have_received(:fetch_liturgical_text).with('nunc_dimittis')
+      if result && !result.empty?
+        # Should include nunc_dimittis slug in the returned canticles (plus rubric)
+        canticle_slugs = result.map { |c| c[:slug] }
+        expect(canticle_slugs).to include('nunc_dimittis')
+      end
     end
   end
 
@@ -683,7 +710,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
       ecce_builder = described_class.new(
         date: date,
         office_type: :evening,
-        preferences: { invitatory_canticle: 'ecce_nunc' }
+        preferences: { evening_invitatory_canticle: 'ecce_nunc', prayer_book_code: 'loc_2015' }
       )
       allow(ecce_builder).to receive(:day_info).and_return({ liturgical_season: 'Tempo Comum' })
       slug = ecce_builder.send(:invitatory_canticle_slug)

@@ -96,10 +96,12 @@ module DailyOffice
       def resolve_preference(pref_key, options)
         pref_value = preferences[pref_key]
 
-        # If preference is nil/empty, use PreferenceDefinition default or seeded_random
+        # If preference is nil/empty, use PreferenceDefinition default or return nil
         if pref_value.nil? || pref_value.to_s.strip.empty?
           # Get default from PreferenceDefinition
           default_value = preference_default(pref_key)
+          # If no default exists, return nil
+          return nil if default_value.nil? || default_value.to_s.strip.empty?
           pref_value = default_value
         end
 
