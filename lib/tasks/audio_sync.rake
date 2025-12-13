@@ -23,19 +23,24 @@ namespace :audio do
 
     audio_files.each_with_index do |file_path, index|
       # Extract info from path: public/audio/loc_2015/male_1/loc_2015_3171_morning_invocation.mp3
-      match = file_path.match(%r{public/audio/([^/]+)/([^/]+)/([^_]+)_(\d+)_(.+)\.mp3})
+      # Pattern: public/audio/{prayer_book}/{voice}/{prayer_book}_{id}_{slug}.mp3
+      filename = File.basename(file_path, '.mp3')
+      parts = filename.split('_')
       
-      unless match
+      # Skip if filename doesn't have at least 3 parts (prayer_book_id_slug)
+      if parts.length < 3
         puts "⚠️  Skipping malformed path: #{file_path}"
         failed_count += 1
         next
       end
 
-      prayer_book_code = match[1]
-      voice_key = match[2]
-      slug = match[5] # Extract slug from filename
+      # Extract voice from directory path
+      voice_key = file_path.split('/')[-2]
       
-      # Find liturgical text by slug instead of ID
+      # Slug is everything after the second underscore (loc_2015_morning_invocation → morning_invocation)
+      slug = parts[2..-1].join('_')
+      
+      # Find liturgical text by slug
       text = LiturgicalText.find_by(slug: slug, prayer_book: prayer_book)
       unless text
         puts "⚠️  Text '#{slug}' not found, skipping: #{file_path}"
