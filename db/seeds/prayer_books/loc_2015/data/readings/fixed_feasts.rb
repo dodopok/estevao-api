@@ -438,7 +438,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("Transfiguração de nosso Senhor Jesus Cristo", {
+if create_reading_by_celebration("Transfiguração de Nosso Senhor Jesus Cristo", {
   year: "all",
   first_reading: "Êxodo 34:29-35",
   psalm: "Salmo 99",
