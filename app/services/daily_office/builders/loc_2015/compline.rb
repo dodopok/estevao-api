@@ -194,7 +194,7 @@ module DailyOffice
             next unless psalm
 
             {
-              name: [psalm.title, psalm.reference&.then { |ref| "(#{ref})" }].compact.join(" ").presence || "Salmo",
+              name: [ psalm.title, psalm.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Salmo",
               slug: psalm_slugs[psalm_num],
               lines: [
                 line_item(psalm.content, type: "congregation")
@@ -233,7 +233,7 @@ module DailyOffice
           end
 
           # Brief lesson (3 options: Jeremiah, Matthew, Hebrews)
-          lesson_num = resolve_preference(:compline_brief_lesson, 1..3) 
+          lesson_num = resolve_preference(:compline_brief_lesson, 1..3)
           lesson = fetch_liturgical_text("compline_brief_lesson_#{lesson_num}")
           if lesson
             lines << line_item(lesson.content, type: "leader")

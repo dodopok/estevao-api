@@ -301,7 +301,7 @@ module DailyOffice
             next unless canticle
 
             {
-              name: [canticle.title, canticle.reference&.then { |ref| "(#{ref})" }].compact.join(" ").presence || "Cântico",
+              name: [ canticle.title, canticle.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Cântico",
               slug: canticle_slug,
               lines: [
                 line_item(canticle.content, type: "congregation")
@@ -342,7 +342,7 @@ module DailyOffice
             next unless canticle
 
             modules << {
-              name: [canticle.title, canticle.reference&.then { |ref| "(#{ref})" }].compact.join(" ").presence || "Cântico",
+              name: [ canticle.title, canticle.reference&.then { |ref| "(#{ref})" } ].compact.join(" ").presence || "Cântico",
               slug: canticle_slug,
               lines: [
                 line_item(canticle.content, type: "congregation")

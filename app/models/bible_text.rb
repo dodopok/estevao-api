@@ -92,9 +92,9 @@ class BibleText < ApplicationRecord
     clean_ref = clean_ref.gsub(/^(I{1,3})\s+/) do |match|
       roman = match.strip
       case roman
-      when 'I' then '1 '
-      when 'II' then '2 '
-      when 'III' then '3 '
+      when "I" then "1 "
+      when "II" then "2 "
+      when "III" then "3 "
       end
     end
 
