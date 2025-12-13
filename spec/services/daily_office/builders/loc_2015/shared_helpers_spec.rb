@@ -12,7 +12,7 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
     Class.new do
       include DailyOffice::Builders::SharedHelpers
       include DailyOffice::Concerns::SeasonMapper
-      
+
       attr_reader :date, :office_type, :preferences, :day_info
 
       def initialize(date:, office_type:, preferences: {})

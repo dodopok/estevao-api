@@ -40,7 +40,7 @@ RSpec.describe DailyOffice::Builders::BaseBuilder do
 
     it 'generates a seed if not provided' do
       builder = described_class.new(date: date, office_type: :morning)
-      
+
       expect(builder.preferences[:seed]).not_to be_nil
       expect(builder.preferences[:seed]).to be_a(Integer)
     end
@@ -65,7 +65,7 @@ RSpec.describe DailyOffice::Builders::BaseBuilder do
   describe '#call' do
     it 'provides basic structure but requires subclass implementation' do
       builder = described_class.new(date: date, office_type: :morning)
-      
+
       # BaseBuilder delegates to call which should be implemented by subclasses through LocBase
       # Direct instantiation should not be used in production
       expect(builder).to respond_to(:call)
@@ -88,21 +88,21 @@ RSpec.describe DailyOffice::Builders::BaseBuilder do
     it 'generates deterministic seed' do
       seed1 = builder.send(:generate_seed)
       seed2 = described_class.new(date: date, office_type: :morning).send(:generate_seed)
-      
+
       expect(seed1).to eq(seed2)
     end
 
     it 'generates different seeds for different dates' do
       seed1 = builder.send(:generate_seed)
       seed2 = described_class.new(date: date + 1, office_type: :morning).send(:generate_seed)
-      
+
       expect(seed1).not_to eq(seed2)
     end
 
     it 'generates different seeds for different office types' do
       seed1 = builder.send(:generate_seed)
       seed2 = described_class.new(date: date, office_type: :evening).send(:generate_seed)
-      
+
       expect(seed1).not_to eq(seed2)
     end
   end

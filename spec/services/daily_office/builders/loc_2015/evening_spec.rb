@@ -8,7 +8,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
   end
 
   # Create a test class that includes the module
-  
+
 
   let(:prayer_book) do
     PrayerBook.find_or_create_by!(code: 'loc_2015') do |pb|

@@ -71,7 +71,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
     it 'routes to Morning office builder' do
       builder = described_class.new(date: date, office_type: :morning)
       result = builder.call
-      
+
       expect(result[:office_type]).to eq('morning')
       expect(result[:modules]).to be_an(Array)
     end
@@ -79,7 +79,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
     it 'routes to Evening office builder' do
       builder = described_class.new(date: date, office_type: :evening)
       result = builder.call
-      
+
       expect(result[:office_type]).to eq('evening')
       expect(result[:modules]).to be_an(Array)
     end
@@ -87,7 +87,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
     it 'routes to Midday office builder' do
       builder = described_class.new(date: date, office_type: :midday)
       result = builder.call
-      
+
       expect(result[:office_type]).to eq('midday')
       expect(result[:modules]).to be_an(Array)
     end
@@ -95,7 +95,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
     it 'routes to Compline office builder' do
       builder = described_class.new(date: date, office_type: :compline)
       result = builder.call
-      
+
       expect(result[:office_type]).to eq('compline')
       expect(result[:modules]).to be_an(Array)
     end
