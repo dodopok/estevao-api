@@ -2,40 +2,40 @@
 
 module DailyOffice
   module Builders
-    class Loc2015Builder < BaseBuilder
-      include Concerns::SeasonMapper
-      include Concerns::ReadingFormatter
-      include Loc2015::SharedHelpers
-      include Loc2015::Morning
-      include Loc2015::Evening
-      include Loc2015::Midday
-      include Loc2015::Compline
-
-      # LOC 2015 (IEAB) specific implementation
-      # Implements all methods using LOC 2015 specific liturgical texts
+    # LOC 2015 (IEAB) specific builder
+    # Routes to office-specific builders (Morning, Evening, Midday, Compline)
+    class Loc2015Builder
+      def self.call(date:, office_type:, preferences: {})
+        new(date: date, office_type: office_type, preferences: preferences).call
+      end
 
       def initialize(date:, office_type:, preferences: {})
-        super
-        # Initialize component builders with LOC 2015 context
-        @psalm_builder = Components::PsalmBuilder.new(
-          date: @date,
-          preferences: @preferences
-        )
-        @canticle_builder = Components::CanticleBuilder.new(
-          date: @date,
-          preferences: @preferences,
-          day_info: @day_info
-        )
-        @reading_builder = Components::ReadingBuilder.new(
-          date: @date,
-          preferences: @preferences,
-          readings: @readings
-        )
-        @prayer_builder = Components::PrayerBuilder.new(
-          date: @date,
-          preferences: @preferences,
-          day_info: @day_info
-        )
+        @date = date
+        @office_type = office_type.to_sym
+        @preferences = preferences
+      end
+
+      def call
+        office_builder.call
+      end
+
+      private
+
+      attr_reader :date, :office_type, :preferences
+
+      def office_builder
+        case office_type
+        when :morning
+          Loc2015::Morning.new(date: date, office_type: office_type, preferences: preferences)
+        when :evening
+          Loc2015::Evening.new(date: date, office_type: office_type, preferences: preferences)
+        when :midday
+          Loc2015::Midday.new(date: date, office_type: office_type, preferences: preferences)
+        when :compline
+          Loc2015::Compline.new(date: date, office_type: office_type, preferences: preferences)
+        else
+          raise ArgumentError, "Unknown office type: #{office_type}"
+        end
       end
     end
   end

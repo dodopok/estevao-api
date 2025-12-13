@@ -1,20 +1,24 @@
-# frozen_string_literal: true
-
 module DailyOffice
   module Builders
     module Loc2015
-      module Midday
+      class Midday < Base
         # Midday Prayer (Oração do Meio-Dia) specific implementation
+
+        private
+
+        def assemble_office
+          assemble_midday_prayer
+        end
 
         def assemble_midday_prayer
           [
-            build_midday_opening,
-            build_midday_invitation,
-            build_midday_psalms_title,
-            build_midday_psalms,
-            build_midday_readings,
-            build_midday_prayer,
-            build_midday_dismissal
+            build_opening,
+            build_invitation,
+            build_psalms_title,
+            build_psalms,
+            build_readings,
+            build_prayer,
+            build_dismissal
           ].flatten.compact
         end
 
@@ -23,7 +27,7 @@ module DailyOffice
         # ============================================================================
 
         # 1. OPENING/PREPARATION
-        def build_midday_opening
+        def build_opening
           lines = []
 
           # Opening rubric
@@ -50,7 +54,7 @@ module DailyOffice
         end
 
         # 2. INVITATION
-        def build_midday_invitation
+        def build_invitation
           lines = []
 
           # Rubric for invitation
@@ -82,7 +86,7 @@ module DailyOffice
         # ============================================================================
 
         # 3. PSALMS TITLE
-        def build_midday_psalms_title
+        def build_psalms_title
           lines = []
 
           # Rubric before psalms
@@ -102,7 +106,7 @@ module DailyOffice
         end
 
         # 4. PSALMS
-        def build_midday_psalms
+        def build_psalms
           sections = []
 
           psalm_slugs = {
@@ -140,7 +144,7 @@ module DailyOffice
         # ============================================================================
 
         # 5. READINGS
-        def build_midday_readings
+        def build_readings
           lines = []
 
           # Rubric before readings
@@ -169,7 +173,7 @@ module DailyOffice
         end
 
         # 6. LORD'S PRAYER
-        def build_midday_prayer
+        def build_prayer
           lines = []
 
           # Rubric before prayers
@@ -221,7 +225,7 @@ module DailyOffice
         # ============================================================================
 
         # 8. DISMISSAL
-        def build_midday_dismissal
+        def build_dismissal
           lines = []
 
           # Use Lent-specific dismissal (without Alleluia) during Lent

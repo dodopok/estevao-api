@@ -630,21 +630,21 @@ holy_days_collects = [
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "Conversão de São Paulo")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Conversão de Paulo")&.id,
     text: "Ó Deus, instruíste o mundo inteiro com a palavra do Apóstolo Paulo de quem celebramos hoje a conversão; concede-nos a graça de, imitando-o, caminharmos para ti e sermos no mundo testemunhas do teu Evangelho. Por nosso Senhor Jesus Cristo, teu Filho, na unidade do Espírito Santo. Amém.",
     language: "pt-BR"
   },
 
   # Fevereiro
   {
-    celebration_id: celebrations_scope.find_by(name: "Apresentação de Cristo no Templo")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Apresentação de Nosso Senhor Jesus Cristo no Templo")&.id,
     text: "Pai onipotente, teu Filho Jesus Cristo foi apresentado no templo, sendo proclamado a glória de Israel e a luz das nações; concede-nos que por Ele sejamos apresentados a ti e possamos refletir a tua glória no mundo. Mediante Jesus Cristo, nosso Senhor Amém.",
     language: "pt-BR"
   },
 
   # Março
   {
-    celebration_id: celebrations_scope.find_by(name: "São José")&.id,
+    celebration_id: celebrations_scope.find_by(name: "José de Nazaré")&.id,
     text: "Deus onipotente, chamaste José a ser o esposo da Virgem Maria, e o guardião do teu único Filho; abre os nossos olhos e os nossos ouvidos às mensagens da tua santa vontade, e dá-nos a coragem de agir de acordo com ela. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
@@ -661,19 +661,19 @@ holy_days_collects = [
 
   # Abril
   {
-    celebration_id: celebrations_scope.find_by(name: "São Marcos Evangelista")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Marcos")&.id,
     text: "Deus onipotente, iluminaste a tua Igreja através do testemunho inspirado do teu evangelista Marcos; fundamenta-nos firmemente na verdade do Evangelho, e faz-nos fiéis ao seu ensino. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
 
   # Maio
   {
-    celebration_id: celebrations_scope.find_by(name: "São Filipe e São Tiago")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Felipe e Tiago Menor")&.id,
     text: "Pai eterno, os apóstolos Filipe e Tiago conheceram no teu Filho o caminho vivo e verdadeiro; concede-nos a graça de os seguirmos ao longo desse caminho que conduz à vida eterna. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "São Matias")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Matias")&.id,
     text: "Senhor Deus, o teu servo Matias foi escolhido em substituição de Judas Iscariotes, para ser um dos apóstolos; preserva a tua Igreja de falsos apóstolos, e, pelo ministério de pastores e mestres fiéis, guarda-nos firmes na tua verdade. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
@@ -685,34 +685,34 @@ holy_days_collects = [
 
   # Junho
   {
-    celebration_id: celebrations_scope.find_by(name: "São Barnabé")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Barnabé")&.id,
     text: "Senhor Deus, teu Filho Jesus Cristo ensinou-nos ser coisa mais abençoada dar que receber; ajuda-nos, com o exemplo do teu apóstolo Barnabé, a ser magnânimos a julgar e generosos a servir. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "Natividade de São João Batista")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Natividade de João Batista")&.id,
     text: "Senhor Deus, o teu servo João Batista nasceu maravilhosamente e preparou o caminho para o advento de teu Filho; ajuda-nos a conhecer Jesus Cristo como nosso Salvador e a obter por meio d'Ele o perdão dos nossos pecados. Ele que vive e reina, contigo e com o Espírito Santo, um só Deus, para todo o sempre Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "São Pedro e São Paulo")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Pedro e Paulo")&.id,
     text: "Deus onipotente, os teus apóstolos Pedro e Paulo glorificaram-te tanto na vida como na morte; inspira a tua Igreja a seguir os seus exemplos e a permanecer firme no único fundamento que é Cristo, nosso Senhor, a quem, contigo e com o Espírito Santo, seja dada honra e glória, agora e para sempre. Amém.",
     language: "pt-BR"
   },
 
   # Julho
   {
-    celebration_id: celebrations_scope.find_by(name: "São Tomé")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Tomé")&.id,
     text: "Deus eterno, o teu apóstolo Tomé duvidou da ressurreição do teu Filho até que a palavra e a vista o convenceram; concede-nos, a nós que não vimos, a graça de não sermos infiéis, mas crentes. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "Santa Maria Madalena")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Maria Madalena")&.id,
     text: "Senhor misericordioso, teu Filho restituiu a Maria Madalena a saúde do corpo e da mente e chamou-a a ser testemunha da sua ressurreição; purifica-nos e renova-nos para te servirmos no poder da vida ressuscitada de Jesus, o qual, contigo e com o Espírito Santo, vive e reina, um só Deus, agora e sempre. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "São Tiago")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Tiago")&.id,
     text: "Senhor Deus, o teu apóstolo Tiago consentiu em deixar seu pai e tudo o que possuía e ainda em sofrer pelo nome do teu Filho; ajuda-nos misericordioso para que nenhum dos laços terrenos nos afastem do teu serviço. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
@@ -736,7 +736,7 @@ holy_days_collects = [
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "São Mateus")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Mateus")&.id,
     text: "Deus nosso Salvador, teu Filho chamou Mateus a ser apóstolo e evangelista; livra-nos de ser possessivos e amantes do dinheiro e inspira-nos a seguir Jesus Cristo, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e para sempre. Amém.",
     language: "pt-BR"
   },
@@ -748,12 +748,12 @@ holy_days_collects = [
 
   # Outubro
   {
-    celebration_id: celebrations_scope.find_by(name: "São Lucas")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Lucas")&.id,
     text: "Pai de toda a graça, tu inspiraste o médico Lucas a anunciar o amor e o poder de cura do teu Filho; dá à tua Igreja, pela graça do Espírito, o mesmo amor e o mesmo poder de curar. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "São Simão e São Judas")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Simão e Judas")&.id,
     text: "Senhor Deus, edificaste a tua Igreja mediante apóstolos e profetas, sendo Jesus Cristo a sua pedra angular; permite que, auxiliados pela sua doutrina, nos reunamos na unidade do Espírito e nos tomemos templo santo aceitável por ti. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
@@ -765,19 +765,19 @@ holy_days_collects = [
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "Santo André")&.id,
+    celebration_id: celebrations_scope.find_by(name: "André")&.id,
     text: "Senhor Deus, pela tua graça o apóstolo André obedeceu à chamada do teu Filho Jesus Cristo e seguiu-o sem demora; concede-nos o dom de nos entregarmos a ti em alegre obediência. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
 
   # Dezembro
   {
-    celebration_id: celebrations_scope.find_by(name: "Santo Estêvão")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Estevão")&.id,
     text: "Pai celestial, deste ao teu mártir Estevão a graça de orar por aqueles que o apedrejaram; concede que, ao sofrermos pela verdade, imitemos o seu exemplo de perdão. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
   {
-    celebration_id: celebrations_scope.find_by(name: "São João")&.id,
+    celebration_id: celebrations_scope.find_by(name: "João")&.id,
     text: "Senhor misericordioso, iluminaste a tua Igreja com o ensino de João; lança sobre nós os brilhantes raios da tua luz para podermos caminhar na tua verdade e chegar finalmente ao teu eterno esplendor. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },

@@ -8,11 +8,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
   end
 
   # Create a test class that includes the module
-  let(:test_class) do
-    Class.new(DailyOffice::Builders::Loc2015Builder) do
-      include DailyOffice::Builders::Loc2015::Compline
-    end
-  end
+  
 
   let(:prayer_book) do
     PrayerBook.find_or_create_by!(code: 'loc_2015') do |pb|
@@ -30,7 +26,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
   end
 
   let(:date) { Date.new(2025, 11, 25) }
-  let(:builder) { test_class.new(date: date, office_type: :compline) }
+  let(:builder) { described_class.new(date: date, office_type: :compline) }
 
   before do
     # Ensure prayer book exists
@@ -59,14 +55,14 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
 
   describe '#assemble_compline' do
     it 'returns full compline structure' do
-      modules = builder.assemble_compline
+      modules = builder.send(:assemble_compline)
 
       expect(modules).to be_an(Array)
       expect(modules).to all(be_a(Hash))
     end
 
     it 'includes all expected module types' do
-      modules = builder.assemble_compline
+      modules = builder.send(:assemble_compline)
       module_slugs = modules.map { |m| m[:slug] }
 
       # Core Compline structure
@@ -80,7 +76,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
 
     context 'regression tests (golden master)' do
       it 'maintains exact structure for each module' do
-        modules = builder.assemble_compline
+        modules = builder.send(:assemble_compline)
 
         modules.each do |mod|
           expect(mod).to have_key(:name)
@@ -96,7 +92,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
       end
 
       it 'preserves line types for all modules' do
-        modules = builder.assemble_compline
+        modules = builder.send(:assemble_compline)
         all_line_types = modules.flat_map { |m| m[:lines].map { |l| l[:type] } }.uniq
 
         # Expected line types in LOC 2015
@@ -110,9 +106,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
   # SECTION: Opening and Preparation
   # ==========================================================================
 
-  describe '#build_compline_opening' do
+  describe '#build_opening' do
     it 'returns opening module structure' do
-      result = builder.build_compline_opening
+      result = builder.send(:build_opening)
 
       if result
         expect(result).to have_key(:name)
@@ -124,7 +120,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
 
     it 'includes responsive elements' do
-      result = builder.build_compline_opening
+      result = builder.send(:build_opening)
 
       if result
         line_types = result[:lines].map { |l| l[:type] }
@@ -133,9 +129,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
   end
 
-  describe '#build_compline_brief_lesson' do
+  describe '#build_brief_lesson' do
     it 'returns brief lesson module structure' do
-      result = builder.build_compline_brief_lesson
+      result = builder.send(:build_brief_lesson)
 
       if result
         expect(result).to have_key(:name)
@@ -151,9 +147,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
   # SECTION: Confession and Absolution
   # ==========================================================================
 
-  describe '#build_compline_confession' do
+  describe '#build_confession' do
     it 'returns confession module structure' do
-      result = builder.build_compline_confession
+      result = builder.send(:build_confession)
 
       if result
         expect(result).to have_key(:name)
@@ -165,7 +161,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
 
     it 'includes congregation response' do
-      result = builder.build_compline_confession
+      result = builder.send(:build_confession)
 
       if result
         line_types = result[:lines].map { |l| l[:type] }
@@ -174,9 +170,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
   end
 
-  describe '#build_compline_absolution' do
+  describe '#build_absolution' do
     it 'returns absolution module structure' do
-      result = builder.build_compline_absolution
+      result = builder.send(:build_absolution)
 
       if result
         expect(result).to have_key(:name)
@@ -191,9 +187,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
   # SECTION: Psalms
   # ==========================================================================
 
-  describe '#build_compline_psalms_title' do
+  describe '#build_psalms_title' do
     it 'returns psalms title module structure' do
-      result = builder.build_compline_psalms_title
+      result = builder.send(:build_psalms_title)
 
       if result
         expect(result).to have_key(:name)
@@ -205,9 +201,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
   end
 
-  describe '#build_compline_psalms' do
+  describe '#build_psalms' do
     it 'returns psalms module structure' do
-      result = builder.build_compline_psalms
+      result = builder.send(:build_psalms)
 
       expect(result).to be_an(Array)
       result.each do |psalm_module|
@@ -222,9 +218,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
   # SECTION: Readings and Response
   # ==========================================================================
 
-  describe '#build_compline_readings' do
+  describe '#build_readings' do
     it 'returns readings module structure' do
-      result = builder.build_compline_readings
+      result = builder.send(:build_readings)
 
       if result
         expect(result).to have_key(:name)
@@ -236,9 +232,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
   end
 
-  describe '#build_compline_response' do
+  describe '#build_response' do
     it 'returns response module structure' do
-      result = builder.build_compline_response
+      result = builder.send(:build_response)
 
       if result
         expect(result).to have_key(:name)
@@ -249,7 +245,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
 
     it 'includes responsive elements' do
-      result = builder.build_compline_response
+      result = builder.send(:build_response)
 
       if result
         line_types = result[:lines].map { |l| l[:type] }
@@ -262,9 +258,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
   # SECTION: Prayers
   # ==========================================================================
 
-  describe '#build_compline_kyrie' do
+  describe '#build_kyrie' do
     it 'returns Kyrie module structure' do
-      result = builder.build_compline_kyrie
+      result = builder.send(:build_kyrie)
 
       if result
         expect(result).to have_key(:name)
@@ -275,9 +271,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
   end
 
-  describe '#build_compline_lords_prayer' do
+  describe '#build_lords_prayer' do
     it 'returns Lords Prayer module structure' do
-      result = builder.build_compline_lords_prayer
+      result = builder.send(:build_lords_prayer)
 
       if result
         expect(result).to have_key(:name)
@@ -288,7 +284,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
 
     it 'includes congregation response' do
-      result = builder.build_compline_lords_prayer
+      result = builder.send(:build_lords_prayer)
 
       if result
         line_types = result[:lines].map { |l| l[:type] }
@@ -301,9 +297,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
   # SECTION: Canticle and Dismissal
   # ==========================================================================
 
-  describe '#build_compline_antiphon' do
+  describe '#build_antiphon' do
     it 'returns antiphon module structure' do
-      result = builder.build_compline_antiphon
+      result = builder.send(:build_antiphon)
 
       if result
         expect(result).to have_key(:name)
@@ -314,9 +310,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
   end
 
-  describe '#build_compline_nunc_dimittis' do
+  describe '#build_nunc_dimittis' do
     it 'returns Nunc Dimittis module structure' do
-      result = builder.build_compline_nunc_dimittis
+      result = builder.send(:build_nunc_dimittis)
 
       if result
         expect(result).to have_key(:name)
@@ -327,7 +323,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
 
     it 'includes congregation response' do
-      result = builder.build_compline_nunc_dimittis
+      result = builder.send(:build_nunc_dimittis)
 
       if result
         line_types = result[:lines].map { |l| l[:type] }
@@ -336,9 +332,9 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
   end
 
-  describe '#build_compline_dismissal' do
+  describe '#build_dismissal' do
     it 'returns dismissal module structure' do
-      result = builder.build_compline_dismissal
+      result = builder.send(:build_dismissal)
 
       if result
         expect(result).to have_key(:name)
@@ -350,7 +346,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
     end
 
     it 'includes responsive elements' do
-      result = builder.build_compline_dismissal
+      result = builder.send(:build_dismissal)
 
       if result
         line_types = result[:lines].map { |l| l[:type] }
@@ -366,24 +362,24 @@ RSpec.describe DailyOffice::Builders::Loc2015::Compline do
   describe 'preference variations' do
     it 'handles different psalm preferences' do
       [ 1, 2, 3, 4, 5, 6, 7 ].each do |day_num|
-        test_builder = test_class.new(
+        test_builder = described_class.new(
           date: date,
           office_type: :compline,
           preferences: { compline_psalm_day: day_num }
         )
-        result = test_builder.build_compline_psalms
+        result = test_builder.send(:build_psalms)
         expect(result).to be_an(Array)
       end
     end
 
     it 'handles different lesson preferences' do
       [ 1, 2, 3 ].each do |lesson_num|
-        test_builder = test_class.new(
+        test_builder = described_class.new(
           date: date,
           office_type: :compline,
           preferences: { compline_lesson: lesson_num }
         )
-        result = test_builder.build_compline_readings
+        result = test_builder.send(:build_readings)
         expect(result).to be_a(Hash) if result
       end
     end

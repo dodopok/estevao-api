@@ -90,8 +90,8 @@ else
   skipped += 1
 end
 
-# Conversão de São Paulo (25 de janeiro)
-if create_reading_by_celebration("Conversão de São Paulo", {
+# Conversão de Paulo (25 de janeiro)
+if create_reading_by_celebration("Conversão de Paulo", {
   year: "all",
   first_reading: "Atos 26:9-23",
   psalm: "Salmo 67",
@@ -122,7 +122,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("Apresentação de nosso Senhor Jesus Cristo no Templo", {
+if create_reading_by_celebration("Apresentação de Nosso Senhor Jesus Cristo no Templo", {
   year: "all",
   first_reading: "Malaquias 3:1-4",
   psalm: "Salmo 24",
@@ -165,8 +165,8 @@ if wesley
   end
 end
 
-# São José (19 de março)
-if create_reading_by_celebration("São José", {
+# José (19 de março)
+if create_reading_by_celebration("José", {
   year: "all",
   first_reading: "Deuteronômio 33:13-16",
   psalm: "Salmo 89:2-9",
@@ -235,8 +235,8 @@ end
 # ABRIL
 # ============================================================================
 
-# São Marcos (25 de abril)
-if create_reading_by_celebration("São Marcos Evangelista", {
+# Marcos (25 de abril)
+if create_reading_by_celebration("Marcos Evangelista", {
   year: "all",
   first_reading: "Isaías 52:7-10",
   psalm: "Salmo 119:9-16",
@@ -252,8 +252,8 @@ end
 # MAIO
 # ============================================================================
 
-# São Filipe e São Tiago (1 de maio)
-if create_reading_by_celebration("São Matias", {
+# Filipe e Tiago (1 de maio)
+if create_reading_by_celebration("Matias", {
   year: "all",
   first_reading: "Provérbios 4:10-18",
   psalm: "Salmo 84",
@@ -265,8 +265,8 @@ else
   skipped += 1
 end
 
-# São Matias (14 de maio)
-if create_reading_by_celebration("São Matias", {
+# Matias (14 de maio)
+if create_reading_by_celebration("Matias", {
   year: "all",
   first_reading: "Isaías 22:15-22",
   psalm: "Salmo 16",
@@ -309,8 +309,8 @@ end
 # JUNHO
 # ============================================================================
 
-# São Barnabé (11 de junho)
-if create_reading_by_celebration("São Barnabé", {
+# Barnabé (11 de junho)
+if create_reading_by_celebration("Barnabé", {
   year: "all",
   first_reading: "Jó 29:11-16",
   psalm: "Salmo 112",
@@ -323,7 +323,7 @@ else
 end
 
 # Natividade de João Batista (24 de junho)
-if create_reading_by_celebration("Natividade de São João Batista", {
+if create_reading_by_celebration("Natividade de João Batista", {
   year: "all",
   first_reading: "Isaías 40:1-11",
   psalm: "Salmo 119:161-168",
@@ -350,7 +350,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("São Pedro e São Paulo", {
+if create_reading_by_celebration("Pedro e Paulo", {
   year: "all",
   first_reading: "Jonas 3",
   psalm: "Salmo 34:2-10",
@@ -366,8 +366,8 @@ end
 # JULHO
 # ============================================================================
 
-# São Tomé (3 de julho)
-if create_reading_by_celebration("São Tomé", {
+# Tomé (3 de julho)
+if create_reading_by_celebration("Tomé", {
   year: "all",
   first_reading: "Jó 42:1-6",
   psalm: "Salmo 126",
@@ -392,7 +392,7 @@ else
   skipped += 1
 end
 
-# São Tiago (25 de julho)
+# Tiago (25 de julho)
 if create_reading_direct({
   date_reference: "james_apostle",
   cycle: "all",
@@ -407,7 +407,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("São Tiago", {
+if create_reading_by_celebration("Tiago", {
   year: "all",
   first_reading: "Jeremias 45",
   psalm: "Salmo 15",
@@ -450,7 +450,7 @@ else
   skipped += 1
 end
 
-# São Bartolomeu (24 de agosto)
+# Bartolomeu (24 de agosto)
 if create_reading_direct({
   date_reference: "bartholomew",
   cycle: "all",
@@ -465,7 +465,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("São Bartolomeu", {
+if create_reading_by_celebration("Bartolomeu", {
   year: "all",
   first_reading: "Gênesis 28:10-17",
   psalm: "Salmo 103:1b-8",
@@ -523,7 +523,7 @@ if bvm
   end
 end
 
-# São Mateus (21 de setembro)
+# Mateus (21 de setembro)
 if create_reading_direct({
   date_reference: "matthew",
   cycle: "all",
@@ -538,7 +538,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("Mateus, Apóstolo e Evangelista", {
+if create_reading_by_celebration("Mateus", {
   year: "all",
   first_reading: "Provérbios 3:9-18",
   psalm: "Salmo 19",
@@ -550,7 +550,7 @@ else
   skipped += 1
 end
 
-# São Miguel e Todos os Anjos (29 de setembro)
+# Miguel e Todos os Anjos (29 de setembro)
 if create_reading_by_celebration("Arcanjo Miguel e Todos os Anjos", {
   year: "all",
   first_reading: "Jó 38:1-7",
@@ -567,7 +567,7 @@ end
 # OUTUBRO
 # ============================================================================
 
-# São Lucas (18 de outubro)
+# Lucas (18 de outubro)
 if create_reading_direct({
   date_reference: "luke",
   cycle: "all",
@@ -609,7 +609,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("Simão e Judas, Apóstolos", {
+if create_reading_by_celebration("Simão e Judas", {
   year: "all",
   first_reading: "Isaías 28:9-16",
   psalm: "Salmo 119:89-96",
@@ -693,7 +693,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("André, Apóstolo", {
+if create_reading_by_celebration("André", {
   year: "all",
   first_reading: "Zacarias 8:20-23",
   psalm: "Salmo 47",
@@ -709,7 +709,7 @@ end
 # DEZEMBRO
 # ============================================================================
 
-# São Tomé (21 de dezembro)
+# Tomé (21 de dezembro)
 if create_reading_direct({
   date_reference: "thomas_apostle",
   cycle: "all",
@@ -725,7 +725,7 @@ else
 end
 
 # Santo Estevão (26 de dezembro)
-if create_reading_by_celebration("Estêvão, Diácono e Protomártir", {
+if create_reading_by_celebration("Estevão", {
   year: "all",
   first_reading: "2 Crônicas 24:17-22",
   psalm: "Salmo 31:2-6",
@@ -737,7 +737,7 @@ else
   skipped += 1
 end
 
-# São João Evangelista (27 de dezembro)
+# João Evangelista (27 de dezembro)
 if create_reading_direct({
   date_reference: "john_apostle",
   cycle: "all",
@@ -752,7 +752,7 @@ else
   skipped += 1
 end
 
-if create_reading_by_celebration("João, Apóstolo e Evangelista", {
+if create_reading_by_celebration("João", {
   year: "all",
   first_reading: "Isaías 6:1-8",
   psalm: "Salmo 97",

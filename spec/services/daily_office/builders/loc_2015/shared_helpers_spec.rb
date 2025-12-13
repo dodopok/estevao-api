@@ -2,15 +2,52 @@
 
 require 'rails_helper'
 
-RSpec.describe DailyOffice::Builders::Loc2015::SharedHelpers do
+RSpec.describe DailyOffice::Builders::SharedHelpers do
   before(:all) do
     setup_full_liturgical_data
   end
 
-  # Create a test class that includes the module
+  # Create a test class that includes the necessary modules and methods
   let(:test_class) do
-    Class.new(DailyOffice::Builders::Loc2015Builder) do
-      include DailyOffice::Builders::Loc2015::SharedHelpers
+    Class.new do
+      include DailyOffice::Builders::SharedHelpers
+      include DailyOffice::Concerns::SeasonMapper
+      
+      attr_reader :date, :office_type, :preferences, :day_info
+
+      def initialize(date:, office_type:, preferences: {})
+        @date = date
+        @office_type = office_type
+        @preferences = default_preferences.merge(preferences)
+        # Generate seed if not provided (like BaseBuilder does)
+        @preferences[:seed] ||= generate_seed
+        @day_info = liturgical_calendar.day_info(@date)
+      end
+
+      def prayer_book
+        @prayer_book ||= PrayerBook.find_by(code: preferences[:prayer_book_code])
+      end
+
+      private
+
+      def default_preferences
+        {
+          prayer_book_code: "loc_2015",
+          bible_version: "nvi",
+          language: "pt-BR"
+        }
+      end
+
+      def generate_seed
+        "#{date.to_time.to_i}_#{office_type}".hash
+      end
+
+      def liturgical_calendar
+        @liturgical_calendar ||= LiturgicalCalendar.new(
+          date.year,
+          prayer_book_code: preferences[:prayer_book_code]
+        )
+      end
     end
   end
 
@@ -76,26 +113,6 @@ RSpec.describe DailyOffice::Builders::Loc2015::SharedHelpers do
     it 'returns false during other seasons' do
       allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Páscoa' })
       expect(builder.send(:is_lent?)).to be false
-    end
-  end
-
-  describe '#season_specific_antiphon' do
-    it 'returns correct slug for Advent' do
-      allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Advento', feast_day: false })
-      slug = builder.send(:season_specific_antiphon)
-      expect(slug).to eq('morning_before_invocation_advent')
-    end
-
-    it 'returns correct slug for Easter' do
-      allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Páscoa', feast_day: false })
-      slug = builder.send(:season_specific_antiphon)
-      expect(slug).to eq('morning_before_invocation_easter')
-    end
-
-    it 'returns nil for ordinary time without feast' do
-      allow(builder).to receive(:day_info).and_return({ liturgical_season: 'Tempo Comum', feast_day: false })
-      slug = builder.send(:season_specific_antiphon)
-      expect(slug).to be_nil
     end
   end
 

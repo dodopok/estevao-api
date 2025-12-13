@@ -1,9 +1,7 @@
-# frozen_string_literal: true
-
 module DailyOffice
   module Builders
     module Loc2015
-      module Morning
+      class Morning < Base
         # General collects available for morning prayer
         GENERAL_COLLECT_SLUGS = %w[
           for_peace
@@ -14,22 +12,28 @@ module DailyOffice
           for_all_humanity
         ].freeze
 
+        private
+
+        def assemble_office
+          assemble_morning_prayer
+        end
+
         def assemble_morning_prayer
           return assemble_morning_prayer_family if preferences[:office_type] == "family"
 
           [
-            build_welcome(:morning),
-            build_opening_sentence(:morning),
-            build_morning_confession,
+            build_welcome,
+            build_opening_sentence,
+            build_confession,
             build_absolution,
-            build_morning_invitatory,
-            build_morning_invitatory_canticle,
-            build_psalms(:morning),
+            build_invitatory,
+            build_invitatory_canticle,
+            build_psalms,
             build_first_reading,
             build_first_canticle,
             build_second_reading,
             build_second_canticle,
-            build_morning_creed,
+            build_creed,
             build_offertory,
             build_lords_prayer,
             build_collect_of_the_day,
@@ -45,7 +49,7 @@ module DailyOffice
         # ============================================================================
 
         # WELCOME - Separate module for Acolhida
-        def build_welcome(office_type)
+        def build_welcome
           # Welcome text (traditional or contemporary based on preference)
           welcome_slug = preferences[:prayer_style] == "contemporary" ?
                         "morning_welcome_contemporary" : "morning_welcome_traditional"
@@ -62,7 +66,7 @@ module DailyOffice
         end
 
         # PSALMS - Delegate to psalm_builder with LOC-specific rubric
-        def build_psalms(office_type)
+        def build_psalms
           # Get psalms from psalm_builder component
           result = psalm_builder.build_psalms(office_type)
           return nil unless result
@@ -87,7 +91,7 @@ module DailyOffice
         end
 
         # 1. OPENING SENTENCE (Sentenças Iniciais)
-        def build_opening_sentence(office_type)
+        def build_opening_sentence
           lines = []
 
           # Rubric for opening sentence
@@ -109,7 +113,7 @@ module DailyOffice
           end
 
           # Season-specific opening sentence (if available)
-          seasonal_slug = morning_season_specific_opening_sentence_slug(office_type)
+          seasonal_slug = season_specific_opening_sentence_slug
           seasonal = fetch_liturgical_text(seasonal_slug) if seasonal_slug
 
           if seasonal
@@ -127,7 +131,7 @@ module DailyOffice
         end
 
         # 2. CONFESSION
-        def build_morning_confession
+        def build_confession
           lines = []
 
           # Rubric before confession
@@ -208,12 +212,20 @@ module DailyOffice
           }
         end
 
+        def season_specific_antiphon
+          season = day_info[:liturgical_season]
+          season_slug = season_to_antiphon_slug(season, feast_day: day_info[:feast_day])
+          return nil unless season_slug
+
+          "morning_before_invocation_#{season_slug}"
+        end
+
         # ============================================================================
         # SECTION: Invitatory and Psalms
         # ============================================================================
 
         # 4. INVITATORY (Antiphon)
-        def build_morning_invitatory
+        def build_invitatory
           # Use Lent-specific invocation (without Alleluia) during Lent
           slug = is_lent? ? "morning_invocation_lent" : "morning_invocation"
 
@@ -237,11 +249,11 @@ module DailyOffice
         end
 
         # 4. INVITATORY (Canticle)
-        def build_morning_invitatory_canticle
+        def build_invitatory_canticle
           lines = []
 
           # Invitatory canticle (Venite, Jubilate, or Pascha Nostrum)
-          canticle_slug = morning_invitatory_canticle_slug
+          canticle_slug = invitatory_canticle_slug
           canticle = fetch_liturgical_text(canticle_slug)
 
           return nil unless canticle
@@ -360,7 +372,7 @@ module DailyOffice
         # ============================================================================
 
         # 10. CREED
-        def build_morning_creed
+        def build_creed
           lines = []
 
           # Choose between standard and paraphrase
@@ -620,7 +632,7 @@ module DailyOffice
         private
 
         # Get season-specific opening sentence slug
-        def morning_season_specific_opening_sentence_slug(office_type)
+        def season_specific_opening_sentence_slug
           season = day_info[:liturgical_season]
           season_slug = season_to_opening_sentence_slug(season, feast_day: day_info[:feast_day])
           return nil unless season_slug
@@ -629,7 +641,7 @@ module DailyOffice
         end
 
         # Choose invitatory canticle based on season
-        def morning_invitatory_canticle_slug
+        def invitatory_canticle_slug
           season = day_info[:liturgical_season]
 
           # Use Pascha Nostrum during Easter season

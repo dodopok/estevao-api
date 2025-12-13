@@ -37,18 +37,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
         preferences: { prayer_book_code: 'loc_2015' }
       )
 
-      expect(builder.date).to eq(date)
-      expect(builder.office_type).to eq(:morning)
-      expect(builder.preferences[:prayer_book_code]).to eq('loc_2015')
-    end
-
-    it 'initializes component builders' do
-      builder = described_class.new(date: date, office_type: :morning)
-
-      expect(builder.psalm_builder).to be_a(DailyOffice::Components::PsalmBuilder)
-      expect(builder.canticle_builder).to be_a(DailyOffice::Components::CanticleBuilder)
-      expect(builder.reading_builder).to be_a(DailyOffice::Components::ReadingBuilder)
-      expect(builder.prayer_builder).to be_a(DailyOffice::Components::PrayerBuilder)
+      expect(builder).to be_a(DailyOffice::Builders::Loc2015Builder)
     end
   end
 
@@ -67,7 +56,7 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
     it 'includes LOC 2015 specific modules' do
       builder = described_class.new(date: date, office_type: :morning)
       result = builder.call
-      module_slugs = result[:modules].map { |m| m[:slug] }
+      module_slugs = result[:modules].map { |m| m[:slug] }.compact
 
       expect(module_slugs).to include('welcome') # LOC 2015 specific
       expect(module_slugs).to include('offertory') # LOC 2015 specific
@@ -75,36 +64,46 @@ RSpec.describe DailyOffice::Builders::Loc2015Builder do
   end
 
   # ==========================================================================
-  # SECTION: Included Modules
+  # SECTION: Office Routing
   # ==========================================================================
 
-  describe 'included modules' do
-    it 'includes SeasonMapper module' do
-      expect(described_class.ancestors).to include(DailyOffice::Concerns::SeasonMapper)
+  describe 'office routing' do
+    it 'routes to Morning office builder' do
+      builder = described_class.new(date: date, office_type: :morning)
+      result = builder.call
+      
+      expect(result[:office_type]).to eq('morning')
+      expect(result[:modules]).to be_an(Array)
     end
 
-    it 'includes ReadingFormatter module' do
-      expect(described_class.ancestors).to include(DailyOffice::Concerns::ReadingFormatter)
+    it 'routes to Evening office builder' do
+      builder = described_class.new(date: date, office_type: :evening)
+      result = builder.call
+      
+      expect(result[:office_type]).to eq('evening')
+      expect(result[:modules]).to be_an(Array)
     end
 
-    it 'includes Loc2015::SharedHelpers module' do
-      expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::SharedHelpers)
+    it 'routes to Midday office builder' do
+      builder = described_class.new(date: date, office_type: :midday)
+      result = builder.call
+      
+      expect(result[:office_type]).to eq('midday')
+      expect(result[:modules]).to be_an(Array)
     end
 
-    it 'includes Loc2015::Morning module' do
-      expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::Morning)
+    it 'routes to Compline office builder' do
+      builder = described_class.new(date: date, office_type: :compline)
+      result = builder.call
+      
+      expect(result[:office_type]).to eq('compline')
+      expect(result[:modules]).to be_an(Array)
     end
 
-    it 'includes Loc2015::Evening module' do
-      expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::Evening)
-    end
-
-    it 'includes Loc2015::Midday module' do
-      expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::Midday)
-    end
-
-    it 'includes Loc2015::Compline module' do
-      expect(described_class.ancestors).to include(DailyOffice::Builders::Loc2015::Compline)
+    it 'raises error for unknown office type' do
+      expect {
+        described_class.new(date: date, office_type: :unknown).call
+      }.to raise_error(ArgumentError, /Unknown office type/)
     end
   end
 

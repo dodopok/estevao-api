@@ -1,9 +1,7 @@
-# frozen_string_literal: true
-
 module DailyOffice
   module Builders
     module Loc2015
-      module Compline
+      class Compline < Base
         # Compline (Oração da Noite/Completas) specific implementation
         # Final collects available for Compline
         COMPLINE_FINAL_PRAYER_SLUGS = %w[
@@ -15,21 +13,27 @@ module DailyOffice
           compline_final_prayer_6
         ].freeze
 
+        private
+
+        def assemble_office
+          assemble_compline
+        end
+
         def assemble_compline
           [
-            build_compline_opening,
-            build_compline_brief_lesson,
-            build_compline_confession,
-            build_compline_absolution,
-            build_compline_psalms_title,
-            build_compline_psalms,
-            build_compline_readings,
-            build_compline_response,
-            build_compline_kyrie,
-            build_compline_lords_prayer,
-            build_compline_antiphon,
-            build_compline_nunc_dimittis,
-            build_compline_dismissal
+            build_opening,
+            build_brief_lesson,
+            build_confession,
+            build_absolution,
+            build_psalms_title,
+            build_psalms,
+            build_readings,
+            build_response,
+            build_kyrie,
+            build_lords_prayer,
+            build_antiphon,
+            build_nunc_dimittis,
+            build_dismissal
           ].flatten.compact
         end
 
@@ -38,7 +42,7 @@ module DailyOffice
         # ============================================================================
 
         # 1. OPENING/PREPARATION
-        def build_compline_opening
+        def build_opening
           lines = []
 
           # Opening rubric
@@ -71,7 +75,7 @@ module DailyOffice
           }
         end
 
-        def build_compline_brief_lesson
+        def build_brief_lesson
           lines = []
 
           # Brief lesson
@@ -99,7 +103,7 @@ module DailyOffice
         # ============================================================================
 
         # 2. CONFESSION
-        def build_compline_confession
+        def build_confession
           lines = []
 
           # Confession prayer
@@ -127,7 +131,7 @@ module DailyOffice
         end
 
         # 3. ABSOLUTION
-        def build_compline_absolution
+        def build_absolution
           lines = []
 
           # Absolution prayer
@@ -148,7 +152,7 @@ module DailyOffice
           }
         end
 
-        def build_compline_psalms_title
+        def build_psalms_title
           lines = []
 
           # Rubric before psalms
@@ -171,7 +175,7 @@ module DailyOffice
         # ============================================================================
 
         # 4. PSALMS
-        def build_compline_psalms
+        def build_psalms
           sections = []
 
           psalm_slugs = {
@@ -218,7 +222,7 @@ module DailyOffice
         # ============================================================================
 
         # 5. READINGS
-        def build_compline_readings
+        def build_readings
           lines = []
 
           # Rubric before lessons
@@ -255,7 +259,7 @@ module DailyOffice
         end
 
         # 6. BRIEF RESPONSE
-        def build_compline_response
+        def build_response
           response = fetch_liturgical_text("compline_brief_response")
           return nil unless response
 
@@ -273,7 +277,7 @@ module DailyOffice
         # ============================================================================
 
         # 7. KYRIE
-        def build_compline_kyrie
+        def build_kyrie
           # Choose translated or original based on preference
           kyrie_slug = preferences[:office_type] == "traditional" ? "kyrie_original" : "kyrie_translated"
           kyrie = fetch_liturgical_text(kyrie_slug)
@@ -289,7 +293,7 @@ module DailyOffice
         end
 
         # 8. LORD'S PRAYER
-        def build_compline_lords_prayer
+        def build_lords_prayer
           lines = []
 
           # Rubric before prayers
@@ -347,7 +351,7 @@ module DailyOffice
           }
         end
 
-        def build_compline_antiphon
+        def build_antiphon
           lines = []
 
           # Antiphon
@@ -368,7 +372,7 @@ module DailyOffice
         # ============================================================================
 
         # 10. NUNC DIMITTIS
-        def build_compline_nunc_dimittis
+        def build_nunc_dimittis
           lines = []
 
           # Nunc Dimittis (Song of Simeon)
@@ -385,7 +389,7 @@ module DailyOffice
         end
 
         # 11. DISMISSAL
-        def build_compline_dismissal
+        def build_dismissal
           lines = []
 
           # Antiphon
