@@ -162,11 +162,21 @@ module LiturgicalDataHelper
     # Se já existem textos litúrgicos suficientes, pula o carregamento
     return if LiturgicalText.where(prayer_book: pb).count > 100
 
-    # Carrega os seeds reais dos textos litúrgicos
+    # Carrega os seeds reais dos textos litúrgicos com tratamento de race condition
     seed_path = Rails.root.join("db/seeds/prayer_books/loc_2015/data/liturgical_texts.rb")
     if File.exist?(seed_path)
-      load seed_path
+      # Usa lock para evitar carregamento simultâneo em testes paralelos
+      lockfile = Rails.root.join("tmp/liturgical_texts_seed.lock")
+      File.open(lockfile, File::CREAT | File::RDWR) do |f|
+        f.flock(File::LOCK_EX)
+        # Verifica novamente após adquirir lock (outro processo pode ter carregado)
+        return if LiturgicalText.where(prayer_book: pb).count > 100
+        load seed_path
+      end
     end
+  rescue ActiveRecord::RecordInvalid => e
+    # Ignora erros de duplicação em testes paralelos
+    Rails.logger.debug "Liturgical texts already loaded: #{e.message}"
   end
 
   # Cria salmos básicos para testes
@@ -178,17 +188,24 @@ module LiturgicalDataHelper
     # Se já existem salmos suficientes, pula o carregamento
     return if Psalm.where(prayer_book: pb).count >= 150
 
-    # Carrega os seeds reais dos salmos
-    psalms_path = Rails.root.join("db/seeds/prayer_books/loc_2015/data/psalms.rb")
-    if File.exist?(psalms_path)
-      load psalms_path
-    end
+    # Usa lock para evitar carregamento simultâneo em testes paralelos
+    lockfile = Rails.root.join("tmp/psalms_seed.lock")
+    File.open(lockfile, File::CREAT | File::RDWR) do |f|
+      f.flock(File::LOCK_EX)
+      # Verifica novamente após adquirir lock
+      return if Psalm.where(prayer_book: pb).count >= 150
 
-    # Carrega os ciclos de salmos
-    cycles_path = Rails.root.join("db/seeds/prayer_books/loc_2015/data/psalm_cycles.rb")
-    if File.exist?(cycles_path)
-      load cycles_path
+      # Carrega os seeds reais dos salmos
+      psalms_path = Rails.root.join("db/seeds/prayer_books/loc_2015/data/psalms.rb")
+      load psalms_path if File.exist?(psalms_path)
+
+      # Carrega os ciclos de salmos
+      cycles_path = Rails.root.join("db/seeds/prayer_books/loc_2015/data/psalm_cycles.rb")
+      load cycles_path if File.exist?(cycles_path)
     end
+  rescue ActiveRecord::RecordInvalid => e
+    # Ignora erros de duplicação em testes paralelos
+    Rails.logger.debug "Psalms already loaded: #{e.message}"
   end
 
   # Setup completo para testes de integração
