@@ -2,7 +2,7 @@
 
 namespace :audio do
   desc "Sync local audio files to Railway and update database"
-  task sync_to_railway: :environment do
+  task sync: :environment do
     puts "🎵 Audio Sync to Railway Started"
     puts "=" * 60
 
@@ -37,8 +37,23 @@ namespace :audio do
       # Extract voice from directory path
       voice_key = file_path.split('/')[-2]
       
-      # Slug is everything after the second underscore (loc_2015_morning_invocation → morning_invocation)
-      slug = parts[2..-1].join('_')
+      # Filename format: {prayer_book_code}_{id}_{slug}.mp3
+      # Example: loc_2015_3278_midday_invitation_lent.mp3
+      # parts[0] = prayer_book_code (loc or loc_2015, may contain underscore)
+      # parts[1] = id (if prayer_book is 'loc') OR second part of code (if 'loc_2015')
+      # The slug is everything after {prayer_book_code}_{id}_
+      
+      # Try to find the ID (numeric part after prayer book code)
+      id_index = parts.index { |part| part.match?(/^\d+$/) }
+      
+      if id_index.nil?
+        puts "⚠️  Could not find ID in filename: #{file_path}"
+        failed_count += 1
+        next
+      end
+      
+      # Slug is everything after the ID
+      slug = parts[(id_index + 1)..-1].join('_')
       
       # Find liturgical text by slug
       text = LiturgicalText.find_by(slug: slug, prayer_book: prayer_book)
@@ -159,7 +174,7 @@ namespace :audio do
     puts "  # Should show: 326 files"
     puts ""
     puts "  # 5. Update database on Railway"
-    puts "  railway run rake audio:sync_to_railway"
+    puts "  railway run rake audio:sync"
     puts ""
     puts "=" * 60
   end
