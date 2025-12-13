@@ -186,9 +186,8 @@ module DailyOffice
 
           # Get selected psalms from preferences using resolve_preference
           selected_psalms = resolve_preference(
-            preferences[:compline_inviting_canticle],
-            [ 1, 2, 3 ],
-            :compline__compline_inviting_canticle
+            :compline_inviting_canticle,
+            [ 1, 2, 3 ]
           ) || [ 1, 2, 3 ]
 
           Array(selected_psalms).each do |psalm_num|
@@ -233,7 +232,7 @@ module DailyOffice
           end
 
           # Brief lesson (3 options: Jeremiah, Matthew, Hebrews)
-          Array(resolve_preference(preferences[:compline_lesson], 1..3, :compline__compline_lesson) || 1).each do |lesson_num|
+          Array(resolve_preference(:compline_lesson, 1..3) || 1).each do |lesson_num|
             lesson = fetch_liturgical_text("compline_brief_lesson_#{lesson_num}")
             if lesson
               lines << line_item(lesson.content, type: "leader")
@@ -324,7 +323,7 @@ module DailyOffice
           end
 
           # Final prayers (6 options - can select multiple)
-          selected_collects = resolve_preference(preferences[:compline_collects], 1..6, :compline__compline_collects) || [ 1 ]
+          selected_collects = resolve_preference(:compline_collects, 1..6) || [ 1 ]
 
           Array(selected_collects).each_with_index do |collect_num, index|
             collect = fetch_liturgical_text("compline_final_prayer_#{collect_num}")

@@ -71,6 +71,25 @@ loc_2015_preferences = [
     position: 3,
     preferences: [
       {
+        key: "morning_opening_sentence",
+        name: "Sentença Inicial",
+        description: "Escolha a sentença inicial a ser utilizada",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 1,
+        options: [
+          { value: "1", label: "Sl 113.4", description: "Este é o dia que o Senhor fez..." },
+          { value: "2", label: "Fl 1.2 / I Co 15.57", description: "Graça e Paz a vocês, da parte de Deus nosso Pai..." },
+          { value: "3", label: "Sl 43.3-4", description: "Envia a tua luz e a tua verdade, para que elas me guiem..." },
+          { value: "4", label: "Sl 122.1 / Hb 2.20", description: "Eu me alegrei quando me disseram..." },
+          { value: "5", label: "Jo 4.23-24", description: "Mas a hora vem, e é agora, em que adorarão..." },
+          { value: "6", label: "Is 57.15", description: "Porque assim diz aquele que habita na eternidade..." },
+          { value: "7", label: "Sl 19.15", description: "Sejam bem aceitas as palavras de minha boca..." },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
+        ]
+      },
+      {
         key: "morning_confession_type",
         name: "Confissão",
         description: "Formato da confissão de pecados",
@@ -87,7 +106,7 @@ loc_2015_preferences = [
       {
         key: "morning_confession_prayer_type",
         name: "Oração de Confissão",
-        description: "Formato da oração de confissão de pecados",
+        description: "Oração de confissão de pecados",
         pref_type: "select_one",
         required: true,
         default_value: "random",
@@ -100,13 +119,27 @@ loc_2015_preferences = [
         ]
       },
       {
-        key: "morning_inviting_canticle",
+        key: "morning_prayer_after_confession",
+        name: "Oração após a Confissão",
+        description: "Oração após a confissão de pecados",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 3,
+        options: [
+          { value: "1", label: "1", description: "Ó Senhor, suplicamos-te que escutes compassivo nossas ..." },
+          { value: "2", label: "2", description: "Deus Todo-poderoso tenha misericórdia de vocês..." },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
+        ]
+      },
+      {
+        key: "morning_invitatory_canticle",
         name: "Cântico - Invitatório",
         description: "Salmo",
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 3,
+        position: 4,
         options: [
           { value: "venite", label: "Venite, exultemus Domino", description: "Salmo 95 - \"Venham, cantemos ao SENHOR\"" },
           { value: "jubilate", label: "Jubilate Deo", description: "Salmo 100 - \"CELEBREM com júbilo ao SENHOR\"" },
@@ -121,7 +154,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 4,
+        position: 5,
         options: [
           { value: "benedictus", label: "Benedictus es, Domine", description: "\"Bendito és tu, Senhor Deus de nossas mães e nossos pais\"" },
           { value: "cantate_domino", label: "Cantate Domino", description: "Salmo 98 - \"CANTEM ao SENHOR um cântico novo\"" },
@@ -137,7 +170,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 5,
+        position: 6,
         options: [
           { value: "te_deum", label: "Te Deum Laudamus", description: "\"A ti, ó Deus, louvamos, e por Senhor nosso confessamos\"" },
           { value: "magna_et_mirabilia", label: "Magna et mirabilia", description: "Ap 15.3,4 - \"Grandes e admiráveis são as tuas obras\"" },
@@ -153,7 +186,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "apostolic",
-        position: 6,
+        position: 7,
         options: [
           { value: "apostolic", label: "Credo Apostólico", description: "Creio em Deus Pai todo-poderoso..." },
           { value: "apostolic_paraphrase", label: "Paráfrase do Credo Apostólico", description: "Bendigamos a Deus, Pai, Filho e Espírito Santo..." }
@@ -166,7 +199,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 7,
+        position: 8,
         options: [
           { value: "1", label: "1", description: "Ó Senhor, mostra-nos a tua misericórdia..." },
           { value: "2", label: "2", description: "Salva, ó Deus, o teu povo..." },
@@ -180,7 +213,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "for_peace",
-        position: 8,
+        position: 9,
         options: [
           { value: "for_peace", label: "Pela paz", description: "Ó Deus, que és o autor da paz..." },
           { value: "for_grace", label: "Pela graça", description: "Ó Deus Eterno, nosso Pai e Mãe de misericórdia..." },
@@ -199,7 +232,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 9,
+        position: 10,
         options: [
           { value: "1", label: "1", description: "Nós te bendizemos por nossa criação..." },
           { value: "2", label: "2", description: "Pelo dom de teu Espírito. Bendito sejas, ó Cristo..." },
@@ -214,7 +247,7 @@ loc_2015_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 10,
+        position: 11,
         options: [
           { value: "1", label: "2 Co 13.14", description: "A Graça de nosso Senhor Jesus Cristo..." },
           { value: "2", label: "Nm 6.24-26", description: "O Senhor nos abençoe e nos guarde..." },

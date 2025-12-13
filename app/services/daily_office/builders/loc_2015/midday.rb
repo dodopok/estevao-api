@@ -117,9 +117,8 @@ module DailyOffice
 
           # Get selected psalms from preferences using resolve_preference
           selected_psalms = resolve_preference(
-            preferences[:midday_inviting_canticle],
-            [ 1, 2, 3 ],
-            :midday__midday_inviting_canticle
+            :midday_inviting_canticle,
+            [ 1, 2, 3 ]
           ) || [ 1, 2, 3 ]
 
           Array(selected_psalms).each do |psalm_num|
@@ -155,7 +154,7 @@ module DailyOffice
           end
 
           # Get selected reading (from preference or random)
-          Array(resolve_preference(preferences[:midday_reading], 1..3, :midday__midday_reading) || seeded_random(1..3, key: :midday_reading)).each do |reading_num|
+          Array(resolve_preference(:midday_reading, 1..3) || seeded_random(1..3, key: :midday_reading)).each do |reading_num|
             reading = fetch_liturgical_text("midday_reading_#{reading_num}")
             if reading
               lines << line_item(reading.content, type: "leader")

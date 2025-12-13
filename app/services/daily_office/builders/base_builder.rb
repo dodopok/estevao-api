@@ -102,7 +102,7 @@ module DailyOffice
       # when no specific seed is provided
       def generate_seed
         # Use date and office type to create a unique but deterministic seed
-        "#{date.to_time.to_i}_#{office_type}".hash
+        "#{Time.current.to_i}_#{office_type}".hash
       end
     end
   end

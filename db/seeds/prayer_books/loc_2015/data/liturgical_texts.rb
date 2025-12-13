@@ -1437,6 +1437,8 @@ end
 LiturgicalText.find_or_create_by!(slug: 'morning_rubric_after_final_prayer', prayer_book_id: prayer_book.id) do |lt|
   lt.category = 'rubric'
   lt.content = <<~TEXT
+    Aqui podem ser usadas uma das intercessões
+    deste livro ou litanias autorizadas.
     As Orações são concluídas com uma das seguintes
     Orações Gerais de Ação de Graças, podendo
     ser precedidas por uma música ou hino:

@@ -40,62 +40,77 @@ module DailyOffice
         lent_season?(day_info[:liturgical_season])
       end
 
+      # Gets the default value for a preference from its PreferenceDefinition
+      def preference_default(pref_key)
+        return nil unless prayer_book
+
+        pref_def = prayer_book.preference_definitions.find_by(key: pref_key)
+        pref_def&.default_value
+      end
+
       # Resolves a preference value to handle "random", "all", specific values, or nil.
       #
       # This helper standardizes preference handling across builders, supporting:
       # - Numeric ranges (e.g., 1..7) for numbered liturgical texts
       # - Slug arrays (e.g., %w[venite jubilate]) for named texts
       # - Special values "random" and "all"
+      # - When preference is nil/empty, uses PreferenceDefinition default_value or seeded_random
       #
-      # @param pref_value [String, Integer, nil] The preference value from user settings
+      # @param pref_key [Symbol] The preference key to look up in preferences hash
       # @param options [Range, Array] Available options (Range for numeric, Array for slugs)
-      # @param random_key [Symbol] Unique key for deterministic seeded randomization
       #
-      # @return [Integer, String, Array, nil] Resolved value(s) based on preference type
+      # @return [Integer, String, Array] Resolved value(s) based on preference type
       #   - Returns Integer when options is Range and pref_value is numeric or "random"
       #   - Returns String when options is Array and pref_value is specific slug or "random"
       #   - Returns Array when pref_value is "all" (options.to_a for Range, options for Array)
-      #   - Returns nil for nil/empty/invalid values
+      #   - Uses PreferenceDefinition default_value for nil/empty values, or seeded_random as fallback
       #
       # @example Numeric range with specific value
-      #   resolve_preference("3", 1..7, :morning__opening_sentence)
-      #   # => 3
+      #   resolve_preference(:morning_opening_sentence, 1..7)
+      #   # => 3 (if preferences[:morning_opening_sentence] == "3")
       #
       # @example Numeric range with "random"
-      #   resolve_preference("random", 1..7, :morning__opening_sentence)
-      #   # => 4 (deterministic based on seed)
+      #   resolve_preference(:morning_opening_sentence, 1..7)
+      #   # => 4 (deterministic based on seed if preferences[:morning_opening_sentence] == "random")
       #
       # @example Numeric range with "all"
-      #   resolve_preference("all", 1..7, :morning__opening_sentence)
-      #   # => [1, 2, 3, 4, 5, 6, 7]
+      #   resolve_preference(:morning_opening_sentence, 1..7)
+      #   # => [1, 2, 3, 4, 5, 6, 7] (if preferences[:morning_opening_sentence] == "all")
       #
       # @example Slug array with specific value
-      #   resolve_preference("venite", %w[venite jubilate], :morning__invitatory_canticle)
-      #   # => "venite"
+      #   resolve_preference(:invitatory_canticle, %w[venite jubilate])
+      #   # => "venite" (if preferences[:invitatory_canticle] == "venite")
       #
       # @example Slug array with "random"
-      #   resolve_preference("random", %w[venite jubilate], :morning__invitatory_canticle)
-      #   # => "jubilate" (deterministic based on seed)
+      #   resolve_preference(:invitatory_canticle, %w[venite jubilate])
+      #   # => "jubilate" (deterministic based on seed if preferences[:invitatory_canticle] == "random")
       #
       # @example Slug array with "all"
-      #   resolve_preference("all", %w[venite jubilate], :morning__invitatory_canticle)
-      #   # => ["venite", "jubilate"]
+      #   resolve_preference(:invitatory_canticle, %w[venite jubilate])
+      #   # => ["venite", "jubilate"] (if preferences[:invitatory_canticle] == "all")
       #
-      # @example Nil preference (builder handles default)
-      #   resolve_preference(nil, 1..7, :morning__opening_sentence)
-      #   # => nil
+      # @example Nil preference (uses PreferenceDefinition default or seeded random)
+      #   resolve_preference(:morning_opening_sentence, 1..7)
+      #   # => 5 (PreferenceDefinition default_value or deterministic random if preferences[:morning_opening_sentence] is nil)
       #
-      def resolve_preference(pref_value, options, random_key)
-        return nil if pref_value.nil? || pref_value.to_s.strip.empty?
+      def resolve_preference(pref_key, options)
+        pref_value = preferences[pref_key]
+        
+        # If preference is nil/empty, use PreferenceDefinition default or seeded_random
+        if pref_value.nil? || pref_value.to_s.strip.empty?
+          # Get default from PreferenceDefinition
+          default_value = preference_default(pref_key)
+          pref_value = default_value
+        end
 
         # Handle "random" - use seeded_random for deterministic selection
         if pref_value.to_s == "random"
           if options.is_a?(Range)
-            return seeded_random(options, key: random_key)
+            return seeded_random(options, key: pref_key)
           else
             # For arrays, use seeded_random with index range and return the element
-            return nil if options.empty?
-            return options[seeded_random(0...options.length, key: random_key)]
+            return options.first if options.empty?
+            return options[seeded_random(0...options.length, key: pref_key)]
           end
         end
 

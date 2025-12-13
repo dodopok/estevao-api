@@ -166,7 +166,7 @@ module DailyOffice
           end
 
           # Confession prayer (3 options)
-          Array(resolve_preference(preferences[:evening_confession_prayer_type], 1..3, :evening__confession_prayer) || 1).each do |confession_num|
+          Array(resolve_preference(:evening_confession_prayer_type, 1..3) || 1).each do |confession_num|
             confession = fetch_liturgical_text("evening_after_confession_#{confession_num}")
             next unless confession
 
@@ -420,7 +420,7 @@ module DailyOffice
           end
 
           # Invocation (2 options)
-          Array(resolve_preference(preferences[:our_father_invocation], 1..2, :evening__our_father_invocation) || 1).each do |invocation_num|
+          Array(resolve_preference(:our_father_invocation, 1..2) || 1).each do |invocation_num|
             invocation = fetch_liturgical_text("invocation_our_father_#{invocation_num}")
             if invocation
               lines << line_item(invocation.content, type: "responsive")
@@ -447,7 +447,7 @@ module DailyOffice
             closing_prayer = fetch_liturgical_text("evening_closing_prayer")
             lines << line_item(closing_prayer.content, type: "responsive") if closing_prayer
           else
-            Array(resolve_preference(preferences[:mercy_prayer], 1..3, :evening__mercy_prayer) || 1).each do |prayer_num|
+            Array(resolve_preference(:mercy_prayer, 1..3) || 1).each do |prayer_num|
               suffrages = fetch_liturgical_text("mercy_prayer_#{prayer_num}")
               lines << line_item(suffrages.content, type: "responsive") if suffrages
             end
@@ -496,9 +496,8 @@ module DailyOffice
 
           # General collects (can include all or select based on preferences)
           selected_collects = resolve_preference(
-            preferences[:evening_general_collects],
-            GENERAL_COLLECT_SLUGS,
-            :evening__general_collects
+            :evening_general_collects,
+            GENERAL_COLLECT_SLUGS
           ) || GENERAL_COLLECT_SLUGS
 
           Array(selected_collects).each do |slug|
@@ -539,7 +538,7 @@ module DailyOffice
           end
 
           # Thanksgiving prayer (2 options)
-          Array(resolve_preference(preferences[:thanksgiving_prayer], 1..2, :evening__thanksgiving_prayer) || 1).each do |thanksgiving_num|
+          Array(resolve_preference(:thanksgiving_prayer, 1..2) || 1).each do |thanksgiving_num|
             thanksgiving = fetch_liturgical_text("general_thanksgiving_#{thanksgiving_num}")
             next unless thanksgiving
 
@@ -597,7 +596,7 @@ module DailyOffice
           end
 
           # Dismissal blessing (4 options)
-          Array(resolve_preference(preferences[:evening_concluding_prayer], 1..4, :evening__dismissal_blessing) || 1).each do |dismissal_num|
+          Array(resolve_preference(:evening_concluding_prayer, 1..4) || 1).each do |dismissal_num|
             dismissal = fetch_liturgical_text("dismissal_#{dismissal_num}")
             next unless dismissal
 

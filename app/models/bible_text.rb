@@ -88,6 +88,16 @@ class BibleText < ApplicationRecord
     # Clean up the reference
     clean_ref = reference.strip
 
+    # Normalize Roman numerals to Arabic numbers (I, II, III -> 1, 2, 3)
+    clean_ref = clean_ref.gsub(/^(I{1,3})\s+/) do |match|
+      roman = match.strip
+      case roman
+      when 'I' then '1 '
+      when 'II' then '2 '
+      when 'III' then '3 '
+      end
+    end
+
     # Handle "or" alternatives - take first option
     clean_ref = clean_ref.split(/\s+or\s+/i).first.strip
 
@@ -106,11 +116,23 @@ class BibleText < ApplicationRecord
     match = clean_ref.match(/^(\d*\s*[^\d:.]+?)\s*(\d+)(?:[:.](\d+)(?:-(\d+))?)?$/)
     return nil unless match
 
+    book_name = match[1].strip
+    # Normalize "Salmo" to "Salmos" for consistency with BOOKS hash
+    book_name = "Salmos" if book_name == "Salmo"
+
+    verse_start = match[3]&.to_i
+    verse_end = match[4]&.to_i
+
+    # Normalize verse range if end is less than start (e.g., "3:11-8" should be "3:8-11")
+    if verse_start && verse_end && verse_end < verse_start
+      verse_start, verse_end = verse_end, verse_start
+    end
+
     {
-      book: match[1].strip,
+      book: book_name,
       chapter: match[2].to_i,
-      verse_start: match[3]&.to_i,
-      verse_end: match[4]&.to_i
+      verse_start: verse_start,
+      verse_end: verse_end
     }
   end
 
