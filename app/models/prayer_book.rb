@@ -27,7 +27,13 @@ class PrayerBook < ApplicationRecord
   end
 
   def self.find_by_code!(code)
-    find_by_code(code) || raise(ActiveRecord::RecordNotFound, "Couldn't find PrayerBook with code=#{code}")
+    prayer_book = find_by_code(code)
+    if prayer_book.nil?
+      # Invalidate cache in case it's stale
+      Rails.cache.delete("prayer_book/#{code}")
+      raise(ActiveRecord::RecordNotFound, "Couldn't find PrayerBook with code=#{code}")
+    end
+    prayer_book
   end
 
   def self.find_by_code_or_default(code)

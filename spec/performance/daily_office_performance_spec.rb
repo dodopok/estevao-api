@@ -147,23 +147,28 @@ RSpec.describe 'DailyOffice Performance', type: :performance do
     it 'uses minimal queries for daily office generation' do
       # Count queries for a single daily office call
       query_count = 0
+      subscription = nil
       
-      ActiveSupport::Notifications.subscribe('sql.active_record') do |*args|
+      subscription = ActiveSupport::Notifications.subscribe('sql.active_record') do |*args|
         query_count += 1 unless args.last[:name] == 'SCHEMA'
       end
 
-      service = DailyOfficeService.new(
-        date: date,
-        office_type: :morning,
-        preferences: preferences
-      )
-      service.call
+      begin
+        service = DailyOfficeService.new(
+          date: date,
+          office_type: :morning,
+          preferences: preferences
+        )
+        service.call
 
-      puts "\n  Database queries for one daily office: #{query_count}"
-      
-      # Should use less than 50 queries (reasonable threshold)
-      # Lower is better - target would be < 20 queries
-      expect(query_count).to be < 50
+        puts "\n  Database queries for one daily office: #{query_count}"
+        
+        # Should use less than 50 queries (reasonable threshold)
+        # Lower is better - target would be < 20 queries
+        expect(query_count).to be < 50
+      ensure
+        ActiveSupport::Notifications.unsubscribe(subscription) if subscription
+      end
     end
   end
 end
