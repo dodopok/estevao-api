@@ -131,7 +131,8 @@ module Liturgical
     # Only select fixed celebrations since movable ones are handled separately
     def transferable_celebrations_for_prayer_book
       @transferable_celebrations_for_prayer_book ||= Celebration.for_prayer_book_id(prayer_book_id)
-                                                                .where(can_be_transferred: true, movable: false)
+                                                                .fixed
+                                                                .where(can_be_transferred: true)
                                                                 .to_a
     end
 

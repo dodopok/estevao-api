@@ -29,9 +29,12 @@ class PrayerBook < ApplicationRecord
   def self.find_by_code!(code)
     prayer_book = find_by_code(code)
     if prayer_book.nil?
-      # Invalidate cache in case it's stale
+      # Invalidate cache and retry with fresh database lookup
       Rails.cache.delete("prayer_book/#{code}")
-      raise(ActiveRecord::RecordNotFound, "Couldn't find PrayerBook with code=#{code}")
+      prayer_book = find_by(code: code)
+      raise(ActiveRecord::RecordNotFound, "Couldn't find PrayerBook with code=#{code}") if prayer_book.nil?
+      # Update cache with fresh data
+      Rails.cache.write("prayer_book/#{code}", prayer_book, expires_in: 1.day)
     end
     prayer_book
   end
