@@ -5,12 +5,12 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
 
   before do
     # Create minimal required test data - use loc_2015 so Liturgical::CelebrationResolver finds celebrations correctly
-    @prayer_book = PrayerBook.find_or_create_by!(code: 'loc_2015') do |pb|
+    @prayer_book = PrayerBook.find_or_create_by(code: 'loc_2015') do |pb|
       pb.name = "Livro de Oração Comum 2015"
       pb.year = 2015
     end
 
-    @easter = Celebration.find_or_create_by!(
+    @easter = Celebration.find_or_create_by(
       name: "Páscoa",
       prayer_book: @prayer_book
     ) do |c|
