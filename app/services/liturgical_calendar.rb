@@ -54,8 +54,8 @@ class LiturgicalCalendar
   # Retorna a celebração principal do dia
   def celebration_for_date(date)
     # Usa o Liturgical::CelebrationResolver para aplicar regras de transferência e hierarquia
-    resolver = Liturgical::CelebrationResolver.new(year, prayer_book_code: prayer_book_code, easter_calc: easter_calc)
-    celebration = resolver.resolve_for_date(date)
+    # Memoize resolver to avoid creating multiple instances
+    celebration = celebration_resolver.resolve_for_date(date)
 
     return nil unless celebration
 
@@ -382,5 +382,14 @@ class LiturgicalCalendar
   # Delegado ao Liturgical::SeasonDeterminator
   def in_major_season?(date)
     @season_determinator.in_major_season?(date)
+  end
+
+  # Memoize celebration resolver to avoid creating multiple instances
+  def celebration_resolver
+    @celebration_resolver ||= Liturgical::CelebrationResolver.new(
+      year,
+      prayer_book_code: prayer_book_code,
+      easter_calc: easter_calc
+    )
   end
 end

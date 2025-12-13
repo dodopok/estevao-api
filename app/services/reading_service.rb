@@ -155,7 +155,10 @@ class ReadingService
 
   # 1. Buscar por celebração fixa
   def find_by_celebration
-    celebration = Celebration.fixed.for_date(date.month, date.day).first
+    celebration = Celebration.fixed
+                            .for_prayer_book_id(prayer_book_id)
+                            .for_date(date.month, date.day)
+                            .first
     return nil unless celebration
 
     reading = query.find_by_celebration_id(celebration.id)

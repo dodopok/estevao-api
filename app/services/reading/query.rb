@@ -14,10 +14,12 @@ module Reading
     def find_by_reference(reference)
       return nil unless reference
 
-      query = LectionaryReading.for_date_reference(reference)
-                               .where(cycle: cycles)
-                               .for_prayer_book_id(prayer_book_id)
-                               .service_type_eucharist
+      query = LectionaryReading.where(
+                date_reference: reference,
+                cycle: cycles,
+                prayer_book_id: prayer_book_id,
+                service_type: 'eucharist'
+              )
 
       query = apply_reading_type_filter(query) if reading_type.present?
       query.first
@@ -27,9 +29,12 @@ module Reading
     def find_by_celebration_id(celebration_id)
       return nil unless celebration_id
 
-      query = LectionaryReading.where(celebration_id: celebration_id, cycle: cycles)
-                               .for_prayer_book_id(prayer_book_id)
-                               .service_type_eucharist
+      query = LectionaryReading.where(
+                celebration_id: celebration_id,
+                cycle: cycles,
+                prayer_book_id: prayer_book_id,
+                service_type: 'eucharist'
+              )
 
       query = apply_reading_type_filter(query) if reading_type.present?
       query.first
@@ -48,10 +53,12 @@ module Reading
     def find_weekly(reference)
       return nil unless reference
 
-      query = LectionaryReading.for_date_reference(reference)
-                               .where(cycle: weekly_cycles)
-                               .for_prayer_book_id(prayer_book_id)
-                               .weekly
+      query = LectionaryReading.where(
+                date_reference: reference,
+                cycle: weekly_cycles,
+                prayer_book_id: prayer_book_id,
+                service_type: 'weekly'
+              )
 
       query = apply_reading_type_filter(query) if reading_type.present?
       query.first

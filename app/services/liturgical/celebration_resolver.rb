@@ -101,14 +101,16 @@ module Liturgical
       candidates.concat(fixed_celebrations.to_a)
 
       # Candidatos móveis que caem nesta data (filtrados por prayer_book)
-      Celebration.movable.for_prayer_book_id(prayer_book_id).each do |cel|
+      # Use memoized movable_celebrations to avoid repeated queries
+      movable_celebrations_for_prayer_book.each do |cel|
         if calculate_movable_date(cel) == date
           candidates << cel
         end
       end
 
       # Candidatos transferidos para esta data (filtrados por prayer_book)
-      Celebration.for_prayer_book_id(prayer_book_id).where(can_be_transferred: true).each do |cel|
+      # Use memoized transferable_celebrations to avoid repeated queries
+      transferable_celebrations_for_prayer_book.each do |cel|
         next if cel.movable? # já tratado acima
 
         transferred_date = actual_date_for_celebration(cel)
@@ -118,6 +120,20 @@ module Liturgical
       end
 
       candidates
+    end
+
+    # Memoize movable celebrations to avoid repeated queries
+    def movable_celebrations_for_prayer_book
+      @movable_celebrations_for_prayer_book ||= Celebration.movable.for_prayer_book_id(prayer_book_id).to_a
+    end
+
+    # Memoize transferable celebrations to avoid repeated queries
+    # Only select fixed celebrations since movable ones are handled separately
+    def transferable_celebrations_for_prayer_book
+      @transferable_celebrations_for_prayer_book ||= Celebration.for_prayer_book_id(prayer_book_id)
+                                                                .fixed
+                                                                .where(can_be_transferred: true)
+                                                                .to_a
     end
 
     def resolve_by_hierarchy(celebrations, date)
