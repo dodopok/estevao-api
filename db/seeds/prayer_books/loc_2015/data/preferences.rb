@@ -230,7 +230,7 @@ loc_2015_preferences = [
     name: "Oração do Meio-Dia",
     description: "Configure o ofício do meio-dia como preferir",
     icon: "wb_sunny_outlined",
-    position: 1,
+    position: 4,
     preferences: [
       {
         key: "midday_inviting_canticle",
