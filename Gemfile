@@ -43,6 +43,9 @@ gem "rack-attack"
 # JWT for Firebase Authentication token verification
 gem "jwt"
 
+# HTTP client for API requests
+gem "http"
+
 # Firebase Cloud Messaging for push notifications
 gem "fcm"
 
@@ -82,6 +85,9 @@ group :development, :test do
 
   # Additional RSpec matchers
   gem "shoulda-matchers", "~> 7.0"
+
+  # HTTP request stubbing for tests
+  gem "webmock"
 
   # Code coverage
   gem "simplecov", require: false

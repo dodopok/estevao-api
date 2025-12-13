@@ -10,9 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_10_014700) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_13_145128) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "audio_generation_sessions", force: :cascade do |t|
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.bigint "current_text_id"
+    t.string "current_voice_key"
+    t.text "error_log"
+    t.integer "failed_count", default: 0
+    t.string "prayer_book_code", null: false
+    t.integer "processed_count", default: 0
+    t.datetime "started_at"
+    t.string "status", default: "running", null: false
+    t.integer "total_texts", default: 0
+    t.datetime "updated_at", null: false
+    t.string "voice_keys", default: [], array: true
+    t.index ["prayer_book_code", "status"], name: "index_audio_generation_sessions_on_prayer_book_code_and_status"
+    t.index ["prayer_book_code"], name: "index_audio_generation_sessions_on_prayer_book_code"
+    t.index ["status"], name: "index_audio_generation_sessions_on_status"
+  end
 
   create_table "bible_texts", force: :cascade do |t|
     t.string "book", null: false
@@ -188,7 +207,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_10_014700) do
   end
 
   create_table "liturgical_texts", force: :cascade do |t|
+    t.string "audio_generation_status", default: "pending"
     t.string "audio_url"
+    t.jsonb "audio_urls", default: {}, null: false
     t.string "category", null: false
     t.text "content", null: false
     t.datetime "created_at", null: false
@@ -198,6 +219,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_10_014700) do
     t.string "slug", null: false
     t.string "title"
     t.datetime "updated_at", null: false
+    t.index ["audio_generation_status"], name: "index_liturgical_texts_on_audio_generation_status"
+    t.index ["audio_urls"], name: "index_liturgical_texts_on_audio_urls", using: :gin
     t.index ["category"], name: "index_liturgical_texts_on_category"
     t.index ["prayer_book_id"], name: "index_liturgical_texts_on_prayer_book_id"
     t.index ["slug", "prayer_book_id"], name: "index_liturgical_texts_on_slug_and_prayer_book_id", unique: true
@@ -341,11 +364,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_10_014700) do
     t.string "name"
     t.string "photo_url"
     t.jsonb "preferences", default: {}, null: false
+    t.datetime "premium_expires_at"
     t.string "provider_uid"
+    t.string "revenue_cat_user_id"
     t.string "timezone", default: "America/Sao_Paulo", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["premium_expires_at"], name: "index_users_on_premium_expires_at"
     t.index ["provider_uid"], name: "index_users_on_provider_uid"
+    t.index ["revenue_cat_user_id"], name: "index_users_on_revenue_cat_user_id"
   end
 
   add_foreign_key "celebrations", "prayer_books", on_delete: :restrict

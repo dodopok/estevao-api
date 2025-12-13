@@ -28,6 +28,17 @@ module Authenticatable
     render json: { error: "Authentication failed: #{e.message}" }, status: :unauthorized
   end
 
+  # Verificação de assinatura premium
+  def require_premium!
+    unless current_user&.premium?
+      render json: {
+        error: "Premium subscription required",
+        premium: false,
+        message: "This feature requires an active premium subscription"
+      }, status: :forbidden
+    end
+  end
+
   private
 
   def extract_token_from_header

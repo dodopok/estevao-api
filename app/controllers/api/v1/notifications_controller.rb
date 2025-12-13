@@ -19,7 +19,7 @@ module Api
         if user_ids.blank? || title.blank? || body.blank?
           return render json: {
             error: "user_ids, title, and body are required"
-          }, status: :unprocessable_entity
+          }, status: :unprocessable_content
         end
 
         results = NotificationService.send_to_users(user_ids, title, body, data)
@@ -41,7 +41,7 @@ module Api
         if title.blank? || body.blank?
           return render json: {
             error: "title and body are required"
-          }, status: :unprocessable_entity
+          }, status: :unprocessable_content
         end
 
         # Executa em background se disponível, senão executa síncrono

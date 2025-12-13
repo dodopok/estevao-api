@@ -79,6 +79,19 @@ Rails.application.routes.draw do
       post "shared_offices", to: "shared_offices#create"
       get "shared_offices/:code", to: "shared_offices#show"
 
+      # Rotas de subscription (RevenueCat)
+      post "subscription/verify", to: "subscriptions#verify"
+      get "subscription/premium_status", to: "subscriptions#premium_status"
+
+      # Rotas de audio
+      get "audio/voice_samples", to: "audio#voice_samples"
+      get "audio/url/:prayer_book/:voice/:slug", to: "audio#url"
+
+      # Rotas de admin
+      namespace :admin do
+        get "audio/generation_status", to: "audio#generation_status"
+      end
+
       # Rotas de regras de vida
       resources :life_rules, only: [ :index, :show, :create, :update, :destroy ] do
         collection do

@@ -3,17 +3,23 @@
 # Factory service that delegates to Prayer Book-specific builders
 # This allows each LOC to have its own unique Daily Office structure
 class DailyOfficeService
-  attr_reader :date, :office_type, :preferences
+  attr_reader :date, :office_type, :preferences, :current_user
 
-  def initialize(date:, office_type: :morning, preferences: {})
+  def initialize(date:, office_type: :morning, preferences: {}, current_user: nil)
     @date = date.to_date
     @office_type = office_type.to_sym
     @preferences = default_preferences.merge(preferences)
+    @current_user = current_user
   end
 
   def call
     builder = builder_for_prayer_book
-    builder.call
+    response = builder.call
+
+    # Add audio URLs for premium users
+    add_audio_urls_to_response(response) if @current_user&.premium?
+
+    response
   end
 
   private
@@ -55,5 +61,41 @@ class DailyOfficeService
       creed_type: :apostles,
       family_rite: false
     }
+  end
+
+  # Add audio URLs to liturgical texts in the response
+  def add_audio_urls_to_response(response)
+    return response unless response.is_a?(Hash)
+
+    preferred_voice = @current_user.preferred_audio_voice
+
+    # Recursively add audio_url to any object that has a slug and belongs to a liturgical text
+    add_audio_to_hash(response, preferred_voice)
+  end
+
+  def add_audio_to_hash(obj, voice_key)
+    case obj
+    when Hash
+      # Check if this object has a slug (could be a module or a line)
+      slug = obj[:slug] || obj["slug"]
+      
+      if slug.present?
+        text = LiturgicalText.find_text(slug, prayer_book_code: preferences[:prayer_book_code])
+        if text
+          audio_url = text.audio_url_for_voice(voice_key)
+          if audio_url.present?
+            obj[:audio_url] = audio_url
+            obj["audio_url"] = audio_url  # Add for both symbol and string keys
+          end
+        end
+      end
+
+      # Recursively process all values
+      obj.each_value { |v| add_audio_to_hash(v, voice_key) }
+    when Array
+      obj.each { |item| add_audio_to_hash(item, voice_key) }
+    end
+
+    obj
   end
 end
