@@ -719,7 +719,7 @@ holy_days_collects = [
 
   # Agosto
   {
-    celebration_id: celebrations_scope.find_by(name: "Transfiguração de nosso Senhor Jesus Cristo")&.id,
+    celebration_id: celebrations_scope.find_by(name: "Transfiguração de Nosso Senhor Jesus Cristo")&.id,
     text: "Deus onipotente, teu Filho revelou-se em glória antes de sofrer na Cruz; concede-nos que pela fé na sua morte e ressurreição triunfemos no poder da sua vitória. Mediante Jesus Cristo, nosso Senhor. Amém.",
     language: "pt-BR"
   },
