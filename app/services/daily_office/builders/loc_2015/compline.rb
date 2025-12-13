@@ -356,7 +356,7 @@ module DailyOffice
           # Antiphon
           antiphon = fetch_liturgical_text("compline_antiphon")
           if antiphon
-            lines << line_item(antiphon.content, type: "congregation")
+            lines << line_item(antiphon.content, type: "congregation", slug: antiphon.slug)
           end
 
           {
