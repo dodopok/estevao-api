@@ -55,19 +55,35 @@ class RevenueCatService
 
     return nil unless subscriber
 
-    # Check for any active entitlement (e.g., "premium", "pro", etc.)
+    # Check for any active entitlement (e.g., "premium", "pro", "Ordo +", etc.)
     entitlements = subscriber.dig("entitlements") || {}
-    active_entitlement = entitlements.values.find { |e| e["expires_date"].present? }
+    
+    # Find first active entitlement (either subscription or lifetime purchase)
+    active_entitlement = entitlements.values.find do |e|
+      # Lifetime purchases have no expires_date but are always active
+      # Subscriptions must have expires_date in the future
+      if e["expires_date"].present?
+        Time.parse(e["expires_date"]) > Time.current
+      else
+        # No expiration date = lifetime purchase
+        true
+      end
+    end
 
     if active_entitlement
-      expires_at = Time.parse(active_entitlement["expires_date"])
-      is_active = expires_at > Time.current
+      # Lifetime purchases: expires_at = 100 years from now
+      # Subscriptions: use actual expires_date
+      if active_entitlement["expires_date"].present?
+        expires_at = Time.parse(active_entitlement["expires_date"])
+      else
+        expires_at = 100.years.from_now
+      end
 
       {
-        active: is_active,
+        active: true,
         expires_at: expires_at,
         product_identifier: active_entitlement["product_identifier"],
-        will_renew: active_entitlement["will_renew"]
+        will_renew: active_entitlement["will_renew"] || false
       }
     else
       nil
