@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-require 'benchmark'
+require "rails_helper"
+require "benchmark"
 
-RSpec.describe 'DailyOffice Performance', type: :performance do
-  let(:prayer_book) { create(:prayer_book, code: 'loc_2015') }
+RSpec.describe "DailyOffice Performance" do
+  let(:prayer_book) { create(:prayer_book, code: "loc_2015") }
   let(:date) { Date.new(2025, 12, 13) }
   let(:preferences) do
     {
-      prayer_book_code: 'loc_2015',
-      bible_version: 'nvi',
-      language: 'pt-BR',
-      confession_type: 'long',
-      lords_prayer_version: 'traditional',
+      prayer_book_code: "loc_2015",
+      bible_version: "nvi",
+      language: "pt-BR",
+      confession_type: "long",
+      lords_prayer_version: "traditional",
       creed_type: :apostles
     }
   end
@@ -22,8 +22,8 @@ RSpec.describe 'DailyOffice Performance', type: :performance do
     prayer_book
   end
 
-  describe 'DailyOfficeService' do
-    it 'completes morning office in reasonable time' do
+  describe "DailyOfficeService" do
+    it "completes morning office in reasonable time" do
       # Warm up
       service = DailyOfficeService.new(
         date: date,
@@ -51,7 +51,7 @@ RSpec.describe 'DailyOffice Performance', type: :performance do
       expect(average_time).to be < 0.5
     end
 
-    it 'completes multiple office types efficiently' do
+    it "completes multiple office types efficiently" do
       office_types = [:morning, :midday, :evening, :compline]
       
       time = Benchmark.realtime do
@@ -72,9 +72,9 @@ RSpec.describe 'DailyOffice Performance', type: :performance do
     end
   end
 
-  describe 'LiturgicalCalendar' do
-    it 'generates day info efficiently' do
-      calendar = LiturgicalCalendar.new(date.year, prayer_book_code: 'loc_2015')
+  describe "LiturgicalCalendar" do
+    it "generates day info efficiently" do
+      calendar = LiturgicalCalendar.new(date.year, prayer_book_code: "loc_2015")
       
       # Warm up
       calendar.day_info(date)
@@ -92,8 +92,8 @@ RSpec.describe 'DailyOffice Performance', type: :performance do
       expect(average_time).to be < 0.1
     end
 
-    it 'generates month calendar efficiently' do
-      calendar = LiturgicalCalendar.new(date.year, prayer_book_code: 'loc_2015')
+    it "generates month calendar efficiently" do
+      calendar = LiturgicalCalendar.new(date.year, prayer_book_code: "loc_2015")
       
       time = Benchmark.realtime do
         calendar.month_calendar(12)
@@ -106,15 +106,15 @@ RSpec.describe 'DailyOffice Performance', type: :performance do
     end
   end
 
-  describe 'ReadingService' do
-    it 'finds readings efficiently' do
+  describe "ReadingService" do
+    it "finds readings efficiently" do
       # Warm up
-      service = ReadingService.for(date, prayer_book_code: 'loc_2015')
+      service = ReadingService.for(date, prayer_book_code: "loc_2015")
       service.find_readings
 
       time = Benchmark.realtime do
         10.times do
-          service = ReadingService.for(date, prayer_book_code: 'loc_2015')
+          service = ReadingService.for(date, prayer_book_code: "loc_2015")
           service.find_readings
         end
       end
@@ -126,12 +126,12 @@ RSpec.describe 'DailyOffice Performance', type: :performance do
       expect(average_time).to be < 0.1
     end
 
-    it 'handles multiple consecutive dates efficiently' do
+    it "handles multiple consecutive dates efficiently" do
       dates = (0..6).map { |i| date + i.days }
       
       time = Benchmark.realtime do
         dates.each do |test_date|
-          service = ReadingService.for(test_date, prayer_book_code: 'loc_2015')
+          service = ReadingService.for(test_date, prayer_book_code: "loc_2015")
           service.find_readings
         end
       end
@@ -143,14 +143,14 @@ RSpec.describe 'DailyOffice Performance', type: :performance do
     end
   end
 
-  describe 'Database query efficiency' do
-    it 'uses minimal queries for daily office generation' do
+  describe "Database query efficiency" do
+    it "uses minimal queries for daily office generation" do
       # Count queries for a single daily office call
       query_count = 0
       subscription = nil
       
-      subscription = ActiveSupport::Notifications.subscribe('sql.active_record') do |*args|
-        query_count += 1 unless args.last[:name] == 'SCHEMA'
+      subscription = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
+        query_count += 1 unless args.last[:name] == "SCHEMA"
       end
 
       begin

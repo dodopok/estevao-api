@@ -18,7 +18,7 @@ module Reading
                 date_reference: reference,
                 cycle: cycles,
                 prayer_book_id: prayer_book_id,
-                service_type: 'eucharist'
+                service_type: "eucharist"
               )
 
       query = apply_reading_type_filter(query) if reading_type.present?
@@ -33,7 +33,7 @@ module Reading
                 celebration_id: celebration_id,
                 cycle: cycles,
                 prayer_book_id: prayer_book_id,
-                service_type: 'eucharist'
+                service_type: "eucharist"
               )
 
       query = apply_reading_type_filter(query) if reading_type.present?
@@ -57,7 +57,7 @@ module Reading
                 date_reference: reference,
                 cycle: weekly_cycles,
                 prayer_book_id: prayer_book_id,
-                service_type: 'weekly'
+                service_type: "weekly"
               )
 
       query = apply_reading_type_filter(query) if reading_type.present?
