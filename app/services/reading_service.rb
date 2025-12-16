@@ -214,18 +214,23 @@ class ReadingService
   def enrich_reading(reference)
     return nil if reference.blank?
 
-    parsed = BibleText.parse_reference(reference)
-    return { reference: reference } unless parsed
+    # Normalize reference for single-chapter books (e.g., "Judas 17-25" -> "Judas 1.17-25")
+    bible_service = BibleTextService.new(translation: @translation)
+    normalized_reference = bible_service.send(:normalize_reference, reference)
+    
+    parsed = BibleText.parse_reference(normalized_reference)
+    return { reference: reference, translation: @translation } unless parsed
 
     result = {
       reference: reference,
+      translation: @translation,
       book_name: parsed[:book],
       chapter: parsed[:chapter],
       verse_start: parsed[:verse_start],
       verse_end: parsed[:verse_end]
     }
 
-    # Buscar o conteúdo do texto bíblico
+    # Buscar o conteúdo do texto bíblico (já normaliza internamente)
     content = fetch_bible_content(reference)
     result[:content] = content if content
 
@@ -235,6 +240,13 @@ class ReadingService
   # Busca o conteúdo do texto bíblico
   def fetch_bible_content(reference)
     bible_service = BibleTextService.new(translation: translation)
-    bible_service.fetch_passage_structured(reference)
+    result = bible_service.fetch_passage_structured(reference)
+    
+    # Log if content fetch fails
+    if result.nil?
+      Rails.logger.warn "[ReadingService] Failed to fetch Bible content for: #{reference} (#{translation})"
+    end
+    
+    result
   end
 end
