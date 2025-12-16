@@ -60,8 +60,7 @@ RSpec.describe RevenueCatService do
 
       result = service.verify_subscription('rc_user_123')
 
-      expect(result).to be_present
-      expect(result[:active]).to be false
+      expect(result).to be_nil
     end
 
     it 'returns nil when user not found' do
