@@ -32,8 +32,10 @@ module DailyOffice
         )
       end
 
-      def line_item(text, type: "text")
-        { text: text, type: type }
+      def line_item(text, type: "text", slug: nil)
+        item = { text: text, type: type }
+        item[:slug] = slug if slug.present?
+        item
       end
 
       def is_lent?

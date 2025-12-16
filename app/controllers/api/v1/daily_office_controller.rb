@@ -18,7 +18,8 @@ module Api
           service = DailyOfficeService.new(
             date: date,
             office_type: office_type,
-            preferences: resolved_preferences
+            preferences: resolved_preferences,
+            current_user: current_user
           )
           service.call
         end
@@ -42,7 +43,8 @@ module Api
           service = DailyOfficeService.new(
             date: date,
             office_type: office_type,
-            preferences: resolved_preferences
+            preferences: resolved_preferences,
+            current_user: current_user
           )
           service.call
         end
@@ -66,7 +68,7 @@ module Api
         unless prayer_book.supports_family_rite?
           return render json: {
             error: "O Prayer Book '#{resolved_prayer_book_code}' não suporta rito familiar"
-          }, status: :unprocessable_entity
+          }, status: :unprocessable_content
         end
 
         # Gera o ofício com flag de rito familiar
@@ -77,7 +79,8 @@ module Api
           service = DailyOfficeService.new(
             date: date,
             office_type: office_type,
-            preferences: family_prefs
+            preferences: family_prefs,
+            current_user: current_user
           )
           service.call
         end
@@ -142,6 +145,7 @@ module Api
       end
 
       # Build cache key with relevant preferences for Daily Office
+      # Includes user_id and audio preferences for premium users
       def build_office_cache_key(date, office_type, family: false)
         relevant_prefs = resolved_preferences.slice(
           :prayer_book_code,
@@ -151,10 +155,18 @@ module Api
           :creed_type
         ).sort.to_h
 
+        # Add audio voice preference for premium users (affects audio URLs)
+        if current_user&.premium?
+          relevant_prefs[:preferred_audio_voice] = current_user.preferred_audio_voice
+          user_suffix = "/user_#{current_user.id}"
+        else
+          user_suffix = ""
+        end
+
         prefs_hash = Digest::MD5.hexdigest(relevant_prefs.to_json)[0..7]
         family_suffix = family ? "/family" : ""
 
-        "daily_office/#{date}/#{office_type}/#{prefs_hash}#{family_suffix}"
+        "daily_office/#{date}/#{office_type}/#{prefs_hash}#{user_suffix}#{family_suffix}"
       end
 
       # Adiciona dados do usuário autenticado na resposta

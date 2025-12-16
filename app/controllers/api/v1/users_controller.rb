@@ -26,13 +26,24 @@ module Api
       # PATCH /api/v1/users/preferences
       # Updates user preferences
       def update_preferences
+        # Validate preferred_audio_voice if provided
+        if params.dig(:preferences, :preferred_audio_voice).present?
+          unless LiturgicalText::AVAILABLE_VOICES.include?(params[:preferences][:preferred_audio_voice])
+            render json: {
+              error: "Invalid preferred_audio_voice. Must be one of: #{LiturgicalText::AVAILABLE_VOICES.join(', ')}",
+              available_voices: LiturgicalText::AVAILABLE_VOICES
+            }, status: :unprocessable_content
+            return
+          end
+        end
+
         if current_user.update(preferences: merged_preferences)
           render json: {
             message: "Preferences updated successfully",
             preferences: current_user.preferences
           }
         else
-          render json: { error: current_user.errors.full_messages }, status: :unprocessable_entity
+          render json: { error: current_user.errors.full_messages }, status: :unprocessable_content
         end
       end
 
@@ -58,7 +69,7 @@ module Api
         platform = fcm_token_params[:platform] || "android"
 
         if token.blank?
-          return render json: { error: "FCM token is required" }, status: :unprocessable_entity
+          return render json: { error: "FCM token is required" }, status: :unprocessable_content
         end
 
         # Encontra ou cria o token
@@ -72,7 +83,7 @@ module Api
             fcm_token: token
           }, status: :ok
         else
-          render json: { error: fcm_token.errors.full_messages }, status: :unprocessable_entity
+          render json: { error: fcm_token.errors.full_messages }, status: :unprocessable_content
         end
       end
 
@@ -82,7 +93,7 @@ module Api
         token = params[:fcm_token]
 
         if token.blank?
-          return render json: { error: "FCM token is required" }, status: :unprocessable_entity
+          return render json: { error: "FCM token is required" }, status: :unprocessable_content
         end
 
         current_user.fcm_tokens.where(token: token).destroy_all
@@ -108,7 +119,7 @@ module Api
 
         render json: { message: "Account deleted successfully" }, status: :ok
       rescue ActiveRecord::RecordNotDestroyed => e
-        render json: { error: "Failed to delete account: #{e.message}" }, status: :unprocessable_entity
+        render json: { error: "Failed to delete account: #{e.message}" }, status: :unprocessable_content
       end
 
       # PATCH /api/v1/users/timezone
@@ -117,13 +128,13 @@ module Api
         timezone = params[:timezone]
 
         if timezone.blank?
-          return render json: { error: "Timezone is required" }, status: :unprocessable_entity
+          return render json: { error: "Timezone is required" }, status: :unprocessable_content
         end
 
         unless ActiveSupport::TimeZone[timezone]
           return render json: {
             error: "Invalid timezone. Use IANA timezone format (e.g., 'America/Sao_Paulo', 'Europe/London')"
-          }, status: :unprocessable_entity
+          }, status: :unprocessable_content
         end
 
         if current_user.update(timezone: timezone)
@@ -132,7 +143,7 @@ module Api
             timezone: current_user.timezone
           }
         else
-          render json: { error: current_user.errors.full_messages }, status: :unprocessable_entity
+          render json: { error: current_user.errors.full_messages }, status: :unprocessable_content
         end
       end
 
@@ -154,6 +165,7 @@ module Api
           :notifications,
           :notifications_enabled,
           :streak_reminder_enabled,
+          :preferred_audio_voice,
           prayer_times: [
             :office_id,
             :office_name,

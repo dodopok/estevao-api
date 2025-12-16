@@ -16,7 +16,8 @@ FactoryBot.define do
         "version" => "loc_2015",
         "prayer_book_code" => "loc_2015",
         "language" => "pt-BR",
-        "bible_version" => "nvi"
+        "bible_version" => "nvi",
+        "preferred_audio_voice" => "male_1"
       }
     end
 

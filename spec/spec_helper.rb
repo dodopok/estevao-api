@@ -15,6 +15,10 @@ SimpleCov.start 'rails' do
 end if ENV['COVERAGE']
 
 require 'rspec/expectations'
+require 'webmock/rspec'
+
+# Disable external HTTP requests by default
+WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

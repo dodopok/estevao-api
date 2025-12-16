@@ -117,6 +117,7 @@ RSpec.describe 'api/v1/users', type: :request do
               notifications: { type: :boolean, example: true },
               notifications_enabled: { type: :boolean, example: true },
               streak_reminder_enabled: { type: :boolean, example: true },
+              preferred_audio_voice: { type: :string, example: 'male_1', description: 'Preferred voice for audio (male_1, female_1, male_2)' },
               prayer_times: {
                 type: :array,
                 items: {
@@ -176,6 +177,98 @@ RSpec.describe 'api/v1/users', type: :request do
                }
 
         run_test!
+      end
+
+      response(422, 'invalid voice') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:preferences) { { preferences: { preferred_audio_voice: 'invalid_voice' } } }
+
+        before do
+          user = create(:user)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+        end
+
+        schema type: :object,
+               properties: {
+                 error: { type: :string, example: 'Invalid preferred_audio_voice. Must be one of: male_1, female_1, male_2' },
+                 available_voices: { type: :array, items: { type: :string }, example: [ 'male_1', 'female_1', 'male_2' ] }
+               }
+
+        run_test!
+      end
+    end
+  end
+
+  describe 'PATCH /api/v1/users/preferences - preferred_audio_voice' do
+    let(:user) { create(:user) }
+    let(:headers) { { 'Authorization' => 'Bearer mock-token', 'Content-Type' => 'application/json' } }
+
+    before do
+      allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+      allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+    end
+
+    context 'when updating to a valid voice' do
+      it 'saves male_1 voice preference' do
+        patch '/api/v1/users/preferences',
+              params: { preferences: { preferred_audio_voice: 'male_1' } }.to_json,
+              headers: headers
+
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['preferences']['preferred_audio_voice']).to eq('male_1')
+        expect(user.reload.preferences['preferred_audio_voice']).to eq('male_1')
+      end
+
+      it 'saves female_1 voice preference' do
+        patch '/api/v1/users/preferences',
+              params: { preferences: { preferred_audio_voice: 'female_1' } }.to_json,
+              headers: headers
+
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['preferences']['preferred_audio_voice']).to eq('female_1')
+        expect(user.reload.preferences['preferred_audio_voice']).to eq('female_1')
+      end
+
+      it 'saves male_2 voice preference' do
+        patch '/api/v1/users/preferences',
+              params: { preferences: { preferred_audio_voice: 'male_2' } }.to_json,
+              headers: headers
+
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['preferences']['preferred_audio_voice']).to eq('male_2')
+        expect(user.reload.preferences['preferred_audio_voice']).to eq('male_2')
+      end
+    end
+
+    context 'when updating to an invalid voice' do
+      it 'rejects invalid voice and returns available voices' do
+        patch '/api/v1/users/preferences',
+              params: { preferences: { preferred_audio_voice: 'robot_voice' } }.to_json,
+              headers: headers
+
+        expect(response).to have_http_status(:unprocessable_content)
+
+        json = JSON.parse(response.body)
+        expect(json['error']).to include('Invalid preferred_audio_voice')
+        expect(json['available_voices']).to eq([ 'male_1', 'female_1', 'male_2' ])
+
+        # Não deve ter atualizado
+        expect(user.reload.preferences['preferred_audio_voice']).to eq('male_1') # default
+      end
+    end
+
+    context 'when updating other preferences along with voice' do
+      it 'saves both voice and bible version' do
+        patch '/api/v1/users/preferences',
+              params: { preferences: { preferred_audio_voice: 'female_1', bible_version: 'arc' } }.to_json,
+              headers: headers
+
+        expect(response).to have_http_status(:ok)
+
+        user.reload
+        expect(user.preferences['preferred_audio_voice']).to eq('female_1')
+        expect(user.preferences['bible_version']).to eq('arc')
       end
     end
   end

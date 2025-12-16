@@ -23,11 +23,17 @@ class User < ApplicationRecord
     "version" => "loc_2015",
     "prayer_book_code" => "loc_2015",
     "language" => "pt-BR",
-    "bible_version" => "nvi"
+    "bible_version" => "nvi",
+    "preferred_audio_voice" => "male_1"
   }.freeze
 
-  # Define preferências padrão ao criar usuário
-  after_initialize :set_default_preferences, if: :new_record?
+  # Validações personalizadas
+  validate :valid_timezone
+  validate :valid_audio_voice_preference
+
+  # Callbacks
+  before_save :set_default_preferences, if: :new_record?
+  after_update :clear_daily_office_cache, if: :preferences_changed?
 
   # Retorna a data de "hoje" no fuso horário do usuário
   def user_today
@@ -127,6 +133,20 @@ class User < ApplicationRecord
     effective_preferences
   end
 
+  # Check if user has active premium subscription
+  def premium?
+    # Mock premium in development if MOCK_PREMIUM is set
+    return true if Rails.env.development? && ENV["MOCK_PREMIUM"] == "true"
+
+    return false if premium_expires_at.nil?
+    premium_expires_at > Time.current
+  end
+
+  # Get preferred audio voice from preferences
+  def preferred_audio_voice
+    preferences["preferred_audio_voice"] || "male_1"
+  end
+
   private
 
   def set_default_preferences
@@ -138,5 +158,33 @@ class User < ApplicationRecord
     return if ActiveSupport::TimeZone[timezone].present?
 
     errors.add(:timezone, "is not a valid timezone (e.g., 'America/Sao_Paulo', 'Europe/London')")
+  end
+
+  def valid_audio_voice_preference
+    voice = preferences&.dig("preferred_audio_voice")
+    return if voice.blank?
+    return if LiturgicalText::AVAILABLE_VOICES.include?(voice)
+
+    errors.add(:preferences, "preferred_audio_voice must be one of: #{LiturgicalText::AVAILABLE_VOICES.join(', ')}")
+  end
+
+  # Clear cached daily office data when preferences change
+  # This ensures users get updated audio URLs and content based on new preferences
+  def clear_daily_office_cache
+    return unless premium? # Only premium users have personalized cache
+
+    Rails.logger.info "Clearing daily office cache for user #{id} due to preference change"
+
+    # Clear cache for last 30 days and next 7 days
+    date_range = (30.days.ago.to_date..7.days.from_now.to_date)
+    office_types = [ :morning, :midday, :evening, :compline ]
+
+    date_range.each do |date|
+      office_types.each do |office_type|
+        # We can't rebuild the exact cache key without knowing all preference combinations,
+        # so we delete by pattern matching user_id
+        Rails.cache.delete_matched("daily_office/#{date}/#{office_type}/*user_#{id}*")
+      end
+    end
   end
 end

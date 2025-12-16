@@ -76,3 +76,5 @@ yarn-debug.log*
 
 config/postgres_password
 config/secret_key_base
+
+public/audio

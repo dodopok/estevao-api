@@ -23,7 +23,7 @@ module Api
           longest_streak: current_user.longest_streak
         }, status: :created
       rescue ActiveRecord::RecordInvalid => e
-        render json: { error: e.message }, status: :unprocessable_entity
+        render json: { error: e.message }, status: :unprocessable_content
       end
 
       # GET /api/v1/completions/:year/:month/:day/:office_type

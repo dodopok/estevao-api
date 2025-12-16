@@ -83,7 +83,7 @@ module Api
             life_rule: serialize_life_rule(life_rule, include_steps: true)
           }, status: :created
         else
-          render json: { error: life_rule.errors.full_messages }, status: :unprocessable_entity
+          render json: { error: life_rule.errors.full_messages }, status: :unprocessable_content
         end
       end
 
@@ -96,7 +96,7 @@ module Api
             life_rule: serialize_life_rule(@life_rule, include_steps: true)
           }
         else
-          render json: { error: @life_rule.errors.full_messages }, status: :unprocessable_entity
+          render json: { error: @life_rule.errors.full_messages }, status: :unprocessable_content
         end
       end
 
@@ -122,7 +122,7 @@ module Api
             life_rule: serialize_life_rule(adopted_rule, include_steps: true)
           }, status: :created
         else
-          render json: { error: adopted_rule.errors.full_messages }, status: :unprocessable_entity
+          render json: { error: adopted_rule.errors.full_messages }, status: :unprocessable_content
         end
       rescue ActiveRecord::RecordNotFound
         render json: { error: "Life rule not found or not public" }, status: :not_found

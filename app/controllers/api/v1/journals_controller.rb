@@ -21,7 +21,7 @@ module Api
             journal: journal_response(journal)
           }, status: :created
         else
-          render json: { error: journal.errors.full_messages.join(", ") }, status: :unprocessable_entity
+          render json: { error: journal.errors.full_messages.join(", ") }, status: :unprocessable_content
         end
       end
 
@@ -74,7 +74,7 @@ module Api
             journal: journal_response(@journal)
           }
         else
-          render json: { error: @journal.errors.full_messages.join(", ") }, status: :unprocessable_entity
+          render json: { error: @journal.errors.full_messages.join(", ") }, status: :unprocessable_content
         end
       end
 

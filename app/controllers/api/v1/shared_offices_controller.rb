@@ -33,7 +33,7 @@ module Api
           prayer_book_code: shared_office.prayer_book_code
         }, status: :created
       rescue ActiveRecord::RecordInvalid => e
-        render json: { error: e.message }, status: :unprocessable_entity
+        render json: { error: e.message }, status: :unprocessable_content
       rescue ArgumentError => e
         render json: { error: e.message }, status: :bad_request
       end

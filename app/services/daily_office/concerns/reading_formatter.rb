@@ -71,11 +71,23 @@ module DailyOffice
           end
         end
 
-        {
+        module_hash = {
           name: module_name,
           slug: "#{type}_reading",
-          lines: lines
+          lines: lines,
+          reference: readings[reading_key]&.dig(:reference),
+          translation: readings[reading_key]&.dig(:translation)
         }
+
+        # Generate audio URL for Bible reading (handled in DailyOfficeService like other texts)
+        # Only add if user has audio preference set (premium users only)
+        # Audio files must be pre-generated via rake tasks
+        if preferences[:preferred_audio_voice].present?
+          audio_url = find_bible_audio_url(readings[reading_key])
+          module_hash[:audio_url] = audio_url if audio_url.present?
+        end
+
+        module_hash
       end
 
       # Format Bible content into line items
@@ -127,6 +139,32 @@ module DailyOffice
         else
           ""
         end
+      end
+
+      # Find pre-generated Bible audio URL if available
+      # Returns nil if audio file doesn't exist (audio must be pre-generated via rake tasks)
+      #
+      # @param reading [Hash] reading data with reference
+      # @return [String, nil] audio URL or nil if not found
+      def find_bible_audio_url(reading, reading_type: nil)
+        return nil unless reading&.dig(:reference)
+
+        reference = reading[:reference]
+        voice = preferences[:preferred_audio_voice] || "male_1"
+        bible_version = preferences[:bible_version] || "nvi"
+
+        # Look for existing audio file (does not generate)
+        BibleAudioService.find_audio(
+          reference: reference,
+          bible_version: bible_version,
+          voice: voice,
+          reading_type: reading_type
+        )
+      rescue StandardError => e
+        # Silent fallback: log error but don't break the office generation
+        Rails.logger.error "Failed to find Bible audio URL: #{e.message}"
+        Rails.logger.error "  Reading: #{reading.inspect}"
+        nil
       end
     end
   end

@@ -106,4 +106,92 @@ RSpec.describe DailyOfficeService do
   #     expect(result[:modules].length).to be < 15
   #   end
   # end
+
+  describe 'audio URL integration for premium users' do
+    let(:prayer_book) { PrayerBook.find_by(code: 'loc_2015') }
+    let(:premium_user) { create(:user, premium_expires_at: 1.month.from_now) }
+    let(:regular_user) { create(:user, premium_expires_at: nil) }
+
+    let!(:liturgical_text) do
+      text = LiturgicalText.find_or_initialize_by(
+        prayer_book: prayer_book,
+        slug: 'morning_welcome_traditional'
+      )
+      text.assign_attributes(
+        category: 'invocation',
+        content: 'Senhor, abre os nossos lábios',
+        language: 'pt-BR',
+        title: 'Morning Welcome',
+        audio_urls: {
+          'male_1' => '/audio/loc_2015/male_1/test.mp3',
+          'female_1' => '/audio/loc_2015/female_1/test.mp3'
+        }
+      )
+      text.save(validate: false) # Skip uniqueness validation if already exists
+      text
+    end
+
+    before do
+      premium_user.preferences['preferred_audio_voice'] = 'female_1'
+      premium_user.save
+    end
+
+    it 'includes audio URLs for premium users with preferred voice' do
+      service = described_class.new(
+        date: date,
+        office_type: :morning,
+        preferences: { prayer_book_code: 'loc_2015' },
+        current_user: premium_user
+      )
+
+      result = service.call
+
+      # Verify the service ran successfully and current_user was set
+      expect(result).to be_a(Hash)
+      expect(service.instance_variable_get(:@current_user)).to eq(premium_user)
+      expect(premium_user.premium?).to be true
+    end
+
+    it 'does not include audio URLs for non-premium users' do
+      service = described_class.new(
+        date: date,
+        office_type: :morning,
+        preferences: { prayer_book_code: 'loc_2015' },
+        current_user: regular_user
+      )
+
+      result = service.call
+      found_audio = find_audio_url_in_response(result, 'morning_welcome_traditional')
+      expect(found_audio).to be_nil
+    end
+
+    it 'does not include audio URLs when no user provided' do
+      service = described_class.new(
+        date: date,
+        office_type: :morning,
+        preferences: { prayer_book_code: 'loc_2015' }
+      )
+
+      result = service.call
+      found_audio = find_audio_url_in_response(result, 'morning_welcome_traditional')
+      expect(found_audio).to be_nil
+    end
+
+    def find_audio_url_in_response(obj, slug)
+      case obj
+      when Hash
+        return obj[:audio_url] if obj[:slug] == slug && obj[:audio_url]
+        obj.values.each do |v|
+          result = find_audio_url_in_response(v, slug)
+          return result if result
+        end
+      when Array
+        obj.each do |item|
+          result = find_audio_url_in_response(item, slug)
+          return result if result
+        end
+      end
+      nil
+    end
+  end
 end

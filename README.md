@@ -15,6 +15,7 @@ Backend Rails 8.1 desenvolvido para aplicativos de oração e espiritualidade an
 
 - **📅 Calendário Litúrgico**: Informações diárias, mensais e anuais sobre estações litúrgicas, domingos e dias santos
 - **🙏 Ofício Diário**: Oração da Manhã, Meio-Dia, Tarde e Completas completas e formatadas (LOC 2015)
+- **🎵 Áudio Premium**: Ofícios narrados com vozes naturais de IA (ElevenLabs) para assinantes
 - **📚 Lecionário**: Leituras bíblicas organizadas por ciclos (A, B, C) para Eucaristia e Ofícios Diários
 - **📖 Textos Bíblicos**: Integração com múltiplas traduções da Bíblia (12+ traduções)
 - **✝️ Celebrações**: Festas principais, dias santos, festivais e comemorações de santos
@@ -22,6 +23,7 @@ Backend Rails 8.1 desenvolvido para aplicativos de oração e espiritualidade an
 - **🎨 Cores Litúrgicas**: Cores apropriadas para cada tempo e celebração
 - **📿 Regras de Vida**: Sistema de regras de vida espiritual com aprovação e adoção
 - **👤 Autenticação**: Sistema de usuários com Firebase Authentication
+- **💳 Assinaturas**: Integração com RevenueCat para iOS/Android
 - **🔔 Notificações**: Sistema de notificações push (Firebase Cloud Messaging)
 - **📊 Tracking**: Sistema de completions para acompanhar ofícios realizados
 - **📕 Prayer Books**: Suporte a múltiplos livros de oração com preferências personalizadas
@@ -35,9 +37,17 @@ Backend Rails 8.1 desenvolvido para aplicativos de oração e espiritualidade an
 - **Cache**: Solid Cache
 - **Background Jobs**: Solid Queue
 - **Action Cable**: Solid Cable
-- **Testes**: Minitest
+- **Testes**: Minitest + RSpec
 - **CI/CD**: GitHub Actions
 - **Code Quality**: Rubocop, Brakeman, Bundler Audit
+
+### Integrações Externas
+
+- **Firebase**: Autenticação (JWT) e Push Notifications (FCM)
+- **RevenueCat**: Gerenciamento de assinaturas iOS/Android
+- **ElevenLabs**: Geração de áudio com IA (text-to-speech)
+- **HTTP.rb**: Cliente HTTP para APIs externas
+- **WebMock**: Mocking de requisições HTTP em testes
 
 ## Configuração Inicial
 
@@ -60,7 +70,17 @@ cd estevao-api
 bundle install
 ```
 
-3. Configure o banco de dados:
+3. Configure as variáveis de ambiente:
+```bash
+cp .env.example .env
+# Edite .env com suas chaves:
+# - FIREBASE_PROJECT_ID
+# - FIREBASE_SERVICE_ACCOUNT (JSON base64)
+# - ELEVENLABS_API_KEY (para áudio premium)
+# - REVENUECAT_API_KEY (para assinaturas)
+```
+
+4. Configure o banco de dados:
 ```bash
 bin/rails db:create
 bin/rails db:migrate
@@ -88,23 +108,43 @@ Veja [DOCKER.md](DOCKER.md) para guia completo de uso com Docker.
 ### Executar Testes
 
 ```bash
+# Todos os testes
 bin/rails test
+
+# RSpec (premium audio features)
+bundle exec rspec
+
+# Testes específicos
+bundle exec rspec spec/services/elevenlabs_audio_service_spec.rb
 ```
 
 Com Docker:
 ```bash
 docker-compose exec web bin/rails test
+docker-compose exec web bundle exec rspec
 ```
 
-A aplicação possui **171 testes (613 asserções)** cobrindo:
-- Cálculo de datas móveis (Páscoa, Quaresma, Advento) - 49 testes
-- Resolução de celebrações e hierarquia litúrgica - 32 testes
-- Calendário litúrgico e cores - 30 testes
-- Serviços de leituras e coletas - 27 testes
-- Endpoints da API (unit) - 36 testes
-- **Testes de integração end-to-end - 27 testes**
+#### Cobertura de Testes
 
-**Cobertura de Testes**: 100% dos serviços e controllers principais + integração completa
+**Minitest** (Core features):
+- 171 testes (613 asserções) cobrindo:
+  - Cálculo de datas móveis (Páscoa, Quaresma, Advento) - 49 testes
+  - Resolução de celebrações e hierarquia litúrgica - 32 testes
+  - Calendário litúrgico e cores - 30 testes
+  - Serviços de leituras e coletas - 27 testes
+  - Endpoints da API (unit) - 36 testes
+  - **Testes de integração end-to-end - 27 testes**
+
+**RSpec** (Premium Audio):
+- 112 testes cobrindo:
+  - Models (LiturgicalText, User, AudioGenerationSession) - 48 testes
+  - Services (ElevenLabs, RevenueCat, BatchGenerator) - 34 testes
+  - Jobs (GenerateLiturgicalAudioJob) - 9 testes
+  - Request specs (API endpoints) - 21 testes
+  - Mocks para chamadas HTTP externas (WebMock)
+  - Stubs para operações de arquivo
+
+**Cobertura Total**: 100% dos serviços e controllers principais + integração completa
 
 ### Integração Contínua (CI)
 
@@ -198,6 +238,67 @@ PATCH  /api/v1/users/preferences                # Atualizar preferências
 GET    /api/v1/users/completions                # Histórico de ofícios
 POST   /api/v1/users/fcm_token                  # Registrar token push
 DELETE /api/v1/users/fcm_token                  # Remover token
+```
+
+### 🎵 Premium Audio Features (Assinatura)
+
+> **Novo!** Sistema completo de áudio gerado com IA para usuários premium
+
+#### Assinatura (RevenueCat)
+
+```bash
+POST /api/v1/subscription/verify          # Verificar assinatura e vincular usuário
+GET  /api/v1/subscription/premium_status  # Status da assinatura
+```
+
+**Verificar assinatura**:
+```json
+POST /api/v1/subscription/verify
+{
+  "revenue_cat_user_id": "rc_abc123..."
+}
+
+// Resposta
+{
+  "premium": true,
+  "expires_at": "2026-01-13T15:30:00Z",
+  "message": "Premium subscription active"
+}
+```
+
+#### Áudio dos Ofícios
+
+```bash
+GET /api/v1/audio/voice_samples                           # Amostras de voz (público)
+GET /api/v1/audio/url/:prayer_book/:voice/:slug          # URL do áudio (premium)
+```
+
+**Voices disponíveis**:
+- `male_1` - Victor Power (masculina)
+- `female_1` - Rita (feminina)
+- `male_2` - Will (masculina alternativa)
+
+**Buscar áudio** (requer premium):
+```bash
+GET /api/v1/audio/url/loc_2015/male_1/morning_invocation
+```
+
+**Resposta**:
+```json
+{
+  "audio_url": "/audio/loc_2015/male_1/loc_2015_123_morning_invocation.mp3",
+  "voice_key": "male_1",
+  "voice_name": "Victor Power",
+  "text_title": "Invocação - Oração da Manhã"
+}
+```
+
+**Ofícios com áudio integrado**: Quando o usuário premium faz uma requisição ao `/api/v1/daily_office`, o JSON retorna automaticamente o campo `audio_url` em cada seção (invocação, confissão, salmos, leituras, etc.) baseado na voz preferida do usuário.
+
+#### Admin - Gerenciamento de Áudio
+
+```bash
+GET /api/v1/admin/audio/generation_status    # Status da geração em lote
 ```
 
 ### ✅ Completions (Tracking de Ofícios)
@@ -348,6 +449,136 @@ bundle exec puma -C config/puma.rb
 - `NotificationService` - Envio de notificações
 - `FcmService` - Integração com Firebase Cloud Messaging
 - `FirebaseAuthService` - Autenticação Firebase
+
+**Premium Audio** (Novo):
+- `ElevenlabsAudioService` - Geração de áudio com IA (ElevenLabs API)
+- `BatchAudioGeneratorService` - Geração em lote com retomada automática
+- `RevenueCatService` - Verificação de assinatura premium
+- `GenerateLiturgicalAudioJob` - Job para gerar áudio de textos litúrgicos
+
+### 🎵 Sistema de Áudio Premium
+
+#### Arquitetura
+
+O sistema de áudio premium permite que usuários com assinatura ativa ouçam os ofícios diários narrados por vozes naturais geradas com IA.
+
+**Componentes principais**:
+
+1. **Models**:
+   - `LiturgicalText`: Campo `audio_urls` (JSONB) armazena URLs por voz
+   - `AudioGenerationSession`: Rastreia progresso da geração em lote
+   - `User`: Campos `revenue_cat_user_id` e `premium_expires_at`
+
+2. **Services**:
+   - `ElevenlabsAudioService`: Integração com API da ElevenLabs
+     - 3 vozes em português brasileiro (2 masculinas, 1 feminina)
+     - Modelo: `eleven_multilingual_v2`
+     - Formato: MP3 64kbps
+     - Rate limiting e retry logic
+     - **Sanitização automática**: Remove formatação Markdown (`**negrito**`, `__itálico__`) e referências bíblicas `__(Sl 113.4)__` antes de enviar para a IA
+   
+   - `BatchAudioGeneratorService`: Geração em lote
+     - Processa voz por voz (todos os textos da voz 1, depois voz 2, etc.)
+     - Retomada automática após interrupções
+     - Progresso persistido em banco de dados
+   
+   - `RevenueCatService`: Integração com RevenueCat API
+     - Verificação de assinatura ativa
+     - Atualização automática de `premium_expires_at`
+
+3. **Jobs**:
+   - `GenerateLiturgicalAudioJob`: Gera áudio para um texto+voz
+     - Backup automático de arquivos existentes (com timestamp)
+     - Rastreamento de progresso na sessão
+     - Tratamento de rate limits e erros
+
+4. **Storage**:
+   - Arquivos salvos em `/app/public/audio/:prayer_book/:voice/`
+   - Naming pattern: `{prayer_book}_{text_id}_{slug}.mp3`
+   - Servidos estaticamente via Nginx/Puma
+   - Railway: Volume persistente de 5GB
+
+#### Rake Tasks para Geração
+
+```bash
+# Estimar custo antes de gerar (exclui rubricas automaticamente)
+rake audio:estimate[loc_2015]
+rake audio:estimate[loc_2015,male_1]  # Estimar apenas para uma voz
+
+# Gerar áudio para todas as vozes (com confirmação, exclui rubricas)
+rake audio:generate[loc_2015]
+
+# Gerar para uma voz específica
+rake audio:generate[loc_2015,male_1]
+
+# Gerar para múltiplas vozes (use aspas e escape a vírgula)
+rake "audio:generate[loc_2015,male_1\,female_1]"
+
+# Gerar áudio para um texto específico (aceita slug do texto)
+rake audio:generate_text[loc_2015,morning_invocation]           # Todas as vozes
+rake audio:generate_text[loc_2015,morning_invocation,male_1]    # Voz específica
+rake audio:generate_text[loc_2015,gloria_patri,male_1,female_1] # Múltiplas vozes
+
+# Gerar samples de voz (morning_welcome_traditional)
+rake audio:generate_samples
+
+# Limpar sessões antigas (padrão: 30 dias)
+rake audio:cleanup_sessions[30]
+
+# Limpar arquivos órfãos (padrão: dry-run, 30 dias)
+rake audio:cleanup_orphaned_files[30,false]  # false = executar limpeza
+```
+
+**Notas importantes**:
+- As tasks `audio:estimate` e `audio:generate` **excluem automaticamente** os textos litúrgicos com `category = 'rubric'` (rubricas são instruções que não devem ser narradas)
+- A task `audio:generate_text` permite gerar/regenerar áudio para um texto específico
+- Para textos com categoria `rubric`, a task pedirá confirmação antes de gerar
+- Todas as estimativas e contagens consideram apenas textos que serão efetivamente narrados
+
+#### Fluxo Premium
+
+1. **Cliente**: Usuário assina no app (iOS/Android via RevenueCat)
+2. **App**: Envia `revenue_cat_user_id` via `POST /api/v1/subscription/verify`
+3. **Backend**: 
+   - Verifica assinatura na API do RevenueCat
+   - Atualiza `user.premium_expires_at`
+   - Retorna status premium
+4. **App**: Requisita ofício com token autenticado
+5. **Backend**: `DailyOfficeService` adiciona `audio_url` em cada seção se:
+   - Usuário é premium (`premium_expires_at > Time.current`)
+   - Texto tem áudio gerado para a voz preferida
+6. **App**: Player de áudio carrega URL e reproduz
+
+#### Custos e Estimativas
+
+- **ElevenLabs**: ~$0.30 USD / 1000 caracteres
+- **LOC 2015 completo**: ~200 textos × 3 vozes × ~500 chars = ~$90 USD
+- **Geração**: ~2-3 horas (rate limit: 10 req/min)
+- **Storage**: ~300-500 MB total (MP3 64kbps)
+
+#### Variáveis de Ambiente
+
+```bash
+ELEVENLABS_API_KEY=sk_...        # API key da ElevenLabs
+REVENUECAT_API_KEY=sk_...        # API key da RevenueCat
+```
+
+#### Sanitização de Texto para Áudio
+
+Os textos litúrgicos contêm formatação Markdown e referências bíblicas que não devem ser lidas em voz alta. O sistema automaticamente sanitiza o texto antes de enviar para a IA:
+
+**Formatação removida**:
+- `**negrito**` → negrito
+- `__itálico__` → itálico  
+- `__(Sl 113.4)__` → (referência bíblica removida)
+
+**Exemplo**:
+```
+Entrada: "**Graças a Deus que nos dá a vitória** __(I Co 15.57)__"
+Saída:   "Graças a Deus que nos dá a vitória"
+```
+
+Isso garante que a IA leia apenas o conteúdo relevante, resultando em áudio natural e fluente.
 
 ## Funcionalidades
 
