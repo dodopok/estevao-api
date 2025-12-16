@@ -75,7 +75,7 @@ module Authenticatable
         "prayer_book_code" => "loc_2015",
         "language" => "pt-BR",
         "bible_version" => "nvi",
-        "preferred_audio_voice" => "femal"
+        "preferred_audio_voice" => "female_1"
       }
       user.premium_expires_at = 1.year.from_now
       user.build_user_onboarding(

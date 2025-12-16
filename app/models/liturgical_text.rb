@@ -39,9 +39,27 @@ class LiturgicalText < ApplicationRecord
   AUDIO_STATUSES = %w[pending in_progress completed failed partial].freeze
 
   # Helper method to find text by slug and prayer book code
+  # Uses cached texts for better performance
   def self.find_text(slug, prayer_book_code: "loc_2015")
-    prayer_book = PrayerBook.find_by(code: prayer_book_code)
-    find_by(slug: slug, prayer_book_id: prayer_book&.id)
+    texts_cache_for(prayer_book_code)[slug]
+  end
+
+  # Cache all texts for a prayer book indexed by slug
+  # This dramatically reduces queries when building daily offices
+  def self.texts_cache_for(prayer_book_code)
+    Rails.cache.fetch("liturgical_texts/#{prayer_book_code}", expires_in: 1.hour) do
+      prayer_book = PrayerBook.find_by_code(prayer_book_code)
+      return {} unless prayer_book
+
+      where(prayer_book_id: prayer_book.id).index_by(&:slug)
+    end
+  end
+
+  # Clear cache when texts are updated
+  after_commit :clear_texts_cache
+
+  def clear_texts_cache
+    Rails.cache.delete("liturgical_texts/#{prayer_book.code}")
   end
 
   # Helper to get content safely

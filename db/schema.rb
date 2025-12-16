@@ -81,10 +81,13 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_13_145128) do
     t.integer "rank", null: false
     t.jsonb "transfer_rules", default: {}
     t.datetime "updated_at", null: false
+    t.index ["calculation_rule"], name: "index_celebrations_on_calculation_rule"
     t.index ["celebration_type"], name: "index_celebrations_on_celebration_type"
     t.index ["fixed_month", "fixed_day"], name: "index_celebrations_on_fixed_month_and_fixed_day"
     t.index ["movable"], name: "index_celebrations_on_movable"
     t.index ["name", "prayer_book_id"], name: "index_celebrations_on_name_and_prayer_book_id", unique: true
+    t.index ["prayer_book_id", "can_be_transferred"], name: "index_celebrations_on_prayer_book_and_transferable"
+    t.index ["prayer_book_id", "movable"], name: "index_celebrations_on_prayer_book_and_movable"
     t.index ["prayer_book_id"], name: "index_celebrations_on_prayer_book_id"
     t.index ["rank"], name: "index_celebrations_on_rank"
   end
@@ -154,6 +157,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_13_145128) do
     t.string "service_type"
     t.datetime "updated_at", null: false
     t.index ["celebration_id"], name: "index_lectionary_readings_on_celebration_id"
+    t.index ["cycle", "service_type", "prayer_book_id", "date_reference"], name: "index_lectionary_readings_on_common_lookup"
     t.index ["date_reference", "service_type", "prayer_book_id"], name: "index_lectionary_readings_on_date_service_prayer_book"
     t.index ["prayer_book_id"], name: "index_lectionary_readings_on_prayer_book_id"
     t.index ["reading_type"], name: "index_lectionary_readings_on_reading_type"

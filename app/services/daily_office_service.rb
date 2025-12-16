@@ -64,23 +64,29 @@ class DailyOfficeService
   end
 
   # Add audio URLs to liturgical texts in the response
+  # Optimized: Uses cached texts from LiturgicalText.texts_cache_for
   def add_audio_urls_to_response(response)
     return response unless response.is_a?(Hash)
 
     preferred_voice = @current_user.preferred_audio_voice
+    prayer_book_code = preferences[:prayer_book_code]
 
-    # Recursively add audio_url to any object that has a slug and belongs to a liturgical text
-    add_audio_to_hash(response, preferred_voice)
+    # Use cached texts - no additional query needed!
+    texts_by_slug = LiturgicalText.texts_cache_for(prayer_book_code)
+    return response if texts_by_slug.empty?
+
+    # Add audio URLs using the cached texts
+    add_audio_to_hash(response, preferred_voice, texts_by_slug)
   end
 
-  def add_audio_to_hash(obj, voice_key)
+  def add_audio_to_hash(obj, voice_key, texts_by_slug)
     case obj
     when Hash
       # Check if this object has a slug (could be a module or a line)
       slug = obj[:slug] || obj["slug"]
 
       if slug.present?
-        text = LiturgicalText.find_text(slug, prayer_book_code: preferences[:prayer_book_code])
+        text = texts_by_slug[slug]
         if text
           audio_url = text.audio_url_for_voice(voice_key)
           if audio_url.present?
@@ -91,9 +97,9 @@ class DailyOfficeService
       end
 
       # Recursively process all values
-      obj.each_value { |v| add_audio_to_hash(v, voice_key) }
+      obj.each_value { |v| add_audio_to_hash(v, voice_key, texts_by_slug) }
     when Array
-      obj.each { |item| add_audio_to_hash(item, voice_key) }
+      obj.each { |item| add_audio_to_hash(item, voice_key, texts_by_slug) }
     end
 
     obj
