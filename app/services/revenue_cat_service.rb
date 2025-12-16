@@ -57,7 +57,7 @@ class RevenueCatService
 
     # Check for any active entitlement (e.g., "premium", "pro", "Ordo +", etc.)
     entitlements = subscriber.dig("entitlements") || {}
-    
+
     # Find first active entitlement (either subscription or lifetime purchase)
     active_entitlement = entitlements.values.find do |e|
       # Lifetime purchases have no expires_date but are always active

@@ -7,7 +7,7 @@ namespace :audio do
     puts "=" * 60
 
     # Get prayer book
-    prayer_book = PrayerBook.find_by(code: 'loc_2015')
+    prayer_book = PrayerBook.find_by(code: "loc_2015")
     unless prayer_book
       puts "❌ Prayer book 'loc_2015' not found. Run db:seed first."
       exit 1
@@ -24,9 +24,9 @@ namespace :audio do
     audio_files.each_with_index do |file_path, index|
       # Extract info from path: public/audio/loc_2015/male_1/loc_2015_3171_morning_invocation.mp3
       # Pattern: public/audio/{prayer_book}/{voice}/{prayer_book}_{id}_{slug}.mp3
-      filename = File.basename(file_path, '.mp3')
-      parts = filename.split('_')
-      
+      filename = File.basename(file_path, ".mp3")
+      parts = filename.split("_")
+
       # Skip if filename doesn't have at least 3 parts (prayer_book_id_slug)
       if parts.length < 3
         puts "⚠️  Skipping malformed path: #{file_path}"
@@ -35,27 +35,27 @@ namespace :audio do
       end
 
       # Extract voice from directory path
-      voice_key = file_path.split('/')[-2]
-      
+      voice_key = file_path.split("/")[-2]
+
       # Filename format: {prayer_book_code}_{id}_{slug}.mp3
       # Example: loc_2015_3278_midday_invitation_lent.mp3
       # Strategy: Remove the prayer_book_code prefix, then first part is ID, rest is slug
-      
+
       # Remove prayer book code prefix from filename
       # prayer_book.code could be 'loc_2015', so we need to handle that
       pb_code = prayer_book.code # e.g., 'loc_2015'
-      
+
       unless filename.start_with?(pb_code)
         puts "⚠️  Filename doesn't start with prayer book code '#{pb_code}': #{file_path}"
         failed_count += 1
         next
       end
-      
+
       # Remove prayer book code prefix and leading underscore
       # 'loc_2015_3329_magnificat' -> '3329_magnificat'
       remainder = filename[(pb_code.length + 1)..-1]
-      remainder_parts = remainder.split('_')
-      
+      remainder_parts = remainder.split("_")
+
       # First part should be the ID
       text_id = remainder_parts[0]
       unless text_id.match?(/^\d+$/)
@@ -63,17 +63,17 @@ namespace :audio do
         failed_count += 1
         next
       end
-      
+
       # Rest is the slug
-      slug = remainder_parts[1..-1].join('_')
-      
+      slug = remainder_parts[1..-1].join("_")
+
       # Skip files without slugs (e.g., sample files)
       if slug.empty?
         puts "⚠️  No slug found (possibly a sample file), skipping: #{file_path}"
         failed_count += 1
         next
       end
-      
+
       # Find liturgical text by slug
       text = LiturgicalText.find_by(slug: slug, prayer_book: prayer_book)
       unless text
@@ -90,7 +90,7 @@ namespace :audio do
       if current_url != audio_url
         text.set_audio_url(voice_key, audio_url)
         updated_count += 1
-        
+
         if (index + 1) % 50 == 0
           puts "✅ Updated #{updated_count}/#{index + 1} texts..."
         end
@@ -113,7 +113,7 @@ namespace :audio do
     puts "🔍 Verifying Audio Files"
     puts "=" * 60
 
-    prayer_book = PrayerBook.find_by(code: 'loc_2015')
+    prayer_book = PrayerBook.find_by(code: "loc_2015")
     texts_with_audio = LiturgicalText.where(prayer_book: prayer_book)
                                      .where.not(audio_urls: {})
 
@@ -123,7 +123,7 @@ namespace :audio do
     texts_with_audio.find_each do |text|
       text.audio_urls.each do |voice_key, url|
         file_path = "public#{url}"
-        
+
         if File.exist?(file_path)
           verified_count += 1
         else
@@ -133,7 +133,7 @@ namespace :audio do
     end
 
     puts "✅ Verified: #{verified_count} audio files exist"
-    
+
     if missing_files.any?
       puts "❌ Missing: #{missing_files.count} files"
       puts "\nFirst 10 missing files:"

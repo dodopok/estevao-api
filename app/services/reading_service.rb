@@ -217,7 +217,7 @@ class ReadingService
     # Normalize reference for single-chapter books (e.g., "Judas 17-25" -> "Judas 1.17-25")
     bible_service = BibleTextService.new(translation: @translation)
     normalized_reference = bible_service.send(:normalize_reference, reference)
-    
+
     parsed = BibleText.parse_reference(normalized_reference)
     return { reference: reference, translation: @translation } unless parsed
 
@@ -241,12 +241,12 @@ class ReadingService
   def fetch_bible_content(reference)
     bible_service = BibleTextService.new(translation: translation)
     result = bible_service.fetch_passage_structured(reference)
-    
+
     # Log if content fetch fails
     if result.nil?
       Rails.logger.warn "[ReadingService] Failed to fetch Bible content for: #{reference} (#{translation})"
     end
-    
+
     result
   end
 end

@@ -28,11 +28,11 @@ class BibleTextService
   def fetch_passage_structured(reference)
     original_reference = reference
     reference = normalize_reference(reference)
-    
+
     Rails.logger.debug "[BibleTextService] Fetching: '#{original_reference}' -> '#{reference}' (#{@translation})"
-    
+
     verses = BibleText.fetch_passage(reference, translation: @translation)
-    
+
     if verses.nil? || !verses.any?
       Rails.logger.warn "[BibleTextService] No verses found for: #{reference} (#{@translation})"
       return nil
@@ -80,7 +80,7 @@ class BibleTextService
     return reference if reference.blank?
 
     original = reference
-    
+
     # Check if reference matches a single-chapter book pattern without chapter number
     # Pattern: "BookName verses" (e.g., "Judas 17-25")
     SINGLE_CHAPTER_BOOKS.each do |book|

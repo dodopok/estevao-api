@@ -11,7 +11,7 @@ module Authenticatable
   def authenticate_user_optional
     token = extract_token_from_header
     @current_user = FirebaseAuthService.verify_and_get_user(token) if token.present?
-    
+
     # Mock user in development when MOCK_PREMIUM is enabled
     if @current_user.nil? && Rails.env.development? && ENV["MOCK_PREMIUM"] == "true"
       @current_user = find_or_create_mock_user
