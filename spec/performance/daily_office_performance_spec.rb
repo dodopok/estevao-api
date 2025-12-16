@@ -46,14 +46,14 @@ RSpec.describe "DailyOffice Performance" do
 
       average_time = time / 10
       puts "\n  Average DailyOfficeService time: #{(average_time * 1000).round(2)}ms"
-      
+
       # Should complete in less than 500ms on average
       expect(average_time).to be < 0.5
     end
 
     it "completes multiple office types efficiently" do
-      office_types = [:morning, :midday, :evening, :compline]
-      
+      office_types = [ :morning, :midday, :evening, :compline ]
+
       time = Benchmark.realtime do
         office_types.each do |office_type|
           service = DailyOfficeService.new(
@@ -66,7 +66,7 @@ RSpec.describe "DailyOffice Performance" do
       end
 
       puts "\n  Time for all 4 office types: #{(time * 1000).round(2)}ms"
-      
+
       # Should complete all 4 types in less than 2 seconds
       expect(time).to be < 2.0
     end
@@ -75,7 +75,7 @@ RSpec.describe "DailyOffice Performance" do
   describe "LiturgicalCalendar" do
     it "generates day info efficiently" do
       calendar = LiturgicalCalendar.new(date.year, prayer_book_code: "loc_2015")
-      
+
       # Warm up
       calendar.day_info(date)
 
@@ -87,20 +87,20 @@ RSpec.describe "DailyOffice Performance" do
 
       average_time = time / 10
       puts "\n  Average LiturgicalCalendar.day_info time: #{(average_time * 1000).round(2)}ms"
-      
+
       # Should complete in less than 100ms on average
       expect(average_time).to be < 0.1
     end
 
     it "generates month calendar efficiently" do
       calendar = LiturgicalCalendar.new(date.year, prayer_book_code: "loc_2015")
-      
+
       time = Benchmark.realtime do
         calendar.month_calendar(12)
       end
 
       puts "\n  Time to generate month calendar: #{(time * 1000).round(2)}ms"
-      
+
       # Should complete a full month in less than 2 seconds
       expect(time).to be < 2.0
     end
@@ -121,14 +121,14 @@ RSpec.describe "DailyOffice Performance" do
 
       average_time = time / 10
       puts "\n  Average ReadingService.find_readings time: #{(average_time * 1000).round(2)}ms"
-      
+
       # Should complete in less than 100ms on average
       expect(average_time).to be < 0.1
     end
 
     it "handles multiple consecutive dates efficiently" do
       dates = (0..6).map { |i| date + i.days }
-      
+
       time = Benchmark.realtime do
         dates.each do |test_date|
           service = ReadingService.for(test_date, prayer_book_code: "loc_2015")
@@ -137,7 +137,7 @@ RSpec.describe "DailyOffice Performance" do
       end
 
       puts "\n  Time for 7 consecutive days of readings: #{(time * 1000).round(2)}ms"
-      
+
       # Should complete 7 days in less than 1 second
       expect(time).to be < 1.0
     end
@@ -148,7 +148,7 @@ RSpec.describe "DailyOffice Performance" do
       # Count queries for a single daily office call
       query_count = 0
       subscription = nil
-      
+
       subscription = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
         query_count += 1 unless args.last[:name] == "SCHEMA"
       end
@@ -162,7 +162,7 @@ RSpec.describe "DailyOffice Performance" do
         service.call
 
         puts "\n  Database queries for one daily office: #{query_count}"
-        
+
         # Should use less than 50 queries (reasonable threshold)
         # Lower is better - target would be < 20 queries
         expect(query_count).to be < 50
