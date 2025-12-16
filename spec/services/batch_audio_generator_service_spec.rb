@@ -1,17 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe BatchAudioGeneratorService do
-  let(:prayer_book) { PrayerBook.find_or_create_by!(code: 'loc_2015') { |pb| pb.name = 'Liturgia das Horas' } }
-
-  before do
-    # Clean up existing texts to have predictable counts
-    LiturgicalText.where(prayer_book: prayer_book).delete_all
-  end
+  # Use unique prayer book code for test isolation in parallel runs
+  let(:test_pb_code) { "test_pb_#{SecureRandom.hex(4)}" }
+  let(:prayer_book) {
+    PrayerBook.create!(code: test_pb_code, name: 'Test Prayer Book')
+  }
 
   let!(:text1) { create(:liturgical_text, prayer_book: prayer_book, category: 'prayer') }
   let!(:text2) { create(:liturgical_text, prayer_book: prayer_book, category: 'canticle') }
   let!(:rubric) { create(:liturgical_text, prayer_book: prayer_book, category: 'rubric') }
-  let(:service) { described_class.new('loc_2015', [ 'male_1' ]) }
+  let(:service) { described_class.new(test_pb_code, [ 'male_1' ]) }
+
+  after do
+    # Clean up test data
+    prayer_book.destroy if prayer_book.persisted?
+  end
 
   describe 'initialization' do
     it 'raises error for non-existent prayer book' do
@@ -35,7 +39,7 @@ RSpec.describe BatchAudioGeneratorService do
   describe '#generate' do
     before do
       # Ensure we start with clean state for session tests
-      AudioGenerationSession.where(prayer_book_code: 'loc_2015').delete_all
+      AudioGenerationSession.where(prayer_book_code: test_pb_code).delete_all
       allow(GenerateLiturgicalAudioJob).to receive(:perform_now)
     end
 
@@ -45,14 +49,14 @@ RSpec.describe BatchAudioGeneratorService do
       }.to change { AudioGenerationSession.count }.by(1)
 
       session = AudioGenerationSession.last
-      expect(session.prayer_book_code).to eq('loc_2015')
+      expect(session.prayer_book_code).to eq(test_pb_code)
       expect(session.voice_keys).to eq([ 'male_1' ])
       expect(session.total_texts).to eq(2) # 2 texts × 1 voice
     end
 
     it 'resumes existing running session' do
       existing_session = create(:audio_generation_session,
-                                prayer_book_code: 'loc_2015',
+                                prayer_book_code: test_pb_code,
                                 status: 'running',
                                 current_voice_key: 'male_1',
                                 current_text_id: text1.id)
@@ -126,7 +130,7 @@ RSpec.describe BatchAudioGeneratorService do
   end
 
   describe 'resume functionality' do
-    let(:service_multi) { described_class.new('loc_2015', [ 'male_1', 'female_1' ]) }
+    let(:service_multi) { described_class.new(test_pb_code, [ 'male_1', 'female_1' ]) }
 
     before do
       allow(GenerateLiturgicalAudioJob).to receive(:perform_now)
@@ -134,7 +138,7 @@ RSpec.describe BatchAudioGeneratorService do
 
     it 'resumes from interrupted voice' do
       session = create(:audio_generation_session,
-                      prayer_book_code: 'loc_2015',
+                      prayer_book_code: test_pb_code,
                       status: 'running',
                       voice_keys: [ 'male_1', 'female_1' ],
                       current_voice_key: 'male_1',
