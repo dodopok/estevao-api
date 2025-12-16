@@ -135,6 +135,9 @@ class User < ApplicationRecord
 
   # Check if user has active premium subscription
   def premium?
+    # Mock premium in development if MOCK_PREMIUM is set
+    return true if Rails.env.development? && ENV["MOCK_PREMIUM"] == "true"
+    
     return false if premium_expires_at.nil?
     premium_expires_at > Time.current
   end
