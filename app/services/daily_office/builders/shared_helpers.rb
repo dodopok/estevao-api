@@ -26,10 +26,8 @@ module DailyOffice
       def fetch_liturgical_text(slug)
         return nil unless prayer_book
 
-        LiturgicalText.find_by(
-          slug: slug,
-          prayer_book_id: prayer_book.id
-        )
+        # Use cached texts from LiturgicalText model for better performance
+        LiturgicalText.texts_cache_for(prayer_book.code)[slug]
       end
 
       def line_item(text, type: "text", slug: nil)
@@ -46,8 +44,16 @@ module DailyOffice
       def preference_default(pref_key)
         return nil unless prayer_book
 
-        pref_def = prayer_book.preference_definitions.find_by(key: pref_key)
+        # Use memoized preference definitions cache for better performance
+        pref_def = preference_definitions_cache[pref_key.to_s]
         pref_def&.default_value
+      end
+
+      # Lazy-load all preference definitions for this prayer book into a hash indexed by key
+      def preference_definitions_cache
+        @preference_definitions_cache ||= prayer_book
+          .preference_definitions
+          .index_by(&:key)
       end
 
       # Resolves a preference value to handle "random", "all", specific values, or nil.
