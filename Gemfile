@@ -59,7 +59,9 @@ gem "roo"
 # SQLite for reading external Bible translation files
 gem "sqlite3", "~> 2.0"
 
-gem "newrelic_rpm"
+# Datadog APM, Logging, and Error Tracking
+gem "datadog", "~> 2.0"
+gem "dogstatsd-ruby", "~> 5.6"  # For custom metrics
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
