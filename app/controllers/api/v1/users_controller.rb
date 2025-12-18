@@ -34,7 +34,12 @@ module Api
             email: current_user.email,
             name: current_user.name,
             photo_url: current_user.profile_photo_url,
-            has_custom_avatar: current_user.avatar.attached?
+            has_custom_avatar: current_user.avatar.attached?,
+            preferences: current_user.preferences,
+            timezone: current_user.timezone,
+            current_streak: current_user.current_streak,
+            longest_streak: current_user.longest_streak,
+            last_completed_office_at: current_user.last_completed_office_at
           }
         else
           render json: { error: current_user.errors.full_messages }, status: :unprocessable_content
