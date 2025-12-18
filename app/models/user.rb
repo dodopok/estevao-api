@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_one :user_onboarding, dependent: :destroy
   has_one :life_rule, dependent: :destroy
 
+  # Active Storage para upload de foto
+  has_one_attached :avatar
+
   validates :email, presence: true, uniqueness: true
   validates :provider_uid, presence: true
   validates :timezone, presence: true
@@ -34,6 +37,15 @@ class User < ApplicationRecord
   # Callbacks
   before_save :set_default_preferences, if: :new_record?
   after_update :clear_daily_office_cache, if: :preferences_changed?
+
+  # Retorna a URL da foto do perfil (prioriza avatar uploaded, depois photo_url do OAuth)
+  def profile_photo_url
+    if avatar.attached?
+      Rails.application.routes.url_helpers.rails_blob_url(avatar, only_path: false, host: default_url_host)
+    else
+      photo_url
+    end
+  end
 
   # Retorna a data de "hoje" no fuso horário do usuário
   def user_today
@@ -186,5 +198,9 @@ class User < ApplicationRecord
         Rails.cache.delete_matched("daily_office/#{date}/#{office_type}/*user_#{id}*")
       end
     end
+  end
+
+  def default_url_host
+    ENV.fetch("APP_HOST", "http://localhost:3000")
   end
 end

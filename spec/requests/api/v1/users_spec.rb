@@ -273,6 +273,223 @@ RSpec.describe 'api/v1/users', type: :request do
     end
   end
 
+  path '/api/v1/users/profile' do
+    patch('Update user profile') do
+      tags api_tags
+      produces content_type
+      consumes content_type
+      description 'Updates user profile information (name and photo)'
+      security [ { bearer_auth: [] } ]
+
+      parameter name: 'Authorization',
+                in: :header,
+                type: :string,
+                description: 'Firebase ID Token (format: Bearer <token>)',
+                required: true
+
+      parameter name: :profile, in: :body, schema: {
+        type: :object,
+        properties: {
+          name: { type: :string, example: 'João Silva', description: 'User display name' },
+          photo_url: { type: :string, example: 'https://example.com/photo.jpg', description: 'URL to user profile photo' }
+        }
+      }
+
+      response(200, 'successful') do
+        let(:Authorization) { 'Bearer mock-token' }
+        let(:profile) { { name: 'Novo Nome', photo_url: 'https://example.com/new-photo.jpg' } }
+
+        before do
+          user = create(:user, name: 'Nome Antigo', photo_url: 'https://example.com/old-photo.jpg')
+          allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+          allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+        end
+
+        schema type: :object,
+               properties: {
+                 message: { type: :string, example: 'Profile updated successfully' },
+                 id: { type: :integer, example: 1 },
+                 email: { type: :string, example: 'user@example.com' },
+                 name: { type: :string, example: 'Novo Nome' },
+                 photo_url: { type: :string, example: 'https://example.com/new-photo.jpg' }
+               }
+
+        run_test!
+      end
+
+      response(401, 'unauthorized') do
+        let(:Authorization) { '' }
+        let(:profile) { { name: 'Novo Nome' } }
+
+        schema type: :object,
+               properties: {
+                 error: { type: :string, example: 'Unauthorized' }
+               }
+
+        run_test!
+      end
+    end
+  end
+
+  describe 'PATCH /api/v1/users/profile' do
+    let(:user) { create(:user, name: 'Nome Original', photo_url: 'https://example.com/original.jpg') }
+    let(:headers) { { 'Authorization' => 'Bearer mock-token', 'Content-Type' => 'application/json' } }
+
+    before do
+      allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+      allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+    end
+
+    context 'when updating name only' do
+      it 'updates the name successfully' do
+        patch '/api/v1/users/profile',
+              params: { name: 'Novo Nome' }.to_json,
+              headers: headers
+
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json['name']).to eq('Novo Nome')
+        expect(json['photo_url']).to eq('https://example.com/original.jpg')
+        expect(user.reload.name).to eq('Novo Nome')
+      end
+    end
+
+    context 'when updating photo only' do
+      it 'updates the photo_url successfully' do
+        patch '/api/v1/users/profile',
+              params: { photo_url: 'https://example.com/new.jpg' }.to_json,
+              headers: headers
+
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json['name']).to eq('Nome Original')
+        expect(json['photo_url']).to eq('https://example.com/new.jpg')
+        expect(user.reload.photo_url).to eq('https://example.com/new.jpg')
+      end
+    end
+
+    context 'when updating both name and photo' do
+      it 'updates both fields successfully' do
+        patch '/api/v1/users/profile',
+              params: { name: 'Novo Nome', photo_url: 'https://example.com/new.jpg' }.to_json,
+              headers: headers
+
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json['name']).to eq('Novo Nome')
+        expect(json['photo_url']).to eq('https://example.com/new.jpg')
+
+        user.reload
+        expect(user.name).to eq('Novo Nome')
+        expect(user.photo_url).to eq('https://example.com/new.jpg')
+      end
+    end
+
+    context 'when clearing photo' do
+      it 'allows setting photo_url to nil' do
+        patch '/api/v1/users/profile',
+              params: { photo_url: nil }.to_json,
+              headers: headers
+
+        expect(response).to have_http_status(:ok)
+        expect(user.reload.photo_url).to be_nil
+      end
+    end
+  end
+
+  describe 'POST /api/v1/users/avatar' do
+    let(:user) { create(:user) }
+    let(:headers) { { 'Authorization' => 'Bearer mock-token' } }
+
+    before do
+      allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+      allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+    end
+
+    context 'with valid image file' do
+      it 'uploads avatar successfully' do
+        file = fixture_file_upload(
+          Rails.root.join('spec/fixtures/files/test_avatar.jpg'),
+          'image/jpeg'
+        )
+
+        post '/api/v1/users/avatar', params: { avatar: file }, headers: headers
+
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json['message']).to eq('Avatar uploaded successfully')
+        expect(json['has_custom_avatar']).to be true
+        expect(user.reload.avatar).to be_attached
+      end
+    end
+
+    context 'without file' do
+      it 'returns error' do
+        post '/api/v1/users/avatar', params: {}, headers: headers
+
+        expect(response).to have_http_status(:unprocessable_content)
+        json = JSON.parse(response.body)
+        expect(json['error']).to eq('Avatar file is required')
+      end
+    end
+
+    context 'with invalid file type' do
+      it 'rejects non-image files' do
+        file = fixture_file_upload(
+          Rails.root.join('spec/fixtures/files/test_document.pdf'),
+          'application/pdf'
+        )
+
+        post '/api/v1/users/avatar', params: { avatar: file }, headers: headers
+
+        expect(response).to have_http_status(:unprocessable_content)
+        json = JSON.parse(response.body)
+        expect(json['error']).to include('Invalid file type')
+      end
+    end
+  end
+
+  describe 'DELETE /api/v1/users/avatar' do
+    let(:user) { create(:user, photo_url: 'https://oauth.example.com/photo.jpg') }
+    let(:headers) { { 'Authorization' => 'Bearer mock-token' } }
+
+    before do
+      allow_any_instance_of(Api::V1::UsersController).to receive(:authenticate_user!).and_return(true)
+      allow_any_instance_of(Api::V1::UsersController).to receive(:current_user).and_return(user)
+    end
+
+    context 'when user has custom avatar' do
+      before do
+        user.avatar.attach(
+          io: File.open(Rails.root.join('spec/fixtures/files/test_avatar.jpg')),
+          filename: 'avatar.jpg',
+          content_type: 'image/jpeg'
+        )
+      end
+
+      it 'removes avatar and reverts to OAuth photo' do
+        delete '/api/v1/users/avatar', headers: headers
+
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json['message']).to eq('Avatar removed successfully')
+        expect(json['has_custom_avatar']).to be false
+        expect(json['photo_url']).to eq('https://oauth.example.com/photo.jpg')
+        expect(user.reload.avatar).not_to be_attached
+      end
+    end
+
+    context 'when user has no custom avatar' do
+      it 'returns not found' do
+        delete '/api/v1/users/avatar', headers: headers
+
+        expect(response).to have_http_status(:not_found)
+        json = JSON.parse(response.body)
+        expect(json['error']).to eq('No custom avatar to remove')
+      end
+    end
+  end
+
   path '/api/v1/users/completions' do
     get('Get user completion history') do
       tags api_tags

@@ -14,13 +14,84 @@ module Api
           id: current_user.id,
           email: current_user.email,
           name: current_user.name,
-          photo_url: current_user.photo_url,
+          photo_url: current_user.profile_photo_url,
+          has_custom_avatar: current_user.avatar.attached?,
           preferences: current_user.preferences,
           timezone: current_user.timezone,
           current_streak: current_user.current_streak,
           longest_streak: current_user.longest_streak,
           last_completed_office_at: current_user.last_completed_office_at
         }
+      end
+
+      # PATCH /api/v1/users/profile
+      # Updates user profile (name, photo_url)
+      def update_profile
+        if current_user.update(profile_params)
+          render json: {
+            message: "Profile updated successfully",
+            id: current_user.id,
+            email: current_user.email,
+            name: current_user.name,
+            photo_url: current_user.profile_photo_url,
+            has_custom_avatar: current_user.avatar.attached?
+          }
+        else
+          render json: { error: current_user.errors.full_messages }, status: :unprocessable_content
+        end
+      end
+
+      # POST /api/v1/users/avatar
+      # Uploads a new avatar photo
+      def upload_avatar
+        unless params[:avatar].present?
+          return render json: { error: "Avatar file is required" }, status: :unprocessable_content
+        end
+
+        # Validar tipo de arquivo
+        allowed_types = %w[image/jpeg image/png image/webp]
+        unless allowed_types.include?(params[:avatar].content_type)
+          return render json: {
+            error: "Invalid file type. Allowed: JPEG, PNG, WebP",
+            allowed_types: allowed_types
+          }, status: :unprocessable_content
+        end
+
+        # Validar tamanho (max 5MB)
+        max_size = 5.megabytes
+        if params[:avatar].size > max_size
+          return render json: {
+            error: "File too large. Maximum size: 5MB",
+            max_size_bytes: max_size
+          }, status: :unprocessable_content
+        end
+
+        current_user.avatar.attach(params[:avatar])
+
+        if current_user.avatar.attached?
+          render json: {
+            message: "Avatar uploaded successfully",
+            photo_url: current_user.profile_photo_url,
+            has_custom_avatar: true
+          }
+        else
+          render json: { error: "Failed to upload avatar" }, status: :unprocessable_content
+        end
+      end
+
+      # DELETE /api/v1/users/avatar
+      # Removes custom avatar, reverting to OAuth photo
+      def delete_avatar
+        if current_user.avatar.attached?
+          current_user.avatar.purge
+          render json: {
+            message: "Avatar removed successfully",
+            photo_url: current_user.profile_photo_url,
+            has_custom_avatar: false
+          }
+        else
+          render json: { error: "No custom avatar to remove" }, status: :not_found
+        end
       end
 
       # PATCH /api/v1/users/preferences
@@ -178,6 +249,10 @@ module Api
 
       def fcm_token_params
         params.permit(:fcm_token, :platform)
+      end
+
+      def profile_params
+        params.permit(:name, :photo_url)
       end
     end
   end
