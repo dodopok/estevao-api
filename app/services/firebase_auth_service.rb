@@ -106,13 +106,18 @@ class FirebaseAuthService
       user ||= User.find_by(email: payload["email"]) if payload["email"].present?
 
       if user
-        # Atualiza informações se mudaram (incluindo provider_uid caso tenha encontrado por email)
-        user.update(
+        # Atualiza apenas provider_uid e email (identificadores)
+        # NÃO sobrescreve name e photo_url que o usuário pode ter personalizado
+        updates = {
           provider_uid: payload["sub"],
-          email: payload["email"],
-          name: payload["name"],
-          photo_url: payload["picture"]
-        )
+          email: payload["email"]
+        }
+
+        # Só atualiza name/photo_url se estiverem vazios (primeira vez)
+        updates[:name] = payload["name"] if user.name.blank? && payload["name"].present?
+        updates[:photo_url] = payload["picture"] if user.photo_url.blank? && payload["picture"].present? && !user.avatar.attached?
+
+        user.update(updates)
         user
       else
         # Cria novo usuário
