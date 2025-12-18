@@ -25,6 +25,13 @@ Datadog.configure do |c|
     deployment: ENV.fetch("DEPLOYMENT_TYPE", "railway")
   }
 
+  # Agentless mode for Railway/PaaS (direct to Datadog intake)
+  if ENV["DD_TRACE_AGENT_URL"].present?
+    c.tracing.transport_options = proc { |t|
+      t.adapter :net_http, ENV["DD_TRACE_AGENT_URL"]
+    }
+  end
+
   # ============================================
   # TRACING (APM) CONFIGURATION
   # ============================================
