@@ -41,7 +41,7 @@ services:
       # Datadog configuration
       DD_API_KEY: ${DD_API_KEY:-}
       DD_SITE: ${DD_SITE:-datadoghq.com}
-      DD_ENV: development
+      DD_ENV: ${DD_ENV:-development}
       DD_SERVICE: estevao-api
       DD_AGENT_HOST: ${DD_AGENT_HOST:-datadog-agent}
       DD_TRACE_ENABLED: ${DD_TRACE_ENABLED:-true}
