@@ -48,6 +48,7 @@ gem "http"
 
 # Firebase Cloud Messaging for push notifications
 gem "fcm"
+gem "googleauth" # For FCM v1 API authentication
 
 # Excel file generation and reading
 gem "caxlsx"

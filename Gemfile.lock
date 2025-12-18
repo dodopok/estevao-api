@@ -133,6 +133,7 @@ GEM
       faraday (>= 1.0.0, < 3.0)
       googleauth (~> 1)
     ffi (1.17.2-aarch64-linux-gnu)
+    ffi (1.17.2-arm64-darwin)
     ffi (1.17.2-x86_64-linux-gnu)
     ffi-compiler (1.3.2)
       ffi (>= 1.15.5)
@@ -234,6 +235,8 @@ GEM
     nkf (0.2.0)
     nokogiri (1.18.10-aarch64-linux-gnu)
       racc (~> 1.4)
+    nokogiri (1.18.10-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-gnu)
       racc (~> 1.4)
     os (1.1.4)
@@ -245,6 +248,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.6.2-aarch64-linux)
+    pg (1.6.2-arm64-darwin)
     pg (1.6.2-x86_64-linux)
     pp (0.6.3)
       prettyprint
@@ -413,6 +417,7 @@ GEM
       railties (>= 7.1)
       thor (>= 1.3.1)
     sqlite3 (2.8.1-aarch64-linux-gnu)
+    sqlite3 (2.8.1-arm64-darwin)
     sqlite3 (2.8.1-x86_64-linux-gnu)
     sshkit (1.24.0)
       base64
@@ -424,6 +429,7 @@ GEM
     stringio (3.1.8)
     thor (1.4.0)
     thruster (0.1.16-aarch64-linux)
+    thruster (0.1.16-arm64-darwin)
     thruster (0.1.16-x86_64-linux)
     timeout (0.4.4)
     tsort (0.2.0)
@@ -449,6 +455,7 @@ GEM
 
 PLATFORMS
   aarch64-linux
+  arm64-darwin-24
   x86_64-linux
   x86_64-linux-gnu
 
@@ -461,6 +468,7 @@ DEPENDENCIES
   debug
   factory_bot_rails
   fcm
+  googleauth
   http
   image_processing (~> 1.2)
   jwt
