@@ -41,7 +41,13 @@ class User < ApplicationRecord
   # Retorna a URL da foto do perfil (prioriza avatar uploaded, depois photo_url do OAuth)
   def profile_photo_url
     if avatar.attached?
-      Rails.application.routes.url_helpers.rails_blob_url(avatar, only_path: false, host: default_url_host)
+      # Use rails_public_blob_url for production (storage configured with public: true)
+      # This generates direct URLs like /storage/xyz instead of /rails/active_storage/blobs/redirect/...
+      if Rails.env.production?
+        Rails.application.routes.url_helpers.rails_public_blob_url(avatar, host: default_url_host)
+      else
+        Rails.application.routes.url_helpers.rails_blob_url(avatar, only_path: false, host: default_url_host)
+      end
     else
       photo_url
     end
