@@ -41,9 +41,18 @@ class User < ApplicationRecord
   # Retorna a URL da foto do perfil (prioriza avatar uploaded, depois photo_url do OAuth)
   def profile_photo_url
     if avatar.attached?
-      # Generate full URL for avatar
-      # With public: true storage config, Rails serves files from /storage/*
-      "#{default_url_host}#{Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)}"
+      # For public disk storage in production, use direct URL
+      # Files are stored in public/storage with subdirectories based on key
+      # Example key: "abc123def456" -> stored at public/storage/ab/c1/abc123def456
+      if Rails.application.config.active_storage.service == :production
+        key = avatar.key
+        # ActiveStorage Disk service stores files in nested directories: first 2 chars / next 2 chars / full key
+        path = "storage/#{key[0..1]}/#{key[2..3]}/#{key}"
+        "#{default_url_host}/#{path}"
+      else
+        # Development: use standard ActiveStorage URL
+        Rails.application.routes.url_helpers.rails_blob_url(avatar, host: default_url_host)
+      end
     else
       photo_url
     end
