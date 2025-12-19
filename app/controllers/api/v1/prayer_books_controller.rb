@@ -3,13 +3,24 @@
 module Api
   module V1
     class PrayerBooksController < ApplicationController
+      include Authenticatable
+
+      before_action :authenticate_user_optional
+
       # GET /api/v1/prayer_books
       # Lista todos os livros de oração disponíveis
+      # Params: language (optional) - filter by language (pt-BR, en, es)
       def index
-        prayer_books = PrayerBook.order(is_recommended: :desc, year: :desc)
+        prayer_books = if params[:language].present?
+                         PrayerBook.by_language(params[:language])
+                       else
+                         PrayerBook.all
+                       end
+
+        prayer_books = prayer_books.order(is_recommended: :desc, year: :desc)
 
         expires_in 1.hour, public: true
-        if stale?(etag: cache_key(prayer_books))
+        if stale?(etag: cache_key(prayer_books, current_user))
           render json: {
             data: prayer_books.map { |pb| serialize_prayer_book(pb) }
           }, status: :ok
@@ -46,10 +57,12 @@ module Api
           name: prayer_book.name,
           full_name: prayer_book.name,
           description: prayer_book.description,
-          language: determine_language(prayer_book),
+          language: prayer_book.language,
           jurisdiction: prayer_book.jurisdiction,
           year: prayer_book.year,
           is_recommended: prayer_book.is_recommended || false,
+          premium_required: prayer_book.premium_required,
+          is_accessible: prayer_book.accessible_by?(current_user),
           image_url: prayer_book.image_url,
           thumbnail_url: prayer_book.thumbnail_url,
           pdf_url: prayer_book.pdf_url,
@@ -58,18 +71,9 @@ module Api
         }
       end
 
-      def determine_language(prayer_book)
-        # Determine language based on code or jurisdiction
-        case prayer_book.code
-        when /^bcp/i
-          "en"
-        else
-          "pt-BR"
-        end
-      end
-
-      def cache_key(prayer_books)
-        "prayer-books-list-v1-#{prayer_books.maximum(:updated_at)&.to_i}"
+      def cache_key(prayer_books, user)
+        user_suffix = user&.premium? ? "-premium" : "-free"
+        "prayer-books-list-v2-#{prayer_books.maximum(:updated_at)&.to_i}#{user_suffix}"
       end
     end
   end
