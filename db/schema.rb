@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_18_194058) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_19_171554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -282,14 +282,20 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_18_194058) do
     t.string "image_url"
     t.boolean "is_recommended"
     t.string "jurisdiction"
+    t.string "language", default: "pt-BR", null: false
     t.string "name"
     t.string "pdf_url"
+    t.boolean "premium_required", default: false, null: false
     t.string "thumbnail_url"
     t.datetime "updated_at", null: false
     t.integer "year"
     t.index ["code"], name: "index_prayer_books_on_code", unique: true
     t.index ["features"], name: "index_prayer_books_on_features", using: :gin
     t.index ["is_recommended"], name: "index_prayer_books_on_is_recommended"
+    t.index ["language", "code"], name: "index_prayer_books_on_language_and_code"
+    t.index ["language"], name: "index_prayer_books_on_language"
+    t.index ["premium_required", "is_recommended"], name: "index_prayer_books_on_premium_required_and_is_recommended"
+    t.index ["premium_required"], name: "index_prayer_books_on_premium_required"
   end
 
   create_table "preference_categories", force: :cascade do |t|
