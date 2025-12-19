@@ -3,12 +3,18 @@ require 'rails_helper'
 RSpec.describe 'Admin Audio API', type: :request do
   let(:user) { create(:user) }
   let(:headers) { { 'Authorization' => "Bearer #{user_token(user)}" } }
-  let(:prayer_book) { PrayerBook.find_or_create_by!(code: 'loc_2015') { |pb| pb.name = 'Liturgia das Horas' } }
+  let!(:prayer_book) do
+    PrayerBook.find_or_create_by!(code: 'loc_2015_test_audio') do |pb|
+      pb.name = 'Liturgia das Horas'
+      pb.language = 'pt-BR'
+      pb.year = 2015
+    end
+  end
 
   before do
     # Clean up existing texts from previous tests/seeds
     LiturgicalText.delete_all
-    # Create some liturgical texts
+    # Create some liturgical texts with explicit prayer_book to avoid factory creating new ones
     create_list(:liturgical_text, 5, prayer_book: prayer_book)
   end
 
