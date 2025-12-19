@@ -14,14 +14,29 @@ class PrayerBook < ApplicationRecord
   validates :code, presence: true, uniqueness: true
   validates :name, presence: true
   validates :year, numericality: { only_integer: true, allow_nil: true }
+  validates :language, presence: true, inclusion: {
+    in: %w[pt-BR en es],
+    message: "%{value} is not a valid language"
+  }
 
   scope :active, -> { all } # All prayer books are active for now
   scope :recommended, -> { where(is_recommended: true) }
   scope :default, -> { where(is_recommended: true) } # Alias for backwards compatibility
+  scope :premium, -> { where(premium_required: true) }
+  scope :free, -> { where(premium_required: false) }
+  scope :by_language, ->(lang) { where(language: lang) }
+  scope :available_for_user, lambda { |user|
+    if user&.premium?
+      all
+    else
+      where(premium_required: false)
+    end
+  }
 
   # Cache prayer books by code for better performance
+  # Version v2 to invalidate old cache after adding premium/language fields
   def self.find_by_code(code)
-    Rails.cache.fetch("prayer_book/#{code}", expires_in: 1.day) do
+    Rails.cache.fetch("prayer_book/#{code}/v2", expires_in: 1.day) do
       find_by(code: code)
     end
   end
@@ -30,11 +45,11 @@ class PrayerBook < ApplicationRecord
     prayer_book = find_by_code(code)
     if prayer_book.nil?
       # Invalidate cache and retry with fresh database lookup
-      Rails.cache.delete("prayer_book/#{code}")
+      Rails.cache.delete("prayer_book/#{code}/v2")
       prayer_book = find_by(code: code)
       raise(ActiveRecord::RecordNotFound, "Couldn't find PrayerBook with code=#{code}") if prayer_book.nil?
       # Update cache with fresh data
-      Rails.cache.write("prayer_book/#{code}", prayer_book, expires_in: 1.day)
+      Rails.cache.write("prayer_book/#{code}/v2", prayer_book, expires_in: 1.day)
     end
     prayer_book
   end
@@ -90,5 +105,16 @@ class PrayerBook < ApplicationRecord
   # Retorna os reading_types disponíveis
   def available_reading_types
     lectionary_features["reading_types"] || []
+  end
+
+  # Premium access control
+  def requires_premium?
+    premium_required
+  end
+
+  def accessible_by?(user)
+    return true unless premium_required
+
+    user&.premium? || false
   end
 end

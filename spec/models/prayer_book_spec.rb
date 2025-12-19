@@ -83,6 +83,24 @@ RSpec.describe PrayerBook, type: :model do
       prayer_book = PrayerBook.new(code: 'test', name: 'Test', year: 'not_a_number')
       expect(prayer_book).not_to be_valid
     end
+
+    it 'requires language' do
+      prayer_book = PrayerBook.new(code: 'test_lang', name: 'Test', language: nil)
+      expect(prayer_book).not_to be_valid
+      expect(prayer_book.errors[:language]).to include("can't be blank")
+    end
+
+    it 'validates language is one of pt-BR, en, es' do
+      valid_languages = %w[pt-BR en es]
+      valid_languages.each do |lang|
+        prayer_book = PrayerBook.new(code: "test_#{lang}", name: 'Test', language: lang)
+        expect(prayer_book).to be_valid
+      end
+
+      invalid_prayer_book = PrayerBook.new(code: 'test_invalid', name: 'Test', language: 'fr')
+      expect(invalid_prayer_book).not_to be_valid
+      expect(invalid_prayer_book.errors[:language]).to include('fr is not a valid language')
+    end
   end
 
   describe 'scopes' do
@@ -95,6 +113,82 @@ RSpec.describe PrayerBook, type: :model do
         _other_book = PrayerBook.create!(code: 'other_test', name: 'Other', is_recommended: false)
 
         expect(PrayerBook.recommended).to contain_exactly(recommended_book)
+      end
+    end
+
+    describe '.premium' do
+      it 'returns only premium prayer books' do
+        free_book = PrayerBook.create!(code: 'free_test', name: 'Free', premium_required: false)
+        premium_book = PrayerBook.create!(code: 'premium_test', name: 'Premium', premium_required: true)
+
+        expect(PrayerBook.premium).to include(premium_book)
+        expect(PrayerBook.premium).not_to include(free_book)
+      end
+    end
+
+    describe '.free' do
+      it 'returns only free prayer books' do
+        free_book = PrayerBook.create!(code: 'free_test_2', name: 'Free', premium_required: false)
+        premium_book = PrayerBook.create!(code: 'premium_test_2', name: 'Premium', premium_required: true)
+
+        expect(PrayerBook.free).to include(free_book)
+        expect(PrayerBook.free).not_to include(premium_book)
+      end
+    end
+
+    describe '.by_language' do
+      it 'returns prayer books for the specified language' do
+        pt_book = PrayerBook.create!(code: 'pt_test', name: 'Portuguese', language: 'pt-BR')
+        en_book = PrayerBook.create!(code: 'en_test', name: 'English', language: 'en')
+        es_book = PrayerBook.create!(code: 'es_test', name: 'Spanish', language: 'es')
+
+        expect(PrayerBook.by_language('pt-BR')).to include(pt_book)
+        expect(PrayerBook.by_language('pt-BR')).not_to include(en_book, es_book)
+
+        expect(PrayerBook.by_language('en')).to include(en_book)
+        expect(PrayerBook.by_language('en')).not_to include(pt_book, es_book)
+      end
+    end
+
+    describe '.available_for_user' do
+      let!(:free_book) { PrayerBook.create!(code: 'free_available', name: 'Free', premium_required: false) }
+      let!(:premium_book) { PrayerBook.create!(code: 'premium_available', name: 'Premium', premium_required: true) }
+
+      context 'when user is premium' do
+        let(:user) { create(:user, premium_expires_at: 1.year.from_now) }
+
+        it 'returns all prayer books' do
+          result = PrayerBook.available_for_user(user)
+          expect(result).to include(free_book, premium_book)
+        end
+      end
+
+      context 'when user is not premium' do
+        let(:user) { create(:user, premium_expires_at: nil) }
+
+        it 'returns only free prayer books' do
+          result = PrayerBook.available_for_user(user)
+          expect(result).to include(free_book)
+          expect(result).not_to include(premium_book)
+        end
+      end
+
+      context 'when user is nil' do
+        it 'returns only free prayer books' do
+          result = PrayerBook.available_for_user(nil)
+          expect(result).to include(free_book)
+          expect(result).not_to include(premium_book)
+        end
+      end
+
+      context 'when user premium has expired' do
+        let(:user) { create(:user, premium_expires_at: 1.day.ago) }
+
+        it 'returns only free prayer books' do
+          result = PrayerBook.available_for_user(user)
+          expect(result).to include(free_book)
+          expect(result).not_to include(premium_book)
+        end
       end
     end
   end
@@ -144,6 +238,62 @@ RSpec.describe PrayerBook, type: :model do
     context 'when code is empty string' do
       it 'returns the recommended prayer book' do
         expect(PrayerBook.find_by_code_or_default('')).to eq(recommended_book)
+      end
+    end
+  end
+
+  describe 'instance methods' do
+    describe '#requires_premium?' do
+      it 'returns true for premium prayer books' do
+        premium_book = PrayerBook.create!(code: 'premium_method', name: 'Premium', premium_required: true)
+        expect(premium_book.requires_premium?).to be true
+      end
+
+      it 'returns false for free prayer books' do
+        free_book = PrayerBook.create!(code: 'free_method', name: 'Free', premium_required: false)
+        expect(free_book.requires_premium?).to be false
+      end
+    end
+
+    describe '#accessible_by?' do
+      let(:free_book) { PrayerBook.create!(code: 'free_accessible', name: 'Free', premium_required: false) }
+      let(:premium_book) { PrayerBook.create!(code: 'premium_accessible', name: 'Premium', premium_required: true) }
+
+      context 'with a free prayer book' do
+        it 'is accessible by anyone including nil user' do
+          expect(free_book.accessible_by?(nil)).to be true
+        end
+
+        it 'is accessible by non-premium user' do
+          user = create(:user, premium_expires_at: nil)
+          expect(free_book.accessible_by?(user)).to be true
+        end
+
+        it 'is accessible by premium user' do
+          user = create(:user, premium_expires_at: 1.year.from_now)
+          expect(free_book.accessible_by?(user)).to be true
+        end
+      end
+
+      context 'with a premium prayer book' do
+        it 'is not accessible by nil user' do
+          expect(premium_book.accessible_by?(nil)).to be false
+        end
+
+        it 'is not accessible by non-premium user' do
+          user = create(:user, premium_expires_at: nil)
+          expect(premium_book.accessible_by?(user)).to be false
+        end
+
+        it 'is accessible by premium user' do
+          user = create(:user, premium_expires_at: 1.year.from_now)
+          expect(premium_book.accessible_by?(user)).to be true
+        end
+
+        it 'is not accessible by expired premium user' do
+          user = create(:user, premium_expires_at: 1.day.ago)
+          expect(premium_book.accessible_by?(user)).to be false
+        end
       end
     end
   end

@@ -6,6 +6,7 @@ module Api
 
       before_action :authenticate_user_optional
       before_action :validate_preferences!, except: [ :preferences ]
+      before_action :authorize_prayer_book_access!, except: [ :preferences ]
 
       # GET /api/v1/daily_office/today/:office_type
       # Returns today's office
@@ -144,8 +145,26 @@ module Api
         raise ArgumentError, "Invalid day for the specified month" unless day.between?(1, 31)
       end
 
+      # Authorize user access to the requested prayer book
+      def authorize_prayer_book_access!
+        prayer_book = resolved_prayer_book
+
+        return if prayer_book.accessible_by?(current_user)
+
+        render json: {
+          success: false,
+          error: {
+            code: "PREMIUM_REQUIRED",
+            message: "O Prayer Book '#{prayer_book.name}' requer assinatura premium",
+            prayer_book_code: prayer_book.code,
+            premium_required: true
+          }
+        }, status: :forbidden
+      end
+
       # Build cache key with relevant preferences for Daily Office
       # Includes user_id and audio preferences for premium users
+      # Version v2 to invalidate old cache after adding premium/language fields
       def build_office_cache_key(date, office_type, family: false)
         relevant_prefs = resolved_preferences.slice(
           :prayer_book_code,
@@ -166,7 +185,7 @@ module Api
         prefs_hash = Digest::MD5.hexdigest(relevant_prefs.to_json)[0..7]
         family_suffix = family ? "/family" : ""
 
-        "daily_office/#{date}/#{office_type}/#{prefs_hash}#{user_suffix}#{family_suffix}"
+        "daily_office/v2/#{date}/#{office_type}/#{prefs_hash}#{user_suffix}#{family_suffix}"
       end
 
       # Adiciona dados do usuário autenticado na resposta
