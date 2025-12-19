@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Prayer Books Premium Access', type: :request do
-  let!(:free_book) { create(:prayer_book, code: 'loc_2015', name: 'LOC 2015', premium_required: false, language: 'pt-BR') }
-  let!(:premium_book) { create(:prayer_book, code: 'loc_2019', name: 'LOC 2019', premium_required: true, language: 'pt-BR') }
-  let!(:english_book) { create(:prayer_book, code: 'loc_2019_en', name: 'LOC 2019 EN', premium_required: true, language: 'en') }
+  let!(:free_book) { create(:prayer_book, code: 'test_free', name: 'Free Book', premium_required: false, language: 'pt-BR') }
+  let!(:premium_book) { create(:prayer_book, code: 'test_premium', name: 'Premium Book', premium_required: true, language: 'pt-BR') }
+  let!(:english_book) { create(:prayer_book, code: 'test_premium_en', name: 'Premium EN', premium_required: true, language: 'en') }
 
   describe 'GET /api/v1/prayer_books' do
     context 'when user is not authenticated' do
@@ -22,7 +22,7 @@ RSpec.describe 'Prayer Books Premium Access', type: :request do
 
       it 'marks premium books as not accessible' do
         json = JSON.parse(response.body, symbolize_names: true)
-        premium = json[:data].find { |pb| pb[:code] == 'loc_2019' }
+        premium = json[:data].find { |pb| pb[:code] == 'test_premium' }
 
         expect(premium[:premium_required]).to be true
         expect(premium[:is_accessible]).to be false
@@ -30,7 +30,7 @@ RSpec.describe 'Prayer Books Premium Access', type: :request do
 
       it 'marks free books as accessible' do
         json = JSON.parse(response.body, symbolize_names: true)
-        free = json[:data].find { |pb| pb[:code] == 'loc_2015' }
+        free = json[:data].find { |pb| pb[:code] == 'test_free' }
 
         expect(free[:premium_required]).to be false
         expect(free[:is_accessible]).to be true
@@ -38,8 +38,8 @@ RSpec.describe 'Prayer Books Premium Access', type: :request do
 
       it 'includes language field' do
         json = JSON.parse(response.body, symbolize_names: true)
-        pt_book = json[:data].find { |pb| pb[:code] == 'loc_2015' }
-        en_book = json[:data].find { |pb| pb[:code] == 'loc_2019_en' }
+        pt_book = json[:data].find { |pb| pb[:code] == 'test_free' }
+        en_book = json[:data].find { |pb| pb[:code] == 'test_premium_en' }
 
         expect(pt_book[:language]).to eq('pt-BR')
         expect(en_book[:language]).to eq('en')
@@ -56,7 +56,7 @@ RSpec.describe 'Prayer Books Premium Access', type: :request do
 
       it 'marks premium books as not accessible' do
         json = JSON.parse(response.body, symbolize_names: true)
-        premium = json[:data].find { |pb| pb[:code] == 'loc_2019' }
+        premium = json[:data].find { |pb| pb[:code] == 'test_premium' }
 
         expect(premium[:premium_required]).to be true
         expect(premium[:is_accessible]).to be false
@@ -64,7 +64,7 @@ RSpec.describe 'Prayer Books Premium Access', type: :request do
 
       it 'marks free books as accessible' do
         json = JSON.parse(response.body, symbolize_names: true)
-        free = json[:data].find { |pb| pb[:code] == 'loc_2015' }
+        free = json[:data].find { |pb| pb[:code] == 'test_free' }
 
         expect(free[:premium_required]).to be false
         expect(free[:is_accessible]).to be true
@@ -102,7 +102,7 @@ RSpec.describe 'Prayer Books Premium Access', type: :request do
         json = JSON.parse(response.body, symbolize_names: true)
         codes = json[:data].map { |pb| pb[:code] }
 
-        expect(codes).to include('loc_2019_en')
+        expect(codes).to include('test_premium_en')
       end
     end
 
