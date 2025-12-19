@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :provider_uid, presence: true
   validates :timezone, presence: true
   validate :valid_timezone
+  validate :valid_audio_voice_preference
 
   # Preferências padrões
   DEFAULT_PREFERENCES = {
@@ -29,10 +30,6 @@ class User < ApplicationRecord
     "bible_version" => "nvi",
     "preferred_audio_voice" => "male_1"
   }.freeze
-
-  # Validações personalizadas
-  validate :valid_timezone
-  validate :valid_audio_voice_preference
 
   # Callbacks
   before_save :set_default_preferences, if: :new_record?

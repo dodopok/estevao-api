@@ -1,6 +1,21 @@
 # frozen_string_literal: true
 
-# Serviço para buscar leituras do lecionário para uma data específica
+# Service to fetch lectionary readings for a specific date
+#
+# This service determines the appropriate readings based on:
+# - The liturgical calendar and current season
+# - The Sunday/weekday cycle (A/B/C for Sundays, Even/Odd for weekdays)
+# - Celebration precedence (Principal feasts, Holy Days, etc.)
+# - Prayer Book specific reading patterns
+#
+# @example Fetch readings for a specific date
+#   service = ReadingService.for(Date.new(2024, 12, 25), prayer_book_code: 'loc_2015')
+#   readings = service.find_readings
+#   # => { first_reading: {...}, psalm: {...}, gospel: {...}, ... }
+#
+# @example Check the current lectionary cycle
+#   service.cycle # => "A" (for Sundays) or "even" (for weekdays)
+#
 class ReadingService
   include PrayerBookAware
 
