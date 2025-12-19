@@ -13,9 +13,9 @@ module Api
       def index
         prayer_books = if params[:language].present?
                          PrayerBook.by_language(params[:language])
-                       else
+        else
                          PrayerBook.all
-                       end
+        end
 
         prayer_books = prayer_books.order(is_recommended: :desc, year: :desc)
 
