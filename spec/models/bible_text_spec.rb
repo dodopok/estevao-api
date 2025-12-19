@@ -344,12 +344,12 @@ RSpec.describe BibleText, type: :model do
     context 'single segment references' do
       it 'returns array with one element for simple reference' do
         result = described_class.parse_all_references('João 3:16-17')
-        expect(result).to eq([{
+        expect(result).to eq([ {
           book: 'João',
           chapter: 3,
           verse_start: 16,
           verse_end: 17
-        }])
+        } ])
       end
     end
 
