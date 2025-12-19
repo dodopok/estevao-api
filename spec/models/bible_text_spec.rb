@@ -236,6 +236,56 @@ RSpec.describe BibleText, type: :model do
           verse_end: 7
         })
       end
+
+      it 'handles semicolon separator for multiple verse ranges' do
+        result = described_class.parse_reference('Salmo 80.1-7; 17-19')
+        expect(result).to eq({
+          book: 'Salmos',
+          chapter: 80,
+          verse_start: 1,
+          verse_end: 7
+        })
+      end
+
+      it 'handles semicolon separator for multiple chapters' do
+        result = described_class.parse_reference('1 Pedro 4:12-14; 5:6-11')
+        expect(result).to eq({
+          book: '1 Pedro',
+          chapter: 4,
+          verse_start: 12,
+          verse_end: 14
+        })
+      end
+
+      it 'handles Atos with semicolon separator' do
+        result = described_class.parse_reference('Atos 6:8-10; 7:54-60')
+        expect(result).to eq({
+          book: 'Atos',
+          chapter: 6,
+          verse_start: 8,
+          verse_end: 10
+        })
+      end
+
+      it 'handles Hebreus with semicolon separator' do
+        result = described_class.parse_reference('Hebreus 1:1-4; 2:5-12')
+        expect(result).to eq({
+          book: 'Hebreus',
+          chapter: 1,
+          verse_start: 1,
+          verse_end: 4
+        })
+      end
+
+      it 'handles Gênesis with semicolon separator' do
+        result = described_class.parse_reference('Gênesis 2:15-17; 3:1-7')
+        expect(result).to eq({
+          book: 'Gênesis',
+          chapter: 2,
+          verse_start: 15,
+          verse_end: 17
+        })
+      end
     end
 
     context 'edge cases' do
@@ -286,6 +336,140 @@ RSpec.describe BibleText, type: :model do
           verse_start: 3,
           verse_end: 9
         })
+      end
+    end
+  end
+
+  describe '.parse_all_references' do
+    context 'single segment references' do
+      it 'returns array with one element for simple reference' do
+        result = described_class.parse_all_references('João 3:16-17')
+        expect(result).to eq([{
+          book: 'João',
+          chapter: 3,
+          verse_start: 16,
+          verse_end: 17
+        }])
+      end
+    end
+
+    context 'multiple chapters with semicolon' do
+      it 'parses "1 Pedro 4:12-14; 5:6-11" into two segments' do
+        result = described_class.parse_all_references('1 Pedro 4:12-14; 5:6-11')
+        expect(result.length).to eq(2)
+        expect(result[0]).to eq({
+          book: '1 Pedro',
+          chapter: 4,
+          verse_start: 12,
+          verse_end: 14
+        })
+        expect(result[1]).to eq({
+          book: '1 Pedro',
+          chapter: 5,
+          verse_start: 6,
+          verse_end: 11
+        })
+      end
+
+      it 'parses "Atos 6:8-10; 7:54-60" into two segments' do
+        result = described_class.parse_all_references('Atos 6:8-10; 7:54-60')
+        expect(result.length).to eq(2)
+        expect(result[0]).to eq({
+          book: 'Atos',
+          chapter: 6,
+          verse_start: 8,
+          verse_end: 10
+        })
+        expect(result[1]).to eq({
+          book: 'Atos',
+          chapter: 7,
+          verse_start: 54,
+          verse_end: 60
+        })
+      end
+
+      it 'parses "Hebreus 1:1-4; 2:5-12" into two segments' do
+        result = described_class.parse_all_references('Hebreus 1:1-4; 2:5-12')
+        expect(result.length).to eq(2)
+        expect(result[0]).to eq({
+          book: 'Hebreus',
+          chapter: 1,
+          verse_start: 1,
+          verse_end: 4
+        })
+        expect(result[1]).to eq({
+          book: 'Hebreus',
+          chapter: 2,
+          verse_start: 5,
+          verse_end: 12
+        })
+      end
+
+      it 'parses "Gênesis 2:15-17; 3:1-7" into two segments' do
+        result = described_class.parse_all_references('Gênesis 2:15-17; 3:1-7')
+        expect(result.length).to eq(2)
+        expect(result[0]).to eq({
+          book: 'Gênesis',
+          chapter: 2,
+          verse_start: 15,
+          verse_end: 17
+        })
+        expect(result[1]).to eq({
+          book: 'Gênesis',
+          chapter: 3,
+          verse_start: 1,
+          verse_end: 7
+        })
+      end
+    end
+
+    context 'multiple verse ranges in same chapter' do
+      it 'parses "Salmo 80:1-7, 17-19" into two segments' do
+        result = described_class.parse_all_references('Salmo 80:1-7, 17-19')
+        expect(result.length).to eq(2)
+        expect(result[0]).to eq({
+          book: 'Salmos',
+          chapter: 80,
+          verse_start: 1,
+          verse_end: 7
+        })
+        expect(result[1]).to eq({
+          book: 'Salmos',
+          chapter: 80,
+          verse_start: 17,
+          verse_end: 19
+        })
+      end
+
+      it 'parses "Salmo 80.1-7; 17-19" into two segments' do
+        result = described_class.parse_all_references('Salmo 80.1-7; 17-19')
+        expect(result.length).to eq(2)
+        expect(result[0]).to eq({
+          book: 'Salmos',
+          chapter: 80,
+          verse_start: 1,
+          verse_end: 7
+        })
+        expect(result[1]).to eq({
+          book: 'Salmos',
+          chapter: 80,
+          verse_start: 17,
+          verse_end: 19
+        })
+      end
+    end
+
+    context 'edge cases' do
+      it 'returns empty array for blank reference' do
+        expect(described_class.parse_all_references('')).to eq([])
+        expect(described_class.parse_all_references(nil)).to eq([])
+      end
+
+      it 'handles Roman numerals' do
+        result = described_class.parse_all_references('I Pedro 4:12-14; 5:6-11')
+        expect(result.length).to eq(2)
+        expect(result[0][:book]).to eq('1 Pedro')
+        expect(result[1][:book]).to eq('1 Pedro')
       end
     end
   end

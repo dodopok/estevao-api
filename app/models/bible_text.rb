@@ -55,35 +55,37 @@ class BibleText < ApplicationRecord
   }.freeze
 
   # Find verses for a passage reference like "João 3:16-17" or "Salmos 23"
+  # Supports multiple segments like "1 Pedro 4:12-14; 5:6-11" and returns all verses
   def self.fetch_passage(reference, translation: "nvi")
-    parsed = parse_reference(reference)
-    return nil unless parsed
+    parsed_refs = parse_all_references(reference)
+    return nil if parsed_refs.empty?
 
-    verses = where(
-      book: parsed[:book],
-      chapter: parsed[:chapter],
-      translation: translation
-    )
+    all_verses = []
 
-    if parsed[:verse_start] && parsed[:verse_end]
-      verses = verses.where("verse >= ? AND verse <= ?", parsed[:verse_start], parsed[:verse_end])
-    elsif parsed[:verse_start]
-      verses = verses.where(verse: parsed[:verse_start])
+    parsed_refs.each do |parsed|
+      verses = where(
+        book: parsed[:book],
+        chapter: parsed[:chapter],
+        translation: translation
+      )
+
+      if parsed[:verse_start] && parsed[:verse_end]
+        verses = verses.where("verse >= ? AND verse <= ?", parsed[:verse_start], parsed[:verse_end])
+      elsif parsed[:verse_start]
+        verses = verses.where(verse: parsed[:verse_start])
+      end
+
+      all_verses.concat(verses.order(:verse).to_a)
     end
 
-    verses.order(:verse)
+    # Return as a relation-like array that responds to common methods
+    all_verses
   end
 
-  # Parse a reference like "João 3:16-17" into components
-  # Supports complex formats:
-  # - Books with numbers: "1 Coríntios 13:1-13", "2 Samuel 7:1-11"
-  # - Multiple verse ranges: "Salmo 80:1-7, 17-19" (returns first range)
-  # - Letter suffixes: "2 Pedro 3:8-15a"
-  # - Alternatives with "or": "Baruque 5:1-9 or Malaquias 3:1-4" (returns first option)
-  # - Optional verses: "Lucas 1:39-45 (46-55)" (ignores optional part)
-  # - Dot separator: "Gênesis 9.1-17" (uses dot instead of colon)
-  def self.parse_reference(reference)
-    return nil if reference.blank?
+  # Parse all segments of a reference like "1 Pedro 4:12-14; 5:6-11"
+  # Returns an array of parsed references
+  def self.parse_all_references(reference)
+    return [] if reference.blank?
 
     # Clean up the reference
     clean_ref = reference.strip
@@ -104,36 +106,90 @@ class BibleText < ApplicationRecord
     # Remove optional verses in parentheses
     clean_ref = clean_ref.gsub(/\s*\([^)]+\)/, "")
 
-    # Handle multiple verse ranges - take first segment
-    clean_ref = clean_ref.split(",").first.strip
+    # Extract the book name from the first segment (everything before the first number that's followed by : or .)
+    # For "1 Pedro 4:12-14", we want "1 Pedro"
+    # For "João 3:16", we want "João"
+    first_match = clean_ref.match(/^(\d*\s*[^\d:.]+)\s+\d/)
+    return [] unless first_match
+    base_book_name = first_match[1].strip
+    base_book_name = "Salmos" if base_book_name == "Salmo"
 
-    # Remove letter suffixes from verses (e.g., "15a" -> "15")
-    clean_ref = clean_ref.gsub(/(\d+)[a-z]/, '\1')
+    # Split by comma or semicolon to get all segments
+    segments = clean_ref.split(/[,;]/).map(&:strip)
 
-    # Enhanced regex to handle books with numbers
-    # Captures: (optional number + book name) (chapter) (optional [:.]verse) (optional -verse_end)
-    # Supports both : and . as separators between chapter and verse
-    match = clean_ref.match(/^(\d*\s*[^\d:.]+?)\s*(\d+)(?:[:.](\d+)(?:-(\d+))?)?$/)
-    return nil unless match
+    parsed_refs = []
 
-    book_name = match[1].strip
-    # Normalize "Salmo" to "Salmos" for consistency with BOOKS hash
-    book_name = "Salmos" if book_name == "Salmo"
+    segments.each_with_index do |segment, index|
+      # Remove letter suffixes from verses (e.g., "15a" -> "15")
+      segment = segment.gsub(/(\d+)[a-z]/, '\1')
 
-    verse_start = match[3]&.to_i
-    verse_end = match[4]&.to_i
+      if index == 0
+        # First segment has the full book name
+        match = segment.match(/^(\d*\s*[^\d:.]+?)\s*(\d+)(?:[:.](\d+)(?:-(\d+))?)?$/)
+        next unless match
 
-    # Normalize verse range if end is less than start (e.g., "3:11-8" should be "3:8-11")
+        book_name = match[1].strip
+        book_name = "Salmos" if book_name == "Salmo"
+
+        parsed_refs << build_parsed_reference(book_name, match[2].to_i, match[3], match[4])
+      else
+        # Subsequent segments: could be "5:6-11" (new chapter) or "17-19" (same chapter, different verses)
+        if segment.match?(/^\d+[:.]/)
+          # New chapter reference like "5:6-11" or "5.6-11"
+          match = segment.match(/^(\d+)[:.](\d+)(?:-(\d+))?$/)
+          next unless match
+
+          parsed_refs << build_parsed_reference(base_book_name, match[1].to_i, match[2], match[3])
+        elsif segment.match?(/^\d+-\d+$/)
+          # Verse range in same chapter like "17-19"
+          match = segment.match(/^(\d+)-(\d+)$/)
+          next unless match
+
+          # Use the chapter from the previous segment
+          prev_chapter = parsed_refs.last&.dig(:chapter) || 1
+          parsed_refs << build_parsed_reference(base_book_name, prev_chapter, match[1], match[2])
+        elsif segment.match?(/^\d+$/)
+          # Single verse in same chapter like "17"
+          prev_chapter = parsed_refs.last&.dig(:chapter) || 1
+          parsed_refs << build_parsed_reference(base_book_name, prev_chapter, segment, nil)
+        end
+      end
+    end
+
+    parsed_refs
+  end
+
+  # Helper method to build a parsed reference hash with verse normalization
+  def self.build_parsed_reference(book_name, chapter, verse_start_str, verse_end_str)
+    verse_start = verse_start_str&.to_i
+    verse_end = verse_end_str&.to_i
+
+    # Normalize verse range if end is less than start
     if verse_start && verse_end && verse_end < verse_start
       verse_start, verse_end = verse_end, verse_start
     end
 
     {
       book: book_name,
-      chapter: match[2].to_i,
-      verse_start: verse_start,
-      verse_end: verse_end
+      chapter: chapter,
+      verse_start: verse_start.to_i == 0 ? nil : verse_start,
+      verse_end: verse_end.to_i == 0 ? nil : verse_end
     }
+  end
+
+  # Parse a reference like "João 3:16-17" into components
+  # Supports complex formats:
+  # - Books with numbers: "1 Coríntios 13:1-13", "2 Samuel 7:1-11"
+  # - Multiple verse ranges: "Salmo 80:1-7, 17-19" or "Salmo 80.1-7; 17-19" (returns first range)
+  # - Multiple chapters with semicolon: "1 Pedro 4:12-14; 5:6-11" (returns first chapter)
+  # - Letter suffixes: "2 Pedro 3:8-15a"
+  # - Alternatives with "or": "Baruque 5:1-9 or Malaquias 3:1-4" (returns first option)
+  # - Optional verses: "Lucas 1:39-45 (46-55)" (ignores optional part)
+  # - Dot separator: "Gênesis 9.1-17" (uses dot instead of colon)
+  # NOTE: For fetching all segments, use parse_all_references instead
+  def self.parse_reference(reference)
+    refs = parse_all_references(reference)
+    refs.first
   end
 
   # Format passage as HTML
