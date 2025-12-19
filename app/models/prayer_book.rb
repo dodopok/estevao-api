@@ -113,6 +113,8 @@ class PrayerBook < ApplicationRecord
   end
 
   def accessible_by?(user)
-    !premium_required || user&.premium?
+    return true unless premium_required
+
+    user&.premium? || false
   end
 end
