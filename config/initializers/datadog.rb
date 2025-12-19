@@ -16,7 +16,9 @@ Datadog.configure do |c|
   c.env = Rails.env
 
   # Version tracking (for deployments)
-  c.version = ENV.fetch("APP_VERSION", `git rev-parse --short HEAD 2>/dev/null`.strip)
+  # Only set version if we have a valid value to avoid "version:" tag error
+  app_version = ENV.fetch("APP_VERSION", nil) || `git rev-parse --short HEAD 2>/dev/null`.strip.presence
+  c.version = app_version if app_version.present?
 
   # Tags for filtering and grouping
   c.tags = {
