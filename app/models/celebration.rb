@@ -38,9 +38,24 @@ class Celebration < ApplicationRecord
     celebration_type == "principal_feast"
   end
 
+  # Método para verificar se é um dia santo principal
+  def major_holy_day?
+    celebration_type == "major_holy_day"
+  end
+
   # Método para verificar se tem precedência sobre domingo
   def supersedes_sunday?
     principal_feast? || major_holy_day?
+  end
+
+  # Check if this is a high-priority celebration (Principal Feast or Major Holy Day)
+  def high_priority?
+    principal_feast? || major_holy_day?
+  end
+
+  # Check if this celebration can be observed on a weekday
+  def weekday_observance?
+    !supersedes_sunday?
   end
 
   # Método para obter a cor litúrgica

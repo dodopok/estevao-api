@@ -4,6 +4,7 @@ module Api
       include Authenticatable
       include Concerns::PreferencesResolver
       include DateValidations
+      include LiturgicalFormatting
 
       before_action :authenticate_user_optional
       before_action :validate_preferences!
@@ -129,10 +130,6 @@ module Api
           cristo_rei: movable[:christ_the_king],
           advento: movable[:first_sunday_of_advent]
         }
-      end
-
-      def month_name_pt(month)
-        %w[_ Janeiro Fevereiro Março Abril Maio Junho Julho Agosto Setembro Outubro Novembro Dezembro][month]
       end
     end
   end

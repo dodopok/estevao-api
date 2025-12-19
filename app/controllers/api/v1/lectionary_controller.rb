@@ -4,6 +4,7 @@ module Api
       include Authenticatable
       include Concerns::PreferencesResolver
       include DateValidations
+      include LiturgicalFormatting
 
       before_action :authenticate_user_optional
       before_action :validate_preferences!
@@ -109,19 +110,6 @@ module Api
 
       def resolved_bible_version
         resolved_preferences[:bible_version] || "nvi"
-      end
-
-      def day_name_pt(date)
-        names = %w[Domingo Segunda-feira Terça-feira Quarta-feira Quinta-feira Sexta-feira Sábado]
-        names[date.wday]
-      end
-
-      def service_type_pt(service_type)
-        {
-          "eucharist" => "Santa Eucaristia",
-          "morning_prayer" => "Oração Matutina",
-          "evening_prayer" => "Oração Vespertina"
-        }[service_type] || service_type
       end
     end
   end
