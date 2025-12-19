@@ -3,6 +3,8 @@ FactoryBot.define do
     sequence(:code) { |n| "prayer_book_#{n}" }
     sequence(:name) { |n| "Prayer Book #{n}" }
     year { 2015 }
+    language { "pt-BR" }
+    premium_required { false }
     is_recommended { false }
     features do
       {
@@ -25,6 +27,22 @@ FactoryBot.define do
     # Alias for backwards compatibility
     trait :default do
       is_recommended { true }
+    end
+
+    trait :premium do
+      premium_required { true }
+    end
+
+    trait :free do
+      premium_required { false }
+    end
+
+    trait :english do
+      language { "en" }
+    end
+
+    trait :spanish do
+      language { "es" }
     end
 
     trait :loc_2015 do
