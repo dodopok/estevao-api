@@ -95,7 +95,7 @@ RSpec.describe 'Prayer Books Premium Access', type: :request do
         json = JSON.parse(response.body, symbolize_names: true)
         languages = json[:data].map { |pb| pb[:language] }.uniq
 
-        expect(languages).to eq(['en'])
+        expect(languages).to eq([ 'en' ])
       end
 
       it 'includes the English prayer book' do
@@ -113,7 +113,7 @@ RSpec.describe 'Prayer Books Premium Access', type: :request do
         json = JSON.parse(response.body, symbolize_names: true)
         languages = json[:data].map { |pb| pb[:language] }.uniq
 
-        expect(languages).to eq(['pt-BR'])
+        expect(languages).to eq([ 'pt-BR' ])
       end
     end
   end
