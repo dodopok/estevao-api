@@ -498,43 +498,6 @@ O sistema de áudio premium permite que usuários com assinatura ativa ouçam os
    - Servidos estaticamente via Nginx/Puma
    - Railway: Volume persistente de 5GB
 
-#### Rake Tasks para Geração
-
-```bash
-# Estimar custo antes de gerar (exclui rubricas automaticamente)
-rake audio:estimate[loc_2015]
-rake audio:estimate[loc_2015,male_1]  # Estimar apenas para uma voz
-
-# Gerar áudio para todas as vozes (com confirmação, exclui rubricas)
-rake audio:generate[loc_2015]
-
-# Gerar para uma voz específica
-rake audio:generate[loc_2015,male_1]
-
-# Gerar para múltiplas vozes (use aspas e escape a vírgula)
-rake "audio:generate[loc_2015,male_1\,female_1]"
-
-# Gerar áudio para um texto específico (aceita slug do texto)
-rake audio:generate_text[loc_2015,morning_invocation]           # Todas as vozes
-rake audio:generate_text[loc_2015,morning_invocation,male_1]    # Voz específica
-rake audio:generate_text[loc_2015,gloria_patri,male_1,female_1] # Múltiplas vozes
-
-# Gerar samples de voz (morning_welcome_traditional)
-rake audio:generate_samples
-
-# Limpar sessões antigas (padrão: 30 dias)
-rake audio:cleanup_sessions[30]
-
-# Limpar arquivos órfãos (padrão: dry-run, 30 dias)
-rake audio:cleanup_orphaned_files[30,false]  # false = executar limpeza
-```
-
-**Notas importantes**:
-- As tasks `audio:estimate` e `audio:generate` **excluem automaticamente** os textos litúrgicos com `category = 'rubric'` (rubricas são instruções que não devem ser narradas)
-- A task `audio:generate_text` permite gerar/regenerar áudio para um texto específico
-- Para textos com categoria `rubric`, a task pedirá confirmação antes de gerar
-- Todas as estimativas e contagens consideram apenas textos que serão efetivamente narrados
-
 #### Fluxo Premium
 
 1. **Cliente**: Usuário assina no app (iOS/Android via RevenueCat)
@@ -598,6 +561,79 @@ A API implementa corretamente a hierarquia de celebrações:
 - **Domingos**: Ciclos A, B, C (trienal)
 - **Dias de semana**: Anos pares e ímpares (bienal)
 - Cálculo automático baseado no ano litúrgico (que inicia no Advento)
+
+## 🛠️ Rake Tasks
+
+O projeto possui rake tasks customizados organizados por funcionalidade:
+
+### 📦 Banco de Dados
+
+```bash
+rake db:verify                                    # Verifica integridade dos dados e gera estatísticas
+rake db:seed                                      # Carrega dados iniciais (celebrações, estações, etc.)
+```
+
+### 📖 Bíblia
+
+```bash
+rake bible:setup                                  # Download e importa todas as traduções (completo)
+rake bible:download                               # Baixa arquivos SQLite das traduções
+rake bible:import                                 # Importa todas as traduções para PostgreSQL
+rake bible:import_translation[translation]        # Importa uma tradução específica (ex: ARA, NVI)
+rake bible:reimport_translation[translation]      # Limpa e reimporta uma tradução
+rake bible:stats                                  # Mostra estatísticas de importação
+rake bible:clear                                  # Remove todos os textos bíblicos do banco
+```
+
+### 🙏 Coletas
+
+```bash
+rake import:collects                              # Importa coletas do ano litúrgico
+```
+
+### 🎵 Áudio Premium
+
+```bash
+rake audio:estimate[prayer_book,voice_keys]       # Estima custo de geração (exclui rubricas)
+rake audio:generate[prayer_book,voice_keys]       # Gera áudio para textos litúrgicos
+rake audio:generate_text[prayer_book,slug,voices] # Gera áudio para texto específico
+rake audio:generate_samples                       # Gera amostras de voz para preview
+rake audio:stats                                  # Estatísticas de áudio gerado
+rake audio:verify                                 # Verifica se arquivos correspondem ao banco
+rake audio:sync                                   # Sincroniza arquivos locais com Railway
+rake audio:upload_to_railway                      # Upload de arquivos para volume Railway
+rake audio:cleanup_sessions[days]                 # Limpa sessões antigas (padrão: 30 dias)
+rake audio:cleanup_orphaned_files[days,dry_run]   # Remove arquivos órfãos não referenciados
+```
+
+### 🔔 Notificações
+
+```bash
+rake notifications:test_notification[user_email]  # Envia notificação de teste para usuário
+rake notifications:send_streak_reminders          # Envia lembretes de streak para usuários
+rake notifications:cleanup_old_tokens             # Remove tokens FCM inativos (60+ dias)
+```
+
+### ⚡ Cache e Performance
+
+```bash
+rake cache:clear                                  # Limpa todos os caches da aplicação
+rake cache:warm                                   # Pré-aquece caches para melhor performance
+rake performance:analyze                          # Analisa performance de queries comuns
+```
+
+### 🧪 Testes
+
+```bash
+rake spec                                         # Executa todos os testes RSpec
+rake spec:models                                  # Testes de models
+rake spec:services                                # Testes de services
+rake spec:requests                                # Testes de API (request specs)
+rake spec:jobs                                    # Testes de jobs
+rake spec:lib                                     # Testes de lib
+```
+
+> **Nota**: Com Docker, prefixe os comandos com `docker-compose exec web bundle exec`
 
 ## 📚 Documentação Adicional
 
