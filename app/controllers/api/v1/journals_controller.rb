@@ -4,6 +4,7 @@ module Api
   module V1
     class JournalsController < ApplicationController
       include Authenticatable
+      include DateValidations
 
       before_action :authenticate_user!
       before_action :set_journal, only: %i[update destroy]
@@ -111,33 +112,6 @@ module Api
           created_at: journal.created_at,
           updated_at: journal.updated_at
         }
-      end
-
-      def parse_date
-        year = params[:year].to_i
-        month = params[:month].to_i
-        day = params[:day].to_i
-
-        validate_year_month_day(year, month, day)
-      end
-
-      def validate_year(year)
-        raise ArgumentError, "Year must be between 1900 and 2200" unless year.between?(1900, 2200)
-      end
-
-      def validate_year_month(year, month)
-        validate_year(year)
-        raise ArgumentError, "Month must be between 1 and 12" unless month.between?(1, 12)
-      end
-
-      def validate_year_month_day(year, month, day)
-        validate_year_month(year, month)
-        raise ArgumentError, "Invalid day for the specified month" unless day.between?(1, 31)
-
-        # Validate the actual date is valid for the given month/year
-        Date.new(year, month, day)
-      rescue Date::Error
-        raise ArgumentError, "Invalid date: #{year}-#{month}-#{day}"
       end
 
       def handle_argument_error(exception)

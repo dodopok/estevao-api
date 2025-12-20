@@ -1,4 +1,26 @@
-# Serviço principal para gerar o calendário litúrgico de um ano
+# Main service for generating the liturgical calendar for a year
+#
+# This service coordinates multiple specialized services to provide:
+# - Liturgical seasons (Advent, Christmas, Epiphany, Lent, Easter, Pentecost)
+# - Daily celebrations and their precedence
+# - Liturgical colors based on season and celebration type
+# - Movable feast calculations (Easter, Ascension, Pentecost, etc.)
+# - Sunday names and week numbers within seasons
+#
+# The calendar follows Anglican liturgical norms with proper handling of:
+# - Transferred feasts (e.g., Annunciation, All Saints when they fall on Sunday)
+# - Celebration hierarchy (Principal Feasts > Major Holy Days > Festivals, etc.)
+# - Season-specific color rules
+#
+# @example Get liturgical info for a specific date
+#   calendar = LiturgicalCalendar.new(2024, prayer_book_code: 'loc_2015')
+#   info = calendar.day_info(Date.new(2024, 12, 25))
+#   # => { date: "25/12/2024", liturgical_season: "Natal", color: "branco", ... }
+#
+# @example Calculate Easter and related dates
+#   calendar = LiturgicalCalendar.new(2024)
+#   easter = calendar.easter_calc.easter_date # => Date.new(2024, 3, 31)
+#
 class LiturgicalCalendar
   attr_reader :year, :easter_calc, :prayer_book_code
 
