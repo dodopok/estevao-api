@@ -48,10 +48,8 @@ class Celebration < ApplicationRecord
     principal_feast? || major_holy_day?
   end
 
-  # Check if this is a high-priority celebration (Principal Feast or Major Holy Day)
-  def high_priority?
-    principal_feast? || major_holy_day?
-  end
+  # Check if this is a high-priority celebration (alias for supersedes_sunday)
+  alias high_priority? supersedes_sunday?
 
   # Check if this celebration can be observed on a weekday
   def weekday_observance?

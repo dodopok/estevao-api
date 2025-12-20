@@ -14,16 +14,16 @@ namespace :cache do
 
     # Warm up today's daily office for common configurations
     today = Date.today
-    [ "loc_2015" ].each do |prayer_book_code|
+    PrayerBook.active.limit(1).each do |prayer_book|
       %i[morning evening].each do |office_type|
-        print "  🙏 Daily Office #{office_type} (#{prayer_book_code})... "
+        print "  🙏 Daily Office #{office_type} (#{prayer_book.code})... "
         cache_key = "daily_office/v2/#{today}/#{office_type}/warmup"
 
         Rails.cache.fetch(cache_key, expires_in: 1.day) do
           DailyOfficeService.new(
             date: today,
             office_type: office_type,
-            preferences: { prayer_book_code: prayer_book_code }
+            preferences: { prayer_book_code: prayer_book.code }
           ).call
         end
         puts "✓"

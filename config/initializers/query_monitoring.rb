@@ -12,9 +12,11 @@ if Rails.env.development?
     end
 
     # Detect potential N+1 queries by checking for repeated patterns
-    # This is a simple heuristic - use bullet gem for comprehensive N+1 detection
+    # NOTE: This is a basic heuristic. For comprehensive N+1 detection, use the Bullet gem:
+    # https://github.com/flyerhzm/bullet
     sql = payload[:sql]
-    if sql.match?(/SELECT.*FROM.*WHERE.*id.*=.*\$/i) && !sql.include?("LIMIT 1")
+    # Only check SELECT queries that include WHERE clauses with IDs
+    if sql.match?(/SELECT\s+.*\s+FROM\s+\w+\s+WHERE\s+.*\bid\b.*=.*\$/i) && !sql.include?("LIMIT 1")
       # This might be an N+1 query if called repeatedly
       Thread.current[:query_patterns] ||= Hash.new(0)
       pattern = sql.gsub(/\$\d+/, "?").gsub(/\d+/, "N")
