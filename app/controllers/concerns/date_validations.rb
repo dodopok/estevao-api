@@ -18,17 +18,17 @@ module DateValidations
   end
 
   def validate_year(year)
-    raise ArgumentError, "Year must be between 1900 and 2200" unless year.between?(1900, 2200)
+    raise ArgumentError, "Ano deve estar entre 1900 e 2200" unless year.between?(1900, 2200)
   end
 
   def validate_year_month(year, month)
     validate_year(year)
-    raise ArgumentError, "Month must be between 1 and 12" unless month.between?(1, 12)
+    raise ArgumentError, "Mês deve estar entre 1 e 12" unless month.between?(1, 12)
   end
 
   def validate_year_month_day(year, month, day)
     validate_year_month(year, month)
-    raise ArgumentError, "Invalid day for the specified month" unless day.between?(1, 31)
+    raise ArgumentError, "Dia inválido para o mês especificado" unless day.between?(1, 31)
 
     # Validate if the date is valid
     Date.new(year, month, day)
