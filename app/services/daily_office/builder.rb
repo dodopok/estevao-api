@@ -35,6 +35,8 @@ module DailyOffice
       case @preferences[:prayer_book_code]
       when "loc_2015"
         Builders::Loc2015Builder
+      when "locb_2008"
+        Builders::Locb2008Builder
       # Future LOCs can be added here:
       # when "bcp_1979"
       #   Builders::Bcp1979Builder

@@ -30,13 +30,15 @@ class DailyOfficeService
     builder_class = case prayer_book_code
     when "loc_2015"
                       DailyOffice::Builders::Loc2015Builder
+    when "locb_2008"
+                      DailyOffice::Builders::Locb2008Builder
     when "loc_2019"
                       # Future: DailyOffice::Builders::Loc2019Builder
                       DailyOffice::Builders::BaseBuilder
     when "loc_2012"
                       # Future: DailyOffice::Builders::Loc2012Builder
                       DailyOffice::Builders::BaseBuilder
-    when "loc_1987", "locb_2008", "loc_1662"
+    when "loc_1987", "loc_1662"
                       # Use base builder for LOCs without specific customizations
                       DailyOffice::Builders::BaseBuilder
     else
