@@ -17,7 +17,11 @@ namespace :cache do
     PrayerBook.active.limit(1).each do |prayer_book|
       %i[morning evening].each do |office_type|
         print "  🙏 Daily Office #{office_type} (#{prayer_book.code})... "
-        cache_key = "daily_office/v2/#{today}/#{office_type}/warmup"
+
+        # Build cache key using same logic as DailyOfficeController
+        # Note: Using simplified preferences hash for warmup
+        prefs_hash = Digest::MD5.hexdigest({ prayer_book_code: prayer_book.code }.to_json)[0..7]
+        cache_key = "daily_office/v2/#{today}/#{office_type}/#{prefs_hash}"
 
         Rails.cache.fetch(cache_key, expires_in: 1.day) do
           DailyOfficeService.new(
@@ -33,13 +37,16 @@ namespace :cache do
     end
 
     # Warm up today's calendar data
-    print "  📅 Liturgical calendar for today... "
-    cache_key = "calendar/today/#{today}/loc_2015/nvi"
-    Rails.cache.fetch(cache_key, expires_in: 1.day) do
-      calendar = LiturgicalCalendar.new(today.year, prayer_book_code: "loc_2015")
-      calendar.day_info(today)
+    prayer_book = PrayerBook.active.first
+    if prayer_book
+      print "  📅 Liturgical calendar for today (#{prayer_book.code})... "
+      cache_key = "calendar/today/#{today}/#{prayer_book.code}/nvi"
+      Rails.cache.fetch(cache_key, expires_in: 1.day) do
+        calendar = LiturgicalCalendar.new(today.year, prayer_book_code: prayer_book.code)
+        calendar.day_info(today)
+      end
+      puts "✓"
     end
-    puts "✓"
 
     puts "\n✨ Cache warming complete!"
   end

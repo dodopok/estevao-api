@@ -16,7 +16,8 @@ if Rails.env.development?
     # https://github.com/flyerhzm/bullet
     sql = payload[:sql]
     # Only check SELECT queries that include WHERE clauses with IDs
-    if sql.match?(/SELECT\s+.*\s+FROM\s+\w+\s+WHERE\s+.*\bid\b.*=.*\$/i) && !sql.include?("LIMIT 1")
+    # The $ in regex matches parameter placeholders like $1, $2, not end of string
+    if sql.match?(/SELECT\s+.*\s+FROM\s+\w+\s+WHERE\s+.*\bid\b.*=/i) && !sql.include?("LIMIT 1")
       # This might be an N+1 query if called repeatedly
       Thread.current[:query_patterns] ||= Hash.new(0)
       pattern = sql.gsub(/\$\d+/, "?").gsub(/\d+/, "N")
