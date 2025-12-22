@@ -533,4 +533,4 @@ LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_dismissal_all', pr
   text.category = 'conclusion'
 end
 
-puts 'LOCB 2008 Morning Prayer I liturgical texts created successfully!'
+Rails.logger.info 'LOCB 2008 Morning Prayer I liturgical texts created successfully!'

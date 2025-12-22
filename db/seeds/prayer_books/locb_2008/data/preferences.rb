@@ -36,7 +36,7 @@ locb_2008_preferences = [
     position: 2,
     preferences: [
       {
-        key: "morning_opening_sentence",
+        key: "morning_prayer_rite",
         name: "Ofício Escolhido",
         description: "Escolha a Oração Matutina a ser utilizado",
         pref_type: "select_one",

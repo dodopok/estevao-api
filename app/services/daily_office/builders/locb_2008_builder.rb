@@ -40,14 +40,13 @@ module DailyOffice
 
       def morning_builder
         # Determine rite from preferences (default to rite_one)
-        rite = preferences[:rite] || "rite_one"
+        rite = preferences[:morning_prayer_rite] || "1"
 
         case rite.to_s
-        when "rite_one", "1"
+        when "1"
           Locb2008::MorningRiteOne.new(date: date, office_type: office_type, preferences: preferences)
-        when "rite_two", "2"
-          # TODO: Implement MorningRiteTwo when ready
-          Locb2008::MorningRiteOne.new(date: date, office_type: office_type, preferences: preferences)
+        when "2"
+          Locb2008::MorningRiteTwo.new(date: date, office_type: office_type, preferences: preferences)
         else
           Locb2008::MorningRiteOne.new(date: date, office_type: office_type, preferences: preferences)
         end
