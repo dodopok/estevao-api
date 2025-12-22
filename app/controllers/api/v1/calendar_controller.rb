@@ -3,6 +3,8 @@ module Api
     class CalendarController < ApplicationController
       include Authenticatable
       include Concerns::PreferencesResolver
+      include DateValidations
+      include LiturgicalFormatting
 
       before_action :authenticate_user_optional
       before_action :validate_preferences!
@@ -83,30 +85,6 @@ module Api
 
       private
 
-      def parse_date
-        year = params[:year].to_i
-        month = params[:month].to_i
-        day = params[:day].to_i
-
-        validate_year_month_day(year, month, day)
-
-        Date.new(year, month, day)
-      end
-
-      def validate_year(year)
-        raise ArgumentError, "Ano deve estar entre 1900 e 2200" unless year.between?(1900, 2200)
-      end
-
-      def validate_year_month(year, month)
-        validate_year(year)
-        raise ArgumentError, "Mês deve estar entre 1 e 12" unless month.between?(1, 12)
-      end
-
-      def validate_year_month_day(year, month, day)
-        validate_year_month(year, month)
-        raise ArgumentError, "Dia inválido para o mês especificado" unless day.between?(1, 31)
-      end
-
       def format_day_response(info, date)
         {
           date: info[:date],
@@ -152,10 +130,6 @@ module Api
           cristo_rei: movable[:christ_the_king],
           advento: movable[:first_sunday_of_advent]
         }
-      end
-
-      def month_name_pt(month)
-        %w[_ Janeiro Fevereiro Março Abril Maio Junho Julho Agosto Setembro Outubro Novembro Dezembro][month]
       end
     end
   end

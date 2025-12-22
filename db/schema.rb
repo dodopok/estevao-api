@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_19_171554) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_19_235257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -115,6 +115,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_19_171554) do
     t.index ["movable"], name: "index_celebrations_on_movable"
     t.index ["name", "prayer_book_id"], name: "index_celebrations_on_name_and_prayer_book_id", unique: true
     t.index ["prayer_book_id", "can_be_transferred"], name: "index_celebrations_on_prayer_book_and_transferable"
+    t.index ["prayer_book_id", "fixed_month", "fixed_day"], name: "index_celebrations_on_prayer_book_date", where: "(movable = false)"
     t.index ["prayer_book_id", "movable"], name: "index_celebrations_on_prayer_book_and_movable"
     t.index ["prayer_book_id"], name: "index_celebrations_on_prayer_book_id"
     t.index ["rank"], name: "index_celebrations_on_rank"

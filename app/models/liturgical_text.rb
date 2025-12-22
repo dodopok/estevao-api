@@ -17,6 +17,7 @@ class LiturgicalText < ApplicationRecord
     where(prayer_book_id: prayer_book&.id)
   }
   scope :for_audio_generation, -> { where.not(category: "rubric") }
+  scope :with_audio_for_voice, ->(voice_key) { where("audio_urls ? :voice", voice: voice_key.to_s) }
 
   # Categories constants
   CATEGORIES = {

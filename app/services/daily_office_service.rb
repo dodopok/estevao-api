@@ -1,7 +1,28 @@
 # frozen_string_literal: true
 
-# Factory service that delegates to Prayer Book-specific builders
-# This allows each LOC to have its own unique Daily Office structure
+# Factory service that builds Daily Office content based on Prayer Book preferences
+#
+# This is the main entry point for generating Daily Office liturgies. It:
+# - Delegates to Prayer Book-specific builders (e.g., LOC 2015)
+# - Handles premium audio URL injection for authenticated users
+# - Applies user preferences for Bible version, confession type, etc.
+#
+# @example Generate Morning Prayer for today
+#   service = DailyOfficeService.new(
+#     date: Date.today,
+#     office_type: :morning,
+#     preferences: { prayer_book_code: 'loc_2015', bible_version: 'nvi' }
+#   )
+#   office = service.call
+#
+# @example Generate office with audio for premium user
+#   service = DailyOfficeService.new(
+#     date: Date.today,
+#     office_type: :morning,
+#     current_user: premium_user
+#   )
+#   office = service.call # Includes audio_url fields for each liturgical text
+#
 class DailyOfficeService
   attr_reader :date, :office_type, :preferences, :current_user
 

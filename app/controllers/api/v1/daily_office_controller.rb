@@ -3,6 +3,7 @@ module Api
     class DailyOfficeController < ApplicationController
       include Authenticatable
       include Concerns::PreferencesResolver
+      include DateValidations
 
       before_action :authenticate_user_optional
       before_action :validate_preferences!, except: [ :preferences ]
@@ -121,30 +122,6 @@ module Api
         office_type
       end
 
-      def parse_date
-        year = params[:year].to_i
-        month = params[:month].to_i
-        day = params[:day].to_i
-
-        validate_year_month_day(year, month, day)
-
-        Date.new(year, month, day)
-      end
-
-      def validate_year(year)
-        raise ArgumentError, "Year must be between 1900 and 2200" unless year.between?(1900, 2200)
-      end
-
-      def validate_year_month(year, month)
-        validate_year(year)
-        raise ArgumentError, "Month must be between 1 and 12" unless month.between?(1, 12)
-      end
-
-      def validate_year_month_day(year, month, day)
-        validate_year_month(year, month)
-        raise ArgumentError, "Invalid day for the specified month" unless day.between?(1, 31)
-      end
-
       # Authorize user access to the requested prayer book
       def authorize_prayer_book_access!
         prayer_book = resolved_prayer_book
@@ -165,6 +142,8 @@ module Api
       # Build cache key with relevant preferences for Daily Office
       # Includes user_id and audio preferences for premium users
       # Version v2 to invalidate old cache after adding premium/language fields
+      # Strategy: Hash only preferences that affect the office content, not presentation
+      # This maximizes cache hit rate while keeping personalization
       def build_office_cache_key(date, office_type, family: false)
         relevant_prefs = resolved_preferences.slice(
           :prayer_book_code,
