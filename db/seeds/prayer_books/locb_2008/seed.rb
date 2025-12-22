@@ -121,6 +121,20 @@ Rails.logger.info "="*80
 load Rails.root.join("#{base_path}/psalm_cycles.rb")
 
 # ================================================================================
+# OFÍCIO DIÁRIO - TEXTOS LITÚRGICOS, SALMOS E CICLOS
+# ================================================================================
+
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO OFÍCIO DIÁRIO - LOC 2015"
+Rails.logger.info "="*80
+
+# Textos Litúrgicos
+load Rails.root.join("#{base_path}/liturgical_texts.rb")
+
+# Preferências
+load Rails.root.join("#{base_path}/preferences.rb")
+
+# ================================================================================
 # OFÍCIO DIÁRIO - LEITURAS DIÁRIAS (Ciclo Bianual)
 # ================================================================================
 

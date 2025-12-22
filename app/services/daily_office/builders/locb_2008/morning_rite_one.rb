@@ -39,13 +39,17 @@ module DailyOffice
             build_confession,
             build_thanksgiving,
             build_reflection,
+            build_word_of_god,
             build_psalms,
             build_ot_canticle,
             build_readings,
+            build_hymn,
             build_response,
             build_benedictus,
+            build_sermon,
             build_creed,
             build_prayers,
+            build_intercessions,
             build_collect_of_the_day,
             build_lords_prayer,
             build_conclusion
@@ -60,32 +64,33 @@ module DailyOffice
         def build_preparation
           lines = []
 
-          # Option 1: Full greeting
-          greeting_minister = fetch_liturgical_text("morning_1_preparation_greeting_minister")
+          # Resolve preparation option (1, 2, or random)
+          option = resolve_preference(:morning_1_preparation, 1..2) || 1
+
+          greeting_minister = fetch_liturgical_text("morning_1_preparation_#{option}_greeting_minister")
           if greeting_minister
             lines << line_item(greeting_minister.content, type: "leader", slug: greeting_minister.slug)
           end
 
-          greeting_all = fetch_liturgical_text("morning_1_preparation_greeting_all")
+          greeting_all = fetch_liturgical_text("morning_1_preparation_#{option}_greeting_all")
           if greeting_all
             lines << line_item(greeting_all.content, type: "congregation", slug: greeting_all.slug)
             lines << line_item("", type: "spacer")
           end
 
-          opening_minister = fetch_liturgical_text("morning_1_preparation_opening_minister")
+          opening_minister = fetch_liturgical_text("morning_1_preparation_#{option}_opening_minister")
           if opening_minister
             lines << line_item(opening_minister.content, type: "leader", slug: opening_minister.slug)
           end
 
-          opening_all = fetch_liturgical_text("morning_1_preparation_opening_all")
+          opening_all = fetch_liturgical_text("morning_1_preparation_#{option}_opening_all")
           if opening_all
             lines << line_item(opening_all.content, type: "congregation", slug: opening_all.slug)
           end
 
-          return nil if lines.empty?
-
           {
             name: "Preparação",
+            type: "main_part",
             slug: "preparation",
             lines: lines
           }
@@ -141,19 +146,6 @@ module DailyOffice
             lines << line_item(absolution_all.content, type: "congregation", slug: absolution_all.slug)
           end
 
-          return nil if lines.empty?
-
-          {
-            name: "Confissão de Pecados",
-            slug: "confession",
-            lines: lines
-          }
-        end
-
-        # AÇÃO DE GRAÇAS - Thanksgiving
-        def build_thanksgiving
-          lines = []
-
           # Blessed be the Lord
           blessed_minister = fetch_liturgical_text("morning_1_thanksgiving_blessed_minister")
           if blessed_minister
@@ -177,6 +169,17 @@ module DailyOffice
             lines << line_item("", type: "spacer")
           end
 
+          {
+            name: "Confissão de Pecados",
+            slug: "confession",
+            lines: lines
+          }
+        end
+
+        # AÇÃO DE GRAÇAS - Thanksgiving
+        def build_thanksgiving
+          lines = []
+
           # Optional thanksgiving prayer (rubric)
           rubric = fetch_liturgical_text("morning_1_thanksgiving_rubric")
           if rubric
@@ -195,10 +198,8 @@ module DailyOffice
             lines << line_item(prayer_all.content, type: "congregation", slug: prayer_all.slug)
           end
 
-          return nil if lines.empty?
-
           {
-            name: "Ação de Graças",
+            name: "Oração de Ação de Graças",
             slug: "thanksgiving",
             lines: lines
           }
@@ -230,12 +231,19 @@ module DailyOffice
             lines << line_item(prayer_all.content, type: "congregation", slug: prayer_all.slug)
           end
 
-          return nil if lines.empty?
-
           {
             name: "Breve Reflexão",
             slug: "reflection",
             lines: lines
+          }
+        end
+
+        def build_word_of_god
+          {
+            name: "A Palavra de Deus",
+            type: "main_part",
+            slug: "word_of_god",
+            lines: []
           }
         end
 
@@ -297,7 +305,7 @@ module DailyOffice
 
           lines = []
 
-          lines << line_item(canticle.content, type: "congregation", slug: canticle.slug)
+          lines << line_item(canticle.content, slug: canticle.slug)
           lines << line_item("", type: "spacer")
 
           # Gloria Patri after canticle
@@ -312,7 +320,7 @@ module DailyOffice
           end
 
           {
-            name: canticle.title || "Cântico do Antigo Testamento",
+            name: "Cântico do Antigo Testamento",
             slug: "ot_canticle",
             lines: lines
           }
@@ -356,34 +364,18 @@ module DailyOffice
             end
           end
 
-          # Second reading (if available)
-          if readings[:second_reading]
-            lines << line_item(readings[:second_reading][:reference], type: "heading")
-            lines << line_item("", type: "spacer")
-
-            if readings[:second_reading][:content]
-              lines.concat(format_bible_content(readings[:second_reading][:content]))
-              lines << line_item("", type: "spacer")
-            end
-
-            # Response after reading
-            response_reader = fetch_liturgical_text("morning_1_readings_response_reader")
-            if response_reader
-              lines << line_item(response_reader.content, type: "reader", slug: response_reader.slug)
-            end
-
-            response_all = fetch_liturgical_text("morning_1_readings_response_all")
-            if response_all
-              lines << line_item(response_all.content, type: "congregation", slug: response_all.slug)
-            end
-          end
-
-          return nil if lines.empty?
-
           {
             name: "Leituras das Escrituras",
             slug: "readings",
             lines: lines
+          }
+        end
+
+        def build_hymn
+          {
+            name: "Hino",
+            slug: "hymn",
+            lines: []
           }
         end
 
@@ -439,8 +431,6 @@ module DailyOffice
             lines << line_item(manifest_all.content, type: "congregation", slug: manifest_all.slug)
           end
 
-          return nil if lines.empty?
-
           {
             name: "Responso",
             slug: "response",
@@ -466,7 +456,7 @@ module DailyOffice
           # Benedictus text
           benedictus = fetch_liturgical_text("morning_1_benedictus")
           if benedictus
-            lines << line_item(benedictus.content, type: "congregation", slug: benedictus.slug)
+            lines << line_item(benedictus.content, slug: benedictus.slug)
             lines << line_item("", type: "spacer")
           end
 
@@ -487,12 +477,18 @@ module DailyOffice
             lines << line_item(gloria_all.content, type: "congregation", slug: gloria_all.slug)
           end
 
-          return nil if lines.empty?
-
           {
-            name: "Cântico Evangélico - Benedictus",
+            name: "Cântico Evangélico",
             slug: "benedictus",
             lines: lines
+          }
+        end
+
+        def build_sermon
+          {
+            name: "Sermão",
+            slug: "sermon",
+            lines: []
           }
         end
 
@@ -528,28 +524,23 @@ module DailyOffice
         # SECTION: Prayers
         # ============================================================================
 
-        # ORAÇÕES - Prayers (Intercessions placeholder)
+        # Orações
         def build_prayers
-          lines = []
-
-          # Prayers title
-          prayers_title = fetch_liturgical_text("morning_1_prayers_title")
-          if prayers_title
-            lines << line_item("", type: "spacer")
-          end
-
-          # Intercessions title
-          intercessions = fetch_liturgical_text("morning_1_intercessions_title")
-          if intercessions
-            lines << line_item("Podem ser inseridas aqui as intercessões livres.", type: "rubric")
-          end
-
-          return nil if lines.empty?
-
           {
             name: "Orações",
             slug: "prayers",
-            lines: lines
+            lines: []
+          }
+        end
+
+        # Intercessões
+        def build_intercessions
+          lines = []
+
+          {
+            name: "Intercessões",
+            slug: "intercessions",
+            lines: []
           }
         end
 
@@ -593,8 +584,6 @@ module DailyOffice
             lines << line_item(lords_prayer.content, type: "congregation", slug: lords_prayer.slug)
           end
 
-          return nil if lines.empty?
-
           {
             name: "A Oração do Senhor",
             slug: "lords_prayer",
@@ -625,8 +614,6 @@ module DailyOffice
           else
             build_blessing_conclusion(lines)
           end
-
-          return nil if lines.empty?
 
           {
             name: "Conclusão",
