@@ -9,3 +9,9 @@ Rails.logger.info "CARREGANDO OFÍCIO MATUTINO - RITO 1 - LOCB 2008"
 Rails.logger.info "="*80
 
 load Rails.root.join("#{base_path}/morning_prayer_rite_one.rb")
+
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO OFÍCIO MATUTINO - RITO 2 - LOCB 2008"
+Rails.logger.info "="*80
+
+load Rails.root.join("#{base_path}/morning_prayer_rite_two.rb")

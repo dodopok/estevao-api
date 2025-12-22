@@ -50,7 +50,6 @@ module DailyOffice
             build_morning_prayer_section,
             build_response,
             build_venite,
-            build_word_of_god,
             build_psalms,
             build_ot_reading,
             build_te_deum,
@@ -59,8 +58,6 @@ module DailyOffice
             build_canticle_post_reading,
             build_creed,
             build_prayers,
-            build_lords_prayer,
-            build_suffrage,
             build_collect_of_the_day,
             build_collect_peace,
             build_collect_grace,
@@ -261,7 +258,7 @@ module DailyOffice
           # Title
           title = fetch_liturgical_text("morning_2_venite_title")
           if title
-            lines << line_item(title.title, type: "heading", slug: title.slug)
+            lines << line_item(title.title, slug: title.slug)
             lines << line_item("", type: "spacer")
           end
 
@@ -287,15 +284,6 @@ module DailyOffice
             name: "Venite",
             slug: "venite",
             lines: lines
-          }
-        end
-
-        def build_word_of_god
-          {
-            name: "A Palavra de Deus",
-            type: "main_part",
-            slug: "word_of_god",
-            lines: []
           }
         end
 
@@ -354,7 +342,7 @@ module DailyOffice
           lines = []
 
           if readings[:first_reading]
-            lines << line_item(readings[:first_reading][:reference], type: "heading")
+            lines << line_item(readings[:first_reading][:reference])
             lines << line_item("", type: "spacer")
 
             if readings[:first_reading][:content]
@@ -399,7 +387,7 @@ module DailyOffice
           lines = []
 
           if readings[:second_reading]
-            lines << line_item(readings[:second_reading][:reference], type: "heading")
+            lines << line_item(readings[:second_reading][:reference])
             lines << line_item("", type: "spacer")
 
             if readings[:second_reading][:content]
@@ -513,17 +501,6 @@ module DailyOffice
             lines << line_item("", type: "spacer")
           end
 
-          {
-            name: "Orações",
-            slug: "prayers",
-            lines: lines
-          }
-        end
-
-        # A ORAÇÃO DO SENHOR - Lord's Prayer
-        def build_lords_prayer
-          lines = []
-
           lords_prayer = fetch_liturgical_text("morning_2_lords_prayer_all")
           if lords_prayer
             lines << line_item(lords_prayer.content, type: "congregation", slug: lords_prayer.slug)
@@ -541,17 +518,6 @@ module DailyOffice
             lines << line_item(prayers_4_all.content, type: "congregation", slug: prayers_4_all.slug)
           end
 
-          {
-            name: "A Oração do Senhor",
-            slug: "lords_prayer",
-            lines: lines
-          }
-        end
-
-        # SUFRÁGIO - Suffrage
-        def build_suffrage
-          lines = []
-
           (1..5).each do |i|
             minister = fetch_liturgical_text("morning_2_suffrage_#{i}_minister")
             if minister
@@ -565,8 +531,8 @@ module DailyOffice
           end
 
           {
-            name: "Sufrágio",
-            slug: "suffrage",
+            name: "Orações",
+            slug: "prayers",
             lines: lines
           }
         end
