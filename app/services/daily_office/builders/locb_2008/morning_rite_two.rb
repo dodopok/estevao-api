@@ -75,7 +75,6 @@ module DailyOffice
         def build_welcome
           {
             name: "Acolhida",
-            type: "main_part",
             slug: "welcome",
             lines: []
           }
@@ -684,7 +683,7 @@ module DailyOffice
             "morning_2_invitation_pentecost"
           else
             # General - pick one of the two general invitations using seeded random
-            general_options = ["morning_2_invitation_general_1", "morning_2_invitation_general_2"]
+            general_options = [ "morning_2_invitation_general_1", "morning_2_invitation_general_2" ]
             general_options[seeded_random(0...general_options.length, key: :morning_2_invitation_general)]
           end
         end
@@ -697,7 +696,7 @@ module DailyOffice
 
         # Resolve canticle post reading from preferences
         def resolve_canticle_post_reading
-          result = resolve_preference(:morning_2_canticle_post_reading, ["benedictus", "jubilate_deo"])
+          result = resolve_preference(:morning_2_canticle_post_reading, [ "benedictus", "jubilate_deo" ])
           result&.to_sym || :benedictus
         end
 
@@ -759,7 +758,7 @@ module DailyOffice
 
         # Resolve conclusion type from preferences
         def resolve_conclusion_type
-          result = resolve_preference(:morning_2_conclusion, ["grace", "dismissal"])
+          result = resolve_preference(:morning_2_conclusion, [ "grace", "dismissal" ])
           result&.to_sym || :grace
         end
 

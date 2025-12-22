@@ -6,10 +6,16 @@ module DailyOffice
       attr_reader :date, :office_type, :preferences, :day_info, :readings
       attr_reader :psalm_builder, :reading_builder, :prayer_builder
 
+      DEFAULT_PREFERENCES = {
+        prayer_book_code: "loc_2015",
+        bible_version: "nvi",
+        family_rite: false
+      }.freeze
+
       def initialize(date:, office_type:, preferences: {})
         @date = date.to_date
         @office_type = office_type.to_sym
-        @preferences = default_preferences.merge(preferences)
+        @preferences = DEFAULT_PREFERENCES.merge(preferences.symbolize_keys)
 
         # Generate seed if not provided (for sharing consistent office configurations)
         @preferences[:seed] ||= generate_seed
@@ -77,14 +83,6 @@ module DailyOffice
       end
 
       private
-
-      def default_preferences
-        {
-          prayer_book_code: "loc_2015",
-          bible_version: "nvi",
-          language: "pt-BR"
-        }
-      end
 
       def liturgical_calendar
         @liturgical_calendar ||= LiturgicalCalendar.new(

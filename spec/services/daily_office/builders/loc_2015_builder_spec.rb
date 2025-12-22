@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe DailyOffice::Builders::Loc2015Builder do
+  before(:all) do
+    setup_full_liturgical_data
+  end
+
   let(:prayer_book) do
     PrayerBook.find_or_create_by!(code: 'loc_2015') do |pb|
       pb.name = 'Livro de Oração Comum 2015'

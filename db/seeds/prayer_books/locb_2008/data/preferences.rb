@@ -212,8 +212,8 @@ locb_2008_preferences = [
         ]
       },
       {
-        key: "morning_2_conclusion",
-        name: "Conclusão",
+        key: "morning_3_conclusion",
+        name: "Oração Final",
         description: "Escolha a oração final a ser utilizada",
         pref_type: "select_one",
         required: true,

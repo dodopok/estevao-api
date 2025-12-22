@@ -23,7 +23,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: estevao-api
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rdbg -n --open --host 0.0.0.0 --port 1234 -c -- bundle exec rails server -b 0.0.0.0"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rdbg -n --open=vscode --host 0.0.0.0 --port 1234 -c -- bundle exec rails server -b 0.0.0.0"
     environment:
       RAILS_ENV: development
       SECRET_KEY_BASE: development_secret_key_base_change_in_production

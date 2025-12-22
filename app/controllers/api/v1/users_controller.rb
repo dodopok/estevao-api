@@ -230,26 +230,25 @@ module Api
       end
 
       def preferences_params
-        params.require(:preferences).permit(
-          :version,
-          :prayer_book_code,
-          :language,
-          :bible_version,
-          :lords_prayer_version,
-          :creed_type,
-          :confession_type,
-          :notifications,
-          :notifications_enabled,
-          :streak_reminder_enabled,
-          :preferred_audio_voice,
-          prayer_times: [
-            :office_id,
-            :office_name,
-            :hour,
-            :minute,
-            :enabled
-          ]
+        # Preferências base permitidas explicitamente
+        base_keys = %i[
+          version prayer_book_code language bible_version lords_prayer_version
+          creed_type confession_type notifications notifications_enabled
+          streak_reminder_enabled preferred_audio_voice
+        ]
+
+        base_params = params.require(:preferences).permit(
+          *base_keys,
+          prayer_times: %i[office_id office_name hour minute enabled]
         ).to_h
+
+        # Preferências específicas de cada Prayer Book (qualquer chave string/symbol que não seja base)
+        # Ex: morning_3_canticle_before_reading, bcp_1979_confession_type, etc.
+        prayer_book_prefs = params[:preferences].to_unsafe_h.except(*base_keys, :prayer_times).select do |key, value|
+          key.to_s.match?(/\A[a-z0-9_]+\z/) && (value.is_a?(String) || value.is_a?(Integer) || value.is_a?(TrueClass) || value.is_a?(FalseClass))
+        end
+
+        base_params.merge(prayer_book_prefs)
       end
 
       def fcm_token_params

@@ -47,6 +47,8 @@ module DailyOffice
           Locb2008::MorningRiteOne.new(date: date, office_type: office_type, preferences: preferences)
         when "2"
           Locb2008::MorningRiteTwo.new(date: date, office_type: office_type, preferences: preferences)
+        when "3"
+          Locb2008::MorningRiteThree.new(date: date, office_type: office_type, preferences: preferences)
         else
           Locb2008::MorningRiteOne.new(date: date, office_type: office_type, preferences: preferences)
         end

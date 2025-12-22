@@ -105,17 +105,7 @@ module Api
         end
 
         def build_authenticated_preferences
-          onboarding = current_user.user_onboarding
-
-          # Start with onboarding preferences (with defaults applied)
-          base = onboarding.preferences_with_defaults.symbolize_keys
-
-          # Add core fields from onboarding relations
-          base[:prayer_book_code] = onboarding.prayer_book.code
-          base[:bible_version] = onboarding.bible_version.code
-          base[:mode] = onboarding.mode
-
-          base
+          current_user.preferences.with_indifferent_access
         end
 
         def build_anonymous_preferences
