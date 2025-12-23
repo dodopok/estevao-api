@@ -12,7 +12,7 @@ RSpec.describe DailyOffice::Builders::Locb2008Builder do
       pb.name = 'Livro de Oração Comum Brasileiro 2008'
       pb.features = {
         'lectionary' => {
-          'reading_types' => ['semicontinuous'],
+          'reading_types' => [ 'semicontinuous' ],
           'default_reading_type' => 'semicontinuous'
         },
         'daily_office' => {
@@ -414,9 +414,9 @@ RSpec.describe DailyOffice::Builders::Locb2008Builder do
 
     it 'handles all office types with random rite selection' do
       [
-        [:morning, :morning_prayer_rite, %w[1 2 3 4]],
-        [:evening, :evening_prayer_rite, %w[1 2 3 4]],
-        [:compline, :compline_prayer_rite, %w[1 2]]
+        [ :morning, :morning_prayer_rite, %w[1 2 3 4] ],
+        [ :evening, :evening_prayer_rite, %w[1 2 3 4] ],
+        [ :compline, :compline_prayer_rite, %w[1 2] ]
       ].each do |office_type, pref_key, available_rites|
         preferences = { pref_key => 'random', seed: 42, prayer_book_code: 'locb_2008' }
         builder = described_class.new(
