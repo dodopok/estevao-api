@@ -221,4 +221,5 @@ end
 RSpec.configure do |config|
   config.include LiturgicalDataHelper, type: :request
   config.include LiturgicalDataHelper, type: :service
+  config.include LiturgicalDataHelper, type: :job
 end

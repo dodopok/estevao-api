@@ -617,9 +617,29 @@ rake notifications:cleanup_old_tokens             # Remove tokens FCM inativos (
 ### ⚡ Cache e Performance
 
 ```bash
-rake cache:clear                                  # Limpa todos os caches da aplicação
-rake cache:warm                                   # Pré-aquece caches para melhor performance
-rake performance:analyze                          # Analisa performance de queries comuns
+rake cache:stats                                  # Mostra estatísticas do cache (Redis/Memory)
+rake cache:warm                                   # Pré-aquece cache do Daily Office para hoje
+rake cache:warm[2025-12-25]                       # Pré-aquece cache para data específica
+rake cache:clear_daily_office                     # Limpa apenas cache do Daily Office
+rake cache:clear_all                              # Limpa todo o cache da aplicação
+rake cache:health                                 # Verifica saúde do sistema de cache
+rake cache:benchmark                              # Benchmark de performance (cold vs warm cache)
+rake cache:export_dashboard                       # Exporta JSON do dashboard Datadog
+```
+
+#### 🔥 Pré-aquecimento de Cache
+
+O sistema de cache usa estratégia de duas camadas:
+1. **Base Office Cache**: Compartilhado entre usuários (TTL: 1 dia)
+2. **User Personalization**: Áudio premium aplicado dinamicamente
+
+Para pré-aquecer o cache em produção:
+```bash
+# Aquecer cache para amanhã (rodar via cron às 23:00)
+rails cache:warm[$(date -d tomorrow +%Y-%m-%d)]
+
+# Ou usar o job diretamente
+DailyOfficeWarmerJob.warm_tomorrow
 ```
 
 ### 🧪 Testes

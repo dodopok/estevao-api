@@ -51,10 +51,32 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Use memory cache for better performance
-  # Solid Cache (database-backed) adds significant latency due to SQL queries
-  # Memory cache is faster but data is lost on restart (acceptable for this API)
-  config.cache_store = :memory_store, { size: 256.megabytes }
+  # Cache store configuration:
+  # 1. Redis (preferred) - Distributed, persistent between deploys
+  # 2. Memory store (fallback) - Fast but lost on restart
+  #
+  # Set REDIS_URL environment variable in Railway to enable Redis
+  if ENV["REDIS_URL"].present?
+    config.cache_store = :redis_cache_store, {
+      url: ENV["REDIS_URL"],
+      namespace: "estevao_api_cache",
+      expires_in: 1.day,
+      race_condition_ttl: 5.seconds,
+      connect_timeout: 2,
+      read_timeout: 1,
+      write_timeout: 1,
+      reconnect_attempts: 3,
+      error_handler: lambda { |method:, returning:, exception:|
+        Rails.logger.error("[Redis Cache] #{method} failed: #{exception.message}")
+        Datadog.statsd.increment("cache.redis_error", tags: ["method:#{method}"]) if defined?(Datadog)
+      }
+    }
+    Rails.logger.info "[Cache] Using Redis cache store"
+  else
+    # Fallback to memory store if Redis is not configured
+    config.cache_store = :memory_store, { size: 256.megabytes }
+    Rails.logger.info "[Cache] Using memory store (Redis not configured)"
+  end
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   # config.active_job.queue_adapter = :resque

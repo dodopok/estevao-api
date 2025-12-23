@@ -11,22 +11,17 @@ module Api
 
       # GET /api/v1/daily_office/today/:office_type
       # Returns today's office
+      #
+      # CACHING: Uses two-layer cache strategy
+      # - Layer 1: DailyOfficeService caches base office (shared between users)
+      # - Layer 2: Controller adds user-specific data (completions, streaks)
       def today
         date = Date.today
         office_type = parse_office_type
-        cache_key = build_office_cache_key(date, office_type)
 
-        response = Rails.cache.fetch(cache_key, expires_in: 1.day) do
-          service = DailyOfficeService.new(
-            date: date,
-            office_type: office_type,
-            preferences: resolved_preferences,
-            current_user: current_user
-          )
-          service.call
-        end
+        response = fetch_office(date, office_type)
 
-        # Adiciona dados do usuário se autenticado
+        # Add user-specific data (not cached)
         response = add_user_data(response, date, office_type) if current_user
 
         render json: response
@@ -39,19 +34,10 @@ module Api
       def show
         date = parse_date
         office_type = parse_office_type
-        cache_key = build_office_cache_key(date, office_type)
 
-        response = Rails.cache.fetch(cache_key, expires_in: 1.day) do
-          service = DailyOfficeService.new(
-            date: date,
-            office_type: office_type,
-            preferences: resolved_preferences,
-            current_user: current_user
-          )
-          service.call
-        end
+        response = fetch_office(date, office_type)
 
-        # Adiciona dados do usuário se autenticado
+        # Add user-specific data (not cached)
         response = add_user_data(response, date, office_type) if current_user
 
         render json: response
@@ -73,21 +59,11 @@ module Api
           }, status: :unprocessable_content
         end
 
-        # Gera o ofício com flag de rito familiar
+        # Generate office with family_rite flag
         family_prefs = resolved_preferences.merge(family_rite: true)
-        cache_key = build_office_cache_key(date, office_type, family: true)
+        response = fetch_office(date, office_type, preferences: family_prefs)
 
-        response = Rails.cache.fetch(cache_key, expires_in: 1.day) do
-          service = DailyOfficeService.new(
-            date: date,
-            office_type: office_type,
-            preferences: family_prefs,
-            current_user: current_user
-          )
-          service.call
-        end
-
-        # Adiciona dados do usuário se autenticado
+        # Add user-specific data (not cached)
         response = add_user_data(response, date, office_type) if current_user
 
         render json: response
@@ -110,6 +86,20 @@ module Api
       end
 
       private
+
+      # Fetch office using DailyOfficeService (which handles caching internally)
+      def fetch_office(date, office_type, preferences: nil)
+        prefs = preferences || resolved_preferences
+
+        service = DailyOfficeService.new(
+          date: date,
+          office_type: office_type,
+          preferences: prefs,
+          current_user: current_user
+        )
+
+        service.call
+      end
 
       def parse_office_type
         office_type = params[:office_type]&.to_sym || :morning
@@ -139,31 +129,8 @@ module Api
         }, status: :forbidden
       end
 
-      # Build cache key with relevant preferences for Daily Office
-      # Uses user's updated_at timestamp to invalidate cache when preferences change
-      # For anonymous users, uses a hash of request preferences
-      def build_office_cache_key(date, office_type, family: false)
-        family_suffix = family ? "/family" : ""
-
-        if current_user
-          # User's updated_at changes when preferences are updated, auto-invalidating cache
-          user_timestamp = current_user.updated_at.to_i
-          "daily_office/v3/#{date}/#{office_type}/user_#{current_user.id}/#{user_timestamp}#{family_suffix}"
-        else
-          # For anonymous users, hash the request preferences
-          relevant_prefs = resolved_preferences.slice(
-            :prayer_book_code,
-            :bible_version,
-            :lords_prayer_version,
-            :confession_type,
-            :creed_type
-          ).sort.to_h
-          prefs_hash = Digest::MD5.hexdigest(relevant_prefs.to_json)[0..7]
-          "daily_office/v3/#{date}/#{office_type}/#{prefs_hash}#{family_suffix}"
-        end
-      end
-
       # Adiciona dados do usuário autenticado na resposta
+      # This data is NOT cached as it changes frequently
       def add_user_data(response, date, office_type)
         completion = current_user.completions.find_by(
           date_reference: date,

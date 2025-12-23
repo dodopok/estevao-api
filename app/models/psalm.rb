@@ -14,9 +14,42 @@ class Psalm < ApplicationRecord
   }
 
   # Find psalm by number and optional prayer book code
+  # Uses v4 cache with prayer_book.updated_at versioning and 30-day TTL
   def self.find_psalm(number, prayer_book_code: "loc_2015")
-    prayer_book = PrayerBook.find_by(code: prayer_book_code)
-    find_by(number: number, prayer_book_id: prayer_book&.id)
+    psalms_cache_for(prayer_book_code)[number]
+  end
+
+  # Cache all psalms for a prayer book indexed by number
+  # Dramatically reduces queries when building daily offices
+  def self.psalms_cache_for(prayer_book_code)
+    prayer_book = PrayerBook.find_by_code(prayer_book_code)
+    return {} unless prayer_book
+
+    cache_key = "v4/psalms/#{prayer_book_code}/pb_#{prayer_book.updated_at.to_i}"
+
+    Rails.cache.fetch(cache_key, expires_in: 30.days) do
+      record_cache_event(:psalms, :miss, prayer_book_code)
+      where(prayer_book_id: prayer_book.id).index_by(&:number)
+    end
+  end
+
+  # Record cache events for Datadog metrics
+  def self.record_cache_event(category, event, prayer_book_code)
+    return unless defined?(Datadog) && Datadog.respond_to?(:statsd)
+
+    Datadog.statsd.increment(
+      "cache.#{event}",
+      tags: ["cache_category:#{category}", "prayer_book:#{prayer_book_code}"]
+    )
+  rescue StandardError
+    # Don't let metrics failures affect the app
+  end
+
+  # Touch prayer book when psalm is updated to invalidate cache
+  after_commit :touch_prayer_book_for_cache_invalidation
+
+  def touch_prayer_book_for_cache_invalidation
+    prayer_book.touch if prayer_book.present?
   end
 
   # Get verses as formatted text

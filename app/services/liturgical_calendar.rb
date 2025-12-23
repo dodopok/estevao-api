@@ -12,6 +12,10 @@
 # - Celebration hierarchy (Principal Feasts > Major Holy Days > Festivals, etc.)
 # - Season-specific color rules
 #
+# CACHING: Uses v4 cache strategy with prayer_book.updated_at versioning
+# - day_info results are cached for 1 year (liturgical data is deterministic)
+# - Cache is automatically invalidated when prayer_book is touched
+#
 # @example Get liturgical info for a specific date
 #   calendar = LiturgicalCalendar.new(2024, prayer_book_code: 'loc_2015')
 #   info = calendar.day_info(Date.new(2024, 12, 25))
@@ -41,23 +45,14 @@ class LiturgicalCalendar
   end
 
   # Retorna as informações litúrgicas completas de um dia específico
+  # CACHED: Uses v4 cache with prayer_book.updated_at versioning
   def day_info(date)
-    {
-      date: date.strftime("%d/%m/%Y"),
-      sunday_name: sunday_name(date),
-      description: description(date),
-      day_of_week: Liturgical::Translator.day_name_pt(date),
-      liturgical_season: season_for_date(date),
-      color: color_for_date(date),
-      celebration: celebration_for_date(date),
-      is_sunday: date.sunday?,
-      is_holy_day: holy_day?(date),
-      week_of_season: week_number(date),
-      proper_week: proper_number(date),
-      sunday_after_pentecost: sunday_after_pentecost(date),
-      liturgical_year: liturgical_year_cycle(date),
-      saint: saint_for_date(date)
-    }
+    cache_key = build_day_info_cache_key(date)
+
+    Rails.cache.fetch(cache_key, expires_in: 1.year) do
+      record_cache_miss(:day_info, date)
+      build_day_info(date)
+    end
   end
 
   # Retorna a quadra litúrgica para uma data
@@ -74,22 +69,14 @@ class LiturgicalCalendar
   end
 
   # Retorna a celebração principal do dia
+  # CACHED: Uses v4 cache with prayer_book.updated_at versioning
   def celebration_for_date(date)
-    # Usa o Liturgical::CelebrationResolver para aplicar regras de transferência e hierarquia
-    # Memoize resolver to avoid creating multiple instances
-    celebration = celebration_resolver.resolve_for_date(date)
+    cache_key = build_celebration_cache_key(date)
 
-    return nil unless celebration
-
-    {
-      id: celebration.id,
-      name: celebration.name,
-      type: celebration.celebration_type,
-      rank: celebration.rank,
-      color: celebration.liturgical_color,
-      description: celebration.description,
-      transferred: transferred?(celebration, date)
-    }
+    Rails.cache.fetch(cache_key, expires_in: 1.year) do
+      record_cache_miss(:celebration, date)
+      build_celebration_for_date(date)
+    end
   end
 
   # Determina se o dia é um dia santo
@@ -413,5 +400,109 @@ class LiturgicalCalendar
       prayer_book_code: prayer_book_code,
       easter_calc: easter_calc
     )
+  end
+
+  # ============================================
+  # CACHING METHODS
+  # ============================================
+
+  # Build cache key for day_info
+  def build_day_info_cache_key(date)
+    pb_version = prayer_book_updated_at
+    "v4/calendar/day_info/#{prayer_book_code}/#{date.strftime('%Y-%m-%d')}/pb_#{pb_version}"
+  end
+
+  # Build cache key for celebration
+  def build_celebration_cache_key(date)
+    pb_version = prayer_book_updated_at
+    "v4/calendar/celebration/#{prayer_book_code}/#{date.strftime('%Y-%m-%d')}/pb_#{pb_version}"
+  end
+
+  # Memoized prayer_book.updated_at for cache versioning
+  def prayer_book_updated_at
+    @prayer_book_updated_at ||= begin
+      pb = PrayerBook.find_by_code(prayer_book_code)
+      pb&.updated_at&.to_i || 0
+    end
+  end
+
+  # Build day_info without caching (internal use)
+  def build_day_info(date)
+    {
+      date: date.strftime("%d/%m/%Y"),
+      sunday_name: sunday_name(date),
+      description: description(date),
+      day_of_week: Liturgical::Translator.day_name_pt(date),
+      liturgical_season: season_for_date(date),
+      color: color_for_date_uncached(date),
+      celebration: build_celebration_for_date(date),
+      is_sunday: date.sunday?,
+      is_holy_day: holy_day_uncached?(date),
+      week_of_season: week_number(date),
+      proper_week: proper_number(date),
+      sunday_after_pentecost: sunday_after_pentecost(date),
+      liturgical_year: liturgical_year_cycle(date),
+      saint: saint_for_date_uncached(date)
+    }
+  end
+
+  # Build celebration without cache (internal use)
+  def build_celebration_for_date(date)
+    celebration = celebration_resolver.resolve_for_date(date)
+
+    return nil unless celebration
+
+    {
+      id: celebration.id,
+      name: celebration.name,
+      type: celebration.celebration_type,
+      rank: celebration.rank,
+      color: celebration.liturgical_color,
+      description: celebration.description,
+      transferred: transferred?(celebration, date)
+    }
+  end
+
+  # Color determination without cache (internal use)
+  def color_for_date_uncached(date)
+    celebration = build_celebration_for_date(date)
+    @color_determinator.color_for(date, celebration: celebration)
+  end
+
+  # Holy day check without cache (internal use)
+  def holy_day_uncached?(date)
+    celebration = build_celebration_for_date(date)
+    celebration && (celebration[:type] == "principal_feast" || celebration[:type] == "major_holy_day")
+  end
+
+  # Saint info without cache (internal use)
+  def saint_for_date_uncached(date)
+    celebration = build_celebration_for_date(date)
+
+    return nil unless celebration
+
+    saint_types = %w[lesser_feast commemoration]
+    return nil unless saint_types.include?(celebration[:type])
+
+    {
+      name: celebration[:name],
+      description: celebration[:description]
+    }
+  end
+
+  # Record cache miss metrics
+  def record_cache_miss(category, date)
+    return unless defined?(Datadog) && Datadog.respond_to?(:statsd)
+
+    Datadog.statsd.increment(
+      "cache.miss",
+      tags: [
+        "cache_category:calendar_#{category}",
+        "prayer_book:#{prayer_book_code}",
+        "year:#{date.year}"
+      ]
+    )
+  rescue StandardError
+    # Don't let metrics failures affect the app
   end
 end

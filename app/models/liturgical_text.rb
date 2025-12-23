@@ -47,20 +47,38 @@ class LiturgicalText < ApplicationRecord
 
   # Cache all texts for a prayer book indexed by slug
   # This dramatically reduces queries when building daily offices
+  # Uses v4 cache key with prayer_book.updated_at for automatic invalidation
   def self.texts_cache_for(prayer_book_code)
-    Rails.cache.fetch("liturgical_texts/#{prayer_book_code}", expires_in: 1.hour) do
-      prayer_book = PrayerBook.find_by_code(prayer_book_code)
-      return {} unless prayer_book
+    prayer_book = PrayerBook.find_by_code(prayer_book_code)
+    return {} unless prayer_book
 
+    cache_key = "v4/liturgical_texts/#{prayer_book_code}/pb_#{prayer_book.updated_at.to_i}"
+
+    Rails.cache.fetch(cache_key, expires_in: 30.days) do
+      record_cache_event(:liturgical_texts, :miss, prayer_book_code)
       where(prayer_book_id: prayer_book.id).index_by(&:slug)
     end
   end
 
-  # Clear cache when texts are updated
-  after_commit :clear_texts_cache
+  # Record cache events for Datadog metrics
+  def self.record_cache_event(category, event, prayer_book_code)
+    return unless defined?(Datadog) && Datadog.respond_to?(:statsd)
 
-  def clear_texts_cache
-    Rails.cache.delete("liturgical_texts/#{prayer_book.code}")
+    Datadog.statsd.increment(
+      "cache.#{event}",
+      tags: ["cache_category:#{category}", "prayer_book:#{prayer_book_code}"]
+    )
+  rescue StandardError
+    # Don't let metrics failures affect the app
+  end
+
+  # Clear cache when texts are updated
+  # With prayer_book.updated_at versioning, this is less critical
+  # but still useful for immediate invalidation
+  after_commit :touch_prayer_book_for_cache_invalidation
+
+  def touch_prayer_book_for_cache_invalidation
+    prayer_book.touch if prayer_book.present?
   end
 
   # Helper to get content safely

@@ -8,6 +8,10 @@
 # - Celebration precedence (Principal feasts, Holy Days, etc.)
 # - Prayer Book specific reading patterns
 #
+# CACHING: Uses v4 cache strategy with prayer_book.updated_at versioning
+# - Readings are cached per date/prayer_book/translation with 1-day TTL
+# - Readings data is deterministic for a given date, so cache is very effective
+#
 # @example Fetch readings for a specific date
 #   service = ReadingService.for(Date.new(2024, 12, 25), prayer_book_code: 'loc_2015')
 #   readings = service.find_readings
@@ -36,6 +40,7 @@ class ReadingService
   attr_reader :date, :calendar, :cycle, :translation, :reading_type
 
   # Factory method que retorna o serviço apropriado baseado no prayer_book_code
+  # Uses caching for readings lookup
   def self.for(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi", reading_type: nil)
     case prayer_book_code
     when "loc_2015"
@@ -54,13 +59,47 @@ class ReadingService
     @reading_type = reading_type
   end
 
-  # Retorna as leituras para o dia
+  # Retorna as leituras para o dia (cached)
   def find_readings
+    cache_key = build_readings_cache_key
+
+    Rails.cache.fetch(cache_key, expires_in: 1.day) do
+      record_cache_miss
+      find_readings_uncached
+    end
+  end
+
+  private
+
+  # Build cache key for readings
+  def build_readings_cache_key
+    pb = PrayerBook.find_by_code(prayer_book_code)
+    pb_version = pb&.updated_at&.to_i || 0
+
+    "v4/readings/#{date}/#{prayer_book_code}/#{translation}/#{reading_type || 'default'}/pb_#{pb_version}"
+  end
+
+  # Find readings without cache (internal use)
+  def find_readings_uncached
     reading = date.sunday? ? find_sunday_readings : find_weekday_readings
     format_response(reading)
   end
 
-  private
+  # Record cache miss for Datadog metrics
+  def record_cache_miss
+    return unless defined?(Datadog) && Datadog.respond_to?(:statsd)
+
+    Datadog.statsd.increment(
+      "cache.miss",
+      tags: [
+        "cache_category:readings",
+        "prayer_book:#{prayer_book_code}",
+        "is_sunday:#{date.sunday?}"
+      ]
+    )
+  rescue StandardError
+    # Don't let metrics failures affect the app
+  end
 
   def query
     @query ||= Reading::Query.new(prayer_book_id: prayer_book_id, cycle: cycle, reading_type: reading_type)

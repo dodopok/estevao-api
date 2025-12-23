@@ -7,6 +7,20 @@
 # - Handles premium audio URL injection for authenticated users
 # - Applies user preferences for Bible version, confession type, etc.
 #
+# CACHING STRATEGY (v4):
+# Two-layer cache for maximum efficiency:
+#
+# 1. BASE OFFICE CACHE (shared between all users):
+#    - Key: v4/daily_office/base/{date}/{office_type}/{preferences_hash}/pb_{updated_at}
+#    - TTL: 1 day (until midnight)
+#    - Contains: Full office structure WITHOUT user-specific data
+#    - Benefit: One cache entry serves ALL users with same preferences
+#
+# 2. USER PERSONALIZATION (applied on top of cached base):
+#    - Audio URLs are injected for premium users (from LiturgicalText cache)
+#    - User completion data is NOT cached (fetched fresh from controller)
+#    - This keeps user-specific logic fast and simple
+#
 # @example Generate Morning Prayer for today
 #   service = DailyOfficeService.new(
 #     date: Date.today,
@@ -24,6 +38,8 @@
 #   office = service.call # Includes audio_url fields for each liturgical text
 #
 class DailyOfficeService
+  include Cacheable
+
   DEFAULT_PREFERENCES = {
     prayer_book_code: "loc_2015",
     bible_version: "nvi",
@@ -40,16 +56,94 @@ class DailyOfficeService
   end
 
   def call
-    builder = builder_for_prayer_book
-    response = builder.call
+    start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
 
-    # Add audio URLs for premium users
-    add_audio_urls_to_response(response) if @current_user&.premium?
+    # Layer 1: Get base office from cache (shared between all users)
+    response = fetch_base_office
+
+    # Layer 2: Add user-specific personalization
+    personalize_response!(response)
+
+    # Record total timing
+    record_service_timing(start_time)
 
     response
   end
 
+  # Class method for cache key generation (used by controller and warmer job)
+  def self.base_cache_key(date:, office_type:, preferences:)
+    prayer_book_code = preferences[:prayer_book_code] || "loc_2015"
+    pb = PrayerBook.find_by_code(prayer_book_code)
+    pb_version = pb&.updated_at&.to_i || 0
+
+    # Build preferences hash for cache key (only preference-affecting fields)
+    prefs_hash = build_preferences_hash(preferences)
+
+    "v4/daily_office/base/#{date}/#{office_type}/#{prefs_hash}/pb_#{pb_version}"
+  end
+
+  # Build a deterministic hash of preferences that affect office generation
+  # Uses ALL preferences to ensure cache correctness across different LOC configurations
+  def self.build_preferences_hash(preferences)
+    # Apply defaults first for consistency
+    full_prefs = DEFAULT_PREFERENCES.merge(preferences.symbolize_keys)
+
+    # Sort to ensure deterministic ordering, remove nil values
+    sorted_prefs = full_prefs.compact.sort.to_h
+
+    Digest::MD5.hexdigest(sorted_prefs.to_json)[0..11]
+  end
+
   private
+
+  # Fetch base office from cache or generate
+  def fetch_base_office
+    cache_key = self.class.base_cache_key(
+      date: date,
+      office_type: office_type,
+      preferences: preferences
+    )
+
+    cache_fetch(
+      cache_key,
+      expires_in: TTL::DAILY_OFFICE,
+      tags: { prayer_book: preferences[:prayer_book_code], office_type: office_type.to_s }
+    ) do
+      generate_base_office
+    end
+  end
+
+  # Generate office without caching
+  def generate_base_office
+    builder = builder_for_prayer_book
+    builder.call
+  end
+
+  # Apply user-specific personalization to cached response
+  def personalize_response!(response)
+    return response unless @current_user&.premium?
+
+    add_audio_urls_to_response(response)
+  end
+
+  # Record service timing for monitoring
+  def record_service_timing(start_time)
+    return unless defined?(Datadog) && Datadog.respond_to?(:statsd)
+
+    duration_ms = ((Process.clock_gettime(Process::CLOCK_MONOTONIC) - start_time) * 1000).round(2)
+
+    Datadog.statsd.timing(
+      "daily_office.service.duration",
+      duration_ms,
+      tags: [
+        "prayer_book:#{preferences[:prayer_book_code]}",
+        "office_type:#{office_type}",
+        "has_user:#{current_user.present?}"
+      ]
+    )
+  rescue StandardError
+    # Don't let metrics failures affect the app
+  end
 
   def builder_for_prayer_book
     prayer_book_code = preferences[:prayer_book_code] || "loc_2015"

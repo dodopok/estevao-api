@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 # Serviço para buscar coletas (orações) litúrgicas para uma data específica
+#
+# CACHING: Uses v4 cache strategy with prayer_book.updated_at versioning
+# - Collects are cached per date/prayer_book/language with 1-day TTL
+# - Uses Collect.collects_cache_for for base data (30-day TTL)
+#
 class CollectService
   include PrayerBookAware
 
@@ -15,9 +20,31 @@ class CollectService
     @language = language
   end
 
-  # Retorna a(s) coleta(s) para o dia
+  # Retorna a(s) coleta(s) para o dia (cached)
   # Pode retornar um hash (uma coleta) ou array (múltiplas opções)
   def find_collects
+    cache_key = build_collects_cache_key
+
+    Rails.cache.fetch(cache_key, expires_in: 1.day) do
+      record_cache_miss
+      find_collects_uncached
+    end
+  end
+
+  private
+
+  attr_reader :language
+
+  # Build cache key for collects
+  def build_collects_cache_key
+    pb = PrayerBook.find_by_code(prayer_book_code)
+    pb_version = pb&.updated_at&.to_i || 0
+
+    "v4/collects/#{date}/#{prayer_book_code}/#{language}/pb_#{pb_version}"
+  end
+
+  # Find collects without cache (internal use)
+  def find_collects_uncached
     collects = find_by_celebration
     collects = find_by_sunday if collects.blank?
     collects = find_by_season if collects.blank?
@@ -25,9 +52,20 @@ class CollectService
     format_response(collects)
   end
 
-  private
+  # Record cache miss for Datadog metrics
+  def record_cache_miss
+    return unless defined?(Datadog) && Datadog.respond_to?(:statsd)
 
-  attr_reader :language
+    Datadog.statsd.increment(
+      "cache.miss",
+      tags: [
+        "cache_category:collects",
+        "prayer_book:#{prayer_book_code}"
+      ]
+    )
+  rescue StandardError
+    # Don't let metrics failures affect the app
+  end
 
   # Memoized Liturgical::CelebrationResolver for the date's year
   def resolver

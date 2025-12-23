@@ -34,9 +34,10 @@ class PrayerBook < ApplicationRecord
   }
 
   # Cache prayer books by code for better performance
-  # Version v2 to invalidate old cache after adding premium/language fields
+  # Version v4 for new caching strategy
   def self.find_by_code(code)
-    Rails.cache.fetch("prayer_book/#{code}/v2", expires_in: 1.day) do
+    Rails.cache.fetch("v4/prayer_book/#{code}", expires_in: 1.day) do
+      record_cache_event(:prayer_book, :miss, code)
       find_by(code: code)
     end
   end
@@ -45,17 +46,45 @@ class PrayerBook < ApplicationRecord
     prayer_book = find_by_code(code)
     if prayer_book.nil?
       # Invalidate cache and retry with fresh database lookup
-      Rails.cache.delete("prayer_book/#{code}/v2")
+      Rails.cache.delete("v4/prayer_book/#{code}")
       prayer_book = find_by(code: code)
       raise(ActiveRecord::RecordNotFound, "Couldn't find PrayerBook with code=#{code}") if prayer_book.nil?
       # Update cache with fresh data
-      Rails.cache.write("prayer_book/#{code}/v2", prayer_book, expires_in: 1.day)
+      Rails.cache.write("v4/prayer_book/#{code}", prayer_book, expires_in: 1.day)
     end
     prayer_book
   end
 
   def self.find_by_code_or_default(code)
     code.present? ? find_by_code(code) || default.first : default.first
+  end
+
+  # Cache all active prayer books
+  def self.all_cached
+    Rails.cache.fetch("v4/prayer_books/all", expires_in: 1.day) do
+      record_cache_event(:prayer_book, :miss, "all")
+      active.to_a
+    end
+  end
+
+  # Record cache events for Datadog metrics
+  def self.record_cache_event(category, event, identifier)
+    return unless defined?(Datadog) && Datadog.respond_to?(:statsd)
+
+    Datadog.statsd.increment(
+      "cache.#{event}",
+      tags: ["cache_category:#{category}", "identifier:#{identifier}"]
+    )
+  rescue StandardError
+    # Don't let metrics failures affect the app
+  end
+
+  # Clear all caches when prayer book is updated
+  after_commit :clear_prayer_book_caches
+
+  def clear_prayer_book_caches
+    Rails.cache.delete("v4/prayer_book/#{code}")
+    Rails.cache.delete("v4/prayer_books/all")
   end
 
   # Retorna as features do Prayer Book (lectionary, daily_office, etc.)
