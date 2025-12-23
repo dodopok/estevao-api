@@ -27,3 +27,9 @@ Rails.logger.info "CARREGANDO OFÍCIO MATUTINO - RITO 4 - LOCB 2008"
 Rails.logger.info "="*80
 
 load Rails.root.join("#{base_path}/morning_prayer_rite_four.rb")
+
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO OFÍCIO DO MEIO-DIA - LOCB 2008"
+Rails.logger.info "="*80
+
+load Rails.root.join("#{base_path}/midday_prayer.rb")

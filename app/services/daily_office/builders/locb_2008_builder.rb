@@ -62,8 +62,7 @@ module DailyOffice
       end
 
       def midday_builder
-        # TODO: Implement midday prayer builders
-        raise NotImplementedError, "LOCB 2008 Midday Prayer not yet implemented"
+        Locb2008::Midday.new(date: date, office_type: office_type, preferences: preferences)
       end
 
       def compline_builder

@@ -373,7 +373,7 @@ locb_2008_preferences = [
           { value: "3", label: "3", description: "Salvador Todo-poderoso, que ao meio-dia..." },
           { value: "4", label: "4", description: "Senhor Jesus Cristo, que disseste aos vossos apóstolos..." },
           { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
-          { value: "all", label: "Todos", description: "Quero todos os salmos" }
+          { value: "all", label: "Todas", description: "Quero todas as coletas" }
         ]
       }
     ]
