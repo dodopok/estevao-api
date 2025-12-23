@@ -67,15 +67,15 @@ Rails.application.configure do
       write_timeout: 1,
       reconnect_attempts: 3,
       error_handler: lambda { |method:, returning:, exception:|
-        Rails.logger.error("[Redis Cache] #{method} failed: #{exception.message}")
+        Rails.logger&.error("[Redis Cache] #{method} failed: #{exception.message}")
         Datadog.statsd.increment("cache.redis_error", tags: [ "method:#{method}" ]) if defined?(Datadog)
       }
     }
-    Rails.logger.info "[Cache] Using Redis cache store"
+    $stdout.puts "[Cache] Using Redis cache store"
   else
     # Fallback to memory store if Redis is not configured
     config.cache_store = :memory_store, { size: 256.megabytes }
-    Rails.logger.info "[Cache] Using memory store (Redis not configured)"
+    $stdout.puts "[Cache] Using memory store (Redis not configured)"
   end
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
