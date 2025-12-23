@@ -35,4 +35,4 @@ ActiveSupport::Notifications.subscribe("cache_delete.active_support") do |*args|
   Datadog.statsd.increment("rails.cache.delete")
 end
 
-Rails.logger.info "[Cache] Datadog instrumentation enabled"
+$stdout.puts "[Cache] Datadog instrumentation enabled"
