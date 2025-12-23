@@ -648,7 +648,7 @@ como Jesus nos ensinou..." },
     ]
   },
   {
-     key: "evening_prayer_4",
+    key: "evening_prayer_4",
     name: "Oração da Tarde IV",
     description: "Configure o ofício da tarde IV como preferir",
     icon: "wb_sunny_outlined",
