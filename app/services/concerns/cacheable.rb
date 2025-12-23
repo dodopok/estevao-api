@@ -57,7 +57,7 @@ module Cacheable
   # @param prayer_book_code [String, nil] Prayer book code for versioning
   # @return [String] Full cache key
   def build_cache_key(*parts, prayer_book_code: nil)
-    key_parts = [CACHE_VERSION, *parts]
+    key_parts = [ CACHE_VERSION, *parts ]
 
     if prayer_book_code
       pb_version = prayer_book_cache_version(prayer_book_code)
@@ -78,9 +78,9 @@ module Cacheable
   def cache_fetch(key, expires_in:, tags: {}, prayer_book_code: nil, &block)
     full_key = if key.start_with?(CACHE_VERSION)
                  key
-               else
+    else
                  build_cache_key(key, prayer_book_code: prayer_book_code)
-               end
+    end
 
     cache_hit = true
     start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
@@ -150,7 +150,7 @@ module Cacheable
     Rails.cache.delete_matched(pattern)
 
     if defined?(Datadog) && Datadog.respond_to?(:statsd)
-      Datadog.statsd.increment("cache.invalidation", tags: ["pattern:#{pattern}"])
+      Datadog.statsd.increment("cache.invalidation", tags: [ "pattern:#{pattern}" ])
     end
   rescue NotImplementedError
     # Memory store doesn't support delete_matched, log warning
@@ -165,7 +165,7 @@ module Cacheable
     Rails.cache.delete(full_key)
 
     if defined?(Datadog) && Datadog.respond_to?(:statsd)
-      Datadog.statsd.increment("cache.delete", tags: ["key:#{extract_cache_category(full_key)}"])
+      Datadog.statsd.increment("cache.delete", tags: [ "key:#{extract_cache_category(full_key)}" ])
     end
   end
 end

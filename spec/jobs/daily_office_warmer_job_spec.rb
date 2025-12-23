@@ -25,7 +25,7 @@ RSpec.describe DailyOfficeWarmerJob, type: :job do
     it "warms cache for all office types" do
       result = described_class.perform_now(
         date: date.to_s,
-        prayer_book_codes: ["loc_2015"]
+        prayer_book_codes: [ "loc_2015" ]
       )
 
       expect(result[:offices_warmed]).to eq(4)
@@ -34,7 +34,7 @@ RSpec.describe DailyOfficeWarmerJob, type: :job do
     it "warms cache for specified prayer books" do
       result = described_class.perform_now(
         date: date.to_s,
-        prayer_book_codes: ["loc_2015"]
+        prayer_book_codes: [ "loc_2015" ]
       )
 
       expect(result[:offices_warmed]).to eq(4) # 4 office types
@@ -44,7 +44,7 @@ RSpec.describe DailyOfficeWarmerJob, type: :job do
       # Warm once
       first_result = described_class.perform_now(
         date: date.to_s,
-        prayer_book_codes: ["loc_2015"]
+        prayer_book_codes: [ "loc_2015" ]
       )
       expect(first_result[:offices_warmed]).to eq(4)
 
@@ -53,7 +53,7 @@ RSpec.describe DailyOfficeWarmerJob, type: :job do
       # no updates happen between runs)
       second_result = described_class.perform_now(
         date: date.to_s,
-        prayer_book_codes: ["loc_2015"]
+        prayer_book_codes: [ "loc_2015" ]
       )
 
       # All offices should be skipped (already cached)
@@ -63,7 +63,7 @@ RSpec.describe DailyOfficeWarmerJob, type: :job do
     it "returns timing information" do
       result = described_class.perform_now(
         date: date.to_s,
-        prayer_book_codes: ["loc_2015"]
+        prayer_book_codes: [ "loc_2015" ]
       )
 
       expect(result[:duration_ms]).to be_a(Numeric)
@@ -74,7 +74,7 @@ RSpec.describe DailyOfficeWarmerJob, type: :job do
       it "only warms specified prayer books" do
         result = described_class.perform_now(
           date: date.to_s,
-          prayer_book_codes: ["loc_2015"]
+          prayer_book_codes: [ "loc_2015" ]
         )
 
         expect(result[:offices_warmed]).to eq(4) # 4 office types
@@ -83,7 +83,7 @@ RSpec.describe DailyOfficeWarmerJob, type: :job do
 
     context "with default date" do
       it "uses current date when not specified" do
-        result = described_class.perform_now(prayer_book_codes: ["loc_2015"])
+        result = described_class.perform_now(prayer_book_codes: [ "loc_2015" ])
 
         expect(result[:date]).to eq(Date.current.to_s)
       end
@@ -123,7 +123,7 @@ RSpec.describe DailyOfficeWarmerJob, type: :job do
 
       result = described_class.perform_now(
         date: Date.current.to_s,
-        prayer_book_codes: ["loc_2015"]
+        prayer_book_codes: [ "loc_2015" ]
       )
 
       expect(result[:errors].size).to eq(1)

@@ -68,7 +68,7 @@ Rails.application.configure do
       reconnect_attempts: 3,
       error_handler: lambda { |method:, returning:, exception:|
         Rails.logger.error("[Redis Cache] #{method} failed: #{exception.message}")
-        Datadog.statsd.increment("cache.redis_error", tags: ["method:#{method}"]) if defined?(Datadog)
+        Datadog.statsd.increment("cache.redis_error", tags: [ "method:#{method}" ]) if defined?(Datadog)
       }
     }
     Rails.logger.info "[Cache] Using Redis cache store"

@@ -73,7 +73,7 @@ class PrayerBook < ApplicationRecord
 
     Datadog.statsd.increment(
       "cache.#{event}",
-      tags: ["cache_category:#{category}", "identifier:#{identifier}"]
+      tags: [ "cache_category:#{category}", "identifier:#{identifier}" ]
     )
   rescue StandardError
     # Don't let metrics failures affect the app

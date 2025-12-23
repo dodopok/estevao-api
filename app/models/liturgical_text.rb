@@ -66,7 +66,7 @@ class LiturgicalText < ApplicationRecord
 
     Datadog.statsd.increment(
       "cache.#{event}",
-      tags: ["cache_category:#{category}", "prayer_book:#{prayer_book_code}"]
+      tags: [ "cache_category:#{category}", "prayer_book:#{prayer_book_code}" ]
     )
   rescue StandardError
     # Don't let metrics failures affect the app

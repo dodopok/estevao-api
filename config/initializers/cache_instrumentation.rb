@@ -23,7 +23,7 @@ ActiveSupport::Notifications.subscribe("cache_write.active_support") do |*args|
 
   next unless Datadog.respond_to?(:statsd)
 
-  tags = ["store:#{Rails.cache.class.name.demodulize.underscore}"]
+  tags = [ "store:#{Rails.cache.class.name.demodulize.underscore}" ]
   Datadog.statsd.timing("rails.cache.write", event.duration, tags: tags)
 end
 

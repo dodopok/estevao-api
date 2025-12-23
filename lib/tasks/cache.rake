@@ -57,7 +57,7 @@ namespace :cache do
   end
 
   desc "Warm cache for today (or specified date)"
-  task :warm, [:date] => :environment do |_t, args|
+  task :warm, [ :date ] => :environment do |_t, args|
     date = args[:date] ? Date.parse(args[:date]) : Date.current
 
     puts "\n🔥 Warming Daily Office Cache"
