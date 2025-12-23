@@ -472,5 +472,67 @@ RSpec.describe BibleText, type: :model do
         expect(result[1][:book]).to eq('1 Pedro')
       end
     end
+
+    context 'cross-chapter references' do
+      it 'parses "Apocalipse 20:11-21:8" into multiple segments' do
+        result = described_class.parse_all_references('Apocalipse 20:11-21:8')
+        expect(result.length).to eq(2)
+
+        # First segment: chapter 20, verse 11 to end
+        expect(result[0][:book]).to eq('Apocalipse')
+        expect(result[0][:chapter]).to eq(20)
+        expect(result[0][:verse_start]).to eq(11)
+        expect(result[0][:fetch_all_from_verse]).to eq(true)
+
+        # Second segment: chapter 21, verses 1-8
+        expect(result[1][:book]).to eq('Apocalipse')
+        expect(result[1][:chapter]).to eq(21)
+        expect(result[1][:verse_start]).to eq(1)
+        expect(result[1][:verse_end]).to eq(8)
+      end
+
+      it 'parses "Gênesis 1:1-2:3" spanning two chapters' do
+        result = described_class.parse_all_references('Gênesis 1:1-2:3')
+        expect(result.length).to eq(2)
+
+        expect(result[0][:book]).to eq('Gênesis')
+        expect(result[0][:chapter]).to eq(1)
+        expect(result[0][:verse_start]).to eq(1)
+        expect(result[0][:fetch_all_from_verse]).to eq(true)
+
+        expect(result[1][:book]).to eq('Gênesis')
+        expect(result[1][:chapter]).to eq(2)
+        expect(result[1][:verse_start]).to eq(1)
+        expect(result[1][:verse_end]).to eq(3)
+      end
+
+      it 'parses cross-chapter reference spanning multiple chapters' do
+        result = described_class.parse_all_references('Isaías 52:13-53:12')
+        expect(result.length).to eq(2)
+
+        expect(result[0][:book]).to eq('Isaías')
+        expect(result[0][:chapter]).to eq(52)
+        expect(result[0][:verse_start]).to eq(13)
+        expect(result[0][:fetch_all_from_verse]).to eq(true)
+
+        expect(result[1][:book]).to eq('Isaías')
+        expect(result[1][:chapter]).to eq(53)
+        expect(result[1][:verse_start]).to eq(1)
+        expect(result[1][:verse_end]).to eq(12)
+      end
+
+      it 'parses cross-chapter reference with dot separator' do
+        result = described_class.parse_all_references('Apocalipse 20.11-21.8')
+        expect(result.length).to eq(2)
+
+        expect(result[0][:book]).to eq('Apocalipse')
+        expect(result[0][:chapter]).to eq(20)
+        expect(result[0][:verse_start]).to eq(11)
+
+        expect(result[1][:book]).to eq('Apocalipse')
+        expect(result[1][:chapter]).to eq(21)
+        expect(result[1][:verse_end]).to eq(8)
+      end
+    end
   end
 end

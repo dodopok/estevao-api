@@ -56,6 +56,7 @@ class BibleText < ApplicationRecord
 
   # Find verses for a passage reference like "João 3:16-17" or "Salmos 23"
   # Supports multiple segments like "1 Pedro 4:12-14; 5:6-11" and returns all verses
+  # Also supports cross-chapter references like "Apocalipse 20:11-21:8"
   def self.fetch_passage(reference, translation: "nvi")
     parsed_refs = parse_all_references(reference)
     return nil if parsed_refs.empty?
@@ -69,7 +70,13 @@ class BibleText < ApplicationRecord
         translation: translation
       )
 
-      if parsed[:verse_start] && parsed[:verse_end]
+      if parsed[:fetch_all]
+        # Fetch all verses from the chapter (no verse filter)
+        # Used for intermediate chapters in cross-chapter references
+      elsif parsed[:fetch_all_from_verse]
+        # Fetch all verses from verse_start to end of chapter
+        verses = verses.where("verse >= ?", parsed[:verse_start]) if parsed[:verse_start]
+      elsif parsed[:verse_start] && parsed[:verse_end]
         verses = verses.where("verse >= ? AND verse <= ?", parsed[:verse_start], parsed[:verse_end])
       elsif parsed[:verse_start]
         verses = verses.where(verse: parsed[:verse_start])
@@ -83,6 +90,7 @@ class BibleText < ApplicationRecord
   end
 
   # Parse all segments of a reference like "1 Pedro 4:12-14; 5:6-11"
+  # Also handles cross-chapter references like "Apocalipse 20:11-21:8"
   # Returns an array of parsed references
   def self.parse_all_references(reference)
     return [] if reference.blank?
@@ -125,16 +133,54 @@ class BibleText < ApplicationRecord
 
       if index == 0
         # First segment has the full book name
-        match = segment.match(/^(\d*\s*[^\d:.]+?)\s*(\d+)(?:[:.](\d+)(?:-(\d+))?)?$/)
-        next unless match
+        # Check for cross-chapter reference like "Apocalipse 20:11-21:8"
+        cross_chapter_match = segment.match(/^(\d*\s*[^\d:.]+?)\s*(\d+)[:.](\d+)-(\d+)[:.](\d+)$/)
+        if cross_chapter_match
+          book_name = cross_chapter_match[1].strip
+          book_name = "Salmos" if book_name == "Salmo"
+          start_chapter = cross_chapter_match[2].to_i
+          start_verse = cross_chapter_match[3].to_i
+          end_chapter = cross_chapter_match[4].to_i
+          end_verse = cross_chapter_match[5].to_i
 
-        book_name = match[1].strip
-        book_name = "Salmos" if book_name == "Salmo"
+          # Add all verses from start chapter (from start_verse to end of chapter)
+          parsed_refs << build_parsed_reference(book_name, start_chapter, start_verse.to_s, nil, fetch_all_from_verse: true)
 
-        parsed_refs << build_parsed_reference(book_name, match[2].to_i, match[3], match[4])
+          # Add all verses from intermediate chapters (if any)
+          ((start_chapter + 1)...end_chapter).each do |ch|
+            parsed_refs << build_parsed_reference(book_name, ch, nil, nil, fetch_all: true)
+          end
+
+          # Add all verses from end chapter (from beginning to end_verse)
+          parsed_refs << build_parsed_reference(book_name, end_chapter, "1", end_verse.to_s)
+        else
+          # Regular reference like "João 3:16-17"
+          match = segment.match(/^(\d*\s*[^\d:.]+?)\s*(\d+)(?:[:.](\d+)(?:-(\d+))?)?$/)
+          next unless match
+
+          book_name = match[1].strip
+          book_name = "Salmos" if book_name == "Salmo"
+
+          parsed_refs << build_parsed_reference(book_name, match[2].to_i, match[3], match[4])
+        end
       else
         # Subsequent segments: could be "5:6-11" (new chapter) or "17-19" (same chapter, different verses)
-        if segment.match?(/^\d+[:.]/)
+        # Check for cross-chapter reference like "5:6-6:10"
+        cross_chapter_match = segment.match(/^(\d+)[:.](\d+)-(\d+)[:.](\d+)$/)
+        if cross_chapter_match
+          start_chapter = cross_chapter_match[1].to_i
+          start_verse = cross_chapter_match[2].to_i
+          end_chapter = cross_chapter_match[3].to_i
+          end_verse = cross_chapter_match[4].to_i
+
+          parsed_refs << build_parsed_reference(base_book_name, start_chapter, start_verse.to_s, nil, fetch_all_from_verse: true)
+
+          ((start_chapter + 1)...end_chapter).each do |ch|
+            parsed_refs << build_parsed_reference(base_book_name, ch, nil, nil, fetch_all: true)
+          end
+
+          parsed_refs << build_parsed_reference(base_book_name, end_chapter, "1", end_verse.to_s)
+        elsif segment.match?(/^\d+[:.]/)
           # New chapter reference like "5:6-11" or "5.6-11"
           match = segment.match(/^(\d+)[:.](\d+)(?:-(\d+))?$/)
           next unless match
@@ -160,7 +206,10 @@ class BibleText < ApplicationRecord
   end
 
   # Helper method to build a parsed reference hash with verse normalization
-  def self.build_parsed_reference(book_name, chapter, verse_start_str, verse_end_str)
+  # Options:
+  #   fetch_all: true - fetch all verses from the chapter (no verse filter)
+  #   fetch_all_from_verse: true - fetch all verses from verse_start to end of chapter
+  def self.build_parsed_reference(book_name, chapter, verse_start_str, verse_end_str, fetch_all: false, fetch_all_from_verse: false)
     verse_start = verse_start_str&.to_i
     verse_end = verse_end_str&.to_i
 
@@ -169,12 +218,18 @@ class BibleText < ApplicationRecord
       verse_start, verse_end = verse_end, verse_start
     end
 
-    {
+    result = {
       book: book_name,
       chapter: chapter,
       verse_start: verse_start.to_i == 0 ? nil : verse_start,
       verse_end: verse_end.to_i == 0 ? nil : verse_end
     }
+
+    # Only add these keys when true to maintain backward compatibility
+    result[:fetch_all] = true if fetch_all
+    result[:fetch_all_from_verse] = true if fetch_all_from_verse
+
+    result
   end
 
   # Parse a reference like "João 3:16-17" into components
