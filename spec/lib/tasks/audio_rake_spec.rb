@@ -149,30 +149,26 @@ RSpec.describe 'audio rake tasks' do
   end
 
   describe 'audio:estimate' do
-    let!(:text1) do
+    let(:mock_service) { instance_double(ElevenlabsAudioService) }
+
+    before do
+      # Ensure clean state - remove any texts from other test groups
+      LiturgicalText.where(prayer_book: prayer_book).delete_all
+
+      # Create exactly the texts we need for this test
       create(:liturgical_text,
              prayer_book: prayer_book,
              category: 'prayer',
              content: 'A' * 1000)
-    end
-
-    let!(:text2) do
       create(:liturgical_text,
              prayer_book: prayer_book,
              category: 'canticle',
              content: 'B' * 1000)
-    end
-
-    let!(:rubric) do
       create(:liturgical_text,
              prayer_book: prayer_book,
              category: 'rubric',
              content: 'C' * 1000)
-    end
 
-    let(:mock_service) { instance_double(ElevenlabsAudioService) }
-
-    before do
       allow(ElevenlabsAudioService).to receive(:new).and_return(mock_service)
       allow(mock_service).to receive(:estimate_cost).and_return({
         cost_per_1000_chars: 0.30,
