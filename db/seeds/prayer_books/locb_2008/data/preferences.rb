@@ -124,11 +124,11 @@ locb_2008_preferences = [
     key: "compline_prayer",
     name: "Tipo da Oração da Noite",
     description: "Configure o ofício da noite como preferir",
-    icon: "wb_sunny",
+    icon: "nightlight_round",
     position: 5,
     preferences: [
       {
-        key: "compline_opening_sentence",
+        key: "compline_prayer_rite",
         name: "Ofício Escolhido",
         description: "Escolha a Oração Noturna a ser utilizada",
         pref_type: "select_one",
@@ -849,7 +849,6 @@ como Jesus nos ensinou..." },
           { value: "psalm_4", label: "Salmo 4", description: "Responde-me quando clamo, ó Deus da minha justiça..." },
           { value: "psalm_91", label: "Salmo 91", description: "O que habita no esconderijo do Altíssimo..." },
           { value: "psalm_134", label: "Salmo 134", description: "Bendizei ao Senhor, vós todos, servos..." },
-          { value: "te_lucis_ante_terminum", label: "Te lucis ante terminum", description: "Antes que a luz chegue ao fim, Ó Criador, te pedimos..." },
           { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
           { value: "all", label: "Todos", description: "Quero todos os salmos" }
         ]
