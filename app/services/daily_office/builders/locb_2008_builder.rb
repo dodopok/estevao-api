@@ -57,8 +57,21 @@ module DailyOffice
       end
 
       def evening_builder
-        # TODO: Implement evening prayer builders
-        raise NotImplementedError, "LOCB 2008 Evening Prayer not yet implemented"
+        # Determine rite from preferences (default to rite_one)
+        rite = preferences[:evening_prayer_rite] || "1"
+
+        case rite.to_s
+        when "1"
+          Locb2008::EveningRiteOne.new(date: date, office_type: office_type, preferences: preferences)
+        when "2"
+          Locb2008::EveningRiteTwo.new(date: date, office_type: office_type, preferences: preferences)
+        when "3"
+          Locb2008::EveningRiteThree.new(date: date, office_type: office_type, preferences: preferences)
+        when "4"
+          Locb2008::EveningRiteFour.new(date: date, office_type: office_type, preferences: preferences)
+        else
+          Locb2008::EveningRiteOne.new(date: date, office_type: office_type, preferences: preferences)
+        end
       end
 
       def midday_builder

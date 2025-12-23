@@ -33,3 +33,9 @@ Rails.logger.info "CARREGANDO OFÍCIO DO MEIO-DIA - LOCB 2008"
 Rails.logger.info "="*80
 
 load Rails.root.join("#{base_path}/midday_prayer.rb")
+
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO OFÍCIO VESPERTINO - RITO 1 - LOCB 2008"
+Rails.logger.info "="*80
+
+load Rails.root.join("#{base_path}/evening_prayer_rite_one.rb")
