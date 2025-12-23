@@ -66,6 +66,8 @@ gem "sqlite3", "~> 2.0"
 gem "datadog", "~> 2.0"
 gem "dogstatsd-ruby", "~> 5.6"  # For custom metrics
 
+gem 'connection_pool', '< 3.0'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug"

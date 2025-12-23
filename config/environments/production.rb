@@ -61,11 +61,7 @@ Rails.application.configure do
       url: ENV["REDIS_URL"],
       namespace: "estevao_api_cache",
       expires_in: 1.day,
-      race_condition_ttl: 5.seconds,
-      connect_timeout: 2,
-      read_timeout: 1,
-      write_timeout: 1,
-      reconnect_attempts: 3
+      race_condition_ttl: 5.seconds
     }
     $stdout.puts "[Cache] Using Redis cache store"
   else
