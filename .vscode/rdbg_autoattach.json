@@ -5,5 +5,5 @@
   "rdbgPath": "/usr/local/bundle/gems/debug-1.11.1/exe/rdbg",
   "debugPort": "0.0.0.0:1234",
   "localfs": true,
-  "autoAttach": "0.3119378005931429"
+  "autoAttach": "0.21159387722639145"
 }

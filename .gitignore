@@ -78,3 +78,5 @@ config/postgres_password
 config/secret_key_base
 
 public/audio
+
+.vscode/rdbg_autoattach.json
