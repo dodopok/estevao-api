@@ -5,6 +5,10 @@ module DailyOffice
     # LOCB 2008 (Livro de Oração Comum Brasileiro) specific builder
     # Routes to office-specific builders (Morning Rite One, Morning Rite Two, etc.)
     class Locb2008Builder
+      MORNING_RITES = %w[1 2 3 4].freeze
+      EVENING_RITES = %w[1 2 3 4].freeze
+      COMPLINE_RITES = %w[1 2].freeze
+
       def self.call(date:, office_type:, preferences: {})
         new(date: date, office_type: office_type, preferences: preferences).call
       end
@@ -39,10 +43,9 @@ module DailyOffice
       end
 
       def morning_builder
-        # Determine rite from preferences (default to rite_one)
-        rite = preferences[:morning_prayer_rite] || "1"
+        rite = resolve_rite_preference(:morning_prayer_rite, MORNING_RITES)
 
-        case rite.to_s
+        case rite
         when "1"
           Locb2008::MorningRiteOne.new(date: date, office_type: office_type, preferences: preferences)
         when "2"
@@ -57,10 +60,9 @@ module DailyOffice
       end
 
       def evening_builder
-        # Determine rite from preferences (default to rite_one)
-        rite = preferences[:evening_prayer_rite] || "1"
+        rite = resolve_rite_preference(:evening_prayer_rite, EVENING_RITES)
 
-        case rite.to_s
+        case rite
         when "1"
           Locb2008::EveningRiteOne.new(date: date, office_type: office_type, preferences: preferences)
         when "2"
@@ -79,16 +81,46 @@ module DailyOffice
       end
 
       def compline_builder
-        # Determine rite from preferences (default to rite_one)
-        rite = preferences[:compline_prayer_rite] || "1"
+        rite = resolve_rite_preference(:compline_prayer_rite, COMPLINE_RITES)
 
-        case rite.to_s
+        case rite
         when "1"
           Locb2008::ComplineRiteOne.new(date: date, office_type: office_type, preferences: preferences)
         when "2"
           Locb2008::ComplineRiteTwo.new(date: date, office_type: office_type, preferences: preferences)
         else
           Locb2008::ComplineRiteOne.new(date: date, office_type: office_type, preferences: preferences)
+        end
+      end
+
+      # Resolves the rite preference, handling "random" values with seeded randomization
+      # @param pref_key [Symbol] The preference key (e.g., :morning_prayer_rite)
+      # @param available_rites [Array<String>] Array of available rite options
+      # @return [String] The resolved rite value
+      def resolve_rite_preference(pref_key, available_rites)
+        pref_value = preferences[pref_key]
+
+        # Default to "1" if nil or empty
+        return "1" if pref_value.nil? || pref_value.to_s.strip.empty?
+
+        # Handle "random" - use seeded_random for deterministic selection
+        if pref_value.to_s == "random"
+          return available_rites[seeded_random(0...available_rites.length, key: pref_key)]
+        end
+
+        pref_value.to_s
+      end
+
+      # Generates a random number within the given range using an optional seed.
+      # When a seed is provided via preferences[:seed], the randomization is deterministic.
+      # @param range [Range] The range of numbers to select from
+      # @param key [Symbol] A unique identifier for this randomization point
+      # @return [Integer] A random number within the range
+      def seeded_random(range, key:)
+        if preferences[:seed]
+          Random.new(preferences[:seed] + key.hash).rand(range)
+        else
+          rand(range)
         end
       end
     end
