@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'rake'
 
 RSpec.describe 'audio rake tasks' do
-  let(:prayer_book) { PrayerBook.find_or_create_by!(code: 'loc_2015') { |pb| pb.name = 'Liturgia das Horas' } }
+  let(:prayer_book) { PrayerBook.find_by(code: 'loc_2015') || create(:prayer_book, code: 'loc_2015', name: 'Liturgia das Horas') }
 
   before(:all) do
     Rails.application.load_tasks
@@ -149,23 +149,22 @@ RSpec.describe 'audio rake tasks' do
   end
 
   describe 'audio:estimate' do
+    # Use a unique prayer book code to avoid conflicts with other tests
+    let(:estimate_prayer_book) { create(:prayer_book, code: 'estimate_test_pb', name: 'Estimate Test Prayer Book') }
     let(:mock_service) { instance_double(ElevenlabsAudioService) }
 
     before do
-      # Ensure clean state - remove any texts from other test groups
-      LiturgicalText.where(prayer_book: prayer_book).delete_all
-
       # Create exactly the texts we need for this test
       create(:liturgical_text,
-             prayer_book: prayer_book,
+             prayer_book: estimate_prayer_book,
              category: 'prayer',
              content: 'A' * 1000)
       create(:liturgical_text,
-             prayer_book: prayer_book,
+             prayer_book: estimate_prayer_book,
              category: 'canticle',
              content: 'B' * 1000)
       create(:liturgical_text,
-             prayer_book: prayer_book,
+             prayer_book: estimate_prayer_book,
              category: 'rubric',
              content: 'C' * 1000)
 
@@ -179,14 +178,14 @@ RSpec.describe 'audio rake tasks' do
     it 'excludes rubrics from character count' do
       expect {
         Rake::Task['audio:estimate'].reenable
-        Rake::Task['audio:estimate'].invoke('loc_2015')
+        Rake::Task['audio:estimate'].invoke('estimate_test_pb')
       }.to output(/Rubrics \(skipped\): 1/i).to_stdout
     end
 
     it 'shows correct text count excluding rubrics' do
       expect {
         Rake::Task['audio:estimate'].reenable
-        Rake::Task['audio:estimate'].invoke('loc_2015')
+        Rake::Task['audio:estimate'].invoke('estimate_test_pb')
       }.to output(/Texts for audio: 2/i).to_stdout
     end
 
@@ -194,7 +193,7 @@ RSpec.describe 'audio rake tasks' do
       # 2 texts × 1000 chars × 3 voices = 6000 chars total
       expect {
         Rake::Task['audio:estimate'].reenable
-        Rake::Task['audio:estimate'].invoke('loc_2015')
+        Rake::Task['audio:estimate'].invoke('estimate_test_pb')
       }.to output(/Total characters \(all voices\): 6,000/i).to_stdout
     end
 
@@ -202,35 +201,35 @@ RSpec.describe 'audio rake tasks' do
       # 2 texts × 1000 chars × 1 voice = 2000 chars total
       expect {
         Rake::Task['audio:estimate'].reenable
-        Rake::Task['audio:estimate'].invoke('loc_2015', 'male_1')
+        Rake::Task['audio:estimate'].invoke('estimate_test_pb', 'male_1')
       }.to output(/Voices: 1 \(male_1\)/i).to_stdout
     end
 
     it 'handles multiple voice_keys' do
       expect {
         Rake::Task['audio:estimate'].reenable
-        Rake::Task['audio:estimate'].invoke('loc_2015', 'male_1,female_1')
+        Rake::Task['audio:estimate'].invoke('estimate_test_pb', 'male_1,female_1')
       }.to output(/Voices: 2 \(male_1, female_1\)/i).to_stdout
     end
 
     it 'mentions that rubrics are excluded in notes' do
       expect {
         Rake::Task['audio:estimate'].reenable
-        Rake::Task['audio:estimate'].invoke('loc_2015')
+        Rake::Task['audio:estimate'].invoke('estimate_test_pb')
       }.to output(/Rubrics are automatically excluded/i).to_stdout
     end
 
     it 'rejects invalid voice keys' do
       expect {
         Rake::Task['audio:estimate'].reenable
-        Rake::Task['audio:estimate'].invoke('loc_2015', 'invalid_voice')
+        Rake::Task['audio:estimate'].invoke('estimate_test_pb', 'invalid_voice')
       }.to raise_error(SystemExit).and output(/Invalid voice key.*invalid_voice/i).to_stdout
     end
 
     it 'rejects slug as voice key' do
       expect {
         Rake::Task['audio:estimate'].reenable
-        Rake::Task['audio:estimate'].invoke('loc_2015', 'morning_invocation')
+        Rake::Task['audio:estimate'].invoke('estimate_test_pb', 'morning_invocation')
       }.to raise_error(SystemExit).and output(/Invalid voice key.*morning_invocation/i).to_stdout
     end
   end

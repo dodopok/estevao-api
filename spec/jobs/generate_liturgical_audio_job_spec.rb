@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe GenerateLiturgicalAudioJob, type: :job do
-  let(:prayer_book) { PrayerBook.find_or_create_by!(code: 'loc_2015') { |pb| pb.name = 'Liturgia das Horas' } }
+  let(:prayer_book) { PrayerBook.find_by(code: 'loc_2015') || create(:prayer_book, code: 'loc_2015', name: 'Liturgia das Horas') }
   let(:text) { create(:liturgical_text, prayer_book: prayer_book, content: 'Test content', slug: 'test_slug') }
   let(:session) { create(:audio_generation_session, prayer_book_code: 'loc_2015') }
   let(:service) { instance_double(ElevenlabsAudioService) }
