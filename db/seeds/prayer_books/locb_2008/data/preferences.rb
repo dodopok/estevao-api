@@ -796,6 +796,7 @@ como Jesus nos ensinou..." },
           { value: "all", label: "Todos", description: "Quero todos os salmos" }
         ]
       },
+      //TODO: Add back missing word of god
       {
         key: "compline_1_final_prayer",
         name: "Oração Final",

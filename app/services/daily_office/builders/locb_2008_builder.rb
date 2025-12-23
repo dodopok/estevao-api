@@ -79,8 +79,17 @@ module DailyOffice
       end
 
       def compline_builder
-        # TODO: Implement compline builders
-        raise NotImplementedError, "LOCB 2008 Compline not yet implemented"
+        # Determine rite from preferences (default to rite_one)
+        rite = preferences[:compline_prayer_rite] || "1"
+
+        case rite.to_s
+        when "1"
+          Locb2008::ComplineRiteOne.new(date: date, office_type: office_type, preferences: preferences)
+        when "2"
+          Locb2008::ComplineRiteTwo.new(date: date, office_type: office_type, preferences: preferences)
+        else
+          Locb2008::ComplineRiteOne.new(date: date, office_type: office_type, preferences: preferences)
+        end
       end
     end
   end
