@@ -267,6 +267,7 @@ module DailyOffice
           lines = []
 
           if readings[:first_reading]
+            lines << line_item(readings[:first_reading][:reference])
             lines << line_item("", type: "spacer")
 
             if readings[:first_reading][:content]
@@ -325,6 +326,7 @@ module DailyOffice
           lines = []
 
           if readings[:second_reading]
+            lines << line_item(readings[:second_reading][:reference])
             lines << line_item("", type: "spacer")
 
             if readings[:second_reading][:content]

@@ -45,3 +45,9 @@ Rails.logger.info "CARREGANDO OFÍCIO VESPERTINO - RITO 2 - LOCB 2008"
 Rails.logger.info "="*80
 
 load Rails.root.join("#{base_path}/evening_prayer_rite_two.rb")
+
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO OFÍCIO VESPERTINO - RITO 3 - LOCB 2008"
+Rails.logger.info "="*80
+
+load Rails.root.join("#{base_path}/evening_prayer_rite_three.rb")
