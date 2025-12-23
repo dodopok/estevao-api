@@ -51,8 +51,10 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :solid_cache_store
+  # Use memory cache for better performance
+  # Solid Cache (database-backed) adds significant latency due to SQL queries
+  # Memory cache is faster but data is lost on restart (acceptable for this API)
+  config.cache_store = :memory_store, { size: 256.megabytes }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   # config.active_job.queue_adapter = :resque
