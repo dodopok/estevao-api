@@ -80,11 +80,11 @@ Datadog.configure do |c|
 
   # Logger
   c.logger.instance = Rails.logger
-  c.logger.level = Rails.env.production? ? ::Logger::INFO : ::Logger::DEBUG
+  c.logger.level = ::Logger::INFO
 
-  # Diagnostics
+  # Diagnostics - disable debug to avoid polluting console with trace logs
   c.diagnostics.startup_logs.enabled = !Rails.env.production?
-  c.diagnostics.debug = Rails.env.development?
+  c.diagnostics.debug = false
 
   # ============================================
   # PROFILING (Optional - CPU/Memory profiling)

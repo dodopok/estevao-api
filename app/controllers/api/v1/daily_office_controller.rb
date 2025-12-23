@@ -140,31 +140,27 @@ module Api
       end
 
       # Build cache key with relevant preferences for Daily Office
-      # Includes user_id and audio preferences for premium users
-      # Version v2 to invalidate old cache after adding premium/language fields
-      # Strategy: Hash only preferences that affect the office content, not presentation
-      # This maximizes cache hit rate while keeping personalization
+      # Uses user's updated_at timestamp to invalidate cache when preferences change
+      # For anonymous users, uses a hash of request preferences
       def build_office_cache_key(date, office_type, family: false)
-        relevant_prefs = resolved_preferences.slice(
-          :prayer_book_code,
-          :bible_version,
-          :lords_prayer_version,
-          :confession_type,
-          :creed_type
-        ).sort.to_h
-
-        # Add audio voice preference for premium users (affects audio URLs)
-        if current_user&.premium?
-          relevant_prefs[:preferred_audio_voice] = current_user.preferred_audio_voice
-          user_suffix = "/user_#{current_user.id}"
-        else
-          user_suffix = ""
-        end
-
-        prefs_hash = Digest::MD5.hexdigest(relevant_prefs.to_json)[0..7]
         family_suffix = family ? "/family" : ""
 
-        "daily_office/v2/#{date}/#{office_type}/#{prefs_hash}#{user_suffix}#{family_suffix}"
+        if current_user
+          # User's updated_at changes when preferences are updated, auto-invalidating cache
+          user_timestamp = current_user.updated_at.to_i
+          "daily_office/v3/#{date}/#{office_type}/user_#{current_user.id}/#{user_timestamp}#{family_suffix}"
+        else
+          # For anonymous users, hash the request preferences
+          relevant_prefs = resolved_preferences.slice(
+            :prayer_book_code,
+            :bible_version,
+            :lords_prayer_version,
+            :confession_type,
+            :creed_type
+          ).sort.to_h
+          prefs_hash = Digest::MD5.hexdigest(relevant_prefs.to_json)[0..7]
+          "daily_office/v3/#{date}/#{office_type}/#{prefs_hash}#{family_suffix}"
+        end
       end
 
       # Adiciona dados do usuário autenticado na resposta

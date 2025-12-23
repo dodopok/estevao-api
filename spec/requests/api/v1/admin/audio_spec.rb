@@ -11,14 +11,14 @@ RSpec.describe 'Admin Audio API', type: :request do
     end
   end
 
-  before do
-    # Clean up existing texts from previous tests/seeds
-    LiturgicalText.delete_all
-    # Create some liturgical texts with explicit prayer_book to avoid factory creating new ones
-    create_list(:liturgical_text, 5, prayer_book: prayer_book)
-  end
-
   describe 'GET /api/v1/admin/audio/generation_status' do
+    before do
+      # Clean up existing texts from previous tests/seeds
+      LiturgicalText.delete_all
+      # Create some liturgical texts with explicit prayer_book to avoid factory creating new ones
+      create_list(:liturgical_text, 5, prayer_book: prayer_book)
+    end
+
     it 'returns overall progress statistics' do
       get '/api/v1/admin/audio/generation_status', headers: headers
 

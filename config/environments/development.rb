@@ -25,7 +25,10 @@ Rails.application.configure do
 
   # Change to :null_store to avoid any caching.
   # Use :memory_store for development to enable caching for performance
-  if Rails.root.join("tmp/caching-dev.txt").exist?
+  # Set DISABLE_CACHE=true in .env to disable caching
+  if ENV["DISABLE_CACHE"] == "true"
+    config.cache_store = :null_store
+  elsif Rails.root.join("tmp/caching-dev.txt").exist?
     config.cache_store = :memory_store
   else
     config.cache_store = :memory_store, { size: 64.megabytes }

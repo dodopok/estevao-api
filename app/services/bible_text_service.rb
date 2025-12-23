@@ -6,7 +6,7 @@ class BibleTextService
   SINGLE_CHAPTER_BOOKS = %w[Obadias Filemom 2João 3João Judas].freeze
 
   def initialize(translation: "nvi")
-    @translation = translation
+    @translation = translation&.downcase
   end
 
   # Fetch a passage and return as HTML

@@ -24,12 +24,18 @@
 #   office = service.call # Includes audio_url fields for each liturgical text
 #
 class DailyOfficeService
+  DEFAULT_PREFERENCES = {
+    prayer_book_code: "loc_2015",
+    bible_version: "nvi",
+    family_rite: false
+  }.freeze
+
   attr_reader :date, :office_type, :preferences, :current_user
 
   def initialize(date:, office_type: :morning, preferences: {}, current_user: nil)
     @date = date.to_date
     @office_type = office_type.to_sym
-    @preferences = default_preferences.merge(preferences)
+    @preferences = DEFAULT_PREFERENCES.merge(preferences.symbolize_keys)
     @current_user = current_user
   end
 
@@ -51,13 +57,15 @@ class DailyOfficeService
     builder_class = case prayer_book_code
     when "loc_2015"
                       DailyOffice::Builders::Loc2015Builder
+    when "locb_2008"
+                      DailyOffice::Builders::Locb2008Builder
     when "loc_2019"
                       # Future: DailyOffice::Builders::Loc2019Builder
                       DailyOffice::Builders::BaseBuilder
     when "loc_2012"
                       # Future: DailyOffice::Builders::Loc2012Builder
                       DailyOffice::Builders::BaseBuilder
-    when "loc_1987", "locb_2008", "loc_1662"
+    when "loc_1987", "loc_1662"
                       # Use base builder for LOCs without specific customizations
                       DailyOffice::Builders::BaseBuilder
     else
@@ -70,18 +78,6 @@ class DailyOfficeService
       office_type: office_type,
       preferences: preferences
     )
-  end
-
-  def default_preferences
-    {
-      prayer_book_code: "loc_2015",
-      bible_version: "nvi",
-      language: "pt-BR",
-      confession_type: "long",
-      lords_prayer_version: "traditional",
-      creed_type: :apostles,
-      family_rite: false
-    }
   end
 
   # Add audio URLs to liturgical texts in the response
