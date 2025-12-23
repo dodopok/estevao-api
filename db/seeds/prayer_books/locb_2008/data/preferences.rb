@@ -54,11 +54,101 @@ locb_2008_preferences = [
     ]
   },
   {
+    key: "midday_prayer",
+    name: "Oração do Meio-Dia",
+    description: "Configure o ofício do meio-dia como preferir",
+    icon: "wb_sunny_outlined",
+    position: 3,
+    preferences: [
+      {
+        key: "midday_psalm",
+        name: "Cântico - Invitatório",
+        description: "Salmo",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 1,
+        options: [
+          { value: "psalm_119", label: "Salmo 119", description: "Lâmpada para os meus pés é a tua palavra..." },
+          { value: "psalm_121", label: "Salmo 121", description: "Elevo os olhos para os montes: de onde..." },
+          { value: "psalm_126", label: "Salmo 126", description: "Quando o Senhor restaurou a sorte de Sião..." },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
+          { value: "all", label: "Todos", description: "Quero todos os salmos" }
+        ]
+      },
+      {
+        key: "midday_collect",
+        name: "Coleta",
+        description: "Escolha a coleta a ser utilizada",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 2,
+        options: [
+          { value: "1", label: "1", description: "Pai celestial, envia teu Santo Espírito..." },
+          { value: "2", label: "2", description: "Bendito Salvador, nesta hora em que..." },
+          { value: "3", label: "3", description: "Salvador Todo-poderoso, que ao meio-dia..." },
+          { value: "4", label: "4", description: "Senhor Jesus Cristo, que disseste aos vossos apóstolos..." },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
+          { value: "all", label: "Todas", description: "Quero todas as coletas" }
+        ]
+      }
+    ]
+  },
+  {
+    key: "evening_prayer",
+    name: "Tipo da Oração da Tarde",
+    description: "Configure o ofício da tarde como preferir",
+    icon: "wb_sunny_outlined",
+    position: 4,
+    preferences: [
+      {
+        key: "evening_prayer_rite",
+        name: "Ofício Escolhido",
+        description: "Escolha a Oração Vespertina a ser utilizada",
+        pref_type: "select_one",
+        required: true,
+        default_value: "1",
+        position: 1,
+        options: [
+          { value: "1", label: "Oração Vespertina I", description: "" },
+          { value: "2", label: "Oração Vespertina II", description: "" },
+          { value: "3", label: "Oração Vespertina III", description: "" },
+          { value: "4", label: "Oração Vespertina IV (BCP 1928)", description: "" },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
+        ]
+      }
+    ]
+  },
+  {
+    key: "compline_prayer",
+    name: "Tipo da Oração da Noite",
+    description: "Configure o ofício da noite como preferir",
+    icon: "wb_sunny",
+    position: 5,
+    preferences: [
+      {
+        key: "compline_opening_sentence",
+        name: "Ofício Escolhido",
+        description: "Escolha a Oração Noturna a ser utilizada",
+        pref_type: "select_one",
+        required: true,
+        default_value: "1",
+        position: 1,
+        options: [
+          { value: "1", label: "Oração Noturna I", description: "" },
+          { value: "2", label: "Oração Noturna II", description: "" },
+          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
+        ]
+      }
+    ]
+  },
+  {
     key: "morning_prayer_1",
     name: "Oração da Manhã I",
     description: "Configure o ofício da manhã I como preferir",
     icon: "wb_sunny",
-    position: 3,
+    position: 6,
     preferences: [
       {
         key: "morning_1_preparation",
@@ -97,7 +187,7 @@ locb_2008_preferences = [
     name: "Oração da Manhã II",
     description: "Configure o ofício da manhã II como preferir",
     icon: "wb_sunny",
-    position: 4,
+    position: 7,
     preferences: [
       {
         key: "morning_2_confession_invitation",
@@ -149,7 +239,7 @@ locb_2008_preferences = [
     name: "Oração da Manhã III",
     description: "Configure o ofício da manhã III como preferir",
     icon: "wb_sunny",
-    position: 5,
+    position: 8,
     preferences: [
       {
         key: "morning_3_canticle_before_reading",
@@ -233,7 +323,7 @@ locb_2008_preferences = [
     name: "Oração da Manhã IV",
     description: "Configure o ofício da manhã IV como preferir",
     icon: "wb_sunny",
-    position: 6,
+    position: 9,
     preferences: [
       {
         key: "morning_4_invitatory",
@@ -337,78 +427,11 @@ locb_2008_preferences = [
     ]
   },
   {
-    key: "midday_prayer",
-    name: "Oração do Meio-Dia",
-    description: "Configure o ofício do meio-dia como preferir",
-    icon: "wb_sunny_outlined",
-    position: 7,
-    preferences: [
-      {
-        key: "midday_psalm",
-        name: "Cântico - Invitatório",
-        description: "Salmo",
-        pref_type: "select_one",
-        required: true,
-        default_value: "random",
-        position: 1,
-        options: [
-          { value: "psalm_119", label: "Salmo 119", description: "Lâmpada para os meus pés é a tua palavra..." },
-          { value: "psalm_121", label: "Salmo 121", description: "Elevo os olhos para os montes: de onde..." },
-          { value: "psalm_126", label: "Salmo 126", description: "Quando o Senhor restaurou a sorte de Sião..." },
-          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
-          { value: "all", label: "Todos", description: "Quero todos os salmos" }
-        ]
-      },
-      {
-        key: "midday_collect",
-        name: "Coleta",
-        description: "Escolha a coleta a ser utilizada",
-        pref_type: "select_one",
-        required: true,
-        default_value: "random",
-        position: 2,
-        options: [
-          { value: "1", label: "1", description: "Pai celestial, envia teu Santo Espírito..." },
-          { value: "2", label: "2", description: "Bendito Salvador, nesta hora em que..." },
-          { value: "3", label: "3", description: "Salvador Todo-poderoso, que ao meio-dia..." },
-          { value: "4", label: "4", description: "Senhor Jesus Cristo, que disseste aos vossos apóstolos..." },
-          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
-          { value: "all", label: "Todas", description: "Quero todas as coletas" }
-        ]
-      }
-    ]
-  },
-  {
-    key: "evening_prayer",
-    name: "Tipo da Oração da Tarde",
-    description: "Configure o ofício da tarde como preferir",
-    icon: "wb_sunny_outlined",
-    position: 8,
-    preferences: [
-      {
-        key: "evening_opening_sentence",
-        name: "Ofício Escolhido",
-        description: "Escolha a Oração Vespertina a ser utilizada",
-        pref_type: "select_one",
-        required: true,
-        default_value: "1",
-        position: 1,
-        options: [
-          { value: "1", label: "Oração Vespertina I", description: "" },
-          { value: "2", label: "Oração Vespertina II", description: "" },
-          { value: "3", label: "Oração Vespertina III", description: "" },
-          { value: "4", label: "Oração Vespertina IV (BCP 1928)", description: "" },
-          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
-        ]
-      }
-    ]
-  },
-  {
     key: "evening_prayer_1",
     name: "Oração da Tarde I",
     description: "Configure o ofício da tarde I como preferir",
     icon: "wb_sunny_outlined",
-    position: 9,
+    position: 10,
     preferences: [
       {
         key: "evening_1_preparation",
@@ -477,7 +500,7 @@ como Jesus nos ensinou..." },
     name: "Oração da Tarde II",
     description: "Configure o ofício da tarde II como preferir",
     icon: "wb_sunny_outlined",
-    position: 10,
+    position: 11,
     preferences: [
       {
         key: "evening_2_preparation",
@@ -559,7 +582,7 @@ como Jesus nos ensinou..." },
     name: "Oração da Tarde III",
     description: "Configure o ofício da tarde III como preferir",
     icon: "wb_sunny_outlined",
-    position: 11,
+    position: 12,
     preferences: [
       {
         key: "evening_3_invitating_canticle",
@@ -629,7 +652,7 @@ como Jesus nos ensinou..." },
     name: "Oração da Tarde IV",
     description: "Configure o ofício da tarde IV como preferir",
     icon: "wb_sunny_outlined",
-    position: 12,
+    position: 13,
     preferences: [
       {
         key: "evening_4_invitatory",
@@ -731,34 +754,11 @@ como Jesus nos ensinou..." },
     ]
   },
   {
-    key: "compline_prayer",
-    name: "Tipo da Oração da Noite",
-    description: "Configure o ofício da noite como preferir",
-    icon: "wb_sunny",
-    position: 2,
-    preferences: [
-      {
-        key: "compline_opening_sentence",
-        name: "Ofício Escolhido",
-        description: "Escolha a Oração Noturna a ser utilizada",
-        pref_type: "select_one",
-        required: true,
-        default_value: "1",
-        position: 1,
-        options: [
-          { value: "1", label: "Oração Noturna I", description: "" },
-          { value: "2", label: "Oração Noturna II", description: "" },
-          { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
-        ]
-      }
-    ]
-  },
-  {
     key: "compline_prayer_1",
     name: "Oração da Noite I",
     description: "Configure o ofício das completas I como preferir",
     icon: "wb_sunny_outlined",
-    position: 13,
+    position: 14,
     preferences: [
       {
         key: "compline_1_brief_lesson",
@@ -835,7 +835,7 @@ como Jesus nos ensinou..." },
     name: "Oração da Noite II",
     description: "Configure o ofício das completas II como preferir",
     icon: "wb_sunny_outlined",
-    position: 14,
+    position: 15,
     preferences: [
       {
         key: "compline_2_psalm",
