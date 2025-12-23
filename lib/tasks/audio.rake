@@ -23,7 +23,8 @@ namespace :audio do
     end
 
     texts = LiturgicalText.for_prayer_book(prayer_book_code).for_audio_generation
-    rubrics = LiturgicalText.for_prayer_book(prayer_book_code).where(category: "rubric")
+    rubrics_count = LiturgicalText.for_prayer_book(prayer_book_code).where(category: "rubric").count
+    total_texts_count = texts.count + rubrics_count
     total_characters = texts.sum { |t| t.content.length }
     voice_count = voice_keys.count
 
@@ -31,8 +32,8 @@ namespace :audio do
     estimate = service.estimate_cost(total_characters * voice_count)
 
     puts "\nStatistics:"
-    puts "  Total texts: #{texts.count}"
-    puts "  Rubrics (skipped): #{rubrics.count}"
+    puts "  Total texts: #{total_texts_count}"
+    puts "  Rubrics (skipped): #{rubrics_count}"
     puts "  Texts for audio: #{texts.count}"
     puts "  Total characters: #{total_characters.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}"
     puts "  Voices: #{voice_count} (#{voice_keys.join(', ')})"
