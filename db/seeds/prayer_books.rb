@@ -183,7 +183,7 @@ english_prayer_books = [
     name: "ACNA - 2019",
     year: 2019,
     language: "en",
-    premium_required: true,  # PREMIUM
+    premium_required: false,  # PREMIUM
     jurisdiction: "Anglican Church in North America",
     description: "The Book of Common Prayer (2019) from the Anglican Church in North America",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2019.png",
