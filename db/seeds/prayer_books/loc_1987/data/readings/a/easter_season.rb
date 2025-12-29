@@ -98,7 +98,7 @@ easter_readings.each do |r|
 end
 
 # Clean up old non-standard references if they exist
-old_references = ["easter_2nd_week", "easter_3rd_week", "easter_4th_week", "easter_5th_week", "easter_6th_week", "easter_saturday_week"]
+old_references = [ "easter_2nd_week", "easter_3rd_week", "easter_4th_week", "easter_5th_week", "easter_6th_week", "easter_saturday_week" ]
 LectionaryReading.where(prayer_book_id: prayer_book.id, cycle: "A", date_reference: old_references).destroy_all
 
 Rails.logger.info "\n✅ #{count} leituras do Tempo Pascal (Ano A) criadas"

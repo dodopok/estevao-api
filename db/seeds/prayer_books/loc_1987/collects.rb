@@ -27,7 +27,7 @@ collects = [
     sunday_reference: "4th_sunday_of_advent",
     text: "Ó Deus Onipotente, purifica a nossa consciência com tua visitação diária, para que o teu Filho Jesus Cristo, na sua vinda em glória, encontre em nós a morada preparada para Si; o qual vive e reina contigo, na unidade do Espírito Santo, um só Deus, agora e sempre. Amém."
   },
-  
+
   # Natal
   {
     sunday_reference: "christmas_day",
@@ -53,7 +53,7 @@ collects = [
     sunday_reference: "2nd_sunday_after_christmas",
     text: "Ó Deus, que maravilhosamente criaste e ainda mais maravilhosamente restauraste a dignidade da natureza humana; concede que participemos da vida divinal de teu Filho Jesus Cristo, que se humilhou para participar de nossa humanidade, o qual vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém."
   },
-  
+
   # Epifania
   {
     sunday_reference: "epiphany",
@@ -95,7 +95,7 @@ collects = [
     sunday_reference: "last_sunday_after_epiphany",
     text: "Ó Deus, que, antes da Paixão de teu Unigênito Filho, revelaste a sua glória sobre o Monte, na Transfiguração; concede que nós, contemplando pela fé o resplendor de sua face, sejamos fortalecidos para carregar a nossa cruz e transformados na sua semelhança de glória em glória; por Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém."
   },
-  
+
   # Quaresma
   {
     sunday_reference: "ash_wednesday",
@@ -125,7 +125,7 @@ collects = [
     sunday_reference: "palm_sunday",
     text: "Onipotente e Eterno Deus, de tal modo amaste o mundo, que enviaste teu Filho, nosso Salvador Jesus Cristo, para tomar sobre si a nossa carne e sofrer morte na cruz, dando ao gênero humano exemplo de sua profunda humildade; concede, em tua misericórdia, que imitemos a sua paciência no sofrimento e possamos participar também de sua ressurreição; mediante o mesmo Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém."
   },
-  
+
   # Semana Santa
   {
     sunday_reference: "monday_of_holy_week",
