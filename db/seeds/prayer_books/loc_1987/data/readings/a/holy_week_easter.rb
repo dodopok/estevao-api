@@ -89,7 +89,7 @@ holy_week = [
     gospel: "Mateus 28:1-10"
   },
   {
-    date_reference: "easter_principal_office",
+    date_reference: "easter_sunday",
     cycle: "A",
     service_type: "eucharist",
     first_reading: "Atos 10:34-43 ou Atos 10:34-43",
