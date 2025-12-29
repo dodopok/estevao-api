@@ -14,6 +14,11 @@ if File.exist?(prayer_book_dir.join("data/preferences.rb"))
   load prayer_book_dir.join("data/preferences.rb")
 end
 
+# Load Daily Readings (CSV Import)
+if File.exist?(prayer_book_dir.join("data/daily_readings.rb"))
+  load prayer_book_dir.join("data/daily_readings.rb")
+end
+
 # Load Liturgical Texts
 if File.exist?(prayer_book_dir.join("data/liturgical_texts/canticles.rb"))
   load prayer_book_dir.join("data/liturgical_texts/canticles.rb")

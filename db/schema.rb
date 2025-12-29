@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_29_200000) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_29_210000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -177,12 +177,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_29_200000) do
     t.string "cycle"
     t.string "date_reference"
     t.string "first_reading"
+    t.string "first_reading_alternative"
     t.string "gospel"
+    t.string "gospel_alternative"
     t.text "notes"
     t.bigint "prayer_book_id", null: false
     t.string "psalm"
+    t.string "psalm_alternative"
     t.string "reading_type"
     t.string "second_reading"
+    t.string "second_reading_alternative"
     t.string "service_type"
     t.datetime "updated_at", null: false
     t.index ["celebration_id"], name: "index_lectionary_readings_on_celebration_id"
