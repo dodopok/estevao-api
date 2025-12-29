@@ -105,6 +105,10 @@ begin
     # Lesser Feasts
     lesser_feasts = load_json_file('lesser_feast.json')
     bulk_upsert_celebrations(lesser_feasts, prayer_book, 'Lesser Feasts')
+
+    # Holy Week
+    holy_week = load_json_file('holy_week.json')
+    bulk_upsert_celebrations(holy_week, prayer_book, 'Holy Week')
   end
 
   total = Celebration.where(prayer_book_id: prayer_book.id).count

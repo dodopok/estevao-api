@@ -8,10 +8,7 @@ base_path = 'db/seeds/prayer_books/loc_2019_en/data'
 # 1. Celebrations
 require Rails.root.join(base_path, 'celebrations/seed_celebrations.rb')
 
-# Future seeds for LOC 2019 EN can be added here:
-# - Liturgical Texts
-# - Psalms
-# - Collects
-# - Readings
+# 2. Collects
+require Rails.root.join(base_path, 'collects.rb')
 
 Rails.logger.info "✅ LOC 2019 English (loc_2019_en) seed completed!"
