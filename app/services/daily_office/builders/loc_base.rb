@@ -17,7 +17,7 @@ module DailyOffice
       end
 
       def call
-        structure = super
+        modules = assemble_office
 
         {
           date: date.strftime("%Y-%m-%d"),
@@ -26,7 +26,7 @@ module DailyOffice
           color: day_info[:liturgical_color],
           celebration: day_info[:celebration],
           saint: day_info[:saint],
-          modules: structure,
+          modules: modules,
           metadata: {
             prayer_book_code: preferences[:prayer_book_code],
             prayer_book_name: prayer_book&.name,
