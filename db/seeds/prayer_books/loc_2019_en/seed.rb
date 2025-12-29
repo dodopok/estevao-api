@@ -19,5 +19,6 @@ require Rails.root.join(base_path, 'readings/lent.rb')
 require Rails.root.join(base_path, 'readings/holy_week.rb')
 require Rails.root.join(base_path, 'readings/easter.rb')
 require Rails.root.join(base_path, 'readings/pentecost_ordinary.rb')
+require Rails.root.join(base_path, 'readings/fixed_feasts.rb')
 
 Rails.logger.info "✅ LOC 2019 English (loc_2019_en) seed completed!"
