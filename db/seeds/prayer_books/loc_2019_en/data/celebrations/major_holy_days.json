@@ -1,0 +1,212 @@
+[
+  {
+    "name": "The Circumcision and Holy Name of Our Lord Jesus Christ",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 1,
+    "fixed_day": 1,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "The Epiphany of Our Lord Jesus Christ",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 1,
+    "fixed_day": 6,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "Confession of Peter the Apostle",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 1,
+    "fixed_day": 18,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "Conversion of Paul the Apostle",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 1,
+    "fixed_day": 25,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "The Presentation of Our Lord Jesus Christ in the Temple",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 2,
+    "fixed_day": 2,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "Matthias the Apostle",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 2,
+    "fixed_day": 24,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "Joseph, Husband of the Virgin Mary and Guardian of Jesus",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 3,
+    "fixed_day": 19,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "The Annunciation of our Lord Jesus Christ to the Virgin Mary",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 3,
+    "fixed_day": 25,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "Mark the Evangelist",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 4,
+    "fixed_day": 25,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "Philip and James, Apostles",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 5,
+    "fixed_day": 1,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "The Visitation of the Virgin Mary to Elizabeth and Zechariah",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 5,
+    "fixed_day": 31,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "Barnabas the Apostle",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 6,
+    "fixed_day": 11,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "The Nativity of John the Baptist",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 6,
+    "fixed_day": 24,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "Peter and Paul, Apostles",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 6,
+    "fixed_day": 29,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "Mary Magdalene",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 7,
+    "fixed_day": 22,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "James the Elder, Apostle",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 7,
+    "fixed_day": 25,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "The Transfiguration of Our Lord Jesus Christ",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 8,
+    "fixed_day": 6,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "The Virgin Mary, Mother of Our Lord Jesus Christ",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 8,
+    "fixed_day": 15,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "Bartholomew the Apostle",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 8,
+    "fixed_day": 24,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "Holy Cross Day",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 9,
+    "fixed_day": 14,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "Matthew, Apostle and Evangelist",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 9,
+    "fixed_day": 21,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "Holy Michael and All Angels",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 9,
+    "fixed_day": 29,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "Luke the Evangelist and Companion of Paul",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 10,
+    "fixed_day": 18,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "James of Jerusalem, Bishop and Martyr",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 10,
+    "fixed_day": 23,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "Simon and Jude, Apostles",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 10,
+    "fixed_day": 28,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "Andrew the Apostle",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 11,
+    "fixed_day": 30,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "Thomas the Apostle",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 21,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "Stephen, Deacon and Martyr",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 26,
+    "liturgical_color": "red"
+  },
+  {
+    "name": "John, Apostle and Evangelist",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 27,
+    "liturgical_color": "white"
+  },
+  {
+    "name": "The Holy Innocents",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 28,
+    "liturgical_color": "red"
+  }
+]
