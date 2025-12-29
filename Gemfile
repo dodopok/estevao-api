@@ -60,7 +60,7 @@ gem "write_xlsx"
 gem "roo"
 
 # SQLite for reading external Bible translation files
-gem "sqlite3", "~> 2.0"
+gem "sqlite3", "~> 2.9"
 
 # Datadog APM, Logging, and Error Tracking
 gem "datadog", "~> 2.0"
