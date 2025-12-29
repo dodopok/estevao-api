@@ -46,7 +46,6 @@ ordinary_s = seasons.find_by(name: 'Tempo Comum')
 end
 
 # --- CHRISTMAS ---
-# Christmas Eve (not in celebrations yet, adding as sunday_reference or finding/creating)
 create_collect({ sunday_reference: 'christmas_eve', text: "O God, you have caused this holy night to shine with the brightness of the true Light: Grant that we, who have known the mystery of that Light on earth, may also enjoy him perfectly in heaven; where with you and the Holy Spirit he lives and reigns, one God, in glory everlasting. Amen.", language: language, season_id: christmas_s&.id }, prayer_book.id)
 
 christmas_day_c = celebrations.find_by(name: 'Christmas Day')
@@ -83,13 +82,6 @@ create_collect({ celebration_id: presentation_c&.id, text: "Almighty and everliv
 
 # World Mission Sunday (can be used in Epiphany)
 create_collect({ sunday_reference: 'world_mission_sunday', text: "Almighty God, through the outpouring of the Holy Spirit, you revealed the way of eternal life to every race and nation: Pour out this gift anew, that by the preaching of the Gospel your salvation may reach to the ends of the earth; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever. Amen.", language: language, season_id: epiphany_s&.id }, prayer_book.id)
-
-# --- LENT ---
-# Ash Wednesday
-ash_wed_c = celebrations.find_by(name: 'Ash Wednesday') # Check if I added this one... wait, I didn't add Ash Wednesday to loc_2019_en yet.
-# I should check the Major Holy Days JSON again.
-# I added it to loc_2015, but maybe not loc_2019_en.
-# Let me add the missing movable major holy days first.
 
 # --- LENT COLLECTS ---
 [
@@ -152,12 +144,6 @@ create_collect({ celebration_id: pentecost_c&.id, text: "Almighty God, on this d
 trinity_c = celebrations.find_by(name: 'Trinity Sunday')
 create_collect({ celebration_id: trinity_c&.id, text: "Almighty and everlasting God, you have given to us your servants grace, by the confession of a true faith, to acknowledge the glory of the eternal Trinity, and in the power of your divine Majesty to worship the Unity: Keep us steadfast in this faith and worship, and bring us at last to see you in your one and eternal glory, O Father; who with the Son and the Holy Spirit live and reign, one God, for ever and ever. Amen.", language: language, season_id: ordinary_s&.id }, prayer_book.id)
 
-# Propers
-(1..29).each do |i|
-  # Text for propers is in the file, need to map them.
-  # I'll manually add them below for accuracy.
-end
-
 # Adding Propers 1-29
 propers = [
   "O God, the strength of all who put their trust in you: Mercifully accept our prayers, and because, through the weakness of our mortal nature, we can do no good thing without you, grant us the help of your grace to keep your commandments, that we may please you in will and deed; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen.",
@@ -192,7 +178,7 @@ propers = [
 ]
 
 propers.each_with_index do |text, idx|
-  ref = i = idx + 1
+  i = idx + 1
   sunday_ref = (i == 29) ? 'christ_the_king' : "proper_#{i}"
   create_collect({ sunday_reference: sunday_ref, text: text, language: language, season_id: ordinary_s&.id }, prayer_book.id)
 end
@@ -203,8 +189,8 @@ create_collect({ celebration_id: all_saints_c&.id, text: "Almighty God, you have
 
 # --- HOLY DAYS ---
 holy_days_data = [
-  ['Saint Andrew', "Almighty God, you gave such grace to your apostle Andrew that he readily obeyed the call of your Son Jesus Christ, and brought his brother with him: Give us, who are called by your holy Word, grace to follow him without delay, and to bring those near to us into his gracious presence; who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen."],
-  ['Saint Thomas', "Everliving God, you strengthened your apostle Thomas with firm and certain faith in your Son’s resurrection: Grant us so perfectly and without doubt to believe in Jesus Christ, our Lord and our God, that our faith may never be found wanting in your sight; through him who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen."],
+  ['Andrew the Apostle', "Almighty God, you gave such grace to your apostle Andrew that he readily obeyed the call of your Son Jesus Christ, and brought his brother with him: Give us, who are called by your holy Word, grace to follow him without delay, and to bring those near to us into his gracious presence; who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen."],
+  ['Thomas the Apostle', "Everliving God, you strengthened your apostle Thomas with firm and certain faith in your Son’s resurrection: Grant us so perfectly and without doubt to believe in Jesus Christ, our Lord and our God, that our faith may never be found wanting in your sight; through him who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen."],
   ['Stephen, Deacon and Martyr', "O Glorious Lord, your servant Stephen looked up to heaven and prayed for his persecutors: Grant that in all our sufferings here upon earth we may love and forgive our enemies, looking steadfastly to Jesus Christ our Lord, who sits at your right hand and intercedes for us; and who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen."],
   ['John, Apostle and Evangelist', "Shed upon your Church, O Lord, the brightness of your light; that we, being illumined by the teaching of your apostle and evangelist John, may so walk in the light of your truth, that at length we may attain to the fullness of eternal life; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen."],
   ['The Holy Innocents', "Almighty God, out of the mouths of children you manifest your truth, and by the death of the Holy Innocents at the hands of evil tyrants you show your strength in our weakness: We ask you to mortify all that is evil within us, and so strengthen us by your grace, that we may glorify your holy Name by the innocence of our lives and the constancy of our faith even unto death; through Jesus Christ our Lord, who died for us and now lives with you and the Holy Spirit, world without end. Amen."],
@@ -246,7 +232,7 @@ end
   ['memorial_day', "O King and Judge of the nations: We remember before you with grateful hearts the men and women of our armed forces, who in the day of decision ventured much for the liberties we now enjoy; grant that we may not rest until all the people of this land share the benefits of true freedom and gladly accept its disciplines; through Jesus Christ our Lord, who with you and the Holy Spirit lives and reigns, now and for ever. Amen."],
   ['canada_day', "Almighty God, whose wisdom and love are over all: Accept the prayers we offer for Canada, and give integrity to its citizens and wisdom to those in authority, that harmony and justice may be secured in obedience to your will; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen."],
   ['independence_day', "Lord God, by your providence our founders won their liberties of old: Grant that we and all the people of this land may have grace to exercise these liberties in righteousness and peace; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen."],
-  ['thanksgiving_day', "Most merciful Father, we humbly thank you for all your gifts so freely bestowed upon us: for life and health and safety, for strength to work and leisure to rest, for all that is beautiful in creation and in human life; but above all we thank you for our spiritual mercies in Christ Jesus our Lord; who with you and the Holy Spirit lives and reigns, one God, for ever and ever. Amen."]
+  ['thanksgiving_day', "Most merciful Father, we humbly thank you for all your gifts so freely bestowed upon us: for life and health and safety, for strength to work and leisure to rest, for all that is beautiful in creation and in human life; but above all we thank you for our spiritual mercies in Christ Jesus our Lord; who with you and the same Spirit lives and reigns, one God, for ever and ever. Amen."]
 ].each do |ref, text|
   create_collect({ sunday_reference: ref, text: text, language: language }, prayer_book.id)
 end
