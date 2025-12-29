@@ -46,7 +46,7 @@ module DailyOffice
 
         def build_confession
           lines = []
-          
+
           # Exhortation or short invitation
           if preferences[:morning_confession_type] == "long"
             exhortation = fetch_liturgical_text("morning_confession_exhortation")
@@ -74,7 +74,7 @@ module DailyOffice
           # If priest present use absolution, else use prayer for pardon
           # For now, providing both as options or just the full one
           abs = fetch_liturgical_text("absolution")
-          
+
           {
             name: "Absolution",
             slug: "absolution",
@@ -87,7 +87,7 @@ module DailyOffice
 
         def build_invitatory
           inv = fetch_liturgical_text("morning_invocation")
-          lines = [line_item(inv.content, type: "responsive", slug: inv.slug)]
+          lines = [ line_item(inv.content, type: "responsive", slug: inv.slug) ]
 
           # Seasonal Antiphon
           season_slug = season_to_antiphon_slug(day_info[:liturgical_season])
@@ -106,11 +106,11 @@ module DailyOffice
         def build_invitatory_canticle
           slug = is_easter? ? "pascha_nostrum" : (preferences[:morning_invitatory_canticle] || "venite")
           canticle = fetch_liturgical_text(slug)
-          
+
           {
             name: canticle&.title || "Invitatory Psalm",
             slug: "invitatory_canticle",
-            lines: [line_item(canticle.content, type: "congregation", slug: canticle.slug)]
+            lines: [ line_item(canticle.content, type: "congregation", slug: canticle.slug) ]
           }
         end
 
@@ -140,24 +140,24 @@ module DailyOffice
 
         def build_lessons_and_canticles
           modules = []
-          
+
           # First Lesson
           if readings[:first_reading]
             reading = readings[:first_reading]
             content = reading[:content]
-            
+
             # Allow for abbreviated version if preferred (logic to be refined)
             ref_to_show = reading[:reference]
-            
+
             lines = [
               line_item("A Reading from #{ref_to_show}.", type: "leader"),
               line_item("", type: "spacer")
             ]
-            
+
             lines.concat(format_bible_content(content)) if content
             lines << line_item("", type: "spacer")
             lines << line_item("The Word of the Lord. **Thanks be to God.**", type: "responsive")
-            
+
             modules << {
               name: "First Lesson",
               slug: "first_lesson",
@@ -172,7 +172,7 @@ module DailyOffice
             modules << {
               name: cant.title,
               slug: c_slug,
-              lines: [line_item(cant.content, type: "congregation", slug: cant.slug)]
+              lines: [ line_item(cant.content, type: "congregation", slug: cant.slug) ]
             }
           end
 
@@ -180,16 +180,16 @@ module DailyOffice
           if readings[:second_reading]
             reading = readings[:second_reading]
             content = reading[:content]
-            
+
             lines = [
               line_item("A Reading from #{reading[:reference]}.", type: "leader"),
               line_item("", type: "spacer")
             ]
-            
+
             lines.concat(format_bible_content(content)) if content
             lines << line_item("", type: "spacer")
             lines << line_item("The Word of the Lord. **Thanks be to God.**", type: "responsive")
-            
+
             modules << {
               name: "Second Lesson",
               slug: "second_lesson",
@@ -202,7 +202,7 @@ module DailyOffice
             modules << {
               name: cant.title,
               slug: "benedictus",
-              lines: [line_item(cant.content, type: "congregation", slug: cant.slug)]
+              lines: [ line_item(cant.content, type: "congregation", slug: cant.slug) ]
             }
           end
 
@@ -214,7 +214,7 @@ module DailyOffice
           {
             name: "The Apostles' Creed",
             slug: "creed",
-            lines: [line_item(creed.content, type: "congregation", slug: creed.slug)]
+            lines: [ line_item(creed.content, type: "congregation", slug: creed.slug) ]
           }
         end
 
@@ -222,7 +222,7 @@ module DailyOffice
           lines = []
           lines << line_item("The Lord be with you. **And with your spirit. Let us pray.**", type: "responsive")
           lines << line_item("", type: "spacer")
-          
+
           kyrie = fetch_liturgical_text("kyrie")
           lines << line_item(kyrie.content, type: "responsive", slug: kyrie.slug)
           lines << line_item("", type: "spacer")
@@ -244,7 +244,7 @@ module DailyOffice
 
         def build_collects
           lines = []
-          
+
           # 1. Collect of the Day
           if @collects
             lines << line_item(@collects)
@@ -269,11 +269,11 @@ module DailyOffice
         def build_mission_prayer
           num = preferences[:morning_prayer_for_mission] || "1"
           miss = fetch_liturgical_text("prayer_for_mission_#{num}")
-          
+
           {
             name: "Prayer for Mission",
             slug: "mission_prayer",
-            lines: [line_item(miss.content, type: "leader", slug: miss.slug)]
+            lines: [ line_item(miss.content, type: "leader", slug: miss.slug) ]
           }
         end
 
@@ -294,17 +294,17 @@ module DailyOffice
           {
             name: "A Prayer of St. John Chrysostom",
             slug: "chrysostom",
-            lines: [line_item(chry.content, type: "leader", slug: chry.slug)]
+            lines: [ line_item(chry.content, type: "leader", slug: chry.slug) ]
           }
         end
 
         def build_dismissal
           dis = fetch_liturgical_text("dismissal")
-          
+
           num = preferences[:morning_concluding_sentence] || "1"
           sent = fetch_liturgical_text("concluding_sentence_#{num}")
 
-          lines = [line_item(dis.content, type: "responsive", slug: dis.slug)]
+          lines = [ line_item(dis.content, type: "responsive", slug: dis.slug) ]
           lines << line_item("", type: "spacer")
           if sent
             lines << line_item(sent.content, type: "leader", slug: sent.slug)

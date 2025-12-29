@@ -165,7 +165,7 @@ ordinary_readings = [
 
 ordinary_readings.each do |reading|
   reading[:prayer_book_id] = prayer_book.id
-  
+
   existing = LectionaryReading.find_by(
     date_reference: reading[:date_reference],
     cycle: reading[:cycle],
