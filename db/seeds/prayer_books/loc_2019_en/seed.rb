@@ -25,4 +25,7 @@ require Rails.root.join(base_path, 'readings/daily_office.rb')
 # 4. Liturgical Texts
 require Rails.root.join(base_path, 'liturgical_texts.rb')
 
+# 5. Preferences
+require Rails.root.join(base_path, 'preferences.rb')
+
 Rails.logger.info "✅ LOC 2019 English (loc_2019_en) seed completed!"
