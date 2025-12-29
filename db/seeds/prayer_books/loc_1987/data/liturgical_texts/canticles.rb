@@ -213,12 +213,15 @@ canticles = [
 ]
 
 canticles.each do |text_data|
-  LiturgicalText.create!(
+  text = LiturgicalText.find_or_initialize_by(
     prayer_book: loc_1987,
-    slug: text_data[:slug],
+    slug: text_data[:slug]
+  )
+  text.update!(
     title: text_data[:title],
     content: text_data[:content],
-    category: "canticle"
+    category: "canticle",
+    language: "pt-BR"
   )
 end
 

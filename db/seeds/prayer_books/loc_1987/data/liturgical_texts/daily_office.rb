@@ -257,12 +257,34 @@ texts = [
 ]
 
 texts.each do |text_data|
-  LiturgicalText.create!(
+  text = LiturgicalText.find_or_initialize_by(
     prayer_book: loc_1987,
-    slug: text_data[:slug],
+    slug: text_data[:slug]
+  )
+  
+  category = if text_data[:slug].start_with?("rubric_")
+               "rubric"
+             elsif text_data[:slug].include?("opening_sentence")
+               "opening_sentence"
+             elsif text_data[:slug].include?("confession")
+               "confession"
+             elsif text_data[:slug].include?("absolution")
+               "absolution"
+             elsif text_data[:slug].include?("invitatory")
+               "invocation"
+             elsif text_data[:slug].include?("creed")
+               "creed"
+             elsif text_data[:slug].include?("suffrage")
+               "suffrage"
+             else
+               "prayer"
+             end
+
+  text.update!(
     title: text_data[:title],
     content: text_data[:content],
-    category: "prayer"
+    category: category,
+    language: "pt-BR"
   )
 end
 
