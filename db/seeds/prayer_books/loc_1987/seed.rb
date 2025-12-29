@@ -23,4 +23,12 @@ if File.exist?(prayer_book_dir.join("collects.rb"))
   load prayer_book_dir.join("collects.rb")
 end
 
+# Load Readings (if present)
+readings_dir = prayer_book_dir.join("data/readings")
+if Dir.exist?(readings_dir)
+  Dir[readings_dir.join('*.rb')].sort.each do |f|
+    load f
+  end
+end
+
 puts "✅ LOC 1987 seeded successfully!"
