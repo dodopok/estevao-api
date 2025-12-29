@@ -15,7 +15,7 @@
 #   1. Cycle: "Ímpar" -> "I", "Par" -> "II"
 #   2. Week names (Portuguese) -> date_reference base (English)
 #   3. Day names (Portuguese) -> weekday suffix (English)
-#   4. Psalms: 
+#   4. Psalms:
 #      - salmo_manha -> psalm (main)
 #      - salmo_noite -> psalm_alternative (optional)
 #   5. Readings:
@@ -23,7 +23,7 @@
 #      - novo_testamento -> second_reading
 #      - evangelho -> gospel
 #   6. Alternative Readings (not in CSV but column created):
-#      - Currently CSV does not have separate columns for alternatives, 
+#      - Currently CSV does not have separate columns for alternatives,
 #        but script is prepared to handle them if they are added or parsed.
 #
 # Usage:
@@ -98,16 +98,16 @@ class Loc1987ReadingsImporter
     "Dia da Ascensão" => "ascension",
     "Semana da Ascensão" => "ascension", # Or 7th Sunday
     "Sétima Semana da Páscoa" => "7th_sunday_of_easter",
-    
+
     # Pentecost
     "Véspera de Pentecostes" => "pentecost",
     "Dia de Pentecostes" => "pentecost",
     "Semana de Pentecostes" => "week_of_pentecost",
-    
+
     "Véspera do Domingo da Trindade" => "trinity_sunday",
     "Domingo da Trindade" => "trinity_sunday",
     "Semana da Trindade" => "trinity_sunday",
-    
+
     # Season after Pentecost (Proper / Semanas depois de Pentecostes)
     # LOC 1987 usually uses "Semana X depois de Pentecostes"
     # Need to map to proper_X if following RCL or numbered weeks if not.
@@ -249,13 +249,13 @@ class Loc1987ReadingsImporter
     # 1. Extract and map basic info
     cycle_raw = row['ciclo']
     cycle = map_cycle(cycle_raw)
-    
+
     week_name = row['semana']
     day_str = row['dia']
-    
+
     # 2. Build date_reference
     date_reference = build_date_reference(week_name, day_str)
-    
+
     # If date_reference is nil, it means we couldn't map the week/day, so skip
     if date_reference.nil?
       Rails.logger.info "Skipping row #{row_number}: Unmapped week '#{week_name}' or day '#{day_str}'"
@@ -266,10 +266,10 @@ class Loc1987ReadingsImporter
 
     # 3. Map readings
     # CSV cols: salmo_manha,salmo_noite,antigo_testamento,novo_testamento,evangelho
-    
+
     psalm = row['salmo_manha']
     psalm_alt = row['salmo_noite']
-    
+
     first_reading = row['antigo_testamento']
     second_reading = row['novo_testamento']
     gospel = row['evangelho']
@@ -281,13 +281,13 @@ class Loc1987ReadingsImporter
       service_type: 'daily_office', # LOC 1987 is Daily Office (Daily Lectionary)
       date_reference: date_reference,
       reading_type: 'semicontinuous', # Default for Daily Office usually
-      
+
       # Main Readings
       psalm: clean_text(psalm),
       first_reading: clean_text(first_reading),
       second_reading: clean_text(second_reading),
       gospel: clean_text(gospel),
-      
+
       # Alternative/Evening Readings
       psalm_alternative: clean_text(psalm_alt),
       first_reading_alternative: nil, # CSV doesn't have it yet
@@ -318,7 +318,7 @@ class Loc1987ReadingsImporter
 
   def build_date_reference(week_name, day_str)
     day_str = day_str.to_s.strip
-    
+
     # 1. Check if it's a fixed date (e.g., "22 Dez", "2 Jan")
     if day_str.match?(/^\d+\s+(Jan|Fev|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dez)$/)
       parts = day_str.split
@@ -329,18 +329,18 @@ class Loc1987ReadingsImporter
 
     # 2. Extract base weekday
     weekday = WEEKDAY_MAPPING[day_str]
-    
+
     # 3. If weekday is nil, maybe it is a special day (like 'Dom' which is usually omitted in daily office but might appear)
     # or empty string?
     if weekday.nil?
       # If day_str is empty and we have a valid week_base (feast), return week_base
       week_base = WEEK_NAME_MAPPING[week_name]
       week_base ||= WEEK_NAME_MAPPING.find { |k, v| k.downcase == week_name.to_s.strip.downcase }&.last
-      
+
       if day_str.empty? && week_base
         return week_base
       end
-      
+
       # If day_str is empty, maybe the week_name itself implies the day?
       # e.g. "Dia de Natal"
       # But usually fixed dates are explicit.
@@ -370,7 +370,7 @@ class Loc1987ReadingsImporter
     # Check if we should update or create
     # Note: For daily office, we might have multiple entries if we didn't handle cycle correctly
     # But here we include cycle in lookup.
-    
+
     existing = LectionaryReading.find_by(
       prayer_book_id: data[:prayer_book_id],
       cycle: data[:cycle],
@@ -413,7 +413,7 @@ end
 # ================================================================================
 if __FILE__ == $0
   csv_path = ARGV[0] # Optional: override default path
-  
+
   # Ensure path exists
   unless csv_path
     csv_path = Loc1987ReadingsImporter::DEFAULT_CSV_PATH
