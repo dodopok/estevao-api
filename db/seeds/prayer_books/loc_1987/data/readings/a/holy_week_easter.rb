@@ -17,13 +17,13 @@ holy_week = [
     gospel: "Mateus 21:1-11"
   },
   {
-    date_reference: "palm_sunday_word",
-    cycle: "A",
-    service_type: "eucharist",
-    first_reading: "Isaías 45:21-25 ou Isaías 52:13-53:12",
-    psalm: "22:1-21 ou 22:1-11",
-    second_reading: "Filipenses 2:5-11",
-    gospel: "Mateus (26:36-75)27:1-54(55-66)"
+    "date_reference": "palm_sunday",
+    "cycle": "A",
+    "service_type": "eucharist",
+    "first_reading": "Isaías 45:21-25 ou Isaías 52:13-53:12",
+    "psalm": "22:1-21 ou 22:1-11",
+    "second_reading": "Filipenses 2:5-11",
+    "gospel": "Mateus (26:36-75)27:1-54(55-66)"
   },
   {
     date_reference: "monday_holy_week",

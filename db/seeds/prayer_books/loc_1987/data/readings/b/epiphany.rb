@@ -17,7 +17,7 @@ epiphany_readings = [
     gospel: "Mateus 2:1-12"
   },
   {
-    date_reference: "1st_sunday_after_epiphany",
+    date_reference: "baptism_of_the_lord",
     cycle: "B",
     service_type: "eucharist",
     first_reading: "Isaías 42:1-9",

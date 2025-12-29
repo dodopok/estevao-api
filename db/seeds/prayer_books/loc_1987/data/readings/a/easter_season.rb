@@ -8,7 +8,7 @@ prayer_book = PrayerBook.find_by!(code: 'loc_1987')
 
 easter_readings = [
   {
-    date_reference: "easter_2nd_week",
+    date_reference: "2nd_sunday_of_easter",
     cycle: "A",
     service_type: "eucharist",
     first_reading: "Atos 2:14a,36-47 ou Isaías 43:1-12",
@@ -17,7 +17,7 @@ easter_readings = [
     gospel: "João 20:19-31"
   },
   {
-    date_reference: "easter_3rd_week",
+    date_reference: "3rd_sunday_of_easter",
     cycle: "A",
     service_type: "eucharist",
     first_reading: "Atos 2:36-41",
@@ -26,7 +26,7 @@ easter_readings = [
     gospel: "João 20:11-18"
   },
   {
-    date_reference: "easter_4th_week",
+    date_reference: "4th_sunday_of_easter",
     cycle: "A",
     service_type: "eucharist",
     first_reading: "Atos 3:1-10",
@@ -35,7 +35,7 @@ easter_readings = [
     gospel: "Lucas 24:13-35"
   },
   {
-    date_reference: "easter_5th_week",
+    date_reference: "5th_sunday_of_easter",
     cycle: "A",
     service_type: "eucharist",
     first_reading: "Atos 3:11-26",
@@ -44,7 +44,7 @@ easter_readings = [
     gospel: "Lucas 24:36b-48"
   },
   {
-    date_reference: "easter_6th_week",
+    date_reference: "6th_sunday_of_easter",
     cycle: "A",
     service_type: "eucharist",
     first_reading: "Atos 4:1-12",
@@ -53,7 +53,7 @@ easter_readings = [
     gospel: "João 21:1-14"
   },
   {
-    date_reference: "easter_saturday_week",
+    date_reference: "easter_saturday",
     cycle: "A",
     service_type: "eucharist",
     first_reading: "Atos 4:13-21",
@@ -69,6 +69,15 @@ easter_readings = [
     psalm: "47 ou 110:1-5",
     second_reading: "Efésios 1:15-23 ou Atos 1:1-11",
     gospel: "Lucas 24:49-53 ou Marcos 16:9-15,19-20"
+  },
+  {
+    date_reference: "7th_sunday_of_easter",
+    cycle: "A",
+    service_type: "eucharist",
+    first_reading: "Atos 1:1-14 ou Ezequiel 39:21-29",
+    psalm: "47 ou 68:1-20",
+    second_reading: "I Pedro 4:12-19 ou Atos 1:14",
+    gospel: "João 17:1-11"
   }
 ]
 
@@ -82,9 +91,15 @@ easter_readings.each do |r|
     LectionaryReading.create!(r)
     count += 1
   else
+    # Update existing if needed
+    existing.update!(r)
     skipped += 1
   end
 end
 
-Rails.logger.info "\n✅ #{count} leituras do Tempo Pascal criadas"
-Rails.logger.info "⏭️  #{skipped} já existiam." if skipped > 0
+# Clean up old non-standard references if they exist
+old_references = ["easter_2nd_week", "easter_3rd_week", "easter_4th_week", "easter_5th_week", "easter_6th_week", "easter_saturday_week"]
+LectionaryReading.where(prayer_book_id: prayer_book.id, cycle: "A", date_reference: old_references).destroy_all
+
+Rails.logger.info "\n✅ #{count} leituras do Tempo Pascal (Ano A) criadas"
+Rails.logger.info "⏭️  #{skipped} registros atualizados/mantidos."

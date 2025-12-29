@@ -120,7 +120,7 @@ lectionary_a = [
 
   # 1º Domingo depois da Epifania
   {
-    date_reference: "1st_sunday_after_epiphany",
+    date_reference: "baptism_of_the_lord",
     cycle: "A",
     service_type: "eucharist",
     first_reading: "Isaías 42:1-9",

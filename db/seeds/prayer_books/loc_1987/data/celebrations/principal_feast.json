@@ -54,5 +54,21 @@
     "fixed_day": 6,
     "liturgical_color": "white",
     "rank": 10
+  },
+  {
+    "name": "Batismo de Nosso Senhor Jesus Cristo",
+    "celebration_type": "principal_feast",
+    "movable": true,
+    "calculation_rule": "first_sunday_after_epiphany",
+    "liturgical_color": "white",
+    "rank": 10
+  },
+  {
+    "name": "Cristo Rei do Universo",
+    "celebration_type": "principal_feast",
+    "movable": true,
+    "calculation_rule": "sunday_before_advent",
+    "liturgical_color": "white",
+    "rank": 10
   }
 ]
