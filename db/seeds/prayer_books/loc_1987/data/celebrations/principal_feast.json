@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Páscoa",
+    "celebration_type": "principal_feast",
+    "movable": true,
+    "calculation_rule": "easter",
+    "liturgical_color": "white",
+    "rank": 10
+  },
+  {
+    "name": "Dia da Ascensão",
+    "celebration_type": "principal_feast",
+    "movable": true,
+    "calculation_rule": "ascension",
+    "liturgical_color": "white",
+    "rank": 10
+  },
+  {
+    "name": "Dia de Pentecostes",
+    "celebration_type": "principal_feast",
+    "movable": true,
+    "calculation_rule": "pentecost",
+    "liturgical_color": "red",
+    "rank": 10
+  },
+  {
+    "name": "Domingo da Trindade",
+    "celebration_type": "principal_feast",
+    "movable": true,
+    "calculation_rule": "trinity_sunday",
+    "liturgical_color": "white",
+    "rank": 10
+  },
+  {
+    "name": "Dia de Todos os Santos",
+    "celebration_type": "principal_feast",
+    "fixed_month": 11,
+    "fixed_day": 1,
+    "liturgical_color": "white",
+    "rank": 10
+  },
+  {
+    "name": "Dia de Natal",
+    "celebration_type": "principal_feast",
+    "fixed_month": 12,
+    "fixed_day": 25,
+    "liturgical_color": "white",
+    "rank": 10
+  },
+  {
+    "name": "Epifania de Nosso Senhor Jesus Cristo",
+    "celebration_type": "principal_feast",
+    "fixed_month": 1,
+    "fixed_day": 6,
+    "liturgical_color": "white",
+    "rank": 10
+  },
+  {
+    "name": "Batismo de nosso Senhor Jesus Cristo",
+    "celebration_type": "principal_feast",
+    "movable": true,
+    "calculation_rule": "first_sunday_after_epiphany",
+    "liturgical_color": "white",
+    "rank": 10
+  },
+  {
+    "name": "Cristo Rei do Universo",
+    "celebration_type": "principal_feast",
+    "movable": true,
+    "calculation_rule": "sunday_before_advent",
+    "liturgical_color": "white",
+    "rank": 10
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Domingo de Ramos",
+    "celebration_type": "major_holy_day",
+    "rank": 20,
+    "movable": true,
+    "calculation_rule": "palm_sunday",
+    "liturgical_color": "red",
+    "description": "Entrada Triunfal em Jerusalém"
+  },
+  {
+    "name": "Segunda-feira Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 25,
+    "movable": true,
+    "calculation_rule": "holy_monday",
+    "liturgical_color": "purple",
+    "description": "Segunda-feira da Semana Santa"
+  },
+  {
+    "name": "Terça-feira Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 26,
+    "movable": true,
+    "calculation_rule": "holy_tuesday",
+    "liturgical_color": "purple",
+    "description": "Terça-feira da Semana Santa"
+  },
+  {
+    "name": "Quarta-feira Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 27,
+    "movable": true,
+    "calculation_rule": "holy_wednesday",
+    "liturgical_color": "purple",
+    "description": "Quarta-feira da Semana Santa"
+  },
+  {
+    "name": "Quinta-feira Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 20,
+    "movable": true,
+    "calculation_rule": "maundy_thursday",
+    "liturgical_color": "white",
+    "description": "Instituição da Eucaristia"
+  },
+  {
+    "name": "Sexta-feira da Paixão",
+    "celebration_type": "major_holy_day",
+    "rank": 20,
+    "movable": true,
+    "calculation_rule": "good_friday",
+    "liturgical_color": "red",
+    "description": "Paixão e Morte de Nosso Senhor"
+  },
+  {
+    "name": "Sábado Santo",
+    "celebration_type": "major_holy_day",
+    "rank": 20,
+    "movable": true,
+    "calculation_rule": "holy_saturday",
+    "liturgical_color": "black",
+    "description": "Sepultamento de Jesus"
+  }
+]

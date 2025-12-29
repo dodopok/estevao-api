@@ -102,7 +102,7 @@ class ReadingService
   end
 
   def query
-    @query ||= Reading::Query.new(prayer_book_id: prayer_book_id, cycle: cycle, reading_type: reading_type)
+    @query ||= Reading::Query.new(prayer_book_id: prayer_book_id, cycle: cycle, date: date, reading_type: reading_type)
   end
 
   def reference_builder

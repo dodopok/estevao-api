@@ -4,9 +4,10 @@ module Reading
   # Query object for LectionaryReading lookups
   # Centralizes common query patterns for readings
   class Query
-    def initialize(prayer_book_id:, cycle:, reading_type: nil)
+    def initialize(prayer_book_id:, cycle:, date: Date.current, reading_type: nil)
       @prayer_book_id = prayer_book_id
       @cycle = cycle
+      @date = date
       @reading_type = reading_type
     end
 
@@ -57,7 +58,7 @@ module Reading
                 date_reference: reference,
                 cycle: weekly_cycles,
                 prayer_book_id: prayer_book_id,
-                service_type: "weekly"
+                service_type: [ "weekly", "daily_office" ]
               )
 
       query = apply_reading_type_filter(query) if reading_type.present?
@@ -75,7 +76,7 @@ module Reading
 
     private
 
-    attr_reader :prayer_book_id, :cycle, :reading_type
+    attr_reader :prayer_book_id, :cycle, :date, :reading_type
 
     def cycles
       [ cycle, "all" ]
@@ -84,7 +85,7 @@ module Reading
     def weekly_cycles
       # Some prayer books use A/B/C (triennial cycle)
       # Others use odd/even (biennial cycle based on civil year)
-      odd_even = Date.current.year.odd? ? "odd" : "even"
+      odd_even = date.year.odd? ? "odd" : "even"
       [ cycle, "A", "B", "C", odd_even, "all" ]
     end
 

@@ -12,6 +12,7 @@ module Liturgical
     CALCULATION_RULE_TO_MOVABLE_DATE = {
       "easter" => :easter,
       "easter_minus_46_days" => :ash_wednesday,
+      "easter_minus_7_days" => :palm_sunday,
       "easter_minus_6_days" => :holy_monday,
       "easter_minus_5_days" => :holy_tuesday,
       "easter_minus_4_days" => :holy_wednesday,
@@ -31,6 +32,7 @@ module Liturgical
     # Used for finding readings in the lectionary
     CALCULATION_RULE_TO_DATE_REFERENCES = {
       "easter_minus_46_days" => %w[ash_wednesday],
+      "easter_minus_7_days" => %w[palm_sunday_palms palm_sunday_word palm_sunday],
       "easter_minus_6_days" => %w[holy_monday],
       "easter_minus_5_days" => %w[holy_tuesday],
       "easter_minus_4_days" => %w[holy_wednesday],
@@ -38,7 +40,7 @@ module Liturgical
       "easter_minus_2_days" => %w[good_friday],
       "easter_minus_1_days" => %w[holy_saturday holy_saturday_vigil],
       "easter_minus_1_day" => %w[holy_saturday holy_saturday_vigil],
-      "easter" => %w[easter_sunday easter_day],
+      "easter" => %w[easter_principal_office easter_first_office easter_sunday easter_day],
       "easter_plus_39_days" => %w[ascension ascension_day],
       "easter_plus_49_days" => %w[pentecost whitsunday],
       "easter_plus_56_days" => %w[trinity_sunday],
