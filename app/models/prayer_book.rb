@@ -2,6 +2,9 @@
 
 class PrayerBook < ApplicationRecord
   has_many :collects, dependent: :restrict_with_error
+
+  # Ordenação padrão por ordem definida
+  default_scope { order(:order) }
   has_many :lectionary_readings, dependent: :restrict_with_error
   has_many :liturgical_texts, dependent: :restrict_with_error
   has_many :psalms, dependent: :restrict_with_error

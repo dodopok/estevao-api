@@ -3,6 +3,23 @@
 require 'rails_helper'
 
 RSpec.describe PrayerBook, type: :model do
+    describe 'order column' do
+      it 'has an order attribute' do
+        prayer_book = PrayerBook.create!(code: 'order_test', name: 'Order Test', order: 42)
+        expect(prayer_book.order).to eq(42)
+      end
+    end
+
+    describe 'default ordering' do
+      it 'returns prayer books ordered by order asc' do
+        pb1 = PrayerBook.create!(code: 'order1', name: 'Order 1', order: 2)
+        pb2 = PrayerBook.create!(code: 'order2', name: 'Order 2', order: 1)
+        pb3 = PrayerBook.create!(code: 'order3', name: 'Order 3', order: 3)
+        expect(PrayerBook.all.map(&:code)).to include('order1', 'order2', 'order3')
+        ordered_codes = PrayerBook.where(code: [ 'order1', 'order2', 'order3' ]).pluck(:order, :code).sort.map(&:last)
+        expect(PrayerBook.where(code: [ 'order1', 'order2', 'order3' ]).map(&:code)).to eq(ordered_codes)
+      end
+    end
   describe 'associations' do
     let(:prayer_book) { PrayerBook.create!(code: 'test_associations', name: 'Test') }
 

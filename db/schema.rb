@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_23_183708) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_29_200000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -285,6 +285,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_23_183708) do
     t.string "jurisdiction"
     t.string "language", default: "pt-BR", null: false
     t.string "name"
+    t.integer "order", default: 0, null: false
     t.string "pdf_url"
     t.boolean "premium_required", default: false, null: false
     t.string "thumbnail_url"
