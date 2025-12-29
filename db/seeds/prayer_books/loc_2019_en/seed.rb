@@ -22,4 +22,7 @@ require Rails.root.join(base_path, 'readings/pentecost_ordinary.rb')
 require Rails.root.join(base_path, 'readings/fixed_feasts.rb')
 require Rails.root.join(base_path, 'readings/daily_office.rb')
 
+# 4. Liturgical Texts
+require Rails.root.join(base_path, 'liturgical_texts.rb')
+
 Rails.logger.info "✅ LOC 2019 English (loc_2019_en) seed completed!"
