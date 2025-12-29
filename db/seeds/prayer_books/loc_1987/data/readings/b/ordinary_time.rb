@@ -267,6 +267,15 @@ ordinary_readings = [
     psalm: "93",
     second_reading: "Apocalipse 1:1-8",
     gospel: "João 18:33-37 ou Marcos 11:1-11"
+  },
+  {
+    date_reference: "christ_the_king",
+    cycle: "B",
+    service_type: "eucharist",
+    first_reading: "Daniel 7:9-14",
+    psalm: "93",
+    second_reading: "Apocalipse 1:1-8",
+    gospel: "João 18:33-37 ou Marcos 11:1-11"
   }
 ]
 

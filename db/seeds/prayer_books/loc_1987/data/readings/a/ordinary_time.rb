@@ -291,6 +291,15 @@ additional = [
     psalm: "95:1-7",
     second_reading: "I Coríntios 15:20-28",
     gospel: "Mateus 25:31-46"
+  },
+  {
+    date_reference: "christ_the_king",
+    cycle: "A",
+    service_type: "eucharist",
+    first_reading: "Ezequiel 34:11-17",
+    psalm: "95:1-7",
+    second_reading: "I Coríntios 15:20-28",
+    gospel: "Mateus 25:31-46"
   }
 ]
 

@@ -267,6 +267,15 @@ ordinary_readings = [
     psalm: "46",
     second_reading: "Colossenses 1:11-20",
     gospel: "Lucas 23:35-43 ou Lucas 19:29-38"
+  },
+  {
+    date_reference: "christ_the_king",
+    cycle: "C",
+    service_type: "eucharist",
+    first_reading: "Jeremias 23:1-6",
+    psalm: "46",
+    second_reading: "Colossenses 1:11-20",
+    gospel: "Lucas 23:35-43 ou Lucas 19:29-38"
   }
 ]
 
