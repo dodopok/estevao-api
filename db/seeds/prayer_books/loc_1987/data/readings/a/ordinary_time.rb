@@ -304,4 +304,3 @@ additional.each do |r|
 end
 
 Rails.logger.info "\n✅ Próprios 10→29 importados (quando não existentes)"
-
