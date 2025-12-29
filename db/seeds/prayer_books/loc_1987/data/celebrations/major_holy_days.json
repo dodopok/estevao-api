@@ -1,0 +1,258 @@
+[
+  {
+    "name": "Santo Nome de Nosso Senhor Jesus Cristo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 1,
+    "fixed_day": 1,
+    "liturgical_color": "white",
+    "rank": 20
+  },
+  {
+    "name": "Confissão de São Pedro Apóstolo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 1,
+    "fixed_day": 18,
+    "liturgical_color": "white",
+    "rank": 50
+  },
+  {
+    "name": "Conversão de São Paulo Apóstolo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 1,
+    "fixed_day": 25,
+    "liturgical_color": "white",
+    "rank": 50
+  },
+  {
+    "name": "Apresentação de Nosso Senhor Jesus Cristo no Templo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 2,
+    "fixed_day": 2,
+    "liturgical_color": "white",
+    "rank": 20
+  },
+  {
+    "name": "São Matias, Apóstolo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 2,
+    "fixed_day": 24,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "São José",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 3,
+    "fixed_day": 19,
+    "liturgical_color": "white",
+    "rank": 50
+  },
+  {
+    "name": "Anunciação da Bem-Aventurada Virgem Maria",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 3,
+    "fixed_day": 25,
+    "liturgical_color": "white",
+    "rank": 20
+  },
+  {
+    "name": "São Marcos, Evangelista",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 4,
+    "fixed_day": 25,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "São Felipe e São Tiago, Apóstolos",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 5,
+    "fixed_day": 1,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "Visitação da Bem-Aventurada Virgem Maria",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 5,
+    "fixed_day": 31,
+    "liturgical_color": "white",
+    "rank": 20
+  },
+  {
+    "name": "São Barnabé, Apóstolo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 6,
+    "fixed_day": 11,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "Natividade de São João Batista",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 6,
+    "fixed_day": 24,
+    "liturgical_color": "white",
+    "rank": 20
+  },
+  {
+    "name": "São Pedro e São Paulo, Apóstolos",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 6,
+    "fixed_day": 29,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "Santa Maria Madalena",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 7,
+    "fixed_day": 22,
+    "liturgical_color": "white",
+    "rank": 50
+  },
+  {
+    "name": "São Tiago, Apóstolo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 7,
+    "fixed_day": 25,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "Transfiguração de Nosso Senhor Jesus Cristo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 8,
+    "fixed_day": 6,
+    "liturgical_color": "white",
+    "rank": 20
+  },
+  {
+    "name": "Bem-Aventurada Virgem Maria, Mãe de Nosso Senhor Jesus Cristo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 8,
+    "fixed_day": 15,
+    "liturgical_color": "white",
+    "rank": 50
+  },
+  {
+    "name": "São Bartolomeu, Apóstolo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 8,
+    "fixed_day": 24,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "Dia da Pátria",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 9,
+    "fixed_day": 7,
+    "liturgical_color": "white",
+    "rank": 50
+  },
+  {
+    "name": "Dia da Santa Cruz",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 9,
+    "fixed_day": 14,
+    "liturgical_color": "red",
+    "rank": 20
+  },
+  {
+    "name": "São Mateus, Apóstolo e Evangelista",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 9,
+    "fixed_day": 21,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "São Miguel e Todos os Anjos",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 9,
+    "fixed_day": 29,
+    "liturgical_color": "white",
+    "rank": 50
+  },
+  {
+    "name": "São Lucas, Evangelista",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 10,
+    "fixed_day": 18,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "São Tiago de Jerusalém, Irmão de Nosso Senhor Jesus Cristo, Mártir",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 10,
+    "fixed_day": 23,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "São Simão e São Judas, Apóstolos",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 10,
+    "fixed_day": 28,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "Dia Nacional de Ação de Graças",
+    "celebration_type": "major_holy_day",
+    "movable": true,
+    "calculation_rule": "thanksgiving_brazil",
+    "liturgical_color": "white",
+    "rank": 50
+  },
+  {
+    "name": "Santo André, Apóstolo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 11,
+    "fixed_day": 30,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "São Tomé, Apóstolo",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 21,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "Santo Estevão, Diácono e Mártir",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 26,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "São João, Apóstolo e Evangelista",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 27,
+    "liturgical_color": "white",
+    "rank": 50
+  },
+  {
+    "name": "Santos Inocentes",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 28,
+    "liturgical_color": "red",
+    "rank": 50
+  },
+  {
+    "name": "Quarta-feira de Cinzas",
+    "celebration_type": "major_holy_day",
+    "movable": true,
+    "calculation_rule": "ash_wednesday",
+    "liturgical_color": "purple",
+    "rank": 20
+  }
+]

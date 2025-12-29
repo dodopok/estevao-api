@@ -4,6 +4,11 @@ prayer_book_dir = Rails.root.join("db/seeds/prayer_books/loc_1987")
 
 puts "📚 Seeding LOC 1987 data..."
 
+# Load Celebrations
+if File.exist?(prayer_book_dir.join("data/celebrations/seed_celebrations.rb"))
+  load prayer_book_dir.join("data/celebrations/seed_celebrations.rb")
+end
+
 # Load Preferences
 if File.exist?(prayer_book_dir.join("data/preferences.rb"))
   load prayer_book_dir.join("data/preferences.rb")
