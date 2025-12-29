@@ -155,9 +155,11 @@ class DailyOfficeService
                       DailyOffice::Builders::Locb2008Builder
     when "loc_1987"
                       DailyOffice::Builders::Loc1987Builder
+    when "loc_2019_en"
+                      DailyOffice::Builders::Loc2019EnBuilder
     when "loc_2019"
-                      # Future: DailyOffice::Builders::Loc2019Builder
-                      DailyOffice::Builders::BaseBuilder
+                      # Legacy fallback or specific translation
+                      DailyOffice::Builders::Loc2019EnBuilder
     when "loc_2012"
                       # Future: DailyOffice::Builders::Loc2012Builder
                       DailyOffice::Builders::BaseBuilder
