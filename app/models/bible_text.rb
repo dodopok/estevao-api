@@ -14,7 +14,7 @@ class BibleText < ApplicationRecord
 
   # Bible books in order
   BOOKS = {
-    # Old Testament
+    # Old Testament (Portuguese)
     "G\u00EAnesis" => 1, "\u00CAxodo" => 2, "Lev\u00EDtico" => 3, "N\u00FAmeros" => 4, "Deuteron\u00F4mio" => 5,
     "Josu\u00E9" => 6, "Ju\u00EDzes" => 7, "Rute" => 8, "1 Samuel" => 9, "2 Samuel" => 10,
     "1 Reis" => 11, "2 Reis" => 12, "1 Cr\u00F4nicas" => 13, "2 Cr\u00F4nicas" => 14,
@@ -24,18 +24,45 @@ class BibleText < ApplicationRecord
     "Os\u00E9ias" => 28, "Joel" => 29, "Am\u00F3s" => 30, "Obadias" => 31, "Jonas" => 32,
     "Miqu\u00E9ias" => 33, "Naum" => 34, "Habacuque" => 35, "Sofonias" => 36,
     "Ageu" => 37, "Zacarias" => 38, "Malaquias" => 39,
-    # New Testament
+    # New Testament (Portuguese)
     "Mateus" => 40, "Marcos" => 41, "Lucas" => 42, "Jo\u00E3o" => 43,
     "Atos" => 44, "Romanos" => 45, "1 Cor\u00EDntios" => 46, "2 Cor\u00EDntios" => 47,
     "G\u00E1latas" => 48, "Ef\u00E9sios" => 49, "Filipenses" => 50, "Colossenses" => 51,
     "1 Tessalonicenses" => 52, "2 Tessalonicenses" => 53, "1 Tim\u00F3teo" => 54, "2 Tim\u00F3teo" => 55,
     "Tito" => 56, "Filemom" => 57, "Hebreus" => 58, "Tiago" => 59,
     "1 Pedro" => 60, "2 Pedro" => 61, "1 Jo\u00E3o" => 62, "2 Jo\u00E3o" => 63,
-    "3 Jo\u00E3o" => 64, "Judas" => 65, "Apocalipse" => 66
+    "3 Jo\u00E3o" => 64, "Judas" => 65, "Apocalipse" => 66,
+
+    # English book names (additional/alternative names)
+    "Genesis" => 1, "Exodus" => 2, "Leviticus" => 3, "Numbers" => 4, "Deuteronomy" => 5,
+    "Joshua" => 6, "Judges" => 7, "Ruth" => 8,
+    "1 Kings" => 11, "2 Kings" => 12, "1 Chronicles" => 13, "2 Chronicles" => 14,
+    "Ezra" => 15, "Nehemiah" => 16, "Esther" => 17, "Job" => 18, "Psalms" => 19, "Psalm" => 19,
+    "Proverbs" => 20, "Ecclesiastes" => 21, "Song of Solomon" => 22, "Song of Songs" => 22,
+    "Isaiah" => 23, "Jeremiah" => 24, "Lamentations" => 25,
+    "Ezekiel" => 26,
+    "Hosea" => 28, "Amos" => 30, "Obadiah" => 31, "Jonah" => 32,
+    "Micah" => 33,
+    "Nahum" => 34, "Habakkuk" => 35, "Zephaniah" => 36, "Haggai" => 37,
+    "Zechariah" => 38, "Malachi" => 39, "Matthew" => 40, "Mark" => 41, "Luke" => 42,
+    "John" => 43, "Acts" => 44, "Romans" => 45, "1 Corinthians" => 46, "2 Corinthians" => 47,
+    "Galatians" => 48, "Efhesians" => 49, "Philippians" => 50, "Colossians" => 51,
+    "1 Thessalonians" => 52, "2 Thessalonians" => 53, "1 Timothy" => 54, "2 Timothy" => 55,
+    "Titus" => 56, "Philemon" => 57,
+    "Hebrews" => 58, "James" => 59, "1 Peter" => 60,
+    "2 Peter" => 61, "1 John" => 62, "2 John" => 63, "3 John" => 64,
+    "Revelation" => 66
   }.freeze
 
   # Reverse mapping: book_id (1-66) => book name in Portuguese
-  BOOKS_BY_ID = BOOKS.invert.freeze
+  BOOKS_BY_ID = BOOKS.slice(*BOOKS.keys.first(66)).invert.freeze
+
+  # Mapping of all names to canonical (Portuguese) name
+  def self.canonical_book_name(name)
+    id = BOOKS[name] || BOOKS[name.strip]
+    return name unless id
+    BOOKS_BY_ID[id]
+  end
 
   # Available Bible translations with metadata
   TRANSLATIONS = {
@@ -51,7 +78,15 @@ class BibleText < ApplicationRecord
     "ntlh" => { name: "Nova Tradução na Linguagem de Hoje", publisher: "SBB", year: 2000 },
     "nvi" => { name: "Nova Versão Internacional", publisher: "Vida", year: 2011 },
     "nvt" => { name: "Nova Versão Transformadora", publisher: "Mundo Cristão", year: 2016 },
-    "tb" => { name: "Tradução Brasileira", publisher: "SBB", year: 2010 }
+    "tb" => { name: "Tradução Brasileira", publisher: "SBB", year: 2010 },
+
+    # English translations
+    "esv" => { name: "English Standard Version", publisher: "Crossway", year: 2001 },
+    "kjv" => { name: "King James Version", publisher: "Public Domain", year: 1611 },
+    "nasb" => { name: "New American Standard Bible", publisher: "Lockman Foundation", year: 1995 },
+    "niv" => { name: "New International Version", publisher: "Biblica", year: 2011 },
+    "nlt" => { name: "New Living Translation", publisher: "Tyndale House", year: 1996 },
+    "nkjv" => { name: "New King James Version", publisher: "Thomas Nelson", year: 1982 }
   }.freeze
 
   # Find verses for a passage reference like "João 3:16-17" or "Salmos 23"
@@ -120,7 +155,6 @@ class BibleText < ApplicationRecord
     first_match = clean_ref.match(/^(\d*\s*[^\d:.]+)\s+\d/)
     return [] unless first_match
     base_book_name = first_match[1].strip
-    base_book_name = "Salmos" if base_book_name == "Salmo"
 
     # Split by comma or semicolon to get all segments
     segments = clean_ref.split(/[,;]/).map(&:strip)
@@ -137,7 +171,6 @@ class BibleText < ApplicationRecord
         cross_chapter_match = segment.match(/^(\d*\s*[^\d:.]+?)\s*(\d+)[:.](\d+)-(\d+)[:.](\d+)$/)
         if cross_chapter_match
           book_name = cross_chapter_match[1].strip
-          book_name = "Salmos" if book_name == "Salmo"
           start_chapter = cross_chapter_match[2].to_i
           start_verse = cross_chapter_match[3].to_i
           end_chapter = cross_chapter_match[4].to_i
@@ -159,7 +192,6 @@ class BibleText < ApplicationRecord
           next unless match
 
           book_name = match[1].strip
-          book_name = "Salmos" if book_name == "Salmo"
 
           parsed_refs << build_parsed_reference(book_name, match[2].to_i, match[3], match[4])
         end
@@ -219,7 +251,7 @@ class BibleText < ApplicationRecord
     end
 
     result = {
-      book: book_name,
+      book: canonical_book_name(book_name),
       chapter: chapter,
       verse_start: verse_start.to_i == 0 ? nil : verse_start,
       verse_end: verse_end.to_i == 0 ? nil : verse_end

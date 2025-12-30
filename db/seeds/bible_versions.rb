@@ -148,7 +148,80 @@ bible_versions_data = [
   }
 ]
 
-bible_versions_data.each do |version_data|
+# English Bible Versions
+english_bible_versions = [
+  {
+    code: "esv",
+    name: "ESV",
+    full_name: "English Standard Version",
+    language: "en",
+    description: "The ESV is an 'essentially literal' translation that seeks as far as possible to capture the precise wording of the original text.",
+    publisher: "Crossway",
+    year: 2001,
+    is_recommended: true,
+    license: "proprietary"
+  },
+  {
+    code: "niv",
+    name: "NIV",
+    full_name: "New International Version",
+    language: "en",
+    description: "The New International Version is a modern translation that balanced accuracy with readability.",
+    publisher: "Biblica",
+    year: 2011,
+    is_recommended: false,
+    license: "proprietary"
+  },
+  {
+    code: "kjv",
+    name: "KJV",
+    full_name: "King James Version",
+    language: "en",
+    description: "The Authorized King James Version is an English translation of the Christian Bible for the Church of England, begun in 1604 and completed in 1611.",
+    publisher: "Public Domain",
+    year: 1611,
+    is_recommended: false,
+    license: "open"
+  },
+  {
+    code: "nlt",
+    name: "NLT",
+    full_name: "New Living Translation",
+    language: "en",
+    description: "The New Living Translation is a clear and contemporary English translation of the Bible.",
+    publisher: "Tyndale House",
+    year: 1996,
+    is_recommended: false,
+    license: "proprietary"
+  },
+  {
+    code: "nasb",
+    name: "NASB",
+    full_name: "New American Standard Bible",
+    language: "en",
+    description: "The NASB is a highly literal translation from the original languages.",
+    publisher: "Lockman Foundation",
+    year: 1995,
+    is_recommended: false,
+    license: "proprietary"
+  },
+  {
+    code: "nkjv",
+    name: "NKJV",
+    full_name: "New King James Version",
+    language: "en",
+    description: "The NKJV is a modern translation of the Bible that maintains the style of the original King James Version.",
+    publisher: "Thomas Nelson",
+    year: 1982,
+    is_recommended: false,
+    license: "proprietary"
+  }
+]
+
+# Combine all bible versions
+all_bible_versions = bible_versions_data + english_bible_versions
+
+all_bible_versions.each do |version_data|
   version = BibleVersion.find_or_initialize_by(code: version_data[:code])
   version.assign_attributes(version_data)
   version.save!

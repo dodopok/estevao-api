@@ -33,7 +33,41 @@ class User < ApplicationRecord
 
   # Callbacks
   before_save :set_default_preferences, if: :new_record?
+  before_save :sync_bible_version_language, if: :preferences_changed?
   after_update :clear_daily_office_cache, if: :preferences_changed?
+
+  # Syncs Bible version language with Prayer Book language
+  def sync_bible_version_language
+    # Skip if preferences haven't changed
+    return unless preferences_changed?
+
+    old_prefs = preferences_was || {}
+    new_prefs = preferences || {}
+
+    # Only sync if prayer_book_code or bible_version or language changed
+    return unless old_prefs["prayer_book_code"] != new_prefs["prayer_book_code"] ||
+                  old_prefs["language"] != new_prefs["language"] ||
+                  new_prefs["bible_version"].blank?
+
+    prayer_book_code = new_prefs["prayer_book_code"]
+    return if prayer_book_code.blank?
+
+    prayer_book = PrayerBook.find_by_code(prayer_book_code)
+    return unless prayer_book
+
+    current_bible_code = new_prefs["bible_version"]
+    current_bible = BibleVersion.find_by_code(current_bible_code)
+
+    # If Bible language doesn't match Prayer Book language, switch to a recommended version of that language
+    if current_bible.nil? || current_bible.language != prayer_book.language
+      new_bible = BibleVersion.where(language: prayer_book.language, is_active: true)
+                              .order(is_recommended: :desc, name: :asc).first
+      if new_bible
+        self.preferences["bible_version"] = new_bible.code
+        self.preferences["language"] = prayer_book.language # Sync general language too
+      end
+    end
+  end
 
   # Retorna a URL da foto do perfil (prioriza avatar uploaded, depois photo_url do OAuth)
   def profile_photo_url

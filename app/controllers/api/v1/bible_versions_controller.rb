@@ -6,15 +6,18 @@ module Api
       # GET /api/v1/bible_versions
       # Lista todas as versões de Bíblia disponíveis
       def index
-        bible_versions = BibleVersion.active.order(is_recommended: :desc, name: :asc)
+        bible_versions = BibleVersion.active
+        bible_versions = bible_versions.where(language: params[:language]) if params[:language].present?
+        bible_versions = bible_versions.order(is_recommended: :desc, name: :asc)
 
         expires_in 1.hour, public: true
-        if stale?(etag: cache_key(bible_versions))
+        if stale?(etag: cache_key(bible_versions, params[:language]))
           render json: {
             data: bible_versions.map { |bv| serialize_bible_version(bv) },
             metadata: {
               total: bible_versions.count,
-              last_updated: bible_versions.maximum(:updated_at)&.iso8601
+              last_updated: bible_versions.maximum(:updated_at)&.iso8601,
+              language: params[:language]
             }
           }, status: :ok
         end
@@ -38,8 +41,8 @@ module Api
         }
       end
 
-      def cache_key(bible_versions)
-        "bible-versions-v1-#{bible_versions.maximum(:updated_at)&.to_i}"
+      def cache_key(bible_versions, language = nil)
+        "bible-versions-v1-#{language}-#{bible_versions.maximum(:updated_at)&.to_i}"
       end
     end
   end
