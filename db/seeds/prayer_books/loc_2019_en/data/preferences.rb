@@ -35,6 +35,21 @@ preferences_data = [
     position: 2,
     preferences: [
       {
+        key: "morning_opening_sentence",
+        name: "Opening Sentence",
+        description: "Choose the opening sentence (ignored if there is a seasonal one)",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 1,
+        options: [
+          { value: "random", label: "Random", description: "Choose randomly" },
+          { value: "1", label: "Philippians 1:2", description: "Grace to you and peace..." },
+          { value: "2", label: "Psalm 122:1", description: "I was glad when they said..." },
+          { value: "3", label: "Psalm 19:14", description: "Let the words of my mouth..." }
+        ]
+      },
+      {
         key: "morning_confession_type",
         name: "Confession",
         description: "Choose between full exhortation or short invitation",
@@ -98,6 +113,21 @@ preferences_data = [
     position: 3,
     preferences: [
       {
+        key: "midday_reading",
+        name: "Reading Selection",
+        description: "Choose which reading to include",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 1,
+        options: [
+          { value: "random", label: "Random", description: "Choose randomly" },
+          { value: "1", label: "John 12:31-32", description: "Now is the judgment of this world..." },
+          { value: "2", label: "2 Corinthians 5:17-18", description: "If anyone is in Christ..." },
+          { value: "3", label: "Malachi 1:11", description: "From the rising of the sun..." }
+        ]
+      },
+      {
         key: "midday_psalm_selection",
         name: "Psalm Selection",
         description: "Choose which Psalms to include",
@@ -135,6 +165,84 @@ preferences_data = [
         required: true,
         default_value: "1",
         position: 3,
+        options: [
+          { value: "1", label: "2 Corinthians 13:14", description: "The grace of our Lord Jesus Christ..." },
+          { value: "2", label: "Romans 15:13", description: "May the God of hope fill us..." },
+          { value: "3", label: "Ephesians 3:20-21", description: "Glory to God whose power..." }
+        ]
+      }
+    ]
+  },
+  {
+    key: "evening_prayer",
+    name: "Evening Prayer",
+    description: "Configure Evening Prayer as you prefer",
+    icon: "dark_mode",
+    position: 4,
+    preferences: [
+      {
+        key: "evening_opening_sentence",
+        name: "Opening Sentence",
+        description: "Choose the opening sentence (ignored if there is a seasonal one)",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 1,
+        options: [
+          { value: "random", label: "Random", description: "Choose randomly" },
+          { value: "1", label: "John 8:12", description: "I am the light of the world..." },
+          { value: "2", label: "Psalm 26:8", description: "LORD, I have loved the habitation..." },
+          { value: "3", label: "Psalm 141:2", description: "Let my prayer be set forth..." }
+        ]
+      },
+      {
+        key: "evening_confession_type",
+        name: "Confession",
+        description: "Choose between full exhortation or short invitation",
+        pref_type: "select_one",
+        required: true,
+        default_value: "long",
+        position: 1,
+        options: [
+          { value: "long", label: "Full Exhortation", description: "Dearly beloved, the Scriptures teach us..." },
+          { value: "short", label: "Short Invitation", description: "Let us humbly confess our sins..." }
+        ]
+      },
+      {
+        key: "evening_suffrages_type",
+        name: "Suffrages",
+        description: "Choose between Suffrages A or B",
+        pref_type: "select_one",
+        required: true,
+        default_value: "a",
+        position: 2,
+        options: [
+          { value: "a", label: "Suffrages A", description: "O Lord, show your mercy upon us..." },
+          { value: "b", label: "Suffrages B", description: "That this evening may be holy, good, and peaceful..." }
+        ]
+      },
+      {
+        key: "evening_prayer_for_mission",
+        name: "Prayer for Mission",
+        description: "Choose one of the three prayers for mission",
+        pref_type: "select_one",
+        required: true,
+        default_value: "1",
+        position: 3,
+        options: [
+          { value: "1", label: "O God and Father of all...", description: "Option 1" },
+          { value: "2", label: "Keep watch, dear Lord...", description: "Option 2" },
+          { value: "3", label: "O God, you manifest in your servants...", description: "Option 3" }
+        ]
+      },
+      {
+        key: "evening_concluding_sentence",
+        name: "Concluding Sentence",
+        description: "Choose the concluding sentence",
+        pref_type: "select_one",
+        required: true,
+        default_value: "1",
+        position: 4,
         options: [
           { value: "1", label: "2 Corinthians 13:14", description: "The grace of our Lord Jesus Christ..." },
           { value: "2", label: "Romans 15:13", description: "May the God of hope fill us..." },

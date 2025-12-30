@@ -29,8 +29,8 @@ module DailyOffice
           Loc2019En::Morning.new(date: date, office_type: office_type, preferences: preferences)
         when :midday
           Loc2019En::Midday.new(date: date, office_type: office_type, preferences: preferences)
-        # when :evening
-        #   Loc2019En::Evening.new(date: date, office_type: office_type, preferences: preferences)
+        when :evening
+          Loc2019En::Evening.new(date: date, office_type: office_type, preferences: preferences)
         else
           # Fallback to base builder for unimplemented offices
           BaseBuilder.new(date: date, office_type: office_type, preferences: preferences)

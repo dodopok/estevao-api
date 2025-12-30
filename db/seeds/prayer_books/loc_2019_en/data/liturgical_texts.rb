@@ -17,6 +17,7 @@ Rails.logger.info "Creating granular liturgical texts for LOC 2019 English..."
 # Load specific office texts
 load Rails.root.join('db/seeds/prayer_books/loc_2019_en/data/morning_prayer_texts.rb')
 load Rails.root.join('db/seeds/prayer_books/loc_2019_en/data/midday_prayer_texts.rb')
+load Rails.root.join('db/seeds/prayer_books/loc_2019_en/data/evening_prayer_texts.rb')
 
 # Shared/Common texts
 create_text('gloria_patri', 'prayer', "Glory be to the Father, and to the Son, and to the Holy Spirit; as it was in the beginning, is now, and ever shall be, world without end. Amen.")
