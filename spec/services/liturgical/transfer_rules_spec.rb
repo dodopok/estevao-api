@@ -8,8 +8,8 @@ RSpec.describe Liturgical::TransferRules do
   let(:transfer_rules) { described_class.new(year, easter_calc: easter_calc) }
 
   # Create a mock celebration for testing
-  def mock_celebration(name:, festival: false)
-    double("Celebration", name: name, festival?: festival)
+  def mock_celebration(name:, festival: false, major_holy_day: false)
+    double("Celebration", name: name, festival?: festival, major_holy_day?: major_holy_day)
   end
 
   describe "#transfer_if_needed" do
@@ -62,11 +62,14 @@ RSpec.describe Liturgical::TransferRules do
       end
 
       context "when November 1 is not a Sunday" do
-        let(:original_date) { Date.new(2025, 11, 1) } # Saturday in 2025
+        let(:year) { 2025 } # Saturday in 2025
+        let(:easter_calc) { Liturgical::EasterCalculator.new(year) }
+        let(:transfer_rules) { described_class.new(year, easter_calc: easter_calc) }
+        let(:original_date) { Date.new(2025, 11, 1) }
 
         it "transfers to nearest Sunday in range Oct 30 - Nov 5" do
           result = transfer_rules.transfer_if_needed(celebration, original_date)
-          expect(result).to be_sunday
+          expect(result.wday).to eq(0) # Sunday
           expect(result).to be >= Date.new(2025, 10, 30)
           expect(result).to be <= Date.new(2025, 11, 5)
         end

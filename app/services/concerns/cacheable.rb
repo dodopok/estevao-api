@@ -18,7 +18,7 @@
 module Cacheable
   extend ActiveSupport::Concern
 
-  CACHE_VERSION = "v4"
+  CACHE_VERSION = "v5"
 
   # Cache TTL constants
   module TTL
