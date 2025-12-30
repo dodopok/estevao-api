@@ -177,14 +177,17 @@ module DailyOffice
 
             c_slug = (is_lent? || is_advent?) ? "benedictus_es_domine" : "te_deum_part_1"
             cant = fetch_liturgical_text(c_slug)
-            c_lines = [ line_item(cant.content, slug: cant.slug) ]
+            
+            if cant
+              c_lines = [ line_item(cant.content, slug: cant.slug) ]
 
-            if c_slug == "te_deum_part_1"
-              opt = fetch_liturgical_text("te_deum_part_2_optional")
-              c_lines << line_item(opt.content, slug: opt.slug) if opt
+              if c_slug == "te_deum_part_1"
+                opt = fetch_liturgical_text("te_deum_part_2_optional")
+                c_lines << line_item(opt.content, slug: opt.slug) if opt
+              end
+
+              modules << { name: cant.title || "Canticle", slug: c_slug, lines: c_lines }
             end
-
-            modules << { name: cant.title || "Canticle", slug: c_slug, lines: c_lines }
           end
 
           # Second Lesson
@@ -202,7 +205,9 @@ module DailyOffice
             modules << { name: "Second Lesson", slug: "second_lesson", lines: lines, reference: reading[:reference] }
 
             cant = fetch_liturgical_text("benedictus")
-            modules << { name: cant.title, slug: "benedictus", lines: [ line_item(cant.content, slug: cant.slug) ] }
+            if cant
+              modules << { name: cant.title, slug: "benedictus", lines: [ line_item(cant.content, slug: cant.slug) ] }
+            end
           end
 
           modules

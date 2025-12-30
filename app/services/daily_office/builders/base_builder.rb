@@ -25,6 +25,7 @@ module DailyOffice
         @readings = ReadingService.for(
           @date,
           prayer_book_code: @preferences[:prayer_book_code],
+          calendar: liturgical_calendar,
           translation: @preferences[:bible_version] || "nvi"
         ).find_readings || {}
         @collects = CollectService.new(
