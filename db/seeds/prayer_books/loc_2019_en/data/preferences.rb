@@ -250,6 +250,62 @@ preferences_data = [
         ]
       }
     ]
+  },
+  {
+    key: "compline",
+    name: "Compline",
+    description: "Configure Compline as you prefer",
+    icon: "bedtime",
+    position: 5,
+    preferences: [
+      {
+        key: "compline_psalm_selection",
+        name: "Psalm Selection",
+        description: "Choose which Psalms to include",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 1,
+        options: [
+          { value: "random", label: "Random", description: "Choose one Psalm randomly" },
+          { value: "all", label: "All", description: "Include all four Psalms" },
+          { value: "compline_psalm_4", label: "Psalm 4", description: "Cum invocarem" },
+          { value: "compline_psalm_31", label: "Psalm 31:1-6", description: "In te, Domine, speravi" },
+          { value: "compline_psalm_91", label: "Psalm 91", description: "Qui habitat" },
+          { value: "compline_psalm_134", label: "Psalm 134", description: "Ecce nunc" }
+        ]
+      },
+      {
+        key: "compline_reading_selection",
+        name: "Reading Selection",
+        description: "Choose which reading to include",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 2,
+        options: [
+          { value: "random", label: "Random", description: "Choose randomly" },
+          { value: "1", label: "Jeremiah 14:9", description: "You, O LORD, are in the midst..." },
+          { value: "2", label: "Matthew 11:28-30", description: "Come to me, all who labor..." },
+          { value: "3", label: "Hebrews 13:20-21", description: "Now may the God of peace..." },
+          { value: "4", label: "1 Peter 5:8-9", description: "Be sober-minded; be watchful..." }
+        ]
+      },
+      {
+        key: "compline_mission_selection",
+        name: "Mission Prayer",
+        description: "Choose which mission prayer to include",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 3,
+        options: [
+          { value: "random", label: "Random", description: "Choose randomly" },
+          { value: "1", label: "Option 1", description: "Keep watch, dear Lord..." },
+          { value: "2", label: "Option 2", description: "O God, your unfailing providence..." }
+        ]
+      }
+    ]
   }
 ]
 

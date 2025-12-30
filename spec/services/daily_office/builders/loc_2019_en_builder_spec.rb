@@ -57,4 +57,25 @@ RSpec.describe DailyOffice::Builders::Loc2019EnBuilder, type: :service do
       expect(result[:modules].map { |m| m[:slug] }).to include('opening_sentence', 'psalms', 'magnificat', 'nunc_dimittis', 'prayers', 'collects')
     end
   end
+
+  context 'when office_type is :compline' do
+    let(:office_type) { :compline }
+
+    it 'returns a hash with compline office content' do
+      pb = PrayerBook.find_or_create_by!(code: 'loc_2019_en') do |p|
+        p.name = 'ACNA 2019'
+      end
+
+      allow(LiturgicalText).to receive(:texts_cache_for).and_return(
+        Hash.new do |hash, key|
+          LiturgicalText.new(content: "Content for #{key}", slug: key, title: "Title for #{key}", reference: "Ref for #{key}")
+        end
+      )
+
+      result = builder.call
+      
+      expect(result[:office_type]).to eq('compline')
+      expect(result[:modules].map { |m| m[:slug] }).to include('opening', 'confession', 'invitatory', 'psalms', 'reading', 'responsory', 'prayers', 'nunc_dimittis')
+    end
+  end
 end
