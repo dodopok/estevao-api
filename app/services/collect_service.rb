@@ -63,37 +63,27 @@ class CollectService
   # Find collects without cache (internal use)
   def find_collects_uncached
     all_collects = []
-
-    # 1. Coletas de todas as celebrações do dia
     celebrations = calendar.celebrations_for_date(date)
-    celebrations.each do |cel_info|
-      collects = collects_for_celebration_id(cel_info[:id])
-      if collects.any?
-        all_collects.concat(format_collect_records(collects, title: cel_info[:name]))
-      else
-        # Se não tem coleta específica, tenta uma comum baseada no tipo/descrição
-        common = find_common_collect_for(cel_info)
-        all_collects.concat(common) if common.any?
-      end
-    end
 
-    # 2. Coleta do domingo (se for domingo)
+    # 1. Coletas de celebrações de alta prioridade (Principais, Dias Santos, Festivais)
+    high_priority = celebrations.select { |c| %w[principal_feast major_holy_day festival].include?(c[:type].to_s) }
+    high_priority.each { |c| all_collects.concat(collects_for_celebration_info(c)) }
+
+    # 2. Coleta do domingo ou sazonal da semana
     if date.sunday?
-      sunday_ref = SundayReferenceMapper.map(date, calendar)
-      collects = collects_for_sunday(sunday_ref)
-      all_collects.concat(format_collect_records(collects, title: calendar.sunday_name(date)))
+      all_collects.concat(collects_for_sunday_with_proper(date, calendar, title: calendar.sunday_name(date)))
+    else
+      all_collects.concat(find_by_season)
     end
 
-    # 3. Coleta sazonal (baseada no último domingo) se não for domingo
-    unless date.sunday?
-      seasonal = find_by_season
-      all_collects.concat(seasonal) if seasonal.any?
-    end
+    # 3. Coletas de celebrações de baixa prioridade (Santos, Comemorações)
+    low_priority = celebrations.select { |c| %w[lesser_feast commemoration].include?(c[:type].to_s) }
+    low_priority.each { |c| all_collects.concat(collects_for_celebration_info(c)) }
 
     # 4. Coleta fixa do ofício (ex: Renewal of Life)
-    fixed = find_fixed_office_collect
-    all_collects.concat(fixed) if fixed.any?
+    all_collects.concat(find_fixed_office_collect)
 
+    # Remover duplicatas mantendo a primeira ocorrência (pela ordem de prioridade acima)
     all_collects.uniq { |c| c[:text] }
   end
 
@@ -116,6 +106,37 @@ class CollectService
   def resolver_for_year(year)
     @resolvers ||= {}
     @resolvers[year] ||= Liturgical::CelebrationResolver.new(year, prayer_book_code: prayer_book_code)
+  end
+
+  # Helper para buscar e formatar coletas de uma celebração
+  def collects_for_celebration_info(cel_info)
+    collects = collects_for_celebration_id(cel_info[:id])
+    if collects.any?
+      format_collect_records(collects, title: cel_info[:name])
+    else
+      find_common_collect_for(cel_info)
+    end
+  end
+
+  # Helper para buscar coleta de domingo (por nome, proper ou celebração)
+  def collects_for_sunday_with_proper(target_date, target_calendar, title: nil)
+    # 1. Tentar pelo nome do domingo (referência principal da quadra)
+    sunday_ref = SundayReferenceMapper.map(target_date, target_calendar)
+    if sunday_ref
+      records = collects_for_sunday(sunday_ref)
+      return format_collect_records(records, title: title) if records.any?
+    end
+
+    # 2. Tentar por Proper
+    proper_num = target_calendar.proper_number(target_date)
+    if proper_num
+      records = collects_for_sunday("proper_#{proper_num}")
+      return format_collect_records(records, title: title) if records.any?
+    end
+
+    # 3. Ver se o domingo tinha uma celebração especial (Páscoa, etc)
+    records = find_collect_records_for_sunday_celebration(target_date)
+    format_collect_records(records, title: title)
   end
 
   # Common query for collects by celebration id
@@ -188,31 +209,7 @@ class CollectService
               "#{Liturgical::Translator.day_name_pt(date)} após #{sunday_name}"
             end
 
-    seasonal_collects = []
-
-    # 1. Tentar pelo nome do domingo (referência principal da quadra)
-    sunday_ref = SundayReferenceMapper.map(last_sunday, sunday_calendar)
-    if sunday_ref
-      records = collects_for_sunday(sunday_ref)
-      seasonal_collects.concat(format_collect_records(records, title: title))
-    end
-
-    # 2. Se não encontrou, tentar por Proper
-    if seasonal_collects.empty?
-      proper_num = sunday_calendar.proper_number(last_sunday)
-      if proper_num
-        records = collects_for_sunday("proper_#{proper_num}")
-        seasonal_collects.concat(format_collect_records(records, title: title))
-      end
-    end
-
-    # 3. Se ainda não encontrou, ver se o domingo tinha uma celebração especial (Páscoa, etc)
-    if seasonal_collects.empty?
-      records = find_collect_records_for_sunday_celebration(last_sunday)
-      seasonal_collects.concat(format_collect_records(records, title: title))
-    end
-
-    seasonal_collects
+    collects_for_sunday_with_proper(last_sunday, sunday_calendar, title: title)
   end
 
   # Encontra a coleta fixa do ofício
