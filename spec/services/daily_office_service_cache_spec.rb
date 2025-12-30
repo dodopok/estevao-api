@@ -12,12 +12,12 @@ RSpec.describe DailyOfficeService, "caching" do
     original_cache = Rails.cache
     memory_store = ActiveSupport::Cache::MemoryStore.new
     Rails.cache = memory_store
-    
+
     # Pre-populate the prayer book in the fresh memory cache
     PrayerBook.all.each do |pb|
       Rails.cache.write("v5/prayer_book/#{pb.code}", pb)
     end
-    
+
     example.run
     Rails.cache = original_cache
   end
