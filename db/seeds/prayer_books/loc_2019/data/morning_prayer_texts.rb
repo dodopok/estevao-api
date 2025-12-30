@@ -29,7 +29,7 @@ create_text('morning_confession_body', 'confession',
     Ofendemos as tuas santas leis.
     Deixamos de fazer as coisas que deveríamos ter feito,
       e fizemos as coisas que não deveríamos
-      ter feito; 
+      ter feito;#{' '}
       e fora da tua graça, não há saúde em nós.
     Mas tu, ó Senhor, tem piedade de nós.
     Poupa todos aqueles que confessam suas faltas.

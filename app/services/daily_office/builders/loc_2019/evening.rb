@@ -92,7 +92,7 @@ module DailyOffice
           lines << line_item("", type: "spacer")
           ph_rubric = fetch_liturgical_text("evening_phos_hilaron_rubric")
           lines << line_item(ph_rubric.content, type: "rubric", slug: ph_rubric.slug) if ph_rubric
-          
+
           ph = fetch_liturgical_text("phos_hilaron")
           if ph
             lines << line_item(ph.title, type: "heading")
@@ -133,7 +133,7 @@ module DailyOffice
 
         def build_lessons_and_canticles
           modules = []
-          
+
           first_rubric = fetch_liturgical_text("evening_reading_first_rubric")
           citation_rubric = fetch_liturgical_text("evening_reading_citation_rubric")
           after_rubric = fetch_liturgical_text("evening_reading_after_rubric")
@@ -251,7 +251,7 @@ module DailyOffice
           rubric = fetch_liturgical_text("evening_collects_rubric")
           lines = []
           lines << line_item(rubric.content, type: "rubric", slug: rubric.slug) if rubric
-          
+
           lines.concat(build_collect_lines(@collects))
 
           {
@@ -265,11 +265,11 @@ module DailyOffice
           num = preferences[:evening_prayer_for_mission] || "1"
           miss = fetch_liturgical_text("evening_prayer_for_mission_#{num}")
           rubric = fetch_liturgical_text("evening_mission_rubric")
-          
+
           lines = []
           lines << line_item(rubric.content, type: "rubric", slug: rubric.slug) if rubric
           lines << line_item(miss.content, slug: miss.slug) if miss
-          
+
           {
             name: "Oração pela Missão",
             slug: "mission_prayer",
@@ -307,7 +307,7 @@ module DailyOffice
 
           num = preferences[:evening_concluding_sentence] || "1"
           sent = fetch_liturgical_text("concluding_sentence_#{num}")
-          
+
           rubric = fetch_liturgical_text("evening_conclusion_rubric")
 
           lines = []
@@ -316,7 +316,7 @@ module DailyOffice
           if is_easter_to_pentecost?
             lines << line_item("Aleluia, aleluia.", type: "congregation")
           end
-          
+
           lines << line_item("", type: "spacer")
           lines << line_item(rubric.content, type: "rubric", slug: rubric.slug) if rubric
           if sent

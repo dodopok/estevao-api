@@ -27,7 +27,7 @@ module DailyOffice
           v2 = fetch_liturgical_text("midday_inv_v2")
           r2 = fetch_liturgical_text("midday_inv_r2")
           lines << line_item(v2.content, type: "leader", slug: v2.slug) if v2
-          
+
           r2_text = r2&.content
           r2_text += " Alleluia." if r2_text && !is_lent?
           lines << line_item(r2_text, type: "congregation", slug: r2&.slug) if r2
@@ -114,7 +114,7 @@ module DailyOffice
           lines << line_item("", type: "spacer")
 
           version = preferences[:midday_kyrie_version] == "short" ? "short_" : ""
-          
+
           if version == "short_"
             v1 = fetch_liturgical_text("midday_kyrie_short_v1")
             r1 = fetch_liturgical_text("midday_kyrie_short_r1")

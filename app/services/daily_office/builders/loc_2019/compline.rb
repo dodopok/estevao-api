@@ -27,7 +27,7 @@ module DailyOffice
           lines = []
           rubric = fetch_liturgical_text("compline_opening_rubric")
           lines << line_item(rubric.content, type: "rubric", slug: rubric.slug) if rubric
-          
+
           text = fetch_liturgical_text("compline_opening_sentence")
           lines << line_item(text.content, slug: text.slug) if text
 
@@ -59,7 +59,7 @@ module DailyOffice
 
           abs_rubric = fetch_liturgical_text("compline_absolution_rubric")
           lines << line_item(abs_rubric.content, type: "rubric", slug: abs_rubric.slug) if abs_rubric
-          
+
           abs = fetch_liturgical_text("compline_absolution")
           lines << line_item(abs.content, slug: abs.slug) if abs
 
@@ -80,7 +80,7 @@ module DailyOffice
           v3 = fetch_liturgical_text("compline_inv_v3")
           r3 = fetch_liturgical_text("compline_inv_r3")
           lines << line_item(v3.content, type: "leader", slug: v3.slug) if v3
-          
+
           r3_text = r3&.content
           r3_text += " Aleluia." if r3_text && !is_lent?
           lines << line_item(r3_text, type: "congregation", slug: r3&.slug) if r3
@@ -142,7 +142,7 @@ module DailyOffice
           lines << line_item("Ao final da leitura diz-se", type: "rubric")
           lines << line_item("Palavra do Senhor.", type: "leader")
           lines << line_item("Graças a Deus.", type: "congregation")
-          
+
           lines << line_item("", type: "spacer")
           med_rubric = fetch_liturgical_text("compline_meditation_rubric")
           lines << line_item(med_rubric.content, type: "rubric", slug: med_rubric.slug) if med_rubric
@@ -173,7 +173,7 @@ module DailyOffice
         def build_prayers
           lines = []
           version = preferences[:midday_kyrie_version] == "short" ? "short_" : ""
-          
+
           if version == "short_"
             v1 = fetch_liturgical_text("midday_kyrie_short_v1")
             r1 = fetch_liturgical_text("midday_kyrie_short_r1")
@@ -243,11 +243,11 @@ module DailyOffice
           num = resolve_preference(:compline_mission_selection, 1..2) || 1
           miss = fetch_liturgical_text("compline_mission_#{num}")
           rubric = fetch_liturgical_text("compline_mission_rubric")
-          
+
           lines = []
           lines << line_item(rubric.content, type: "rubric", slug: rubric.slug) if rubric
           lines << line_item(miss.content, slug: miss.slug) if miss
-          
+
           lines << line_item("", type: "spacer")
           inter_rubric = fetch_liturgical_text("compline_intercessions_rubric")
           lines << line_item(inter_rubric.content, type: "rubric", slug: inter_rubric.slug) if inter_rubric
@@ -312,7 +312,7 @@ module DailyOffice
           lines << line_item("", type: "spacer")
           rubric = fetch_liturgical_text("compline_conclusion_rubric")
           lines << line_item(rubric.content, type: "rubric", slug: rubric.slug) if rubric
-          
+
           text = fetch_liturgical_text("compline_conclusion")
           lines << line_item(text.content, slug: text.slug) if text
 
