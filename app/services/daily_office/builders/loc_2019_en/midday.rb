@@ -7,7 +7,6 @@ module DailyOffice
         def assemble_office
           [
             build_opening,
-            build_hymn_rubric,
             build_psalms,
             build_reading,
             build_prayers,
@@ -36,19 +35,13 @@ module DailyOffice
           rubric = fetch_liturgical_text("midday_opening_lent_rubric")
           lines << line_item(rubric.content, type: "rubric", slug: rubric.slug) if rubric
 
+          rubric = fetch_liturgical_text("midday_hymn_rubric")
+          lines << line_item(rubric.content, type: "rubric", slug: rubric.slug) if rubric
+
           {
             name: "Opening",
             slug: "opening",
             lines: lines
-          }
-        end
-
-        def build_hymn_rubric
-          rubric = fetch_liturgical_text("midday_hymn_rubric")
-          {
-            name: "Hymn",
-            slug: "hymn",
-            lines: [line_item(rubric.content, type: "rubric", slug: rubric.slug)]
           }
         end
 
@@ -78,7 +71,7 @@ module DailyOffice
           lines << line_item(gloria.content, slug: gloria.slug) if gloria
 
           {
-            name: "Psalms Appointed",
+            name: "",
             slug: "psalms",
             lines: lines
           }
@@ -104,7 +97,7 @@ module DailyOffice
           lines << line_item(meditation_rubric.content, type: "rubric", slug: meditation_rubric.slug) if meditation_rubric
 
           {
-            name: "Reading",
+            name: "",
             slug: "reading",
             lines: lines
           }
@@ -153,7 +146,7 @@ module DailyOffice
           lines << line_item("Let us pray.", type: "leader")
 
           {
-            name: "Prayers",
+            name: "",
             slug: "prayers",
             lines: lines
           }
@@ -179,7 +172,7 @@ module DailyOffice
           lines << line_item(inter_rubric.content, type: "rubric", slug: inter_rubric.slug) if inter_rubric
 
           {
-            name: "The Collects",
+            name: "",
             slug: "collects",
             lines: lines
           }
@@ -209,7 +202,7 @@ module DailyOffice
           end
 
           {
-            name: "The Conclusion",
+            name: "",
             slug: "dismissal",
             lines: lines
           }
