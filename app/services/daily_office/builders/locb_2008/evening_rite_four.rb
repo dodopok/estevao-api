@@ -601,10 +601,7 @@ module DailyOffice
           end
 
           # Collect of the Day (from CollectService)
-          if @collects
-            lines << line_item(@collects)
-            lines << line_item("", type: "spacer")
-          end
+          lines.concat(build_collect_lines(@collects))
 
           # Collect for Peace
           collect_peace = fetch_liturgical_text("evening_4_collect_peace")

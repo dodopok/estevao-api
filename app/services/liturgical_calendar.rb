@@ -79,6 +79,17 @@ class LiturgicalCalendar
     end
   end
 
+  # Retorna todas as celebrações do dia
+  # CACHED: Uses v4 cache with prayer_book.updated_at versioning
+  def celebrations_for_date(date)
+    cache_key = build_celebrations_cache_key(date)
+
+    Rails.cache.fetch(cache_key, expires_in: 1.year) do
+      record_cache_miss(:celebrations, date)
+      build_celebrations_for_date(date)
+    end
+  end
+
   # Determina se o dia é um dia santo
   def holy_day?(date)
     celebration = celebration_for_date(date)
@@ -418,6 +429,12 @@ class LiturgicalCalendar
     "v4/calendar/celebration/#{prayer_book_code}/#{date.strftime('%Y-%m-%d')}/pb_#{pb_version}"
   end
 
+  # Build cache key for multiple celebrations
+  def build_celebrations_cache_key(date)
+    pb_version = prayer_book_updated_at
+    "v4/calendar/celebrations/#{prayer_book_code}/#{date.strftime('%Y-%m-%d')}/pb_#{pb_version}"
+  end
+
   # Memoized prayer_book.updated_at for cache versioning
   def prayer_book_updated_at
     @prayer_book_updated_at ||= begin
@@ -461,6 +478,23 @@ class LiturgicalCalendar
       description: celebration.description,
       transferred: transferred?(celebration, date)
     }
+  end
+
+  # Build multiple celebrations without cache (internal use)
+  def build_celebrations_for_date(date)
+    celebrations = celebration_resolver.resolve_all_for_date(date)
+
+    celebrations.map do |celebration|
+      {
+        id: celebration.id,
+        name: celebration.name,
+        type: celebration.celebration_type,
+        rank: celebration.rank,
+        color: celebration.liturgical_color,
+        description: celebration.description,
+        transferred: transferred?(celebration, date)
+      }
+    end
   end
 
   # Color determination without cache (internal use)

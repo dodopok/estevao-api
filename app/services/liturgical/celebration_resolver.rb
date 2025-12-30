@@ -71,6 +71,13 @@ module Liturgical
       resolve_by_hierarchy(candidates, date)
     end
 
+    # Retorna todas as celebrações candidatos para uma data,
+    # ordenadas por rank (menor rank = maior precedência)
+    def resolve_all_for_date(date)
+      candidates = collect_candidates(date)
+      candidates.sort_by(&:rank)
+    end
+
     # Retorna a data onde uma celebração deve ser observada,
     # considerando possíveis transferências
     def actual_date_for_celebration(celebration)

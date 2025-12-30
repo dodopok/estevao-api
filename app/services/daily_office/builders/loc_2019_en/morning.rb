@@ -243,23 +243,10 @@ module DailyOffice
         end
 
         def build_collects
-          lines = []
-          if @collects
-            lines << line_item(@collects)
-            lines << line_item("", type: "spacer")
-          end
-
-          weekday_name = date.strftime("%A").downcase
-          collect = fetch_liturgical_text("morning_collect_#{weekday_name}")
-          if collect
-            lines << line_item(collect.title, type: "heading") if collect.title
-            lines << line_item(collect.content, slug: collect.slug)
-          end
-
           {
             name: "The Collects",
             slug: "collects",
-            lines: lines
+            lines: build_collect_lines(@collects)
           }
         end
 

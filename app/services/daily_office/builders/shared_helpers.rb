@@ -36,6 +36,23 @@ module DailyOffice
         item
       end
 
+      def build_collect_lines(collects)
+        lines = []
+        if collects.is_a?(Array)
+          collects.each do |collect|
+            lines << line_item(collect[:title], type: "heading") if collect[:title]
+            lines << line_item(collect[:text], slug: collect[:slug])
+            lines << line_item(collect[:preface], type: "citation") if collect[:preface]
+            lines << line_item("", type: "spacer")
+          end
+        elsif collects.present?
+          text = collects.is_a?(Hash) ? collects[:text] : collects
+          lines << line_item(text)
+          lines << line_item("", type: "spacer")
+        end
+        lines
+      end
+
       def is_lent?
         lent_season?(day_info[:liturgical_season])
       end

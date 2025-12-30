@@ -428,10 +428,7 @@ module DailyOffice
           rubric_coll = fetch_liturgical_text("rubric_collects_intro")
           lines << line_item(rubric_coll.content, type: "rubric", slug: rubric_coll.slug) if rubric_coll
 
-          if @collects
-            lines << line_item(@collects)
-            lines << line_item("", type: "spacer")
-          end
+          lines.concat(build_collect_lines(@collects))
 
           # Fixed Collects for Morning
           rubric_gen = fetch_liturgical_text("rubric_prayers_general")

@@ -336,6 +336,7 @@ RSpec.describe CollectService do
         resolver_mock = instance_double(Liturgical::CelebrationResolver)
         allow(Liturgical::CelebrationResolver).to receive(:new).and_return(resolver_mock)
         allow(resolver_mock).to receive(:resolve_for_date).and_return(easter_celebration)
+        allow(resolver_mock).to receive(:resolve_all_for_date).and_return([easter_celebration])
 
         last_sunday = Date.new(2025, 4, 20)
 
@@ -354,6 +355,7 @@ RSpec.describe CollectService do
         resolver_mock = instance_double(Liturgical::CelebrationResolver)
         allow(Liturgical::CelebrationResolver).to receive(:new).and_return(resolver_mock)
         allow(resolver_mock).to receive(:resolve_for_date).and_return(easter_celebration)
+        allow(resolver_mock).to receive(:resolve_all_for_date).and_return([easter_celebration])
 
         collects = service.find_collects
 

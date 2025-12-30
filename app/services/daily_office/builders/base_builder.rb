@@ -27,7 +27,11 @@ module DailyOffice
           prayer_book_code: @preferences[:prayer_book_code],
           translation: @preferences[:bible_version] || "nvi"
         ).find_readings || {}
-        @collects = CollectService.new(@date, prayer_book_code: @preferences[:prayer_book_code]).find_collects || {}
+        @collects = CollectService.new(
+          @date,
+          prayer_book_code: @preferences[:prayer_book_code],
+          office_type: @office_type
+        ).find_collects || []
 
         # Initialize component builders
         initialize_builders

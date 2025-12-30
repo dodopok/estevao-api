@@ -550,10 +550,7 @@ module DailyOffice
           end
 
           # Collect of the Day (from CollectService)
-          if @collects
-            lines << line_item(@collects)
-            lines << line_item("", type: "spacer")
-          end
+          lines.concat(build_collect_lines(@collects))
 
           # Resolve which final prayer to use from preferences
           option = resolve_conclusion_prayer
