@@ -94,25 +94,28 @@ RSpec.describe CollectService do
       
       expect(collects).to be_an(Array)
       
+      module_titles = collects.map { |c| c[:module_title] }
       titles = collects.map { |c| c[:title] }
       texts = collects.map { |c| c[:text] }
       
       # 1. Holy Innocents (transferred)
+      expect(module_titles).to include('Collect of the Day')
       expect(titles).to include('The Holy Innocents')
       expect(texts).to include('Almighty God, out of the mouths of children...')
       
       # 2. Thomas Becket (Saint of the day - uses Common of Martyrs with substitution)
-      expect(titles).to include('Thomas Becket')
+      expect(module_titles).to include('Collect of the Day')
+      expect(titles.any? { |t| t.include?('Thomas Becket') && t.include?('Archbishop of Canterbury') }).to be true
       expect(texts).to include('Almighty God, you gave your servant Thomas Becket boldness...')
       
       # 3. Monday after 1st Sunday after Christmas (Seasonal)
-      # In my implementation it should be "Monday after 1º Domingo após Natal" (mixed lang due to calendar)
-      # or just match the logic
-      expect(titles.any? { |t| t.include?('Monday') && t.include?('after') }).to be true
+      expect(module_titles).to include('Collect of the Day')
+      expect(titles).to include('Monday after the First Sunday of Christmas')
       expect(texts).to include('Almighty God, you have poured upon us the new light...')
       
       # 4. Fixed Office Collect
-      expect(titles).to include('A COLLECT FOR THE RENEWAL OF LIFE')
+      expect(module_titles).to include('A COLLECT FOR THE RENEWAL OF LIFE')
+      expect(titles).to include('Monday')
       expect(texts).to include('O God, the King eternal, whose light divides...')
     end
   end

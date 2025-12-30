@@ -38,47 +38,35 @@ class CollectService
     pb = PrayerBook.find_by_code(prayer_book_code)
     pb_version = pb&.updated_at&.to_i || 0
 
-    "v7/collects/#{date}/#{prayer_book_code}/#{office_type}/pb_#{pb_version}"
-  end
-
-  # For test compatibility
-  def find_by_celebration
-    celebration = calendar.celebration_for_date(date)
-    return [] unless celebration
-    collects_for_celebration_id(celebration[:id])
-  end
-
-  # For test compatibility
-  def find_by_sunday
-    return [] unless date.sunday?
-    sunday_ref = SundayReferenceMapper.map(date, calendar)
-    collects_for_sunday(sunday_ref)
-  end
-
-  # For test compatibility
-  def find_collect_for_sunday_celebration(sunday_date)
-    find_collect_records_for_sunday_celebration(sunday_date)
+    "v8/collects/#{date}/#{prayer_book_code}/#{office_type}/pb_#{pb_version}"
   end
 
   # Find collects without cache (internal use)
   def find_collects_uncached
     all_collects = []
     celebrations = calendar.celebrations_for_date(date)
+    language = prayer_book&.language || "pt-BR"
+    
+    collect_of_the_day_label = (language == "en" ? "Collect of the Day" : "Coleta do Dia")
 
     # 1. Coletas de celebrações de alta prioridade (Principais, Dias Santos, Festivais)
     high_priority = celebrations.select { |c| %w[principal_feast major_holy_day festival].include?(c[:type].to_s) }
-    high_priority.each { |c| all_collects.concat(collects_for_celebration_info(c)) }
+    high_priority.each do |c|
+      all_collects.concat(collects_for_celebration_info(c, module_title: collect_of_the_day_label))
+    end
 
     # 2. Coleta do domingo ou sazonal da semana
     if date.sunday?
-      all_collects.concat(collects_for_sunday_with_proper(date, calendar, title: calendar.sunday_name(date)))
+      all_collects.concat(collects_for_sunday_with_proper(date, calendar, module_title: collect_of_the_day_label, title: calendar.sunday_name(date)))
     else
-      all_collects.concat(find_by_season)
+      all_collects.concat(find_by_season(module_title: collect_of_the_day_label))
     end
 
     # 3. Coletas de celebrações de baixa prioridade (Santos, Comemorações)
     low_priority = celebrations.select { |c| %w[lesser_feast commemoration].include?(c[:type].to_s) }
-    low_priority.each { |c| all_collects.concat(collects_for_celebration_info(c)) }
+    low_priority.each do |c|
+      all_collects.concat(collects_for_celebration_info(c, module_title: collect_of_the_day_label, join_subtitle: true))
+    end
 
     # 4. Coleta fixa do ofício (ex: Renewal of Life)
     all_collects.concat(find_fixed_office_collect)
@@ -109,34 +97,51 @@ class CollectService
   end
 
   # Helper para buscar e formatar coletas de uma celebração
-  def collects_for_celebration_info(cel_info)
+  def collects_for_celebration_info(cel_info, module_title: nil, join_subtitle: false)
+    name = cel_info[:name]
+    desc = [cel_info[:description], cel_info[:description_year]].compact_blank.join(", ")
+    
+    title = name
+    subtitle = desc
+    
+    if join_subtitle && desc.present?
+      title = "#{name}, #{desc}"
+      subtitle = nil
+    end
+
     collects = collects_for_celebration_id(cel_info[:id])
     if collects.any?
-      format_collect_records(collects, title: cel_info[:name])
+      format_collect_records(collects, module_title: module_title, title: title, subtitle: subtitle)
     else
-      find_common_collect_for(cel_info)
+      find_common_collect_for(cel_info, module_title: module_title, title: title, subtitle: subtitle)
     end
   end
 
   # Helper para buscar coleta de domingo (por nome, proper ou celebração)
-  def collects_for_sunday_with_proper(target_date, target_calendar, title: nil)
+  def collects_for_sunday_with_proper(target_date, target_calendar, module_title: nil, title: nil)
+    # Translate title if it's a Sunday name and language is English
+    language = prayer_book&.language
+    if language == "en" && title.present?
+      title = Liturgical::Translator.translate_sunday_name(title)
+    end
+
     # 1. Tentar pelo nome do domingo (referência principal da quadra)
     sunday_ref = SundayReferenceMapper.map(target_date, target_calendar)
     if sunday_ref
       records = collects_for_sunday(sunday_ref)
-      return format_collect_records(records, title: title) if records.any?
+      return format_collect_records(records, module_title: module_title, title: title) if records.any?
     end
 
     # 2. Tentar por Proper
     proper_num = target_calendar.proper_number(target_date)
     if proper_num
       records = collects_for_sunday("proper_#{proper_num}")
-      return format_collect_records(records, title: title) if records.any?
+      return format_collect_records(records, module_title: module_title, title: title) if records.any?
     end
 
     # 3. Ver se o domingo tinha uma celebração especial (Páscoa, etc)
     records = find_collect_records_for_sunday_celebration(target_date)
-    format_collect_records(records, title: title)
+    format_collect_records(records, module_title: module_title, title: title)
   end
 
   # Common query for collects by celebration id
@@ -156,7 +161,7 @@ class CollectService
   end
 
   # Tenta encontrar uma coleta comum para uma celebração
-  def find_common_collect_for(cel_info)
+  def find_common_collect_for(cel_info, module_title: nil, title: nil, subtitle: nil)
     return [] unless cel_info[:description].present?
 
     desc = cel_info[:description].downcase
@@ -183,33 +188,40 @@ class CollectService
     end
 
     collects = collects_for_sunday(common_ref)
-    format_collect_records(collects, title: cel_info[:name], substitution: cel_info[:name])
+    format_collect_records(collects, module_title: module_title, title: title, subtitle: subtitle, substitution: cel_info[:name])
   end
 
   # 3. Buscar pela coleta do último domingo
-  def find_by_season
+  def find_by_season(module_title: nil)
     last_sunday = find_last_sunday
     return [] unless last_sunday
 
     sunday_calendar = calendar_for_date(last_sunday)
     sunday_name = sunday_calendar.sunday_name(last_sunday)
-    pb_language = prayer_book&.language
+    language = prayer_book&.language
     
     # Translate sunday name if in English
-    if pb_language == "en"
+    if language == "en"
       sunday_name = Liturgical::Translator.translate_sunday_name(sunday_name)
     end
 
-    weekday_name = Liturgical::Translator.day_name_en(date)
+    weekday_name = (language == "en" ? Liturgical::Translator.day_name_en(date) : Liturgical::Translator.day_name_pt(date))
     
     # Title for weekday in season
-    title = if pb_language == "en"
-              "#{weekday_name} after #{sunday_name}"
+    title = if language == "en"
+              "#{weekday_name} after the #{sunday_name}"
             else
-              "#{Liturgical::Translator.day_name_pt(date)} após #{sunday_name}"
+              "#{Liturgical::Translator.day_name_pt(date)} após o #{sunday_name}"
             end
 
-    collects_for_sunday_with_proper(last_sunday, sunday_calendar, title: title)
+    # Fix for "after the 1st Sunday after Christmas" -> "after the First Sunday of Christmas" if needed?
+    # User example: "Monday after the First Sunday of Christmas"
+    if language == "en"
+      title = title.gsub("1st Sunday after Christmas", "First Sunday of Christmas")
+                   .gsub("2nd Sunday after Christmas", "Second Sunday of Christmas")
+    end
+
+    collects_for_sunday_with_proper(last_sunday, sunday_calendar, module_title: module_title, title: title)
   end
 
   # Encontra a coleta fixa do ofício
@@ -220,9 +232,14 @@ class CollectService
     text_record = LiturgicalText.find_text(slug, prayer_book_code: prayer_book_code)
     return [] unless text_record
 
+    # User example: Heading: "A Collect for the Renewal of Life", Subtitle: "Monday"
+    language = prayer_book&.language
+    weekday_label = (language == "en" ? date.strftime("%A") : Liturgical::Translator.day_name_pt(date))
+
     [{
       text: text_record.content,
-      title: text_record.title || text_record.slug.humanize,
+      module_title: text_record.title || text_record.slug.humanize,
+      title: weekday_label,
       slug: text_record.slug
     }]
   end
@@ -248,7 +265,7 @@ class CollectService
   end
 
   # Formata a resposta
-  def format_collect_records(records, title: nil, substitution: nil)
+  def format_collect_records(records, module_title: nil, title: nil, subtitle: nil, substitution: nil)
     return [] if records.blank?
 
     records.map do |c|
@@ -258,7 +275,9 @@ class CollectService
       {
         text: text,
         preface: c.preface,
-        title: title
+        module_title: module_title,
+        title: title,
+        subtitle: subtitle
       }.compact
     end
   end
@@ -267,5 +286,24 @@ class CollectService
   def format_response(collects)
     return nil if collects.nil? || collects.empty?
     format_collect_records(collects)
+  end
+
+  # For test compatibility
+  def find_by_celebration
+    celebration = calendar.celebration_for_date(date)
+    return [] unless celebration
+    collects_for_celebration_id(celebration[:id])
+  end
+
+  # For test compatibility
+  def find_by_sunday
+    return [] unless date.sunday?
+    sunday_ref = SundayReferenceMapper.map(date, calendar)
+    collects_for_sunday(sunday_ref)
+  end
+
+  # For test compatibility
+  def find_collect_for_sunday_celebration(sunday_date)
+    find_collect_records_for_sunday_celebration(sunday_date)
   end
 end

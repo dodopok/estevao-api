@@ -476,6 +476,7 @@ class LiturgicalCalendar
       rank: celebration.rank,
       color: celebration.liturgical_color,
       description: celebration.description,
+      description_year: celebration.description_year,
       transferred: transferred?(celebration, date)
     }
   end
@@ -492,6 +493,7 @@ class LiturgicalCalendar
         rank: celebration.rank,
         color: celebration.liturgical_color,
         description: celebration.description,
+        description_year: celebration.description_year,
         transferred: transferred?(celebration, date)
       }
     end

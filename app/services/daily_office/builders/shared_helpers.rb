@@ -40,7 +40,15 @@ module DailyOffice
         lines = []
         if collects.is_a?(Array)
           collects.each do |collect|
-            lines << line_item(collect[:title], type: "heading") if collect[:title]
+            # module_title is the main heading (e.g. "Collect of the Day" or "A Collect for Peace")
+            lines << line_item(collect[:module_title], type: "heading") if collect[:module_title]
+            
+            # title is the secondary heading (e.g. "The Holy Innocents" or "Monday")
+            lines << line_item(collect[:title], type: "subtitle") if collect[:title]
+            
+            # subtitle is any additional info (rarely used now as joined in title for saints)
+            lines << line_item(collect[:subtitle], type: "text") if collect[:subtitle]
+            
             lines << line_item(collect[:text], slug: collect[:slug])
             lines << line_item(collect[:preface], type: "citation") if collect[:preface]
             lines << line_item("", type: "spacer")
