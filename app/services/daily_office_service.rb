@@ -79,7 +79,7 @@ class DailyOfficeService
     # Build preferences hash for cache key (only preference-affecting fields)
     prefs_hash = build_preferences_hash(preferences)
 
-    "v4/daily_office/base/#{date}/#{office_type}/#{prefs_hash}/pb_#{pb_version}"
+    "v5/daily_office/base/#{date}/#{office_type}/#{prefs_hash}/pb_#{pb_version}"
   end
 
   # Build a deterministic hash of preferences that affect office generation

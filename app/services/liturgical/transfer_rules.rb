@@ -40,7 +40,7 @@ module Liturgical
     end
 
     def festival_on_sunday?(celebration, date)
-      celebration.festival? && date.sunday?
+      (celebration.festival? || celebration.major_holy_day?) && date.sunday?
     end
 
     def all_saints?(celebration)
