@@ -1,0 +1,75 @@
+[
+  {
+    "name": "Quarta-feira de Cinzas",
+    "celebration_type": "major_holy_day",
+    "rank": 20,
+    "movable": true,
+    "calculation_rule": "easter_minus_46_days",
+    "liturgical_color": "purple",
+    "can_be_transferred": false,
+    "description": "Primeiro dia da Quaresma"
+  },
+  {
+    "name": "Domingo de Ramos",
+    "celebration_type": "major_holy_day",
+    "rank": 21,
+    "movable": true,
+    "calculation_rule": "easter_minus_7_days",
+    "liturgical_color": "red",
+    "can_be_transferred": false
+  },
+  {
+    "name": "Segunda-feira da Semana Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 22,
+    "movable": true,
+    "calculation_rule": "easter_minus_6_days",
+    "liturgical_color": "purple",
+    "can_be_transferred": false
+  },
+  {
+    "name": "Terça-feira da Semana Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 23,
+    "movable": true,
+    "calculation_rule": "easter_minus_5_days",
+    "liturgical_color": "purple",
+    "can_be_transferred": false
+  },
+  {
+    "name": "Quarta-feira da Semana Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 24,
+    "movable": true,
+    "calculation_rule": "easter_minus_4_days",
+    "liturgical_color": "purple",
+    "can_be_transferred": false
+  },
+  {
+    "name": "Quinta-feira Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 25,
+    "movable": true,
+    "calculation_rule": "easter_minus_3_days",
+    "liturgical_color": "white",
+    "can_be_transferred": false
+  },
+  {
+    "name": "Sexta-feira Santa",
+    "celebration_type": "major_holy_day",
+    "rank": 26,
+    "movable": true,
+    "calculation_rule": "easter_minus_2_days",
+    "liturgical_color": "red",
+    "can_be_transferred": false
+  },
+  {
+    "name": "Sábado Santo",
+    "celebration_type": "major_holy_day",
+    "rank": 27,
+    "movable": true,
+    "calculation_rule": "easter_minus_1_day",
+    "liturgical_color": "white",
+    "can_be_transferred": false
+  }
+]
