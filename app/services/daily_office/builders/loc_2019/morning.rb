@@ -129,7 +129,8 @@ module DailyOffice
           return nil unless psalm_ref&.dig(:reference)
 
           lines = [
-            line_item(psalm_ref[:reference], type: "heading"),
+            line_item("SALMOS DESIGNADOS", type: "heading"),
+            line_item(psalm_ref[:reference], type: "subtitle"),
             line_item("", type: "spacer")
           ]
 

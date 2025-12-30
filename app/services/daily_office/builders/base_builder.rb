@@ -22,11 +22,19 @@ module DailyOffice
 
         # Load day info and readings
         @day_info = liturgical_calendar.day_info(@date)
+
+        service_type = case @office_type
+        when :morning then "morning_prayer"
+        when :evening then "evening_prayer"
+        else nil
+        end
+
         @readings = ReadingService.for(
           @date,
           prayer_book_code: @preferences[:prayer_book_code],
           calendar: liturgical_calendar,
-          translation: @preferences[:bible_version] || "nvi"
+          translation: @preferences[:bible_version] || "nvi",
+          service_type: service_type
         ).find_readings || {}
         @collects = CollectService.new(
           @date,

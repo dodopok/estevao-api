@@ -141,7 +141,8 @@ module DailyOffice
           return nil unless psalm_ref&.dig(:reference)
 
           lines = [
-            line_item(psalm_ref[:reference], type: "heading"),
+            line_item("PSALMS APPOINTED", type: "heading"),
+            line_item(psalm_ref[:reference], type: "subtitle"),
             line_item("", type: "spacer")
           ]
 
@@ -177,7 +178,7 @@ module DailyOffice
 
             c_slug = (is_lent? || is_advent?) ? "benedictus_es_domine" : "te_deum_part_1"
             cant = fetch_liturgical_text(c_slug)
-            
+
             if cant
               c_lines = [ line_item(cant.content, slug: cant.slug) ]
 

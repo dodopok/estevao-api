@@ -59,7 +59,8 @@ RSpec.describe DailyOffice::Builders::BaseBuilder do
         date,
         prayer_book_code: 'test_loc',
         calendar: anything,
-        translation: anything
+        translation: anything,
+        service_type: 'morning_prayer'
       ).and_call_original
 
       described_class.new(

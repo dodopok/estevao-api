@@ -5,6 +5,11 @@ require "rails_helper"
 RSpec.describe Reading::ReferenceBuilder do
   let(:calendar) { LiturgicalCalendar.new(2025) }
 
+  def ensure_celebration(attributes)
+    Celebration.find_by(name: attributes[:name], prayer_book: attributes[:prayer_book]) ||
+      create(:celebration, attributes)
+  end
+
   describe "#fixed_date_references" do
     it "builds fixed date references correctly" do
       builder = described_class.new(Date.new(2025, 12, 25), calendar: calendar)
@@ -39,6 +44,26 @@ RSpec.describe Reading::ReferenceBuilder do
       refs = builder.fixed_date_references
 
       expect(refs).to include("may_15")
+    end
+
+    context "with loc_2019 prayer book" do
+      let(:loc_2019_calendar) { LiturgicalCalendar.new(2025, prayer_book_code: "loc_2019") }
+
+      it "builds portuguese references for regular dates" do
+        builder = described_class.new(Date.new(2025, 5, 15), calendar: loc_2019_calendar)
+
+        refs = builder.fixed_date_references
+
+        expect(refs).to include("maio_15")
+      end
+
+      it "builds portuguese references for december" do
+        builder = described_class.new(Date.new(2025, 12, 25), calendar: loc_2019_calendar)
+
+        refs = builder.fixed_date_references
+
+        expect(refs).to include("dezembro_25")
+      end
     end
   end
 
@@ -80,7 +105,7 @@ RSpec.describe Reading::ReferenceBuilder do
 
     context "for Holy Week celebrations" do
       let(:holy_monday_celebration) do
-        create(:celebration,
+        ensure_celebration(
           name: "Segunda-Feira Santa",
           calculation_rule: "easter_minus_6_days",
           movable: true,
@@ -88,7 +113,7 @@ RSpec.describe Reading::ReferenceBuilder do
       end
 
       let(:holy_tuesday_celebration) do
-        create(:celebration,
+        ensure_celebration(
           name: "Terça-Feira Santa",
           calculation_rule: "easter_minus_5_days",
           movable: true,
@@ -96,7 +121,7 @@ RSpec.describe Reading::ReferenceBuilder do
       end
 
       let(:holy_wednesday_celebration) do
-        create(:celebration,
+        ensure_celebration(
           name: "Quarta-Feira Santa",
           calculation_rule: "easter_minus_4_days",
           movable: true,
@@ -127,7 +152,7 @@ RSpec.describe Reading::ReferenceBuilder do
 
     context "for Paschal Triduum and major celebrations" do
       let(:maundy_thursday) do
-        create(:celebration,
+        ensure_celebration(
           name: "Quinta-Feira Santa",
           calculation_rule: "easter_minus_3_days",
           movable: true,
@@ -135,7 +160,7 @@ RSpec.describe Reading::ReferenceBuilder do
       end
 
       let(:good_friday) do
-        create(:celebration,
+        ensure_celebration(
           name: "Sexta-Feira Santa",
           calculation_rule: "easter_minus_2_days",
           movable: true,
@@ -143,7 +168,7 @@ RSpec.describe Reading::ReferenceBuilder do
       end
 
       let(:holy_saturday) do
-        create(:celebration,
+        ensure_celebration(
           name: "Sábado Santo",
           calculation_rule: "easter_minus_1_days",
           movable: true,
@@ -151,7 +176,7 @@ RSpec.describe Reading::ReferenceBuilder do
       end
 
       let(:ascension) do
-        create(:celebration,
+        ensure_celebration(
           name: "Ascensão",
           calculation_rule: "easter_plus_39_days",
           movable: true,
@@ -159,7 +184,7 @@ RSpec.describe Reading::ReferenceBuilder do
       end
 
       let(:pentecost) do
-        create(:celebration,
+        ensure_celebration(
           name: "Pentecostes",
           calculation_rule: "easter_plus_49_days",
           movable: true,
@@ -167,7 +192,7 @@ RSpec.describe Reading::ReferenceBuilder do
       end
 
       let(:trinity) do
-        create(:celebration,
+        ensure_celebration(
           name: "Santíssima Trindade",
           calculation_rule: "easter_plus_56_days",
           movable: true,
@@ -223,7 +248,7 @@ RSpec.describe Reading::ReferenceBuilder do
 
     context "for fixed date celebrations" do
       let(:christmas) do
-        create(:celebration,
+        ensure_celebration(
           name: "Natal",
           fixed_month: 12,
           fixed_day: 25,

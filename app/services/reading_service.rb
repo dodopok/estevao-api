@@ -37,26 +37,27 @@ class ReadingService
   # Seasons where Sunday takes precedence over minor festivals
   MAJOR_SEASONS = %w[Advento Quaresma Páscoa].freeze
 
-  attr_reader :date, :calendar, :cycle, :translation, :reading_type
+  attr_reader :date, :calendar, :cycle, :translation, :reading_type, :service_type
 
   # Factory method que retorna o serviço apropriado baseado no prayer_book_code
   # Uses caching for readings lookup
-  def self.for(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi", reading_type: nil)
+  def self.for(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi", reading_type: nil, service_type: nil)
     case prayer_book_code
     when "loc_2015"
-      Reading::Loc2015Service.new(date, calendar: calendar, translation: translation, reading_type: reading_type)
+      Reading::Loc2015Service.new(date, calendar: calendar, translation: translation, reading_type: reading_type, service_type: service_type)
     else
-      new(date, prayer_book_code: prayer_book_code, calendar: calendar, translation: translation, reading_type: reading_type)
+      new(date, prayer_book_code: prayer_book_code, calendar: calendar, translation: translation, reading_type: reading_type, service_type: service_type)
     end
   end
 
-  def initialize(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi", reading_type: nil)
+  def initialize(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi", reading_type: nil, service_type: nil)
     @date = date
     @prayer_book_code = prayer_book_code
     @calendar = calendar || LiturgicalCalendar.new(date.year, prayer_book_code: @prayer_book_code)
     @cycle = determine_cycle
     @translation = translation
     @reading_type = reading_type
+    @service_type = service_type
   end
 
   # Retorna as leituras para o dia (cached)
@@ -102,7 +103,13 @@ class ReadingService
   end
 
   def query
-    @query ||= Reading::Query.new(prayer_book_id: prayer_book_id, cycle: cycle, date: date, reading_type: reading_type)
+    @query ||= Reading::Query.new(
+      prayer_book_id: prayer_book_id,
+      cycle: cycle,
+      date: date,
+      reading_type: reading_type,
+      service_type: service_type
+    )
   end
 
   def reference_builder

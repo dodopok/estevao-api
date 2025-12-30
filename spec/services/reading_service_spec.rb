@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe ReadingService do
+  def ensure_celebration(attributes)
+    Celebration.find_by(name: attributes[:name], prayer_book: attributes[:prayer_book]) ||
+      create(:celebration, attributes)
+  end
+
   let(:prayer_book) do
     PrayerBook.find_or_create_by!(code: 'loc_2015') do |pb|
       pb.name = 'Livro de Oração Comum 2015'
@@ -19,7 +24,7 @@ RSpec.describe ReadingService do
   end
 
   let!(:celebration) do
-    create(:celebration,
+    ensure_celebration(
       name: "São José Teste",
       celebration_type: :festival,
       rank: 30,
@@ -111,7 +116,7 @@ RSpec.describe ReadingService do
 
     context 'without readings' do
       let!(:celebration_without_readings) do
-        create(:celebration,
+        ensure_celebration(
           name: "Santo Sem Leituras",
           celebration_type: :lesser_feast,
           rank: 250,
@@ -339,7 +344,7 @@ RSpec.describe ReadingService do
 
       it 'prioritizes weekly readings over celebration for weekdays' do
         # Create a celebration on a weekday
-        celebration = create(:celebration,
+        celebration = ensure_celebration(
           name: "Test Saint",
           fixed_month: 12,
           fixed_day: 4,
@@ -420,7 +425,7 @@ RSpec.describe ReadingService do
       end
 
       let!(:saint_on_advent_sunday) do
-        create(:celebration,
+        ensure_celebration(
           name: 'Santo Teste Advento',
           celebration_type: :festival,
           rank: 50,
@@ -484,7 +489,7 @@ RSpec.describe ReadingService do
       end
 
       let!(:saint_on_ordinary_sunday) do
-        create(:celebration,
+        ensure_celebration(
           name: 'São Bartolomeu Teste',
           celebration_type: :festival,
           rank: 50,
@@ -537,7 +542,7 @@ RSpec.describe ReadingService do
       end
 
       let!(:christmas_celebration) do
-        create(:celebration,
+        ensure_celebration(
           name: 'Natividade de nosso Senhor',
           celebration_type: :principal_feast,
           rank: 1,
@@ -575,7 +580,7 @@ RSpec.describe ReadingService do
       end
 
       let!(:all_saints_celebration) do
-        create(:celebration,
+        ensure_celebration(
           name: 'Todos os Santos',
           celebration_type: :principal_feast,
           rank: 11,
@@ -623,7 +628,7 @@ RSpec.describe ReadingService do
       end
 
       let!(:transfiguration_celebration) do
-        create(:celebration,
+        ensure_celebration(
           name: 'Transfiguração do Senhor',
           celebration_type: :principal_feast,
           rank: 5,
@@ -692,7 +697,7 @@ RSpec.describe ReadingService do
     end
 
     let!(:holy_monday_celebration) do
-      create(:celebration,
+      ensure_celebration(
         name: 'Segunda-feira Santa',
         celebration_type: :lesser_feast,
         rank: 50,
@@ -703,7 +708,7 @@ RSpec.describe ReadingService do
     end
 
     let!(:holy_tuesday_celebration) do
-      create(:celebration,
+      ensure_celebration(
         name: 'Terça-feira Santa',
         celebration_type: :lesser_feast,
         rank: 50,
@@ -714,7 +719,7 @@ RSpec.describe ReadingService do
     end
 
     let!(:holy_wednesday_celebration) do
-      create(:celebration,
+      ensure_celebration(
         name: 'Quarta-feira Santa',
         celebration_type: :lesser_feast,
         rank: 50,
@@ -774,7 +779,7 @@ RSpec.describe ReadingService do
     # Test for the method that identifies moveable feasts with their own readings
 
     let!(:holy_monday_celebration) do
-      create(:celebration,
+      ensure_celebration(
         name: 'Segunda-feira Santa',
         celebration_type: :lesser_feast,
         rank: 50,
@@ -785,7 +790,7 @@ RSpec.describe ReadingService do
     end
 
     let!(:regular_lesser_feast) do
-      create(:celebration,
+      ensure_celebration(
         name: 'Santo Qualquer',
         celebration_type: :lesser_feast,
         rank: 250,
@@ -939,7 +944,7 @@ RSpec.describe ReadingService do
     end
 
     let!(:st_patrick) do
-      create(:celebration,
+      ensure_celebration(
         name: 'São Patrício',
         celebration_type: :lesser_feast,
         rank: 110,
@@ -1128,6 +1133,21 @@ RSpec.describe ReadingService do
         expect(mapping).to have_key('easter_minus_46_days')
         expect(mapping['easter_minus_46_days']).to include('ash_wednesday')
       end
+    end
+  end
+
+  describe '#initialize' do
+    it 'accepts service_type' do
+      service = described_class.new(Date.current, service_type: 'morning_prayer')
+      expect(service.service_type).to eq('morning_prayer')
+    end
+  end
+
+  describe '#query' do
+    it 'passes service_type to Reading::Query' do
+      service = described_class.new(Date.current, service_type: 'evening_prayer')
+      query = service.send(:query)
+      expect(query.instance_variable_get(:@service_type)).to eq('evening_prayer')
     end
   end
 end

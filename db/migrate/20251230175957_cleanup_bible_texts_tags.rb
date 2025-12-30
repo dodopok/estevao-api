@@ -8,7 +8,7 @@ class CleanupBibleTextsTags < ActiveRecord::Migration[8.1]
                        .gsub(/<[^>]+>/, "")
                        .gsub(/\s+/, " ")
                        .strip
-        
+
         if clean != bt.text
           bt.update_column(:text, clean)
           count += 1

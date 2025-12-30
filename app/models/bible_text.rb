@@ -51,7 +51,11 @@ class BibleText < ApplicationRecord
     "Titus" => 56, "Philemon" => 57,
     "Hebrews" => 58, "James" => 59, "1 Peter" => 60,
     "2 Peter" => 61, "1 John" => 62, "2 John" => 63, "3 John" => 64,
-    "Revelation" => 66
+    "Revelation" => 66,
+
+    # Alternative Portuguese names
+    "Salmo" => 19,
+    "Cântico dos Cânticos" => 22
   }.freeze
 
   # Reverse mapping: book_id (1-66) => book name in Portuguese

@@ -10,7 +10,7 @@ namespace :bible do
   desc "Download English Bible JSON files from bolls.life and convert to SQLite"
   task generate_en: :environment do
     translations = ENV["TRANSLATIONS"]&.split(",") || EN_TRANSLATIONS
-    
+
     puts "🚀 Iniciando download de bíblias em inglês via bolls.life..."
     FileUtils.mkdir_p(BIBLES_DOWNLOAD_DIR)
 
@@ -20,23 +20,23 @@ namespace :bible do
 
     translations.each do |translation|
       translation_up = translation.upcase
-      
+
       # Mapping for bolls.life codes
       bolls_code = case translation_up
-                   when "CSB" then "HCSB" # bolls uses HCSB for Christian Standard Bible
-                   when "NRSV" then "NRSVCI" # New Revised Standard Version Catholic Interconfessional
-                   else translation_up
-                   end
+      when "CSB" then "HCSB" # bolls uses HCSB for Christian Standard Bible
+      when "NRSV" then "NRSVCI" # New Revised Standard Version Catholic Interconfessional
+      else translation_up
+      end
 
       db_path = BIBLES_DOWNLOAD_DIR.join("#{translation_up}.sqlite")
-      
+
       if File.exist?(db_path)
         puts "⏭️ #{translation_up} já existe, pulando..."
         next
       end
 
       puts "⏳ Baixando #{translation_up} (as #{bolls_code})..."
-      
+
       begin
         url = "https://bolls.life/static/translations/#{bolls_code}.json"
         uri = URI(url)
@@ -44,14 +44,14 @@ namespace :bible do
 
         if response.is_a?(Net::HTTPSuccess)
           data = JSON.parse(response.body)
-          
+
           # data is an array of [ [book_id, chapter, verse, text], ... ]
-          # or an array of objects depending on the version. 
+          # or an array of objects depending on the version.
           # Let's handle both or check structure.
-          
+
           db = SQLite3::Database.new(db_path.to_s)
           db.execute("CREATE TABLE verse (book_id INTEGER, chapter INTEGER, verse INTEGER, text TEXT)")
-          
+
           db.transaction do
             data.each do |item|
               if item.is_a?(Hash)
@@ -61,14 +61,14 @@ namespace :bible do
                                        .gsub(/<[^>]+>/, "")
                                        .gsub(/\s+/, " ")
                                        .strip
-                db.execute("INSERT INTO verse VALUES (?, ?, ?, ?)", [item["book"], item["chapter"], item["verse"], clean_text])
+                db.execute("INSERT INTO verse VALUES (?, ?, ?, ?)", [ item["book"], item["chapter"], item["verse"], clean_text ])
               elsif item.is_a?(Array)
                 clean_text = item[3].to_s.gsub(/<S>\d+<\/S>/, "")
                                        .gsub(/<br\s*\/?>/i, " ")
                                        .gsub(/<[^>]+>/, "")
                                        .gsub(/\s+/, " ")
                                        .strip
-                db.execute("INSERT INTO verse VALUES (?, ?, ?, ?)", [item[0], item[1], item[2], clean_text])
+                db.execute("INSERT INTO verse VALUES (?, ?, ?, ?)", [ item[0], item[1], item[2], clean_text ])
               end
             end
           end
@@ -130,20 +130,20 @@ namespace :bible do
 
     # Detect table structure
     tables = db.execute("SELECT name FROM sqlite_master WHERE type='table'").flatten
-    
+
     table_name = if tables.include?("verse")
                    "verse"
-                 elsif tables.include?("verses")
+    elsif tables.include?("verses")
                    "verses"
-                 else
+    else
                    puts "❌ Tabela de versículos não encontrada em #{translation}.sqlite. Tabelas: #{tables.join(', ')}"
                    db.close
                    return
-                 end
+    end
 
     # Detect column names
     columns = db.execute("PRAGMA table_info(#{table_name})").map { |col| col[1] }
-    
+
     book_col = columns.find { |c| c.match?(/book_id/i) } || columns.find { |c| c.match?(/book/i) }
     chapter_col = columns.find { |c| c.match?(/chapter/i) }
     verse_col = columns.find { |c| c.match?(/verse/i) }
@@ -165,14 +165,14 @@ namespace :bible do
     # Prepare records for bulk insert
     now = Time.current
     records = []
-    
+
     # Mapping for English book names to IDs if needed
     # (Assuming book_id is already 1-66, if not we might need a mapping)
-    
+
     rows.each do |row|
       book_val = row[0]
       book_number = book_val.is_a?(Integer) ? book_val : detect_book_number(book_val)
-      
+
       next if book_number.nil? || book_number < 1 || book_number > 66
 
       records << {

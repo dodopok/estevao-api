@@ -6,6 +6,12 @@ module Reading
   class ReferenceBuilder
     WEEKDAY_NAMES = %w[sunday monday tuesday wednesday thursday friday saturday].freeze
 
+    PT_MONTH_NAMES = {
+      1 => "janeiro", 2 => "fevereiro", 3 => "marco", 4 => "abril",
+      5 => "maio", 6 => "junho", 7 => "julho", 8 => "agosto",
+      9 => "setembro", 10 => "outubro", 11 => "novembro", 12 => "dezembro"
+    }.freeze
+
     # Maps fixed dates to their special references
     SPECIAL_DATE_REFERENCES = {
       [ 12, 25 ] => %w[christmas_day christmas],
@@ -86,13 +92,23 @@ module Reading
     attr_reader :date, :calendar
 
     def month_day_reference
-      month_name = Date::MONTHNAMES[date.month].downcase
-      "#{month_name}_#{date.day}"
+      if calendar.prayer_book_code == "loc_2019"
+        month_name = PT_MONTH_NAMES[date.month]
+        "#{month_name}_#{date.day}"
+      else
+        month_name = Date::MONTHNAMES[date.month].downcase
+        "#{month_name}_#{date.day}"
+      end
     end
 
     def month_day_reference_for(month, day)
-      month_name = Date::MONTHNAMES[month]&.downcase
-      "#{month_name}_#{day}" if month_name
+      if calendar.prayer_book_code == "loc_2019"
+        month_name = PT_MONTH_NAMES[month]
+        "#{month_name}_#{day}" if month_name
+      else
+        month_name = Date::MONTHNAMES[month]&.downcase
+        "#{month_name}_#{day}" if month_name
+      end
     end
 
     def weekday_name

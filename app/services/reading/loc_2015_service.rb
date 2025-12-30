@@ -16,8 +16,8 @@ class Reading::Loc2015Service < ReadingService
 
   WEEKDAY_NAMES = %w[sunday monday tuesday wednesday thursday friday saturday].freeze
 
-  def initialize(date, calendar: nil, translation: "nvi", reading_type: nil)
-    super(date, prayer_book_code: "loc_2015", calendar: calendar, translation: translation, reading_type: reading_type)
+  def initialize(date, calendar: nil, translation: "nvi", reading_type: nil, service_type: nil)
+    super(date, prayer_book_code: "loc_2015", calendar: calendar, translation: translation, reading_type: reading_type, service_type: service_type)
   end
 
   private

@@ -4,11 +4,12 @@ module Reading
   # Query object for LectionaryReading lookups
   # Centralizes common query patterns for readings
   class Query
-    def initialize(prayer_book_id:, cycle:, date: Date.current, reading_type: nil)
+    def initialize(prayer_book_id:, cycle:, date: Date.current, reading_type: nil, service_type: nil)
       @prayer_book_id = prayer_book_id
       @cycle = cycle
       @date = date
       @reading_type = reading_type
+      @service_type = service_type
     end
 
     # Find reading by date reference for eucharist service
@@ -19,7 +20,7 @@ module Reading
                 date_reference: reference,
                 cycle: cycles,
                 prayer_book_id: prayer_book_id,
-                service_type: "eucharist"
+                service_type: service_type || "eucharist"
               )
 
       query = apply_reading_type_filter(query) if reading_type.present?
@@ -34,7 +35,7 @@ module Reading
                 celebration_id: celebration_id,
                 cycle: cycles,
                 prayer_book_id: prayer_book_id,
-                service_type: "eucharist"
+                service_type: service_type || "eucharist"
               )
 
       query = apply_reading_type_filter(query) if reading_type.present?
@@ -58,7 +59,7 @@ module Reading
                 date_reference: reference,
                 cycle: weekly_cycles,
                 prayer_book_id: prayer_book_id,
-                service_type: [ "weekly", "daily_office" ]
+                service_type: service_type || [ "weekly", "daily_office" ]
               )
 
       query = apply_reading_type_filter(query) if reading_type.present?
@@ -76,7 +77,7 @@ module Reading
 
     private
 
-    attr_reader :prayer_book_id, :cycle, :date, :reading_type
+    attr_reader :prayer_book_id, :cycle, :date, :reading_type, :service_type
 
     def cycles
       [ cycle, "all" ]
