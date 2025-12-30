@@ -52,9 +52,9 @@ class ReadingService
 
   def initialize(date, prayer_book_code: "loc_2015", calendar: nil, translation: "nvi", reading_type: nil)
     @date = date
-    @calendar = calendar || LiturgicalCalendar.new(date.year)
-    @cycle = determine_cycle
     @prayer_book_code = prayer_book_code
+    @calendar = calendar || LiturgicalCalendar.new(date.year, prayer_book_code: @prayer_book_code)
+    @cycle = determine_cycle
     @translation = translation
     @reading_type = reading_type
   end

@@ -51,6 +51,23 @@ RSpec.describe DailyOffice::Builders::BaseBuilder do
       expect(builder.day_info).to be_a(Hash)
       expect(builder.readings).to be_a(Hash)
     end
+
+    it 'passes its liturgical_calendar to ReadingService' do
+      # We want to ensure it uses the same calendar instance to avoid redundant calculations
+      # and ensure consistency
+      expect(ReadingService).to receive(:for).with(
+        date,
+        prayer_book_code: 'test_loc',
+        calendar: anything,
+        translation: anything
+      ).and_call_original
+
+      described_class.new(
+        date: date,
+        office_type: :morning,
+        preferences: { prayer_book_code: 'test_loc' }
+      )
+    end
   end
 
   describe 'component builders initialization' do

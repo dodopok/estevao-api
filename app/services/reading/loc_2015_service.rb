@@ -104,7 +104,7 @@ class Reading::Loc2015Service < ReadingService
   # Mapeia a data do domingo para sua referência
   def map_sunday_reference(sunday_date)
     # Usar o SundayReferenceMapper com o calendário do ano do domingo
-    sunday_calendar = LiturgicalCalendar.new(sunday_date.year)
+    sunday_calendar = LiturgicalCalendar.new(sunday_date.year, prayer_book_code: "loc_2015")
     SundayReferenceMapper.map(sunday_date, sunday_calendar)
   end
 
@@ -112,7 +112,7 @@ class Reading::Loc2015Service < ReadingService
   def build_special_week_references(weekday)
     refs = []
     reference_sunday = find_ieab_reference_sunday
-    reference_calendar = LiturgicalCalendar.new(reference_sunday.year)
+    reference_calendar = LiturgicalCalendar.new(reference_sunday.year, prayer_book_code: "loc_2015")
     season = reference_calendar.season_for_date(reference_sunday)
 
     case season
