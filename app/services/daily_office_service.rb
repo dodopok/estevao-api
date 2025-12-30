@@ -79,7 +79,7 @@ class DailyOfficeService
     # Build preferences hash for cache key (only preference-affecting fields)
     prefs_hash = build_preferences_hash(preferences)
 
-    "v4/daily_office/base/#{date}/#{office_type}/#{prefs_hash}/pb_#{pb_version}"
+    "v5/daily_office/base/#{date}/#{office_type}/#{prefs_hash}/pb_#{pb_version}"
   end
 
   # Build a deterministic hash of preferences that affect office generation
@@ -155,9 +155,10 @@ class DailyOfficeService
                       DailyOffice::Builders::Locb2008Builder
     when "loc_1987"
                       DailyOffice::Builders::Loc1987Builder
+    when "loc_2019_en"
+                      DailyOffice::Builders::Loc2019EnBuilder
     when "loc_2019"
-                      # Future: DailyOffice::Builders::Loc2019Builder
-                      DailyOffice::Builders::BaseBuilder
+                      DailyOffice::Builders::Loc2019Builder
     when "loc_2012"
                       # Future: DailyOffice::Builders::Loc2012Builder
                       DailyOffice::Builders::BaseBuilder

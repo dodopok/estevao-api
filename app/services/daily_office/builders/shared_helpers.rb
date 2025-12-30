@@ -36,6 +36,31 @@ module DailyOffice
         item
       end
 
+      def build_collect_lines(collects)
+        lines = []
+        if collects.is_a?(Array)
+          collects.each do |collect|
+            # module_title is the main heading (e.g. "Collect of the Day" or "A Collect for Peace")
+            lines << line_item(collect[:module_title], type: "heading") if collect[:module_title]
+
+            # title is the secondary heading (e.g. "The Holy Innocents" or "Monday")
+            lines << line_item(collect[:title], type: "subtitle") if collect[:title]
+
+            # subtitle is any additional info (rarely used now as joined in title for saints)
+            lines << line_item(collect[:subtitle], type: "text") if collect[:subtitle]
+
+            lines << line_item(collect[:text], slug: collect[:slug])
+            lines << line_item(collect[:preface], type: "citation") if collect[:preface]
+            lines << line_item("", type: "spacer")
+          end
+        elsif collects.present?
+          text = collects.is_a?(Hash) ? collects[:text] : collects
+          lines << line_item(text)
+          lines << line_item("", type: "spacer")
+        end
+        lines
+      end
+
       def is_lent?
         lent_season?(day_info[:liturgical_season])
       end

@@ -1,0 +1,1676 @@
+[
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Vedanayagam Samuel Azariah",
+    "fixed_month": 1,
+    "fixed_day": 2,
+    "liturgical_color": "white",
+    "description": "Bispo no Sul da Índia, Evangelista",
+    "description_year": "1945"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "William Laud",
+    "fixed_month": 1,
+    "fixed_day": 10,
+    "liturgical_color": "red",
+    "description": "Arcebispo de Cantuária, Mártir",
+    "description_year": "1645"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Hilário de Poitiers",
+    "fixed_month": 1,
+    "fixed_day": 13,
+    "liturgical_color": "white",
+    "description": "Bispo e Mestre da Fé",
+    "description_year": "367"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Kentigern",
+    "fixed_month": 1,
+    "fixed_day": 14,
+    "liturgical_color": "white",
+    "description": "Missionário em Strathclyde e Cúmbria",
+    "description_year": "603"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Antão",
+    "fixed_month": 1,
+    "fixed_day": 17,
+    "liturgical_color": "white",
+    "description": "Eremita no Egito",
+    "description_year": "356"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Wulfstan",
+    "fixed_month": 1,
+    "fixed_day": 19,
+    "liturgical_color": "white",
+    "description": "Bispo de Worcester",
+    "description_year": "1095"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Fabiano",
+    "fixed_month": 1,
+    "fixed_day": 20,
+    "liturgical_color": "red",
+    "description": "Bispo de Roma e Mártir",
+    "description_year": "250"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Inês",
+    "fixed_month": 1,
+    "fixed_day": 21,
+    "liturgical_color": "red",
+    "description": "Mártir em Roma",
+    "description_year": "304"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Vicente",
+    "fixed_month": 1,
+    "fixed_day": 22,
+    "liturgical_color": "red",
+    "description": "Diácono de Saragoça, Mártir",
+    "description_year": "304"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Timóteo e Tito",
+    "fixed_month": 1,
+    "fixed_day": 26,
+    "liturgical_color": "white",
+    "description": "Companheiros do Apóstolo Paulo"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Lídia, Dorcas e Febe",
+    "fixed_month": 1,
+    "fixed_day": 27,
+    "liturgical_color": "white",
+    "description": "Auxiliares dos Apóstolos"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Tomás de Aquino",
+    "fixed_month": 1,
+    "fixed_day": 28,
+    "liturgical_color": "white",
+    "description": "Frade, Presbítero e Mestre da Fé",
+    "description_year": "1274"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Lesslie Newbigin",
+    "fixed_month": 1,
+    "fixed_day": 29,
+    "liturgical_color": "white",
+    "description": "Bispo e Ecumenista",
+    "description_year": "1998"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Carlos I",
+    "fixed_month": 1,
+    "fixed_day": 30,
+    "liturgical_color": "red",
+    "description": "Rei e Mártir",
+    "description_year": "1649"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Samuel Shoemaker",
+    "fixed_month": 1,
+    "fixed_day": 31,
+    "liturgical_color": "white",
+    "description": "Presbítero e Renovador da Sociedade",
+    "description_year": "1963"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Brígida",
+    "fixed_month": 2,
+    "fixed_day": 1,
+    "liturgical_color": "white",
+    "description": "Abadessa de Kildare",
+    "description_year": "523"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Oscar",
+    "fixed_month": 2,
+    "fixed_day": 3,
+    "liturgical_color": "white",
+    "description": "Bispo e Missionário na Dinamarca e Suécia",
+    "description_year": "865"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Cornélio, o Centurião",
+    "fixed_month": 2,
+    "fixed_day": 4,
+    "liturgical_color": "white"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Mártires do Japão",
+    "fixed_month": 2,
+    "fixed_day": 5,
+    "liturgical_color": "red",
+    "description_year": "1597"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Escolástica",
+    "fixed_month": 2,
+    "fixed_day": 10,
+    "liturgical_color": "white",
+    "description": "Abadessa",
+    "description_year": "543"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Absalom Jones",
+    "fixed_month": 2,
+    "fixed_day": 13,
+    "liturgical_color": "white",
+    "description": "Primeiro Presbítero Afro-Americano",
+    "description_year": "1818"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Cirilo e Metódio",
+    "fixed_month": 2,
+    "fixed_day": 14,
+    "liturgical_color": "white",
+    "description": "Apóstolos dos Eslavos",
+    "description_year": "869, 885"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Thomas Bray",
+    "fixed_month": 2,
+    "fixed_day": 15,
+    "liturgical_color": "white",
+    "description": "Presbítero e Missionário",
+    "description_year": "1730"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Janani Luwum",
+    "fixed_month": 2,
+    "fixed_day": 17,
+    "liturgical_color": "red",
+    "description": "Arcebispo de Uganda e Mártir",
+    "description_year": "1977"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Martinho Lutero",
+    "fixed_month": 2,
+    "fixed_day": 18,
+    "liturgical_color": "white",
+    "description": "Reformador da Igreja",
+    "description_year": "1546"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "William \"Billy\" Graham",
+    "fixed_month": 2,
+    "fixed_day": 21,
+    "liturgical_color": "white",
+    "description": "Evangelista",
+    "description_year": "2018"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Policarpo",
+    "fixed_month": 2,
+    "fixed_day": 23,
+    "liturgical_color": "red",
+    "description": "Bispo de Esmirna, Mártir",
+    "description_year": "156"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "George Herbert",
+    "fixed_month": 2,
+    "fixed_day": 27,
+    "liturgical_color": "white",
+    "description": "Presbítero e Poeta",
+    "description_year": "1633"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "João Cassiano",
+    "fixed_month": 2,
+    "fixed_day": 28,
+    "liturgical_color": "white",
+    "description": "Monge e Mestre da Fé",
+    "description_year": "453"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "David",
+    "fixed_month": 3,
+    "fixed_day": 1,
+    "liturgical_color": "white",
+    "description": "Bispo e Apóstolo de Gales",
+    "description_year": "601"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Chad",
+    "fixed_month": 3,
+    "fixed_day": 2,
+    "liturgical_color": "white",
+    "description": "Bispo de Lichfield e Missionário",
+    "description_year": "672"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "John e Charles Wesley",
+    "fixed_month": 3,
+    "fixed_day": 3,
+    "liturgical_color": "white",
+    "description": "Presbíteros e Reformadores da Igreja",
+    "description_year": "1791, 1788"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Perpétua e suas Companheiras",
+    "fixed_month": 3,
+    "fixed_day": 7,
+    "liturgical_color": "red",
+    "description": "Mártires em Cartago",
+    "description_year": "203"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Félix",
+    "fixed_month": 3,
+    "fixed_day": 8,
+    "liturgical_color": "white",
+    "description": "Bispo e Missionário para os Anglos",
+    "description_year": "647"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Robert Machray",
+    "fixed_month": 3,
+    "fixed_day": 10,
+    "liturgical_color": "white",
+    "description": "Primeiro Primaz do Canadá",
+    "description_year": "1904"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Gregório Magno",
+    "fixed_month": 3,
+    "fixed_day": 12,
+    "liturgical_color": "white",
+    "description": "Bispo de Roma e Mestre da Fé",
+    "description_year": "604"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Patrício",
+    "fixed_month": 3,
+    "fixed_day": 17,
+    "liturgical_color": "white",
+    "description": "Bispo e Apóstolo dos Irlandeses",
+    "description_year": "461"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Cirilo",
+    "fixed_month": 3,
+    "fixed_day": 18,
+    "liturgical_color": "white",
+    "description": "Bispo de Jerusalém e Mestre da Fé",
+    "description_year": "386"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Cutberto",
+    "fixed_month": 3,
+    "fixed_day": 20,
+    "liturgical_color": "white",
+    "description": "Bispo-Abade de Lindisfarne e Missionário",
+    "description_year": "687"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Thomas Cranmer",
+    "fixed_month": 3,
+    "fixed_day": 21,
+    "liturgical_color": "red",
+    "description": "Arcebispo de Cantuária e Mártir",
+    "description_year": "1556"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "James DeKoven",
+    "fixed_month": 3,
+    "fixed_day": 22,
+    "liturgical_color": "white",
+    "description": "Presbítero",
+    "description_year": "1879"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Gregório, o Iluminador",
+    "fixed_month": 3,
+    "fixed_day": 23,
+    "liturgical_color": "white",
+    "description": "Missionário na Armênia",
+    "description_year": "333"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Charles Henry Brent",
+    "fixed_month": 3,
+    "fixed_day": 27,
+    "liturgical_color": "white",
+    "description": "Bispo e Missionário nas Filipinas",
+    "description_year": "1929"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "John Keble",
+    "fixed_month": 3,
+    "fixed_day": 29,
+    "liturgical_color": "white",
+    "description": "Presbítero e Reformador da Igreja",
+    "description_year": "1866"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "John Donne",
+    "fixed_month": 3,
+    "fixed_day": 31,
+    "liturgical_color": "white",
+    "description": "Presbítero e Poeta",
+    "description_year": "1631"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Frederick Denison Maurice",
+    "fixed_month": 4,
+    "fixed_day": 1,
+    "liturgical_color": "white",
+    "description": "Presbítero e Renovador da Sociedade",
+    "description_year": "1872"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Henry Budd",
+    "fixed_month": 4,
+    "fixed_day": 2,
+    "liturgical_color": "white",
+    "description": "Primeiro Presbítero Nativo no Canadá",
+    "description_year": "1850"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "James Lloyd Breck",
+    "fixed_month": 4,
+    "fixed_day": 3,
+    "liturgical_color": "white",
+    "description": "Presbítero e Missionário",
+    "description_year": "1879"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Martin Luther King, Jr.",
+    "fixed_month": 4,
+    "fixed_day": 4,
+    "liturgical_color": "red",
+    "description": "Renovador da Sociedade",
+    "description_year": "1968"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Tikhon",
+    "fixed_month": 4,
+    "fixed_day": 7,
+    "liturgical_color": "white",
+    "description": "Bispo e Ecumenista",
+    "description_year": "1925"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "William Augustus Muhlenberg",
+    "fixed_month": 4,
+    "fixed_day": 8,
+    "liturgical_color": "white",
+    "description": "Presbítero, Reformador e Renovador",
+    "description_year": "1877"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "William Law",
+    "fixed_month": 4,
+    "fixed_day": 10,
+    "liturgical_color": "white",
+    "description": "Presbítero e Mestre da Fé",
+    "description_year": "1761"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "George Augustus Selwyn",
+    "fixed_month": 4,
+    "fixed_day": 11,
+    "liturgical_color": "white",
+    "description": "Bispo e Missionário na Nova Zelândia",
+    "description_year": "1878"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Alphege",
+    "fixed_month": 4,
+    "fixed_day": 19,
+    "liturgical_color": "red",
+    "description": "Arcebispo de Cantuária e Mártir",
+    "description_year": "1012"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Anselmo",
+    "fixed_month": 4,
+    "fixed_day": 21,
+    "liturgical_color": "white",
+    "description": "Arcebispo de Cantuária e Mestre da Fé",
+    "description_year": "1109"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Jorge",
+    "fixed_month": 4,
+    "fixed_day": 23,
+    "liturgical_color": "red",
+    "description": "Mártir",
+    "description_year": "c. 304"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Arthur Michael Ramsey",
+    "fixed_month": 4,
+    "fixed_day": 24,
+    "liturgical_color": "white",
+    "description": "Arcebispo de Cantuária, Ecumenista e Mestre",
+    "description_year": "1988"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Catarina de Sena",
+    "fixed_month": 4,
+    "fixed_day": 29,
+    "liturgical_color": "white",
+    "description": "Reformadora da Igreja",
+    "description_year": "1380"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Atanásio",
+    "fixed_month": 5,
+    "fixed_day": 2,
+    "liturgical_color": "white",
+    "description": "Bispo de Alexandria e Mestre da Fé",
+    "description_year": "373"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Juliana de Norwich",
+    "fixed_month": 5,
+    "fixed_day": 8,
+    "liturgical_color": "white",
+    "description": "Ancoreta",
+    "description_year": "c. 1417"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Gregório de Nazianzo",
+    "fixed_month": 5,
+    "fixed_day": 9,
+    "liturgical_color": "white",
+    "description": "Bispo de Constantinopla e Mestre",
+    "description_year": "389"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Pacômio",
+    "fixed_month": 5,
+    "fixed_day": 15,
+    "liturgical_color": "white",
+    "description": "Abade e Organizador do Monasticismo",
+    "description_year": "346"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Os Mártires do Sudão",
+    "fixed_month": 5,
+    "fixed_day": 16,
+    "liturgical_color": "red",
+    "description_year": "2011"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Dunstão",
+    "fixed_month": 5,
+    "fixed_day": 19,
+    "liturgical_color": "white",
+    "description": "Arcebispo de Cantuária e Reformador",
+    "description_year": "988"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Alcuíno",
+    "fixed_month": 5,
+    "fixed_day": 20,
+    "liturgical_color": "white",
+    "description": "Diácono e Abade de Tours",
+    "description_year": "804"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Helena",
+    "fixed_month": 5,
+    "fixed_day": 21,
+    "liturgical_color": "white",
+    "description": "Mãe de Constantino",
+    "description_year": "330"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Jackson Kemper",
+    "fixed_month": 5,
+    "fixed_day": 24,
+    "liturgical_color": "white",
+    "description": "Primeiro Bispo Missionário nos EUA",
+    "description_year": "1870"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Beda, o Venerável",
+    "fixed_month": 5,
+    "fixed_day": 25,
+    "liturgical_color": "white",
+    "description": "Presbítero e Monge, Mestre",
+    "description_year": "735"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Agostinho de Cantuária",
+    "fixed_month": 5,
+    "fixed_day": 26,
+    "liturgical_color": "white",
+    "description": "Primeiro Arcebispo de Cantuária e Missionário",
+    "description_year": "605"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "João Calvino",
+    "fixed_month": 5,
+    "fixed_day": 27,
+    "liturgical_color": "white",
+    "description": "Reformador da Igreja",
+    "description_year": "1564"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Josephine Butler",
+    "fixed_month": 5,
+    "fixed_day": 30,
+    "liturgical_color": "white",
+    "description": "Renovadora da Sociedade",
+    "description_year": "1906"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Justino",
+    "fixed_month": 6,
+    "fixed_day": 1,
+    "liturgical_color": "red",
+    "description": "Mestre da Fé e Mártir em Roma",
+    "description_year": "c. 165"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Blandina e suas Companheiras",
+    "fixed_month": 6,
+    "fixed_day": 2,
+    "liturgical_color": "red",
+    "description": "Mártires em Lyon",
+    "description_year": "177"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Os Mártires de Uganda",
+    "fixed_month": 6,
+    "fixed_day": 3,
+    "liturgical_color": "red",
+    "description_year": "1886, 1977"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "João XXIII",
+    "fixed_month": 6,
+    "fixed_day": 4,
+    "liturgical_color": "white",
+    "description": "Bispo de Roma, Ecumenista e Reformador",
+    "description_year": "1963"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Bonifácio",
+    "fixed_month": 6,
+    "fixed_day": 5,
+    "liturgical_color": "red",
+    "description": "Arcebispo de Mainz, Missionário e Mártir",
+    "description_year": "754"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "William Grant Broughton",
+    "fixed_month": 6,
+    "fixed_day": 6,
+    "liturgical_color": "white",
+    "description": "Bispo e Missionário na Austrália",
+    "description_year": "1853"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Thomas Ken",
+    "fixed_month": 6,
+    "fixed_day": 8,
+    "liturgical_color": "white",
+    "description": "Bispo de Bath e Wells, Não-jurado",
+    "description_year": "1711"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Columba",
+    "fixed_month": 6,
+    "fixed_day": 9,
+    "liturgical_color": "white",
+    "description": "Abade de Iona e Missionário para os Escoceses",
+    "description_year": "597"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Efrém da Edessa",
+    "fixed_month": 6,
+    "fixed_day": 10,
+    "liturgical_color": "white",
+    "description": "Diácono e Mestre da Fé",
+    "description_year": "373"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Basílio Magno",
+    "fixed_month": 6,
+    "fixed_day": 14,
+    "liturgical_color": "white",
+    "description": "Bispo de Cesareia e Mestre",
+    "description_year": "379"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Evelyn Underhill",
+    "fixed_month": 6,
+    "fixed_day": 15,
+    "liturgical_color": "white",
+    "description": "Mestra da Fé",
+    "description_year": "1941"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Bernard Mizeki",
+    "fixed_month": 6,
+    "fixed_day": 18,
+    "liturgical_color": "red",
+    "description": "Catequista e Mártir na Rodésia",
+    "description_year": "1896"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Sundar Singh",
+    "fixed_month": 6,
+    "fixed_day": 19,
+    "liturgical_color": "white",
+    "description": "Evangelista e Mestre da Fé",
+    "description_year": "1929"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Albano",
+    "fixed_month": 6,
+    "fixed_day": 22,
+    "liturgical_color": "red",
+    "description": "Primeiro Mártir da Grã-Bretanha",
+    "description_year": "c. 250"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Cirilo de Alexandria",
+    "fixed_month": 6,
+    "fixed_day": 27,
+    "liturgical_color": "white",
+    "description": "Bispo e Mestre da Fé",
+    "description_year": "444"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Ireneu",
+    "fixed_month": 6,
+    "fixed_day": 28,
+    "liturgical_color": "white",
+    "description": "Bispo de Lyon e Mestre da Fé",
+    "description_year": "200"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Bento de Núrsia",
+    "fixed_month": 7,
+    "fixed_day": 11,
+    "liturgical_color": "white",
+    "description": "Abade e Fundador da Ordem Beneditina",
+    "description_year": "c. 550"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Nathan Soderblom",
+    "fixed_month": 7,
+    "fixed_day": 12,
+    "liturgical_color": "white",
+    "description": "Arcebispo de Uppsala e Ecumenista",
+    "description_year": "1931"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Boaventura",
+    "fixed_month": 7,
+    "fixed_day": 14,
+    "liturgical_color": "white",
+    "description": "Frade, Bispo e Mestre da Fé",
+    "description_year": "1274"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Olga e Vladimir",
+    "fixed_month": 7,
+    "fixed_day": 15,
+    "liturgical_color": "white",
+    "description": "Patronos da Igreja na Rússia",
+    "description_year": "969, 1016"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "William White",
+    "fixed_month": 7,
+    "fixed_day": 17,
+    "liturgical_color": "white",
+    "description": "Bispo da Pensilvânia e Primeiro Bispo Primaz da Igreja nos EUA",
+    "description_year": "1836"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Macrina",
+    "fixed_month": 7,
+    "fixed_day": 18,
+    "liturgical_color": "white",
+    "description": "Monja e Mestra da Fé",
+    "description_year": "379"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Gregório de Nissa",
+    "fixed_month": 7,
+    "fixed_day": 19,
+    "liturgical_color": "white",
+    "description": "Bispo de Nissa e Mestre da Fé",
+    "description_year": "396"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Margarida de Antioquia",
+    "fixed_month": 7,
+    "fixed_day": 20,
+    "liturgical_color": "red",
+    "description": "Mártir",
+    "description_year": "século IV"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Tomás de Kempis",
+    "fixed_month": 7,
+    "fixed_day": 24,
+    "liturgical_color": "white",
+    "description": "Presbítero e Mestre da Fé",
+    "description_year": "1471"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Os Pais da Virgem Maria",
+    "fixed_month": 7,
+    "fixed_day": 26,
+    "liturgical_color": "white"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "William Reed Huntington",
+    "fixed_month": 7,
+    "fixed_day": 27,
+    "liturgical_color": "white",
+    "description": "Presbítero e Ecumenista",
+    "description_year": "1909"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Lázaro, Maria e Marta de Betânia",
+    "fixed_month": 7,
+    "fixed_day": 29,
+    "liturgical_color": "white",
+    "description": "Companheiros de nosso Senhor"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "William Wilberforce",
+    "fixed_month": 7,
+    "fixed_day": 30,
+    "liturgical_color": "white",
+    "description": "Renovador da Sociedade",
+    "description_year": "1833"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "José de Arimateia",
+    "fixed_month": 8,
+    "fixed_day": 1,
+    "liturgical_color": "white"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Oswald",
+    "fixed_month": 8,
+    "fixed_day": 5,
+    "liturgical_color": "red",
+    "description": "Rei da Nortúmbria e Mártir",
+    "description_year": "642"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "John Mason Neale",
+    "fixed_month": 8,
+    "fixed_day": 7,
+    "liturgical_color": "white",
+    "description": "Presbítero e Reformador da Igreja",
+    "description_year": "1866"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Domingos",
+    "fixed_month": 8,
+    "fixed_day": 8,
+    "liturgical_color": "white",
+    "description": "Presbítero e Frade",
+    "description_year": "1221"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Mary Sumner",
+    "fixed_month": 8,
+    "fixed_day": 9,
+    "liturgical_color": "white",
+    "description": "Fundadora da União das Mães e Renovadora da Sociedade",
+    "description_year": "1921"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Lourenço",
+    "fixed_month": 8,
+    "fixed_day": 10,
+    "liturgical_color": "red",
+    "description": "Diácono e Mártir em Roma",
+    "description_year": "258"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Clara",
+    "fixed_month": 8,
+    "fixed_day": 11,
+    "liturgical_color": "white",
+    "description": "Abadessa de Assis",
+    "description_year": "1253"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Charles Inglis",
+    "fixed_month": 8,
+    "fixed_day": 12,
+    "liturgical_color": "white",
+    "description": "Primeiro Bispo do Canadá",
+    "description_year": "1787"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Jeremy Taylor",
+    "fixed_month": 8,
+    "fixed_day": 13,
+    "liturgical_color": "white",
+    "description": "Bispo de Down e Connor, Mestre da Fé",
+    "description_year": "1667"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Roger Schutz",
+    "fixed_month": 8,
+    "fixed_day": 14,
+    "liturgical_color": "white",
+    "description": "Monge de Taizé e Ecumenista",
+    "description_year": "2005"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Bernardo",
+    "fixed_month": 8,
+    "fixed_day": 20,
+    "liturgical_color": "white",
+    "description": "Abade de Claraval e Mestre da Fé",
+    "description_year": "1153"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Jonathan Myrick Daniels",
+    "fixed_month": 8,
+    "fixed_day": 21,
+    "liturgical_color": "red",
+    "description": "Mártir",
+    "description_year": "1965"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Luís",
+    "fixed_month": 8,
+    "fixed_day": 25,
+    "liturgical_color": "white",
+    "description": "Rei da França",
+    "description_year": "1270"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Mônica",
+    "fixed_month": 8,
+    "fixed_day": 27,
+    "liturgical_color": "white",
+    "description": "Mãe de Agostinho de Hipona",
+    "description_year": "387"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Agostinho de Hipona",
+    "fixed_month": 8,
+    "fixed_day": 28,
+    "liturgical_color": "white",
+    "description": "Bispo de Hipona e Mestre da Fé",
+    "description_year": "430"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "A Degolação de João Batista",
+    "fixed_month": 8,
+    "fixed_day": 29,
+    "liturgical_color": "red"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Charles Chapman Grafton",
+    "fixed_month": 8,
+    "fixed_day": 30,
+    "liturgical_color": "white",
+    "description": "Bispo de Fond du Lac e Ecumenista",
+    "description_year": "1912"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Aidano",
+    "fixed_month": 8,
+    "fixed_day": 31,
+    "liturgical_color": "white",
+    "description": "Abade-Bispo de Lindisfarne, Missionário na Nortúmbria",
+    "description_year": "651"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Os Mártires de Papua Nova Guiné",
+    "fixed_month": 9,
+    "fixed_day": 2,
+    "liturgical_color": "red",
+    "description_year": "1901 e 1942"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Birino",
+    "fixed_month": 9,
+    "fixed_day": 4,
+    "liturgical_color": "white",
+    "description": "Bispo de Dorchester e Evangelista em Wessex",
+    "description_year": "650"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Madre Teresa de Calcutá",
+    "fixed_month": 9,
+    "fixed_day": 5,
+    "liturgical_color": "white",
+    "description": "Renovadora da Sociedade",
+    "description_year": "1997"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Alan Gardiner",
+    "fixed_month": 9,
+    "fixed_day": 6,
+    "liturgical_color": "white",
+    "description": "Missionário e Fundador da SAMS",
+    "description_year": "1851"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Hannah More",
+    "fixed_month": 9,
+    "fixed_day": 7,
+    "liturgical_color": "white",
+    "description": "Renovadora da Sociedade e Fundadora de Escolas Dominicais",
+    "description_year": "1833"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Constância e suas Companheiras",
+    "fixed_month": 9,
+    "fixed_day": 9,
+    "liturgical_color": "red",
+    "description": "Mártires de Memphis",
+    "description_year": "1878"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Alexander Crummell",
+    "fixed_month": 9,
+    "fixed_day": 10,
+    "liturgical_color": "white",
+    "description": "Presbítero e Missionário na Libéria",
+    "description_year": "1898"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "John Henry Hobart",
+    "fixed_month": 9,
+    "fixed_day": 12,
+    "liturgical_color": "white",
+    "description": "Bispo de Nova York e Reformador da Igreja",
+    "description_year": "1830"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "João Crisóstomo",
+    "fixed_month": 9,
+    "fixed_day": 13,
+    "liturgical_color": "white",
+    "description": "Bispo de Constantinopla e Mestre da Fé",
+    "description_year": "407"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Cipriano",
+    "fixed_month": 9,
+    "fixed_day": 15,
+    "liturgical_color": "red",
+    "description": "Bispo de Cartago e Mártir",
+    "description_year": "258"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Niniano",
+    "fixed_month": 9,
+    "fixed_day": 16,
+    "liturgical_color": "white",
+    "description": "Bispo de Galloway e Missionário para os Pictos",
+    "description_year": "432"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Edward Bouverie Pusey",
+    "fixed_month": 9,
+    "fixed_day": 17,
+    "liturgical_color": "white",
+    "description": "Presbítero e Mestre da Fé",
+    "description_year": "1882"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Teodoro de Tarso",
+    "fixed_month": 9,
+    "fixed_day": 19,
+    "liturgical_color": "white",
+    "description": "Arcebispo de Cantuária",
+    "description_year": "690"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "John Coleridge Patteson",
+    "fixed_month": 9,
+    "fixed_day": 20,
+    "liturgical_color": "red",
+    "description": "Bispo da Melanésia, e suas Companheiras, Mártires",
+    "description_year": "1871"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Sérgio",
+    "fixed_month": 9,
+    "fixed_day": 25,
+    "liturgical_color": "white",
+    "description": "Monge e Reformador da Igreja na Rússia",
+    "description_year": "1392"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Lancelot Andrewes",
+    "fixed_month": 9,
+    "fixed_day": 26,
+    "liturgical_color": "white",
+    "description": "Bispo de Winchester e Mestre da Fé",
+    "description_year": "1626"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Wilson Carlile",
+    "fixed_month": 9,
+    "fixed_day": 27,
+    "liturgical_color": "white",
+    "description": "Evangelista e Fundador do Exército da Igreja",
+    "description_year": "1942"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Jerônimo",
+    "fixed_month": 9,
+    "fixed_day": 30,
+    "liturgical_color": "white",
+    "description": "Monge de Belém e Tradutor da Bíblia",
+    "description_year": "420"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Remígio",
+    "fixed_month": 10,
+    "fixed_day": 1,
+    "liturgical_color": "white",
+    "description": "Bispo de Reims e Missionário para os Francos",
+    "description_year": "533"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "George Bell",
+    "fixed_month": 10,
+    "fixed_day": 3,
+    "liturgical_color": "white",
+    "description": "Defensor da Igreja Confessante, Bispo e Ecumenista",
+    "description_year": "1958"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Francisco de Assis",
+    "fixed_month": 10,
+    "fixed_day": 4,
+    "liturgical_color": "white",
+    "description": "Frade e Diácono, Reformador da Igreja",
+    "description_year": "1226"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "William Tyndale",
+    "fixed_month": 10,
+    "fixed_day": 6,
+    "liturgical_color": "red",
+    "description": "Presbítero, Tradutor da Bíblia e Mártir",
+    "description_year": "1536"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Robert Grosseteste",
+    "fixed_month": 10,
+    "fixed_day": 9,
+    "liturgical_color": "white",
+    "description": "Bispo de Lincoln",
+    "description_year": "1253"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Paulino",
+    "fixed_month": 10,
+    "fixed_day": 10,
+    "liturgical_color": "white",
+    "description": "Bispo de York e Missionário",
+    "description_year": "644"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Filipe",
+    "fixed_month": 10,
+    "fixed_day": 11,
+    "liturgical_color": "white",
+    "description": "Diácono e Evangelista"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Cecil Frances Alexander",
+    "fixed_month": 10,
+    "fixed_day": 12,
+    "liturgical_color": "white",
+    "description": "Escritora de Hinos e Mestra da Fé",
+    "description_year": "1895"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Eduardo, o Confessor",
+    "fixed_month": 10,
+    "fixed_day": 13,
+    "liturgical_color": "white",
+    "description": "Rei da Inglaterra",
+    "description_year": "1066"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Samuel Isaac Joseph Schereschewsky",
+    "fixed_month": 10,
+    "fixed_day": 14,
+    "liturgical_color": "white",
+    "description": "Bispo de Xangai",
+    "description_year": "1906"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Teresa de Ávila",
+    "fixed_month": 10,
+    "fixed_day": 15,
+    "liturgical_color": "white",
+    "description": "Monja e Reformadora da Igreja",
+    "description_year": "1582"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Hugh Latimer e Nicholas Ridley",
+    "fixed_month": 10,
+    "fixed_day": 16,
+    "liturgical_color": "red",
+    "description": "Bispos e Mártires",
+    "description_year": "1555"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Inácio",
+    "fixed_month": 10,
+    "fixed_day": 17,
+    "liturgical_color": "red",
+    "description": "Bispo de Antioquia e Mártir",
+    "description_year": "ca. 115"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Henry Martyn",
+    "fixed_month": 10,
+    "fixed_day": 19,
+    "liturgical_color": "white",
+    "description": "Presbítero e Missionário na Índia e Pérsia",
+    "description_year": "1812"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Alfredo, o Grande",
+    "fixed_month": 10,
+    "fixed_day": 26,
+    "liturgical_color": "white",
+    "description": "Rei dos Saxões Ocidentais e Reformador da Igreja",
+    "description_year": "899"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "James Hannington e suas Companheiras",
+    "fixed_month": 10,
+    "fixed_day": 29,
+    "liturgical_color": "red",
+    "description": "Bispo da África Equatorial Oriental, e suas Companheiras, Mártires",
+    "description_year": "1885"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Comemoração dos Fiéis Defuntos",
+    "fixed_month": 11,
+    "fixed_day": 2,
+    "liturgical_color": "white"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Richard Hooker",
+    "fixed_month": 11,
+    "fixed_day": 3,
+    "liturgical_color": "white",
+    "description": "Presbítero e Mestre da Fé",
+    "description_year": "1600"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Isabel e Zacarias",
+    "fixed_month": 11,
+    "fixed_day": 5,
+    "liturgical_color": "white",
+    "description": "Pais de João Batista"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "William Temple",
+    "fixed_month": 11,
+    "fixed_day": 6,
+    "liturgical_color": "white",
+    "description": "Arcebispo de Cantuária e Mestre da Fé",
+    "description_year": "1944"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Willibrord",
+    "fixed_month": 11,
+    "fixed_day": 7,
+    "liturgical_color": "white",
+    "description": "Arcebispo de Utrecht e Missionário na Frísia",
+    "description_year": "739"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Leão Magno",
+    "fixed_month": 11,
+    "fixed_day": 10,
+    "liturgical_color": "white",
+    "description": "Bispo de Roma e Mestre da Fé",
+    "description_year": "461"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Martinho",
+    "fixed_month": 11,
+    "fixed_day": 11,
+    "liturgical_color": "white",
+    "description": "Bispo de Tours",
+    "description_year": "397"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Charles Simeon",
+    "fixed_month": 11,
+    "fixed_day": 13,
+    "liturgical_color": "white",
+    "description": "Presbítero e Evangelista",
+    "description_year": "1836"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Sagração de Samuel Seabury",
+    "fixed_month": 11,
+    "fixed_day": 14,
+    "liturgical_color": "white",
+    "description": "Primeiro Bispo nos Estados Unidos",
+    "description_year": "1784"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Herman",
+    "fixed_month": 11,
+    "fixed_day": 15,
+    "liturgical_color": "white",
+    "description": "Monge e Missionário para os Nativos do Alasca",
+    "description_year": "1837"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Margarida",
+    "fixed_month": 11,
+    "fixed_day": 16,
+    "liturgical_color": "white",
+    "description": "Rainha da Escócia, Reformadora da Igreja e Renovadora da Sociedade",
+    "description_year": "1093"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Hugh",
+    "fixed_month": 11,
+    "fixed_day": 17,
+    "liturgical_color": "white",
+    "description": "Bispo de Lincoln e Renovador da Sociedade",
+    "description_year": "1200"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Isabel da Hungria",
+    "fixed_month": 11,
+    "fixed_day": 18,
+    "liturgical_color": "white",
+    "description": "Renovadora da Sociedade",
+    "description_year": "1231"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Hilda",
+    "fixed_month": 11,
+    "fixed_day": 19,
+    "liturgical_color": "white",
+    "description": "Abadessa de Whitby",
+    "description_year": "680"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Edmundo",
+    "fixed_month": 11,
+    "fixed_day": 20,
+    "liturgical_color": "red",
+    "description": "Rei da Ânglia Oriental e Mártir",
+    "description_year": "870"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Cecília",
+    "fixed_month": 11,
+    "fixed_day": 22,
+    "liturgical_color": "red",
+    "description": "Mártir em Roma",
+    "description_year": "c. 230"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Clemente",
+    "fixed_month": 11,
+    "fixed_day": 23,
+    "liturgical_color": "white",
+    "description": "Bispo de Roma e Mártir",
+    "description_year": "c. 100"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Catarina de Alexandria",
+    "fixed_month": 11,
+    "fixed_day": 25,
+    "liturgical_color": "red",
+    "description": "Mártir",
+    "description_year": "c. 305"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Clive Staples Lewis",
+    "fixed_month": 11,
+    "fixed_day": 29,
+    "liturgical_color": "white",
+    "description": "Mestre da Fé",
+    "description_year": "1963"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Nicholas Ferrar",
+    "fixed_month": 12,
+    "fixed_day": 1,
+    "liturgical_color": "white",
+    "description": "Diácono e Fundador da Comunidade de Little Gidding",
+    "description_year": "1637"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Channing Moore Williams",
+    "fixed_month": 12,
+    "fixed_day": 2,
+    "liturgical_color": "white",
+    "description": "Bispo Missionário na China e no Japão",
+    "description_year": "1910"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "João de Damasco",
+    "fixed_month": 12,
+    "fixed_day": 4,
+    "liturgical_color": "white",
+    "description": "Presbítero e Mestre da Fé",
+    "description_year": "760"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Clemente de Alexandria",
+    "fixed_month": 12,
+    "fixed_day": 5,
+    "liturgical_color": "white",
+    "description": "Presbítero e Mestre da Fé",
+    "description_year": "210"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Nicolau",
+    "fixed_month": 12,
+    "fixed_day": 6,
+    "liturgical_color": "white",
+    "description": "Bispo de Mira",
+    "description_year": "c. 326"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Ambrósio",
+    "fixed_month": 12,
+    "fixed_day": 7,
+    "liturgical_color": "white",
+    "description": "Bispo de Milão e Mestre da Fé",
+    "description_year": "397"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Richard Baxter",
+    "fixed_month": 12,
+    "fixed_day": 8,
+    "liturgical_color": "white",
+    "description": "Pastor e Mestre da Fé",
+    "description_year": "1691"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Luzia",
+    "fixed_month": 12,
+    "fixed_day": 13,
+    "liturgical_color": "red",
+    "description": "Mártir em Siracusa",
+    "description_year": "304"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "O Sapientia",
+    "fixed_month": 12,
+    "fixed_day": 16,
+    "liturgical_color": "white",
+    "description": "Ó Sabedoria do alto"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "O Adonai",
+    "fixed_month": 12,
+    "fixed_day": 17,
+    "liturgical_color": "white",
+    "description": "Ó Senhor do Poder"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "O Radix Jesse",
+    "fixed_month": 12,
+    "fixed_day": 18,
+    "liturgical_color": "white",
+    "description": "Ó Raiz de Jessé"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "O Clavis David",
+    "fixed_month": 12,
+    "fixed_day": 19,
+    "liturgical_color": "white",
+    "description": "Ó Chave de Davi"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "O Oriens",
+    "fixed_month": 12,
+    "fixed_day": 20,
+    "liturgical_color": "white",
+    "description": "Ó Sol Nascente"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "O Rex Gentium",
+    "fixed_month": 12,
+    "fixed_day": 21,
+    "liturgical_color": "white",
+    "description": "Ó Desejo das Nações"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "O Emmanuel",
+    "fixed_month": 12,
+    "fixed_day": 22,
+    "liturgical_color": "white",
+    "description": "Ó Vem, Emanuel"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "O Virgo Virginum",
+    "fixed_month": 12,
+    "fixed_day": 23,
+    "liturgical_color": "white",
+    "description": "Ó Virgem das Virgens"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "Thomas Becket",
+    "fixed_month": 12,
+    "fixed_day": 29,
+    "liturgical_color": "red",
+    "description": "Arcebispo de Cantuária, Mártir",
+    "description_year": "1170"
+  },
+  {
+    "celebration_type": "lesser_feast",
+    "name": "John Wyclif",
+    "fixed_month": 12,
+    "fixed_day": 31,
+    "liturgical_color": "white",
+    "description": "Presbítero e Tradutor da Bíblia para o Inglês",
+    "description_year": "1384"
+  }
+]

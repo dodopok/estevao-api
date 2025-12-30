@@ -37,9 +37,9 @@ class PrayerBook < ApplicationRecord
   }
 
   # Cache prayer books by code for better performance
-  # Version v4 for new caching strategy
+  # Version v5 for new caching strategy
   def self.find_by_code(code)
-    Rails.cache.fetch("v4/prayer_book/#{code}", expires_in: 1.day) do
+    Rails.cache.fetch("v5/prayer_book/#{code}", expires_in: 1.day) do
       record_cache_event(:prayer_book, :miss, code)
       find_by(code: code)
     end
@@ -49,11 +49,11 @@ class PrayerBook < ApplicationRecord
     prayer_book = find_by_code(code)
     if prayer_book.nil?
       # Invalidate cache and retry with fresh database lookup
-      Rails.cache.delete("v4/prayer_book/#{code}")
+      Rails.cache.delete("v5/prayer_book/#{code}")
       prayer_book = find_by(code: code)
       raise(ActiveRecord::RecordNotFound, "Couldn't find PrayerBook with code=#{code}") if prayer_book.nil?
       # Update cache with fresh data
-      Rails.cache.write("v4/prayer_book/#{code}", prayer_book, expires_in: 1.day)
+      Rails.cache.write("v5/prayer_book/#{code}", prayer_book, expires_in: 1.day)
     end
     prayer_book
   end
@@ -64,7 +64,7 @@ class PrayerBook < ApplicationRecord
 
   # Cache all active prayer books
   def self.all_cached
-    Rails.cache.fetch("v4/prayer_books/all", expires_in: 1.day) do
+    Rails.cache.fetch("v5/prayer_books/all", expires_in: 1.day) do
       record_cache_event(:prayer_book, :miss, "all")
       active.to_a
     end
@@ -86,8 +86,8 @@ class PrayerBook < ApplicationRecord
   after_commit :clear_prayer_book_caches
 
   def clear_prayer_book_caches
-    Rails.cache.delete("v4/prayer_book/#{code}")
-    Rails.cache.delete("v4/prayer_books/all")
+    Rails.cache.delete("v5/prayer_book/#{code}")
+    Rails.cache.delete("v5/prayer_books/all")
   end
 
   # Retorna as features do Prayer Book (lectionary, daily_office, etc.)

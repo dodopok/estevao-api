@@ -58,7 +58,7 @@ RSpec.describe DailyOfficeService do
     end
 
     context 'for other prayer books' do
-      it 'uses BaseBuilder for loc_2019' do
+      it 'uses Loc2019Builder for loc_2019' do
         service = described_class.new(
           date: date,
           office_type: :morning,
@@ -66,7 +66,7 @@ RSpec.describe DailyOfficeService do
         )
 
         builder = service.send(:builder_for_prayer_book)
-        expect(builder).to be_a(DailyOffice::Builders::BaseBuilder)
+        expect(builder).to be_a(DailyOffice::Builders::Loc2019Builder)
       end
 
       it 'uses BaseBuilder for loc_1662' do

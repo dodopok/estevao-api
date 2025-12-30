@@ -548,10 +548,7 @@ module DailyOffice
           end
 
           # Collect of the Day (from CollectService)
-          if @collects
-            lines << line_item(@collects)
-            lines << line_item("", type: "spacer")
-          end
+          lines.concat(build_collect_lines(@collects))
 
           {
             name: "A Coleta do Dia",

@@ -10,7 +10,14 @@ RSpec.describe DailyOfficeService, "caching" do
   # Use memory store for cache tests
   around do |example|
     original_cache = Rails.cache
-    Rails.cache = ActiveSupport::Cache::MemoryStore.new
+    memory_store = ActiveSupport::Cache::MemoryStore.new
+    Rails.cache = memory_store
+
+    # Pre-populate the prayer book in the fresh memory cache
+    PrayerBook.all.each do |pb|
+      Rails.cache.write("v5/prayer_book/#{pb.code}", pb)
+    end
+
     example.run
     Rails.cache = original_cache
   end
@@ -24,14 +31,14 @@ RSpec.describe DailyOfficeService, "caching" do
   let(:base_preferences) { { prayer_book_code: "loc_2015" } }
 
   describe ".base_cache_key" do
-    it "generates v4 versioned key" do
+    it "generates v5 versioned key" do
       key = described_class.base_cache_key(
         date: date,
         office_type: :morning,
         preferences: base_preferences
       )
 
-      expect(key).to start_with("v4/daily_office/base/")
+      expect(key).to start_with("v5/daily_office/base/")
     end
 
     it "includes date in key" do
@@ -167,6 +174,7 @@ RSpec.describe DailyOfficeService, "caching" do
       service = described_class.new(date: date, office_type: :morning, preferences: preferences)
       service.call
 
+      pb = PrayerBook.find_by_code(preferences[:prayer_book_code])
       cache_key = described_class.base_cache_key(
         date: date,
         office_type: :morning,

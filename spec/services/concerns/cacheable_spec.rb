@@ -36,14 +36,14 @@ RSpec.describe Cacheable do
   end
 
   describe "#build_cache_key" do
-    it "includes v4 version prefix" do
+    it "includes v5 version prefix" do
       key = service.send(:build_cache_key, "test", "subkey")
-      expect(key).to start_with("v4/")
+      expect(key).to start_with("v5/")
     end
 
     it "joins parts with slashes" do
       key = service.send(:build_cache_key, "category", "subcategory", "item")
-      expect(key).to eq("v4/category/subcategory/item")
+      expect(key).to eq("v5/category/subcategory/item")
     end
 
     context "with prayer_book_code" do
@@ -84,24 +84,24 @@ RSpec.describe Cacheable do
     it "uses versioned key" do
       service.send(:cache_fetch, "my_key", expires_in: 1.hour) { "data" }
 
-      expect(Rails.cache.exist?("v4/my_key")).to be true
+      expect(Rails.cache.exist?("v5/my_key")).to be true
     end
   end
 
   describe "#cache_delete" do
     it "deletes cached entry" do
       service.send(:cache_fetch, "delete_test", expires_in: 1.hour) { "data" }
-      expect(Rails.cache.exist?("v4/delete_test")).to be true
+      expect(Rails.cache.exist?("v5/delete_test")).to be true
 
       service.send(:cache_delete, "delete_test")
-      expect(Rails.cache.exist?("v4/delete_test")).to be false
+      expect(Rails.cache.exist?("v5/delete_test")).to be false
     end
   end
 
   describe "#extract_cache_category" do
     it "extracts category from cache key" do
-      expect(service.send(:extract_cache_category, "v4/daily_office/2025-01-01/morning")).to eq("daily_office")
-      expect(service.send(:extract_cache_category, "v4/readings/2025-01-01")).to eq("readings")
+      expect(service.send(:extract_cache_category, "v5/daily_office/2025-01-01/morning")).to eq("daily_office")
+      expect(service.send(:extract_cache_category, "v5/readings/2025-01-01")).to eq("readings")
     end
 
     it "returns unknown for invalid keys" do
