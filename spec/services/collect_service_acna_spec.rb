@@ -80,7 +80,7 @@ RSpec.describe CollectService do
 
   describe 'ACNA multiple collects scenario (Dec 29, 2025)' do
     let(:date) { Date.new(2025, 12, 29) } # Monday
-    let(:service) { described_class.new(date, prayer_book_code: 'loc_2019_en', language: 'en') }
+    let(:service) { described_class.new(date, prayer_book_code: 'loc_2019_en') }
 
     it 'returns multiple collects including transferred festivals, seasonal, saints, and fixed' do
       # Dec 28, 2025 was Sunday. Holy Innocents (Dec 28) falls on Sunday.

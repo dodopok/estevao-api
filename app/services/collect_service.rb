@@ -3,21 +3,18 @@
 # Serviço para buscar coletas (orações) litúrgicas para uma data específica
 #
 # CACHING: Uses v4 cache strategy with prayer_book.updated_at versioning
-# - Collects are cached per date/prayer_book/language with 1-day TTL
+# - Collects are cached per date/prayer_book with 1-day TTL
 # - Uses Collect.collects_cache_for for base data (30-day TTL)
 #
 class CollectService
   include PrayerBookAware
 
-  DEFAULT_LANGUAGE = "pt-BR"
-
   attr_reader :date, :calendar, :office_type
 
-  def initialize(date, prayer_book_code: "loc_2015", calendar: nil, language: DEFAULT_LANGUAGE, office_type: :morning)
+  def initialize(date, prayer_book_code: "loc_2015", calendar: nil, office_type: :morning)
     @date = date
-    @calendar = calendar || LiturgicalCalendar.new(date.year, prayer_book_code: prayer_book_code)
     @prayer_book_code = prayer_book_code
-    @language = language
+    @calendar = calendar || LiturgicalCalendar.new(date.year, prayer_book_code: prayer_book_code)
     @office_type = office_type
   end
 
@@ -36,14 +33,12 @@ class CollectService
 
   private
 
-  attr_reader :language
-
   # Build cache key for collects
   def build_collects_cache_key
     pb = PrayerBook.find_by_code(prayer_book_code)
     pb_version = pb&.updated_at&.to_i || 0
 
-    "v6/collects/#{date}/#{prayer_book_code}/#{language}/#{office_type}/pb_#{pb_version}"
+    "v7/collects/#{date}/#{prayer_book_code}/#{office_type}/pb_#{pb_version}"
   end
 
   # For test compatibility
@@ -129,7 +124,6 @@ class CollectService
 
     Collect.for_celebration(celebration_id)
            .for_prayer_book_id(prayer_book_id)
-           .in_language(language)
   end
 
   # Common query for collects by sunday reference
@@ -138,7 +132,6 @@ class CollectService
 
     Collect.for_sunday(sunday_ref)
            .for_prayer_book_id(prayer_book_id)
-           .in_language(language)
   end
 
   # Tenta encontrar uma coleta comum para uma celebração
@@ -179,16 +172,17 @@ class CollectService
 
     sunday_calendar = calendar_for_date(last_sunday)
     sunday_name = sunday_calendar.sunday_name(last_sunday)
+    pb_language = prayer_book&.language
     
     # Translate sunday name if in English
-    if language == "en"
+    if pb_language == "en"
       sunday_name = Liturgical::Translator.translate_sunday_name(sunday_name)
     end
 
     weekday_name = Liturgical::Translator.day_name_en(date)
     
     # Title for weekday in season
-    title = if language == "en"
+    title = if pb_language == "en"
               "#{weekday_name} after #{sunday_name}"
             else
               "#{Liturgical::Translator.day_name_pt(date)} após #{sunday_name}"
@@ -226,7 +220,7 @@ class CollectService
     weekday_name = date.strftime("%A").downcase
     slug = "#{office_type}_collect_#{weekday_name}"
     
-    text_record = LiturgicalText.find_by(slug: slug, prayer_book_id: prayer_book_id)
+    text_record = LiturgicalText.find_text(slug, prayer_book_code: prayer_book_code)
     return [] unless text_record
 
     [{

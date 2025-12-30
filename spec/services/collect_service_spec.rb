@@ -225,25 +225,6 @@ RSpec.describe CollectService do
     end
   end
 
-  describe 'language filtering' do
-    let!(:english_collect) do
-      create(:collect,
-        prayer_book: prayer_book,
-        celebration: celebration,
-        text: "English collect...",
-        language: "en")
-    end
-
-    it 'returns only collects in the correct language' do
-      service = described_class.new(Date.new(2025, 3, 19))
-      collects_raw = service.send(:find_by_celebration)
-
-      # Should return only Portuguese collect
-      expect(collects_raw.count).to eq(1)
-      expect(collects_raw.first.language).to eq("pt-BR")
-    end
-  end
-
   describe 'specific cases' do
     it 'returns nil for date with no defined collect' do
       Collect.destroy_all
