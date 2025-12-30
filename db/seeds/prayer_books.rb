@@ -149,7 +149,7 @@ portuguese_prayer_books = [
     name: "ACNA - 2019",
     year: 2019,
     language: "pt-BR",
-    premium_required: false,  # PREMIUM
+    premium_required: true,  # PREMIUM
     jurisdiction: "Anglican Church in North America",
     description: "LOC da ACNA, com Ofícios e Lecionário traduzidos pelo Rev. Douglas Araujo",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2019.png",
