@@ -63,20 +63,20 @@ module Liturgical
           number = match[1].to_i
           preposition = match[2]
           season_pt = match[3]
-          
+
           ordinal = case number
-                    when 1 then "1st"
-                    when 2 then "2nd"
-                    when 3 then "3rd"
-                    else "#{number}th"
-                    end
-          
+          when 1 then "1st"
+          when 2 then "2nd"
+          when 3 then "3rd"
+          else "#{number}th"
+          end
+
           prep = case preposition
-                 when "no", "na" then "in"
-                 when "após" then "after"
-                 else "of"
-                 end
-          
+          when "no", "na" then "in"
+          when "após" then "after"
+          else "of"
+          end
+
           translated_season = SEASONS[season_pt] || season_pt
           "#{ordinal} Sunday #{prep} #{translated_season}"
         else

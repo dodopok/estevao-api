@@ -46,7 +46,7 @@ class CollectService
     all_collects = []
     celebrations = calendar.celebrations_for_date(date)
     language = prayer_book&.language || "pt-BR"
-    
+
     collect_of_the_day_label = (language == "en" ? "Collect of the Day" : "Coleta do Dia")
 
     # 1. Coletas de celebrações de alta prioridade (Principais, Dias Santos, Festivais)
@@ -99,11 +99,11 @@ class CollectService
   # Helper para buscar e formatar coletas de uma celebração
   def collects_for_celebration_info(cel_info, module_title: nil, join_subtitle: false)
     name = cel_info[:name]
-    desc = [cel_info[:description], cel_info[:description_year]].compact_blank.join(", ")
-    
+    desc = [ cel_info[:description], cel_info[:description_year] ].compact_blank.join(", ")
+
     title = name
     subtitle = desc
-    
+
     if join_subtitle && desc.present?
       title = "#{name}, #{desc}"
       subtitle = nil
@@ -199,20 +199,20 @@ class CollectService
     sunday_calendar = calendar_for_date(last_sunday)
     sunday_name = sunday_calendar.sunday_name(last_sunday)
     language = prayer_book&.language
-    
+
     # Translate sunday name if in English
     if language == "en"
       sunday_name = Liturgical::Translator.translate_sunday_name(sunday_name)
     end
 
     weekday_name = (language == "en" ? Liturgical::Translator.day_name_en(date) : Liturgical::Translator.day_name_pt(date))
-    
+
     # Title for weekday in season
     title = if language == "en"
               "#{weekday_name} after the #{sunday_name}"
-            else
+    else
               "#{Liturgical::Translator.day_name_pt(date)} após o #{sunday_name}"
-            end
+    end
 
     # Fix for "after the 1st Sunday after Christmas" -> "after the First Sunday of Christmas" if needed?
     # User example: "Monday after the First Sunday of Christmas"
@@ -228,7 +228,7 @@ class CollectService
   def find_fixed_office_collect
     weekday_name = date.strftime("%A").downcase
     slug = "#{office_type}_collect_#{weekday_name}"
-    
+
     text_record = LiturgicalText.find_text(slug, prayer_book_code: prayer_book_code)
     return [] unless text_record
 
@@ -236,12 +236,12 @@ class CollectService
     language = prayer_book&.language
     weekday_label = (language == "en" ? date.strftime("%A") : Liturgical::Translator.day_name_pt(date))
 
-    [{
+    [ {
       text: text_record.content,
       module_title: text_record.title || text_record.slug.humanize,
       title: weekday_label,
       slug: text_record.slug
-    }]
+    } ]
   end
 
   # Busca coletas por celebração do domingo
@@ -271,7 +271,7 @@ class CollectService
     records.map do |c|
       text = c.text
       text = text.gsub("N.", substitution) if substitution && text.include?("N.")
-      
+
       {
         text: text,
         preface: c.preface,

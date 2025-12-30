@@ -36,7 +36,7 @@ create_text('morning_opening_sentence_trinity', 'opening_sentence', "Holy, holy,
 create_text('morning_confession_rubric', 'rubric', "The Officiant says to the People")
 create_text('morning_confession_exhortation', 'confession', "Dearly beloved, the Scriptures teach us to acknowledge our many sins and offenses, not concealing them from our heavenly Father, but confessing them with humble and obedient hearts that we may obtain forgiveness by his infinite goodness and mercy. We ought at all times humbly to acknowledge our sins before Almighty God, but especially when we come together in his presence to give thanks for the great benefits we have received at his hands, to declare his most worthy praise, to hear his holy Word, and to ask, for ourselves and on behalf of others, those things which are necessary for our life and our salvation. Therefore, draw near with me to the throne of heavenly grace.")
 create_text('morning_confession_invitation_short', 'confession', "Let us humbly confess our sins to Almighty God.")
-create_text('morning_confession_body', 'confession', 
+create_text('morning_confession_body', 'confession',
   <<~TEXT
    **Almighty and most merciful Father,
       we have erred and strayed from your ways like lost sheep.

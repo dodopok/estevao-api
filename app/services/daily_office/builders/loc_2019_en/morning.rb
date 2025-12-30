@@ -114,7 +114,7 @@ module DailyOffice
 
         def build_invitatory_canticle
           slug = is_easter? ? "pascha_nostrum" : (preferences[:morning_invitatory_canticle] || "venite")
-          
+
           lines = []
           if slug == "venite"
             body = fetch_liturgical_text("venite_body")
@@ -127,7 +127,7 @@ module DailyOffice
             canticle = fetch_liturgical_text(slug)
             lines << line_item(canticle.content, slug: canticle.slug) if canticle
           end
-          
+
           cant = fetch_liturgical_text(slug == "venite" ? "venite_body" : slug)
           {
             name: cant&.title || "Invitatory Psalm",
@@ -146,7 +146,7 @@ module DailyOffice
           ]
 
           lines.concat(format_bible_content(psalm_ref[:content])) if psalm_ref[:content]
-          
+
           lines << line_item("", type: "spacer")
           gloria = fetch_liturgical_text("gloria_patri")
           lines << line_item(gloria.content, slug: gloria.slug) if gloria
@@ -160,7 +160,7 @@ module DailyOffice
 
         def build_lessons_and_canticles
           modules = []
-          
+
           # First Lesson
           if readings[:first_reading]
             reading = readings[:first_reading]
@@ -172,13 +172,13 @@ module DailyOffice
             lines << line_item("", type: "spacer")
             lines << line_item("The Word of the Lord.", type: "leader")
             lines << line_item("Thanks be to God.", type: "congregation")
-            
+
             modules << { name: "First Lesson", slug: "first_lesson", lines: lines, reference: reading[:reference] }
 
             c_slug = (is_lent? || is_advent?) ? "benedictus_es_domine" : "te_deum_part_1"
             cant = fetch_liturgical_text(c_slug)
-            c_lines = [line_item(cant.content, slug: cant.slug)]
-            
+            c_lines = [ line_item(cant.content, slug: cant.slug) ]
+
             if c_slug == "te_deum_part_1"
               opt = fetch_liturgical_text("te_deum_part_2_optional")
               c_lines << line_item(opt.content, slug: opt.slug) if opt
@@ -198,11 +198,11 @@ module DailyOffice
             lines << line_item("", type: "spacer")
             lines << line_item("The Word of the Lord.", type: "leader")
             lines << line_item("Thanks be to God.", type: "congregation")
-            
+
             modules << { name: "Second Lesson", slug: "second_lesson", lines: lines, reference: reading[:reference] }
 
             cant = fetch_liturgical_text("benedictus")
-            modules << { name: cant.title, slug: "benedictus", lines: [line_item(cant.content, slug: cant.slug)] }
+            modules << { name: cant.title, slug: "benedictus", lines: [ line_item(cant.content, slug: cant.slug) ] }
           end
 
           modules
@@ -226,10 +226,10 @@ module DailyOffice
           lines << line_item("And with your spirit.", type: "congregation")
           lines << line_item("Let us pray.", type: "leader")
           lines << line_item("", type: "spacer")
-          
+
           %w[v r v2].each do |suffix|
             k = fetch_liturgical_text("kyrie_#{suffix}")
-            lines << line_item(k.content, type: (suffix == 'r' ? "congregation" : "leader"), slug: k.slug) if k
+            lines << line_item(k.content, type: (suffix == "r" ? "congregation" : "leader"), slug: k.slug) if k
           end
           lines << line_item("", type: "spacer")
 
@@ -266,7 +266,7 @@ module DailyOffice
           {
             name: "Prayer for Mission",
             slug: "mission_prayer",
-            lines: [line_item(miss.content, slug: miss.slug)]
+            lines: [ line_item(miss.content, slug: miss.slug) ]
           }
         end
 
@@ -287,14 +287,14 @@ module DailyOffice
           {
             name: "A Prayer of St. John Chrysostom",
             slug: "chrysostom",
-            lines: [line_item(chry.content, slug: chry.slug)]
+            lines: [ line_item(chry.content, slug: chry.slug) ]
           }
         end
 
         def build_dismissal
           v = fetch_liturgical_text("dismissal_v")
           r = fetch_liturgical_text("dismissal_r")
-          
+
           num = preferences[:morning_concluding_sentence] || "1"
           sent = fetch_liturgical_text("concluding_sentence_#{num}")
 
