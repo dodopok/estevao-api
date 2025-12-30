@@ -8,7 +8,7 @@ module DailyOffice
           [
             build_opening_sentence,
             build_confession,
-            build_absolution,
+            # build_absolution,
             build_invitatory,
             build_invitatory_canticle,
             build_psalms,
@@ -45,6 +45,10 @@ module DailyOffice
 
         def build_confession
           lines = []
+
+          rubric = fetch_liturgical_text("morning_confession_rubric")
+          lines << line_item(rubric.content, type: "rubric", slug: rubric.slug) if rubric
+
           if preferences[:morning_confession_type] == "long"
             exhortation = fetch_liturgical_text("morning_confession_exhortation")
             lines << line_item(exhortation.content, slug: exhortation.slug) if exhortation
@@ -60,6 +64,12 @@ module DailyOffice
           confession = fetch_liturgical_text("morning_confession_body")
           lines << line_item(confession.content, slug: confession.slug) if confession
 
+          lay_prayer_rubric = fetch_liturgical_text("prayer_for_pardon_lay_rubric")
+          lines << line_item(lay_prayer_rubric.content, type: "rubric", slug: lay_prayer_rubric.slug) if lay_prayer_rubric
+
+          lay_prayer = fetch_liturgical_text("prayer_for_pardon_lay")
+          lines << line_item(lay_prayer.content, slug: lay_prayer.slug) if lay_prayer
+
           {
             name: "Confession of Sin",
             slug: "confession",
@@ -67,17 +77,17 @@ module DailyOffice
           }
         end
 
-        def build_absolution
-          abs = fetch_liturgical_text("absolution")
-          {
-            name: "Absolution",
-            slug: "absolution",
-            lines: [
-              line_item("The Priest alone stands and says", type: "rubric"),
-              line_item(abs.content, slug: abs.slug)
-            ]
-          }
-        end
+        # def build_absolution
+        #   abs = fetch_liturgical_text("absolution")
+        #   {
+        #     name: "Absolution",
+        #     slug: "absolution",
+        #     lines: [
+        #       line_item("The Priest alone stands and says", type: "rubric"),
+        #       line_item(abs.content, slug: abs.slug)
+        #     ]
+        #   }
+        # end
 
         def build_invitatory
           lines = []
