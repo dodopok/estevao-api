@@ -63,6 +63,21 @@ RSpec.describe "LOC 2019 English (ACNA) Integration" do
     end
   end
 
+  let!(:morning_reading) do
+    LectionaryReading.find_or_create_by!(
+      celebration: holy_innocents,
+      prayer_book: prayer_book,
+      date_reference: 'the_holy_innocents',
+      service_type: 'morning_prayer'
+    ) do |r|
+      r.first_reading = 'Jeremiah 31:15-17'
+      r.psalm = 'Psalm 124'
+      r.second_reading = 'Revelation 21:1-7'
+      r.gospel = 'Matthew 2:13-18'
+      r.cycle = 'all'
+    end
+  end
+
   it 'correctly identifies the major holy day and returns its readings' do
     # This specifically tests that ReadingService uses the correct liturgical rules for loc_2019_en
     service = ReadingService.for(date, prayer_book_code: 'loc_2019_en')
