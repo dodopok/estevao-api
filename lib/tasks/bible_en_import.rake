@@ -55,10 +55,19 @@ namespace :bible do
           db.transaction do
             data.each do |item|
               if item.is_a?(Hash)
-                clean_text = item["text"].gsub(/<S>\d+<\/S>/, "").gsub(/\s+/, " ").strip
+                # Remove Strong's numbers, <br> tags, and any other HTML tags
+                clean_text = item["text"].gsub(/<S>\d+<\/S>/, "")
+                                       .gsub(/<br\s*\/?>/i, " ")
+                                       .gsub(/<[^>]+>/, "")
+                                       .gsub(/\s+/, " ")
+                                       .strip
                 db.execute("INSERT INTO verse VALUES (?, ?, ?, ?)", [item["book"], item["chapter"], item["verse"], clean_text])
               elsif item.is_a?(Array)
-                clean_text = item[3].gsub(/<S>\d+<\/S>/, "").gsub(/\s+/, " ").strip
+                clean_text = item[3].to_s.gsub(/<S>\d+<\/S>/, "")
+                                       .gsub(/<br\s*\/?>/i, " ")
+                                       .gsub(/<[^>]+>/, "")
+                                       .gsub(/\s+/, " ")
+                                       .strip
                 db.execute("INSERT INTO verse VALUES (?, ?, ?, ?)", [item[0], item[1], item[2], clean_text])
               end
             end
