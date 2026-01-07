@@ -159,6 +159,8 @@ class DailyOfficeService
                       DailyOffice::Builders::Loc2019EnBuilder
     when "loc_2019"
                       DailyOffice::Builders::Loc2019Builder
+    when "loc_2021"
+                      DailyOffice::Builders::Loc2021Builder
     when "loc_2012"
                       # Future: DailyOffice::Builders::Loc2012Builder
                       DailyOffice::Builders::BaseBuilder

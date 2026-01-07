@@ -126,20 +126,9 @@ portuguese_prayer_books = [
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2021.pdf",
     is_recommended: false,
     features: {
-      lectionary: {
-        reading_types: [ "semicontinuous" ],
-        default_reading_type: "semicontinuous",
-        readings_per_week: 4,
-        supports_vigil: false
-      },
       daily_office: {
-        supports_family_rite: false,
-        available_confession_types: [ "long", "short" ],
-        available_lords_prayer: [ "traditional", "contemporary" ]
-      },
-      psalter: {
-        cycle_length: 30,
-        supports_seasonal_variations: false
+        has_midday: false,
+        has_compline: false
       }
     }
   },
@@ -155,23 +144,7 @@ portuguese_prayer_books = [
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2019.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2019.pdf",
     is_recommended: false,
-    features: {
-      lectionary: {
-        reading_types: [ "semicontinuous", "complementary" ],
-        default_reading_type: "semicontinuous",
-        readings_per_week: 7,
-        supports_vigil: true
-      },
-      daily_office: {
-        supports_family_rite: true,
-        available_confession_types: [ "long", "short" ],
-        available_lords_prayer: [ "traditional", "contemporary" ]
-      },
-      psalter: {
-        cycle_length: 60,
-        supports_seasonal_variations: true
-      }
-    }
+    features: {}
   }
 ]
 
@@ -189,23 +162,7 @@ english_prayer_books = [
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2019.png",
     pdf_url: "https://bcp2019.anglicanchurch.net/",
     is_recommended: false,
-    features: {
-      lectionary: {
-        reading_types: [ "semicontinuous", "complementary" ],
-        default_reading_type: "semicontinuous",
-        readings_per_week: 7,
-        supports_vigil: true
-      },
-      daily_office: {
-        supports_family_rite: true,
-        available_confession_types: [ "long", "short" ],
-        available_lords_prayer: [ "traditional", "contemporary" ]
-      },
-      psalter: {
-        cycle_length: 60,
-        supports_seasonal_variations: true
-      }
-    }
+    features: {}
   }
   # Future: Add more English Prayer Books (BCP 1662, BCP 1979, etc.)
 ]
