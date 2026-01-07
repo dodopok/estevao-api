@@ -76,7 +76,7 @@ module DailyOffice
         def build_lessons
           modules = []
 
-          [:first_reading, :second_reading, :gospel].each do |reading_key|
+          [ :first_reading, :second_reading, :gospel ].each do |reading_key|
             reading = readings[reading_key]
             next unless reading
 
@@ -150,7 +150,7 @@ module DailyOffice
           {
             name: "ORAÇÃO PASTORAL",
             slug: "other_prayers",
-            lines: [line_item(rubric.content, type: "rubric", slug: rubric.slug)],
+            lines: [ line_item(rubric.content, type: "rubric", slug: rubric.slug) ]
           }
         end
 

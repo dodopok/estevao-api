@@ -38,8 +38,8 @@ create_daily_reading = ->(day_ref, mp_psalms, ep_psalms, r1, r2, r3) {
 # ----------------------------------------------------------------------------
 # 1ª SEMANA DO ADVENTO
 # ----------------------------------------------------------------------------
-create_daily_reading.call("1st_sunday_of_advent_monday", 
-  "Salmo 1, 2, 3", "Salmo 4, 7", 
+create_daily_reading.call("1st_sunday_of_advent_monday",
+  "Salmo 1, 2, 3", "Salmo 4, 7",
   "Isaías 1:10-20", "1 Tessalonicenses 1:1-10", "Lucas 20:1-8"
 )
 
