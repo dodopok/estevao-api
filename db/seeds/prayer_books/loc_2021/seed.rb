@@ -82,3 +82,27 @@ Rails.logger.info "="*80
 load Rails.root.join("#{base_path}/collects.rb") if File.exist?(Rails.root.join("#{base_path}/collects.rb"))
 
 Rails.logger.info "✓ Coletas carregadas com sucesso"
+
+# ================================================================================
+# TEXTOS LITÚRGICOS
+# ================================================================================
+
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO TEXTOS LITÚRGICOS - LOC 2021"
+Rails.logger.info "="*80
+
+load Rails.root.join("#{base_path}/liturgical_texts.rb") if File.exist?(Rails.root.join("#{base_path}/liturgical_texts.rb"))
+
+Rails.logger.info "✓ Textos litúrgicos carregados com sucesso"
+
+# ================================================================================
+# PREFERÊNCIAS
+# ================================================================================
+
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO PREFERÊNCIAS - LOC 2021"
+Rails.logger.info "="*80
+
+load Rails.root.join("#{base_path}/preferences.rb") if File.exist?(Rails.root.join("#{base_path}/preferences.rb"))
+
+Rails.logger.info "✓ Preferências carregadas com sucesso"
