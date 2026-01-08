@@ -7,8 +7,11 @@ class Collect < ApplicationRecord
 
   # Validações
   validates :text, presence: true
-  validates :language, presence: true
+  validates :language, presence: true, if: -> { prayer_book.nil? }
   validate :must_have_celebration_or_season_or_sunday
+
+  # Callbacks
+  before_validation :set_language_from_prayer_book, if: -> { language.blank? && prayer_book.present? }
 
   # Scopes
   scope :for_celebration, ->(celebration_id) { where(celebration_id: celebration_id) }
@@ -77,6 +80,10 @@ class Collect < ApplicationRecord
   end
 
   private
+
+  def set_language_from_prayer_book
+    self.language = prayer_book.language
+  end
 
   def must_have_celebration_or_season_or_sunday
     if celebration_id.blank? && season_id.blank? && sunday_reference.blank?

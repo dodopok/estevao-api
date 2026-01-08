@@ -116,12 +116,14 @@ module Api
 
       def format_celebration_detailed(celebration)
         basic = format_celebration(celebration)
+        prayer_book = celebration.prayer_book
+        
         basic.merge({
           descricao: celebration.description,
           pode_ser_transferida: celebration.can_be_transferred,
           regras_transferencia: celebration.transfer_rules,
           regra_calculo: celebration.calculation_rule,
-          coletas: celebration.collects.in_language("pt-BR").map { |c| { texto: c.text } },
+          coletas: celebration.collects.in_language(prayer_book.language).map { |c| { texto: c.text } },
           leituras: celebration.lectionary_readings.eucharistic.map { |r| format_reading(r) }
         })
       end

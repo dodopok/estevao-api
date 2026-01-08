@@ -20,6 +20,36 @@ else
 end
 
 # ================================================================================
+# PREFERÊNCIAS
+# ================================================================================
+
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO PREFERÊNCIAS - LOC 1662"
+Rails.logger.info "="*80
+
+if File.exist?(Rails.root.join("#{base_path}/preferences.rb"))
+  load Rails.root.join("#{base_path}/preferences.rb")
+  Rails.logger.info "✓ Preferências carregadas com sucesso"
+else
+  Rails.logger.info "⚠️  Arquivo de preferências não encontrado"
+end
+
+# ================================================================================
+# TEXTOS LITÚRGICOS
+# ================================================================================
+
+Rails.logger.info "\n" + "="*80
+Rails.logger.info "CARREGANDO TEXTOS LITÚRGICOS - LOC 1662"
+Rails.logger.info "="*80
+
+if File.exist?(Rails.root.join("#{base_path}/liturgical_texts.rb"))
+  load Rails.root.join("#{base_path}/liturgical_texts.rb")
+  Rails.logger.info "✓ Textos litúrgicos carregados com sucesso"
+else
+  Rails.logger.info "⚠️  Arquivo de textos litúrgicos não encontrado"
+end
+
+# ================================================================================
 # LEITURAS DO LECIONÁRIO
 # ================================================================================
 

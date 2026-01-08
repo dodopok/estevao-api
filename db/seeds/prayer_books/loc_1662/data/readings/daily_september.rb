@@ -132,7 +132,6 @@ readings.each do |r|
   LectionaryReading.create!(
     prayer_book_id: prayer_book.id,
     date_reference: "#{r[:month]}-#{r[:day]}",
-    reading_type: 'daily_office_lectionary',
     cycle: 'daily',
     service_type: r[:service_type],
     first_reading: r[:first_reading],
