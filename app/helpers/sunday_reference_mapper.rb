@@ -32,8 +32,9 @@ class SundayReferenceMapper
     "pentecost" => %w[pentecost_day pentecost whitsunday],
     "easter_sunday" => %w[easter_sunday easter_day easter],
     "trinity_sunday" => %w[trinity_sunday trinity],
-    "baptism_of_the_lord" => %w[baptism_of_the_lord baptism_of_christ],
-    "christ_the_king" => %w[christ_the_king sunday_before_advent]
+    "baptism_of_the_lord" => %w[baptism_of_the_lord baptism_of_christ 1st_sunday_after_epiphany],
+    "christ_the_king" => %w[christ_the_king sunday_before_advent],
+    "7th_sunday_of_easter" => %w[7th_sunday_of_easter sunday_after_ascension]
   }.freeze
 
   class << self
