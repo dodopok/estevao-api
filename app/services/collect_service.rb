@@ -2,7 +2,7 @@
 
 # Serviço para buscar coletas (orações) litúrgicas para uma data específica
 #
-# CACHING: Uses v4 cache strategy with prayer_book.updated_at versioning
+# CACHING: Uses v5 cache strategy with prayer_book.updated_at versioning
 # - Collects are cached per date/prayer_book with 1-day TTL
 # - Uses Collect.collects_cache_for for base data (30-day TTL)
 #

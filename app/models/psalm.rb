@@ -14,7 +14,7 @@ class Psalm < ApplicationRecord
   }
 
   # Find psalm by number and optional prayer book code
-  # Uses v4 cache with prayer_book.updated_at versioning and 30-day TTL
+  # Uses v5 cache with prayer_book.updated_at versioning and 30-day TTL
   def self.find_psalm(number, prayer_book_code: "loc_2015")
     psalms_cache_for(prayer_book_code)[number]
   end
@@ -25,7 +25,7 @@ class Psalm < ApplicationRecord
     prayer_book = PrayerBook.find_by_code(prayer_book_code)
     return {} unless prayer_book
 
-    cache_key = "v4/psalms/#{prayer_book_code}/pb_#{prayer_book.updated_at.to_i}"
+    cache_key = "v5/psalms/#{prayer_book_code}/pb_#{prayer_book.updated_at.to_i}"
 
     Rails.cache.fetch(cache_key, expires_in: 30.days) do
       record_cache_event(:psalms, :miss, prayer_book_code)

@@ -22,12 +22,12 @@ class Collect < ApplicationRecord
   }
 
   # Cache all collects for a prayer book indexed by celebration_id and sunday_reference
-  # Uses v4 cache key with prayer_book.updated_at versioning and 30-day TTL
+  # Uses v5 cache key with prayer_book.updated_at versioning and 30-day TTL
   def self.collects_cache_for(prayer_book_code)
     prayer_book = PrayerBook.find_by_code(prayer_book_code)
     return { by_celebration: {}, by_sunday: {} } unless prayer_book
 
-    cache_key = "v4/collects/#{prayer_book_code}/pb_#{prayer_book.updated_at.to_i}"
+    cache_key = "v5/collects/#{prayer_book_code}/pb_#{prayer_book.updated_at.to_i}"
 
     Rails.cache.fetch(cache_key, expires_in: 30.days) do
       record_cache_event(:collects, :miss, prayer_book_code)

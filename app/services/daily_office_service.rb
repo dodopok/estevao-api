@@ -7,11 +7,11 @@
 # - Handles premium audio URL injection for authenticated users
 # - Applies user preferences for Bible version, confession type, etc.
 #
-# CACHING STRATEGY (v4):
+# CACHING STRATEGY (v5):
 # Two-layer cache for maximum efficiency:
 #
 # 1. BASE OFFICE CACHE (shared between all users):
-#    - Key: v4/daily_office/base/{date}/{office_type}/{preferences_hash}/pb_{updated_at}
+#    - Key: v5/daily_office/base/{date}/{office_type}/{preferences_hash}/pb_{updated_at}
 #    - TTL: 1 day (until midnight)
 #    - Contains: Full office structure WITHOUT user-specific data
 #    - Benefit: One cache entry serves ALL users with same preferences
