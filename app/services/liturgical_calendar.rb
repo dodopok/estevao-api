@@ -188,8 +188,9 @@ class LiturgicalCalendar
 
   # Calcula o número do proper (contagem contínua no Tempo Comum)
   # Delegado ao Liturgical::ProperCalculator
-  def proper_number(date)
-    @proper_calculator.calculate(date, season: season_for_date(date))
+  def proper_number(date, season: nil)
+    season ||= season_for_date(date)
+    @proper_calculator.calculate(date, season: season)
   end
 
   # Retorna o ciclo do ano litúrgico (A, B ou C)

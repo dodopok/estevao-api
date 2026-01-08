@@ -125,10 +125,10 @@ class CollectService
       title = Liturgical::Translator.translate_sunday_name(title)
     end
 
-    # 1. Tentar pelo nome do domingo (referência principal da quadra)
-    sunday_ref = SundayReferenceMapper.map(target_date, target_calendar)
-    if sunday_ref
-      records = collects_for_sunday(sunday_ref)
+    # 1. Tentar pelo nome do domingo (referência principal da quadra e apelidos)
+    sunday_refs = SundayReferenceMapper.map_with_aliases(target_date, target_calendar)
+    sunday_refs.each do |ref|
+      records = collects_for_sunday(ref)
       return format_collect_records(records, module_title: module_title, title: title) if records.any?
     end
 

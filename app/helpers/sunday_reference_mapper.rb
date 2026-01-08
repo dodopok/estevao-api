@@ -27,6 +27,15 @@ class SundayReferenceMapper
     "Tempo Comum" => "ordinary_time"
   }.freeze
 
+  # Mapa de apelidos para referências do banco (nome base -> lista de possíveis referências)
+  REFERENCE_ALIASES = {
+    "pentecost" => %w[pentecost_day pentecost whitsunday],
+    "easter_sunday" => %w[easter_sunday easter_day easter],
+    "trinity_sunday" => %w[trinity_sunday trinity],
+    "baptism_of_the_lord" => %w[baptism_of_the_lord baptism_of_christ],
+    "christ_the_king" => %w[christ_the_king sunday_before_advent]
+  }.freeze
+
   class << self
     # Mapeia o nome do domingo em português para a referência do banco
     def map(date, calendar)
@@ -46,6 +55,15 @@ class SundayReferenceMapper
 
       # Converter domingos numerados
       parse_numbered_sunday(sunday_name)
+    end
+
+    # Retorna todas as referências possíveis para um domingo (incluindo apelidos)
+    def map_with_aliases(date, calendar)
+      primary_ref = map(date, calendar)
+      return [] unless primary_ref
+
+      aliases = REFERENCE_ALIASES[primary_ref]
+      aliases ? aliases : [ primary_ref ]
     end
 
     # Verifica se a data é o último domingo após Epifania

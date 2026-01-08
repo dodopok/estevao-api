@@ -36,7 +36,7 @@ create_daily_reading = ->(day_ref, mp_psalms, ep_psalms, r1, r2, r3) {
 }
 
 # 25 de Dezembro - Natal
-create_daily_reading.call("christmas_day",
+create_daily_reading.call("december_25",
   "Salmo 2, 85", "Salmo 110:1-5(6-7), 132",
   "Zacarias 2:10-13", "1 João 4:7-16", "João 3:31-36"
 )

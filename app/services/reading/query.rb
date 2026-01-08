@@ -59,7 +59,7 @@ module Reading
                 date_reference: reference,
                 cycle: weekly_cycles,
                 prayer_book_id: prayer_book_id,
-                service_type: service_type || [ "weekly", "daily_office" ]
+                service_type: service_type || [ "weekly", "daily_office", "morning_prayer", "evening_prayer" ]
               )
 
       query = apply_reading_type_filter(query) if reading_type.present?

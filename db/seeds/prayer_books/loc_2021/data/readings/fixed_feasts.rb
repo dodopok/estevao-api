@@ -9,7 +9,7 @@ prayer_book = PrayerBook.find_by!(code: 'loc_2021')
 fixed_readings = [
   # JANEIRO
   {
-    date_reference: "holy_name",
+    date_reference: "january_1",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Isaías 9.2-7",
@@ -18,7 +18,7 @@ fixed_readings = [
     gospel: "Lucas 2.15-21"
   },
   {
-    date_reference: "conversion_of_st_paul",
+    date_reference: "january_25",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Atos 26.9-23",
@@ -29,7 +29,7 @@ fixed_readings = [
 
   # FEVEREIRO
   {
-    date_reference: "presentation_of_jesus",
+    date_reference: "february_2",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Malaquias 3.1-4",
@@ -40,16 +40,16 @@ fixed_readings = [
 
   # MARÇO
   {
-    date_reference: "st_joseph",
+    date_reference: "march_19",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Deuteronômio 33.13-16",
     psalm: "Salmo 89.2-9",
     second_reading: "Filipenses 4.5-8",
-    gospel: "Mateus 13.53-58"
+    gospel: "Mateus 13:53-58"
   },
   {
-    date_reference: "annunciation",
+    date_reference: "march_25",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Isaías 7.10-14",
@@ -60,7 +60,7 @@ fixed_readings = [
 
   # ABRIL
   {
-    date_reference: "st_mark",
+    date_reference: "april_25",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Isaías 52.7-10",
@@ -71,7 +71,7 @@ fixed_readings = [
 
   # MAIO
   {
-    date_reference: "st_philip_and_st_james",
+    date_reference: "may_1",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Isaías 4.10-18",
@@ -80,7 +80,7 @@ fixed_readings = [
     gospel: "João 14.1-14"
   },
   {
-    date_reference: "st_matthias",
+    date_reference: "may_14",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Isaías 22.15-22",
@@ -89,7 +89,7 @@ fixed_readings = [
     gospel: "João 13.12-30"
   },
   {
-    date_reference: "visitation",
+    date_reference: "may_31",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Sofonias 3.14-18a",
@@ -100,7 +100,7 @@ fixed_readings = [
 
   # JUNHO
   {
-    date_reference: "st_barnabas",
+    date_reference: "june_11",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Jó 29.11-16",
@@ -109,7 +109,7 @@ fixed_readings = [
     gospel: "João 15.12-17"
   },
   {
-    date_reference: "nativity_st_john_baptist",
+    date_reference: "june_24",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Isaías 40.1-11",
@@ -118,7 +118,7 @@ fixed_readings = [
     gospel: "Lucas 1.57-66"
   },
   {
-    date_reference: "st_peter_and_st_paul",
+    date_reference: "june_29",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "João 3",
@@ -129,7 +129,7 @@ fixed_readings = [
 
   # JULHO
   {
-    date_reference: "st_thomas",
+    date_reference: "july_3",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Jó 42.1-6",
@@ -138,7 +138,7 @@ fixed_readings = [
     gospel: "João 20.24-29"
   },
   {
-    date_reference: "st_mary_magdalene",
+    date_reference: "july_22",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Cântico dos Cânticos 3.1-4a",
@@ -147,7 +147,7 @@ fixed_readings = [
     gospel: "João 20.1-18"
   },
   {
-    date_reference: "st_james_the_apostle",
+    date_reference: "july_25",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Jeremias 45",
@@ -158,7 +158,7 @@ fixed_readings = [
 
   # AGOSTO
   {
-    date_reference: "transfiguration",
+    date_reference: "august_6",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Êxodo 34.29-35",
@@ -167,7 +167,7 @@ fixed_readings = [
     gospel: "Lucas 9.28-36"
   },
   {
-    date_reference: "st_bartholomew",
+    date_reference: "august_24",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Gênesis 28.10-17",
@@ -178,7 +178,7 @@ fixed_readings = [
 
   # SETEMBRO
   {
-    date_reference: "nativity_of_mary",
+    date_reference: "september_8",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Gênesis 3.8-15",
@@ -187,7 +187,7 @@ fixed_readings = [
     gospel: "Lucas 11.27-28, 39-49"
   },
   {
-    date_reference: "st_matthew",
+    date_reference: "september_21",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Provérbios 3.9-18",
@@ -196,7 +196,7 @@ fixed_readings = [
     gospel: "Mateus 9.9-13"
   },
   {
-    date_reference: "st_michael_and_all_angels",
+    date_reference: "september_29",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Jó 38.1-7",
@@ -207,7 +207,7 @@ fixed_readings = [
 
   # OUTUBRO
   {
-    date_reference: "st_lucas",
+    date_reference: "october_18",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Isaías 61.1-6",
@@ -216,7 +216,7 @@ fixed_readings = [
     gospel: "Lucas 10.1-9"
   },
   {
-    date_reference: "st_simon_and_st_jude",
+    date_reference: "october_28",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Isaías 28.9-16",
@@ -227,7 +227,7 @@ fixed_readings = [
 
   # NOVEMBRO
   {
-    date_reference: "all_saints",
+    date_reference: "november_1",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Jeremias 31.31-34",
@@ -236,7 +236,7 @@ fixed_readings = [
     gospel: "Mateus 5.1-12"
   },
   {
-    date_reference: "st_andrew",
+    date_reference: "november_30",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Zacarias 8.20-23",
@@ -247,7 +247,7 @@ fixed_readings = [
 
   # DEZEMBRO
   {
-    date_reference: "st_stephen",
+    date_reference: "december_26",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "2 Crônicas 24.17-22",
@@ -256,7 +256,7 @@ fixed_readings = [
     gospel: "Mateus 10.17-22"
   },
   {
-    date_reference: "st_john_evangelist",
+    date_reference: "december_27",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Isaías 6.1-8",
@@ -265,7 +265,7 @@ fixed_readings = [
     gospel: "João 21.20-24"
   },
   {
-    date_reference: "holy_innocents",
+    date_reference: "december_28",
     cycle: "all",
     service_type: "eucharist",
     first_reading: "Jeremias 31.15-17",

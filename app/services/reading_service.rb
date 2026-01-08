@@ -35,7 +35,7 @@ class ReadingService
   ].freeze
 
   # Seasons where Sunday takes precedence over minor festivals
-  MAJOR_SEASONS = %w[Advento Quaresma Páscoa].freeze
+  MAJOR_SEASONS = %w[Advento Natal Epifania Quaresma Páscoa].freeze
 
   attr_reader :date, :calendar, :cycle, :translation, :reading_type, :service_type
 
@@ -243,8 +243,8 @@ class ReadingService
   def find_by_sunday
     return nil unless date.sunday?
 
-    sunday_ref = SundayReferenceMapper.map(date, calendar)
-    query.find_by_reference(sunday_ref)
+    sunday_refs = SundayReferenceMapper.map_with_aliases(date, calendar)
+    query.find_by_references(sunday_refs)
   end
 
   # 4. Buscar por data fixa específica
