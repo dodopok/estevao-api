@@ -284,8 +284,7 @@ texts.each do |text_data|
     title: text_data[:title],
     content: text_data[:content],
     category: category,
-    language: "pt-BR"
-  )
+    )
 end
 
 puts "✅ Seeded #{texts.size} daily office texts"

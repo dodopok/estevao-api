@@ -601,8 +601,7 @@ collects.each do |data|
     sunday_reference: data[:sunday_reference]
   ).tap do |c|
     c.text = data[:text]
-    c.language = "pt-BR"
-    c.save!
+        c.save!
   end
 end
 

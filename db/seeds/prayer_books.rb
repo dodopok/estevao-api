@@ -89,7 +89,7 @@ portuguese_prayer_books = [
     name: "IARB - 1662",
     year: 1662,
     language: "pt-BR",
-    premium_required: true,  # PREMIUM
+    premium_required: false,  # PREMIUM
     jurisdiction: "Igreja Anglicana Reformada do Brasil",
     description: "Adotado pela Igreja Anglicana Reformada do Brasil, tradução do LOC da Igreja da Inglaterra de 1662",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-1662.png",

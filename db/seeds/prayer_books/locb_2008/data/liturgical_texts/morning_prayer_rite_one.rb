@@ -8,193 +8,164 @@ prayer_book = PrayerBook.find_by!(code: 'locb_2008')
 
 # Preparação - Saudação
 LiturgicalText.find_or_create_by!(slug: 'morning_1_preparation_1_greeting_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Graça, misericórdia e Paz de Deus, nosso Pai e de Jesus Cristo, nosso Salvador, esteja convosco.'
+    text.content = 'Graça, misericórdia e Paz de Deus, nosso Pai e de Jesus Cristo, nosso Salvador, esteja convosco.'
   text.category = 'preparation'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_preparation_1_greeting_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E contigo também'
+    text.content = 'E contigo também'
   text.category = 'preparation'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_preparation_1_opening_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Este é o dia que o Senhor nos fez.'
+    text.content = 'Este é o dia que o Senhor nos fez.'
   text.category = 'preparation'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_preparation_1_opening_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Alegremo-nos e regozijemo-nos nele.'
+    text.content = 'Alegremo-nos e regozijemo-nos nele.'
   text.category = 'preparation'
 end
 
 # Preparação - Alternativa "Ou"
 LiturgicalText.find_or_create_by!(slug: 'morning_1_preparation_2_greeting_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Senhor, abre meus lábios'
+    text.content = 'Senhor, abre meus lábios'
   text.category = 'preparation'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_preparation_2_greeting_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E proclamarei os teus louvores.'
+    text.content = 'E proclamarei os teus louvores.'
   text.category = 'preparation'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_preparation_2_opening_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Dá-me a alegria da tua salvação.'
+    text.content = 'Dá-me a alegria da tua salvação.'
   text.category = 'preparation'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_preparation_2_opening_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E sustenta em mim um espírito inabalável.'
+    text.content = 'E sustenta em mim um espírito inabalável.'
   text.category = 'preparation'
 end
 
 # Acolhida
 LiturgicalText.find_or_create_by!(slug: 'morning_1_welcome_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Acolhida'
+    text.title = 'Acolhida'
   text.content = 'Viemos juntos, em nome de Cristo, para oferecer nosso louvor e ação de graças, para ouvir e aceitar a Palavra de Deus, para orar pelos necessitados do mundo, e para receber o perdão dos nossos pecados. Que pelo poder do Espírito Santo possamos nos entregar ao serviço do Senhor.'
   text.category = 'welcome'
 end
 
 # Oração de Confissão
 LiturgicalText.find_or_create_by!(slug: 'morning_1_confession_invitation_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Convite à Confissão'
+    text.title = 'Convite à Confissão'
   text.content = 'Jesus disse: "Arrependei-vos pois é chegado o Reino de Deus". Convertamo-nos de nossos pecados a Cristo, confessando-os com fé e certeza de perdão:'
   text.category = 'confession'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_confession_silence', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Silêncio por alguns instantes'
+    text.content = 'Silêncio por alguns instantes'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_confession_prayer_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Confissão'
+    text.title = 'Confissão'
   text.content = 'Senhor Deus, nós temos pecado contra Ti; temos feito muito mal na tua presença. Nós nos arrependemos. Tem misericórdia de nós por teu amor. Lava-nos de nossa culpa e purifica-nos de nossos pecados. Renova em nós um espírito reto e restaura a alegria de tua salvação. Pedimos por Jesus Cristo, nosso Senhor. Amém.'
   text.category = 'confession'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_confession_absolution_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Declaração de Perdão'
+    text.title = 'Declaração de Perdão'
   text.content = 'Que o Pai das misericórdias nos purifique de nossos pecados, e restaure em nós a sua imagem para o louvor e glória de seu nome, por Cristo nosso Senhor.'
   text.category = 'confession'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_confession_absolution_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Amém.'
+    text.content = 'Amém.'
   text.category = 'confession'
 end
 
 # Ação de Graças
 LiturgicalText.find_or_create_by!(slug: 'morning_1_thanksgiving_blessed_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Bendito seja o Senhor!'
+    text.content = 'Bendito seja o Senhor!'
   text.category = 'thanksgiving'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_thanksgiving_blessed_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Louvaremos, sempre o louvaremos.'
+    text.content = 'Louvaremos, sempre o louvaremos.'
   text.category = 'thanksgiving'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_thanksgiving_hearts_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Nossos corações estão cheios de alegria,'
+    text.content = 'Nossos corações estão cheios de alegria,'
   text.category = 'thanksgiving'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_thanksgiving_hearts_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E nossa alma louva ao nosso Deus.'
+    text.content = 'E nossa alma louva ao nosso Deus.'
   text.category = 'thanksgiving'
 end
 
 # Oração de Ação de Graças (opcional)
 LiturgicalText.find_or_create_by!(slug: 'morning_1_thanksgiving_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Oração de Ação de Graças'
+    text.title = 'Oração de Ação de Graças'
   text.content = 'Pode ser omitida à descrição do Ministro'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_thanksgiving_prayer_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Bendito sejas, Senhor nosso Deus, Criador e Redentor de todos e de tudo; a Ti seja o louvor e a glória para sempre. Do nada criastes o Universo e por teu amor nos criaste à Tua imagem e semelhança. Agora, através do vale da sombra da morte, tens conduzido teu povo ao Novo Nascimento para através de teu Filho viver em triunfo. Possa Cristo sempre iluminar o nosso coração a fim de sempre oferecermos sacrifícios de louvor e ações de graça. Bendito seja Deus, Pai, Filho e Espírito Santo:'
+    text.content = 'Bendito sejas, Senhor nosso Deus, Criador e Redentor de todos e de tudo; a Ti seja o louvor e a glória para sempre. Do nada criastes o Universo e por teu amor nos criaste à Tua imagem e semelhança. Agora, através do vale da sombra da morte, tens conduzido teu povo ao Novo Nascimento para através de teu Filho viver em triunfo. Possa Cristo sempre iluminar o nosso coração a fim de sempre oferecermos sacrifícios de louvor e ações de graça. Bendito seja Deus, Pai, Filho e Espírito Santo:'
   text.category = 'thanksgiving_prayer'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_thanksgiving_prayer_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Bendito seja Deus para sempre.'
+    text.content = 'Bendito seja Deus para sempre.'
   text.category = 'thanksgiving_prayer'
 end
 
 # Breve Reflexão
 LiturgicalText.find_or_create_by!(slug: 'morning_1_reflection_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Breve Reflexão'
+    text.title = 'Breve Reflexão'
   text.content = 'A noite já passou, e o dia já raiou; oremos numa só mente e coração.'
   text.category = 'reflection'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_reflection_silence', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Silêncio por alguns instantes'
+    text.content = 'Silêncio por alguns instantes'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_reflection_prayer_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Enquanto nos alegramos pelo dom deste novo dia, que a Luz da tua presença, ó Deus, aumente em nós o fogo do amor divino, agora e para todo o sempre.'
+    text.content = 'Enquanto nos alegramos pelo dom deste novo dia, que a Luz da tua presença, ó Deus, aumente em nós o fogo do amor divino, agora e para todo o sempre.'
   text.category = 'reflection'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_reflection_prayer_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Amém.'
+    text.content = 'Amém.'
   text.category = 'reflection'
 end
 
 # A Palavra de Deus - Salmodia
 LiturgicalText.find_or_create_by!(slug: 'morning_1_psalms_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Salmodia'
+    text.title = 'Salmodia'
   text.content = 'Cada Salmo ou grupo de Salmos deve terminar com a Doxologia que segue. Para os Ofícios diários, os Salmos são indicados no Lecionário, pp.347 a 358:'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_psalms_gloria_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Gloria Patri'
+    text.title = 'Gloria Patri'
   text.content = 'Glória ao Pai, ao Filho e ao Espírito Santo.'
   text.category = 'psalms'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_psalms_gloria_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
+    text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
   text.category = 'psalms'
 end
 
 # Rubricas de tempos litúrgicos
 # Advento
 LiturgicalText.find_or_create_by!(slug: 'morning_1_ot_canticle_advent', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Advento'
+    text.title = 'Advento'
   text.content = 'Isaías 35:1-10
 
     O deserto e a terra se alegrarão; o ermo exultará e florescerá como o narciso.
@@ -212,8 +183,7 @@ end
 
 # Natal
 LiturgicalText.find_or_create_by!(slug: 'morning_1_ot_canticle_christmas', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Natal'
+    text.title = 'Natal'
   text.content = 'Isaías 9:2-7
 
     O povo que andava em trevas viu grande luz, e aos que viviam na região da sombra da morte, resplandeceu-lhes a luz.
@@ -227,8 +197,7 @@ end
 
 # Epifania
 LiturgicalText.find_or_create_by!(slug: 'morning_1_ot_canticle_epiphany', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Epifania'
+    text.title = 'Epifania'
   text.content = 'Isaías 60:1-22
 
     Dispõe-te, resplandece, porque vem a tua luz, e a glória do Senhor nasce sobre ti.
@@ -258,8 +227,7 @@ end
 
 # Quaresma
 LiturgicalText.find_or_create_by!(slug: 'morning_1_ot_canticle_lent', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Quaresma'
+    text.title = 'Quaresma'
   text.content = 'Oséias 6:1-6
 
     Vinde, e tornemos para o Senhor, porque ele nos despedaçou e nos sarará; fez a ferida e a ligará.
@@ -273,8 +241,7 @@ end
 
 # Páscoa
 LiturgicalText.find_or_create_by!(slug: 'morning_1_ot_canticle_easter', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Páscoa'
+    text.title = 'Páscoa'
   text.content = 'Êxodo 15:1b-3,6,10,13,17,18
 
     Cantarei ao Senhor, porque triunfou gloriosamente; lançou no mar o cavalo e o seu cavaleiro.
@@ -290,8 +257,7 @@ end
 
 # Pentecostes
 LiturgicalText.find_or_create_by!(slug: 'morning_1_ot_canticle_pentecost', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Pentecostes'
+    text.title = 'Pentecostes'
   text.content = 'Ezequiel 36:24-29
 
     Tomar-vos-ei de entre as nações, e vos congregarei de todos os países, e vos trarei para a vossa terra.
@@ -305,8 +271,7 @@ end
 
 # Tempo Comum
 LiturgicalText.find_or_create_by!(slug: 'morning_1_ot_canticle_ordinary', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Tempo Comum'
+    text.title = 'Tempo Comum'
   text.content = '1 Crônicas 29:10b-13,14b, 20b
 
     Bendito és tu, Senhor, Deus de Israel, nosso pai, de eternidade em eternidade.
@@ -320,84 +285,71 @@ end
 
 # Leituras das Escrituras
 LiturgicalText.find_or_create_by!(slug: 'morning_1_readings_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Uma ou mais leituras do dia (ver Lecionário, pp.347 a 358)
+    text.content = 'Uma ou mais leituras do dia (ver Lecionário, pp.347 a 358)
 O leitor pode dizer:'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_readings_response_reader', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Esta é a Palavra do Senhor.'
+    text.content = 'Esta é a Palavra do Senhor.'
   text.category = 'readings'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_readings_response_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Graças a Deus.'
+    text.content = 'Graças a Deus.'
   text.category = 'readings'
 end
 
 # Responso
 LiturgicalText.find_or_create_by!(slug: 'morning_1_response_awake_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Responso'
+    text.title = 'Responso'
   text.content = 'Desperta, tu que dormes, levanta-te dentre os mortos.'
   text.category = 'response'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_response_awake_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E Cristo te esclarecerá.'
+    text.content = 'E Cristo te esclarecerá.'
   text.category = 'response'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_response_dead_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Tu estás morto e tua vida está oculta com Cristo em Deus.'
+    text.content = 'Tu estás morto e tua vida está oculta com Cristo em Deus.'
   text.category = 'response'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_response_dead_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Desperta, tu que dormes, e levanta-te dentre os mortos.'
+    text.content = 'Desperta, tu que dormes, e levanta-te dentre os mortos.'
   text.category = 'response'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_response_above_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Pense nas coisas lá de cima, e não nas que são da terra.'
+    text.content = 'Pense nas coisas lá de cima, e não nas que são da terra.'
   text.category = 'response'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_response_above_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E Cristo te esclarecerá.'
+    text.content = 'E Cristo te esclarecerá.'
   text.category = 'response'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_response_manifest_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Quando Cristo, a nossa vida se manifestar, então seremos semelhantes a Ele.'
+    text.content = 'Quando Cristo, a nossa vida se manifestar, então seremos semelhantes a Ele.'
   text.category = 'response'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_response_manifest_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Desperta, tu que dormes, levanta-te dentre os mortos e Cristo te esclarecerá.'
+    text.content = 'Desperta, tu que dormes, levanta-te dentre os mortos e Cristo te esclarecerá.'
   text.category = 'response'
 end
 
 # Cântico Evangélico - Benedictus
 LiturgicalText.find_or_create_by!(slug: 'morning_1_benedictus_title', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'O Benedictus (Cântico de Zacarias) - Lucas 1:68-79'
+    text.content = 'O Benedictus (Cântico de Zacarias) - Lucas 1:68-79'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_benedictus', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Benedictus'
+    text.title = 'Benedictus'
   text.content = 'Bendito seja o Senhor, Deus de Israel, porque visitou e redimiu o seu povo,
   **e nos suscitou plena e poderosa salvação na casa de Davi, seu servo,**
   como prometera, desde a antiguidade, por boca dos seus santos profetas,
@@ -413,123 +365,105 @@ LiturgicalText.find_or_create_by!(slug: 'morning_1_benedictus', prayer_book_id: 
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_benedictus_gloria', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Gloria seja...'
+    text.content = 'Gloria seja...'
   text.category = 'rubric'
 end
 
 # O Credo
 LiturgicalText.find_or_create_by!(slug: 'morning_1_creed_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'O Credo'
+    text.title = 'O Credo'
   text.content = '(ou outra Afirmação de Fé na p.612)'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_creed_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Credo dos Apóstolos'
+    text.title = 'Credo dos Apóstolos'
   text.content = 'Creio em Deus Pai Todo-poderoso, Criador do céu e da terra; e em Jesus Cristo seu único Filho, nosso Senhor: o qual foi concebido por obra do Espírito Santo, nasceu da Virgem Maria; padeceu sob o poder de Pôncio Pilatos, foi crucificado, morto e sepultado; desceu ao Hades; ressuscitou ao terceiro dia; subiu ao céu, e está sentado à mão direita de Deus Pai Todo-poderoso: donde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo; na santa Igreja Católica; na comunhão dos santos; na remissão dos pecados; na ressurreição do corpo; e na Vida Eterna. Amém.'
   text.category = 'creed'
 end
 
 # A Coleta do Dia
 LiturgicalText.find_or_create_by!(slug: 'morning_1_collect_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'A Coleta do Dia'
+    text.title = 'A Coleta do Dia'
   text.content = '(no Próprio do tempo, ver Lecionário pp.347 a 358)'
   text.category = 'rubric'
 end
 
 # Conclusão - A Bênção
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_blessing_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Conclusão - A Bênção'
+    text.title = 'Conclusão - A Bênção'
   text.content = 'O Senhor nos abençoe, guarde de todo mal e nos conduza à vida eterna.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_blessing_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Amém.'
+    text.content = 'Amém.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_blessing_praise_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Louvemos ao Senhor.'
+    text.content = 'Louvemos ao Senhor.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_blessing_praise_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Agradeçamos sempre a Deus.'
+    text.content = 'Agradeçamos sempre a Deus.'
   text.category = 'conclusion'
 end
 
 # Conclusão - A Graça (opção 2)
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_grace_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Conclusão - A Graça'
+    text.title = 'Conclusão - A Graça'
   text.content = 'A graça de nosso Senhor Jesus Cristo, o amor de Deus e as consolações do Espírito Santo seja com todos nós.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_grace_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Amém.'
+    text.content = 'Amém.'
   text.category = 'conclusion'
 end
 
 # Conclusão - A Paz (opção 3)
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_peace_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Conclusão - A Paz'
+    text.title = 'Conclusão - A Paz'
   text.content = 'Que a paz de Deus que excede toda a compreensão humana guarde os nossos corações e mentes no conhecimento e na graça de nosso Senhor Jesus Cristo.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_peace_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Amém.'
+    text.content = 'Amém.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_peace_exchange_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'A paz de Cristo seja com todos vós.'
+    text.content = 'A paz de Cristo seja com todos vós.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_peace_exchange_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E contigo também.'
+    text.content = 'E contigo também.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_peace_exchange_minister_2', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Vamos nos oferecer uns aos outros, Deus confirmará as nossas preces.'
+    text.content = 'Vamos nos oferecer uns aos outros, Deus confirmará as nossas preces.'
   text.category = 'conclusion'
 end
 
 # Conclusão - Dismissal (opção 4)
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_dismissal_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Conclusão - Dismissal'
+    text.title = 'Conclusão - Dismissal'
   text.content = 'Ide na paz de Cristo! Sede corajosos e fortes no testemunho do Evangelho entre todas as pessoas. Servi ao Senhor com a alegria.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_dismissal_people', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'No poder do Espírito Santo.'
+    text.content = 'No poder do Espírito Santo.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'morning_1_conclusion_dismissal_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Aleluia!'
+    text.content = 'Aleluia!'
   text.category = 'conclusion'
 end
 

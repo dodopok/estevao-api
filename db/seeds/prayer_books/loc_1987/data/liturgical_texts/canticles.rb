@@ -221,8 +221,7 @@ canticles.each do |text_data|
     title: text_data[:title],
     content: text_data[:content],
     category: "canticle",
-    language: "pt-BR"
-  )
+    )
 end
 
 puts "✅ Seeded #{canticles.size} canticles"

@@ -6,14 +6,11 @@ class LiturgicalText < ApplicationRecord
   validates :slug, presence: true, uniqueness: { scope: :prayer_book_id }
   validates :category, presence: true
   validates :content, presence: true
-  validates :language, presence: true, if: -> { prayer_book.nil? }
-
-  # Callbacks
-  before_validation :set_language_from_prayer_book, if: -> { language.blank? && prayer_book.present? }
 
   # Scopes
   scope :by_category, ->(category) { where(category: category) }
   scope :by_slug, ->(slug) { where(slug: slug) }
+  scope :in_language, ->(lang) { joins(:prayer_book).where(prayer_books: { language: lang }) }
   scope :for_season, ->(season_slug) { where("slug LIKE ?", "%#{season_slug}%") }
   scope :for_prayer_book, ->(code) {
     prayer_book = PrayerBook.find_by(code: code)
@@ -138,11 +135,5 @@ class LiturgicalText < ApplicationRecord
 
   def voices_pending
     AVAILABLE_VOICES.reject { |voice| audio_urls[voice].present? }
-  end
-
-  private
-
-  def set_language_from_prayer_book
-    self.language = prayer_book.language
   end
 end

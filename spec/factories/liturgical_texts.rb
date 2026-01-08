@@ -5,7 +5,6 @@ FactoryBot.define do
     sequence(:slug) { |n| "liturgical_text_#{n}" }
     category { "prayer" }
     content { "Sample liturgical text content" }
-    language { "pt-BR" }
     title { "Sample Liturgical Text" }
     reference { nil }
     audio_urls { {} }
