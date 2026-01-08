@@ -25,9 +25,10 @@ RSpec.describe Liturgical::ProperCalculator do
     end
 
     context "when not a Sunday" do
-      it "returns nil for weekdays" do
+      it "returns proper for weekdays" do
         date = Date.new(2024, 7, 15) # Monday
-        expect(calculator.calculate(date, season: "Tempo Comum")).to be_nil
+        # July 14, 2024 was Proper 10. Monday July 15 should also be Proper 10.
+        expect(calculator.calculate(date, season: "Tempo Comum")).to eq(10)
       end
     end
 

@@ -328,9 +328,10 @@ RSpec.describe LiturgicalCalendar do
       end
     end
 
-    it 'returns nil for non-Sunday dates' do
+    it 'returns proper number for non-Sunday dates in Ordinary Time' do
       date = Date.new(2025, 11, 17) # Monday
-      expect(calendar.proper_number(date)).to be_nil
+      # Nov 16 (Sunday) is Proper 28. Monday Nov 17 should also be Proper 28.
+      expect(calendar.proper_number(date)).to eq(28)
     end
 
     it 'returns nil for proper_number outside Ordinary Time' do
@@ -885,11 +886,11 @@ RSpec.describe LiturgicalCalendar do
         expect(calendar.proper_number(Date.new(2025, 6, 22))).to eq(7)
       end
 
-      it 'returns nil for non-Sunday dates' do
-        expect(calendar.proper_number(Date.new(2025, 6, 23))).to be_nil # Monday
-      end
-
-      it 'returns nil for dates outside Ordinary Time' do
+          it 'returns proper number for non-Sunday dates' do
+            # June 22, 2025 is Proper 7. Monday June 23 should also be Proper 7.
+            expect(calendar.proper_number(Date.new(2025, 6, 23))).to eq(7) 
+          end
+            it 'returns nil for dates outside Ordinary Time' do
         expect(calendar.proper_number(Date.new(2025, 4, 20))).to be_nil # Easter
         expect(calendar.proper_number(Date.new(2025, 3, 9))).to be_nil # Lent
       end
