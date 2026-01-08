@@ -41,7 +41,7 @@ create_daily_reading.call("december_24",
 )
 
 # 25 de Dezembro - Natal
-create_daily_reading.call("christmas_day",
+create_daily_reading.call("december_25",
   "Salmo 2, 85", "Salmo 110:1-5(6-7), 132",
   "Miqueias 4:1-5, 5:2-4", "1 João 4:7-16", "João 3:31-36"
 )
@@ -95,7 +95,29 @@ create_daily_reading.call("holy_name",
   "Isaías 62:1-5, 10-12", "Apocalipse 19:11-16", "Mateus 1:18-25"
 )
 
-# Jan 2-5 missing from image.
+# 2 de Janeiro
+create_daily_reading.call("january_2",
+  "Salmo 34", "Salmo 33",
+  "Gênesis 12:1-7", "Hebreus 11:1-12", "João 6:35-42, 48-51"
+)
+
+# 3 de Janeiro
+create_daily_reading.call("january_3",
+  "Salmo 68", "Salmo 72",
+  "Gênesis 28:10-22", "Hebreus 11:13-22", "João 10:7-17"
+)
+
+# 4 de Janeiro
+create_daily_reading.call("january_4",
+  "Salmo 85, 87", "Salmo 89:1-29",
+  "Êxodo 3:1-12", "Hebreus 11:23-31", "João 14:6-14"
+)
+
+# 5 de Janeiro
+create_daily_reading.call("january_5",
+  "Salmo 2, 110:1-5(6-7)", "Salmo 29, 98",
+  "Josué 1:1-9", "Hebreus 11:32-12:2", "João 15:1-16"
+)
 
 # ----------------------------------------------------------------------------
 # TEMPO DA EPIFANIA (DIAS APÓS EPIFANIA)

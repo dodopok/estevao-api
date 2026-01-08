@@ -162,4 +162,9 @@ create_daily_reading.call("3rd_sunday_after_epiphany_friday",
   "Isaías 50:1-11", "Gálatas 3:15-22", "Marcos 6:47-56"
 )
 
+create_daily_reading.call("3rd_sunday_after_epiphany_saturday",
+  "Salmo 55", "Salmo 138, 139:1-17(18-23)",
+  "Isaías 48:1-11", "Gálatas 1:1-17", "Marcos 5:21-43"
+)
+
 Rails.logger.info "✅ Leituras diárias da Epifania (Ano Ímpar) carregadas!"

@@ -49,10 +49,9 @@ module Liturgical
     end
 
     # Calcula o número do proper para uma data específica
-    # Retorna nil se não for Tempo Comum ou não for domingo
+    # Retorna nil se não for Tempo Comum
     def calculate(date, season:)
       return nil unless season == "Tempo Comum"
-      return nil unless date.sunday?
 
       movable = easter_calc.all_movable_dates
 
@@ -72,15 +71,20 @@ module Liturgical
       first_sunday = baptism.sunday? ? baptism : baptism + (7 - baptism.wday).days
 
       # Calculate which proper (Propers before Lent are numbered 1-9)
-      weeks = ((date - first_sunday).to_i / 7) + 1
-      weeks if date >= first_sunday
+      # For weekdays, we want the count based on the most recent Sunday
+      target_date = date.sunday? ? date : date - date.wday.days
+      weeks = ((target_date - first_sunday).to_i / 7) + 1
+      weeks if target_date >= first_sunday
     end
 
     # After Pentecost - use REVERSE counting from Christ the King
     # The RCL assigns Propers based on proximity to fixed dates
     def calculate_after_pentecost(date)
+      # Find the preceding Sunday (or today if it's Sunday)
+      target_sunday = date.sunday? ? date : date - date.wday.days
+
       PROPER_TARGET_DATES.each_key do |proper_num|
-        return proper_num if date == closest_sunday_for_proper(proper_num)
+        return proper_num if target_sunday == closest_sunday_for_proper(proper_num)
       end
 
       nil

@@ -42,9 +42,11 @@ module Liturgical
       "easter_minus_1_day" => %w[holy_saturday holy_saturday_vigil],
       "easter" => %w[easter_principal_office easter_first_office easter_sunday easter_day],
       "easter_plus_39_days" => %w[ascension ascension_day],
-      "easter_plus_49_days" => %w[pentecost whitsunday],
-      "easter_plus_56_days" => %w[trinity_sunday],
-      "first_sunday_after_pentecost" => %w[trinity_sunday]
+      "easter_plus_49_days" => %w[pentecost_day pentecost whitsunday],
+      "easter_plus_56_days" => %w[trinity_sunday trinity],
+      "first_sunday_after_pentecost" => %w[trinity_sunday trinity],
+      "first_sunday_after_epiphany" => %w[baptism_of_the_lord baptism_of_christ],
+      "sunday_before_advent" => %w[christ_the_king]
     }.freeze
 
     def initialize(year, prayer_book_code: "loc_2015", easter_calc: nil)

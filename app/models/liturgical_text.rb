@@ -47,12 +47,12 @@ class LiturgicalText < ApplicationRecord
 
   # Cache all texts for a prayer book indexed by slug
   # This dramatically reduces queries when building daily offices
-  # Uses v4 cache key with prayer_book.updated_at for automatic invalidation
+  # Uses v5 cache key with prayer_book.updated_at for automatic invalidation
   def self.texts_cache_for(prayer_book_code)
     prayer_book = PrayerBook.find_by_code(prayer_book_code)
     return {} unless prayer_book
 
-    cache_key = "v4/liturgical_texts/#{prayer_book_code}/pb_#{prayer_book.updated_at.to_i}"
+    cache_key = "v5/liturgical_texts/#{prayer_book_code}/pb_#{prayer_book.updated_at.to_i}"
 
     Rails.cache.fetch(cache_key, expires_in: 30.days) do
       record_cache_event(:liturgical_texts, :miss, prayer_book_code)

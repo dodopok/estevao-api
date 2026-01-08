@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Concern that provides caching utilities for services
-# Implements v4 cache keys with prayer_book.updated_at versioning
+# Implements v5 cache keys with prayer_book.updated_at versioning
 # and Datadog observability for hit/miss metrics
 #
 # @example Including in a service
@@ -106,7 +106,7 @@ module Cacheable
   def record_cache_metrics(key, hit, duration_ms, tags = {})
     return unless defined?(Datadog) && Datadog.respond_to?(:statsd)
 
-    # Extract cache category from key (e.g., "v4/daily_office/..." -> "daily_office")
+    # Extract cache category from key (e.g., "v5/daily_office/..." -> "daily_office")
     category = extract_cache_category(key)
 
     metric_tags = [
@@ -137,7 +137,7 @@ module Cacheable
 
   # Extract category from cache key for grouping metrics
   def extract_cache_category(key)
-    # Key format: "v4/category/..." or "v4/category"
+    # Key format: "v5/category/..." or "v5/category"
     parts = key.to_s.split("/")
     parts[1] || "unknown"
   end
@@ -145,7 +145,7 @@ module Cacheable
   # Invalidate cache entries matching a pattern
   # Note: This only works with Redis cache store
   #
-  # @param pattern [String] Key pattern to match (e.g., "v4/daily_office/*")
+  # @param pattern [String] Key pattern to match (e.g., "v5/daily_office/*")
   def cache_delete_matched(pattern)
     Rails.cache.delete_matched(pattern)
 

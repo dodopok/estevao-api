@@ -1150,4 +1150,49 @@ RSpec.describe ReadingService do
       expect(query.instance_variable_get(:@service_type)).to eq('evening_prayer')
     end
   end
+
+  describe 'Sunday aliases' do
+    let!(:pentecost_reading) do
+      create(:lectionary_reading,
+        prayer_book: prayer_book,
+        date_reference: 'pentecost_day',
+        cycle: 'all',
+        service_type: 'eucharist',
+        first_reading: 'Acts 2:1-21',
+        gospel: 'John 20:19-23'
+      )
+    end
+
+    it 'finds Pentecost reading using alias' do
+      # Pentecost 2026 is May 24
+      date = Date.new(2026, 5, 24)
+      service = described_class.new(date)
+
+      # Ensure it finds the reading even if the internal reference map returns 'pentecost'
+      # and the DB has 'pentecost_day'
+      readings = service.find_readings
+      expect(readings).to be_present
+      expect(readings[:first_reading][:reference]).to eq('Acts 2:1-21')
+    end
+
+    it 'finds Easter Sunday reading using alias' do
+      # Easter 2026 is April 5
+      date = Date.new(2026, 4, 5)
+
+      create(:lectionary_reading,
+        prayer_book: prayer_book,
+        date_reference: 'easter_day',
+        cycle: 'all',
+        service_type: 'eucharist',
+        first_reading: 'Acts 10:34-43',
+        gospel: 'John 20:1-18'
+      )
+
+      service = described_class.new(date)
+      readings = service.find_readings
+
+      expect(readings).to be_present
+      expect(readings[:gospel][:reference]).to eq('John 20:1-18')
+    end
+  end
 end

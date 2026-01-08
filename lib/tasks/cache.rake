@@ -41,7 +41,7 @@ namespace :cache do
 
     categories.each do |category|
       begin
-        pattern = "v4/#{category}/*"
+        pattern = "v5/#{category}/*"
         if Rails.cache.respond_to?(:redis)
           count = Rails.cache.redis.keys(pattern).size
           puts "  #{category}: #{count} entries"
@@ -91,10 +91,10 @@ namespace :cache do
 
     begin
       if Rails.cache.respond_to?(:delete_matched)
-        Rails.cache.delete_matched("v4/daily_office/*")
-        Rails.cache.delete_matched("v4/readings/*")
-        Rails.cache.delete_matched("v4/collects/*")
-        Rails.cache.delete_matched("v4/calendar/*")
+        Rails.cache.delete_matched("v5/daily_office/*")
+        Rails.cache.delete_matched("v5/readings/*")
+        Rails.cache.delete_matched("v5/collects/*")
+        Rails.cache.delete_matched("v5/calendar/*")
         puts "✅ Daily office cache cleared!"
       else
         puts "⚠️  delete_matched not supported. Use cache:clear_all instead."
@@ -200,7 +200,7 @@ namespace :cache do
     iterations = 10
 
     # Clear cache first
-    Rails.cache.delete_matched("v4/daily_office/*") if Rails.cache.respond_to?(:delete_matched)
+    Rails.cache.delete_matched("v5/daily_office/*") if Rails.cache.respond_to?(:delete_matched)
 
     puts "\nBenchmarking #{iterations} iterations..."
     puts "-" * 50

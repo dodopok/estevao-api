@@ -74,7 +74,7 @@ module Reading
 
       # 2. Proper reference (Ordinary Time)
       most_recent_sunday = find_most_recent_sunday
-      proper_num = calendar.proper_number(most_recent_sunday)
+      proper_num = calendar.proper_number(most_recent_sunday, season: calendar.season_for_date(date))
       refs << "proper_#{proper_num}_#{weekday}" if proper_num
 
       # 3. Sunday reference (e.g., "first_sunday_of_advent_monday")
@@ -162,6 +162,7 @@ module Reading
       if week && week >= 1
         refs << "ordinary_time_#{week + 1}_#{weekday}"
         refs << "ordinary_time_#{week}_#{weekday}"
+        refs << "#{week.ordinalize}_sunday_after_epiphany_#{weekday}"
       end
       refs << "week_of_epiphany_#{weekday}"
       refs << "baptism_of_christ_#{weekday}"

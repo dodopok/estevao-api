@@ -12,7 +12,7 @@
 # - Celebration hierarchy (Principal Feasts > Major Holy Days > Festivals, etc.)
 # - Season-specific color rules
 #
-# CACHING: Uses v4 cache strategy with prayer_book.updated_at versioning
+# CACHING: Uses v5 cache strategy with prayer_book.updated_at versioning
 # - day_info results are cached for 1 year (liturgical data is deterministic)
 # - Cache is automatically invalidated when prayer_book is touched
 #
@@ -45,7 +45,7 @@ class LiturgicalCalendar
   end
 
   # Retorna as informações litúrgicas completas de um dia específico
-  # CACHED: Uses v4 cache with prayer_book.updated_at versioning
+  # CACHED: Uses v5 cache with prayer_book.updated_at versioning
   def day_info(date)
     cache_key = build_day_info_cache_key(date)
 
@@ -69,7 +69,7 @@ class LiturgicalCalendar
   end
 
   # Retorna a celebração principal do dia
-  # CACHED: Uses v4 cache with prayer_book.updated_at versioning
+  # CACHED: Uses v5 cache with prayer_book.updated_at versioning
   def celebration_for_date(date)
     cache_key = build_celebration_cache_key(date)
 
@@ -80,7 +80,7 @@ class LiturgicalCalendar
   end
 
   # Retorna todas as celebrações do dia
-  # CACHED: Uses v4 cache with prayer_book.updated_at versioning
+  # CACHED: Uses v5 cache with prayer_book.updated_at versioning
   def celebrations_for_date(date)
     cache_key = build_celebrations_cache_key(date)
 
@@ -188,8 +188,9 @@ class LiturgicalCalendar
 
   # Calcula o número do proper (contagem contínua no Tempo Comum)
   # Delegado ao Liturgical::ProperCalculator
-  def proper_number(date)
-    @proper_calculator.calculate(date, season: season_for_date(date))
+  def proper_number(date, season: nil)
+    season ||= season_for_date(date)
+    @proper_calculator.calculate(date, season: season)
   end
 
   # Retorna o ciclo do ano litúrgico (A, B ou C)
@@ -420,19 +421,19 @@ class LiturgicalCalendar
   # Build cache key for day_info
   def build_day_info_cache_key(date)
     pb_version = prayer_book_updated_at
-    "v4/calendar/day_info/#{prayer_book_code}/#{date.strftime('%Y-%m-%d')}/pb_#{pb_version}"
+    "v5/calendar/day_info/#{prayer_book_code}/#{date.strftime('%Y-%m-%d')}/pb_#{pb_version}"
   end
 
   # Build cache key for celebration
   def build_celebration_cache_key(date)
     pb_version = prayer_book_updated_at
-    "v4/calendar/celebration/#{prayer_book_code}/#{date.strftime('%Y-%m-%d')}/pb_#{pb_version}"
+    "v5/calendar/celebration/#{prayer_book_code}/#{date.strftime('%Y-%m-%d')}/pb_#{pb_version}"
   end
 
   # Build cache key for multiple celebrations
   def build_celebrations_cache_key(date)
     pb_version = prayer_book_updated_at
-    "v4/calendar/celebrations/#{prayer_book_code}/#{date.strftime('%Y-%m-%d')}/pb_#{pb_version}"
+    "v5/calendar/celebrations/#{prayer_book_code}/#{date.strftime('%Y-%m-%d')}/pb_#{pb_version}"
   end
 
   # Memoized prayer_book.updated_at for cache versioning

@@ -8,7 +8,7 @@
 # - Celebration precedence (Principal feasts, Holy Days, etc.)
 # - Prayer Book specific reading patterns
 #
-# CACHING: Uses v4 cache strategy with prayer_book.updated_at versioning
+# CACHING: Uses v5 cache strategy with prayer_book.updated_at versioning
 # - Readings are cached per date/prayer_book/translation with 1-day TTL
 # - Readings data is deterministic for a given date, so cache is very effective
 #
@@ -35,7 +35,7 @@ class ReadingService
   ].freeze
 
   # Seasons where Sunday takes precedence over minor festivals
-  MAJOR_SEASONS = %w[Advento Quaresma Páscoa].freeze
+  MAJOR_SEASONS = %w[Advento Natal Epifania Quaresma Páscoa].freeze
 
   attr_reader :date, :calendar, :cycle, :translation, :reading_type, :service_type
 
@@ -77,7 +77,7 @@ class ReadingService
     pb = PrayerBook.find_by_code(prayer_book_code)
     pb_version = pb&.updated_at&.to_i || 0
 
-    "v4/readings/#{date}/#{prayer_book_code}/#{translation}/#{reading_type || 'default'}/pb_#{pb_version}"
+    "v5/readings/#{date}/#{prayer_book_code}/#{translation}/#{reading_type || 'default'}/pb_#{pb_version}"
   end
 
   # Find readings without cache (internal use)
@@ -243,8 +243,8 @@ class ReadingService
   def find_by_sunday
     return nil unless date.sunday?
 
-    sunday_ref = SundayReferenceMapper.map(date, calendar)
-    query.find_by_reference(sunday_ref)
+    sunday_refs = SundayReferenceMapper.map_with_aliases(date, calendar)
+    query.find_by_references(sunday_refs)
   end
 
   # 4. Buscar por data fixa específica
