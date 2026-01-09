@@ -66,7 +66,13 @@ collects << {
   text: "Deus Todo-Poderoso, que nos deste teu Filho Unigênito para que tomasse sobre si a nossa natureza e nascesse de uma virgem pura, e nós, que nascemos de novo nEle e somos feitos teus filhos por adoção e graça, possamos ser renovados diariamente pelo teu Espírito Santo, por nosso Senhor Jesus Cristo, que vive e reina contigo e o Espírito Santo, um só Deus, agora e para sempre. Amém."
 }
 
-# A Circuncisão do Senhor
+# O 2º Domingo após o Natal - TODO: verificar
+collects << {
+  celebration: "2nd_sunday_after_christmas",
+  text: "Deus Todo-Poderoso, que nos deste teu Filho Unigênito para que tomasse sobre si a nossa natureza e nascesse de uma virgem pura, e nós, que nascemos de novo nEle e somos feitos teus filhos por adoção e graça, possamos ser renovados diariamente pelo teu Espírito Santo, por nosso Senhor Jesus Cristo, que vive e reina contigo e o Espírito Santo, um só Deus, agora e para sempre. Amém."
+}
+
+# A Circuncisão do Senhor - TODO: verificar
 collects << {
   celebration: "circumcision_of_christ",
   text: "Deus Todo-Poderoso, que fizeste que teu bendito Filho fosse circuncidado e obediente à lei pela humanidade, concede-nos a verdadeira circuncisão do Espírito, para que tendo os nossos corações e corpos mortos para todos os desejos pecaminosos, possamos obedecer a tua santa vontade em todas as coisas por Teu Filho Jesus Cristo nosso Senhor. Amém."
@@ -81,7 +87,13 @@ collects << {
 # 1º Domingo Após a Epifania
 collects << {
   celebration: "1st_sunday_after_epiphany",
-  text: "Senhor misericordioso, ouça as orações do teu povo que te invoca e concede-nos o conhecimento das coisas que devemos fazer, bem como a graça e o poder para realizá-las fielmente, por meio de Cristo Jesus nosso Senhor. Amém."
+  text: "Senhor misericordioso, ouça as orações do teu povo que te invoca e concede-nos o knowledge das coisas que devemos fazer, bem como a graça e o poder para realizá-las fielmente, por meio de Cristo Jesus nosso Senhor. Amém."
+}
+
+# 2º Domingo Após a Epifania - TODO: verificar
+collects << {
+  celebration: "2nd_sunday_after_epiphany",
+  text: "Deus Todo-Poderoso e eterno, que governas todas as coisas no céu e na terra: ouve misericordiosamente as súplicas de teu povo e concede-nos a tua paz todos os dias da nossa vida, por Jesus Cristo nosso Senhor. Amém."
 }
 
 # 3º Domingo Após a Epifania
@@ -557,15 +569,11 @@ collects << {
 
 collects.each do |c|
   celebration = Celebration.find_by(name: c[:celebration], prayer_book_id: prayer_book.id)
-  
-  unless celebration
-    Rails.logger.warn "⚠️  Celebração não encontrada: #{c[:celebration]}"
-    next
-  end
 
   Collect.find_or_create_by!(
     prayer_book_id: prayer_book.id,
-    celebration_id: celebration.id
+    celebration_id: celebration&.id,
+    sunday_reference: celebration ? nil : c[:celebration]
   ) do |col|
     col.text = c[:text]
   end

@@ -48,7 +48,7 @@ module DailyOffice
         def build_exhortation
           text = fetch_liturgical_text("evening_exhortation")
           return nil unless text
-          { name: "", slug: "exhortation", lines: [line_item(text.content)] }
+          { name: "", slug: "exhortation", lines: [ line_item(text.content) ] }
         end
 
         def build_confession
@@ -88,14 +88,14 @@ module DailyOffice
           lines << line_item(fetch_liturgical_text("evening_inv_r1")&.content, type: "congregation")
           lines << line_item(fetch_liturgical_text("evening_inv_v2")&.content, type: "leader")
           lines << line_item(fetch_liturgical_text("evening_inv_r2")&.content, type: "congregation")
-          
+
           lines << line_item(fetch_liturgical_text("evening_gloria_patri_rubric")&.content, type: "rubric")
           lines << line_item(fetch_liturgical_text("evening_gloria_patri_v")&.content, type: "leader")
           lines << line_item(fetch_liturgical_text("evening_gloria_patri_r")&.content, type: "congregation")
-          
+
           lines << line_item(fetch_liturgical_text("evening_inv_v3")&.content, type: "leader")
           lines << line_item(fetch_liturgical_text("evening_inv_r3")&.content, type: "congregation")
-          
+
           { name: "", slug: "versicles", lines: lines.compact }
         end
 
@@ -109,8 +109,8 @@ module DailyOffice
             lines.concat(format_bible_content(psalm_ref[:content]))
           end
 
-          # Use same Gloria Patri slugs as Morning for consistency if available, 
-          # or we could define evening-specific ones. 
+          # Use same Gloria Patri slugs as Morning for consistency if available,
+          # or we could define evening-specific ones.
           # The book p19 mentions Gloria Patri too.
           v = fetch_liturgical_text("evening_gloria_patri_v")
           r = fetch_liturgical_text("evening_gloria_patri_r")
@@ -133,7 +133,7 @@ module DailyOffice
         def build_first_canticle
           canticle = fetch_liturgical_text("evening_magnificat")
           return nil unless canticle
-          { name: canticle.title, slug: "first_canticle", lines: [line_item(canticle.content)] }
+          { name: canticle.title, slug: "first_canticle", lines: [ line_item(canticle.content) ] }
         end
 
         def build_second_reading
@@ -149,7 +149,7 @@ module DailyOffice
         def build_second_canticle
           canticle = fetch_liturgical_text("evening_nunc_dimittis")
           return nil unless canticle
-          { name: canticle.title, slug: "second_canticle", lines: [line_item(canticle.content)] }
+          { name: canticle.title, slug: "second_canticle", lines: [ line_item(canticle.content) ] }
         end
 
         def build_creed
@@ -205,11 +205,11 @@ module DailyOffice
           peace = fetch_liturgical_text("evening_collect_peace")
           lines << line_item(peace.title, type: "heading") if peace
           lines << line_item(peace.content, type: "leader") if peace
-          
+
           perils = fetch_liturgical_text("evening_collect_perils")
           lines << line_item(perils.title, type: "heading") if perils
           lines << line_item(perils.content, type: "leader") if perils
-          
+
           { name: "", slug: "fixed_collects", lines: lines.compact }
         end
 
@@ -219,22 +219,22 @@ module DailyOffice
           auth = fetch_liturgical_text("morning_prayer_civil_authority_1")
           lines << line_item(auth.title, type: "heading") if auth
           lines << line_item(auth.content) if auth
-          
+
           clerg = fetch_liturgical_text("morning_prayer_clergy_people")
           lines << line_item(clerg.title, type: "heading") if clerg
           lines << line_item(clerg.content) if clerg
-          
+
           chrys = fetch_liturgical_text("prayer_st_chrysostom")
           lines << line_item(chrys.title, type: "heading") if chrys
           lines << line_item(chrys.content) if chrys
-          
+
           { name: "", slug: "additional_prayers", lines: lines.compact }
         end
 
         def build_the_grace
           text = fetch_liturgical_text("the_grace")
           return nil unless text
-          { name: text.title, slug: "the_grace", lines: [line_item(text.content)] }
+          { name: text.title, slug: "the_grace", lines: [ line_item(text.content) ] }
         end
       end
     end

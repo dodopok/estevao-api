@@ -35,7 +35,7 @@ end
 def create_daily_reading(attrs, prayer_book_id)
   attrs[:prayer_book_id] = prayer_book_id
   attrs[:cycle] = "all"
-  
+
   # Translate readings
   attrs[:first_reading] = translate_ref(attrs[:first_reading])
   attrs[:first_reading_abbreviated] = translate_ref(attrs[:first_reading_abbreviated])

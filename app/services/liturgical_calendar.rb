@@ -110,16 +110,30 @@ class LiturgicalCalendar
       "Pentecostes"
     when movable[:trinity_sunday]
       "Santíssima Trindade"
+    when movable[:ascension] + (7 - movable[:ascension].wday).days
+      "Domingo após a Ascensão"
     when movable[:palm_sunday]
       "Domingo de Ramos"
-    when movable[:christ_the_king]
-      "Cristo Rei do Universo"
     when movable[:first_sunday_of_advent]
       "1º Domingo do Advento"
     when movable[:baptism_of_the_lord]
       "Batismo de nosso Senhor Jesus Cristo"
     else
+      if date == movable[:christ_the_king] && prayer_book_code != "loc_1662"
+        return "Cristo Rei do Universo"
+      end
+
       week = week_number(date)
+
+      if prayer_book_code == "loc_1662"
+        return "Septuagésima" if date == movable[:ash_wednesday] - 17.days
+        return "Sexagésima" if date == movable[:ash_wednesday] - 10.days
+        return "Quinquagésima" if date == movable[:ash_wednesday] - 3.days
+
+        if season == "Páscoa" && date > movable[:easter]
+          return "#{week - 1}º Domingo após a Páscoa"
+        end
+      end
 
       # Tratamento especial para o tempo de Natal
       if season == "Natal"
@@ -132,6 +146,11 @@ class LiturgicalCalendar
       when "Epifania" then "da"
       else "do"
       end
+
+      if prayer_book_code == "loc_1662" && season == "Tempo Comum" && date > movable[:trinity_sunday]
+        return "#{week}º Domingo após a Trindade"
+      end
+
       "#{week}º Domingo #{preposition} #{season}"
     end
   end

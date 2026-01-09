@@ -685,10 +685,10 @@ RSpec.describe LiturgicalCalendar do
     end
 
     context 'special movable days' do
-      it 'returns Quarta-feira de Cinzas for Ash Wednesday' do
-        movable = calendar.easter_calc.all_movable_dates
-        expect(calendar.description(movable[:ash_wednesday])).to include("Quarta-Feira de Cinzas")
-      end
+    it "returns Quarta-feira de Cinzas for Ash Wednesday" do
+      movable = calendar.easter_calc.all_movable_dates
+      expect(calendar.description(movable[:ash_wednesday])).to include("Quarta-feira de Cinzas")
+    end
 
       it 'returns Páscoa for Easter Sunday' do
         movable = calendar.easter_calc.all_movable_dates
@@ -888,7 +888,7 @@ RSpec.describe LiturgicalCalendar do
 
           it 'returns proper number for non-Sunday dates' do
             # June 22, 2025 is Proper 7. Monday June 23 should also be Proper 7.
-            expect(calendar.proper_number(Date.new(2025, 6, 23))).to eq(7) 
+            expect(calendar.proper_number(Date.new(2025, 6, 23))).to eq(7)
           end
             it 'returns nil for dates outside Ordinary Time' do
         expect(calendar.proper_number(Date.new(2025, 4, 20))).to be_nil # Easter

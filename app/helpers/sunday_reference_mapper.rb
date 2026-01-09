@@ -8,7 +8,11 @@ class SundayReferenceMapper
     "Pentecostes" => "pentecost",
     "Santíssima Trindade" => "trinity_sunday",
     "Domingo de Ramos" => "palm_sunday",
-    "Batismo de nosso Senhor Jesus Cristo" => "baptism_of_the_lord"
+    "Batismo de nosso Senhor Jesus Cristo" => "baptism_of_the_lord",
+    "Septuagésima" => "septuagesima",
+    "Sexagésima" => "sexagesima",
+    "Quinquagésima" => "quinquagesima",
+    "Domingo após a Ascensão" => "sunday_after_ascension"
   }.freeze
 
   # Mapa de domingos após Natal (usam "after" em vez de "of")
@@ -24,17 +28,22 @@ class SundayReferenceMapper
     "Epifania" => "epiphany",
     "Quaresma" => "lent",
     "Páscoa" => "easter",
-    "Tempo Comum" => "ordinary_time"
+    "a Páscoa" => "easter",
+    "Tempo Comum" => "ordinary_time",
+    "Trindade" => "trinity",
+    "a Trindade" => "trinity"
   }.freeze
 
   # Mapa de apelidos para referências do banco (nome base -> lista de possíveis referências)
   REFERENCE_ALIASES = {
-    "pentecost" => %w[pentecost_day pentecost whitsunday],
+    "pentecost" => %w[pentecost_day pentecost whitsunday pentecost_sunday],
     "easter_sunday" => %w[easter_sunday easter_day easter],
     "trinity_sunday" => %w[trinity_sunday trinity],
     "baptism_of_the_lord" => %w[baptism_of_the_lord baptism_of_christ 1st_sunday_after_epiphany],
     "christ_the_king" => %w[christ_the_king sunday_before_advent],
-    "7th_sunday_of_easter" => %w[7th_sunday_of_easter sunday_after_ascension]
+    "7th_sunday_of_easter" => %w[7th_sunday_of_easter sunday_after_ascension],
+    "palm_sunday" => %w[palm_sunday_palms palm_sunday_word palm_sunday],
+    "sunday_after_ascension" => %w[sunday_after_ascension 7th_sunday_of_easter]
   }.freeze
 
   class << self
@@ -115,10 +124,12 @@ class SundayReferenceMapper
 
     # Converte número para ordinal em inglês
     def to_ordinal(number)
-      case number
-      when 1 then "1st"
-      when 2 then "2nd"
-      when 3 then "3rd"
+      return "#{number}th" if (11..13).include?(number % 100)
+
+      case number % 10
+      when 1 then "#{number}st"
+      when 2 then "#{number}nd"
+      when 3 then "#{number}rd"
       else "#{number}th"
       end
     end

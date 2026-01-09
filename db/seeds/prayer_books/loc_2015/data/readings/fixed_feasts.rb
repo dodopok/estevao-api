@@ -63,9 +63,15 @@ def create_reading_direct(reading_hash, prayer_book_id)
     date_reference: reading_hash[:date_reference],
     cycle: reading_hash[:cycle],
     service_type: reading_hash[:service_type],
+    prayer_book_id: prayer_book_id
   )
 
   if existing.nil?
+    # Tentar vincular celebration_id por heurística de nome
+    celebration = Celebration.where(prayer_book_id: prayer_book_id)
+                             .find { |c| c.name.parameterize.underscore == reading_hash[:date_reference] }
+    reading_hash[:celebration_id] = celebration.id if celebration
+
     reading_hash[:prayer_book_id] = prayer_book_id
     LectionaryReading.create!(reading_hash)
     return true
@@ -738,20 +744,6 @@ else
 end
 
 # João Evangelista (27 de dezembro)
-if create_reading_direct({
-  date_reference: "john_apostle",
-  cycle: "all",
-  service_type: "eucharist",
-  first_reading: "Êxodo 33:18-23",
-  psalm: "Salmo 92:1-4, 11-14",
-  second_reading: "1 João 1:1-9",
-  gospel: "João 21:19b-24"
-}, prayer_book.id)
-  count += 1
-else
-  skipped += 1
-end
-
 if create_reading_by_celebration("João", {
   year: "all",
   first_reading: "Isaías 6:1-8",
@@ -765,20 +757,6 @@ else
 end
 
 # Santos Inocentes (28 de dezembro)
-if create_reading_direct({
-  date_reference: "holy_innocents",
-  cycle: "all",
-  service_type: "eucharist",
-  first_reading: "Jeremias 31:15-17",
-  psalm: "Salmo 124",
-  second_reading: "Apocalipse 21:1-7",
-  gospel: "Mateus 2:13-18"
-}, prayer_book.id)
-  count += 1
-else
-  skipped += 1
-end
-
 if create_reading_by_celebration("Santos Inocentes", {
   year: "all",
   first_reading: "Jeremias 31:15-17",

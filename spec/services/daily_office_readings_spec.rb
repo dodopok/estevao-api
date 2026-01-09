@@ -22,7 +22,7 @@ RSpec.describe "Daily Office Readings Integration" do
       # This is just a fallback, usually seeds are loaded
       create_sample_readings(loc_2019, 'pt-BR')
     end
-    
+
     if LectionaryReading.where(prayer_book: loc_2019_en).count == 0
       create_sample_readings(loc_2019_en, 'en')
     end
@@ -32,18 +32,18 @@ RSpec.describe "Daily Office Readings Integration" do
     if lang == 'pt-BR'
       LectionaryReading.create!(prayer_book: pb, date_reference: 'janeiro_1', service_type: 'morning_prayer', psalm: '1, 2', first_reading: 'Gênesis 1', cycle: 'all')
       LectionaryReading.create!(prayer_book: pb, date_reference: 'janeiro_1', service_type: 'evening_prayer', psalm: '3, 4', first_reading: 'Gálatas 1', cycle: 'all')
-      
+
       # Ensure Celebration exists for Maundy Thursday logic
       Celebration.create!(
-        prayer_book: pb, 
-        name: 'Quinta-feira Santa', 
+        prayer_book: pb,
+        name: 'Quinta-feira Santa',
         celebration_type: 'major_holy_day',
         rank: 20,
         movable: true,
         calculation_rule: 'easter_minus_3_days',
         liturgical_color: 'roxo'
       )
-      
+
       LectionaryReading.create!(prayer_book: pb, date_reference: 'maundy_thursday', service_type: 'morning_prayer', psalm: '41', first_reading: 'Daniel 9', cycle: 'all')
     else
       LectionaryReading.create!(prayer_book: pb, date_reference: 'january_1', service_type: 'morning_prayer', psalm: '1, 2', first_reading: 'Gen 1', cycle: 'all')
@@ -76,11 +76,11 @@ RSpec.describe "Daily Office Readings Integration" do
       # Maundy Thursday 2026 is April 2
       date = Date.new(2026, 4, 2)
       service = ReadingService.for(date, prayer_book_code: 'loc_2019', service_type: 'morning_prayer')
-      
+
       # DEBUG
       puts "Cycle: #{service.cycle}"
       puts "Celebration: #{service.calendar.celebration_for_date(date).inspect}"
-      
+
       readings = service.find_readings
 
       expect(readings).to be_present
@@ -117,7 +117,7 @@ RSpec.describe "Daily Office Readings Integration" do
       calendar = LiturgicalCalendar.new(2026, prayer_book_code: 'loc_2019')
       date = Date.new(2026, 3, 15)
       builder = Reading::ReferenceBuilder.new(date, calendar: calendar)
-      
+
       # Should use marco_15, not march_15
       refs = builder.weekly_references
       expect(refs).to include('marco_15')
@@ -128,7 +128,7 @@ RSpec.describe "Daily Office Readings Integration" do
       calendar = LiturgicalCalendar.new(2026, prayer_book_code: 'loc_2019_en')
       date = Date.new(2026, 3, 15)
       builder = Reading::ReferenceBuilder.new(date, calendar: calendar)
-      
+
       # Should use march_15
       refs = builder.weekly_references
       expect(refs).to include('march_15')

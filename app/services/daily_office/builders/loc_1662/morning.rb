@@ -50,7 +50,7 @@ module DailyOffice
         def build_exhortation
           text = fetch_liturgical_text("morning_exhortation")
           return nil unless text
-          { name: "", slug: "exhortation", lines: [line_item(text.content)] }
+          { name: "", slug: "exhortation", lines: [ line_item(text.content) ] }
         end
 
         def build_confession
@@ -90,14 +90,14 @@ module DailyOffice
           lines << line_item(fetch_liturgical_text("morning_inv_r1")&.content, type: "congregation")
           lines << line_item(fetch_liturgical_text("morning_inv_v2")&.content, type: "leader")
           lines << line_item(fetch_liturgical_text("morning_inv_r2")&.content, type: "congregation")
-          
+
           lines << line_item(fetch_liturgical_text("morning_gloria_patri_rubric")&.content, type: "rubric")
           lines << line_item(fetch_liturgical_text("morning_gloria_patri_v")&.content, type: "leader")
           lines << line_item(fetch_liturgical_text("morning_gloria_patri_r")&.content, type: "congregation")
-          
+
           lines << line_item(fetch_liturgical_text("morning_inv_v3")&.content, type: "leader")
           lines << line_item(fetch_liturgical_text("morning_inv_r3")&.content, type: "congregation")
-          
+
           { name: "", slug: "versicles", lines: lines.compact }
         end
 
@@ -105,15 +105,15 @@ module DailyOffice
           lines = []
           rubric = fetch_liturgical_text("morning_venite_rubric")
           lines << line_item(rubric.content, type: "rubric") if rubric
-          
+
           # Only Venite supported for now as Jubilate text is not in provided images
           canticle = fetch_liturgical_text("morning_venite")
           return nil unless canticle
 
-          { 
+          {
             name: canticle.title,
             slug: "invitatory_canticle",
-            lines: [line_item(canticle.content)]
+            lines: [ line_item(canticle.content) ]
           }
         end
 
@@ -152,7 +152,7 @@ module DailyOffice
           canticle_slug = resolve_preference(:morning_post_first_reading_canticle, %w[morning_te_deum morning_benedicite]) || "morning_te_deum"
           canticle = fetch_liturgical_text(canticle_slug)
           return nil unless canticle
-          { name: canticle.title, slug: "first_canticle", lines: [line_item(canticle.content)] }
+          { name: canticle.title, slug: "first_canticle", lines: [ line_item(canticle.content) ] }
         end
 
         def build_second_reading
@@ -168,7 +168,7 @@ module DailyOffice
         def build_second_canticle
           canticle = fetch_liturgical_text("morning_benedictus")
           return nil unless canticle
-          { name: canticle.title, slug: "second_canticle", lines: [line_item(canticle.content)] }
+          { name: canticle.title, slug: "second_canticle", lines: [ line_item(canticle.content) ] }
         end
 
         def build_creed
@@ -232,11 +232,11 @@ module DailyOffice
           peace = fetch_liturgical_text("morning_collect_peace")
           lines << line_item(peace.title, type: "heading") if peace
           lines << line_item(peace.content) if peace
-          
+
           grace = fetch_liturgical_text("morning_collect_grace")
           lines << line_item(grace.title, type: "heading") if grace
           lines << line_item(grace.content) if grace
-          
+
           { name: "Coletas Fixas", slug: "fixed_collects", lines: lines.compact }
         end
 
@@ -244,20 +244,20 @@ module DailyOffice
           lines = []
           rubric = fetch_liturgical_text("morning_additional_prayers_rubric")
           lines << line_item(rubric.content, type: "rubric") if rubric
-          
+
           # Usually includes Prayer for Civil Authority, Clergy and People, St. Chrysostom
           auth = fetch_liturgical_text("morning_prayer_civil_authority_1")
           lines << line_item(auth.title, type: "heading") if auth
           lines << line_item(auth.content) if auth
-          
+
           clerg = fetch_liturgical_text("morning_prayer_clergy_people")
           lines << line_item(clerg.title, type: "heading") if clerg
           lines << line_item(clerg.content) if clerg
-          
+
           chrys = fetch_liturgical_text("prayer_st_chrysostom")
           lines << line_item(chrys.title, type: "heading") if chrys
           lines << line_item(chrys.content) if chrys
-          
+
           { name: "Orações Adicionais", slug: "additional_prayers", lines: lines.compact }
         end
 
@@ -298,15 +298,15 @@ module DailyOffice
         def build_the_grace
           text = fetch_liturgical_text("the_grace")
           return nil unless text
-          { name: text.title, slug: "the_grace", lines: [line_item(text.content)] }
+          { name: text.title, slug: "the_grace", lines: [ line_item(text.content) ] }
         end
 
         def use_athanasian_creed?
-          # Christmas, Epiphany, St. Matthias, Easter, Ascension, Pentecost, 
-          # St. John Baptist, St. James, St. Bartholomew, St. Matthew, 
+          # Christmas, Epiphany, St. Matthias, Easter, Ascension, Pentecost,
+          # St. John Baptist, St. James, St. Bartholomew, St. Matthew,
           # Saints Simon and Jude, St. Andrew, Trinity Sunday
           athanasian_feasts = %w[
-            christmas_day epiphany saint_matthias easter_day 
+            christmas_day epiphany saint_matthias easter_day
             ascension_day pentecost_sunday nativity_of_john_baptist
             saint_james saint_bartholomew saint_matthew
             saints_simon_and_jude saint_andrew trinity_sunday

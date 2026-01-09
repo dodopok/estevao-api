@@ -117,7 +117,7 @@ module Api
       def format_celebration_detailed(celebration)
         basic = format_celebration(celebration)
         prayer_book = celebration.prayer_book
-        
+
         basic.merge({
           descricao: celebration.description,
           pode_ser_transferida: celebration.can_be_transferred,

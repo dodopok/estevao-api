@@ -33,11 +33,11 @@ module DailyOffice
         announcement_template = fetch_liturgical_text(announcement_slug)
         if announcement_template
           announcement = format_reading_announcement(announcement_template, readings[reading_key])
-          
+
           # Map category to frontend type
           # "invocation" usually maps to "leader" in our Daily Office response
           type = announcement_template.category == "invocation" ? "leader" : announcement_template.category
-          
+
           lines << line_item(announcement, type: type, slug: announcement_template.slug)
           lines << line_item("", type: "spacer")
         end

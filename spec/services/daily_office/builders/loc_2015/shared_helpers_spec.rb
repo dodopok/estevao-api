@@ -33,8 +33,7 @@ RSpec.describe DailyOffice::Builders::SharedHelpers do
       def default_preferences
         {
           prayer_book_code: "loc_2015",
-          bible_version: "nvi",
-          language: "pt-BR"
+          bible_version: "nvi"
         }
       end
 

@@ -8,7 +8,7 @@ prayer_book = PrayerBook.find_by!(code: 'loc_1662')
 
 readings = [
   # ADVENTO
-  
+
   # 1º Domingo do Advento
   {
     date_reference: "1st_sunday_of_advent",
@@ -72,6 +72,13 @@ readings = [
     gospel: "Mateus 1:18-25"
   },
 
+  # 2º Domingo após o Natal
+  {
+    date_reference: "2nd_sunday_after_christmas",
+    epistle: "Gálatas 4:1-7",
+    gospel: "Mateus 1:18-25"
+  },
+
   # Circuncisão
   {
     date_reference: "circumcision_of_christ",
@@ -91,6 +98,13 @@ readings = [
     date_reference: "1st_sunday_after_epiphany",
     epistle: "Romanos 12:1-5",
     gospel: "Lucas 2:41-52"
+  },
+
+  # 2º Domingo após Epifania
+  {
+    date_reference: "2nd_sunday_after_epiphany",
+    epistle: "Romanos 12:6-16",
+    gospel: "João 2:1-11"
   },
 
   # 3º Domingo após Epifania
@@ -168,6 +182,13 @@ readings = [
     date_reference: "3rd_sunday_in_lent",
     epistle: "Efésios 5:1-14",
     gospel: "Lucas 11:14-28"
+  },
+
+  # 4º Domingo na Quaresma
+  {
+    date_reference: "4th_sunday_in_lent",
+    epistle: "Gálatas 4:21-31",
+    gospel: "João 6:1-14"
   },
 
   # 5º Domingo na Quaresma
@@ -623,29 +644,136 @@ readings = [
     date_reference: "all_saints",
     epistle: "Apocalipse 7:2-12",
     gospel: "Mateus 5:1-12"
-  },
+  }
 ]
 
-readings.each do |r|
-  celebration = Celebration.find_by(name: r[:celebration], prayer_book_id: prayer_book.id)
-  
-  unless celebration
-    Rails.logger.warn "⚠️  Celebração não encontrada para leituras: #{r[:celebration]}"
-    next
-  end
+# Map date_reference to localized celebration name in LOC 1662
+CELEBRATION_NAME_MAP = {
+  "1st_sunday_of_advent" => "1º Domingo do Advento",
+  "2nd_sunday_of_advent" => "2º Domingo do Advento",
+  "3rd_sunday_of_advent" => "3º Domingo do Advento",
+  "4th_sunday_of_advent" => "4º Domingo do Advento",
+  "christmas_day" => "Dia de Natal",
+  "saint_stephen" => "Santo Estevão, o Mártir",
+  "saint_john_apostle" => "São João, o Evangelista",
+  "holy_innocents" => "Santos Inocentes",
+  "1st_sunday_after_christmas" => "1º Domingo após o Natal",
+  "2nd_sunday_after_christmas" => "2º Domingo após o Natal",
+  "circumcision_of_christ" => "Circuncisão do Senhor",
+  "epiphany" => "Epifania",
+  "1st_sunday_after_epiphany" => "1º Domingo após Epifania",
+  "2nd_sunday_after_epiphany" => "2º Domingo após Epifania",
+  "3rd_sunday_after_epiphany" => "3º Domingo após Epifania",
+  "4th_sunday_after_epiphany" => "4º Domingo após Epifania",
+  "5th_sunday_after_epiphany" => "5º Domingo após Epifania",
+  "6th_sunday_after_epiphany" => "6º Domingo após Epifania",
+  "septuagesima" => "Septuagésima",
+  "sexagesima" => "Sexagésima",
+  "quinquagesima" => "Quinquagésima",
+  "ash_wednesday" => "Quarta-feira de Cinzas",
+  "1st_sunday_in_lent" => "1º Domingo na Quaresma",
+  "2nd_sunday_in_lent" => "2º Domingo na Quaresma",
+  "3rd_sunday_in_lent" => "3º Domingo na Quaresma",
+  "4th_sunday_in_lent" => "4º Domingo na Quaresma",
+  "5th_sunday_in_lent" => "5º Domingo na Quaresma",
+  "palm_sunday" => "Domingo de Ramos",
+  "monday_in_holy_week" => "Segunda-feira antes da Páscoa",
+  "tuesday_in_holy_week" => "Terça-feira antes da Páscoa",
+  "wednesday_in_holy_week" => "Quarta-feira antes da Páscoa",
+  "maundy_thursday" => "Quinta-feira Santa",
+  "good_friday" => "Sexta-feira da Paixão",
+  "holy_saturday" => "Sábado Santo",
+  "easter_day" => "Domingo da Páscoa",
+  "monday_in_easter_week" => "Segunda-feira da Páscoa",
+  "tuesday_in_easter_week" => "Terça-feira da Páscoa",
+  "1st_sunday_after_easter" => "1º Domingo após a Páscoa",
+  "2nd_sunday_after_easter" => "2º Domingo após a Páscoa",
+  "3rd_sunday_after_easter" => "3º Domingo após a Páscoa",
+  "4th_sunday_after_easter" => "4º Domingo após a Páscoa",
+  "5th_sunday_after_easter" => "5º Domingo após a Páscoa",
+  "ascension_day" => "Dia da Ascensão",
+  "sunday_after_ascension" => "Domingo após a Ascensão",
+  "pentecost_sunday" => "Pentecostes",
+  "monday_in_whitsun_week" => "Segunda-feira de Pentecostes",
+  "tuesday_in_whitsun_week" => "Terça-feira de Pentecostes",
+  "trinity_sunday" => "Santíssima Trindade",
+  "1st_sunday_after_trinity" => "1º Domingo após a Trindade",
+  "2nd_sunday_after_trinity" => "2º Domingo após a Trindade",
+  "3rd_sunday_after_trinity" => "3º Domingo após a Trindade",
+  "4th_sunday_after_trinity" => "4º Domingo após a Trindade",
+  "5th_sunday_after_trinity" => "5º Domingo após a Trindade",
+  "6th_sunday_after_trinity" => "6º Domingo após a Trindade",
+  "7th_sunday_after_trinity" => "7º Domingo após a Trindade",
+  "8th_sunday_after_trinity" => "8º Domingo após a Trindade",
+  "9th_sunday_after_trinity" => "9º Domingo após a Trindade",
+  "10th_sunday_after_trinity" => "10º Domingo após a Trindade",
+  "11th_sunday_after_trinity" => "11º Domingo após a Trindade",
+  "12th_sunday_after_trinity" => "12º Domingo após a Trindade",
+  "13th_sunday_after_trinity" => "13º Domingo após a Trindade",
+  "14th_sunday_after_trinity" => "14º Domingo após a Trindade",
+  "15th_sunday_after_trinity" => "15º Domingo após a Trindade",
+  "16th_sunday_after_trinity" => "16º Domingo após a Trindade",
+  "17th_sunday_after_trinity" => "17º Domingo após a Trindade",
+  "18th_sunday_after_trinity" => "18º Domingo após a Trindade",
+  "19th_sunday_after_trinity" => "19º Domingo após a Trindade",
+  "20th_sunday_after_trinity" => "20º Domingo após a Trindade",
+  "21st_sunday_after_trinity" => "21º Domingo após a Trindade", # Note: using ordinal logic
+  "22nd_sunday_after_trinity" => "22º Domingo após a Trindade",
+  "23rd_sunday_after_trinity" => "23º Domingo após a Trindade",
+  "24th_sunday_after_trinity" => "24º Domingo após a Trindade",
+  "25th_sunday_after_trinity" => "25º Domingo após a Trindade",
+  "saint_andrew" => "Santo André, o Apóstolo",
+  "saint_thomas_apostle" => "São Tomé, o Apóstolo",
+  "conversion_of_saint_paulo" => "Conversão de São Paulo",
+  "purification_of_mary" => "Purificação de Maria",
+  "saint_matthias" => "São Matias, o Apóstolo",
+  "annunciation_of_mary" => "Anunciação da Bem-Aventurada Virgem Maria",
+  "saint_mark" => "São Marcos, o Evangelista",
+  "saints_philip_and_james" => "São Filipe e São Tiago, os Apóstolos",
+  "saint_barnabas" => "São Barnabé",
+  "nativity_of_john_baptist" => "Nascimento de São João Batista",
+  "saint_pedro" => "São Pedro, o Apóstolo",
+  "saint_james" => "São Tiago, o Apóstolo",
+  "saint_bartholomew" => "São Bartolomeu, o Apóstolo",
+  "saint_matthew" => "São Mateus, o Apóstolo",
+  "saint_michael_and_all_angels" => "São Miguel e Todos os Anjos",
+  "saint_luke" => "São Lucas, o Evangelista",
+  "saints_simon_and_jude" => "São Simão e São Judas, os Apóstolos",
+  "all_saints" => "Todos os Santos"
+}.freeze
 
-  # Epístola (First Reading in Communion context usually, but stored as second_reading in some systems? 
-  # No, usually Epistle = second_reading or first_reading depending on if OT is present. 
+readings.each do |r|
+  cel_name = CELEBRATION_NAME_MAP[r[:date_reference]]
+  celebration = Celebration.find_by(name: cel_name, prayer_book_id: prayer_book.id) if cel_name
+
+  # Epístola (First Reading in Communion context usually, but stored as second_reading in some systems?
+  # No, usually Epistle = second_reading or first_reading depending on if OT is present.
   # In 1662, it's Epistle and Gospel. I'll map Epistle to `first_reading` and Gospel to `gospel`.
-  
-  LectionaryReading.create!(
-    prayer_book_id: prayer_book.id,
-    celebration_id: celebration.id,
+
+  existing = LectionaryReading.find_by(
+    date_reference: r[:date_reference],
     cycle: 'all',
     service_type: 'eucharist',
-    first_reading: r[:epistle],
-    gospel: r[:gospel]
+    prayer_book_id: prayer_book.id
   )
+
+  if existing
+    existing.update!(
+      celebration_id: celebration&.id,
+      first_reading: r[:epistle],
+      gospel: r[:gospel]
+    )
+  else
+    LectionaryReading.create!(
+      prayer_book_id: prayer_book.id,
+      celebration_id: celebration&.id,
+      date_reference: r[:date_reference],
+      cycle: 'all',
+      service_type: 'eucharist',
+      first_reading: r[:epistle],
+      gospel: r[:gospel]
+    )
+  end
 end
 
 Rails.logger.info "✅ Leituras da Eucaristia carregadas!"

@@ -297,11 +297,52 @@ holy_days = [
   }
 ]
 
+# Map date_reference to celebration name in LOC 1987
+CELEBRATION_NAME_MAP = {
+  "andrew" => "Santo André, Apóstolo",
+  "thomas_apostle" => "São Tomé, Apóstolo",
+  "stephen" => "Santo Estevão, Diácono e Mártir",
+  "john_evangelist" => "São João, Apóstolo e Evangelista",
+  "holy_innocents" => "Santos Inocentes",
+  "confession_of_peter" => "Confissão de São Pedro Apóstolo",
+  "conversion_of_paul" => "Conversão de São Paulo Apóstolo",
+  "presentation" => "Apresentação de Nosso Senhor Jesus Cristo no Templo",
+  "matthias" => "São Matias, Apóstolo",
+  "joseph" => "São José",
+  "annunciation" => "Anunciação da Bem-Aventurada Virgem Maria",
+  "mark" => "São Marcos, Evangelista",
+  "philip_and_james" => "São Felipe e São Tiago, Apóstolos",
+  "visitation" => "Visitação da Bem-Aventurada Virgem Maria",
+  "barnabas" => "São Barnabé, Apóstolo",
+  "nativity_of_john_the_baptist" => "Natividade de São João Batista",
+  "peter_and_paul" => "São Pedro e São Paulo, Apóstolos",
+  "mary_magdalene" => "Santa Maria Madalena",
+  "james_apostle" => "São Tiago, Apóstolo",
+  "transfiguration" => "Transfiguração de Nosso Senhor Jesus Cristo",
+  "blessed_virgin_mary" => "Bem-Aventurada Virgem Maria, Mãe de Nosso Senhor Jesus Cristo",
+  "bartholomew" => "São Bartolomeu, Apóstolo",
+  "independence_day_brazil" => "Dia da Pátria",
+  "holy_cross" => "Dia da Santa Cruz",
+  "matthew" => "São Mateus, Apóstolo e Evangelista",
+  "michael_and_all_angels" => "São Miguel e Todos os Anjos",
+  "luke" => "São Lucas, Evangelista",
+  "james_of_jerusalem" => "São Tiago de Jerusalém, Irmão de Nosso Senhor Jesus Cristo, Mártir",
+  "simon_and_jude" => "São Simão e São Judas, Apóstolos",
+  "all_saints" => "Dia de Todos os Santos",
+  "all_saints_alt" => "Dia de Todos os Santos",
+  "thanksgiving" => "Dia Nacional de Ação de Graças"
+}.freeze
+
 # Create records if not present
 count = 0
 skipped = 0
 holy_days.each do |r|
   r[:prayer_book_id] = prayer_book.id
+
+  # Find and link celebration
+  cel_name = CELEBRATION_NAME_MAP[r[:date_reference]]
+  celebration = Celebration.find_by(name: cel_name, prayer_book_id: prayer_book.id) if cel_name
+  r[:celebration_id] = celebration&.id
 
   existing = LectionaryReading.find_by(
     date_reference: r[:date_reference],
@@ -314,6 +355,7 @@ holy_days.each do |r|
     LectionaryReading.create!(r)
     count += 1
   else
+    existing.update!(r)
     skipped += 1
   end
 end

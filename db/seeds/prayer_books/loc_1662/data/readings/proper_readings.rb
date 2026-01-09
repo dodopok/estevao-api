@@ -158,7 +158,7 @@ readings = [
   # TRINDADE
   # ============================================================================
   { date_reference: "trinity_sunday", service_type: "morning_prayer", first_reading: "Gênesis 1", second_reading: "Mateus 3" },
-  { date_reference: "trinity_sunday", service_type: "evening_prayer", first_reading: "Gênesis 18", second_reading: "1 João 5" },
+  { date_reference: "trinity_sunday", service_type: "evening_prayer", first_reading: "Gênesis 18", second_reading: "1 João 5" }
 ]
 
 # DOMINGOS DA TRINDADE (1 a 26) - Page 0008
@@ -188,7 +188,7 @@ trinity_sundays = [
   { n: 23, mat: "Provérbios 11", vesp: "Provérbios 12" },
   { n: 24, mat: "Provérbios 13", vesp: "Provérbios 14" },
   { n: 25, mat: "Provérbios 15", vesp: "Provérbios 16" },
-  { n: 26, mat: "Provérbios 17", vesp: "Provérbios 19" },
+  { n: 26, mat: "Provérbios 17", vesp: "Provérbios 19" }
 ]
 
 trinity_sundays.each do |sunday|
@@ -227,7 +227,7 @@ holy_days = [
   { name: "saint_michael_and_all_angels", mat_1: "Gênesis 32", mat_2: "Atos 12:1-19", vesp_1: "Daniel 10:5-21", vesp_2: "Judas 6:15" },
   { name: "saint_luke", mat_1: "Eclesiástico 51", vesp_1: "Jó 1" },
   { name: "saints_simon_and_jude", mat_1: "Jó 24-25", vesp_1: "Jó 42" },
-  { name: "all_saints", mat_1: "Sabedoria 3:1-9", mat_2: "Hebreus 11:32-12:6", vesp_1: "Sabedoria 5:1-16", vesp_2: "Apocalipse 19:1-16" },
+  { name: "all_saints", mat_1: "Sabedoria 3:1-9", mat_2: "Hebreus 11:32-12:6", vesp_1: "Sabedoria 5:1-16", vesp_2: "Apocalipse 19:1-16" }
 ]
 
 holy_days.each do |day|

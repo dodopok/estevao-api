@@ -11,6 +11,13 @@ def create_reading(attrs, prayer_book_id)
   attrs[:prayer_book_id] = prayer_book_id
   attrs[:cycle] ||= "all" # Dias fixos geralmente servem para todos os ciclos
 
+  # Tentar vincular celebration_id por heurística de nome se não fornecido
+  if attrs[:celebration_id].nil?
+    celebration = Celebration.where(prayer_book_id: prayer_book_id)
+                             .find { |c| c.name.parameterize.underscore == attrs[:date_reference] }
+    attrs[:celebration_id] = celebration.id if celebration
+  end
+
   existing = LectionaryReading.find_by(
     date_reference: attrs[:date_reference],
     celebration_id: attrs[:celebration_id],

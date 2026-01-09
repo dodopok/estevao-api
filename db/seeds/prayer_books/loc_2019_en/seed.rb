@@ -12,20 +12,21 @@ require Rails.root.join(base_path, 'celebrations/seed_celebrations.rb')
 require Rails.root.join(base_path, 'collects.rb')
 
 # 3. Readings
-require Rails.root.join(base_path, 'readings/advent.rb')
-require Rails.root.join(base_path, 'readings/christmas.rb')
-require Rails.root.join(base_path, 'readings/epiphany.rb')
-require Rails.root.join(base_path, 'readings/lent.rb')
-require Rails.root.join(base_path, 'readings/holy_week.rb')
-require Rails.root.join(base_path, 'readings/easter.rb')
-require Rails.root.join(base_path, 'readings/pentecost_ordinary.rb')
-require Rails.root.join(base_path, 'readings/fixed_feasts.rb')
-require Rails.root.join(base_path, 'readings/daily_office.rb')
+load Rails.root.join(base_path, 'readings/advent.rb')
+load Rails.root.join(base_path, 'readings/christmas.rb')
+load Rails.root.join(base_path, 'readings/epiphany.rb')
+load Rails.root.join(base_path, 'readings/lent.rb')
+load Rails.root.join(base_path, 'readings/holy_week.rb')
+load Rails.root.join(base_path, 'readings/easter.rb')
+load Rails.root.join(base_path, 'readings/pentecost_ordinary.rb')
+load Rails.root.join(base_path, 'readings/fixed_feasts.rb')
+load Rails.root.join(base_path, 'readings/daily_office_jan_may.rb')
+load Rails.root.join(base_path, 'readings/daily_office.rb')
 
 # 4. Liturgical Texts
-require Rails.root.join(base_path, 'liturgical_texts.rb')
+load Rails.root.join(base_path, 'liturgical_texts.rb')
 
 # 5. Preferences
-require Rails.root.join(base_path, 'preferences.rb')
+load Rails.root.join(base_path, 'preferences.rb')
 
 Rails.logger.info "✅ LOC 2019 English (loc_2019_en) seed completed!"

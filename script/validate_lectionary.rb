@@ -62,9 +62,9 @@ class LectionaryValidator
     @results[:total_days] += 1
 
     begin
-      calendar = LiturgicalCalendar.new(date.year)
-      reading_service = ReadingService.for(date, prayer_book_code: prayer_book_code)
-      collect_service = CollectService.new(date, prayer_book_code: prayer_book_code)
+      calendar = LiturgicalCalendar.new(date.year, prayer_book_code: prayer_book_code)
+      reading_service = ReadingService.for(date, prayer_book_code: prayer_book_code, calendar: calendar)
+      collect_service = CollectService.new(date, prayer_book_code: prayer_book_code, calendar: calendar)
 
       season = calendar.season_for_date(date)
       color = calendar.color_for_date(date)
@@ -217,12 +217,14 @@ class LectionaryValidator
     total_missing = @results[:sundays][:missing_readings].size + @results[:weekdays][:missing_readings].size
     if total_missing == 0 && @results[:errors].empty?
       puts "✅ VALIDAÇÃO COMPLETA - Todos os dias têm leituras!"
+      true
     elsif @results[:sundays][:missing_readings].empty?
       puts "⚠️  VALIDAÇÃO PARCIAL - Todos os domingos OK, #{@results[:weekdays][:missing_readings].size} dias de semana sem leituras"
+      false
     else
       puts "❌ VALIDAÇÃO FALHOU - #{@results[:sundays][:missing_readings].size} domingos e #{@results[:weekdays][:missing_readings].size} dias de semana sem leituras"
+      false
     end
-    puts "=" * 80
   end
 end
 
@@ -234,4 +236,5 @@ year = (ARGV[0] || Date.today.year).to_i
 prayer_book_code = ARGV[1] || "loc_2015"
 
 validator = LectionaryValidator.new(year, prayer_book_code)
-validator.validate
+success = validator.validate
+exit(success ? 0 : 1)

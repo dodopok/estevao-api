@@ -87,7 +87,7 @@ lectionary_a = [
 
   # Santo Nome (1º de janeiro)
   {
-    date_reference: "naming_of_jesus",
+    date_reference: "holy_name",
     cycle: "A",
     service_type: "eucharist",
     first_reading: "Êxodo 34:1-8",

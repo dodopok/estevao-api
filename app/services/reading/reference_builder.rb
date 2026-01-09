@@ -189,6 +189,12 @@ module Reading
       refs << "#{week.ordinalize}_sunday_of_easter_#{weekday}" if week
       refs << "week_of_pentecost_#{weekday}"
       refs << "trinity_sunday_#{weekday}"
+
+      # References for days following Ascension
+      movable = calendar.easter_calc.all_movable_dates
+      if date > movable[:ascension] && date < movable[:pentecost]
+        refs << "ascension_#{weekday}"
+      end
     end
 
     def ordinary_time_week_references(weekday, refs)
