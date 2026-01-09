@@ -165,8 +165,7 @@ class DailyOfficeService
                       # Future: DailyOffice::Builders::Loc2012Builder
                       DailyOffice::Builders::BaseBuilder
     when "loc_1662"
-                      # Use base builder for LOCs without specific customizations
-                      DailyOffice::Builders::BaseBuilder
+                      DailyOffice::Builders::Loc1662Builder
     else
                       # Default to base builder
                       DailyOffice::Builders::BaseBuilder

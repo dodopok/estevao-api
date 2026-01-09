@@ -8,8 +8,7 @@ def create_text(slug, category, content, reference: nil, title: nil)
     lt.content = content
     lt.reference = reference
     lt.title = title
-    lt.language = 'pt-BR'
-  end
+      end
 end
 
 Rails.logger.info "Creating granular liturgical texts for LOC 2019 Portuguese..."

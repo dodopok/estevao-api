@@ -9,7 +9,6 @@ RSpec.describe Collect, type: :model do
 
   describe 'validations' do
     it { should validate_presence_of(:text) }
-    it { should validate_presence_of(:language) }
 
     context 'custom validations' do
       it 'requires either celebration, season, or sunday_reference' do

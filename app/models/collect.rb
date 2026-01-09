@@ -7,14 +7,13 @@ class Collect < ApplicationRecord
 
   # Validações
   validates :text, presence: true
-  validates :language, presence: true
   validate :must_have_celebration_or_season_or_sunday
 
   # Scopes
   scope :for_celebration, ->(celebration_id) { where(celebration_id: celebration_id) }
   scope :for_season, ->(season_id) { where(season_id: season_id) }
   scope :for_sunday, ->(sunday_ref) { where(sunday_reference: sunday_ref) }
-  scope :in_language, ->(lang) { where(language: lang) }
+  scope :in_language, ->(lang) { joins(:prayer_book).where(prayer_books: { language: lang }) }
   scope :for_prayer_book_id, ->(prayer_book_id) { where(prayer_book_id: prayer_book_id) }
   scope :for_prayer_book, ->(code) {
     prayer_book = PrayerBook.find_by(code: code)

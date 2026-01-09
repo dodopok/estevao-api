@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :collect do
     association :prayer_book
     text { "Almighty God, give us grace to cast away the works of darkness..." }
-    language { "en" }
 
     # Default: usar celebration
     transient do
@@ -38,7 +37,6 @@ FactoryBot.define do
     end
 
     trait :portuguese do
-      language { "pt-BR" }
       text { "Deus Todo-Poderoso, dai-nos graça para deixar as obras das trevas..." }
     end
 

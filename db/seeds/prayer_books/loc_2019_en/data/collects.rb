@@ -5,7 +5,6 @@
 Rails.logger.info "📿 Loading collects for LOC 2019 EN..."
 
 prayer_book = PrayerBook.find_by!(code: 'loc_2019_en')
-language = 'en'
 
 def create_collect(attrs, prayer_book_id)
   attrs[:prayer_book_id] = prayer_book_id
@@ -42,25 +41,25 @@ ordinary_s = seasons.find_by(name: 'Tempo Comum')
   [ '3rd_sunday_of_advent', "O Lord Jesus Christ, you sent your messengers the prophets to preach repentance and prepare the way for our salvation: Grant that the ministers and stewards of your mysteries may likewise make ready your way, by turning the hearts of the disobedient toward the wisdom of the just, that at your second coming to judge the world, we may be found a people acceptable in your sight; for with the Father and the Holy Spirit you live and reign, one God, now and for ever. Amen." ],
   [ '4th_sunday_of_advent', "Stir up your power, O Lord, and with great might come among us; and as we are sorely hindered by our sins from running the race that is set before us, let your bountiful grace and mercy speedily help and deliver us; through Jesus Christ our Lord, to whom, with you and the Holy Spirit, be honor and glory, now and for ever. Amen." ]
 ].each do |ref, text|
-  create_collect({ sunday_reference: ref, text: text, language: language, season_id: advent_s&.id }, prayer_book.id)
+  create_collect({ sunday_reference: ref, text: text, season_id: advent_s&.id }, prayer_book.id)
 end
 
 # --- CHRISTMAS ---
-create_collect({ sunday_reference: 'christmas_eve', text: "O God, you have caused this holy night to shine with the brightness of the true Light: Grant that we, who have known the mystery of that Light on earth, may also enjoy him perfectly in heaven; where with you and the Holy Spirit he lives and reigns, one God, in glory everlasting. Amen.", language: language, season_id: christmas_s&.id }, prayer_book.id)
+create_collect({ sunday_reference: 'christmas_eve', text: "O God, you have caused this holy night to shine with the brightness of the true Light: Grant that we, who have known the mystery of that Light on earth, may also enjoy him perfectly in heaven; where with you and the Holy Spirit he lives and reigns, one God, in glory everlasting. Amen.", season_id: christmas_s&.id }, prayer_book.id)
 
 christmas_day_c = celebrations.find_by(name: 'Christmas Day')
-create_collect({ celebration_id: christmas_day_c&.id, text: "Almighty God, you have given your only-begotten Son to take our nature upon him, and to be born [this day] of a pure virgin: Grant that we, who have been born again and made your children by adoption and grace, may daily be renewed by your Holy Spirit; through Jesus Christ our Lord, to whom with you and the same Spirit be honor and glory, now and for ever. Amen.", language: language, season_id: christmas_s&.id }, prayer_book.id)
+create_collect({ celebration_id: christmas_day_c&.id, text: "Almighty God, you have given your only-begotten Son to take our nature upon him, and to be born [this day] of a pure virgin: Grant that we, who have been born again and made your children by adoption and grace, may daily be renewed by your Holy Spirit; through Jesus Christ our Lord, to whom with you and the same Spirit be honor and glory, now and for ever. Amen.", season_id: christmas_s&.id }, prayer_book.id)
 
-create_collect({ sunday_reference: '1st_sunday_after_christmas', text: "Almighty God, you have poured upon us the new light of your incarnate Word: Grant that this light, kindled in our hearts, may shine forth in our lives; through Jesus Christ our Lord, who lives and reigns with you in the unity of the Holy Spirit, one God, now and for ever. Amen.", language: language, season_id: christmas_s&.id }, prayer_book.id)
+create_collect({ sunday_reference: '1st_sunday_after_christmas', text: "Almighty God, you have poured upon us the new light of your incarnate Word: Grant that this light, kindled in our hearts, may shine forth in our lives; through Jesus Christ our Lord, who lives and reigns with you in the unity of the Holy Spirit, one God, now and for ever. Amen.", season_id: christmas_s&.id }, prayer_book.id)
 
 circumcision_c = celebrations.find_by(name: 'The Circumcision and Holy Name of Our Lord Jesus Christ')
-create_collect({ celebration_id: circumcision_c&.id, text: "Almighty God, your blessed Son fulfilled the covenant of circumcision for our sake, and was given the Name that is above every name: Give us grace faithfully to bear his Name, and to worship him with pure hearts according to the New Covenant; who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever. Amen.", language: language, season_id: christmas_s&.id }, prayer_book.id)
+create_collect({ celebration_id: circumcision_c&.id, text: "Almighty God, your blessed Son fulfilled the covenant of circumcision for our sake, and was given the Name that is above every name: Give us grace faithfully to bear his Name, and to worship him with pure hearts according to the New Covenant; who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever. Amen.", season_id: christmas_s&.id }, prayer_book.id)
 
-create_collect({ sunday_reference: '2nd_sunday_after_christmas', text: "O God, who wonderfully created, and yet more wonderfully restored, the dignity of human nature: Grant that we may share the divine life of him who humbled himself to share our humanity, your Son Jesus Christ our Lord; who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever. Amen.", language: language, season_id: christmas_s&.id }, prayer_book.id)
+create_collect({ sunday_reference: '2nd_sunday_after_christmas', text: "O God, who wonderfully created, and yet more wonderfully restored, the dignity of human nature: Grant that we may share the divine life of him who humbled himself to share our humanity, your Son Jesus Christ our Lord; who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever. Amen.", season_id: christmas_s&.id }, prayer_book.id)
 
 # --- EPIPHANY ---
 epiphany_c = celebrations.find_by(name: 'The Epiphany of Our Lord Jesus Christ')
-create_collect({ celebration_id: epiphany_c&.id, text: "O God, by the leading of a star you manifested your only Son to the peoples of the earth: Lead us, who know you now by faith, to your presence, where we may see your glory face to face; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen.", language: language, season_id: epiphany_s&.id }, prayer_book.id)
+create_collect({ celebration_id: epiphany_c&.id, text: "O God, by the leading of a star you manifested your only Son to the peoples of the earth: Lead us, who know you now by faith, to your presence, where we may see your glory face to face; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen.", season_id: epiphany_s&.id }, prayer_book.id)
 
 [
   [ 'baptism_of_the_lord', "Eternal Father, at the baptism of Jesus you revealed him to be your Son, and your Holy Spirit descended upon him like a dove: Grant that we, who are born again by water and the Spirit, may be faithful as your adopted children; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen." ],
@@ -73,15 +72,15 @@ create_collect({ celebration_id: epiphany_c&.id, text: "O God, by the leading of
   [ '8th_sunday_after_epiphany', "Almighty and merciful God, in your goodness keep us, we pray, from all things that may hurt us; that we, being ready both in mind and body, may accomplish with joyful hearts those things which belong to your purpose; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen." ],
   [ 'last_sunday_after_epiphany', "O God, who before the passion of your only-begotten Son revealed his glory upon the holy mountain: Grant that we, beholding by faith the light of his countenance, may be strengthened to bear our cross, and be changed into his likeness from glory to glory; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen." ]
 ].each do |ref, text|
-  create_collect({ sunday_reference: ref, text: text, language: language, season_id: epiphany_s&.id }, prayer_book.id)
+  create_collect({ sunday_reference: ref, text: text, season_id: epiphany_s&.id }, prayer_book.id)
 end
 
 # Presentation (Feb 2)
 presentation_c = celebrations.find_by(name: 'The Presentation of Our Lord Jesus Christ in the Temple')
-create_collect({ celebration_id: presentation_c&.id, text: "Almighty and everliving God, we humbly pray that, as your only-begotten Son was this day presented in the temple in the substance of our flesh, so we may be presented to you with pure and clean hearts by Jesus Christ our Lord; who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen.", language: language, season_id: epiphany_s&.id }, prayer_book.id)
+create_collect({ celebration_id: presentation_c&.id, text: "Almighty and everliving God, we humbly pray that, as your only-begotten Son was this day presented in the temple in the substance of our flesh, so we may be presented to you with pure and clean hearts by Jesus Christ our Lord; who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen.", season_id: epiphany_s&.id }, prayer_book.id)
 
 # World Mission Sunday (can be used in Epiphany)
-create_collect({ sunday_reference: 'world_mission_sunday', text: "Almighty God, through the outpouring of the Holy Spirit, you revealed the way of eternal life to every race and nation: Pour out this gift anew, that by the preaching of the Gospel your salvation may reach to the ends of the earth; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever. Amen.", language: language, season_id: epiphany_s&.id }, prayer_book.id)
+create_collect({ sunday_reference: 'world_mission_sunday', text: "Almighty God, through the outpouring of the Holy Spirit, you revealed the way of eternal life to every race and nation: Pour out this gift anew, that by the preaching of the Gospel your salvation may reach to the ends of the earth; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever. Amen.", season_id: epiphany_s&.id }, prayer_book.id)
 
 # --- LENT COLLECTS ---
 [
@@ -92,7 +91,7 @@ create_collect({ sunday_reference: 'world_mission_sunday', text: "Almighty God, 
   [ '4th_sunday_in_lent', "Gracious Father, whose blessed Son Jesus Christ came down from heaven to be the true bread which gives life to the world: Evermore give us this bread, that he may live in us, and we in him; who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen." ],
   [ '5th_sunday_in_lent', "Almighty God, you alone can bring into order the unruly wills and affections of sinners: Grant your people grace to love what you command and desire what you promise; that, among the swift and varied changes of this world, our hearts may surely there be fixed where true joys are to be found; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen." ]
 ].each do |ref, text|
-  create_collect({ sunday_reference: ref, text: text, language: language, season_id: lent_s&.id }, prayer_book.id)
+  create_collect({ sunday_reference: ref, text: text, season_id: lent_s&.id }, prayer_book.id)
 end
 
 # --- HOLY WEEK ---
@@ -105,14 +104,14 @@ end
   [ 'good_friday', "Almighty God, we beseech you graciously to behold this your family, for whom our Lord Jesus Christ was willing to be betrayed and given into the hands of sinners, and to suffer death upon the Cross; who now lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen." ],
   [ 'holy_saturday', "O God, Creator of heaven and earth: Grant that, as the crucified body of your dear Son was laid in the tomb and rested on this holy Sabbath, so we may await with him the coming of the third day, and rise with him to newness of life; through Jesus Christ our Lord. Amen." ]
 ].each do |ref, text|
-  create_collect({ sunday_reference: ref, text: text, language: language, season_id: lent_s&.id }, prayer_book.id)
+  create_collect({ sunday_reference: ref, text: text, season_id: lent_s&.id }, prayer_book.id)
 end
 
 # --- EASTER ---
-create_collect({ sunday_reference: 'easter_eve', text: "O God, you made this most holy night to shine with the glory of the Lord’s resurrection: Stir up in your Church that Spirit of adoption which is given to us in Baptism, that we, being renewed both in body and mind, may worship you in sincerity and truth; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever. Amen.", language: language, season_id: easter_s&.id }, prayer_book.id)
+create_collect({ sunday_reference: 'easter_eve', text: "O God, you made this most holy night to shine with the glory of the Lord’s resurrection: Stir up in your Church that Spirit of adoption which is given to us in Baptism, that we, being renewed both in body and mind, may worship you in sincerity and truth; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever. Amen.", season_id: easter_s&.id }, prayer_book.id)
 
 easter_day_c = celebrations.find_by(name: 'Easter Day')
-create_collect({ celebration_id: easter_day_c&.id, text: "Almighty God, who through your only-begotten Son Jesus Christ overcame death and opened to us the gate of everlasting life: Grant that we, who celebrate with joy the day of the Lord’s resurrection, may, by your life-giving Spirit, be delivered from sin and raised from death; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen.", language: language, season_id: easter_s&.id }, prayer_book.id)
+create_collect({ celebration_id: easter_day_c&.id, text: "Almighty God, who through your only-begotten Son Jesus Christ overcame death and opened to us the gate of everlasting life: Grant that we, who celebrate with joy the day of the Lord’s resurrection, may, by your life-giving Spirit, be delivered from sin and raised from death; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen.", season_id: easter_s&.id }, prayer_book.id)
 
 [
   [ 'monday_of_easter_week', "Grant, we pray, Almighty God, that we who celebrate with reverence the Paschal feast may be made worthy to attain to everlasting joys; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen." ],
@@ -127,22 +126,22 @@ create_collect({ celebration_id: easter_day_c&.id, text: "Almighty God, who thro
   [ '5th_sunday_of_easter', "Almighty God, whom truly to know is everlasting life: Grant us so perfectly to know your Son Jesus Christ to be the way, the truth, and the life, that we may steadfastly follow his steps in the way that leads to eternal glory; through Jesus Christ your Son our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever. Amen." ],
   [ '6th_sunday_of_easter', "O God, you have prepared for those who love you such good things as surpass our understanding: Pour into our hearts such love towards you, that we, loving you in all things and above all things, may obtain your promises, which exceed all that we can desire; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen." ]
 ].each do |ref, text|
-  create_collect({ sunday_reference: ref, text: text, language: language, season_id: easter_s&.id }, prayer_book.id)
+  create_collect({ sunday_reference: ref, text: text, season_id: easter_s&.id }, prayer_book.id)
 end
 
 # Ascension
 ascension_c = celebrations.find_by(name: 'Ascension Day')
-create_collect({ celebration_id: ascension_c&.id, text: "Almighty God, whose only-begotten Son our Lord Jesus Christ ascended into heaven: May our hearts and minds also there ascend, and with him continually dwell; who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen.", language: language, season_id: easter_s&.id }, prayer_book.id)
+create_collect({ celebration_id: ascension_c&.id, text: "Almighty God, whose only-begotten Son our Lord Jesus Christ ascended into heaven: May our hearts and minds also there ascend, and with him continually dwell; who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen.", season_id: easter_s&.id }, prayer_book.id)
 
-create_collect({ sunday_reference: 'sunday_after_ascension', text: "O God, the King of glory, you have exalted your only Son Jesus Christ with great triumph to your kingdom in heaven: Do not leave us comfortless, but send us your Holy Spirit to strengthen us, and exalt us to that place where our Savior Christ has gone before; who lives and reigns with you and the Holy Spirit, one God, in glory everlasting. Amen.", language: language, season_id: easter_s&.id }, prayer_book.id)
+create_collect({ sunday_reference: 'sunday_after_ascension', text: "O God, the King of glory, you have exalted your only Son Jesus Christ with great triumph to your kingdom in heaven: Do not leave us comfortless, but send us your Holy Spirit to strengthen us, and exalt us to that place where our Savior Christ has gone before; who lives and reigns with you and the Holy Spirit, one God, in glory everlasting. Amen.", season_id: easter_s&.id }, prayer_book.id)
 
 # Pentecost
 pentecost_c = celebrations.find_by(name: 'The Day of Pentecost')
-create_collect({ celebration_id: pentecost_c&.id, text: "Almighty God, on this day, through the outpouring of the Holy Spirit, you revealed the way of eternal life to every race and nation: Pour out this gift anew, that by the preaching of the Gospel your salvation may reach to the ends of the earth; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever. Amen.", language: language, season_id: easter_s&.id }, prayer_book.id)
+create_collect({ celebration_id: pentecost_c&.id, text: "Almighty God, on this day, through the outpouring of the Holy Spirit, you revealed the way of eternal life to every race and nation: Pour out this gift anew, that by the preaching of the Gospel your salvation may reach to the ends of the earth; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever. Amen.", season_id: easter_s&.id }, prayer_book.id)
 
 # --- SEASON AFTER PENTECOST ---
 trinity_c = celebrations.find_by(name: 'Trinity Sunday')
-create_collect({ celebration_id: trinity_c&.id, text: "Almighty and everlasting God, you have given to us your servants grace, by the confession of a true faith, to acknowledge the glory of the eternal Trinity, and in the power of your divine Majesty to worship the Unity: Keep us steadfast in this faith and worship, and bring us at last to see you in your one and eternal glory, O Father; who with the Son and the Holy Spirit live and reign, one God, for ever and ever. Amen.", language: language, season_id: ordinary_s&.id }, prayer_book.id)
+create_collect({ celebration_id: trinity_c&.id, text: "Almighty and everlasting God, you have given to us your servants grace, by the confession of a true faith, to acknowledge the glory of the eternal Trinity, and in the power of your divine Majesty to worship the Unity: Keep us steadfast in this faith and worship, and bring us at last to see you in your one and eternal glory, O Father; who with the Son and the Holy Spirit live and reign, one God, for ever and ever. Amen.", season_id: ordinary_s&.id }, prayer_book.id)
 
 # Adding Propers 1-29
 propers = [
@@ -180,12 +179,12 @@ propers = [
 propers.each_with_index do |text, idx|
   i = idx + 1
   sunday_ref = (i == 29) ? 'christ_the_king' : "proper_#{i}"
-  create_collect({ sunday_reference: sunday_ref, text: text, language: language, season_id: ordinary_s&.id }, prayer_book.id)
+  create_collect({ sunday_reference: sunday_ref, text: text, season_id: ordinary_s&.id }, prayer_book.id)
 end
 
 # --- ALL SAINTS ---
 all_saints_c = celebrations.find_by(name: "All Saints' Day")
-create_collect({ celebration_id: all_saints_c&.id, text: "Almighty God, you have knit together your elect in one communion and fellowship in the mystical Body of your Son: Give us grace so to follow your blessed saints in all virtuous and godly living, that we may come to those ineffable joys that you have prepared for those who truly love you; through Jesus Christ our Lord, who with you and the Holy Spirit lives and reigns, one God, in glory everlasting. Amen.", language: language, season_id: ordinary_s&.id }, prayer_book.id)
+create_collect({ celebration_id: all_saints_c&.id, text: "Almighty God, you have knit together your elect in one communion and fellowship in the mystical Body of your Son: Give us grace so to follow your blessed saints in all virtuous and godly living, that we may come to those ineffable joys that you have prepared for those who truly love you; through Jesus Christ our Lord, who with you and the Holy Spirit lives and reigns, one God, in glory everlasting. Amen.", season_id: ordinary_s&.id }, prayer_book.id)
 
 # --- HOLY DAYS ---
 holy_days_data = [
@@ -219,7 +218,7 @@ holy_days_data = [
 holy_days_data.each do |name, text|
   c = celebrations.find_by(name: name)
   if c
-    create_collect({ celebration_id: c.id, text: text, language: language }, prayer_book.id)
+    create_collect({ celebration_id: c.id, text: text }, prayer_book.id)
   else
     Rails.logger.warn "⚠️  Celebration not found: #{name}"
   end
@@ -234,7 +233,7 @@ end
   [ 'independence_day', "Lord God, by your providence our founders won their liberties of old: Grant that we and all the people of this land may have grace to exercise these liberties in righteousness and peace; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen." ],
   [ 'thanksgiving_day', "Most merciful Father, we humbly thank you for all your gifts so freely bestowed upon us: for life and health and safety, for strength to work and leisure to rest, for all that is beautiful in creation and in human life; but above all we thank you for our spiritual mercies in Christ Jesus our Lord; who with you and the same Spirit lives and reigns, one God, for ever and ever. Amen." ]
 ].each do |ref, text|
-  create_collect({ sunday_reference: ref, text: text, language: language }, prayer_book.id)
+  create_collect({ sunday_reference: ref, text: text }, prayer_book.id)
 end
 
 # --- COMMON OF COMMEMORATIONS ---
@@ -249,7 +248,7 @@ end
   [ 'common_renewers', "Almighty and everlasting God, you kindled the flame of your love in the heart of your servant N. to manifest your compassion and mercy to the poor and the persecuted: Grant to us, your humble servants, a like faith and power of love, that we who give thanks for his righteous zeal may profit by his example; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen." ],
   [ 'common_saints', "Almighty God, you have surrounded us with a great cloud of witnesses: Grant that we, encouraged by the good example of your servant N., may persevere in running the race that is set before us, until at last, with him, we attain to your eternal joy; through Jesus Christ, the pioneer and perfecter of our faith, who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen." ]
 ].each do |ref, text|
-  create_collect({ sunday_reference: ref, text: text, language: language }, prayer_book.id)
+  create_collect({ sunday_reference: ref, text: text }, prayer_book.id)
 end
 
 Rails.logger.info "✅ LOC 2019 EN collects loaded!"

@@ -92,24 +92,32 @@ module Reading
     attr_reader :date, :calendar
 
     def month_day_reference
-      if calendar.prayer_book_code == "loc_2019"
+      case calendar.prayer_book_code
+      when "loc_2019"
         month_name = PT_MONTH_NAMES[date.month]
         "#{month_name}_#{date.day}"
+      when "loc_1662"
+        "#{date.month}-#{date.day}"
       else
         month_name = Date::MONTHNAMES[date.month].downcase
         "#{month_name}_#{date.day}"
       end
     end
 
+
     def month_day_reference_for(month, day)
-      if calendar.prayer_book_code == "loc_2019"
+      case calendar.prayer_book_code
+      when "loc_2019"
         month_name = PT_MONTH_NAMES[month]
         "#{month_name}_#{day}" if month_name
+      when "loc_1662"
+        "#{month}-#{day}"
       else
         month_name = Date::MONTHNAMES[month]&.downcase
         "#{month_name}_#{day}" if month_name
       end
     end
+
 
     def weekday_name
       WEEKDAY_NAMES[date.wday]

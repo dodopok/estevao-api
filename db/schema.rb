@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_30_175957) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_08_205944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -124,7 +124,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_175957) do
   create_table "collects", force: :cascade do |t|
     t.bigint "celebration_id"
     t.datetime "created_at", null: false
-    t.string "language"
     t.bigint "prayer_book_id", null: false
     t.string "preface"
     t.bigint "season_id"
@@ -253,7 +252,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_175957) do
     t.string "category", null: false
     t.text "content", null: false
     t.datetime "created_at", null: false
-    t.string "language", default: "pt-BR"
     t.bigint "prayer_book_id", null: false
     t.string "reference"
     t.string "slug", null: false

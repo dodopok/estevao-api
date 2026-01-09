@@ -15,21 +15,18 @@ prayer_book = PrayerBook.find_by!(code: 'locb_2008')
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_opening_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Estando todos de pé, o Ministro dirá:'
+    text.content = 'Estando todos de pé, o Ministro dirá:'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_opening_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Abertura'
+    text.title = 'Abertura'
   text.content = 'O Senhor Onipotente nos conceda uma noite tranquila e a paz na derradeira hora.'
   text.category = 'opening_sentence'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_opening_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Amém.'
+    text.content = 'Amém.'
   text.category = 'opening_sentence'
 end
 
@@ -38,35 +35,30 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_brief_lesson_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Lição Breve'
+    text.title = 'Lição Breve'
   text.content = 'Lição Breve'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_brief_lesson_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = '1 Pedro 5:8'
+    text.title = '1 Pedro 5:8'
   text.reference = '1 Pe 5:8'
   text.content = 'Irmãos, sede sóbrios e vigilantes, porque o vosso adversário, o diabo anda em derredor de vós, como leão que ruge. Resisti-lhe firmes na fé. Tu, porém, Senhor, tem misericórdia de nós.'
   text.category = 'brief_lesson'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_brief_lesson_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Graças rendamos a Deus.'
+    text.content = 'Graças rendamos a Deus.'
   text.category = 'brief_lesson'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_brief_lesson_minister_2', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'O nosso auxílio está em nome do Senhor.'
+    text.content = 'O nosso auxílio está em nome do Senhor.'
   text.category = 'brief_lesson'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_brief_lesson_all_2', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Que fez os Céus e a Terra.'
+    text.content = 'Que fez os Céus e a Terra.'
   text.category = 'brief_lesson'
 end
 
@@ -75,21 +67,18 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_confession_title', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Confissão'
+    text.title = 'Confissão'
   text.content = 'Confissão'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_confession_invitation_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Confessamos a Deus Todo-poderoso,'
+    text.content = 'Confessamos a Deus Todo-poderoso,'
   text.category = 'confession'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_confession_prayer_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Pai, Filho e Espírito Santo, que temos pecado excessivamente, por pensamentos, palavras e ações, por nossa culpa, por nossa própria culpa, por nossa máxima culpa. Por isso rogamos a Deus que tenha misericórdia de nós. Deus Todo-poderoso tenha misericórdia de nós, perdoe os nossos pecados e nos conduza à vida eterna. Amém.'
+    text.content = 'Pai, Filho e Espírito Santo, que temos pecado excessivamente, por pensamentos, palavras e ações, por nossa culpa, por nossa própria culpa, por nossa máxima culpa. Por isso rogamos a Deus que tenha misericórdia de nós. Deus Todo-poderoso tenha misericórdia de nós, perdoe os nossos pecados e nos conduza à vida eterna. Amém.'
   text.category = 'confession'
 end
 
@@ -98,57 +87,48 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_absolution_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Declaração de Perdão'
+    text.title = 'Declaração de Perdão'
   text.content = 'Declaração de Perdão'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_absolution_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'O Senhor Onipotente e misericordioso nos conceda o perdão, a absolvição e a remissão de todos os nossos pecados.'
+    text.content = 'O Senhor Onipotente e misericordioso nos conceda o perdão, a absolvição e a remissão de todos os nossos pecados.'
   text.category = 'confession'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_absolution_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Amém.'
+    text.content = 'Amém.'
   text.category = 'confession'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_absolution_minister_2', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Converte-nos, ó Deus nosso Salvador.'
+    text.content = 'Converte-nos, ó Deus nosso Salvador.'
   text.category = 'confession'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_absolution_all_2', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E afasta de nós a tua ira.'
+    text.content = 'E afasta de nós a tua ira.'
   text.category = 'confession'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_absolution_minister_3', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Ó Deus, vem em nosso auxílio.'
+    text.content = 'Ó Deus, vem em nosso auxílio.'
   text.category = 'confession'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_absolution_all_3', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Senhor, apressa-te em socorrer-nos.'
+    text.content = 'Senhor, apressa-te em socorrer-nos.'
   text.category = 'confession'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_gloria_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
+    text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
   text.category = 'gloria'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_gloria_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
+    text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
   text.category = 'gloria'
 end
 
@@ -157,8 +137,7 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_4', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Salmo 4 – Cum invocarem'
+    text.title = 'Salmo 4 – Cum invocarem'
   text.reference = 'Salmo 4'
   text.category = 'psalm'
   text.content = <<~TEXT.strip
@@ -175,14 +154,12 @@ LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_4', prayer_book_id: pr
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_4_gloria_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
+    text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
   text.category = 'gloria'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_4_gloria_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
+    text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
   text.category = 'gloria'
 end
 
@@ -191,8 +168,7 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_91', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Salmo 91 – Qui habitat'
+    text.title = 'Salmo 91 – Qui habitat'
   text.reference = 'Salmo 91'
   text.category = 'psalm'
   text.content = <<~TEXT.strip
@@ -214,14 +190,12 @@ LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_91', prayer_book_id: p
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_91_gloria_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
+    text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
   text.category = 'gloria'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_91_gloria_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
+    text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
   text.category = 'gloria'
 end
 
@@ -230,8 +204,7 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_134', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Salmo 134 – Ecce nunc'
+    text.title = 'Salmo 134 – Ecce nunc'
   text.reference = 'Salmo 134'
   text.category = 'psalm'
   text.content = <<~TEXT.strip
@@ -244,14 +217,12 @@ LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_134', prayer_book_id: 
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_134_gloria_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
+    text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
   text.category = 'gloria'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_psalm_134_gloria_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
+    text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
   text.category = 'gloria'
 end
 
@@ -260,15 +231,13 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_hymn_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Hino "Te lucis ante terminum"'
+    text.title = 'Hino "Te lucis ante terminum"'
   text.content = '(todos de pé)'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_hymn_te_lucis', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Te lucis ante terminum'
+    text.title = 'Te lucis ante terminum'
   text.content = <<~TEXT.strip
     Antes que a luz chegue ao fim,
     Ó Criador, te pedimos
@@ -298,27 +267,23 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_reading_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Leitura Bíblica'
+    text.title = 'Leitura Bíblica'
   text.content = 'O Ministro lerá: Jeremias 14:9 ou Mateus 11:28-30 ou Hebreus 13:20-21'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_reading_rubric_response', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Após a leitura dir-se-á:'
+    text.content = 'Após a leitura dir-se-á:'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_reading_response_reader', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Esta é a Palavra do Senhor!'
+    text.content = 'Esta é a Palavra do Senhor!'
   text.category = 'response'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_reading_response_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Demos graças a Deus.'
+    text.content = 'Demos graças a Deus.'
   text.category = 'response'
 end
 
@@ -327,57 +292,48 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_responsory_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Responsório Breve'
+    text.title = 'Responsório Breve'
   text.content = 'Responsório Breve'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_responsory_1_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Nas tuas mãos, Senhor, entrego o meu espírito.'
+    text.content = 'Nas tuas mãos, Senhor, entrego o meu espírito.'
   text.category = 'responsory'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_responsory_1_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Nas tuas mãos, Senhor, entrego o meu espírito.'
+    text.content = 'Nas tuas mãos, Senhor, entrego o meu espírito.'
   text.category = 'responsory'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_responsory_2_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Pois tu me redimiste, Senhor, verdadeiro Deus.'
+    text.content = 'Pois tu me redimiste, Senhor, verdadeiro Deus.'
   text.category = 'responsory'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_responsory_2_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Entrego o meu espírito.'
+    text.content = 'Entrego o meu espírito.'
   text.category = 'responsory'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_responsory_3_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
+    text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
   text.category = 'responsory'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_responsory_3_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Nas tuas mãos, Senhor, entrego o meu espírito.'
+    text.content = 'Nas tuas mãos, Senhor, entrego o meu espírito.'
   text.category = 'responsory'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_responsory_4_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Guarda-nos, Senhor, como a pupila dos olhos.'
+    text.content = 'Guarda-nos, Senhor, como a pupila dos olhos.'
   text.category = 'responsory'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_responsory_4_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Protege-nos à sombra de tuas asas.'
+    text.content = 'Protege-nos à sombra de tuas asas.'
   text.category = 'responsory'
 end
 
@@ -386,33 +342,28 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_kyrie_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Kyrie'
+    text.title = 'Kyrie'
   text.content = 'Kyrie'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_kyrie_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Senhor, tem misericórdia de nós.'
+    text.content = 'Senhor, tem misericórdia de nós.'
   text.category = 'kyrie'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_kyrie_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Cristo, tem misericórdia de nós.'
+    text.content = 'Cristo, tem misericórdia de nós.'
   text.category = 'kyrie'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_kyrie_minister_2', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Senhor, tem misericórdia de nós.'
+    text.content = 'Senhor, tem misericórdia de nós.'
   text.category = 'kyrie'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_lords_prayer_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Pai nosso, que estás nos céus, santificado seja o teu nome. Venha o teu Reino, seja feita a tua vontade, assim na terra como no céu. O pão nosso de cada dia nos dá hoje. E perdoa-nos as nossas dívidas, assim como nós perdoamos aos nossos devedores. E não nos deixes cair em tentação, mas livra-nos do mal; pois teu é o Reino, e o poder, e a glória para sempre. Amém.'
+    text.content = 'Pai nosso, que estás nos céus, santificado seja o teu nome. Venha o teu Reino, seja feita a tua vontade, assim na terra como no céu. O pão nosso de cada dia nos dá hoje. E perdoa-nos as nossas dívidas, assim como nós perdoamos aos nossos devedores. E não nos deixes cair em tentação, mas livra-nos do mal; pois teu é o Reino, e o poder, e a glória para sempre. Amém.'
   text.category = 'lords_prayer'
 end
 
@@ -421,44 +372,37 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_versicle_1_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Digna-te, ó Senhor, durante esta noite,'
+    text.content = 'Digna-te, ó Senhor, durante esta noite,'
   text.category = 'versicle'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_versicle_1_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Guardar-nos sem pecado.'
+    text.content = 'Guardar-nos sem pecado.'
   text.category = 'versicle'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_versicle_2_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Ouve, ó Senhor, os nossos rogos.'
+    text.content = 'Ouve, ó Senhor, os nossos rogos.'
   text.category = 'versicle'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_versicle_2_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E a ti chegue o nosso clamor.'
+    text.content = 'E a ti chegue o nosso clamor.'
   text.category = 'versicle'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_versicle_3_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'O Senhor seja convosco.'
+    text.content = 'O Senhor seja convosco.'
   text.category = 'versicle'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_versicle_3_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E com teu espírito.'
+    text.content = 'E com teu espírito.'
   text.category = 'versicle'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_versicle_4_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Oremos.'
+    text.content = 'Oremos.'
   text.category = 'versicle'
 end
 
@@ -467,44 +411,37 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_final_prayers_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Podem ser realizadas as seguintes Orações e Coletas'
+    text.content = 'Podem ser realizadas as seguintes Orações e Coletas'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_final_prayer_1', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Ilumina, suplicamos-te, Senhor Deus, as nossas trevas e, misericordioso, defende-nos de todos os perigos e ciladas desta noite; por amor de teu único Filho, nosso Salvador Jesus Cristo. Amém.'
+    text.content = 'Ilumina, suplicamos-te, Senhor Deus, as nossas trevas e, misericordioso, defende-nos de todos os perigos e ciladas desta noite; por amor de teu único Filho, nosso Salvador Jesus Cristo. Amém.'
   text.category = 'collect'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_final_prayer_2', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Visita, ó Senhor, este lugar, e afasta dele todas as armadilhas do inimigo; que teus santos anjos habitem conosco para preservar-nos a paz, e que tua bênção seja sempre sobre nós; por Jesus Cristo, nosso Senhor. Amém.'
+    text.content = 'Visita, ó Senhor, este lugar, e afasta dele todas as armadilhas do inimigo; que teus santos anjos habitem conosco para preservar-nos a paz, e que tua bênção seja sempre sobre nós; por Jesus Cristo, nosso Senhor. Amém.'
   text.category = 'collect'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_final_prayer_3', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Sê presente conosco, ó Deus de misericórdia, e protege-nos no silêncio desta noite, de sorte que nós, afligidos pelas mudanças deste mundo inconstante, repousemos na confiança do teu amor imutável e eterno; por Jesus Cristo, nosso Senhor. Amém.'
+    text.content = 'Sê presente conosco, ó Deus de misericórdia, e protege-nos no silêncio desta noite, de sorte que nós, afligidos pelas mudanças deste mundo inconstante, repousemos na confiança do teu amor imutável e eterno; por Jesus Cristo, nosso Senhor. Amém.'
   text.category = 'collect'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_final_prayer_4', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Vela, ó Senhor amado, com os que trabalham, vigiam ou choram esta noite. Manda que teus anjos guardem os que dormem. Cuida dos enfermos. Cristo Senhor, dá repouso aos cansados, abençoa os moribundos, consola os que sofrem, compadece-te dos aflitos, defende os alegres. Tudo isto te suplicamos somente por teu grande amor. Amém.'
+    text.content = 'Vela, ó Senhor amado, com os que trabalham, vigiam ou choram esta noite. Manda que teus anjos guardem os que dormem. Cuida dos enfermos. Cristo Senhor, dá repouso aos cansados, abençoa os moribundos, consola os que sofrem, compadece-te dos aflitos, defende os alegres. Tudo isto te suplicamos somente por teu grande amor. Amém.'
   text.category = 'collect'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_final_prayer_5', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Ó Deus, tua Providência inesgotável sustenta o mundo em que vivemos e também a nossa própria vida. Vela, dia e noite, os que trabalham enquanto outros dormem, e concede que jamais esqueçamos que nossa vida comunitária depende do desempenho de nossas tarefas mútuas. Por Jesus Cristo nosso Senhor. Amém.'
+    text.content = 'Ó Deus, tua Providência inesgotável sustenta o mundo em que vivemos e também a nossa própria vida. Vela, dia e noite, os que trabalham enquanto outros dormem, e concede que jamais esqueçamos que nossa vida comunitária depende do desempenho de nossas tarefas mútuas. Por Jesus Cristo nosso Senhor. Amém.'
   text.category = 'collect'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_final_prayers_response_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Salva-nos, Senhor, enquanto acordados, e guarda-nos quando dormimos; para que, acordados, vigiemos com Cristo, e, dormindo, repousemos em paz.'
+    text.content = 'Salva-nos, Senhor, enquanto acordados, e guarda-nos quando dormimos; para que, acordados, vigiemos com Cristo, e, dormindo, repousemos em paz.'
   text.category = 'antiphon'
 end
 
@@ -513,15 +450,13 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_nunc_dimittis_rubric', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Nunc dimittis – (Cântico de Simeão)'
+    text.title = 'Nunc dimittis – (Cântico de Simeão)'
   text.content = 'Nunc dimittis – (Cântico de Simeão)'
   text.category = 'rubric'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_nunc_dimittis', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.title = 'Nunc Dimittis'
+    text.title = 'Nunc Dimittis'
   text.reference = 'Lucas 2:29-32'
   text.category = 'canticle'
   text.content = <<~TEXT.strip
@@ -533,20 +468,17 @@ LiturgicalText.find_or_create_by!(slug: 'compline_2_nunc_dimittis', prayer_book_
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_nunc_dimittis_gloria_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
+    text.content = 'Glória ao Pai, e ao Filho, e ao Espírito Santo.'
   text.category = 'gloria'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_nunc_dimittis_gloria_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
+    text.content = 'Como era no princípio, é agora e será sempre, por todos os séculos. Amém.'
   text.category = 'gloria'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_nunc_dimittis_antiphon_repeat_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Salva-nos, Senhor, enquanto acordados, e guarda-nos quando dormimos; para que, acordados, vigiemos com Cristo, e, dormindo, repousemos em paz.'
+    text.content = 'Salva-nos, Senhor, enquanto acordados, e guarda-nos quando dormimos; para que, acordados, vigiemos com Cristo, e, dormindo, repousemos em paz.'
   text.category = 'antiphon'
 end
 
@@ -555,62 +487,52 @@ end
 # ============================================================================
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_conclusion_versicle_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Em paz me deitarei e descansarei.'
+    text.content = 'Em paz me deitarei e descansarei.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_conclusion_versicle_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Pois só tu, Senhor, nos fazes habitar em segurança.'
+    text.content = 'Pois só tu, Senhor, nos fazes habitar em segurança.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_conclusion_1_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'O Senhor seja convosco.'
+    text.content = 'O Senhor seja convosco.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_conclusion_1_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E com teu espírito.'
+    text.content = 'E com teu espírito.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_conclusion_2_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Bendigamos ao Senhor.'
+    text.content = 'Bendigamos ao Senhor.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_conclusion_2_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Demos graças a Deus.'
+    text.content = 'Demos graças a Deus.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_blessing_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'O Senhor Onipotente e misericordioso, Pai, Filho e Espírito Santo, nos abençoe e nos guarde.'
+    text.content = 'O Senhor Onipotente e misericordioso, Pai, Filho e Espírito Santo, nos abençoe e nos guarde.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_blessing_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'Amém.'
+    text.content = 'Amém.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_final_blessing_minister', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'A Divina proteção permaneça conosco para sempre.'
+    text.content = 'A Divina proteção permaneça conosco para sempre.'
   text.category = 'conclusion'
 end
 
 LiturgicalText.find_or_create_by!(slug: 'compline_2_final_blessing_all', prayer_book_id: prayer_book.id) do |text|
-  text.language = 'pt-BR'
-  text.content = 'E com nossos irmãos ausentes. Amém.'
+    text.content = 'E com nossos irmãos ausentes. Amém.'
   text.category = 'conclusion'
 end
 
