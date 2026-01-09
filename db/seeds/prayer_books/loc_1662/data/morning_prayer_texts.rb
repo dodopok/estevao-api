@@ -88,7 +88,7 @@ create_text('morning_psalms_gloria_patri_r', 'invocation', "Como era no princíp
 
 # Leituras (Pág 7)
 create_text('morning_first_reading_rubric', 'rubric', "Então será lida, de forma distinta e com voz audível, a primeira Leitura, retirada do Antigo Testamento, conforme determinada no Calendário (pag. XXXVI), exceto quando há Leituras próprias determinadas (pag. XXXII). O Leitor estará de pé em lugar e em posição em que possa ser ouvido por todos os presentes. Em seguida, será dito ou entoado na língua do povo o Hino chamado Te Deum Laudamus, diariamente, por todo o ano.")
-create_text('morning_reading_announcement_rubric', 'rubric', "Note-se que, antes de cada Leitura, o Ministro dirá: Aqui começa o Capítulo tal, ou o Verso tal do Capítulo tal, do Livro tal. E, depois da leitura, dirá: Aqui termina a Primeira, ou a Segunda Leitura.")
+create_text('morning_reading_announcement_rubric', 'rubric', "Note-se que, antes de cada Leitura, o Ministro dirá: Aqui começa o Verso {{verse}} do Capítulo {{chapter}}, do Livro {{book_name}}. E, depois da leitura, dirá: Aqui termina a Primeira, ou a Segunda Leitura.")
 
 # Te Deum (Pág 7-9)
 morning_te_deum_text = <<~TEXT

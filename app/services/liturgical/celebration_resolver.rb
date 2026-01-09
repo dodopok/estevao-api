@@ -25,7 +25,10 @@ module Liturgical
       "easter_plus_56_days" => :trinity_sunday,
       "first_sunday_after_pentecost" => :trinity_sunday,
       "first_sunday_after_epiphany" => :baptism_of_the_lord,
-      "sunday_before_advent" => :christ_the_king
+      "sunday_before_advent" => :christ_the_king,
+      "first_sunday_of_advent" => :first_sunday_of_advent,
+      "whitsun_monday" => :whitsun_monday,
+      "whitsun_tuesday" => :whitsun_tuesday
     }.freeze
 
     # Maps calculation rules to their possible date_reference names
@@ -46,7 +49,10 @@ module Liturgical
       "easter_plus_56_days" => %w[trinity_sunday trinity],
       "first_sunday_after_pentecost" => %w[trinity_sunday trinity],
       "first_sunday_after_epiphany" => %w[baptism_of_the_lord baptism_of_christ],
-      "sunday_before_advent" => %w[christ_the_king]
+      "sunday_before_advent" => %w[christ_the_king],
+      "first_sunday_of_advent" => %w[1st_sunday_of_advent advent_sunday],
+      "whitsun_monday" => %w[monday_in_whitsun_week],
+      "whitsun_tuesday" => %w[tuesday_in_whitsun_week]
     }.freeze
 
     def initialize(year, prayer_book_code: "loc_2015", easter_calc: nil)

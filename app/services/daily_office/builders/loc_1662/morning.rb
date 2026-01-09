@@ -40,17 +40,17 @@ module DailyOffice
           sentence_key = resolve_preference(:morning_opening_sentence, 1..11) || 1
           sentence = fetch_liturgical_text("morning_opening_sentence_#{sentence_key}")
           if sentence
-            lines << line_item(sentence.content, type: "leader")
+            lines << line_item(sentence.content)
             lines << line_item(sentence.reference, type: "citation") if sentence.reference
           end
 
-          { name: "Sentenças Iniciais", slug: "opening_sentence", lines: lines }
+          { name: "", slug: "opening_sentence", lines: lines }
         end
 
         def build_exhortation
           text = fetch_liturgical_text("morning_exhortation")
           return nil unless text
-          { name: "Exortação", slug: "exhortation", lines: [line_item(text.content, type: "leader")] }
+          { name: "", slug: "exhortation", lines: [line_item(text.content)] }
         end
 
         def build_confession
@@ -58,8 +58,8 @@ module DailyOffice
           rubric = fetch_liturgical_text("morning_confession_rubric")
           lines << line_item(rubric.content, type: "rubric") if rubric
           text = fetch_liturgical_text("morning_confession")
-          lines << line_item(text.content, type: "congregation") if text
-          { name: "Confissão", slug: "confession", lines: lines }
+          lines << line_item(text.content) if text
+          { name: "", slug: "confession", lines: lines }
         end
 
         def build_absolution
@@ -67,10 +67,10 @@ module DailyOffice
           rubric = fetch_liturgical_text("morning_absolution_rubric")
           lines << line_item(rubric.content, type: "rubric") if rubric
           text = fetch_liturgical_text("morning_absolution")
-          lines << line_item(text.content, type: "leader") if text
+          lines << line_item(text.content) if text
           res_rubric = fetch_liturgical_text("morning_absolution_response_rubric")
           lines << line_item(res_rubric.content, type: "rubric") if res_rubric
-          { name: "Absolvição", slug: "absolution", lines: lines }
+          { name: "", slug: "absolution", lines: lines }
         end
 
         def build_lords_prayer
@@ -78,8 +78,8 @@ module DailyOffice
           rubric = fetch_liturgical_text("morning_lords_prayer_rubric")
           lines << line_item(rubric.content, type: "rubric") if rubric
           text = fetch_liturgical_text("morning_lords_prayer")
-          lines << line_item(text.content, type: "congregation") if text
-          { name: "Oração do Senhor", slug: "lords_prayer", lines: lines }
+          lines << line_item(text.content) if text
+          { name: "", slug: "lords_prayer", lines: lines }
         end
 
         def build_versicles
@@ -98,7 +98,7 @@ module DailyOffice
           lines << line_item(fetch_liturgical_text("morning_inv_v3")&.content, type: "leader")
           lines << line_item(fetch_liturgical_text("morning_inv_r3")&.content, type: "congregation")
           
-          { name: "Versículos", slug: "versicles", lines: lines.compact }
+          { name: "", slug: "versicles", lines: lines.compact }
         end
 
         def build_invitatory_canticle
@@ -113,7 +113,7 @@ module DailyOffice
           { 
             name: canticle.title,
             slug: "invitatory_canticle",
-            lines: [line_item(canticle.content, type: "congregation")]
+            lines: [line_item(canticle.content)]
           }
         end
 
@@ -133,15 +133,16 @@ module DailyOffice
           lines << line_item(v.content, type: "leader") if v
           lines << line_item(r.content, type: "congregation") if r
 
-          { name: "Salmos", slug: "psalms", lines: lines }
+          { name: "", slug: "psalms", lines: lines }
         end
 
         def build_first_reading
           build_reading_module(
             type: :first,
             announcement_slug: "morning_reading_announcement_rubric",
+            rubric_slugs: { pre: "morning_first_reading_rubric" },
             reading_key: :first_reading,
-            module_name: "Primeira Leitura"
+            module_name: ""
           )
         end
 
@@ -151,22 +152,23 @@ module DailyOffice
           canticle_slug = resolve_preference(:morning_post_first_reading_canticle, %w[morning_te_deum morning_benedicite]) || "morning_te_deum"
           canticle = fetch_liturgical_text(canticle_slug)
           return nil unless canticle
-          { name: canticle.title, slug: "first_canticle", lines: [line_item(canticle.content, type: "congregation")] }
+          { name: canticle.title, slug: "first_canticle", lines: [line_item(canticle.content)] }
         end
 
         def build_second_reading
           build_reading_module(
             type: :second,
             announcement_slug: "morning_reading_announcement_rubric",
+            rubric_slugs: { pre: "morning_second_reading_rubric" },
             reading_key: :second_reading,
-            module_name: "Segunda Leitura"
+            module_name: ""
           )
         end
 
         def build_second_canticle
           canticle = fetch_liturgical_text("morning_benedictus")
           return nil unless canticle
-          { name: canticle.title, slug: "second_canticle", lines: [line_item(canticle.content, type: "congregation")] }
+          { name: canticle.title, slug: "second_canticle", lines: [line_item(canticle.content)] }
         end
 
         def build_creed
@@ -175,15 +177,15 @@ module DailyOffice
             rubric = fetch_liturgical_text("athanasian_creed_rubric")
             lines << line_item(rubric.content, type: "rubric") if rubric
             text = fetch_liturgical_text("athanasian_creed")
-            lines << line_item(text.content, type: "congregation") if text
+            lines << line_item(text.content) if text
             return { name: "Credo Atanasiano", slug: "athanasian_creed", lines: lines }
           end
 
           rubric = fetch_liturgical_text("morning_creed_rubric")
           lines << line_item(rubric.content, type: "rubric") if rubric
           text = fetch_liturgical_text("apostles_creed")
-          lines << line_item(text.content, type: "congregation") if text
-          { name: "Credo Apostólico", slug: "creed", lines: lines }
+          lines << line_item(text.content) if text
+          { name: "", slug: "creed", lines: lines }
         end
 
         def build_prayers
@@ -194,7 +196,7 @@ module DailyOffice
           lines << line_item(fetch_liturgical_text("morning_salutation_r")&.content, type: "congregation")
           lines << line_item(fetch_liturgical_text("morning_lesser_litany_rubric")&.content, type: "rubric")
           lines << line_item(fetch_liturgical_text("kyrie")&.content, type: "responsive")
-          { name: "Orações", slug: "prayers", lines: lines.compact }
+          { name: "", slug: "prayers", lines: lines.compact }
         end
 
         def build_lords_prayer_repeated
@@ -202,8 +204,8 @@ module DailyOffice
           rubric = fetch_liturgical_text("morning_lords_prayer_repeated_rubric")
           lines << line_item(rubric.content, type: "rubric") if rubric
           text = fetch_liturgical_text("morning_lords_prayer")
-          lines << line_item(text.content, type: "congregation") if text
-          { name: "Oração do Senhor", slug: "lords_prayer_repeated", lines: lines }
+          lines << line_item(text.content) if text
+          { name: "", slug: "lords_prayer_repeated", lines: lines }
         end
 
         def build_suffrages
@@ -214,7 +216,7 @@ module DailyOffice
             lines << line_item(fetch_liturgical_text("morning_suff_v#{i}")&.content, type: "leader")
             lines << line_item(fetch_liturgical_text("morning_suff_r#{i}")&.content, type: "congregation")
           end
-          { name: "Sufrágios", slug: "suffrages", lines: lines.compact }
+          { name: "", slug: "suffrages", lines: lines.compact }
         end
 
         def build_collect_of_the_day
@@ -229,11 +231,11 @@ module DailyOffice
           lines = []
           peace = fetch_liturgical_text("morning_collect_peace")
           lines << line_item(peace.title, type: "heading") if peace
-          lines << line_item(peace.content, type: "leader") if peace
+          lines << line_item(peace.content) if peace
           
           grace = fetch_liturgical_text("morning_collect_grace")
           lines << line_item(grace.title, type: "heading") if grace
-          lines << line_item(grace.content, type: "leader") if grace
+          lines << line_item(grace.content) if grace
           
           { name: "Coletas Fixas", slug: "fixed_collects", lines: lines.compact }
         end
@@ -246,15 +248,15 @@ module DailyOffice
           # Usually includes Prayer for Civil Authority, Clergy and People, St. Chrysostom
           auth = fetch_liturgical_text("morning_prayer_civil_authority_1")
           lines << line_item(auth.title, type: "heading") if auth
-          lines << line_item(auth.content, type: "leader") if auth
+          lines << line_item(auth.content) if auth
           
           clerg = fetch_liturgical_text("morning_prayer_clergy_people")
           lines << line_item(clerg.title, type: "heading") if clerg
-          lines << line_item(clerg.content, type: "leader") if clerg
+          lines << line_item(clerg.content) if clerg
           
           chrys = fetch_liturgical_text("prayer_st_chrysostom")
           lines << line_item(chrys.title, type: "heading") if chrys
-          lines << line_item(chrys.content, type: "leader") if chrys
+          lines << line_item(chrys.content) if chrys
           
           { name: "Orações Adicionais", slug: "additional_prayers", lines: lines.compact }
         end
@@ -296,7 +298,7 @@ module DailyOffice
         def build_the_grace
           text = fetch_liturgical_text("the_grace")
           return nil unless text
-          { name: text.title, slug: "the_grace", lines: [line_item(text.content, type: "leader")] }
+          { name: text.title, slug: "the_grace", lines: [line_item(text.content)] }
         end
 
         def use_athanasian_creed?
@@ -309,7 +311,7 @@ module DailyOffice
             saint_james saint_bartholomew saint_matthew
             saints_simon_and_jude saint_andrew trinity_sunday
           ]
-          athanasian_feasts.include?(day_info[:celebration]&.name)
+          athanasian_feasts.include?(day_info[:celebration]&.dig(:name))
         end
       end
     end

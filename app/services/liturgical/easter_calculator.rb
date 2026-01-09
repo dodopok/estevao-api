@@ -171,6 +171,8 @@ module Liturgical
         second_sunday_of_easter: second_sunday_of_easter,
         ascension: ascension,
         pentecost: pentecost,
+        whitsun_monday: pentecost + 1.day,
+        whitsun_tuesday: pentecost + 2.days,
         trinity_sunday: trinity_sunday,
         corpus_christi: corpus_christi,
         first_sunday_of_advent: first_sunday_of_advent,
