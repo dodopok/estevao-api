@@ -72,7 +72,7 @@ collects << {
   text: "Deus Todo-Poderoso, que nos deste teu Filho Unigênito para que tomasse sobre si a nossa natureza e nascesse de uma virgem pura, e nós, que nascemos de novo nEle e somos feitos teus filhos por adoção e graça, possamos ser renovados diariamente pelo teu Espírito Santo, por nosso Senhor Jesus Cristo, que vive e reina contigo e o Espírito Santo, um só Deus, agora e para sempre. Amém."
 }
 
-# A Circuncisão do Senhor - TODO: verificar
+# A Circuncisão do Senhor
 collects << {
   celebration: "circumcision_of_christ",
   text: "Deus Todo-Poderoso, que fizeste que teu bendito Filho fosse circuncidado e obediente à lei pela humanidade, concede-nos a verdadeira circuncisão do Espírito, para que tendo os nossos corações e corpos mortos para todos os desejos pecaminosos, possamos obedecer a tua santa vontade em todas as coisas por Teu Filho Jesus Cristo nosso Senhor. Amém."
@@ -90,7 +90,7 @@ collects << {
   text: "Senhor misericordioso, ouça as orações do teu povo que te invoca e concede-nos o knowledge das coisas que devemos fazer, bem como a graça e o poder para realizá-las fielmente, por meio de Cristo Jesus nosso Senhor. Amém."
 }
 
-# 2º Domingo Após a Epifania - TODO: verificar
+# 2º Domingo Após a Epifania
 collects << {
   celebration: "2nd_sunday_after_epiphany",
   text: "Deus Todo-Poderoso e eterno, que governas todas as coisas no céu e na terra: ouve misericordiosamente as súplicas de teu povo e concede-nos a tua paz todos os dias da nossa vida, por Jesus Cristo nosso Senhor. Amém."
