@@ -101,7 +101,7 @@ morning_te_deum_text = <<~TEXT
   Da majestade da sua glória!”
   A ti, o glorioso coro apostólico louva;
   A ti, a congregação dos profetas louva;
-  A ti, o nobre exército dos mártires louva; 
+  A ti, o nobre exército dos mártires louva;#{' '}
   A santa Igreja reconhece por toda a terra a ti:
   Ao Deus Pai, infinito Dominador!
   E ao teu venerável, vero e único Filho,
@@ -198,7 +198,7 @@ morning_benedictus_text = <<~TEXT
   O adorássemos sem temor,
   Em santidade e justiça perante ele,*
   Todos os nossos dias.
-  Tu, menino, serás chamado Profeta do Altíssimo.* 
+  Tu, menino, serás chamado Profeta do Altíssimo.*#{' '}
   Porque precederás o Senhor, preparando-lhe os caminhos,
   Para dar ao seu povo conhecimento da salvação,*
   No redimi-lo do seus pecados.

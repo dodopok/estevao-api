@@ -6,7 +6,7 @@ prayer_book = PrayerBook.find_by!(code: 'loc_1662')
 
 readings = [
   # DIA 1 - Circuncisão (Usa Próprias)
-  
+
   # DIA 2
   { month: 1, day: 2, service_type: 'morning_prayer', first_reading: 'Gênesis 1', second_reading: 'Mateus 1' },
   { month: 1, day: 2, service_type: 'evening_prayer', first_reading: 'Gênesis 2', second_reading: 'Romanos 1' },
@@ -121,14 +121,14 @@ readings = [
 
   # DIA 31
   { month: 1, day: 31, service_type: 'morning_prayer', first_reading: 'Êxodo 8', second_reading: 'Mateus 28' },
-  { month: 1, day: 31, service_type: 'evening_prayer', first_reading: 'Êxodo 9', second_reading: '1 Coríntios 12' },
+  { month: 1, day: 31, service_type: 'evening_prayer', first_reading: 'Êxodo 9', second_reading: '1 Coríntios 12' }
 ]
 
 readings.each do |r|
   LectionaryReading.create!(
     prayer_book_id: prayer_book.id,
     date_reference: "#{r[:month]}-#{r[:day]}", # Formato mês-dia para leituras fixas
-    cycle: 'daily',
+    cycle: 'all',
     service_type: r[:service_type],
     first_reading: r[:first_reading],
     second_reading: r[:second_reading]

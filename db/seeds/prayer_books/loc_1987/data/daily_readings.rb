@@ -411,22 +411,20 @@ end
 # ================================================================================
 # SCRIPT EXECUTION
 # ================================================================================
-if __FILE__ == $0
-  csv_path = ARGV[0] # Optional: override default path
-
+def run_import(csv_path = nil)
   # Ensure path exists
   unless csv_path
     csv_path = Loc1987ReadingsImporter::DEFAULT_CSV_PATH
   end
 
   if !File.exist?(csv_path)
-    Rails.logger.info "Error: File not found: #{csv_path}"
     # try relative to rails root if not absolute
-    csv_path = Rails.root.join(csv_path)
-    if !File.exist?(csv_path)
-      Rails.logger.info "Error: File really not found: #{csv_path}"
-      exit 1
-    end
+    csv_path = Rails.root.join(csv_path).to_s
+  end
+
+  if !File.exist?(csv_path)
+    Rails.logger.info "Error: File not found: #{csv_path}"
+    return
   end
 
   Rails.logger.info "Starting LOC 1987 Readings Import..."
@@ -434,3 +432,6 @@ if __FILE__ == $0
   importer.import
   Rails.logger.info "\n✓ Import completed successfully!"
 end
+
+# Executar imediatamente
+run_import

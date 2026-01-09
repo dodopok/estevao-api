@@ -9,7 +9,7 @@ prayer_book = PrayerBook.find_by!(code: 'loc_2019_en')
 def create_daily_reading(attrs, prayer_book_id)
   attrs[:prayer_book_id] = prayer_book_id
   attrs[:cycle] = "all"
-  
+
   existing = LectionaryReading.find_by(
     date_reference: attrs[:date_reference],
     service_type: attrs[:service_type],
@@ -27,7 +27,7 @@ def seed_month(month_name, days_count, mp_map, ep_map, prayer_book_id)
   # Map Portuguese month names to English for consistency with existing seeds if needed,
   # but here we just need the month index. Actually, existing seeds use "june", "july".
   # I'll convert the month_name to english for the file reference generation if it's not already.
-  
+
   month_map = {
     "janeiro" => "january",
     "fevereiro" => "february",
@@ -35,7 +35,7 @@ def seed_month(month_name, days_count, mp_map, ep_map, prayer_book_id)
     "abril" => "april",
     "maio" => "may"
   }
-  
+
   eng_month_name = month_map[month_name] || month_name
 
   (1..days_count).each do |day|

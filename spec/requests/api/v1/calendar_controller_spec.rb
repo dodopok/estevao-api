@@ -114,7 +114,6 @@ RSpec.describe "Api::V1::CalendarController", type: :request do
         prayer_book: @prayer_book,
         season_id: @advent_season.id,
         text: "Coleta de teste",
-        language: "pt-BR"
       )
 
       get "/api/v1/calendar/2025/12/1", params: { preferences: default_preferences }

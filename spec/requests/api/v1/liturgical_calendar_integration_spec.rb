@@ -348,7 +348,6 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
         prayer_book: @prayer_book,
         celebration_id: christmas_celebration.id,
         text: "Deus Onipotente, que destes vosso Filho unigênito...",
-        language: "pt-BR"
       )
 
       get "/api/v1/calendar/2025/12/25", params: { preferences: default_preferences }
@@ -366,7 +365,6 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
         prayer_book: @prayer_book,
         season_id: @advent_season.id,
         text: "Onipotente Deus, dá-nos a graça...",
-        language: "pt-BR"
       )
 
       # Data no Advento sem celebração específica
@@ -616,14 +614,12 @@ RSpec.describe "Liturgical Calendar Integration", type: :request do
       Collect.create!(
         sunday_reference: "1st_sunday_after_christmas",
         text: "Coleta do 1º Domingo após Natal",
-        language: "pt-BR",
         prayer_book: @prayer_book
       )
 
       Collect.create!(
         sunday_reference: "2nd_sunday_after_christmas",
         text: "Coleta do 2º Domingo após Natal",
-        language: "pt-BR",
         prayer_book: @prayer_book
       )
 

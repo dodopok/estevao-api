@@ -20,6 +20,15 @@ holy_days_readings = [
     gospel: "Lc 2:15-21"
   },
   {
+    date_reference: "epiphany",
+    cycle: "all",
+    service_type: "eucharist",
+    first_reading: "Is 60:1-6",
+    psalm: "Sl 72",
+    second_reading: "Ef 3:1-12",
+    gospel: "Mt 2:1-12"
+  },
+  {
     date_reference: "conversion_of_paul",
     cycle: "all",
     service_type: "eucharist",
@@ -335,12 +344,48 @@ holy_days_readings = [
   }
 ]
 
+# Map date_reference to celebration name in LOCB 2008
+CELEBRATION_NAME_MAP = {
+  "holy_name" => "Santo Nome de Jesus",
+  "epiphany" => "Epifania de nosso Senhor Jesus Cristo",
+  "conversion_of_paul" => "Conversão do apóstolo Paulo",
+  "presentation" => "Apresentação de Cristo no Templo",
+  "annunciation" => "Anunciação de Nosso Senhor",
+  "mark" => "São Marcos, o Evangelista",
+  "philip_and_james" => "São Filipe e São Tiago, os Apóstolos",
+  "matthias" => "São Matias, Apóstolo",
+  "visitation" => "Visitação da Bem-Aventurada Virgem Maria",
+  "barnabas" => "São Barnabé, Apóstolo",
+  "nativity_of_john_the_baptist" => "São João Batista",
+  "peter_and_paul" => "São Pedro e São Paulo, Apóstolos",
+  "thomas" => "São Tomé, apóstolo",
+  "mary_magdalene" => "Maria Madalena",
+  "james_the_apostle" => "São Tiago, Apóstolo",
+  "transfiguration" => "Transfiguração de nosso Senhor Jesus Cristo",
+  "bartholomew" => "São Bartolomeu, Apóstolo",
+  "blessed_virgin_mary" => "Maria, virgem mãe de nosso Senhor Jesus Cristo",
+  "matthew" => "Mateus, apóstolo e evangelista",
+  "michael_and_all_angels" => "São Miguel e Todos os Anjos",
+  "luke" => "Lucas, evangelista",
+  "simon_and_jude" => "Simão e Judas, apóstolos",
+  "andrew" => "Santo André, apóstolo",
+  "stephen" => "Santo Estevão",
+  "john_evangelist" => "João, apóstolo e evangelista",
+  "holy_innocents" => "Santos Inocentes"
+}.freeze
+
 # Criar leituras
 count = 0
 skipped = 0
 
 holy_days_readings.each do |reading|
   reading[:prayer_book_id] = prayer_book&.id
+
+  # Find and link celebration
+  cel_name = CELEBRATION_NAME_MAP[reading[:date_reference]]
+  celebration = Celebration.find_by(name: cel_name, prayer_book_id: prayer_book&.id) if cel_name
+  reading[:celebration_id] = celebration&.id
+
   existing = LectionaryReading.find_by(
     date_reference: reading[:date_reference],
     cycle: reading[:cycle],
@@ -352,6 +397,7 @@ holy_days_readings.each do |reading|
     LectionaryReading.create!(reading)
     count += 1
   else
+    existing.update!(reading)
     skipped += 1
   end
 end

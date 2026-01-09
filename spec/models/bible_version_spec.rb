@@ -36,10 +36,10 @@ RSpec.describe BibleVersion, type: :model do
   end
 
   describe ".find_by_code" do
-    let!(:version) { create(:bible_version, code: "nvi") }
+    let!(:version) { BibleVersion.find_by(code: "nvi") || create(:bible_version, code: "nvi") }
 
     it "finds by lowercase code" do
-      expect(described_class.find_by_code("nvi")).to eq(version)
+      expect(BibleVersion.find_by_code("nvi")).to eq(version)
     end
 
     it "finds by uppercase code" do
@@ -52,10 +52,10 @@ RSpec.describe BibleVersion, type: :model do
   end
 
   describe ".find_by_code!" do
-    let!(:version) { create(:bible_version, code: "nvi") }
+    let!(:version) { BibleVersion.find_by(code: "nvi") || create(:bible_version, code: "nvi") }
 
     it "finds by code" do
-      expect(described_class.find_by_code!("nvi")).to eq(version)
+      expect(BibleVersion.find_by_code!("nvi")).to eq(version)
     end
 
     it "raises error for non-existent code" do

@@ -41,7 +41,6 @@ RSpec.describe CollectService do
     create(:collect,
       celebration: celebration,
       text: "Ó Deus, que fizeste de São José...",
-      language: "pt-BR",
       prayer_book: prayer_book)
   end
 
@@ -51,7 +50,6 @@ RSpec.describe CollectService do
       season: nil,
       sunday_reference: "proper_25",
       text: "Senhor Deus Onipotente, que chamaste...",
-      language: "pt-BR",
       prayer_book: prayer_book)
   end
 
@@ -60,7 +58,6 @@ RSpec.describe CollectService do
       celebration: nil,
       season: advent_season,
       text: "Onipotente Deus, dá-nos a graça...",
-      language: "pt-BR",
       prayer_book: prayer_book)
   end
 
@@ -70,7 +67,6 @@ RSpec.describe CollectService do
       season: nil,
       sunday_reference: "advent_1",
       text: "Deus Onipotente, dá-nos a graça de entrar com alegria...",
-      language: "pt-BR",
       prayer_book: prayer_book)
   end
 
@@ -117,8 +113,7 @@ RSpec.describe CollectService do
         create(:collect,
           prayer_book: prayer_book,
           celebration: celebration,
-          text: "Segunda coleta de São José...",
-          language: "pt-BR")
+          text: "Segunda coleta de São José...")
       end
 
       it 'returns array of hashes' do
@@ -150,8 +145,7 @@ RSpec.describe CollectService do
           prayer_book: prayer_book,
           celebration: celebration,
           text: "Coleta com prefácio...",
-          preface: "Prefácio especial...",
-          language: "pt-BR")
+          preface: "Prefácio especial...")
       end
 
       it 'includes preface when present' do
@@ -206,8 +200,7 @@ RSpec.describe CollectService do
         create(:collect,
           prayer_book: prayer_book,
           celebration: sunday_celebration,
-          text: "Coleta da celebração em domingo",
-          language: "pt-BR")
+          text: "Coleta da celebração em domingo")
       end
 
       it 'prioritizes celebration over sunday' do
@@ -246,7 +239,6 @@ RSpec.describe CollectService do
         season: nil,
         sunday_reference: "1st_sunday_after_christmas",
         text: "Coleta do 1º Domingo após Natal...",
-        language: "pt-BR",
         prayer_book: prayer_book)
     end
 
@@ -302,7 +294,6 @@ RSpec.describe CollectService do
         celebration: easter_celebration,
         sunday_reference: nil,
         text: "Ó Deus, que para a nossa redenção...",
-        language: "pt-BR",
         prayer_book: prayer_book)
     end
 
@@ -364,7 +355,6 @@ RSpec.describe CollectService do
         celebration: pentecost_celebration,
         sunday_reference: nil,
         text: "Ó Deus, que no dia de Pentecostes...",
-        language: "pt-BR",
         prayer_book: prayer_book)
     end
 
@@ -412,7 +402,6 @@ RSpec.describe CollectService do
         celebration: trinity_celebration,
         sunday_reference: nil,
         text: "Deus nosso Pai, enviaste ao mundo a Palavra da verdade...",
-        language: "pt-BR",
         prayer_book: prayer_book)
     end
 

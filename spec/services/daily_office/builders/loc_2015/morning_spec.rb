@@ -328,7 +328,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       expect(result).to have_key(:name)
       expect(result).to have_key(:slug)
       expect(result).to have_key(:lines)
-      expect(result[:slug]).to eq('first_reading')
+      expect(result[:slug]).to eq('leader_reading')
       expect(result[:name]).to eq('Leituras da Palavra de Deus')
     end
 
@@ -381,7 +381,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Morning do
       expect(result).to have_key(:name)
       expect(result).to have_key(:slug)
       expect(result).to have_key(:lines)
-      expect(result[:slug]).to eq('second_reading')
+      expect(result[:slug]).to eq('leader_reading')
       expect(result[:name]).to eq('Segunda Leitura')
     end
 

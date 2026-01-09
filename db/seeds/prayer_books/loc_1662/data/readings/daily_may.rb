@@ -128,14 +128,14 @@ readings = [
 
   # DIA 31
   { month: 5, day: 31, service_type: 'morning_prayer', first_reading: 'Ester 3', second_reading: 'Marcos 1' },
-  { month: 5, day: 31, service_type: 'evening_prayer', first_reading: 'Ester 4', second_reading: '1 Coríntios 14' },
+  { month: 5, day: 31, service_type: 'evening_prayer', first_reading: 'Ester 4', second_reading: '1 Coríntios 14' }
 ]
 
 readings.each do |r|
   LectionaryReading.create!(
     prayer_book_id: prayer_book.id,
     date_reference: "#{r[:month]}-#{r[:day]}",
-    cycle: 'daily',
+    cycle: 'all',
     service_type: r[:service_type],
     first_reading: r[:first_reading],
     second_reading: r[:second_reading]

@@ -69,16 +69,11 @@ RSpec.describe DailyOfficeService do
         expect(builder).to be_a(DailyOffice::Builders::Loc2019Builder)
       end
 
-      it 'uses BaseBuilder for loc_1662' do
-        service = described_class.new(
-          date: date,
-          office_type: :morning,
-          preferences: { prayer_book_code: 'loc_1662' }
-        )
-
-        builder = service.send(:builder_for_prayer_book)
-        expect(builder).to be_a(DailyOffice::Builders::BaseBuilder)
-      end
+    it 'uses Loc1662Builder for loc_1662' do
+      service = described_class.new(date: Date.new(2025, 11, 25), office_type: :morning, preferences: { prayer_book_code: 'loc_1662' })
+      builder = service.send(:builder_for_prayer_book)
+      expect(builder).to be_a(DailyOffice::Builders::Loc1662Builder)
+    end
 
       it 'uses BaseBuilder for unknown codes' do
         service = described_class.new(
@@ -120,7 +115,6 @@ RSpec.describe DailyOfficeService do
       text.assign_attributes(
         category: 'invocation',
         content: 'Senhor, abre os nossos lábios',
-        language: 'pt-BR',
         title: 'Morning Welcome',
         audio_urls: {
           'male_1' => '/audio/loc_2015/male_1/test.mp3',
