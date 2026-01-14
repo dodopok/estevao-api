@@ -589,11 +589,6 @@ docker-compose exec db psql -U postgres -d estevao_api_development
 ## Additional Documentation
 
 - `README.md`: Project overview and setup
-- `DAILY_OFFICE_GUIDE.md`: Daily Office system guide
-- `DAILY_OFFICE_ARCHITECTURE.md`: Daily Office technical architecture
-- `FIREBASE_SETUP.md`: Firebase authentication setup
-- `NOTIFICATIONS_SETUP.md`: Push notifications setup
-- `PRAYER_BOOK_PREFERENCES.md`: Prayer Book system
 - `ROADMAP.md`: Development roadmap
 - `TODO.md`: Upcoming improvements
 
