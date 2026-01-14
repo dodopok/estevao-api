@@ -1,447 +1,408 @@
-# TODO - Melhorias e Próximos Passos
+# TODO - Próximos Passos
 
-> **Última atualização**: 2025-12-02
+> **Última atualização**: 2026-01-14
 >
-> Este documento lista melhorias práticas, bugs conhecidos e próximos passos para o desenvolvimento da Estêvão API.
-> Para o roadmap completo de longo prazo, consulte [ROADMAP.md](ROADMAP.md).
+> Este documento lista melhorias práticas e próximos passos para o backend da Estêvão API.
+> O backend está **95% completo** e pronto para MVP. As tarefas abaixo são refinamentos e preparação para o Flutter app.
+>
+> Para o roadmap completo de longo prazo (incluindo Flutter), consulte [ROADMAP.md](ROADMAP.md).
 
-## 🎯 Prioridades Imediatas
+---
 
-### 🔴 Alta Prioridade
+## 🎯 Contexto
 
-- [ ] **Testes para Bible Text Service**
-  - Adicionar testes de integração para verificação de traduções
-  - Testar fallbacks quando tradução não está disponível
-  - Arquivo: `spec/services/bible_text_service_spec.rb`
+**Estado Atual**: Backend MVP completo e funcional
+**App Flutter**: Em desenvolvimento paralelo no repo [ordo-app](https://github.com/dodopok/ordo-app/)
+**Foco Deste TODO**: Polish do backend + suporte à integração com Flutter
 
-- [ ] **Validação de Tokens FCM**
-  - Implementar limpeza automática de tokens inválidos/expirados
-  - Adicionar job para remover tokens antigos (> 6 meses sem uso)
-  - Arquivo: `app/jobs/cleanup_expired_fcm_tokens_job.rb`
+---
 
-- [ ] **Rate Limiting para API**
-  - Adicionar rate limiting por IP/usuário
-  - Usar gem `rack-attack` ou similar
-  - Configurar limites: 100 req/min para autenticados, 20 req/min para não-autenticados
+## 🔴 ALTA PRIORIDADE (Integração com Flutter)
+
+### Backend Essencial
+
+- [ ] **Testes de Integração E2E Expandidos**
+  - Atual: 27 testes de integração
+  - Meta: 50+ testes cobrindo fluxos completos
+  - Focar em: autenticação → preferências → ofícios → completions
+  - Arquivo: `spec/integration/` ou similar
+  - **Motivo**: Garantir que Flutter integre com API estável
+
+- [ ] **Documentação Swagger 100% Completa**
+  - Atual: Parcial (alguns endpoints faltando exemplos)
+  - Documentar TODOS os endpoints com:
+    - Parâmetros (tipos, required/optional)
+    - Exemplos de request/response
+    - Códigos de erro possíveis e suas causas
+    - Headers necessários (Authorization)
+  - Arquivo: `swagger/v1/swagger.yaml`
+  - **Motivo**: Flutter precisa de documentação clara da API
+
+- [ ] **Rate Limiting Refinado**
+  - Atual: Rack Attack configurado basicamente
+  - Ajustar limites por endpoint:
+    - Auth endpoints: 5 req/min
+    - GET endpoints: 100 req/min
+    - POST endpoints: 30 req/min
+  - Adicionar whitelist para IPs internos
   - Arquivo: `config/initializers/rack_attack.rb`
+  - **Motivo**: Proteger API em produção
 
-- [ ] **Logging e Monitoramento**
-  - Integrar com Sentry ou similar para tracking de erros
-  - Adicionar métricas de performance (tempo de resposta por endpoint)
-  - Implementar health check mais robusto (verificar conexão com DB, Redis, etc.)
+- [ ] **Health Check Robusto**
+  - Atual: `/up` verifica apenas boot da app
+  - Melhorar para verificar:
+    - Conexão com PostgreSQL
+    - Conexão com Redis (cache)
+    - Status de Solid Queue (jobs)
+    - Status de serviços externos (Firebase, RevenueCat) - opcional
+  - Endpoint: `GET /api/v1/health`
+  - **Motivo**: Monitoring confiável em produção
 
-### 🟡 Média Prioridade
+- [ ] **Validação de FCM Tokens**
+  - Implementar job automático para limpar tokens inválidos
+  - Criar `CleanupExpiredFcmTokensJob`
+  - Rodar diariamente via cron
+  - Remover tokens: sem uso há 60+ dias OU inválidos
+  - **Motivo**: Reduzir custos de FCM e melhorar deliverability
 
-- [ ] **Cache de Respostas da API**
-  - Implementar cache HTTP para endpoints de calendário (que mudam apenas diariamente)
-  - Usar `Cache-Control` headers adequados
-  - Cache de 24h para `/calendar/today`, 1 semana para datas passadas
+### Suporte ao Flutter App
+
+- [ ] **Endpoint de Sincronização Offline**
+  - Novo endpoint: `GET /api/v1/sync?days=7`
+  - Retornar TODOS os dados necessários para X dias:
+    - Calendário (datas, celebrações, cores)
+    - Ofícios completos (4 tipos por dia)
+    - Leituras do lecionário
+    - Textos litúrgicos
+    - Preferências do usuário
+  - Permite app Flutter funcionar 100% offline
+  - Arquivo: `app/controllers/api/v1/sync_controller.rb`
+  - **Motivo**: UX crítico para app mobile
 
 - [ ] **Paginação Consistente**
-  - Adicionar paginação para todos os endpoints de listagem
+  - Adicionar paginação para todos os endpoints de listagem:
+    - `GET /api/v1/celebrations`
+    - `GET /api/v1/life_rules`
+    - `GET /api/v1/users/completions`
+    - `GET /api/v1/journals/:year/:month`
   - Usar gem `pagy` ou `kaminari`
-  - Incluir meta informação (total, current_page, total_pages) nas respostas
+  - Incluir meta: `{ total, per_page, current_page, total_pages }`
+  - **Motivo**: Performance e UX em listas longas
 
-- [ ] **Versionamento de API Melhorado**
-  - Preparar estrutura para API v2
-  - Adicionar deprecation warnings nos headers
-  - Documentar política de versionamento
-
-- [ ] **Testes de Integração E2E**
-  - Expandir suite de testes de integração (atualmente 27 testes)
-  - Cobrir fluxos completos de usuário (signup → preferências → completions → notificações)
-  - Meta: 100+ testes de integração
-
-- [ ] **Documentação Swagger/OpenAPI Completa**
-  - Completar especificações de todos os endpoints
-  - Adicionar exemplos de request/response
-  - Documentar códigos de erro e suas causas
-  - Arquivo: `swagger/v1/swagger.yaml`
-
-### 🟢 Baixa Prioridade
-
-- [ ] **Internacionalização (i18n)**
-  - Preparar API para múltiplos idiomas (português, inglês, espanhol)
-  - Extrair strings hard-coded para arquivos de locale
-  - Permitir header `Accept-Language`
-
-- [ ] **GraphQL API (opcional)**
-  - Avaliar implementação de GraphQL como alternativa ao REST
-  - Permitir queries mais flexíveis para frontends
-
-- [ ] **Webhooks**
-  - Implementar sistema de webhooks para eventos importantes
-  - Eventos: nova celebração, mudança de estação litúrgica, etc.
+- [ ] **Erros Padronizados**
+  - Criar concern `app/controllers/concerns/error_handler.rb`
+  - Padronizar formato de erro JSON:
+    ```json
+    {
+      "error": {
+        "code": "UNAUTHORIZED",
+        "message": "Token inválido ou expirado",
+        "details": { ... }
+      }
+    }
+    ```
+  - Documentar todos os códigos de erro no Swagger
+  - **Motivo**: Flutter precisa de erros previsíveis
 
 ---
 
-## 🐛 Bugs Conhecidos
+## 🟡 MÉDIA PRIORIDADE (Melhorias Desejáveis)
 
-### Críticos
-- Nenhum bug crítico conhecido no momento
+### Performance e Otimização
 
-### Menores
-- [ ] **Timezone handling**: Verificar se todas as datas estão sendo processadas no timezone correto (especialmente `calendar/today`)
-- [ ] **Life Rules sorting**: Ordenação de regras de vida não está consistente na listagem
+- [ ] **Cache HTTP para Calendário**
+  - Adicionar `Cache-Control` headers em endpoints de calendário
+  - `/calendar/today`: 12 horas (muda à meia-noite)
+  - `/calendar/:year/:month/:day`: 7 dias (datas passadas) ou 12 horas (futuro)
+  - Usar `stale-while-revalidate`
+  - **Motivo**: Reduzir carga do servidor, melhorar latência
 
----
+- [ ] **Database Indexes Adicionais**
+  - Analisar slow queries (usar `bullet` gem em development)
+  - Adicionar indexes em:
+    - `completions(user_id, date, office_type)` - composto
+    - `journals(user_id, date)` - composto
+    - `liturgical_texts(slug)` - já existe?
+  - Rodar `EXPLAIN ANALYZE` em queries críticas
+  - **Motivo**: Manter API rápida com muitos usuários
 
-## ✨ Novas Funcionalidades Sugeridas
+- [ ] **Background Jobs para Notificações**
+  - Mover envio de notificações para background:
+    - `POST /api/v1/notifications/broadcast` → enqueue job
+    - Retornar imediatamente `{ status: "enqueued", job_id: "..." }`
+  - Criar `BroadcastNotificationJob`
+  - Processar em lotes (chunks de 100 usuários)
+  - **Motivo**: Evitar timeout em broadcasts grandes
 
-### 📊 Analytics e Estatísticas
+- [ ] **Compressão de Respostas**
+  - Habilitar gzip/brotli para respostas JSON grandes
+  - Middleware `Rack::Deflater`
+  - Especialmente para: ofícios completos, sync endpoint
+  - **Motivo**: Reduzir uso de dados móveis
 
-- [ ] **Dashboard de Estatísticas do Usuário**
+### Recursos Novos (Backend)
+
+- [ ] **Sistema de Conquistas (Achievements)**
+  - Criar models:
+    - `Achievement` (slug, name, description, icon, criteria JSONB)
+    - `UserAchievement` (user_id, achievement_id, earned_at, progress)
+  - Seeds com conquistas:
+    - 🌅 "Primeira Luz" - primeira manhã
+    - 🔥 "Guerreiro de Oração" - 7 dias consecutivos
+    - 💪 "Fiel e Constante" - 30 dias consecutivos
+    - 🏆 "Maratonista Espiritual" - 100 dias consecutivos
+    - ✝️ "Caminhada Santa" - completar Semana Santa
+    - 🎄 "Advento Dedicado" - todo Advento
+  - Service `AchievementCalculator`
+  - Endpoints:
+    - `GET /api/v1/achievements` - listar todas
+    - `GET /api/v1/users/achievements` - conquistas do usuário
+  - **Motivo**: Gamificação aumenta engajamento
+
+- [ ] **Estatísticas de Usuário**
   - Endpoint: `GET /api/v1/users/stats`
   - Retornar:
     - Total de ofícios completados
     - Streak atual (dias consecutivos)
     - Longest streak
-    - Ofícios favoritos (mais completados)
-    - Gráfico de atividade mensal
+    - Ofício favorito (mais completado)
     - Taxa de conclusão por tipo de ofício
-
-- [ ] **Streaks e Motivação**
-  - Calcular streaks automaticamente
-  - Enviar notificação de parabéns ao atingir marcos (7 dias, 30 dias, 100 dias)
-  - Sistema de "don't break the chain"
-
-### 🎮 Gamificação
-
-- [ ] **Sistema de Conquistas (Achievements)**
-  - Tabela `achievements` e `user_achievements`
-  - Conquistas sugeridas:
-    - 🌅 "Primeira Luz" - completar primeira Oração da Manhã
-    - 🌙 "Fim do Dia" - completar primeira Completas
-    - 🔥 "Guerreiro de Oração" - 7 dias consecutivos
-    - 💪 "Fiel e Constante" - 30 dias consecutivos
-    - 🏆 "Maratonista Espiritual" - 100 dias consecutivos
-    - 📖 "Leitor Dedicado" - ler todas as leituras de um ciclo litúrgico completo
-    - ✝️ "Caminhada Santa" - completar todos os ofícios da Semana Santa
-    - 🎄 "Espírito Natalino" - completar ofícios durante toda a quadra de Natal
-
-- [ ] **Níveis de Usuário**
-  - Sistema de XP baseado em ofícios completados
-  - Níveis: Iniciante → Praticante → Dedicado → Devoto → Santo/a
-  - Badge visual para cada nível
-
-- [ ] **Desafios Semanais/Mensais**
-  - Desafio: "Complete os 4 ofícios em um dia"
-  - Desafio: "Leia todos os salmos desta semana"
-  - Recompensas em XP ou conquistas especiais
-
-### 🤝 Recursos Sociais/Comunitários
-
-- [ ] **Orações em Grupo/Comunidade** (versão simplificada)
-  - Criar "salas" de oração onde múltiplos usuários podem indicar que estão orando juntos
-  - Mostrar quantas pessoas estão orando agora
-  - Sem chat - apenas presença e lista de nomes
-
-- [ ] **Intenções de Oração Compartilhadas**
-  - Endpoint para usuários compartilharem intenções de oração
-  - Moderação por admin
-  - Pode ser usado durante os ofícios
-
-- [ ] **Grupos de Estudo Bíblico**
-  - Criar grupos baseados nas leituras do lecionário
-  - Membros podem adicionar notas/reflexões sobre as leituras
-  - Visível apenas para membros do grupo
-
-### 📖 Melhorias em Leituras e Textos
-
-- [ ] **Notas e Highlights**
-  - Permitir usuários salvarem notas em leituras específicas
-  - Sistema de highlights (marcar versículos favoritos)
-  - Tabelas: `user_notes`, `user_highlights`
-
-- [ ] **Histórico de Leituras**
-  - Rastrear quais leituras bíblicas o usuário já leu
-  - Progress bar: "Você leu X% do Novo Testamento"
-  - Badge ao completar livros inteiros da Bíblia
+    - Gráfico de atividade mensal (last 12 months)
+  - Cache: 1 hora
+  - **Motivo**: Visualização de progresso motiva usuários
 
 - [ ] **Busca de Versículos**
-  - Endpoint: `GET /api/v1/bible/search?q=amor`
-  - Busca full-text nos textos bíblicos
-  - Retornar versículos que contenham a palavra/frase
+  - Endpoint: `GET /api/v1/bible/search?q=amor&version=nvi`
+  - Full-text search nos textos bíblicos
+  - Usar `pg_search` gem ou raw SQL `to_tsvector`
+  - Paginação (max 50 resultados)
+  - Highlight de matches
+  - **Motivo**: Feature útil para estudo bíblico
 
 - [ ] **Versículo do Dia**
   - Endpoint: `GET /api/v1/bible/verse-of-the-day`
-  - Retornar um versículo inspirador diário
-  - Pode ser aleatório ou seguir uma curadoria
+  - Retornar versículo inspirador diário
+  - Lógica: curadoria manual ou seleção aleatória
+  - Seeds com lista de versículos populares
+  - Cache: 24 horas
+  - **Motivo**: Conteúdo diário adicional
 
-### 🔔 Melhorias em Notificações
+### Código e Qualidade
 
-- [ ] **Notificações Contextuais**
-  - "Faltam 10 minutos para a Oração da Tarde" (baseado em preferências)
-  - "Você está próximo de quebrar seu streak de X dias!"
-  - "Hoje é festa de São [Nome]!"
-
-- [ ] **Preferências Granulares de Notificação**
-  - Permitir ativar/desativar por tipo de notificação
-  - Permitir "quiet hours" (não enviar notificações durante certos horários)
-  - Smart notifications (não enviar se o usuário já completou o ofício)
-
-- [ ] **Digest Semanal**
-  - Email ou notificação semanal com resumo:
-    - Ofícios completados essa semana
-    - Próximas celebrações importantes
-    - Versículo/reflexão da semana
-
-### 🎨 Customização e Preferências
-
-- [ ] **Temas Visuais (Backend)**
-  - Endpoint para retornar configurações de tema baseadas na estação litúrgica
-  - Paletas de cores para frontend (roxo no Advento, branco no Natal, etc.)
-  - Permite app ajustar UI automaticamente
-
-- [ ] **Ordem Customizada de Ofícios**
-  - Permitir usuário reordenar ofícios na tela principal
-  - Salvar preferência de ordem
-  - Alguns podem preferir: Manhã → Meio-Dia → Tarde → Completas
-  - Outros: apenas Manhã e Tarde
-
-- [ ] **Favoritos/Bookmarks**
-  - Permitir marcar celebrações, coletas ou salmos como favoritos
-  - Endpoint: `GET /api/v1/users/favorites`
-  - Tipos: celebration, collect, psalm, prayer
-
-### 📱 Suporte Mobile/Offline
-
-- [ ] **Sync API para Offline-First Apps**
-  - Endpoint que retorna todos os dados necessários para X dias
-  - `GET /api/v1/sync?days=7`
-  - Retornar: calendário, ofícios, leituras, textos bíblicos
-  - Permite apps funcionarem completamente offline
-
-- [ ] **Partial Updates**
-  - Suportar `If-Modified-Since` headers
-  - Retornar apenas dados que mudaram desde última sincronização
-  - Reduz uso de dados móveis
-
-### 📚 Conteúdo Educacional
-
-- [ ] **Glossário Litúrgico**
-  - Tabela `glossary_terms`
-  - Explicação de termos litúrgicos (ex: "Coleta", "Proper", "Antífona")
-  - Endpoint: `GET /api/v1/glossary`
-
-- [ ] **Sobre os Santos**
-  - Expandir dados de celebrações com biografia de santos
-  - Adicionar campo `biography` (text) na tabela celebrations
-  - Imagens dos santos (URLs)
-
-- [ ] **Guias e Tutoriais**
-  - Endpoint retornando guias sobre:
-    - "Como rezar a Oração da Manhã"
-    - "Entendendo o Ano Litúrgico"
-    - "O que é uma Coleta?"
-  - Tabela: `guides` (title, content, category)
-
-### 🔐 Segurança e Admin
-
-- [ ] **Audit Log**
-  - Registrar ações administrativas
-  - Tabela: `audit_logs`
-  - Rastrear: criação/aprovação de life rules, envio de notificações broadcast
-
-- [ ] **Dashboard Admin**
-  - Endpoints para estatísticas agregadas:
-    - Total de usuários ativos
-    - Usuários novos por semana
-    - Ofícios mais populares
-    - Taxa de retenção
-  - Endpoint: `GET /api/v1/admin/stats` (requer admin)
-
-- [ ] **Moderação de Conteúdo**
-  - Sistema de review para life rules criadas por usuários
-  - Sistema de reports para conteúdo inapropriado
-
----
-
-## 🔧 Refatorações e Melhorias Técnicas
-
-### Code Quality
-
-- [ ] **Rubocop: Resolver Offenses Remanescentes**
-  - Executar `rubocop -a` para auto-correções
-  - Resolver manualmente offenses complexas
-  - Meta: 0 offenses
-
-- [ ] **Simplificar Services Complexos**
-  - `DailyOfficeService` está muito grande - considerar quebrar em sub-services
-  - Aplicar padrão Service Object consistentemente
+- [ ] **Refatorar DailyOfficeService**
+  - Atual: Arquivo muito grande (~500+ linhas)
+  - Quebrar em sub-services:
+    - `DailyOffice::MorningPrayerBuilder`
+    - `DailyOffice::EveningPrayerBuilder`
+    - `DailyOffice::MiddayPrayerBuilder`
+    - `DailyOffice::ComplineBuilder`
+  - Manter `DailyOfficeService` como orquestrador
+  - **Motivo**: Manutenibilidade
 
 - [ ] **Concerns Reutilizáveis**
-  - Criar concerns para lógica comum (ex: `Cacheable`, `Paginatable`)
-  - Reduzir duplicação de código
-
-### Performance
-
-- [ ] **Database Indexes**
-  - Analisar slow queries (usar `bullet` gem)
-  - Adicionar indexes onde necessário
-  - Especialmente em foreign keys e campos de busca
-
-- [ ] **N+1 Queries**
-  - Usar gem `bullet` em development para detectar
-  - Adicionar `includes` onde necessário
-  - Revisar controllers e services
-
-- [ ] **Background Jobs**
-  - Mover operações pesadas para background jobs:
-    - Envio de notificações em massa
-    - Cálculo de estatísticas agregadas
-    - Limpeza de dados antigos
-
-- [ ] **Database Connection Pooling**
-  - Otimizar configuração de pool de conexões
-  - Especialmente importante para deploy em produção
-
-### Testing
+  - Criar `Cacheable` concern para padronizar cache
+  - Criar `Paginatable` concern para padronizar paginação
+  - Criar `ApiErrorHandler` concern
+  - **Motivo**: DRY, consistência
 
 - [ ] **Aumentar Cobertura de Testes**
-  - Atual: 171 testes
-  - Meta: 300+ testes
-  - Áreas com pouca cobertura:
-    - Jobs (background jobs)
-    - Alguns services novos
+  - Atual: 112 RSpec specs
+  - Meta: 200+ specs
+  - Focar em:
+    - Jobs (GenerateLiturgicalAudioJob, etc.)
+    - Services novos (RevenueCatService, etc.)
     - Edge cases em controllers
-
-- [ ] **Testes de Performance**
-  - Adicionar benchmarks para operações críticas
-  - Garantir endpoints respondem em < 200ms
-
-- [ ] **Factory Bot: Melhorar Factories**
-  - Adicionar traits úteis
-  - Factories para todos os modelos
-  - Sequences para evitar duplicatas
-
-### DevOps e Infraestrutura
-
-- [ ] **Docker Compose para Desenvolvimento**
-  - Melhorar `docker-compose.yml`
-  - Adicionar Redis para cache
-  - Adicionar Sidekiq para jobs
-  - Seed automático ao subir containers
-
-- [ ] **CI/CD: Deploy Automático**
-  - Configurar deploy automático para staging após merge na `main`
-  - Deploy para produção apenas com tag de versão
-
-- [ ] **Ambiente de Staging**
-  - Configurar ambiente de staging separado
-  - Testar features antes de produção
-
-- [ ] **Backup Automático**
-  - Configurar backups automáticos do banco de dados
-  - Testar processo de restore
+  - Rodar `COVERAGE=true bundle exec rspec`
+  - Meta: 95%+ cobertura
+  - **Motivo**: Confiança em refatorações
 
 ---
 
-## 📋 Manutenção de Dados
+## 🟢 BAIXA PRIORIDADE (Futuro)
 
-### Seeds e Fixtures
+### Recursos Avançados
 
-- [ ] **Expandir Seeds de Leituras**
-  - Atualmente tem algumas leituras, mas não está completo
-  - Popular todas as leituras dos 3 ciclos (A, B, C)
-  - Adicionar leituras de dias de semana (anos pares/ímpares)
+- [ ] **Intenções de Oração Compartilhadas**
+  - Tabela `prayer_intentions`
+  - Moderação por admin
+  - API CRUD básica
+  - **Quando**: Pós-lançamento, se houver demanda
 
-- [ ] **Seeds de Coletas**
-  - Verificar se todas as celebrações têm coletas
-  - Adicionar coletas alternativas
-  - Coletas para estações litúrgicas
+- [ ] **Grupos de Estudo Bíblico**
+  - Tabelas: `study_groups`, `group_members`, `group_notes`
+  - Baseado no lecionário
+  - **Quando**: v2.0+
 
-- [ ] **Mais Santos e Comemorações**
-  - Expandir calendário de santos
-  - Adicionar festivais menores (lesser feasts)
-  - Incluir santos relevantes para dioceses específicas
+- [ ] **Internacionalização (i18n)**
+  - Extrair strings para `config/locales/`
+  - Suportar `Accept-Language` header
+  - Idiomas: pt-BR, en, es
+  - **Quando**: Se expandir internacionalmente
 
-- [ ] **Traduções de Textos Bíblicos**
-  - Atualmente suporta 12+ traduções
-  - Verificar integridade dos dados
-  - Adicionar traduções faltantes se necessário
+- [ ] **GraphQL API**
+  - Alternativa ao REST
+  - Queries mais flexíveis
+  - **Quando**: Se Flutter requisitar (provavelmente não)
+
+- [ ] **Webhooks**
+  - Sistema de webhooks para eventos:
+    - Nova celebração principal
+    - Mudança de estação litúrgica
+    - Novo conteúdo de áudio
+  - **Quando**: Se sites de paróquias integrarem
+
+### Infraestrutura
+
+- [ ] **CDN para Áudio**
+  - Mover arquivos de áudio para CloudFront ou similar
+  - Atualizar `audio_urls` no banco
+  - **Quando**: Custos de bandwidth aumentarem
+
+- [ ] **Backup Automático do Banco**
+  - Configurar backups diários via Railway
+  - Testar restore periodicamente
+  - **Quando**: Antes do lançamento público
+
+- [ ] **Staging Environment**
+  - Ambiente separado para testes
+  - CI/CD: deploy automático para staging
+  - **Quando**: Equipe crescer ou beta testers
 
 ---
 
-## 🎯 Métricas de Sucesso (KPIs)
+## 🐛 Bugs Conhecidos (Nenhum Crítico)
 
-Para acompanhar o progresso e saúde da API:
+### Menores
+- [ ] **Timezone Handling**: Verificar se `calendar/today` respeita timezone do usuário (se enviado via header)
+- [ ] **Life Rules Sorting**: Ordenação inconsistente na listagem
+
+---
+
+## 📋 Checklist Pré-Lançamento (Backend)
+
+Antes de lançar o app publicamente, garantir:
+
+- [ ] Todos os endpoints documentados no Swagger
+- [ ] Rate limiting configurado e testado
+- [ ] Health check funcionando
+- [ ] FCM tokens sendo limpos automaticamente
+- [ ] Backups automáticos do banco configurados
+- [ ] Monitoring (Datadog) configurado em produção
+- [ ] Erros sendo rastreados (Sentry ou similar)
+- [ ] SSL configurado (Railway já faz isso)
+- [ ] Variáveis de ambiente em produção (Firebase, RevenueCat, ElevenLabs)
+- [ ] Seeds de produção rodados (celebrações, coletas, textos)
+- [ ] Cache funcionando (Solid Cache + Redis)
+- [ ] Jobs rodando (Solid Queue)
+- [ ] Testes passando (CI verde)
+- [ ] RuboCop limpo (0 offenses)
+- [ ] Brakeman limpo (0 vulnerabilidades)
+- [ ] Bundler Audit limpo (gems atualizadas)
+- [ ] Performance testada (< 200ms para 95% dos requests)
+
+---
+
+## 📊 Métricas de Sucesso (Backend)
+
+Acompanhar:
 
 - **Performance**:
-  - [ ] 95% dos endpoints respondem em < 200ms
-  - [ ] 99.9% uptime
-  - [ ] 0 erros 5xx por semana
+  - [ ] P95 < 200ms (95% dos requests em menos de 200ms)
+  - [ ] P99 < 500ms
+  - [ ] Uptime > 99.9%
 
-- **Cobertura de Testes**:
-  - [ ] 90%+ cobertura de código
-  - [ ] 300+ testes totais
-  - [ ] 100% de endpoints críticos com testes de integração
+- **Qualidade**:
+  - [x] 0 offenses RuboCop ✅
+  - [x] 0 vulnerabilidades Brakeman ✅
+  - [x] CI/CD verde ✅
+  - [ ] 95%+ cobertura de testes
 
-- **Qualidade de Código**:
-  - [ ] 0 offenses do Rubocop
-  - [ ] 0 vulnerabilidades de segurança (Brakeman)
-  - [ ] Todas as gems atualizadas (sem vulnerabilidades conhecidas)
+- **Erros**:
+  - [ ] < 0.1% error rate (5xx)
+  - [ ] 0 erros não rastreados
 
-- **Documentação**:
-  - [ ] 100% dos endpoints documentados no Swagger
-  - [ ] Todos os models com comentários explicativos
-  - [ ] README atualizado mensalmente
-
-- **Usuários** (quando em produção):
-  - [ ] 1000+ usuários ativos
-  - [ ] 30% de retenção em 7 dias
-  - [ ] 20% de retenção em 30 dias
-  - [ ] 4.5+ estrelas de avaliação no app
+- **Usuários** (pós-Flutter):
+  - [ ] Monitorar uso de API (requests/dia)
+  - [ ] Monitorar users ativos (DAU, MAU)
+  - [ ] Monitorar uso de premium audio
 
 ---
 
-## 🚀 Roadmap de Versões
+## 🔧 Comandos Úteis
 
-### v1.1 (Próxima release menor)
-- Rate limiting
-- Paginação consistente
-- Cache de respostas
-- Documentação Swagger completa
-- Testes: 250+
+**Testes e Qualidade**:
+```bash
+# Rodar testes
+docker-compose exec -T web bundle exec rspec
 
-### v1.2
-- Sistema de conquistas
-- Estatísticas de usuário
-- Notas e highlights
-- Busca de versículos
+# Cobertura de testes
+docker-compose exec -T web COVERAGE=true bundle exec rspec
 
-### v2.0 (Breaking changes)
-- GraphQL API
-- Recursos sociais/comunitários
-- Internacionalização completa
-- Novo sistema de autenticação (se necessário)
+# RuboCop
+docker-compose exec -T web bundle exec rubocop
+
+# Segurança
+docker-compose exec -T web bundle exec brakeman --no-pager
+docker-compose exec -T web bundle exec bundler-audit
+```
+
+**Database**:
+```bash
+# Console
+docker-compose exec web bundle exec rails c
+
+# Migrations
+docker-compose exec -T web bundle exec rails db:migrate
+
+# Seeds
+docker-compose exec -T web bundle exec rails db:seed
+```
+
+**Cache**:
+```bash
+# Warm cache
+docker-compose exec -T web bundle exec rails cache:warm
+
+# Stats
+docker-compose exec -T web bundle exec rails cache:stats
+
+# Clear
+docker-compose exec -T web bundle exec rails cache:clear_all
+```
+
+**Áudio**:
+```bash
+# Estatísticas
+docker-compose exec -T web bundle exec rails audio:stats
+
+# Gerar áudio
+docker-compose exec -T web bundle exec rails audio:generate[loc_2015,male_1]
+```
 
 ---
 
-## 💡 Ideias para Explorar (Brainstorm)
+## 📚 Documentação Relacionada
 
-Ideias que precisam de mais pesquisa/validação:
-
-- **IA para Reflexões**: Usar LLM para gerar reflexões personalizadas baseadas nas leituras do dia
-- **Integração com Calendários**: Sincronizar celebrações com Google Calendar, Apple Calendar
-- **Widget para Sites de Paróquias**: Código embed para mostrar calendário litúrgico em sites
-- **Podcast de Ofícios**: Gerar áudio dos ofícios automaticamente usando Text-to-Speech
-- **Modo "Rezar Junto"**: Video/audio call integrado para grupos rezarem juntos
-- **Integração com Spotify**: Playlists de música litúrgica para cada estação
-- **API Pública**: Disponibilizar API publicamente para outros desenvolvedores (com rate limits)
-- **Versão Web (PWA)**: Frontend web progressivo que funciona offline
-- **Outros Ritos**: Suportar BCP (Book of Common Prayer) inglês, LOC Portugal, etc.
+- **[ROADMAP.md](ROADMAP.md)** - Roadmap completo (backend + Flutter)
+- **[README.md](README.md)** - Visão geral e setup
+- **[CLAUDE.md](CLAUDE.md)** - Instruções para AI assistants
+- **[DAILY_OFFICE_GUIDE.md](DAILY_OFFICE_GUIDE.md)** - Guia do sistema de Ofício
+- **[DAILY_OFFICE_ARCHITECTURE.md](DAILY_OFFICE_ARCHITECTURE.md)** - Arquitetura técnica
+- **[PRAYER_BOOK_PREFERENCES.md](PRAYER_BOOK_PREFERENCES.md)** - Sistema de preferências
 
 ---
 
-## 📝 Notas Importantes
+## 💡 Contribuindo
 
-- Consultar com líder litúrgico/sacerdote antes de implementar mudanças que afetem conteúdo litúrgico
-- Priorizar funcionalidades que aumentem engajamento e retenção de usuários
-- Manter foco na simplicidade - evitar over-engineering
-- Sempre adicionar testes para novas funcionalidades
-- Documentar mudanças de API que quebrem compatibilidade
+Se você deseja contribuir:
+
+1. Escolha uma tarefa marcada como [ ] acima
+2. Crie uma branch: `git checkout -b feature/nome-da-feature`
+3. Implemente com testes
+4. Rode RuboCop e corrija violations
+5. Abra um Pull Request
 
 ---
 
-**Contribua!** Se você tem sugestões de melhorias, abra uma issue ou PR no GitHub.
+**Última atualização**: 2026-01-14
+**Status**: Backend 95% completo, integrando com Flutter ([ordo-app](https://github.com/dodopok/ordo-app/))
