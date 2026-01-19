@@ -33,12 +33,12 @@ module Liturgical
     def color_for(date, celebration: nil)
       # Priority rules for liturgical colors:
       # 1. Principal feasts and major holy days: always use celebration color
-      # 2. Sundays: use season color (Sunday takes precedence over lesser feasts)
-      # 3. Festivals: use celebration color (higher rank than lesser feasts)
+      # 2. Sundays: use season color (Sunday takes precedence over festivals and lesser feasts)
+      # 3. Festivals on weekdays: use celebration color
       # 4. Lesser feasts on weekdays: use celebration color
       # 5. Commemorations on weekdays: use celebration color
 
-      return celebration[:color] if high_rank_celebration?(celebration)
+      return celebration[:color] if principal_celebration?(celebration)
       return color_for_season(date) if date.sunday?
       return celebration[:color] if celebration&.dig(:color).present?
 
@@ -49,12 +49,11 @@ module Liturgical
 
     attr_reader :season_determinator, :easter_calc
 
-    # High rank celebrations that override season and Sunday colors
-    def high_rank_celebration?(celebration)
+    # Only principal feasts and major holy days override Sundays
+    def principal_celebration?(celebration)
       return false unless celebration&.dig(:color).present?
 
-      PRINCIPAL_CELEBRATION_TYPES.include?(celebration[:type]) ||
-        celebration[:type] == "festival"
+      PRINCIPAL_CELEBRATION_TYPES.include?(celebration[:type])
     end
 
     def color_for_season(date)

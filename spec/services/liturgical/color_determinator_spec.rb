@@ -29,11 +29,22 @@ RSpec.describe Liturgical::ColorDeterminator do
         expect(color_determinator.color_for(date, celebration: celebration)).to eq("branco")
       end
 
-      it "uses celebration color for festivals" do
-        # A festival during Ordinary Time - should use festival's red color
+      it "uses season color for festivals on Sundays" do
+        # A festival on Sunday should use season's color, not festival's color
+        # Only principal feasts and major holy days override Sundays
         date = Date.new(2025, 6, 15) # Sunday in Ordinary Time
+        celebration = { color: "branco", type: "festival" }
+
+        expect(date).to be_sunday
+        expect(color_determinator.color_for(date, celebration: celebration)).to eq("verde")
+      end
+
+      it "uses celebration color for festivals on weekdays" do
+        # A festival on weekday should use festival's color
+        date = Date.new(2025, 6, 16) # Monday in Ordinary Time
         celebration = { color: "vermelho", type: "festival" }
 
+        expect(date).not_to be_sunday
         expect(color_determinator.color_for(date, celebration: celebration)).to eq("vermelho")
       end
 
