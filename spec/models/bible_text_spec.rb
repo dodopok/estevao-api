@@ -534,5 +534,105 @@ RSpec.describe BibleText, type: :model do
         expect(result[1][:verse_end]).to eq(8)
       end
     end
+
+    context 'dash character normalization' do
+      it 'normalizes en-dash (–) to regular hyphen in verse ranges' do
+        result = described_class.parse_reference('João 3:16–17')
+        expect(result).to eq({
+          book: 'João',
+          chapter: 3,
+          verse_start: 16,
+          verse_end: 17
+        })
+      end
+
+      it 'normalizes em-dash (—) to regular hyphen in verse ranges' do
+        result = described_class.parse_reference('João 3:16—17')
+        expect(result).to eq({
+          book: 'João',
+          chapter: 3,
+          verse_start: 16,
+          verse_end: 17
+        })
+      end
+
+      it 'normalizes en-dash in cross-chapter references' do
+        result = described_class.parse_all_references('Hebreus 11:32–12:2')
+        expect(result.length).to eq(2)
+
+        expect(result[0][:book]).to eq('Hebreus')
+        expect(result[0][:chapter]).to eq(11)
+        expect(result[0][:verse_start]).to eq(32)
+        expect(result[0][:fetch_all_from_verse]).to eq(true)
+
+        expect(result[1][:book]).to eq('Hebreus')
+        expect(result[1][:chapter]).to eq(12)
+        expect(result[1][:verse_start]).to eq(1)
+        expect(result[1][:verse_end]).to eq(2)
+      end
+
+      it 'normalizes em-dash in cross-chapter references' do
+        result = described_class.parse_all_references('Hebreus 11:32—12:2')
+        expect(result.length).to eq(2)
+
+        expect(result[0][:book]).to eq('Hebreus')
+        expect(result[0][:chapter]).to eq(11)
+        expect(result[0][:verse_start]).to eq(32)
+
+        expect(result[1][:book]).to eq('Hebreus')
+        expect(result[1][:chapter]).to eq(12)
+        expect(result[1][:verse_end]).to eq(2)
+      end
+
+      it 'normalizes multiple en-dashes in complex references' do
+        result = described_class.parse_all_references('1 Pedro 4:12–14; 5:6–11')
+        expect(result.length).to eq(2)
+
+        expect(result[0]).to eq({
+          book: '1 Pedro',
+          chapter: 4,
+          verse_start: 12,
+          verse_end: 14
+        })
+        expect(result[1]).to eq({
+          book: '1 Pedro',
+          chapter: 5,
+          verse_start: 6,
+          verse_end: 11
+        })
+      end
+
+      it 'normalizes en-dash in references with "or" alternatives' do
+        result = described_class.parse_reference('Jeremias 31:7–14 or Eclesiástico 24:1–12')
+        expect(result).to eq({
+          book: 'Jeremias',
+          chapter: 31,
+          verse_start: 7,
+          verse_end: 14
+        })
+      end
+
+      it 'normalizes en-dash in real-world lectionary reference' do
+        result = described_class.parse_all_references('Hebreus 11:32–12:6')
+        expect(result.length).to eq(2)
+
+        expect(result[0][:book]).to eq('Hebreus')
+        expect(result[0][:chapter]).to eq(11)
+        expect(result[0][:verse_start]).to eq(32)
+        expect(result[0][:fetch_all_from_verse]).to eq(true)
+
+        expect(result[1][:book]).to eq('Hebreus')
+        expect(result[1][:chapter]).to eq(12)
+        expect(result[1][:verse_start]).to eq(1)
+        expect(result[1][:verse_end]).to eq(6)
+      end
+
+      it 'works with regular hyphen for backward compatibility' do
+        result_with_hyphen = described_class.parse_reference('João 3:16-17')
+        result_with_endash = described_class.parse_reference('João 3:16–17')
+
+        expect(result_with_hyphen).to eq(result_with_endash)
+      end
+    end
   end
 end
