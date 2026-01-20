@@ -5,7 +5,8 @@
     "movable": true,
     "calculation_rule": "easter",
     "liturgical_color": "white",
-    "rank": 10
+    "rank": 10,
+    "post_slug": "celebration-easter"
   },
   {
     "name": "Dia da Ascensão",
@@ -13,7 +14,8 @@
     "movable": true,
     "calculation_rule": "ascension",
     "liturgical_color": "white",
-    "rank": 10
+    "rank": 10,
+    "post_slug": "celebration-ascension"
   },
   {
     "name": "Dia de Pentecostes",
@@ -21,7 +23,8 @@
     "movable": true,
     "calculation_rule": "pentecost",
     "liturgical_color": "red",
-    "rank": 10
+    "rank": 10,
+    "post_slug": "celebration-pentecost"
   },
   {
     "name": "Domingo da Trindade",
@@ -29,7 +32,8 @@
     "movable": true,
     "calculation_rule": "trinity_sunday",
     "liturgical_color": "white",
-    "rank": 10
+    "rank": 10,
+    "post_slug": "celebration-trinity"
   },
   {
     "name": "Dia de Todos os Santos",
@@ -37,7 +41,8 @@
     "fixed_month": 11,
     "fixed_day": 1,
     "liturgical_color": "white",
-    "rank": 10
+    "rank": 10,
+    "post_slug": "celebration-all-saints"
   },
   {
     "name": "Dia de Natal",
@@ -45,7 +50,8 @@
     "fixed_month": 12,
     "fixed_day": 25,
     "liturgical_color": "white",
-    "rank": 10
+    "rank": 10,
+    "post_slug": "celebration-christmas"
   },
   {
     "name": "Epifania de Nosso Senhor Jesus Cristo",
@@ -53,7 +59,8 @@
     "fixed_month": 1,
     "fixed_day": 6,
     "liturgical_color": "white",
-    "rank": 10
+    "rank": 10,
+    "post_slug": "celebration-epiphany"
   },
   {
     "name": "Batismo de nosso Senhor Jesus Cristo",
@@ -61,7 +68,8 @@
     "movable": true,
     "calculation_rule": "first_sunday_after_epiphany",
     "liturgical_color": "white",
-    "rank": 10
+    "rank": 10,
+    "post_slug": "celebration-baptism-of-christ"
   },
   {
     "name": "Cristo Rei do Universo",
@@ -69,6 +77,7 @@
     "movable": true,
     "calculation_rule": "sunday_before_advent",
     "liturgical_color": "white",
-    "rank": 10
+    "rank": 10,
+    "post_slug": "celebration-christ-the-king"
   }
 ]

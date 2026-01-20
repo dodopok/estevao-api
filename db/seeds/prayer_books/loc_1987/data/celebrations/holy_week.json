@@ -6,7 +6,8 @@
     "movable": true,
     "calculation_rule": "palm_sunday",
     "liturgical_color": "red",
-    "description": "Entrada Triunfal em Jerusalém"
+    "description": "Entrada Triunfal em Jerusalém",
+    "post_slug": "celebration-palm-sunday"
   },
   {
     "name": "Segunda-feira Santa",
@@ -15,7 +16,8 @@
     "movable": true,
     "calculation_rule": "holy_monday",
     "liturgical_color": "purple",
-    "description": "Segunda-feira da Semana Santa"
+    "description": "Segunda-feira da Semana Santa",
+    "post_slug": "celebration-holy-monday"
   },
   {
     "name": "Terça-feira Santa",
@@ -24,7 +26,8 @@
     "movable": true,
     "calculation_rule": "holy_tuesday",
     "liturgical_color": "purple",
-    "description": "Terça-feira da Semana Santa"
+    "description": "Terça-feira da Semana Santa",
+    "post_slug": "celebration-holy-tuesday"
   },
   {
     "name": "Quarta-feira Santa",
@@ -33,7 +36,8 @@
     "movable": true,
     "calculation_rule": "holy_wednesday",
     "liturgical_color": "purple",
-    "description": "Quarta-feira da Semana Santa"
+    "description": "Quarta-feira da Semana Santa",
+    "post_slug": "celebration-holy-wednesday"
   },
   {
     "name": "Quinta-feira Santa",
@@ -42,7 +46,8 @@
     "movable": true,
     "calculation_rule": "maundy_thursday",
     "liturgical_color": "white",
-    "description": "Instituição da Eucaristia"
+    "description": "Instituição da Eucaristia",
+    "post_slug": "celebration-maundy-thursday"
   },
   {
     "name": "Sexta-feira da Paixão",
@@ -51,7 +56,8 @@
     "movable": true,
     "calculation_rule": "good_friday",
     "liturgical_color": "red",
-    "description": "Paixão e Morte de Nosso Senhor"
+    "description": "Paixão e Morte de Nosso Senhor",
+    "post_slug": "celebration-good-friday"
   },
   {
     "name": "Sábado Santo",
@@ -60,6 +66,7 @@
     "movable": true,
     "calculation_rule": "holy_saturday",
     "liturgical_color": "black",
-    "description": "Sepultamento de Jesus"
+    "description": "Sepultamento de Jesus",
+    "post_slug": "celebration-holy-saturday"
   }
 ]
