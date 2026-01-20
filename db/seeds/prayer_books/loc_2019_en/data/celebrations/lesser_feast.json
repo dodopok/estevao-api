@@ -6,7 +6,8 @@
     "fixed_day": 2,
     "liturgical_color": "white",
     "description": "Bishop in South India, Evangelist",
-    "description_year": "1945"
+    "description_year": "1945",
+    "post_slug": "celebration-vedanayagam-samuel-azariah"
   },
   {
     "celebration_type": "lesser_feast",
@@ -15,7 +16,8 @@
     "fixed_day": 10,
     "liturgical_color": "red",
     "description": "Archbishop of Canterbury, Martyr",
-    "description_year": "1645"
+    "description_year": "1645",
+    "post_slug": "celebration-william-laud"
   },
   {
     "celebration_type": "lesser_feast",
@@ -24,7 +26,8 @@
     "fixed_day": 13,
     "liturgical_color": "white",
     "description": "Bishop and Teacher of the Faith",
-    "description_year": "367"
+    "description_year": "367",
+    "post_slug": "celebration-hilary-of-poitiers"
   },
   {
     "celebration_type": "lesser_feast",
@@ -33,7 +36,8 @@
     "fixed_day": 14,
     "liturgical_color": "white",
     "description": "Missionary to Strathclyde and Cumbria",
-    "description_year": "603"
+    "description_year": "603",
+    "post_slug": "celebration-kentigern"
   },
   {
     "celebration_type": "lesser_feast",
@@ -42,7 +46,8 @@
     "fixed_day": 17,
     "liturgical_color": "white",
     "description": "Hermit in Egypt",
-    "description_year": "356"
+    "description_year": "356",
+    "post_slug": "celebration-anthony"
   },
   {
     "celebration_type": "lesser_feast",
@@ -51,7 +56,8 @@
     "fixed_day": 19,
     "liturgical_color": "white",
     "description": "Bishop of Worcester",
-    "description_year": "1095"
+    "description_year": "1095",
+    "post_slug": "celebration-wulfstan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -60,7 +66,8 @@
     "fixed_day": 20,
     "liturgical_color": "red",
     "description": "Bishop of Rome and Martyr",
-    "description_year": "250"
+    "description_year": "250",
+    "post_slug": "celebration-fabian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -69,7 +76,8 @@
     "fixed_day": 21,
     "liturgical_color": "red",
     "description": "Martyr at Rome",
-    "description_year": "304"
+    "description_year": "304",
+    "post_slug": "celebration-agnes"
   },
   {
     "celebration_type": "lesser_feast",
@@ -78,7 +86,8 @@
     "fixed_day": 22,
     "liturgical_color": "red",
     "description": "Deacon of Saragossa, Martyr",
-    "description_year": "304"
+    "description_year": "304",
+    "post_slug": "celebration-vincent"
   },
   {
     "celebration_type": "lesser_feast",
@@ -86,7 +95,8 @@
     "fixed_month": 1,
     "fixed_day": 26,
     "liturgical_color": "white",
-    "description": "Companions of Paul the Apostle"
+    "description": "Companions of Paul the Apostle",
+    "post_slug": "celebration-timothy-and-titus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -94,7 +104,8 @@
     "fixed_month": 1,
     "fixed_day": 27,
     "liturgical_color": "white",
-    "description": "Helpers of the Apostles"
+    "description": "Helpers of the Apostles",
+    "post_slug": "celebration-lydia"
   },
   {
     "celebration_type": "lesser_feast",
@@ -103,7 +114,8 @@
     "fixed_day": 28,
     "liturgical_color": "white",
     "description": "Friar, Priest, and Teacher of the Faith",
-    "description_year": "1274"
+    "description_year": "1274",
+    "post_slug": "celebration-thomas-aquinas"
   },
   {
     "celebration_type": "lesser_feast",
@@ -112,7 +124,8 @@
     "fixed_day": 29,
     "liturgical_color": "white",
     "description": "Bishop and Ecumenist",
-    "description_year": "1998"
+    "description_year": "1998",
+    "post_slug": "celebration-lesslie-newbigin"
   },
   {
     "celebration_type": "lesser_feast",
@@ -121,7 +134,8 @@
     "fixed_day": 30,
     "liturgical_color": "red",
     "description": "King and Martyr",
-    "description_year": "1649"
+    "description_year": "1649",
+    "post_slug": "celebration-charles"
   },
   {
     "celebration_type": "lesser_feast",
@@ -130,7 +144,8 @@
     "fixed_day": 31,
     "liturgical_color": "white",
     "description": "Priest and Renewer of Society",
-    "description_year": "1963"
+    "description_year": "1963",
+    "post_slug": "celebration-samuel-shoemaker"
   },
   {
     "celebration_type": "lesser_feast",
@@ -139,7 +154,8 @@
     "fixed_day": 1,
     "liturgical_color": "white",
     "description": "Abbess of Kildare",
-    "description_year": "523"
+    "description_year": "523",
+    "post_slug": "celebration-brigid"
   },
   {
     "celebration_type": "lesser_feast",
@@ -148,14 +164,16 @@
     "fixed_day": 3,
     "liturgical_color": "white",
     "description": "Bishop and Missionary to Denmark and Sweden",
-    "description_year": "865"
+    "description_year": "865",
+    "post_slug": "celebration-anskar"
   },
   {
     "celebration_type": "lesser_feast",
     "name": "Cornelius the Centurion",
     "fixed_month": 2,
     "fixed_day": 4,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-cornelius-the-centurion"
   },
   {
     "celebration_type": "lesser_feast",
@@ -163,7 +181,8 @@
     "fixed_month": 2,
     "fixed_day": 5,
     "liturgical_color": "red",
-    "description_year": "1597"
+    "description_year": "1597",
+    "post_slug": "celebration-martyrs-of-japan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -172,7 +191,8 @@
     "fixed_day": 10,
     "liturgical_color": "white",
     "description": "Abbess",
-    "description_year": "543"
+    "description_year": "543",
+    "post_slug": "celebration-scholastica"
   },
   {
     "celebration_type": "lesser_feast",
@@ -181,7 +201,8 @@
     "fixed_day": 13,
     "liturgical_color": "white",
     "description": "First African-American Priest",
-    "description_year": "1818"
+    "description_year": "1818",
+    "post_slug": "celebration-absalom-jones"
   },
   {
     "celebration_type": "lesser_feast",
@@ -190,7 +211,8 @@
     "fixed_day": 14,
     "liturgical_color": "white",
     "description": "Apostles to the Slavs",
-    "description_year": "869, 885"
+    "description_year": "869, 885",
+    "post_slug": "celebration-cyril-and-methodius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -199,7 +221,8 @@
     "fixed_day": 15,
     "liturgical_color": "white",
     "description": "Priest and Missionary",
-    "description_year": "1730"
+    "description_year": "1730",
+    "post_slug": "celebration-thomas-bray"
   },
   {
     "celebration_type": "lesser_feast",
@@ -208,7 +231,8 @@
     "fixed_day": 17,
     "liturgical_color": "red",
     "description": "Archbishop of Uganda and Martyr",
-    "description_year": "1977"
+    "description_year": "1977",
+    "post_slug": "celebration-janani-luwum"
   },
   {
     "celebration_type": "lesser_feast",
@@ -217,7 +241,8 @@
     "fixed_day": 18,
     "liturgical_color": "white",
     "description": "Reformer of the Church",
-    "description_year": "1546"
+    "description_year": "1546",
+    "post_slug": "celebration-martin-luther"
   },
   {
     "celebration_type": "lesser_feast",
@@ -226,7 +251,8 @@
     "fixed_day": 21,
     "liturgical_color": "white",
     "description": "Evangelist",
-    "description_year": "2018"
+    "description_year": "2018",
+    "post_slug": "celebration-william-billy-graham"
   },
   {
     "celebration_type": "lesser_feast",
@@ -235,7 +261,8 @@
     "fixed_day": 23,
     "liturgical_color": "red",
     "description": "Bishop of Smyrna, Martyr",
-    "description_year": "156"
+    "description_year": "156",
+    "post_slug": "celebration-polycarp"
   },
   {
     "celebration_type": "lesser_feast",
@@ -244,7 +271,8 @@
     "fixed_day": 27,
     "liturgical_color": "white",
     "description": "Priest and Poet",
-    "description_year": "1633"
+    "description_year": "1633",
+    "post_slug": "celebration-george-herbert"
   },
   {
     "celebration_type": "lesser_feast",
@@ -253,7 +281,8 @@
     "fixed_day": 28,
     "liturgical_color": "white",
     "description": "Monk and Teacher of the Faith",
-    "description_year": "453"
+    "description_year": "453",
+    "post_slug": "celebration-john-cassian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -262,7 +291,8 @@
     "fixed_day": 1,
     "liturgical_color": "white",
     "description": "Bishop and Apostle of Wales",
-    "description_year": "601"
+    "description_year": "601",
+    "post_slug": "celebration-david"
   },
   {
     "celebration_type": "lesser_feast",
@@ -271,7 +301,8 @@
     "fixed_day": 2,
     "liturgical_color": "white",
     "description": "Bishop of Lichfield and Missionary",
-    "description_year": "672"
+    "description_year": "672",
+    "post_slug": "celebration-chad"
   },
   {
     "celebration_type": "lesser_feast",
@@ -280,7 +311,8 @@
     "fixed_day": 3,
     "liturgical_color": "white",
     "description": "Priests and Reformers of the Church",
-    "description_year": "1791, 1788"
+    "description_year": "1791, 1788",
+    "post_slug": "celebration-john-and-charles-wesley"
   },
   {
     "celebration_type": "lesser_feast",
@@ -289,7 +321,8 @@
     "fixed_day": 7,
     "liturgical_color": "red",
     "description": "Martyrs at Carthage",
-    "description_year": "203"
+    "description_year": "203",
+    "post_slug": "celebration-perpetua-and-her-companions"
   },
   {
     "celebration_type": "lesser_feast",
@@ -298,7 +331,8 @@
     "fixed_day": 8,
     "liturgical_color": "white",
     "description": "Bishop and Missionary to the Angles",
-    "description_year": "647"
+    "description_year": "647",
+    "post_slug": "celebration-felix"
   },
   {
     "celebration_type": "lesser_feast",
@@ -307,7 +341,8 @@
     "fixed_day": 10,
     "liturgical_color": "white",
     "description": "First Primate of Canada",
-    "description_year": "1904"
+    "description_year": "1904",
+    "post_slug": "celebration-robert-machray"
   },
   {
     "celebration_type": "lesser_feast",
@@ -316,7 +351,8 @@
     "fixed_day": 12,
     "liturgical_color": "white",
     "description": "Bishop of Rome and Teacher of the Faith",
-    "description_year": "604"
+    "description_year": "604",
+    "post_slug": "celebration-gregory-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -325,7 +361,8 @@
     "fixed_day": 17,
     "liturgical_color": "white",
     "description": "Bishop and Apostle to the Irish",
-    "description_year": "461"
+    "description_year": "461",
+    "post_slug": "celebration-patrick"
   },
   {
     "celebration_type": "lesser_feast",
@@ -334,7 +371,8 @@
     "fixed_day": 18,
     "liturgical_color": "white",
     "description": "Bishop of Jerusalem and Teacher of the Faith",
-    "description_year": "386"
+    "description_year": "386",
+    "post_slug": "celebration-cyril"
   },
   {
     "celebration_type": "lesser_feast",
@@ -343,7 +381,8 @@
     "fixed_day": 20,
     "liturgical_color": "white",
     "description": "Bishop-Abbot of Lindisfarne and Missionary",
-    "description_year": "687"
+    "description_year": "687",
+    "post_slug": "celebration-cuthbert"
   },
   {
     "celebration_type": "lesser_feast",
@@ -352,7 +391,8 @@
     "fixed_day": 21,
     "liturgical_color": "red",
     "description": "Archbishop of Canterbury and Martyr",
-    "description_year": "1556"
+    "description_year": "1556",
+    "post_slug": "celebration-thomas-cranmer"
   },
   {
     "celebration_type": "lesser_feast",
@@ -361,7 +401,8 @@
     "fixed_day": 22,
     "liturgical_color": "white",
     "description": "Priest",
-    "description_year": "1879"
+    "description_year": "1879",
+    "post_slug": "celebration-james-dekoven"
   },
   {
     "celebration_type": "lesser_feast",
@@ -370,7 +411,8 @@
     "fixed_day": 23,
     "liturgical_color": "white",
     "description": "Missionary to Armenia",
-    "description_year": "333"
+    "description_year": "333",
+    "post_slug": "celebration-gregory-the-illuminator"
   },
   {
     "celebration_type": "lesser_feast",
@@ -379,7 +421,8 @@
     "fixed_day": 27,
     "liturgical_color": "white",
     "description": "Bishop and Missionary to the Philippines",
-    "description_year": "1929"
+    "description_year": "1929",
+    "post_slug": "celebration-charles-henry-brent"
   },
   {
     "celebration_type": "lesser_feast",
@@ -388,7 +431,8 @@
     "fixed_day": 29,
     "liturgical_color": "white",
     "description": "Priest and Reformer of the Church",
-    "description_year": "1866"
+    "description_year": "1866",
+    "post_slug": "celebration-john-keble"
   },
   {
     "celebration_type": "lesser_feast",
@@ -397,7 +441,8 @@
     "fixed_day": 31,
     "liturgical_color": "white",
     "description": "Priest and Poet",
-    "description_year": "1631"
+    "description_year": "1631",
+    "post_slug": "celebration-john-donne"
   },
   {
     "celebration_type": "lesser_feast",
@@ -406,7 +451,8 @@
     "fixed_day": 1,
     "liturgical_color": "white",
     "description": "Priest and Renewer of Society",
-    "description_year": "1872"
+    "description_year": "1872",
+    "post_slug": "celebration-frederick-denison-maurice"
   },
   {
     "celebration_type": "lesser_feast",
@@ -415,7 +461,8 @@
     "fixed_day": 2,
     "liturgical_color": "white",
     "description": "First Native Priest in Canada",
-    "description_year": "1850"
+    "description_year": "1850",
+    "post_slug": "celebration-henry-budd"
   },
   {
     "celebration_type": "lesser_feast",
@@ -424,7 +471,8 @@
     "fixed_day": 3,
     "liturgical_color": "white",
     "description": "Priest and Missionary",
-    "description_year": "1879"
+    "description_year": "1879",
+    "post_slug": "celebration-james-lloyd-breck"
   },
   {
     "celebration_type": "lesser_feast",
@@ -433,7 +481,8 @@
     "fixed_day": 4,
     "liturgical_color": "red",
     "description": "Renewer of Society",
-    "description_year": "1968"
+    "description_year": "1968",
+    "post_slug": "celebration-martin-luther-king"
   },
   {
     "celebration_type": "lesser_feast",
@@ -442,7 +491,8 @@
     "fixed_day": 7,
     "liturgical_color": "white",
     "description": "Bishop and Ecumenist",
-    "description_year": "1925"
+    "description_year": "1925",
+    "post_slug": "celebration-tikhon"
   },
   {
     "celebration_type": "lesser_feast",
@@ -451,7 +501,8 @@
     "fixed_day": 8,
     "liturgical_color": "white",
     "description": "Priest, Reformer, and Renewer",
-    "description_year": "1877"
+    "description_year": "1877",
+    "post_slug": "celebration-william-augustus-muhlenberg"
   },
   {
     "celebration_type": "lesser_feast",
@@ -460,7 +511,8 @@
     "fixed_day": 10,
     "liturgical_color": "white",
     "description": "Priest and Teacher of the Faith",
-    "description_year": "1761"
+    "description_year": "1761",
+    "post_slug": "celebration-william-law"
   },
   {
     "celebration_type": "lesser_feast",
@@ -469,7 +521,8 @@
     "fixed_day": 11,
     "liturgical_color": "white",
     "description": "Bishop and Missionary to New Zealand",
-    "description_year": "1878"
+    "description_year": "1878",
+    "post_slug": "celebration-george-augustus-selwyn"
   },
   {
     "celebration_type": "lesser_feast",
@@ -478,7 +531,8 @@
     "fixed_day": 19,
     "liturgical_color": "red",
     "description": "Archbishop of Canterbury and Martyr",
-    "description_year": "1012"
+    "description_year": "1012",
+    "post_slug": "celebration-alphege"
   },
   {
     "celebration_type": "lesser_feast",
@@ -487,7 +541,8 @@
     "fixed_day": 21,
     "liturgical_color": "white",
     "description": "Archbishop of Canterbury and Teacher of the Faith",
-    "description_year": "1109"
+    "description_year": "1109",
+    "post_slug": "celebration-anselm"
   },
   {
     "celebration_type": "lesser_feast",
@@ -496,7 +551,8 @@
     "fixed_day": 23,
     "liturgical_color": "red",
     "description": "Martyr",
-    "description_year": "c. 304"
+    "description_year": "c. 304",
+    "post_slug": "celebration-george"
   },
   {
     "celebration_type": "lesser_feast",
@@ -505,7 +561,8 @@
     "fixed_day": 24,
     "liturgical_color": "white",
     "description": "Archbishop of Canterbury, Ecumenist, and Teacher",
-    "description_year": "1988"
+    "description_year": "1988",
+    "post_slug": "celebration-arthur-michael-ramsey"
   },
   {
     "celebration_type": "lesser_feast",
@@ -514,7 +571,8 @@
     "fixed_day": 29,
     "liturgical_color": "white",
     "description": "Reformer of the Church",
-    "description_year": "1380"
+    "description_year": "1380",
+    "post_slug": "celebration-catherine-of-siena"
   },
   {
     "celebration_type": "lesser_feast",
@@ -523,7 +581,8 @@
     "fixed_day": 2,
     "liturgical_color": "white",
     "description": "Bishop of Alexandria and Teacher of the Faith",
-    "description_year": "373"
+    "description_year": "373",
+    "post_slug": "celebration-athanasius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -532,7 +591,8 @@
     "fixed_day": 8,
     "liturgical_color": "white",
     "description": "Anchoress",
-    "description_year": "c. 1417"
+    "description_year": "c. 1417",
+    "post_slug": "celebration-julian-of-norwich"
   },
   {
     "celebration_type": "lesser_feast",
@@ -541,7 +601,8 @@
     "fixed_day": 9,
     "liturgical_color": "white",
     "description": "Bishop of Constantinople and Teacher",
-    "description_year": "389"
+    "description_year": "389",
+    "post_slug": "celebration-gregory-of-nazianzus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -550,7 +611,8 @@
     "fixed_day": 15,
     "liturgical_color": "white",
     "description": "Abbot and Organizer of Monasticism",
-    "description_year": "346"
+    "description_year": "346",
+    "post_slug": "celebration-pachomius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -558,7 +620,8 @@
     "fixed_month": 5,
     "fixed_day": 16,
     "liturgical_color": "red",
-    "description_year": "2011"
+    "description_year": "2011",
+    "post_slug": "celebration-the-martyrs-of-the-sudan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -567,7 +630,8 @@
     "fixed_day": 19,
     "liturgical_color": "white",
     "description": "Archbishop of Canterbury and Reformer",
-    "description_year": "988"
+    "description_year": "988",
+    "post_slug": "celebration-dunstan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -576,7 +640,8 @@
     "fixed_day": 20,
     "liturgical_color": "white",
     "description": "Deacon and Abbot of Tours",
-    "description_year": "804"
+    "description_year": "804",
+    "post_slug": "celebration-alcuin"
   },
   {
     "celebration_type": "lesser_feast",
@@ -585,7 +650,8 @@
     "fixed_day": 21,
     "liturgical_color": "white",
     "description": "Mother of Constantine",
-    "description_year": "330"
+    "description_year": "330",
+    "post_slug": "celebration-helena"
   },
   {
     "celebration_type": "lesser_feast",
@@ -594,7 +660,8 @@
     "fixed_day": 24,
     "liturgical_color": "white",
     "description": "First Missionary Bishop in the US",
-    "description_year": "1870"
+    "description_year": "1870",
+    "post_slug": "celebration-jackson-kemper"
   },
   {
     "celebration_type": "lesser_feast",
@@ -603,7 +670,8 @@
     "fixed_day": 25,
     "liturgical_color": "white",
     "description": "Priest and Monk, Teacher",
-    "description_year": "735"
+    "description_year": "735",
+    "post_slug": "celebration-bede-the-venerable"
   },
   {
     "celebration_type": "lesser_feast",
@@ -612,7 +680,8 @@
     "fixed_day": 26,
     "liturgical_color": "white",
     "description": "First Archbishop of Canterbury and Missionary",
-    "description_year": "605"
+    "description_year": "605",
+    "post_slug": "celebration-augustine-of-canterbury"
   },
   {
     "celebration_type": "lesser_feast",
@@ -621,7 +690,8 @@
     "fixed_day": 27,
     "liturgical_color": "white",
     "description": "Reformer of the Church",
-    "description_year": "1564"
+    "description_year": "1564",
+    "post_slug": "celebration-john-calvin"
   },
   {
     "celebration_type": "lesser_feast",
@@ -630,7 +700,8 @@
     "fixed_day": 30,
     "liturgical_color": "white",
     "description": "Renewer of Society",
-    "description_year": "1906"
+    "description_year": "1906",
+    "post_slug": "celebration-josephine-butler"
   },
   {
     "celebration_type": "lesser_feast",
@@ -639,7 +710,8 @@
     "fixed_day": 1,
     "liturgical_color": "red",
     "description": "Teacher of the Faith and Martyr at Rome",
-    "description_year": "c. 165"
+    "description_year": "c. 165",
+    "post_slug": "celebration-justin"
   },
   {
     "celebration_type": "lesser_feast",
@@ -648,7 +720,8 @@
     "fixed_day": 2,
     "liturgical_color": "red",
     "description": "Martyrs at Lyons",
-    "description_year": "177"
+    "description_year": "177",
+    "post_slug": "celebration-blandina-and-her-companions"
   },
   {
     "celebration_type": "lesser_feast",
@@ -656,7 +729,8 @@
     "fixed_month": 6,
     "fixed_day": 3,
     "liturgical_color": "red",
-    "description_year": "1886, 1977"
+    "description_year": "1886, 1977",
+    "post_slug": "celebration-the-martyrs-of-uganda"
   },
   {
     "celebration_type": "lesser_feast",
@@ -665,7 +739,8 @@
     "fixed_day": 4,
     "liturgical_color": "white",
     "description": "Bishop of Rome, Ecumenist, and Reformer",
-    "description_year": "1963"
+    "description_year": "1963",
+    "post_slug": "celebration-john-xxiii"
   },
   {
     "celebration_type": "lesser_feast",
@@ -674,7 +749,8 @@
     "fixed_day": 5,
     "liturgical_color": "red",
     "description": "Archbishop of Mainz, Missionary and Martyr",
-    "description_year": "754"
+    "description_year": "754",
+    "post_slug": "celebration-boniface"
   },
   {
     "celebration_type": "lesser_feast",
@@ -683,7 +759,8 @@
     "fixed_day": 6,
     "liturgical_color": "white",
     "description": "Bishop and Missionary to Australia",
-    "description_year": "1853"
+    "description_year": "1853",
+    "post_slug": "celebration-william-grant-broughton"
   },
   {
     "celebration_type": "lesser_feast",
@@ -692,7 +769,8 @@
     "fixed_day": 8,
     "liturgical_color": "white",
     "description": "Bishop of Bath and Wells, Non-juror",
-    "description_year": "1711"
+    "description_year": "1711",
+    "post_slug": "celebration-thomas-ken"
   },
   {
     "celebration_type": "lesser_feast",
@@ -701,7 +779,8 @@
     "fixed_day": 9,
     "liturgical_color": "white",
     "description": "Abbot of Iona and Missionary to the Scots",
-    "description_year": "597"
+    "description_year": "597",
+    "post_slug": "celebration-columba"
   },
   {
     "celebration_type": "lesser_feast",
@@ -710,7 +789,8 @@
     "fixed_day": 10,
     "liturgical_color": "white",
     "description": "Deacon and Teacher of the Faith",
-    "description_year": "373"
+    "description_year": "373",
+    "post_slug": "celebration-ephrem-of-edessa"
   },
   {
     "celebration_type": "lesser_feast",
@@ -719,7 +799,8 @@
     "fixed_day": 14,
     "liturgical_color": "white",
     "description": "Bishop of Caesarea and Teacher",
-    "description_year": "379"
+    "description_year": "379",
+    "post_slug": "celebration-basil-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -728,7 +809,8 @@
     "fixed_day": 15,
     "liturgical_color": "white",
     "description": "Teacher of the Faith",
-    "description_year": "1941"
+    "description_year": "1941",
+    "post_slug": "celebration-evelyn-underhill"
   },
   {
     "celebration_type": "lesser_feast",
@@ -737,7 +819,8 @@
     "fixed_day": 18,
     "liturgical_color": "red",
     "description": "Catechist and Martyr in Rhodesia",
-    "description_year": "1896"
+    "description_year": "1896",
+    "post_slug": "celebration-bernard-mizeki"
   },
   {
     "celebration_type": "lesser_feast",
@@ -746,7 +829,8 @@
     "fixed_day": 19,
     "liturgical_color": "white",
     "description": "Evangelist and Teacher of the Faith",
-    "description_year": "1929"
+    "description_year": "1929",
+    "post_slug": "celebration-sundar-singh"
   },
   {
     "celebration_type": "lesser_feast",
@@ -755,7 +839,8 @@
     "fixed_day": 22,
     "liturgical_color": "red",
     "description": "First Martyr of Britain",
-    "description_year": "c. 250"
+    "description_year": "c. 250",
+    "post_slug": "celebration-alban"
   },
   {
     "celebration_type": "lesser_feast",
@@ -764,7 +849,8 @@
     "fixed_day": 27,
     "liturgical_color": "white",
     "description": "Bishop and Teacher of the Faith",
-    "description_year": "444"
+    "description_year": "444",
+    "post_slug": "celebration-cyril-of-alexandria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -773,7 +859,8 @@
     "fixed_day": 28,
     "liturgical_color": "white",
     "description": "Bishop of Lyons and Teacher of the Faith",
-    "description_year": "200"
+    "description_year": "200",
+    "post_slug": "celebration-irenaeus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -782,7 +869,8 @@
     "fixed_day": 11,
     "liturgical_color": "white",
     "description": "Abbot and Founder of the Benedictine Order",
-    "description_year": "c. 550"
+    "description_year": "c. 550",
+    "post_slug": "celebration-benedict-of-nursia"
   },
   {
     "celebration_type": "lesser_feast",
@@ -791,7 +879,8 @@
     "fixed_day": 12,
     "liturgical_color": "white",
     "description": "Archbishop of Uppsala and Ecumenist",
-    "description_year": "1931"
+    "description_year": "1931",
+    "post_slug": "celebration-nathan-soderblom"
   },
   {
     "celebration_type": "lesser_feast",
@@ -800,7 +889,8 @@
     "fixed_day": 14,
     "liturgical_color": "white",
     "description": "Friar, Bishop, and Teacher of the Faith",
-    "description_year": "1274"
+    "description_year": "1274",
+    "post_slug": "celebration-bonaventure"
   },
   {
     "celebration_type": "lesser_feast",
@@ -809,7 +899,8 @@
     "fixed_day": 15,
     "liturgical_color": "white",
     "description": "Patrons of the Church in Russia",
-    "description_year": "969, 1016"
+    "description_year": "969, 1016",
+    "post_slug": "celebration-olga-and-vladimir"
   },
   {
     "celebration_type": "lesser_feast",
@@ -818,7 +909,8 @@
     "fixed_day": 17,
     "liturgical_color": "white",
     "description": "Bishop of Pennsylvania and First Presiding Bishop of the Church in the USA",
-    "description_year": "1836"
+    "description_year": "1836",
+    "post_slug": "celebration-william-white"
   },
   {
     "celebration_type": "lesser_feast",
@@ -827,7 +919,8 @@
     "fixed_day": 18,
     "liturgical_color": "white",
     "description": "Nun and Teacher of the Faith",
-    "description_year": "379"
+    "description_year": "379",
+    "post_slug": "celebration-macrina"
   },
   {
     "celebration_type": "lesser_feast",
@@ -836,7 +929,8 @@
     "fixed_day": 19,
     "liturgical_color": "white",
     "description": "Bishop of Nyssa and Teacher of the Faith",
-    "description_year": "396"
+    "description_year": "396",
+    "post_slug": "celebration-gregory-of-nyssa"
   },
   {
     "celebration_type": "lesser_feast",
@@ -845,7 +939,8 @@
     "fixed_day": 20,
     "liturgical_color": "red",
     "description": "Martyr",
-    "description_year": "4th c."
+    "description_year": "4th c.",
+    "post_slug": "celebration-margaret-of-antioch"
   },
   {
     "celebration_type": "lesser_feast",
@@ -854,14 +949,16 @@
     "fixed_day": 24,
     "liturgical_color": "white",
     "description": "Priest and Teacher of the Faith",
-    "description_year": "1471"
+    "description_year": "1471",
+    "post_slug": "celebration-thomas-a-kempis"
   },
   {
     "celebration_type": "lesser_feast",
     "name": "The Parents of the Virgin Mary",
     "fixed_month": 7,
     "fixed_day": 26,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-the-parents-of-the-virgin-mary"
   },
   {
     "celebration_type": "lesser_feast",
@@ -870,7 +967,8 @@
     "fixed_day": 27,
     "liturgical_color": "white",
     "description": "Priest and Ecumenist",
-    "description_year": "1909"
+    "description_year": "1909",
+    "post_slug": "celebration-william-reed-huntington"
   },
   {
     "celebration_type": "lesser_feast",
@@ -878,7 +976,8 @@
     "fixed_month": 7,
     "fixed_day": 29,
     "liturgical_color": "white",
-    "description": "Companions of our Lord"
+    "description": "Companions of our Lord",
+    "post_slug": "celebration-lazarus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -887,14 +986,16 @@
     "fixed_day": 30,
     "liturgical_color": "white",
     "description": "Renewer of Society",
-    "description_year": "1833"
+    "description_year": "1833",
+    "post_slug": "celebration-william-wilberforce"
   },
   {
     "celebration_type": "lesser_feast",
     "name": "Joseph of Arimathea",
     "fixed_month": 8,
     "fixed_day": 1,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-joseph-of-arimathea"
   },
   {
     "celebration_type": "lesser_feast",
@@ -903,7 +1004,8 @@
     "fixed_day": 5,
     "liturgical_color": "red",
     "description": "King of Northumbria and Martyr",
-    "description_year": "642"
+    "description_year": "642",
+    "post_slug": "celebration-oswald"
   },
   {
     "celebration_type": "lesser_feast",
@@ -912,7 +1014,8 @@
     "fixed_day": 7,
     "liturgical_color": "white",
     "description": "Priest and Reformer of the Church",
-    "description_year": "1866"
+    "description_year": "1866",
+    "post_slug": "celebration-john-mason-neale"
   },
   {
     "celebration_type": "lesser_feast",
@@ -921,7 +1024,8 @@
     "fixed_day": 8,
     "liturgical_color": "white",
     "description": "Priest and Friar",
-    "description_year": "1221"
+    "description_year": "1221",
+    "post_slug": "celebration-dominic"
   },
   {
     "celebration_type": "lesser_feast",
@@ -930,7 +1034,8 @@
     "fixed_day": 9,
     "liturgical_color": "white",
     "description": "Founder of the Mothers' Union and Renewer of Society",
-    "description_year": "1921"
+    "description_year": "1921",
+    "post_slug": "celebration-mary-sumner"
   },
   {
     "celebration_type": "lesser_feast",
@@ -939,7 +1044,8 @@
     "fixed_day": 10,
     "liturgical_color": "red",
     "description": "Deacon and Martyr at Rome",
-    "description_year": "258"
+    "description_year": "258",
+    "post_slug": "celebration-laurence"
   },
   {
     "celebration_type": "lesser_feast",
@@ -948,7 +1054,8 @@
     "fixed_day": 11,
     "liturgical_color": "white",
     "description": "Abbess of Assisi",
-    "description_year": "1253"
+    "description_year": "1253",
+    "post_slug": "celebration-clare"
   },
   {
     "celebration_type": "lesser_feast",
@@ -957,7 +1064,8 @@
     "fixed_day": 12,
     "liturgical_color": "white",
     "description": "First Bishop of Canada",
-    "description_year": "1787"
+    "description_year": "1787",
+    "post_slug": "celebration-charles-inglis"
   },
   {
     "celebration_type": "lesser_feast",
@@ -966,7 +1074,8 @@
     "fixed_day": 13,
     "liturgical_color": "white",
     "description": "Bishop of Down and Connor, Teacher of the Faith",
-    "description_year": "1667"
+    "description_year": "1667",
+    "post_slug": "celebration-jeremy-taylor"
   },
   {
     "celebration_type": "lesser_feast",
@@ -975,7 +1084,8 @@
     "fixed_day": 14,
     "liturgical_color": "white",
     "description": "Monk of Taizé and Ecumenist",
-    "description_year": "2005"
+    "description_year": "2005",
+    "post_slug": "celebration-roger-schutz"
   },
   {
     "celebration_type": "lesser_feast",
@@ -984,7 +1094,8 @@
     "fixed_day": 20,
     "liturgical_color": "white",
     "description": "Abbot of Clairvaux and Teacher of the Faith",
-    "description_year": "1153"
+    "description_year": "1153",
+    "post_slug": "celebration-bernard"
   },
   {
     "celebration_type": "lesser_feast",
@@ -993,7 +1104,8 @@
     "fixed_day": 21,
     "liturgical_color": "red",
     "description": "Martyr",
-    "description_year": "1965"
+    "description_year": "1965",
+    "post_slug": "celebration-jonathan-myrick-daniels"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1002,7 +1114,8 @@
     "fixed_day": 25,
     "liturgical_color": "white",
     "description": "King of France",
-    "description_year": "1270"
+    "description_year": "1270",
+    "post_slug": "celebration-louis"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1011,7 +1124,8 @@
     "fixed_day": 27,
     "liturgical_color": "white",
     "description": "Mother of Augustine of Hippo",
-    "description_year": "387"
+    "description_year": "387",
+    "post_slug": "celebration-monica"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1020,14 +1134,16 @@
     "fixed_day": 28,
     "liturgical_color": "white",
     "description": "Bishop of Hippo and Teacher of the Faith",
-    "description_year": "430"
+    "description_year": "430",
+    "post_slug": "celebration-augustine-of-hippo"
   },
   {
     "celebration_type": "lesser_feast",
     "name": "The Beheading of John the Baptist",
     "fixed_month": 8,
     "fixed_day": 29,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-the-beheading-of-john-the-baptist"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1036,7 +1152,8 @@
     "fixed_day": 30,
     "liturgical_color": "white",
     "description": "Bishop of Fond du Lac and Ecumenist",
-    "description_year": "1912"
+    "description_year": "1912",
+    "post_slug": "celebration-charles-chapman-grafton"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1045,7 +1162,8 @@
     "fixed_day": 31,
     "liturgical_color": "white",
     "description": "Abbot-Bishop of Lindisfarne, Missionary to Northumbria",
-    "description_year": "651"
+    "description_year": "651",
+    "post_slug": "celebration-aidan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1053,7 +1171,8 @@
     "fixed_month": 9,
     "fixed_day": 2,
     "liturgical_color": "red",
-    "description_year": "1901 and 1942"
+    "description_year": "1901 and 1942",
+    "post_slug": "celebration-the-martyrs-of-papua-new-guinea"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1062,7 +1181,8 @@
     "fixed_day": 4,
     "liturgical_color": "white",
     "description": "Bishop of Dorchester and Evangelist to Wessex",
-    "description_year": "650"
+    "description_year": "650",
+    "post_slug": "celebration-birinus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1071,7 +1191,8 @@
     "fixed_day": 5,
     "liturgical_color": "white",
     "description": "Renewer of Society",
-    "description_year": "1997"
+    "description_year": "1997",
+    "post_slug": "celebration-mother-teresa-of-calcutta"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1080,7 +1201,8 @@
     "fixed_day": 6,
     "liturgical_color": "white",
     "description": "Missionary and Founder of SAMS",
-    "description_year": "1851"
+    "description_year": "1851",
+    "post_slug": "celebration-alan-gardiner"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1089,7 +1211,8 @@
     "fixed_day": 7,
     "liturgical_color": "white",
     "description": "Renewer of Society and Founder of Sunday Schools",
-    "description_year": "1833"
+    "description_year": "1833",
+    "post_slug": "celebration-hannah-more"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1098,7 +1221,8 @@
     "fixed_day": 9,
     "liturgical_color": "red",
     "description": "Martyrs of Memphis",
-    "description_year": "1878"
+    "description_year": "1878",
+    "post_slug": "celebration-constance-and-her-companions"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1107,7 +1231,8 @@
     "fixed_day": 10,
     "liturgical_color": "white",
     "description": "Priest and Missionary to Liberia",
-    "description_year": "1898"
+    "description_year": "1898",
+    "post_slug": "celebration-alexander-crummell"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1116,7 +1241,8 @@
     "fixed_day": 12,
     "liturgical_color": "white",
     "description": "Bishop of New York and Reformer of the Church",
-    "description_year": "1830"
+    "description_year": "1830",
+    "post_slug": "celebration-john-henry-hobart"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1125,7 +1251,8 @@
     "fixed_day": 13,
     "liturgical_color": "white",
     "description": "Bishop of Constantinople and Teacher of the Faith",
-    "description_year": "407"
+    "description_year": "407",
+    "post_slug": "celebration-john-chrysostom"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1134,7 +1261,8 @@
     "fixed_day": 15,
     "liturgical_color": "red",
     "description": "Bishop of Carthage and Martyr",
-    "description_year": "258"
+    "description_year": "258",
+    "post_slug": "celebration-cyprian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1143,7 +1271,8 @@
     "fixed_day": 16,
     "liturgical_color": "white",
     "description": "Bishop of Galloway and Missionary to the Picts",
-    "description_year": "432"
+    "description_year": "432",
+    "post_slug": "celebration-ninian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1152,7 +1281,8 @@
     "fixed_day": 17,
     "liturgical_color": "white",
     "description": "Priest and Teacher of the Faith",
-    "description_year": "1882"
+    "description_year": "1882",
+    "post_slug": "celebration-edward-bouverie-pusey"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1161,7 +1291,8 @@
     "fixed_day": 19,
     "liturgical_color": "white",
     "description": "Archbishop of Canterbury",
-    "description_year": "690"
+    "description_year": "690",
+    "post_slug": "celebration-theodore-of-tarsus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1170,7 +1301,8 @@
     "fixed_day": 20,
     "liturgical_color": "red",
     "description": "Bishop of Melanesia, and his Companions, Martyrs",
-    "description_year": "1871"
+    "description_year": "1871",
+    "post_slug": "celebration-john-coleridge-patteson"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1179,7 +1311,8 @@
     "fixed_day": 25,
     "liturgical_color": "white",
     "description": "Monk and Reformer of the Church in Russia",
-    "description_year": "1392"
+    "description_year": "1392",
+    "post_slug": "celebration-sergius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1188,7 +1321,8 @@
     "fixed_day": 26,
     "liturgical_color": "white",
     "description": "Bishop of Winchester and Teacher of the Faith",
-    "description_year": "1626"
+    "description_year": "1626",
+    "post_slug": "celebration-lancelot-andrewes"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1197,7 +1331,8 @@
     "fixed_day": 27,
     "liturgical_color": "white",
     "description": "Evangelist and Founder of the Church Army",
-    "description_year": "1942"
+    "description_year": "1942",
+    "post_slug": "celebration-wilson-carlile"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1206,7 +1341,8 @@
     "fixed_day": 30,
     "liturgical_color": "white",
     "description": "Monk of Bethlehem and Translator of the Bible",
-    "description_year": "420"
+    "description_year": "420",
+    "post_slug": "celebration-jerome"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1215,7 +1351,8 @@
     "fixed_day": 1,
     "liturgical_color": "white",
     "description": "Bishop of Reims and Missionary to the Franks",
-    "description_year": "533"
+    "description_year": "533",
+    "post_slug": "celebration-remigius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1224,7 +1361,8 @@
     "fixed_day": 3,
     "liturgical_color": "white",
     "description": "Advocate for the Confessing Church, Bishop and Ecumenist",
-    "description_year": "1958"
+    "description_year": "1958",
+    "post_slug": "celebration-george-bell"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1233,7 +1371,8 @@
     "fixed_day": 4,
     "liturgical_color": "white",
     "description": "Friar and Deacon, Reformer of the Church",
-    "description_year": "1226"
+    "description_year": "1226",
+    "post_slug": "celebration-francis-of-assisi"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1242,7 +1381,8 @@
     "fixed_day": 6,
     "liturgical_color": "red",
     "description": "Priest, Translator of the Bible, and Martyr",
-    "description_year": "1536"
+    "description_year": "1536",
+    "post_slug": "celebration-william-tyndale"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1251,7 +1391,8 @@
     "fixed_day": 9,
     "liturgical_color": "white",
     "description": "Bishop of Lincoln",
-    "description_year": "1253"
+    "description_year": "1253",
+    "post_slug": "celebration-robert-grosseteste"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1260,7 +1401,8 @@
     "fixed_day": 10,
     "liturgical_color": "white",
     "description": "Bishop of York and Missionary",
-    "description_year": "644"
+    "description_year": "644",
+    "post_slug": "celebration-paulinus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1268,7 +1410,8 @@
     "fixed_month": 10,
     "fixed_day": 11,
     "liturgical_color": "white",
-    "description": "Deacon and Evangelist"
+    "description": "Deacon and Evangelist",
+    "post_slug": "celebration-philip"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1277,7 +1420,8 @@
     "fixed_day": 12,
     "liturgical_color": "white",
     "description": "Hymn-writer and Teacher of the Faith",
-    "description_year": "1895"
+    "description_year": "1895",
+    "post_slug": "celebration-cecil-frances-alexander"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1286,7 +1430,8 @@
     "fixed_day": 13,
     "liturgical_color": "white",
     "description": "King of England",
-    "description_year": "1066"
+    "description_year": "1066",
+    "post_slug": "celebration-edward-the-confessor"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1295,7 +1440,8 @@
     "fixed_day": 14,
     "liturgical_color": "white",
     "description": "Bishop of Shanghai",
-    "description_year": "1906"
+    "description_year": "1906",
+    "post_slug": "celebration-samuel-isaac-joseph-schereschewsky"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1304,7 +1450,8 @@
     "fixed_day": 15,
     "liturgical_color": "white",
     "description": "Nun and Reformer of the Church",
-    "description_year": "1582"
+    "description_year": "1582",
+    "post_slug": "celebration-teresa-of-avila"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1313,7 +1460,8 @@
     "fixed_day": 16,
     "liturgical_color": "red",
     "description": "Bishops and Martyrs",
-    "description_year": "1555"
+    "description_year": "1555",
+    "post_slug": "celebration-hugh-latimer-and-nicholas-ridley"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1322,7 +1470,8 @@
     "fixed_day": 17,
     "liturgical_color": "red",
     "description": "Bishop of Antioch and Martyr",
-    "description_year": "ca. 115"
+    "description_year": "ca. 115",
+    "post_slug": "celebration-ignatius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1331,7 +1480,8 @@
     "fixed_day": 19,
     "liturgical_color": "white",
     "description": "Priest and Missionary to India and Persia",
-    "description_year": "1812"
+    "description_year": "1812",
+    "post_slug": "celebration-henry-martyn"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1340,7 +1490,8 @@
     "fixed_day": 26,
     "liturgical_color": "white",
     "description": "King of the West Saxons and Reformer of the Church",
-    "description_year": "899"
+    "description_year": "899",
+    "post_slug": "celebration-alfred-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1349,14 +1500,16 @@
     "fixed_day": 29,
     "liturgical_color": "red",
     "description": "Bishop of Eastern Equatorial Africa, and his Companions, Martyrs",
-    "description_year": "1885"
+    "description_year": "1885",
+    "post_slug": "celebration-james-hannington-and-his-companions"
   },
   {
     "celebration_type": "lesser_feast",
     "name": "Commemoration of the Faithful Departed",
     "fixed_month": 11,
     "fixed_day": 2,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-commemoration-of-the-faithful-departed"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1365,7 +1518,8 @@
     "fixed_day": 3,
     "liturgical_color": "white",
     "description": "Priest and Teacher of the Faith",
-    "description_year": "1600"
+    "description_year": "1600",
+    "post_slug": "celebration-richard-hooker"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1373,7 +1527,8 @@
     "fixed_month": 11,
     "fixed_day": 5,
     "liturgical_color": "white",
-    "description": "Parents of John the Baptist"
+    "description": "Parents of John the Baptist",
+    "post_slug": "celebration-elizabeth-and-zechariah"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1382,7 +1537,8 @@
     "fixed_day": 6,
     "liturgical_color": "white",
     "description": "Archbishop of Canterbury and Teacher of the Faith",
-    "description_year": "1944"
+    "description_year": "1944",
+    "post_slug": "celebration-william-temple"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1391,7 +1547,8 @@
     "fixed_day": 7,
     "liturgical_color": "white",
     "description": "Archbishop of Utrecht and Missionary to Frisia",
-    "description_year": "739"
+    "description_year": "739",
+    "post_slug": "celebration-willibrord"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1400,7 +1557,8 @@
     "fixed_day": 10,
     "liturgical_color": "white",
     "description": "Bishop of Rome and Teacher of the Faith",
-    "description_year": "461"
+    "description_year": "461",
+    "post_slug": "celebration-leo-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1409,7 +1567,8 @@
     "fixed_day": 11,
     "liturgical_color": "white",
     "description": "Bishop of Tours",
-    "description_year": "397"
+    "description_year": "397",
+    "post_slug": "celebration-martin"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1418,7 +1577,8 @@
     "fixed_day": 13,
     "liturgical_color": "white",
     "description": "Priest and Evangelist",
-    "description_year": "1836"
+    "description_year": "1836",
+    "post_slug": "celebration-charles-simeon"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1427,7 +1587,8 @@
     "fixed_day": 14,
     "liturgical_color": "white",
     "description": "First Bishop in the United States",
-    "description_year": "1784"
+    "description_year": "1784",
+    "post_slug": "celebration-consecration-of-samuel-seabury"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1436,7 +1597,8 @@
     "fixed_day": 15,
     "liturgical_color": "white",
     "description": "Monk and Missionary to the Native Alaskans",
-    "description_year": "1837"
+    "description_year": "1837",
+    "post_slug": "celebration-herman"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1445,7 +1607,8 @@
     "fixed_day": 16,
     "liturgical_color": "white",
     "description": "Queen of Scotland, Reformer of the Church, and Renewer of Society",
-    "description_year": "1093"
+    "description_year": "1093",
+    "post_slug": "celebration-margaret"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1454,7 +1617,8 @@
     "fixed_day": 17,
     "liturgical_color": "white",
     "description": "Bishop of Lincoln and Renewer of Society",
-    "description_year": "1200"
+    "description_year": "1200",
+    "post_slug": "celebration-hugh"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1463,7 +1627,8 @@
     "fixed_day": 18,
     "liturgical_color": "white",
     "description": "Renewer of Society",
-    "description_year": "1231"
+    "description_year": "1231",
+    "post_slug": "celebration-elizabeth-of-hungary"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1472,7 +1637,8 @@
     "fixed_day": 19,
     "liturgical_color": "white",
     "description": "Abbess of Whitby",
-    "description_year": "680"
+    "description_year": "680",
+    "post_slug": "celebration-hilda"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1481,7 +1647,8 @@
     "fixed_day": 20,
     "liturgical_color": "red",
     "description": "King of East Anglia and Martyr",
-    "description_year": "870"
+    "description_year": "870",
+    "post_slug": "celebration-edmund"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1490,7 +1657,8 @@
     "fixed_day": 22,
     "liturgical_color": "red",
     "description": "Martyr at Rome",
-    "description_year": "c. 230"
+    "description_year": "c. 230",
+    "post_slug": "celebration-cecilia"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1499,7 +1667,8 @@
     "fixed_day": 23,
     "liturgical_color": "white",
     "description": "Bishop of Rome and Martyr",
-    "description_year": "c. 100"
+    "description_year": "c. 100",
+    "post_slug": "celebration-clement"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1508,7 +1677,8 @@
     "fixed_day": 25,
     "liturgical_color": "red",
     "description": "Martyr",
-    "description_year": "c. 305"
+    "description_year": "c. 305",
+    "post_slug": "celebration-catherine-of-alexandria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1517,7 +1687,8 @@
     "fixed_day": 29,
     "liturgical_color": "white",
     "description": "Teacher of the Faith",
-    "description_year": "1963"
+    "description_year": "1963",
+    "post_slug": "celebration-clive-staples-lewis"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1526,7 +1697,8 @@
     "fixed_day": 1,
     "liturgical_color": "white",
     "description": "Deacon and Founder of the Little Gidding Community",
-    "description_year": "1637"
+    "description_year": "1637",
+    "post_slug": "celebration-nicholas-ferrar"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1535,7 +1707,8 @@
     "fixed_day": 2,
     "liturgical_color": "white",
     "description": "Missionary Bishop in China and Japan",
-    "description_year": "1910"
+    "description_year": "1910",
+    "post_slug": "celebration-channing-moore-williams"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1544,7 +1717,8 @@
     "fixed_day": 4,
     "liturgical_color": "white",
     "description": "Priest and Teacher of the Faith",
-    "description_year": "760"
+    "description_year": "760",
+    "post_slug": "celebration-john-of-damascus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1553,7 +1727,8 @@
     "fixed_day": 5,
     "liturgical_color": "white",
     "description": "Priest and Teacher of the Faith",
-    "description_year": "210"
+    "description_year": "210",
+    "post_slug": "celebration-clement-of-alexandria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1562,7 +1737,8 @@
     "fixed_day": 6,
     "liturgical_color": "white",
     "description": "Bishop of Myra",
-    "description_year": "c. 326"
+    "description_year": "c. 326",
+    "post_slug": "celebration-nicholas"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1571,7 +1747,8 @@
     "fixed_day": 7,
     "liturgical_color": "white",
     "description": "Bishop of Milan and Teacher of the Faith",
-    "description_year": "397"
+    "description_year": "397",
+    "post_slug": "celebration-ambrose"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1580,7 +1757,8 @@
     "fixed_day": 8,
     "liturgical_color": "white",
     "description": "Pastor and Teacher of the Faith",
-    "description_year": "1691"
+    "description_year": "1691",
+    "post_slug": "celebration-richard-baxter"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1589,7 +1767,8 @@
     "fixed_day": 13,
     "liturgical_color": "red",
     "description": "Martyr at Syracuse",
-    "description_year": "304"
+    "description_year": "304",
+    "post_slug": "celebration-lucy"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1597,7 +1776,8 @@
     "fixed_month": 12,
     "fixed_day": 16,
     "liturgical_color": "white",
-    "description": "O Wisdom from on high"
+    "description": "O Wisdom from on high",
+    "post_slug": "celebration-o-sapientia"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1605,7 +1785,8 @@
     "fixed_month": 12,
     "fixed_day": 17,
     "liturgical_color": "white",
-    "description": "O Lord of Might"
+    "description": "O Lord of Might",
+    "post_slug": "celebration-o-adonai"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1613,7 +1794,8 @@
     "fixed_month": 12,
     "fixed_day": 18,
     "liturgical_color": "white",
-    "description": "O Root of Jesse"
+    "description": "O Root of Jesse",
+    "post_slug": "celebration-o-radix-jesse"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1621,7 +1803,8 @@
     "fixed_month": 12,
     "fixed_day": 19,
     "liturgical_color": "white",
-    "description": "O Key of David"
+    "description": "O Key of David",
+    "post_slug": "celebration-o-clavis-david"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1629,7 +1812,8 @@
     "fixed_month": 12,
     "fixed_day": 20,
     "liturgical_color": "white",
-    "description": "O Dayspring"
+    "description": "O Dayspring",
+    "post_slug": "celebration-o-oriens"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1637,7 +1821,8 @@
     "fixed_month": 12,
     "fixed_day": 21,
     "liturgical_color": "white",
-    "description": "O Desire of Nations"
+    "description": "O Desire of Nations",
+    "post_slug": "celebration-o-rex-gentium"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1645,7 +1830,8 @@
     "fixed_month": 12,
     "fixed_day": 22,
     "liturgical_color": "white",
-    "description": "O Come, Emmanuel"
+    "description": "O Come, Emmanuel",
+    "post_slug": "celebration-o-emmanuel"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1653,7 +1839,8 @@
     "fixed_month": 12,
     "fixed_day": 23,
     "liturgical_color": "white",
-    "description": "O Virgin of Virgins"
+    "description": "O Virgin of Virgins",
+    "post_slug": "celebration-o-virgo-virginum"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1662,7 +1849,8 @@
     "fixed_day": 29,
     "liturgical_color": "red",
     "description": "Archbishop of Canterbury, Martyr",
-    "description_year": "1170"
+    "description_year": "1170",
+    "post_slug": "celebration-thomas-becket"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1671,6 +1859,7 @@
     "fixed_day": 31,
     "liturgical_color": "white",
     "description": "Priest and Translator of the Bible into English",
-    "description_year": "1384"
+    "description_year": "1384",
+    "post_slug": "celebration-john-wyclif"
   }
 ]
