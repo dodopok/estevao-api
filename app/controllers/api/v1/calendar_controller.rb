@@ -87,6 +87,7 @@ module Api
 
       def format_day_response(info, date)
         {
+          post_slug: 'epiphany-and-epiphanytide-a-rookie-anglican-guide',
           date: info[:date],
           day_of_week: info[:day_of_week],
           liturgical_season: info[:liturgical_season],

@@ -497,7 +497,8 @@ class LiturgicalCalendar
       color: celebration.liturgical_color,
       description: celebration.description,
       description_year: celebration.description_year,
-      transferred: transferred?(celebration, date)
+      transferred: transferred?(celebration, date),
+      post_slug: 'saint-fabianus'
     }
   end
 
