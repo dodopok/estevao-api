@@ -4,209 +4,239 @@
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 1,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-the-circumcision-and-holy-name-of-our-lord-jesus-c"
   },
   {
     "name": "The Epiphany of Our Lord Jesus Christ",
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 6,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-the-epiphany-of-our-lord-jesus-christ"
   },
   {
     "name": "Confession of Peter the Apostle",
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 18,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-confession-of-peter-the-apostle"
   },
   {
     "name": "Conversion of Paul the Apostle",
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 25,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-conversion-of-paul-the-apostle"
   },
   {
     "name": "The Presentation of Our Lord Jesus Christ in the Temple",
     "celebration_type": "major_holy_day",
     "fixed_month": 2,
     "fixed_day": 2,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-the-presentation-of-our-lord-jesus-christ-in-the-t"
   },
   {
     "name": "Matthias the Apostle",
     "celebration_type": "major_holy_day",
     "fixed_month": 2,
     "fixed_day": 24,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-matthias-the-apostle"
   },
   {
     "name": "Joseph, Husband of the Virgin Mary and Guardian of Jesus",
     "celebration_type": "major_holy_day",
     "fixed_month": 3,
     "fixed_day": 19,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-joseph-husband-of-the-virgin-mary-and-guardian-of-"
   },
   {
     "name": "The Annunciation of our Lord Jesus Christ to the Virgin Mary",
     "celebration_type": "major_holy_day",
     "fixed_month": 3,
     "fixed_day": 25,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-the-annunciation-of-our-lord-jesus-christ-to-the-v"
   },
   {
     "name": "Mark the Evangelist",
     "celebration_type": "major_holy_day",
     "fixed_month": 4,
     "fixed_day": 25,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-mark-the-evangelist"
   },
   {
     "name": "Philip and James, Apostles",
     "celebration_type": "major_holy_day",
     "fixed_month": 5,
     "fixed_day": 1,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-philip-and-james-apostles"
   },
   {
     "name": "The Visitation of the Virgin Mary to Elizabeth and Zechariah",
     "celebration_type": "major_holy_day",
     "fixed_month": 5,
     "fixed_day": 31,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-the-visitation-of-the-virgin-mary-to-elizabeth-and"
   },
   {
     "name": "Barnabas the Apostle",
     "celebration_type": "major_holy_day",
     "fixed_month": 6,
     "fixed_day": 11,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-barnabas-the-apostle"
   },
   {
     "name": "The Nativity of John the Baptist",
     "celebration_type": "major_holy_day",
     "fixed_month": 6,
     "fixed_day": 24,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-the-nativity-of-john-the-baptist"
   },
   {
     "name": "Peter and Paul, Apostles",
     "celebration_type": "major_holy_day",
     "fixed_month": 6,
     "fixed_day": 29,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-peter-and-paul-apostles"
   },
   {
     "name": "Mary Magdalene",
     "celebration_type": "major_holy_day",
     "fixed_month": 7,
     "fixed_day": 22,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-mary-magdalene"
   },
   {
     "name": "James the Elder, Apostle",
     "celebration_type": "major_holy_day",
     "fixed_month": 7,
     "fixed_day": 25,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-james-the-elder-apostle"
   },
   {
     "name": "The Transfiguration of Our Lord Jesus Christ",
     "celebration_type": "major_holy_day",
     "fixed_month": 8,
     "fixed_day": 6,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-the-transfiguration-of-our-lord-jesus-christ"
   },
   {
     "name": "The Virgin Mary, Mother of Our Lord Jesus Christ",
     "celebration_type": "major_holy_day",
     "fixed_month": 8,
     "fixed_day": 15,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-the-virgin-mary-mother-of-our-lord-jesus-christ"
   },
   {
     "name": "Bartholomew the Apostle",
     "celebration_type": "major_holy_day",
     "fixed_month": 8,
     "fixed_day": 24,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-bartholomew-the-apostle"
   },
   {
     "name": "Holy Cross Day",
     "celebration_type": "major_holy_day",
     "fixed_month": 9,
     "fixed_day": 14,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-holy-cross-day"
   },
   {
     "name": "Matthew, Apostle and Evangelist",
     "celebration_type": "major_holy_day",
     "fixed_month": 9,
     "fixed_day": 21,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-matthew-apostle-and-evangelist"
   },
   {
     "name": "Holy Michael and All Angels",
     "celebration_type": "major_holy_day",
     "fixed_month": 9,
     "fixed_day": 29,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-holy-michael-and-all-angels"
   },
   {
     "name": "Luke the Evangelist and Companion of Paul",
     "celebration_type": "major_holy_day",
     "fixed_month": 10,
     "fixed_day": 18,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-luke-the-evangelist-and-companion-of-paul"
   },
   {
     "name": "James of Jerusalem, Bishop and Martyr",
     "celebration_type": "major_holy_day",
     "fixed_month": 10,
     "fixed_day": 23,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-james-of-jerusalem-bishop-and-martyr"
   },
   {
     "name": "Simon and Jude, Apostles",
     "celebration_type": "major_holy_day",
     "fixed_month": 10,
     "fixed_day": 28,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-simon-and-jude-apostles"
   },
   {
     "name": "Andrew the Apostle",
     "celebration_type": "major_holy_day",
     "fixed_month": 11,
     "fixed_day": 30,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-andrew-the-apostle"
   },
   {
     "name": "Thomas the Apostle",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 21,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-thomas-the-apostle"
   },
   {
     "name": "Stephen, Deacon and Martyr",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 26,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-stephen-deacon-and-martyr"
   },
   {
     "name": "John, Apostle and Evangelist",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 27,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-john-apostle-and-evangelist"
   },
   {
     "name": "The Holy Innocents",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 28,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-the-holy-innocents"
   }
 ]

@@ -4,209 +4,239 @@
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 1,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-a-circuncisao-e-o-santo-nome-de-nosso-senhor-jesus"
   },
   {
     "name": "A Epifania de Nosso Senhor Jesus Cristo",
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 6,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-a-epifania-de-nosso-senhor-jesus-cristo"
   },
   {
     "name": "Confissão do Apóstolo Pedro",
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 18,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-confissao-do-apostolo-pedro"
   },
   {
     "name": "Conversão do Apóstolo Paulo",
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 25,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-conversao-do-apostolo-paulo"
   },
   {
     "name": "A Apresentação de Nosso Senhor Jesus Cristo no Templo",
     "celebration_type": "major_holy_day",
     "fixed_month": 2,
     "fixed_day": 2,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-a-apresentacao-de-nosso-senhor-jesus-cristo-no-tem"
   },
   {
     "name": "Matias, o Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 2,
     "fixed_day": 24,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-matias-o-apostolo"
   },
   {
     "name": "José, Esposo da Virgem Maria e Guardião de Jesus",
     "celebration_type": "major_holy_day",
     "fixed_month": 3,
     "fixed_day": 19,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-jose-esposo-da-virgem-maria-e-guardiao-de-jesus"
   },
   {
     "name": "A Anunciação de nosso Senhor Jesus Cristo à Virgem Maria",
     "celebration_type": "major_holy_day",
     "fixed_month": 3,
     "fixed_day": 25,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-a-anunciacao-de-nosso-senhor-jesus-cristo-a-virgem"
   },
   {
     "name": "Marcos, o Evangelista",
     "celebration_type": "major_holy_day",
     "fixed_month": 4,
     "fixed_day": 25,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-marcos-o-evangelista"
   },
   {
     "name": "Filipe e Tiago, Apóstolos",
     "celebration_type": "major_holy_day",
     "fixed_month": 5,
     "fixed_day": 1,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-filipe-e-tiago-apostolos"
   },
   {
     "name": "A Visitação da Virgem Maria a Isabel e Zacarias",
     "celebration_type": "major_holy_day",
     "fixed_month": 5,
     "fixed_day": 31,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-a-visitacao-da-virgem-maria-a-isabel-e-zacarias"
   },
   {
     "name": "Barnabé, o Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 6,
     "fixed_day": 11,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-barnabe-o-apostolo"
   },
   {
     "name": "O Nascimento de João Batista",
     "celebration_type": "major_holy_day",
     "fixed_month": 6,
     "fixed_day": 24,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-o-nascimento-de-joao-batista"
   },
   {
     "name": "Pedro e Paulo, Apóstolos",
     "celebration_type": "major_holy_day",
     "fixed_month": 6,
     "fixed_day": 29,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-pedro-e-paulo-apostolos"
   },
   {
     "name": "Maria Madalena",
     "celebration_type": "major_holy_day",
     "fixed_month": 7,
     "fixed_day": 22,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-maria-madalena"
   },
   {
     "name": "Tiago, o Maior, Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 7,
     "fixed_day": 25,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-tiago-o-maior-apostolo"
   },
   {
     "name": "A Transfiguração de Nosso Senhor Jesus Cristo",
     "celebration_type": "major_holy_day",
     "fixed_month": 8,
     "fixed_day": 6,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-a-transfiguracao-de-nosso-senhor-jesus-cristo"
   },
   {
     "name": "A Virgem Maria, Mãe de Nosso Senhor Jesus Cristo",
     "celebration_type": "major_holy_day",
     "fixed_month": 8,
     "fixed_day": 15,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-a-virgem-maria-mae-de-nosso-senhor-jesus-cristo"
   },
   {
     "name": "Bartolomeu, o Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 8,
     "fixed_day": 24,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-bartolomeu-o-apostolo"
   },
   {
     "name": "Dia da Santa Cruz",
     "celebration_type": "major_holy_day",
     "fixed_month": 9,
     "fixed_day": 14,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-dia-da-santa-cruz"
   },
   {
     "name": "Mateus, Apóstolo e Evangelista",
     "celebration_type": "major_holy_day",
     "fixed_month": 9,
     "fixed_day": 21,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-mateus-apostolo-e-evangelista"
   },
   {
     "name": "São Miguel e Todos os Anjos",
     "celebration_type": "major_holy_day",
     "fixed_month": 9,
     "fixed_day": 29,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-sao-miguel-e-todos-os-anjos"
   },
   {
     "name": "Lucas, o Evangelista e Companheiro de Paulo",
     "celebration_type": "major_holy_day",
     "fixed_month": 10,
     "fixed_day": 18,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-lucas-o-evangelista-e-companheiro-de-paulo"
   },
   {
     "name": "Tiago de Jerusalém, Bispo e Mártir",
     "celebration_type": "major_holy_day",
     "fixed_month": 10,
     "fixed_day": 23,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-tiago-de-jerusalem-bispo-e-martir"
   },
   {
     "name": "Simão e Judas, Apóstolos",
     "celebration_type": "major_holy_day",
     "fixed_month": 10,
     "fixed_day": 28,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-simao-e-judas-apostolos"
   },
   {
     "name": "André, o Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 11,
     "fixed_day": 30,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-andre-o-apostolo"
   },
   {
     "name": "Tomé, o Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 21,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-tome-o-apostolo"
   },
   {
     "name": "Estêvão, Diácono e Mártir",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 26,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-estevao-diacono-e-martir"
   },
   {
     "name": "João, Apóstolo e Evangelista",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 27,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "post_slug": "celebration-joao-apostolo-e-evangelista"
   },
   {
     "name": "Os Santos Inocentes",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 28,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "post_slug": "celebration-os-santos-inocentes"
   }
 ]
