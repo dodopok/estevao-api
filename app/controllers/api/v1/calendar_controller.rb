@@ -87,7 +87,7 @@ module Api
 
       def format_day_response(info, date)
         {
-          post_slug: 'epiphany-and-epiphanytide-a-rookie-anglican-guide',
+          season_post_slug: info[:season_post_slug],
           date: info[:date],
           day_of_week: info[:day_of_week],
           liturgical_season: info[:liturgical_season],
@@ -111,7 +111,8 @@ module Api
         LiturgicalSeason::SEASONS.map do |season|
           {
             nome: season,
-            cor_padrao: LiturgicalSeason.find_by(name: season)&.color
+            cor_padrao: LiturgicalSeason.find_by(name: season)&.color,
+            post_slug: Liturgical::SeasonDeterminator::SEASON_SLUGS[season]
           }
         end
       end

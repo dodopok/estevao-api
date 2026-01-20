@@ -7,7 +7,8 @@
     "calculation_rule": "easter_minus_6_days",
     "liturgical_color": "roxo",
     "can_be_transferred": false,
-    "description": "Segunda-feira da Semana Santa"
+    "description": "Segunda-feira da Semana Santa",
+    "post_slug": "celebration-holy-monday"
   },
   {
     "name": "Terça-feira Santa",
@@ -17,7 +18,8 @@
     "calculation_rule": "easter_minus_5_days",
     "liturgical_color": "roxo",
     "can_be_transferred": false,
-    "description": "Terça-feira da Semana Santa"
+    "description": "Terça-feira da Semana Santa",
+    "post_slug": "celebration-holy-tuesday"
   },
   {
     "name": "Quarta-feira Santa",
@@ -27,7 +29,8 @@
     "calculation_rule": "easter_minus_4_days",
     "liturgical_color": "roxo",
     "can_be_transferred": false,
-    "description": "Quarta-feira da Semana Santa"
+    "description": "Quarta-feira da Semana Santa",
+    "post_slug": "celebration-holy-wednesday"
   },
   {
     "name": "Sábado Santo",
@@ -37,6 +40,7 @@
     "calculation_rule": "easter_minus_1_day",
     "liturgical_color": "preto",
     "can_be_transferred": false,
-    "description": "Dia de silêncio e espera pela Ressurreição"
+    "description": "Dia de silêncio e espera pela Ressurreição",
+    "post_slug": "celebration-holy-saturday"
   }
 ]
