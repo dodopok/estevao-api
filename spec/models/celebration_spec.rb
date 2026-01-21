@@ -257,5 +257,69 @@ RSpec.describe Celebration, type: :model do
         expect(celebration.servant_phrase(celebration.name)).to eq("teus servos Perpétua e seus companheiros")
       end
     end
+
+    describe '#servant_form_en' do
+      it 'returns nil for events' do
+        celebration = build(:celebration, person_type: :event, gender: :neutral)
+        expect(celebration.servant_form_en).to be_nil
+      end
+
+      it 'returns "servant" for singular' do
+        celebration = build(:celebration, person_type: :singular, gender: :masculine)
+        expect(celebration.servant_form_en).to eq("servant")
+      end
+
+      it 'returns "servant" for singular feminine (no gender distinction in English)' do
+        celebration = build(:celebration, person_type: :singular, gender: :feminine)
+        expect(celebration.servant_form_en).to eq("servant")
+      end
+
+      it 'returns "servants" for plural masculine' do
+        celebration = build(:celebration, person_type: :plural, gender: :masculine)
+        expect(celebration.servant_form_en).to eq("servants")
+      end
+
+      it 'returns "servants" for plural feminine' do
+        celebration = build(:celebration, person_type: :plural, gender: :feminine)
+        expect(celebration.servant_form_en).to eq("servants")
+      end
+
+      it 'returns "servants" for plural mixed' do
+        celebration = build(:celebration, person_type: :plural, gender: :mixed)
+        expect(celebration.servant_form_en).to eq("servants")
+      end
+    end
+
+    describe '#servant_phrase_en' do
+      it 'returns nil for events' do
+        celebration = build(:celebration, name: "Baptism of the Lord", person_type: :event, gender: :neutral)
+        expect(celebration.servant_phrase_en(celebration.name)).to be_nil
+      end
+
+      it 'returns correct phrase for singular masculine' do
+        celebration = build(:celebration, name: "Polycarp", person_type: :singular, gender: :masculine)
+        expect(celebration.servant_phrase_en(celebration.name)).to eq("your servant Polycarp")
+      end
+
+      it 'returns correct phrase for singular feminine' do
+        celebration = build(:celebration, name: "Agnes", person_type: :singular, gender: :feminine)
+        expect(celebration.servant_phrase_en(celebration.name)).to eq("your servant Agnes")
+      end
+
+      it 'returns correct phrase for plural masculine' do
+        celebration = build(:celebration, name: "Timothy and Titus", person_type: :plural, gender: :masculine)
+        expect(celebration.servant_phrase_en(celebration.name)).to eq("your servants Timothy and Titus")
+      end
+
+      it 'returns correct phrase for plural feminine' do
+        celebration = build(:celebration, name: "Lydia, Dorcas, and Phoebe", person_type: :plural, gender: :feminine)
+        expect(celebration.servant_phrase_en(celebration.name)).to eq("your servants Lydia, Dorcas, and Phoebe")
+      end
+
+      it 'returns correct phrase for plural mixed' do
+        celebration = build(:celebration, name: "Perpetua and her companions", person_type: :plural, gender: :mixed)
+        expect(celebration.servant_phrase_en(celebration.name)).to eq("your servants Perpetua and her companions")
+      end
+    end
   end
 end

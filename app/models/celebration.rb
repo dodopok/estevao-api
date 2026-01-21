@@ -121,4 +121,19 @@ class Celebration < ApplicationRecord
 
     "#{possessive_pronoun} #{servant_form} #{name}"
   end
+
+  # English version: Returns "servant" or "servants" (no gender distinction in English)
+  def servant_form_en
+    return nil if event?
+
+    plural? ? "servants" : "servant"
+  end
+
+  # English version: Returns "your servant Name" or "your servants Names"
+  # Returns nil for events
+  def servant_phrase_en(name)
+    return nil if event?
+
+    "your #{servant_form_en} #{name}"
+  end
 end

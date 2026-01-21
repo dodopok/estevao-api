@@ -634,4 +634,172 @@ RSpec.describe CollectService do
       end
     end
   end
+
+  describe 'grammatical substitution in English common collects' do
+    let(:en_prayer_book) { create(:prayer_book, code: "loc_2019_en", language: "en") }
+
+    let!(:common_collect_en) do
+      create(:collect,
+        sunday_reference: "common_martyrs",
+        text: "Almighty God, you gave your servant N. boldness to confess the Name...",
+        prayer_book: en_prayer_book)
+    end
+
+    context 'with a singular saint' do
+      let!(:polycarp) do
+        Celebration.find_or_create_by!(
+          name: "Polycarp",
+          prayer_book: en_prayer_book
+        ) do |c|
+          c.celebration_type = :commemoration
+          c.rank = 50
+          c.movable = false
+          c.fixed_month = 2
+          c.fixed_day = 23
+          c.description = "Bishop of Smyrna and Martyr, 156"
+          c.person_type = :singular
+          c.gender = :masculine
+        end
+      end
+
+      it 'uses correct English form "your servant Polycarp"' do
+        service = described_class.new(Date.new(2025, 2, 23), prayer_book_code: "loc_2019_en")
+
+        # Mock calendar to return the celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: polycarp.id, name: polycarp.name, description: polycarp.description, type: :commemoration }
+        ])
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        expect(collects).to be_an(Array)
+
+        # Should substitute with correct English grammar
+        text = collects.first[:text]
+        expect(text).to include("your servant Polycarp")
+        expect(text).not_to include("N.")
+      end
+    end
+
+    context 'with a singular feminine saint' do
+      let!(:agnes) do
+        Celebration.find_or_create_by!(
+          name: "Agnes",
+          prayer_book: en_prayer_book
+        ) do |c|
+          c.celebration_type = :commemoration
+          c.rank = 50
+          c.movable = false
+          c.fixed_month = 1
+          c.fixed_day = 21
+          c.description = "Martyr at Rome, 304"
+          c.person_type = :singular
+          c.gender = :feminine
+        end
+      end
+
+      it 'uses correct English form "your servant Agnes" (no gender distinction)' do
+        service = described_class.new(Date.new(2025, 1, 21), prayer_book_code: "loc_2019_en")
+
+        # Mock calendar to return the celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: agnes.id, name: agnes.name, description: agnes.description, type: :commemoration }
+        ])
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        expect(collects).to be_an(Array)
+
+        # Should substitute with correct English grammar (no gender distinction)
+        text = collects.first[:text]
+        expect(text).to include("your servant Agnes")
+        expect(text).not_to include("N.")
+      end
+    end
+
+    context 'with plural saints' do
+      let!(:timothy_titus) do
+        Celebration.find_or_create_by!(
+          name: "Timothy and Titus",
+          prayer_book: en_prayer_book
+        ) do |c|
+          c.celebration_type = :commemoration
+          c.rank = 50
+          c.movable = false
+          c.fixed_month = 1
+          c.fixed_day = 26
+          c.description = "Companions of the Apostle Paul"
+          c.person_type = :plural
+          c.gender = :masculine
+        end
+      end
+
+      it 'uses correct English form "your servants Timothy and Titus"' do
+        service = described_class.new(Date.new(2025, 1, 26), prayer_book_code: "loc_2019_en")
+
+        # Mock calendar to return the celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: timothy_titus.id, name: timothy_titus.name, description: timothy_titus.description, type: :commemoration }
+        ])
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        expect(collects).to be_an(Array)
+
+        # Should substitute with correct plural form
+        text = collects.first[:text]
+        expect(text).to include("your servants Timothy and Titus")
+        expect(text).not_to include("your servant Timothy")
+        expect(text).not_to include("N.")
+      end
+    end
+
+    context 'with an event (not a person)' do
+      let!(:baptism) do
+        Celebration.find_or_create_by!(
+          name: "The Baptism of our Lord",
+          prayer_book: en_prayer_book
+        ) do |c|
+          c.celebration_type = :festival
+          c.rank = 15
+          c.movable = true
+          c.calculation_rule = "first_sunday_after_epiphany"
+          c.description = "First Sunday after Epiphany"
+          c.person_type = :event
+          c.gender = :neutral
+        end
+      end
+
+      it 'does not use common collect for events' do
+        service = described_class.new(Date.new(2025, 1, 12), prayer_book_code: "loc_2019_en")
+
+        # Mock calendar to return the celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: baptism.id, name: baptism.name, description: baptism.description, type: :festival }
+        ])
+
+        collects = service.find_collects
+
+        # Since it's an event and has no specific collect, should not use common collect
+        if collects.present?
+          collects.each do |collect|
+            # Should not contain the event name in a servant phrase
+            expect(collect[:text]).not_to include("your servant The Baptism")
+            expect(collect[:text]).not_to include("your servant Baptism")
+          end
+        end
+      end
+    end
+  end
 end

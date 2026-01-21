@@ -279,8 +279,10 @@ class CollectService
 
       # Se a coleta contém "N." e temos uma celebration que não é evento, fazer substituição gramatical
       if celebration && !celebration.event? && text.include?("N.")
+        # Detectar idioma do prayer book
+        language = prayer_book&.language || "pt-BR"
         # Substituir padrões gramaticais comuns
-        text = substitute_grammatical_patterns(text, celebration)
+        text = substitute_grammatical_patterns(text, celebration, language)
       end
 
       {
@@ -294,15 +296,20 @@ class CollectService
   end
 
   # Substitui padrões gramaticais na coleta usando informações da celebration
-  def substitute_grammatical_patterns(text, celebration)
+  def substitute_grammatical_patterns(text, celebration, language = "pt-BR")
     name = celebration.name
 
-    # Substituir padrões comuns de concordância
-    # Ex: "teu servo N." -> "tua serva Inês" ou "teus servos Timóteo e Tito"
-    text = text.gsub(/teu servo N\./, celebration.servant_phrase(name))
-    text = text.gsub(/tua serva N\./, celebration.servant_phrase(name))
-    text = text.gsub(/teus servos N\./, celebration.servant_phrase(name))
-    text = text.gsub(/tuas servas N\./, celebration.servant_phrase(name))
+    if language == "en"
+      # English patterns: "your servant N." -> "your servant Name" or "your servants Names"
+      text = text.gsub(/your servant N\./, celebration.servant_phrase_en(name))
+      text = text.gsub(/your servants N\./, celebration.servant_phrase_en(name))
+    else
+      # Portuguese patterns: "teu servo N." -> "tua serva Inês" ou "teus servos Timóteo e Tito"
+      text = text.gsub(/teu servo N\./, celebration.servant_phrase(name))
+      text = text.gsub(/tua serva N\./, celebration.servant_phrase(name))
+      text = text.gsub(/teus servos N\./, celebration.servant_phrase(name))
+      text = text.gsub(/tuas servas N\./, celebration.servant_phrase(name))
+    end
 
     # Caso genérico: apenas substituir N. pelo nome se nenhum padrão acima foi encontrado
     text = text.gsub("N.", name)
