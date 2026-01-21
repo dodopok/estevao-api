@@ -1,79 +1,618 @@
 [
-  { "name": "William Laud, Arcebispo de Cantuária, 1645", "fixed_month": 1, "fixed_day": 10, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "Hilário, Bispo de Poitiers, 367", "fixed_month": 1, "fixed_day": 13, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Antônio, Abade do Egito, 356", "fixed_month": 1, "fixed_day": 17, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Philips Brooks, Bispo de Massachusetts, 1893", "fixed_month": 1, "fixed_day": 23, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Timóteo e Tito, Companheiros de São Paulo Apóstolo", "fixed_month": 1, "fixed_day": 26, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "São João Crisóstomo, Bispo de Constantinopla, 407", "fixed_month": 1, "fixed_day": 27, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Tomás de Aquino, Presbítero e Frade, 1274", "fixed_month": 1, "fixed_day": 28, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Cornélio, o Centurião", "fixed_month": 2, "fixed_day": 4, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Os Mártires do Japão, 1597", "fixed_month": 2, "fixed_day": 5, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "Thomas Bray, Presbítero e Missionário, 1730", "fixed_month": 2, "fixed_day": 15, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Policarpo, Bispo e Mártir de Esmirna, 156", "fixed_month": 2, "fixed_day": 23, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "John e Charles Wesley, Presbíteros, 1791, 1788", "fixed_month": 3, "fixed_day": 3, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Gregório, Bispo de Nissa, 394", "fixed_month": 3, "fixed_day": 9, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Gregório Magno, Bispo de Roma, 604", "fixed_month": 3, "fixed_day": 12, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Patrício, Bispo e Missionário da Irlanda, 461", "fixed_month": 3, "fixed_day": 17, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Thomas Cranmer, Arcebispo de Cantuária e Mártir, 1556", "fixed_month": 3, "fixed_day": 21, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "Charles Henrique Brent, Bispo das Filipinas e de Nova Iorque Ocidental, 1929", "fixed_month": 3, "fixed_day": 27, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "John Keble, Presbítero, 1866", "fixed_month": 3, "fixed_day": 29, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Frederick Denison Maurice, Presbítero, 1872", "fixed_month": 4, "fixed_day": 1, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "William August Muhlenberg, Presbítero, 1877", "fixed_month": 4, "fixed_day": 8, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Anselmo, Arcebispo de Cantuária, 1109", "fixed_month": 4, "fixed_day": 21, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Atanásio, Bispo de Alexandria, 373", "fixed_month": 5, "fixed_day": 2, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Mônica, mãe de Agostinho de Hipona, 387", "fixed_month": 5, "fixed_day": 4, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Gregório Nazianzeno, Bispo de Constantinopla, 389", "fixed_month": 5, "fixed_day": 9, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Venerável Beda, Presbítero e Monge de Jarrow, 735", "fixed_month": 5, "fixed_day": 25, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Agostinho, Primeiro Arcebispo de Cantuária, 605", "fixed_month": 5, "fixed_day": 26, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Primeiro Culto da Igreja Episcopal do Brasil, 1890 e Justino, Mártir de Roma, 167", "fixed_month": 6, "fixed_day": 1, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "James Watson Morris", "fixed_month": 6, "fixed_day": 2, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Lucien Lee Kinsolving", "fixed_month": 6, "fixed_day": 3, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "William Cabell Brown", "fixed_month": 6, "fixed_day": 4, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "John Gaw Meem", "fixed_month": 6, "fixed_day": 5, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Américo Vespúcio Cabral", "fixed_month": 6, "fixed_day": 6, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Antonio Fraga", "fixed_month": 6, "fixed_day": 7, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Vicente Brande", "fixed_month": 6, "fixed_day": 8, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Columba, Abade de Iona, 597", "fixed_month": 6, "fixed_day": 9, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Basílio Magno, Bispo de Cesaréia, 379", "fixed_month": 6, "fixed_day": 14, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Bernardo Mizeki, Catequista e Mártir na Rodésia, 1896", "fixed_month": 6, "fixed_day": 18, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "Albano, Primeiro Mártir da Grã-Bretanha, 304", "fixed_month": 6, "fixed_day": 22, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "Irineu, Bispo de Lyon, 202 e Egmont Machado Krischke, 1971", "fixed_month": 6, "fixed_day": 28, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Bento de Núrsia, Abade de Montecassino, 540", "fixed_month": 7, "fixed_day": 11, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "William White, Bispo da Pensilvânia, 1835", "fixed_month": 7, "fixed_day": 17, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Thomas a Kempis, Presbítero, 1471", "fixed_month": 7, "fixed_day": 24, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Maria e Marta de Betânia", "fixed_month": 7, "fixed_day": 29, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "William Wilberforce, 1833", "fixed_month": 7, "fixed_day": 30, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "José de Arimatéia", "fixed_month": 7, "fixed_day": 31, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Jeremias Taylor, Bispo de Down, Connor e Dromore, 1667", "fixed_month": 8, "fixed_day": 13, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Bernardo, Abade de Clairvaux, 1153", "fixed_month": 8, "fixed_day": 20, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Agostinho, Bispo de Hipona, 430", "fixed_month": 8, "fixed_day": 28, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Athalício Theodoro Pithan, 1966", "fixed_month": 8, "fixed_day": 29, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Mártires de Nova Guiné, 1942", "fixed_month": 9, "fixed_day": 2, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "Natividade da Bem-aventurada Virgem Maria", "fixed_month": 9, "fixed_day": 8, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Cipriano, Bispo e Mártir de Cartago, 258", "fixed_month": 9, "fixed_day": 13, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "Teodoro de Tarso, Arcebispo de Cantuária, 690", "fixed_month": 9, "fixed_day": 19, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "John Coleridge Patteson e Companheiros, Mártires, 1871", "fixed_month": 9, "fixed_day": 20, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "Sérgio, Abade da SS. Trindade, Moscou, 1392", "fixed_month": 9, "fixed_day": 25, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Lancelot Andrewes, Bispo de Winchester, 1626", "fixed_month": 9, "fixed_day": 26, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Jerônimo, Presbítero e Monge em Belém, 420", "fixed_month": 9, "fixed_day": 30, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Francisco de Assis, Frade, 1226", "fixed_month": 10, "fixed_day": 4, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "William Tyndale, Presbítero, 1536", "fixed_month": 10, "fixed_day": 6, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Tereza de Ávila, Priora e Samuel Isaac José Schereschewsky, Bispo", "fixed_month": 10, "fixed_day": 15, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Inácio, Bispo de Antioquia e Mártir, 115", "fixed_month": 10, "fixed_day": 17, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "Henry Martyn, Presbítero e Missionário, 1812", "fixed_month": 10, "fixed_day": 19, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Dia da Reforma", "fixed_month": 10, "fixed_day": 31, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "Richard Hooker, Presbítero, 1600", "fixed_month": 11, "fixed_day": 3, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Todos os Santos e Mártires da Comunhão Anglicana", "fixed_month": 11, "fixed_day": 8, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Martinho Lutero, Reformador, nascido em 1483", "fixed_month": 11, "fixed_day": 11, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Carlos Simeon, Presbítero, 1836", "fixed_month": 11, "fixed_day": 12, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Sagração de Samuel Seabury, 1º Bispo dos Estados Unidos, 1784", "fixed_month": 11, "fixed_day": 14, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Hilda, Abadessa de Whitby, 680", "fixed_month": 11, "fixed_day": 18, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Clemente, Bispo de Roma, 100", "fixed_month": 11, "fixed_day": 23, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Channing Moore Williams, Bispo Missionário, 1910", "fixed_month": 12, "fixed_day": 2, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "João Damasceno, Presbítero, 760", "fixed_month": 12, "fixed_day": 4, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Clemente de Alexandria, Presbítero, 210", "fixed_month": 12, "fixed_day": 5, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Ambrósio, Bispo de Milão, 397", "fixed_month": 12, "fixed_day": 7, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "João da Cruz, Monge, 1591", "fixed_month": 12, "fixed_day": 14, "celebration_type": "commemoration", "liturgical_color": "white" },
-  { "name": "Thomas Becket, Arcebispo de Cantuária e Mártir, 1170", "fixed_month": 12, "fixed_day": 29, "celebration_type": "commemoration", "liturgical_color": "red" },
-  { "name": "John Wycliff, Precursor da Reforma, 1384", "fixed_month": 12, "fixed_day": 31, "celebration_type": "commemoration", "liturgical_color": "white" }
+  {
+    "name": "William Laud, Arcebispo de Cantuária, 1645",
+    "fixed_month": 1,
+    "fixed_day": 10,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-william-laud"
+  },
+  {
+    "name": "Hilário, Bispo de Poitiers, 367",
+    "fixed_month": 1,
+    "fixed_day": 13,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-hilary-of-poitiers"
+  },
+  {
+    "name": "Antônio, Abade do Egito, 356",
+    "fixed_month": 1,
+    "fixed_day": 17,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-anthony-of-egypt"
+  },
+  {
+    "name": "Philips Brooks, Bispo de Massachusetts, 1893",
+    "fixed_month": 1,
+    "fixed_day": 23,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-philips-brooks"
+  },
+  {
+    "name": "Timóteo e Tito, Companheiros de São Paulo Apóstolo",
+    "fixed_month": 1,
+    "fixed_day": 26,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-timothy-and-titus"
+  },
+  {
+    "name": "São João Crisóstomo, Bispo de Constantinopla, 407",
+    "fixed_month": 1,
+    "fixed_day": 27,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-john-chrysostom"
+  },
+  {
+    "name": "Tomás de Aquino, Presbítero e Frade, 1274",
+    "fixed_month": 1,
+    "fixed_day": 28,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-thomas-aquinas"
+  },
+  {
+    "name": "Cornélio, o Centurião",
+    "fixed_month": 2,
+    "fixed_day": 4,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-cornelius-the-centurion"
+  },
+  {
+    "name": "Os Mártires do Japão, 1597",
+    "fixed_month": 2,
+    "fixed_day": 5,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-martyrs-of-japan"
+  },
+  {
+    "name": "Thomas Bray, Presbítero e Missionário, 1730",
+    "fixed_month": 2,
+    "fixed_day": 15,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-thomas-bray"
+  },
+  {
+    "name": "Policarpo, Bispo e Mártir de Esmirna, 156",
+    "fixed_month": 2,
+    "fixed_day": 23,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-policarpus"
+  },
+  {
+    "name": "John e Charles Wesley, Presbíteros, 1791, 1788",
+    "fixed_month": 3,
+    "fixed_day": 3,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-john-and-charles-wesley"
+  },
+  {
+    "name": "Gregório, Bispo de Nissa, 394",
+    "fixed_month": 3,
+    "fixed_day": 9,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-gregory-of-nyssa"
+  },
+  {
+    "name": "Gregório Magno, Bispo de Roma, 604",
+    "fixed_month": 3,
+    "fixed_day": 12,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-gregory-the-great"
+  },
+  {
+    "name": "Patrício, Bispo e Missionário da Irlanda, 461",
+    "fixed_month": 3,
+    "fixed_day": 17,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-patrick"
+  },
+  {
+    "name": "Thomas Cranmer, Arcebispo de Cantuária e Mártir, 1556",
+    "fixed_month": 3,
+    "fixed_day": 21,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-thomas-cranmer"
+  },
+  {
+    "name": "Charles Henrique Brent, Bispo das Filipinas e de Nova Iorque Ocidental, 1929",
+    "fixed_month": 3,
+    "fixed_day": 27,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-charles-henry-brent"
+  },
+  {
+    "name": "John Keble, Presbítero, 1866",
+    "fixed_month": 3,
+    "fixed_day": 29,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-john-keble"
+  },
+  {
+    "name": "Frederick Denison Maurice, Presbítero, 1872",
+    "fixed_month": 4,
+    "fixed_day": 1,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-frederick-denison-maurice"
+  },
+  {
+    "name": "William August Muhlenberg, Presbítero, 1877",
+    "fixed_month": 4,
+    "fixed_day": 8,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-william-augustus-muhlenberg"
+  },
+  {
+    "name": "Anselmo, Arcebispo de Cantuária, 1109",
+    "fixed_month": 4,
+    "fixed_day": 21,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-anselm-of-canterbury"
+  },
+  {
+    "name": "Atanásio, Bispo de Alexandria, 373",
+    "fixed_month": 5,
+    "fixed_day": 2,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-athanasius-of-alexandria"
+  },
+  {
+    "name": "Mônica, mãe de Agostinho de Hipona, 387",
+    "fixed_month": 5,
+    "fixed_day": 4,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-monica"
+  },
+  {
+    "name": "Gregório Nazianzeno, Bispo de Constantinopla, 389",
+    "fixed_month": 5,
+    "fixed_day": 9,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-gregory-of-nazianzus"
+  },
+  {
+    "name": "Venerável Beda, Presbítero e Monge de Jarrow, 735",
+    "fixed_month": 5,
+    "fixed_day": 25,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-bede"
+  },
+  {
+    "name": "Agostinho, Primeiro Arcebispo de Cantuária, 605",
+    "fixed_month": 5,
+    "fixed_day": 26,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-augustine-of-canterbury"
+  },
+  {
+    "name": "Primeiro Culto da Igreja Episcopal do Brasil, 1890 e Justino, Mártir de Roma, 167",
+    "fixed_month": 6,
+    "fixed_day": 1,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-primeiro-culto-ieb"
+  },
+  {
+    "name": "James Watson Morris",
+    "fixed_month": 6,
+    "fixed_day": 2,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-james-watson-morris"
+  },
+  {
+    "name": "Lucien Lee Kinsolving",
+    "fixed_month": 6,
+    "fixed_day": 3,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-lucien-lee-kinsolving"
+  },
+  {
+    "name": "William Cabell Brown",
+    "fixed_month": 6,
+    "fixed_day": 4,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-william-cabell-brown"
+  },
+  {
+    "name": "John Gaw Meem",
+    "fixed_month": 6,
+    "fixed_day": 5,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-john-gaw-meem"
+  },
+  {
+    "name": "Américo Vespúcio Cabral",
+    "fixed_month": 6,
+    "fixed_day": 6,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-americo-vespucio-cabral"
+  },
+  {
+    "name": "Antonio Fraga",
+    "fixed_month": 6,
+    "fixed_day": 7,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-antonio-fraga"
+  },
+  {
+    "name": "Vicente Brande",
+    "fixed_month": 6,
+    "fixed_day": 8,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-vicente-brande"
+  },
+  {
+    "name": "Columba, Abade de Iona, 597",
+    "fixed_month": 6,
+    "fixed_day": 9,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-columba"
+  },
+  {
+    "name": "Basílio Magno, Bispo de Cesaréia, 379",
+    "fixed_month": 6,
+    "fixed_day": 14,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-basil-the-great"
+  },
+  {
+    "name": "Bernardo Mizeki, Catequista e Mártir na Rodésia, 1896",
+    "fixed_month": 6,
+    "fixed_day": 18,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-bernard-mizeki"
+  },
+  {
+    "name": "Albano, Primeiro Mártir da Grã-Bretanha, 304",
+    "fixed_month": 6,
+    "fixed_day": 22,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-alban"
+  },
+  {
+    "name": "Irineu, Bispo de Lyon, 202 e Egmont Machado Krischke, 1971",
+    "fixed_month": 6,
+    "fixed_day": 28,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-irenaeus-of-lyons"
+  },
+  {
+    "name": "Bento de Núrsia, Abade de Montecassino, 540",
+    "fixed_month": 7,
+    "fixed_day": 11,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-benedict-of-nursia"
+  },
+  {
+    "name": "William White, Bispo da Pensilvânia, 1835",
+    "fixed_month": 7,
+    "fixed_day": 17,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-william-white"
+  },
+  {
+    "name": "Thomas a Kempis, Presbítero, 1471",
+    "fixed_month": 7,
+    "fixed_day": 24,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-thomas-a-kempis"
+  },
+  {
+    "name": "Maria e Marta de Betânia",
+    "fixed_month": 7,
+    "fixed_day": 29,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-mary-and-martha"
+  },
+  {
+    "name": "William Wilberforce, 1833",
+    "fixed_month": 7,
+    "fixed_day": 30,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-william-wilberforce"
+  },
+  {
+    "name": "José de Arimatéia",
+    "fixed_month": 7,
+    "fixed_day": 31,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-joseph-of-arimathea"
+  },
+  {
+    "name": "Jeremias Taylor, Bispo de Down, Connor e Dromore, 1667",
+    "fixed_month": 8,
+    "fixed_day": 13,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-jeremy-taylor"
+  },
+  {
+    "name": "Bernardo, Abade de Clairvaux, 1153",
+    "fixed_month": 8,
+    "fixed_day": 20,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-bernard-of-clairvaux"
+  },
+  {
+    "name": "Agostinho, Bispo de Hipona, 430",
+    "fixed_month": 8,
+    "fixed_day": 28,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-augustine-of-hippo"
+  },
+  {
+    "name": "Athalício Theodoro Pithan, 1966",
+    "fixed_month": 8,
+    "fixed_day": 29,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-athalicio-theodoro-pithan"
+  },
+  {
+    "name": "Mártires de Nova Guiné, 1942",
+    "fixed_month": 9,
+    "fixed_day": 2,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-martyrs-of-papua-new-guinea"
+  },
+  {
+    "name": "Natividade da Bem-aventurada Virgem Maria",
+    "fixed_month": 9,
+    "fixed_day": 8,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-nativity-of-mary"
+  },
+  {
+    "name": "Cipriano, Bispo e Mártir de Cartago, 258",
+    "fixed_month": 9,
+    "fixed_day": 13,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-cyprian"
+  },
+  {
+    "name": "Teodoro de Tarso, Arcebispo de Cantuária, 690",
+    "fixed_month": 9,
+    "fixed_day": 19,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-theodore-of-tarsus"
+  },
+  {
+    "name": "John Coleridge Patteson e Companheiros, Mártires, 1871",
+    "fixed_month": 9,
+    "fixed_day": 20,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-john-coleridge-patteson"
+  },
+  {
+    "name": "Sérgio, Abade da SS. Trindade, Moscou, 1392",
+    "fixed_month": 9,
+    "fixed_day": 25,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-sergius"
+  },
+  {
+    "name": "Lancelot Andrewes, Bispo de Winchester, 1626",
+    "fixed_month": 9,
+    "fixed_day": 26,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-lancelot-andrewes"
+  },
+  {
+    "name": "Jerônimo, Presbítero e Monge em Belém, 420",
+    "fixed_month": 9,
+    "fixed_day": 30,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-jerome-of-betlehem"
+  },
+  {
+    "name": "Francisco de Assis, Frade, 1226",
+    "fixed_month": 10,
+    "fixed_day": 4,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-francis-of-assisi"
+  },
+  {
+    "name": "William Tyndale, Presbítero, 1536",
+    "fixed_month": 10,
+    "fixed_day": 6,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-william-tyndale"
+  },
+  {
+    "name": "Tereza de Ávila, Priora e Samuel Isaac José Schereschewsky, Bispo",
+    "fixed_month": 10,
+    "fixed_day": 15,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-teresa-of-avila"
+  },
+  {
+    "name": "Inácio, Bispo de Antioquia e Mártir, 115",
+    "fixed_month": 10,
+    "fixed_day": 17,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-inacius-of-antioch"
+  },
+  {
+    "name": "Henry Martyn, Presbítero e Missionário, 1812",
+    "fixed_month": 10,
+    "fixed_day": 19,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-henry-martyn"
+  },
+  {
+    "name": "Dia da Reforma",
+    "fixed_month": 10,
+    "fixed_day": 31,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-reformation"
+  },
+  {
+    "name": "Richard Hooker, Presbítero, 1600",
+    "fixed_month": 11,
+    "fixed_day": 3,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-richard-hooker"
+  },
+  {
+    "name": "Todos os Santos e Mártires da Comunhão Anglicana",
+    "fixed_month": 11,
+    "fixed_day": 8,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-all-anglican-saints"
+  },
+  {
+    "name": "Martinho Lutero, Reformador, nascido em 1483",
+    "fixed_month": 11,
+    "fixed_day": 11,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-martin-luther"
+  },
+  {
+    "name": "Carlos Simeon, Presbítero, 1836",
+    "fixed_month": 11,
+    "fixed_day": 12,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-charles-simeon"
+  },
+  {
+    "name": "Sagração de Samuel Seabury, 1º Bispo dos Estados Unidos, 1784",
+    "fixed_month": 11,
+    "fixed_day": 14,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-samuel-seabury-consecration"
+  },
+  {
+    "name": "Hilda, Abadessa de Whitby, 680",
+    "fixed_month": 11,
+    "fixed_day": 18,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-hilda-of-whitby"
+  },
+  {
+    "name": "Clemente, Bispo de Roma, 100",
+    "fixed_month": 11,
+    "fixed_day": 23,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-clement-of-rome"
+  },
+  {
+    "name": "Channing Moore Williams, Bispo Missionário, 1910",
+    "fixed_month": 12,
+    "fixed_day": 2,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-channing-moore-williams"
+  },
+  {
+    "name": "João Damasceno, Presbítero, 760",
+    "fixed_month": 12,
+    "fixed_day": 4,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-john-of-damascus"
+  },
+  {
+    "name": "Clemente de Alexandria, Presbítero, 210",
+    "fixed_month": 12,
+    "fixed_day": 5,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-clement-of-alexandria"
+  },
+  {
+    "name": "Ambrósio, Bispo de Milão, 397",
+    "fixed_month": 12,
+    "fixed_day": 7,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-ambrose"
+  },
+  {
+    "name": "João da Cruz, Monge, 1591",
+    "fixed_month": 12,
+    "fixed_day": 14,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-john-of-the-cross"
+  },
+  {
+    "name": "Thomas Becket, Arcebispo de Cantuária e Mártir, 1170",
+    "fixed_month": 12,
+    "fixed_day": 29,
+    "celebration_type": "commemoration",
+    "liturgical_color": "red",
+    "post_slug": "celebration-thomas-becket"
+  },
+  {
+    "name": "John Wycliff, Precursor da Reforma, 1384",
+    "fixed_month": 12,
+    "fixed_day": 31,
+    "celebration_type": "commemoration",
+    "liturgical_color": "white",
+    "post_slug": "celebration-john-wycliffe"
+  }
 ]

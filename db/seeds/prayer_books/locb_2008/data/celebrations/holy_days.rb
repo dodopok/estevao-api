@@ -26,7 +26,8 @@ other_feasts_of_our_lord = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Oitava do Natal"
+    description: "Oitava do Natal",
+    post_slug: "celebration-holy-name-circumcision"
   },
   {
     name: "Apresentação de Cristo no Templo",
@@ -38,7 +39,8 @@ other_feasts_of_our_lord = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Candelária - 40 dias após o Natal"
+    description: "Candelária - 40 dias após o Natal",
+    post_slug: "celebration-presentation"
   },
   {
     name: "Anunciação de Nosso Senhor",
@@ -54,7 +56,8 @@ other_feasts_of_our_lord = [
       conditions: [ "if_falls_in_holy_week_or_easter_week" ],
       transfer_to: "monday_after_second_easter_sunday"
     },
-    description: "Anunciação do Anjo Gabriel a Maria"
+    description: "Anunciação do Anjo Gabriel a Maria",
+    post_slug: "celebration-annunciation"
   },
   {
     name: "Visitação da Bem-Aventurada Virgem Maria",
@@ -66,7 +69,8 @@ other_feasts_of_our_lord = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Visita de Maria a Isabel"
+    description: "Visita de Maria a Isabel",
+    post_slug: "celebration-visitation"
   },
   {
     name: "São João Batista",
@@ -78,7 +82,8 @@ other_feasts_of_our_lord = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Natividade de João Batista"
+    description: "Natividade de João Batista",
+    post_slug: "celebration-nativity-of-john-the-baptist"
   },
   {
     name: "Transfiguração de nosso Senhor Jesus Cristo",
@@ -90,7 +95,8 @@ other_feasts_of_our_lord = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Transfiguração de Cristo no Monte Tabor"
+    description: "Transfiguração de Cristo no Monte Tabor",
+    post_slug: "celebration-transfiguration"
   },
   {
     name: "Dia da Santa Cruz",
@@ -102,7 +108,8 @@ other_feasts_of_our_lord = [
     movable: false,
     liturgical_color: "vermelho",
     can_be_transferred: false,
-    description: "Exaltação da Santa Cruz"
+    description: "Exaltação da Santa Cruz",
+    post_slug: "celebration-holy-cross"
   }
 ]
 
@@ -124,7 +131,8 @@ major_calendar_feasts = [
     movable: false,
     liturgical_color: "vermelho",
     can_be_transferred: false,
-    description: "Celebração coletiva dos Apóstolos"
+    description: "Celebração coletiva dos Apóstolos",
+    post_slug: "celebration-apostles"
   },
   # Evangelistas
   {
@@ -134,7 +142,8 @@ major_calendar_feasts = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Mateus, Marcos, Lucas e João"
+    description: "Mateus, Marcos, Lucas e João",
+    post_slug: "celebration-evangelists"
   },
   # Santos específicos do Calendário Maior
   {
@@ -147,7 +156,8 @@ major_calendar_feasts = [
     movable: false,
     liturgical_color: "vermelho",
     can_be_transferred: false,
-    description: "Diácono e mártir"
+    description: "Diácono e mártir",
+    post_slug: "celebration-stephen"
   },
   {
     name: "Santos Inocentes",
@@ -159,7 +169,8 @@ major_calendar_feasts = [
     movable: false,
     liturgical_color: "vermelho",
     can_be_transferred: false,
-    description: "Os Santos Inocentes, mártires"
+    description: "Os Santos Inocentes, mártires",
+    post_slug: "celebration-holy-innocents"
   },
   {
     name: "São José, esposo de Maria, mãe de nosso Senhor Jesus Cristo",
@@ -170,7 +181,8 @@ major_calendar_feasts = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Esposo de Maria"
+    description: "Esposo de Maria",
+    post_slug: "celebration-joseph-of-nazareth"
   },
   {
     name: "São Tiago de Jerusalém",
@@ -181,7 +193,8 @@ major_calendar_feasts = [
     movable: false,
     liturgical_color: "vermelho",
     can_be_transferred: false,
-    description: "Irmão de nosso Senhor Jesus Cristo, mártir, 62"
+    description: "Irmão de nosso Senhor Jesus Cristo, mártir, 62",
+    post_slug: "celebration-james-of-jerusalem"
   },
   {
     name: "Bem-aventurada Virgem Maria",
@@ -193,7 +206,8 @@ major_calendar_feasts = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Assunção de Maria"
+    description: "Assunção de Maria",
+    post_slug: "celebration-assumption-of-mary"
   },
   {
     name: "Maria, virgem mãe de nosso Senhor Jesus Cristo",
@@ -204,7 +218,8 @@ major_calendar_feasts = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Natividade de Maria"
+    description: "Natividade de Maria",
+    post_slug: "celebration-nativity-of-mary"
   },
   {
     name: "São Miguel e Todos os Anjos",
@@ -216,7 +231,8 @@ major_calendar_feasts = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Miguel e todos os Anjos"
+    description: "Miguel e todos os Anjos",
+    post_slug: "celebration-archangel-michael-and-all-angels"
   },
   {
     name: "Dia Nacional de Ação de Graças",
@@ -226,7 +242,8 @@ major_calendar_feasts = [
     calculation_rule: "fourth_thursday_of_november",
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Ação de Graças Nacional"
+    description: "Ação de Graças Nacional",
+    post_slug: "celebration-thanksgiving"
   }
 ]
 

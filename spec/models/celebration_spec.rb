@@ -38,6 +38,36 @@ RSpec.describe Celebration, type: :model do
         expect(celebration).to be_valid
       end
     end
+
+    context 'post_slug validation' do
+      it 'allows valid post_slug with lowercase, numbers, and hyphens' do
+        celebration = build(:celebration, post_slug: 'celebration-easter-2024')
+        expect(celebration).to be_valid
+      end
+
+      it 'allows nil post_slug' do
+        celebration = build(:celebration, post_slug: nil)
+        expect(celebration).to be_valid
+      end
+
+      it 'rejects post_slug with uppercase letters' do
+        celebration = build(:celebration, post_slug: 'Celebration-Easter')
+        expect(celebration).not_to be_valid
+        expect(celebration.errors[:post_slug]).to be_present
+      end
+
+      it 'rejects post_slug with spaces' do
+        celebration = build(:celebration, post_slug: 'celebration easter')
+        expect(celebration).not_to be_valid
+        expect(celebration.errors[:post_slug]).to be_present
+      end
+
+      it 'rejects post_slug with special characters' do
+        celebration = build(:celebration, post_slug: 'celebration_easter!')
+        expect(celebration).not_to be_valid
+        expect(celebration.errors[:post_slug]).to be_present
+      end
+    end
   end
 
   describe 'enums' do
