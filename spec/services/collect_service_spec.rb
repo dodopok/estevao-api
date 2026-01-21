@@ -643,12 +643,25 @@ RSpec.describe CollectService do
   end
 
   describe 'grammatical substitution in English common collects' do
-    let(:en_prayer_book) { create(:prayer_book, code: "loc_2019_en", language: "en") }
+    let(:en_prayer_book) do
+      PrayerBook.find_or_create_by!(code: "loc_2019_en") do |pb|
+        pb.name = "Book of Common Prayer 2019 (ACNA)"
+        pb.year = 2019
+        pb.language = "en"
+      end
+    end
 
     let!(:common_collect_en) do
       create(:collect,
         sunday_reference: "common_martyrs",
         text: "Almighty God, you gave your servant N. boldness to confess the Name...",
+        prayer_book: en_prayer_book)
+    end
+
+    let!(:common_saints_collect_en) do
+      create(:collect,
+        sunday_reference: "common_saints",
+        text: "Almighty God, you have surrounded us with a great cloud of witnesses: Grant that we, encouraged by the good example of your servant N., may persevere in running the race that is set before us, until at last, with him, we attain to your eternal joy; through Jesus Christ, the pioneer and perfecter of our faith, who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen.",
         prayer_book: en_prayer_book)
     end
 
@@ -662,7 +675,7 @@ RSpec.describe CollectService do
           c.rank = 50
           c.movable = false
           c.fixed_month = 2
-          c.fixed_day = 23
+          c.fixed_day = 24
           c.description = "Bishop of Smyrna and Martyr, 156"
           c.person_type = :singular
           c.gender = :masculine
@@ -670,14 +683,15 @@ RSpec.describe CollectService do
       end
 
       it 'uses correct English form "your servant Polycarp"' do
-        service = described_class.new(Date.new(2025, 2, 23), prayer_book_code: "loc_2019_en")
-
-        # Mock calendar to return the celebration
+        # Mock calendar to return only the test celebration
         calendar_mock = instance_double(LiturgicalCalendar)
-        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
         allow(calendar_mock).to receive(:celebrations_for_date).and_return([
           { id: polycarp.id, name: polycarp.name, description: polycarp.description, type: :commemoration }
         ])
+        allow(calendar_mock).to receive(:sunday_name).and_return(nil)
+        allow(calendar_mock).to receive(:proper_number).and_return(nil)
+
+        service = described_class.new(Date.new(2025, 2, 24), prayer_book_code: "loc_2019_en", calendar: calendar_mock)
 
         collects = service.find_collects
 
@@ -709,14 +723,15 @@ RSpec.describe CollectService do
       end
 
       it 'uses correct English form "your servant Agnes" (no gender distinction)' do
-        service = described_class.new(Date.new(2025, 1, 21), prayer_book_code: "loc_2019_en")
-
-        # Mock calendar to return the celebration
+        # Mock calendar to return only the test celebration
         calendar_mock = instance_double(LiturgicalCalendar)
-        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
         allow(calendar_mock).to receive(:celebrations_for_date).and_return([
           { id: agnes.id, name: agnes.name, description: agnes.description, type: :commemoration }
         ])
+        allow(calendar_mock).to receive(:sunday_name).and_return(nil)
+        allow(calendar_mock).to receive(:proper_number).and_return(nil)
+
+        service = described_class.new(Date.new(2025, 1, 21), prayer_book_code: "loc_2019_en", calendar: calendar_mock)
 
         collects = service.find_collects
 
@@ -740,7 +755,7 @@ RSpec.describe CollectService do
           c.rank = 50
           c.movable = false
           c.fixed_month = 1
-          c.fixed_day = 26
+          c.fixed_day = 27
           c.description = "Companions of the Apostle Paul"
           c.person_type = :plural
           c.gender = :masculine
@@ -748,14 +763,15 @@ RSpec.describe CollectService do
       end
 
       it 'uses correct English form "your servants Timothy and Titus"' do
-        service = described_class.new(Date.new(2025, 1, 26), prayer_book_code: "loc_2019_en")
-
-        # Mock calendar to return the celebration
+        # Mock calendar to return only the test celebration
         calendar_mock = instance_double(LiturgicalCalendar)
-        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
         allow(calendar_mock).to receive(:celebrations_for_date).and_return([
           { id: timothy_titus.id, name: timothy_titus.name, description: timothy_titus.description, type: :commemoration }
         ])
+        allow(calendar_mock).to receive(:sunday_name).and_return(nil)
+        allow(calendar_mock).to receive(:proper_number).and_return(nil)
+
+        service = described_class.new(Date.new(2025, 1, 27), prayer_book_code: "loc_2019_en", calendar: calendar_mock)
 
         collects = service.find_collects
 
