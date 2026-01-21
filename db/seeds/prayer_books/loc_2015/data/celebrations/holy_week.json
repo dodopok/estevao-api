@@ -1,5 +1,5 @@
 [
-{
+  {
     "name": "Segunda-feira Santa",
     "celebration_type": "major_holy_day",
     "rank": 25,
@@ -8,6 +8,8 @@
     "liturgical_color": "roxo",
     "can_be_transferred": false,
     "description": "Segunda-feira da Semana Santa",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-monday"
   },
   {
@@ -19,6 +21,8 @@
     "liturgical_color": "roxo",
     "can_be_transferred": false,
     "description": "Terça-feira da Semana Santa",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-tuesday"
   },
   {
@@ -30,6 +34,8 @@
     "liturgical_color": "roxo",
     "can_be_transferred": false,
     "description": "Quarta-feira da Semana Santa",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-wednesday"
   },
   {
@@ -41,6 +47,8 @@
     "liturgical_color": "preto",
     "can_be_transferred": false,
     "description": "Dia de silêncio e espera pela Ressurreição",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-saturday"
   }
 ]

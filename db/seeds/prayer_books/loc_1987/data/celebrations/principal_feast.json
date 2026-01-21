@@ -6,6 +6,8 @@
     "calculation_rule": "easter",
     "liturgical_color": "white",
     "rank": 10,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-easter"
   },
   {
@@ -15,6 +17,8 @@
     "calculation_rule": "ascension",
     "liturgical_color": "white",
     "rank": 10,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-ascension"
   },
   {
@@ -24,6 +28,8 @@
     "calculation_rule": "pentecost",
     "liturgical_color": "red",
     "rank": 10,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-pentecost"
   },
   {
@@ -33,6 +39,8 @@
     "calculation_rule": "trinity_sunday",
     "liturgical_color": "white",
     "rank": 10,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-trinity"
   },
   {
@@ -42,6 +50,8 @@
     "fixed_day": 1,
     "liturgical_color": "white",
     "rank": 10,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-all-saints"
   },
   {
@@ -51,6 +61,8 @@
     "fixed_day": 25,
     "liturgical_color": "white",
     "rank": 10,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-christmas"
   },
   {
@@ -60,6 +72,8 @@
     "fixed_day": 6,
     "liturgical_color": "white",
     "rank": 10,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-epiphany"
   },
   {
@@ -69,6 +83,8 @@
     "calculation_rule": "first_sunday_after_epiphany",
     "liturgical_color": "white",
     "rank": 10,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-baptism-of-christ"
   },
   {
@@ -78,6 +94,8 @@
     "calculation_rule": "sunday_before_advent",
     "liturgical_color": "white",
     "rank": 10,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-christ-the-king"
   }
 ]

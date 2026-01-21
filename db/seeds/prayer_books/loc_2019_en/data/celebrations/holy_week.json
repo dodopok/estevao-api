@@ -8,6 +8,8 @@
     "liturgical_color": "purple",
     "can_be_transferred": false,
     "description": "First day of Lent",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-ash-wednesday"
   },
   {
@@ -18,6 +20,8 @@
     "calculation_rule": "easter_minus_7_days",
     "liturgical_color": "red",
     "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-palm-sunday"
   },
   {
@@ -28,6 +32,8 @@
     "calculation_rule": "easter_minus_6_days",
     "liturgical_color": "purple",
     "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-monday"
   },
   {
@@ -38,6 +44,8 @@
     "calculation_rule": "easter_minus_5_days",
     "liturgical_color": "purple",
     "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-tuesday"
   },
   {
@@ -48,6 +56,8 @@
     "calculation_rule": "easter_minus_4_days",
     "liturgical_color": "purple",
     "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-wednesday"
   },
   {
@@ -58,6 +68,8 @@
     "calculation_rule": "easter_minus_3_days",
     "liturgical_color": "white",
     "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-maundy-thursday"
   },
   {
@@ -68,6 +80,8 @@
     "calculation_rule": "easter_minus_2_days",
     "liturgical_color": "red",
     "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-good-friday"
   },
   {
@@ -78,6 +92,8 @@
     "calculation_rule": "easter_minus_1_day",
     "liturgical_color": "white",
     "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-saturday"
   }
 ]

@@ -8,6 +8,21 @@ class Celebration < ApplicationRecord
     commemoration: 5          # Comemorações
   }, validate: true
 
+  # Enums para tipo de pessoa na celebração (usado para concordância gramatical em coletas)
+  enum :person_type, {
+    event: 0,         # Não é sobre pessoa(s), é um evento/data (ex: Batismo do Senhor)
+    singular: 1,      # Uma única pessoa (ex: Inês, Policarpo)
+    plural: 2         # Múltiplas pessoas (ex: Timóteo e Tito)
+  }, validate: true
+
+  # Enums para gênero (usado para concordância gramatical em coletas)
+  enum :gender, {
+    neutral: 0,       # Neutro (para eventos) ou não aplicável
+    masculine: 1,     # Masculino (ex: Policarpo, teu servo)
+    feminine: 2,      # Feminino (ex: Inês, tua serva)
+    mixed: 3          # Misto (quando são várias pessoas de gêneros diferentes)
+  }, validate: true
+
   # Validações
   validates :name, presence: true, uniqueness: { scope: :prayer_book_id, message: "já existe para este livro de oração" }
   validates :celebration_type, presence: true
@@ -60,5 +75,65 @@ class Celebration < ApplicationRecord
   # Método para obter a cor litúrgica
   def color
     liturgical_color
+  end
+
+  # Retorna o pronome possessivo correto para usar em coletas
+  # (ex: "teu servo", "tua serva", "teus servos", "tuas servas")
+  def possessive_pronoun
+    return nil if event?
+
+    case [ person_type.to_sym, gender.to_sym ]
+    when [ :singular, :masculine ]
+      "teu"
+    when [ :singular, :feminine ]
+      "tua"
+    when [ :plural, :masculine ], [ :plural, :mixed ]
+      "teus"
+    when [ :plural, :feminine ]
+      "tuas"
+    else
+      "teu" # fallback padrão
+    end
+  end
+
+  # Retorna a forma correta de "servo/serva/servos/servas"
+  def servant_form
+    return nil if event?
+
+    case [ person_type.to_sym, gender.to_sym ]
+    when [ :singular, :masculine ]
+      "servo"
+    when [ :singular, :feminine ]
+      "serva"
+    when [ :plural, :masculine ], [ :plural, :mixed ]
+      "servos"
+    when [ :plural, :feminine ]
+      "servas"
+    else
+      "servo" # fallback padrão
+    end
+  end
+
+  # Retorna a frase completa "teu servo N." ou equivalente
+  # Retorna nil se for um evento (não deve usar essa substituição)
+  def servant_phrase(name)
+    return nil if event?
+
+    "#{possessive_pronoun} #{servant_form} #{name}"
+  end
+
+  # English version: Returns "servant" or "servants" (no gender distinction in English)
+  def servant_form_en
+    return nil if event?
+
+    plural? ? "servants" : "servant"
+  end
+
+  # English version: Returns "your servant Name" or "your servants Names"
+  # Returns nil for events
+  def servant_phrase_en(name)
+    return nil if event?
+
+    "your #{servant_form_en} #{name}"
   end
 end

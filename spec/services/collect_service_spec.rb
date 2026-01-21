@@ -426,4 +426,403 @@ RSpec.describe CollectService do
       end
     end
   end
+
+  describe 'grammatical substitution in common collects' do
+    let!(:common_collect) do
+      create(:collect,
+        sunday_reference: "common_martyrs",
+        text: "Deus Todo-poderoso, que deste ao teu servo N., a ousadia de confessar...",
+        prayer_book: prayer_book)
+    end
+
+    let!(:common_saints_collect) do
+      create(:collect,
+        sunday_reference: "common_saints",
+        text: "Deus Todo-poderoso, que nos manténs em unidade com todos os teus santos, dá-nos graça para seguir o exemplo do teu servo N. e perseverar na corrida que nos está proposta, até que, por fim, alcancemos com ele a tua alegria eterna; por Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+        prayer_book: prayer_book)
+    end
+
+    context 'with a singular masculine saint' do
+      let!(:policarpo) do
+        Celebration.find_or_create_by!(
+          name: "Policarpo",
+          prayer_book: prayer_book
+        ) do |c|
+          c.celebration_type = :commemoration
+          c.rank = 50
+          c.movable = false
+          c.fixed_month = 2
+          c.fixed_day = 23
+          c.description = "Bispo de Esmirna e mártir, 156"
+          c.person_type = :singular
+          c.gender = :masculine
+        end
+      end
+
+      it 'uses correct grammatical form "teu servo Policarpo"' do
+        service = described_class.new(Date.new(2025, 2, 23))
+
+        # Mock calendar to return the celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: policarpo.id, name: policarpo.name, description: policarpo.description, type: :commemoration }
+        ])
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        expect(collects).to be_an(Array)
+
+        # Should substitute with correct grammar
+        text = collects.first[:text]
+        expect(text).to include("teu servo Policarpo")
+        expect(text).not_to include("N.")
+      end
+    end
+
+    context 'with a singular feminine saint' do
+      let!(:ines) do
+        Celebration.find_or_create_by!(
+          name: "Inês",
+          prayer_book: prayer_book
+        ) do |c|
+          c.celebration_type = :commemoration
+          c.rank = 50
+          c.movable = false
+          c.fixed_month = 1
+          c.fixed_day = 21
+          c.description = "Mártir em Roma, 304"
+          c.person_type = :singular
+          c.gender = :feminine
+        end
+      end
+
+      it 'uses correct grammatical form "tua serva Inês"' do
+        service = described_class.new(Date.new(2025, 1, 21))
+
+        # Mock calendar to return the celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: ines.id, name: ines.name, description: ines.description, type: :commemoration }
+        ])
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        expect(collects).to be_an(Array)
+
+        # Should substitute with correct grammar
+        text = collects.first[:text]
+        expect(text).to include("tua serva Inês")
+        expect(text).not_to include("teu servo")
+        expect(text).not_to include("N.")
+      end
+    end
+
+    context 'with plural masculine saints' do
+      let!(:timoteo_tito) do
+        Celebration.find_or_create_by!(
+          name: "Timóteo e Tito",
+          prayer_book: prayer_book
+        ) do |c|
+          c.celebration_type = :commemoration
+          c.rank = 50
+          c.movable = false
+          c.fixed_month = 1
+          c.fixed_day = 26
+          c.description = "Companheiros do apóstolo Paulo"
+          c.person_type = :plural
+          c.gender = :masculine
+        end
+      end
+
+      it 'uses correct grammatical form "teus servos Timóteo e Tito"' do
+        service = described_class.new(Date.new(2025, 1, 26))
+
+        # Mock calendar to return the celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: timoteo_tito.id, name: timoteo_tito.name, description: timoteo_tito.description, type: :commemoration }
+        ])
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        expect(collects).to be_an(Array)
+
+        # Should substitute with correct grammar
+        text = collects.first[:text]
+        expect(text).to include("teus servos Timóteo e Tito")
+        expect(text).not_to include("teu servo")
+        expect(text).not_to include("N.")
+      end
+    end
+
+    context 'with plural feminine saints' do
+      let!(:lidia) do
+        Celebration.find_or_create_by!(
+          name: "Lídia, Dorcas e Febe",
+          prayer_book: prayer_book
+        ) do |c|
+          c.celebration_type = :commemoration
+          c.rank = 50
+          c.movable = false
+          c.fixed_month = 1
+          c.fixed_day = 29
+          c.description = "Cooperadoras dos apóstolos"
+          c.person_type = :plural
+          c.gender = :feminine
+        end
+      end
+
+      it 'uses correct grammatical form "tuas servas Lídia, Dorcas e Febe"' do
+        service = described_class.new(Date.new(2025, 1, 29))
+
+        # Mock calendar to return the celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: lidia.id, name: lidia.name, description: lidia.description, type: :commemoration }
+        ])
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        expect(collects).to be_an(Array)
+
+        # Should substitute with correct grammar
+        text = collects.first[:text]
+        expect(text).to include("tuas servas Lídia, Dorcas e Febe")
+        expect(text).not_to include("teu servo")
+        expect(text).not_to include("N.")
+      end
+    end
+
+    context 'with an event (not a person)' do
+      let!(:batismo) do
+        Celebration.find_or_create_by!(
+          name: "Batismo do Senhor",
+          prayer_book: prayer_book
+        ) do |c|
+          c.celebration_type = :festival
+          c.rank = 15
+          c.movable = true
+          c.calculation_rule = "first_sunday_after_epiphany"
+          c.description = "Ou no 1º Domingo após a Epifania"
+          c.person_type = :event
+          c.gender = :neutral
+        end
+      end
+
+      it 'does not use common collect for events' do
+        service = described_class.new(Date.new(2025, 1, 12))
+
+        # Mock calendar to return the celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: batismo.id, name: batismo.name, description: batismo.description, type: :festival }
+        ])
+
+        collects = service.find_collects
+
+        # Since it's an event and has no specific collect, should not use common collect
+        # Should fall back to seasonal or sunday collect
+        if collects.present?
+          collects.each do |collect|
+            # Should not contain the event name in a servant phrase
+            expect(collect[:text]).not_to include("teu servo Batismo")
+            expect(collect[:text]).not_to include("tua serva Batismo")
+          end
+        end
+      end
+    end
+  end
+
+  describe 'grammatical substitution in English common collects' do
+    let(:en_prayer_book) do
+      PrayerBook.find_or_create_by!(code: "loc_2019_en") do |pb|
+        pb.name = "Book of Common Prayer 2019 (ACNA)"
+        pb.year = 2019
+        pb.language = "en"
+      end
+    end
+
+    let!(:common_collect_en) do
+      create(:collect,
+        sunday_reference: "common_martyrs",
+        text: "Almighty God, you gave your servant N. boldness to confess the Name...",
+        prayer_book: en_prayer_book)
+    end
+
+    let!(:common_saints_collect_en) do
+      create(:collect,
+        sunday_reference: "common_saints",
+        text: "Almighty God, you have surrounded us with a great cloud of witnesses: Grant that we, encouraged by the good example of your servant N., may persevere in running the race that is set before us, until at last, with him, we attain to your eternal joy; through Jesus Christ, the pioneer and perfecter of our faith, who lives and reigns with you and the Holy Spirit, one God, for ever and ever. Amen.",
+        prayer_book: en_prayer_book)
+    end
+
+    context 'with a singular saint' do
+      let!(:polycarp) do
+        Celebration.find_or_create_by!(
+          name: "Polycarp",
+          prayer_book: en_prayer_book
+        ) do |c|
+          c.celebration_type = :commemoration
+          c.rank = 50
+          c.movable = false
+          c.fixed_month = 2
+          c.fixed_day = 24
+          c.description = "Bishop of Smyrna and Martyr, 156"
+          c.person_type = :singular
+          c.gender = :masculine
+        end
+      end
+
+      it 'uses correct English form "your servant Polycarp"' do
+        # Mock calendar to return only the test celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: polycarp.id, name: polycarp.name, description: polycarp.description, type: :commemoration }
+        ])
+        allow(calendar_mock).to receive(:sunday_name).and_return(nil)
+        allow(calendar_mock).to receive(:proper_number).and_return(nil)
+
+        service = described_class.new(Date.new(2025, 2, 24), prayer_book_code: "loc_2019_en", calendar: calendar_mock)
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        expect(collects).to be_an(Array)
+
+        # Should substitute with correct English grammar
+        text = collects.first[:text]
+        expect(text).to include("your servant Polycarp")
+        expect(text).not_to include("N.")
+      end
+    end
+
+    context 'with a singular feminine saint' do
+      let!(:agnes) do
+        Celebration.find_or_create_by!(
+          name: "Agnes",
+          prayer_book: en_prayer_book
+        ) do |c|
+          c.celebration_type = :commemoration
+          c.rank = 50
+          c.movable = false
+          c.fixed_month = 1
+          c.fixed_day = 21
+          c.description = "Martyr at Rome, 304"
+          c.person_type = :singular
+          c.gender = :feminine
+        end
+      end
+
+      it 'uses correct English form "your servant Agnes" (no gender distinction)' do
+        # Mock calendar to return only the test celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: agnes.id, name: agnes.name, description: agnes.description, type: :commemoration }
+        ])
+        allow(calendar_mock).to receive(:sunday_name).and_return(nil)
+        allow(calendar_mock).to receive(:proper_number).and_return(nil)
+
+        service = described_class.new(Date.new(2025, 1, 21), prayer_book_code: "loc_2019_en", calendar: calendar_mock)
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        expect(collects).to be_an(Array)
+
+        # Should substitute with correct English grammar (no gender distinction)
+        text = collects.first[:text]
+        expect(text).to include("your servant Agnes")
+        expect(text).not_to include("N.")
+      end
+    end
+
+    context 'with plural saints' do
+      let!(:timothy_titus) do
+        Celebration.find_or_create_by!(
+          name: "Timothy and Titus",
+          prayer_book: en_prayer_book
+        ) do |c|
+          c.celebration_type = :commemoration
+          c.rank = 50
+          c.movable = false
+          c.fixed_month = 1
+          c.fixed_day = 27
+          c.description = "Companions of the Apostle Paul"
+          c.person_type = :plural
+          c.gender = :masculine
+        end
+      end
+
+      it 'uses correct English form "your servants Timothy and Titus"' do
+        # Mock calendar to return only the test celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: timothy_titus.id, name: timothy_titus.name, description: timothy_titus.description, type: :commemoration }
+        ])
+        allow(calendar_mock).to receive(:sunday_name).and_return(nil)
+        allow(calendar_mock).to receive(:proper_number).and_return(nil)
+
+        service = described_class.new(Date.new(2025, 1, 27), prayer_book_code: "loc_2019_en", calendar: calendar_mock)
+
+        collects = service.find_collects
+
+        expect(collects).not_to be_nil
+        expect(collects).to be_an(Array)
+
+        # Should substitute with correct plural form
+        text = collects.first[:text]
+        expect(text).to include("your servants Timothy and Titus")
+        expect(text).not_to include("your servant Timothy")
+        expect(text).not_to include("N.")
+      end
+    end
+
+    context 'with an event (not a person)' do
+      let!(:baptism) do
+        Celebration.find_or_create_by!(
+          name: "The Baptism of our Lord",
+          prayer_book: en_prayer_book
+        ) do |c|
+          c.celebration_type = :festival
+          c.rank = 15
+          c.movable = true
+          c.calculation_rule = "first_sunday_after_epiphany"
+          c.description = "First Sunday after Epiphany"
+          c.person_type = :event
+          c.gender = :neutral
+        end
+      end
+
+      it 'does not use common collect for events' do
+        service = described_class.new(Date.new(2025, 1, 12), prayer_book_code: "loc_2019_en")
+
+        # Mock calendar to return the celebration
+        calendar_mock = instance_double(LiturgicalCalendar)
+        allow(LiturgicalCalendar).to receive(:new).and_return(calendar_mock)
+        allow(calendar_mock).to receive(:celebrations_for_date).and_return([
+          { id: baptism.id, name: baptism.name, description: baptism.description, type: :festival }
+        ])
+
+        collects = service.find_collects
+
+        # Since it's an event and has no specific collect, should not use common collect
+        if collects.present?
+          collects.each do |collect|
+            # Should not contain the event name in a servant phrase
+            expect(collect[:text]).not_to include("your servant The Baptism")
+            expect(collect[:text]).not_to include("your servant Baptism")
+          end
+        end
+      end
+    end
+  end
 end

@@ -21,6 +21,8 @@ principal_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "A Ressurreição de nosso Senhor Jesus Cristo",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-easter"
   },
   {
@@ -33,6 +35,8 @@ principal_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Quinta-feira, 40 dias após a Páscoa",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-ascension"
   },
   {
@@ -45,6 +49,8 @@ principal_feasts = [
     liturgical_color: "vermelho",
     can_be_transferred: false,
     description: "Domingo, 50 dias após a Páscoa - Descida do Espírito Santo",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-pentecost"
   },
   {
@@ -57,6 +63,8 @@ principal_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Primeiro domingo após Pentecostes",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-trinity"
   },
   {
@@ -74,6 +82,8 @@ principal_feasts = [
       transfer_to: "first_sunday_after_november_1"
     },
     description: "Pode ser observado no domingo seguinte",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-all-saints"
   },
   {
@@ -87,6 +97,8 @@ principal_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Natal - Nascimento de Jesus Cristo",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-christmas"
   },
   {
@@ -100,6 +112,8 @@ principal_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Manifestação de Cristo aos gentios",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-epiphany"
   }
 ]

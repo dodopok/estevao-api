@@ -5,6 +5,8 @@
     "fixed_day": 10,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-william-laud"
   },
   {
@@ -13,6 +15,8 @@
     "fixed_day": 13,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-hilary-of-poitiers"
   },
   {
@@ -21,6 +25,8 @@
     "fixed_day": 17,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-anthony-of-egypt"
   },
   {
@@ -29,6 +35,8 @@
     "fixed_day": 23,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-philips-brooks"
   },
   {
@@ -37,6 +45,8 @@
     "fixed_day": 26,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-timothy-and-titus"
   },
   {
@@ -45,6 +55,8 @@
     "fixed_day": 27,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-john-chrysostom"
   },
   {
@@ -53,6 +65,8 @@
     "fixed_day": 28,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-thomas-aquinas"
   },
   {
@@ -61,6 +75,8 @@
     "fixed_day": 4,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-cornelius-the-centurion"
   },
   {
@@ -69,6 +85,8 @@
     "fixed_day": 5,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-martyrs-of-japan"
   },
   {
@@ -77,6 +95,8 @@
     "fixed_day": 15,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-thomas-bray"
   },
   {
@@ -85,6 +105,8 @@
     "fixed_day": 23,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-policarpus"
   },
   {
@@ -93,6 +115,8 @@
     "fixed_day": 3,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-john-and-charles-wesley"
   },
   {
@@ -101,6 +125,8 @@
     "fixed_day": 9,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-gregory-of-nyssa"
   },
   {
@@ -109,6 +135,8 @@
     "fixed_day": 12,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-gregory-the-great"
   },
   {
@@ -117,6 +145,8 @@
     "fixed_day": 17,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-patrick"
   },
   {
@@ -125,6 +155,8 @@
     "fixed_day": 21,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-thomas-cranmer"
   },
   {
@@ -133,6 +165,8 @@
     "fixed_day": 27,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-charles-henry-brent"
   },
   {
@@ -141,6 +175,8 @@
     "fixed_day": 29,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-john-keble"
   },
   {
@@ -149,6 +185,8 @@
     "fixed_day": 1,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-frederick-denison-maurice"
   },
   {
@@ -157,6 +195,8 @@
     "fixed_day": 8,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-william-augustus-muhlenberg"
   },
   {
@@ -165,6 +205,8 @@
     "fixed_day": 21,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-anselm-of-canterbury"
   },
   {
@@ -173,6 +215,8 @@
     "fixed_day": 2,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-athanasius-of-alexandria"
   },
   {
@@ -181,6 +225,8 @@
     "fixed_day": 4,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "feminine",
     "post_slug": "celebration-monica"
   },
   {
@@ -189,6 +235,8 @@
     "fixed_day": 9,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-gregory-of-nazianzus"
   },
   {
@@ -197,6 +245,8 @@
     "fixed_day": 25,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-bede"
   },
   {
@@ -205,6 +255,8 @@
     "fixed_day": 26,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-augustine-of-canterbury"
   },
   {
@@ -213,6 +265,8 @@
     "fixed_day": 1,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-primeiro-culto-ieb"
   },
   {
@@ -221,6 +275,8 @@
     "fixed_day": 2,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-james-watson-morris"
   },
   {
@@ -229,6 +285,8 @@
     "fixed_day": 3,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-lucien-lee-kinsolving"
   },
   {
@@ -237,6 +295,8 @@
     "fixed_day": 4,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-william-cabell-brown"
   },
   {
@@ -245,6 +305,8 @@
     "fixed_day": 5,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-john-gaw-meem"
   },
   {
@@ -253,6 +315,8 @@
     "fixed_day": 6,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-americo-vespucio-cabral"
   },
   {
@@ -261,6 +325,8 @@
     "fixed_day": 7,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-antonio-fraga"
   },
   {
@@ -269,6 +335,8 @@
     "fixed_day": 8,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-vicente-brande"
   },
   {
@@ -277,6 +345,8 @@
     "fixed_day": 9,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-columba"
   },
   {
@@ -285,6 +355,8 @@
     "fixed_day": 14,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-basil-the-great"
   },
   {
@@ -293,6 +365,8 @@
     "fixed_day": 18,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-bernard-mizeki"
   },
   {
@@ -301,6 +375,8 @@
     "fixed_day": 22,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-alban"
   },
   {
@@ -309,6 +385,8 @@
     "fixed_day": 28,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-irenaeus-of-lyons"
   },
   {
@@ -317,6 +395,8 @@
     "fixed_day": 11,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-benedict-of-nursia"
   },
   {
@@ -325,6 +405,8 @@
     "fixed_day": 17,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-william-white"
   },
   {
@@ -333,6 +415,8 @@
     "fixed_day": 24,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-thomas-a-kempis"
   },
   {
@@ -341,6 +425,8 @@
     "fixed_day": 29,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "feminine",
     "post_slug": "celebration-mary-and-martha"
   },
   {
@@ -349,6 +435,8 @@
     "fixed_day": 30,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-william-wilberforce"
   },
   {
@@ -357,6 +445,8 @@
     "fixed_day": 31,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-joseph-of-arimathea"
   },
   {
@@ -365,6 +455,8 @@
     "fixed_day": 13,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-jeremy-taylor"
   },
   {
@@ -373,6 +465,8 @@
     "fixed_day": 20,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-bernard-of-clairvaux"
   },
   {
@@ -381,6 +475,8 @@
     "fixed_day": 28,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-augustine-of-hippo"
   },
   {
@@ -389,6 +485,8 @@
     "fixed_day": 29,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-athalicio-theodoro-pithan"
   },
   {
@@ -397,6 +495,8 @@
     "fixed_day": 2,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-martyrs-of-papua-new-guinea"
   },
   {
@@ -405,6 +505,8 @@
     "fixed_day": 8,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-nativity-of-mary"
   },
   {
@@ -413,6 +515,8 @@
     "fixed_day": 13,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-cyprian"
   },
   {
@@ -421,6 +525,8 @@
     "fixed_day": 19,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-theodore-of-tarsus"
   },
   {
@@ -429,6 +535,8 @@
     "fixed_day": 20,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-john-coleridge-patteson"
   },
   {
@@ -437,6 +545,8 @@
     "fixed_day": 25,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-sergius"
   },
   {
@@ -445,6 +555,8 @@
     "fixed_day": 26,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-lancelot-andrewes"
   },
   {
@@ -453,6 +565,8 @@
     "fixed_day": 30,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-jerome-of-betlehem"
   },
   {
@@ -461,6 +575,8 @@
     "fixed_day": 4,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-francis-of-assisi"
   },
   {
@@ -469,6 +585,8 @@
     "fixed_day": 6,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-william-tyndale"
   },
   {
@@ -477,6 +595,8 @@
     "fixed_day": 15,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "mixed",
     "post_slug": "celebration-teresa-of-avila"
   },
   {
@@ -485,6 +605,8 @@
     "fixed_day": 17,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-inacius-of-antioch"
   },
   {
@@ -493,6 +615,8 @@
     "fixed_day": 19,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-henry-martyn"
   },
   {
@@ -501,6 +625,8 @@
     "fixed_day": 31,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-reformation"
   },
   {
@@ -509,6 +635,8 @@
     "fixed_day": 3,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-richard-hooker"
   },
   {
@@ -517,6 +645,8 @@
     "fixed_day": 8,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "mixed",
     "post_slug": "celebration-all-anglican-saints"
   },
   {
@@ -525,6 +655,8 @@
     "fixed_day": 11,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-martin-luther"
   },
   {
@@ -533,6 +665,8 @@
     "fixed_day": 12,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-charles-simeon"
   },
   {
@@ -541,6 +675,8 @@
     "fixed_day": 14,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-samuel-seabury-consecration"
   },
   {
@@ -549,6 +685,8 @@
     "fixed_day": 18,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "feminine",
     "post_slug": "celebration-hilda-of-whitby"
   },
   {
@@ -557,6 +695,8 @@
     "fixed_day": 23,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-clement-of-rome"
   },
   {
@@ -565,6 +705,8 @@
     "fixed_day": 2,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-channing-moore-williams"
   },
   {
@@ -573,6 +715,8 @@
     "fixed_day": 4,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-john-of-damascus"
   },
   {
@@ -581,6 +725,8 @@
     "fixed_day": 5,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-clement-of-alexandria"
   },
   {
@@ -589,6 +735,8 @@
     "fixed_day": 7,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-ambrose"
   },
   {
@@ -597,6 +745,8 @@
     "fixed_day": 14,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-john-of-the-cross"
   },
   {
@@ -605,6 +755,8 @@
     "fixed_day": 29,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-thomas-becket"
   },
   {
@@ -613,6 +765,8 @@
     "fixed_day": 31,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-john-wycliffe"
   }
 ]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_20_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_21_001922) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -101,10 +101,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_20_000000) do
     t.string "description_year"
     t.integer "fixed_day"
     t.integer "fixed_month"
+    t.integer "gender", default: 0, null: false
     t.string "latin_name"
     t.string "liturgical_color"
     t.boolean "movable", default: false, null: false
     t.string "name", null: false
+    t.integer "person_type", default: 0, null: false
     t.string "post_slug"
     t.bigint "prayer_book_id", null: false
     t.integer "rank", null: false
@@ -113,8 +115,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_20_000000) do
     t.index ["calculation_rule"], name: "index_celebrations_on_calculation_rule"
     t.index ["celebration_type"], name: "index_celebrations_on_celebration_type"
     t.index ["fixed_month", "fixed_day"], name: "index_celebrations_on_fixed_month_and_fixed_day"
+    t.index ["gender"], name: "index_celebrations_on_gender"
     t.index ["movable"], name: "index_celebrations_on_movable"
     t.index ["name", "prayer_book_id"], name: "index_celebrations_on_name_and_prayer_book_id", unique: true
+    t.index ["person_type"], name: "index_celebrations_on_person_type"
     t.index ["post_slug"], name: "index_celebrations_on_post_slug"
     t.index ["prayer_book_id", "can_be_transferred"], name: "index_celebrations_on_prayer_book_and_transferable"
     t.index ["prayer_book_id", "fixed_month", "fixed_day"], name: "index_celebrations_on_prayer_book_date", where: "(movable = false)"

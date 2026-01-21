@@ -5,6 +5,8 @@
     "fixed_month": 1,
     "fixed_day": 1,
     "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-name-circumcision"
   },
   {
@@ -13,6 +15,8 @@
     "fixed_month": 1,
     "fixed_day": 6,
     "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-epiphany"
   },
   {
@@ -21,6 +25,8 @@
     "fixed_month": 1,
     "fixed_day": 18,
     "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-confession-of-peter"
   },
   {
@@ -29,6 +35,8 @@
     "fixed_month": 1,
     "fixed_day": 25,
     "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-conversion-of-paul"
   },
   {
@@ -37,6 +45,8 @@
     "fixed_month": 2,
     "fixed_day": 2,
     "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-presentation"
   },
   {
@@ -45,6 +55,8 @@
     "fixed_month": 2,
     "fixed_day": 24,
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-matthias-the-apostle"
   },
   {
@@ -53,6 +65,8 @@
     "fixed_month": 3,
     "fixed_day": 19,
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-joseph-of-nazareth"
   },
   {
@@ -61,6 +75,8 @@
     "fixed_month": 3,
     "fixed_day": 25,
     "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-annunciation"
   },
   {
@@ -69,6 +85,8 @@
     "fixed_month": 4,
     "fixed_day": 25,
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-mark-the-evangelist"
   },
   {
@@ -77,6 +95,8 @@
     "fixed_month": 5,
     "fixed_day": 1,
     "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-philip-and-james-apostles"
   },
   {
@@ -85,6 +105,8 @@
     "fixed_month": 5,
     "fixed_day": 31,
     "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-visitation"
   },
   {
@@ -93,6 +115,8 @@
     "fixed_month": 6,
     "fixed_day": 11,
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-barnabas-the-apostle"
   },
   {
@@ -101,6 +125,8 @@
     "fixed_month": 6,
     "fixed_day": 24,
     "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-nativity-of-john-the-baptist"
   },
   {
@@ -109,6 +135,8 @@
     "fixed_month": 6,
     "fixed_day": 29,
     "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-peter-and-paul-apostles"
   },
   {
@@ -117,6 +145,8 @@
     "fixed_month": 7,
     "fixed_day": 22,
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "feminine",
     "post_slug": "celebration-mary-magdalene"
   },
   {
@@ -125,6 +155,8 @@
     "fixed_month": 7,
     "fixed_day": 25,
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-james-the-greater"
   },
   {
@@ -133,6 +165,8 @@
     "fixed_month": 8,
     "fixed_day": 6,
     "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-transfiguration"
   },
   {
@@ -141,6 +175,8 @@
     "fixed_month": 8,
     "fixed_day": 15,
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "feminine",
     "post_slug": "celebration-mary"
   },
   {
@@ -149,6 +185,8 @@
     "fixed_month": 8,
     "fixed_day": 24,
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-bartholomew-the-apostle"
   },
   {
@@ -157,6 +195,8 @@
     "fixed_month": 9,
     "fixed_day": 14,
     "liturgical_color": "red",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-cross"
   },
   {
@@ -165,6 +205,8 @@
     "fixed_month": 9,
     "fixed_day": 21,
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-matthew-apostle"
   },
   {
@@ -173,6 +215,8 @@
     "fixed_month": 9,
     "fixed_day": 29,
     "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-saint-michael-and-all-angels"
   },
   {
@@ -181,6 +225,8 @@
     "fixed_month": 10,
     "fixed_day": 18,
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-luke-the-evangelist"
   },
   {
@@ -189,6 +235,8 @@
     "fixed_month": 10,
     "fixed_day": 23,
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-james-of-jerusalem"
   },
   {
@@ -197,6 +245,8 @@
     "fixed_month": 10,
     "fixed_day": 28,
     "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine",
     "post_slug": "celebration-simon-and-jude"
   },
   {
@@ -205,6 +255,8 @@
     "fixed_month": 11,
     "fixed_day": 30,
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-andrew-the-apostle"
   },
   {
@@ -213,6 +265,8 @@
     "fixed_month": 12,
     "fixed_day": 21,
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-thomas-the-apostle"
   },
   {
@@ -221,6 +275,8 @@
     "fixed_month": 12,
     "fixed_day": 26,
     "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-stephen"
   },
   {
@@ -229,6 +285,8 @@
     "fixed_month": 12,
     "fixed_day": 27,
     "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "masculine",
     "post_slug": "celebration-john-the-apostle"
   },
   {
@@ -237,6 +295,8 @@
     "fixed_month": 12,
     "fixed_day": 28,
     "liturgical_color": "red",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-innocents"
   }
 ]

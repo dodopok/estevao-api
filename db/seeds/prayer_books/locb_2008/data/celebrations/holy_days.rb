@@ -27,6 +27,8 @@ other_feasts_of_our_lord = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Oitava do Natal",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-holy-name-circumcision"
   },
   {
@@ -40,6 +42,8 @@ other_feasts_of_our_lord = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Candelária - 40 dias após o Natal",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-presentation"
   },
   {
@@ -57,6 +61,8 @@ other_feasts_of_our_lord = [
       transfer_to: "monday_after_second_easter_sunday"
     },
     description: "Anunciação do Anjo Gabriel a Maria",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-annunciation"
   },
   {
@@ -70,6 +76,8 @@ other_feasts_of_our_lord = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Visita de Maria a Isabel",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-visitation"
   },
   {
@@ -83,6 +91,8 @@ other_feasts_of_our_lord = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Natividade de João Batista",
+    person_type: "singular",
+    gender: "masculine",
     post_slug: "celebration-nativity-of-john-the-baptist"
   },
   {
@@ -96,6 +106,8 @@ other_feasts_of_our_lord = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Transfiguração de Cristo no Monte Tabor",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-transfiguration"
   },
   {
@@ -109,6 +121,8 @@ other_feasts_of_our_lord = [
     liturgical_color: "vermelho",
     can_be_transferred: false,
     description: "Exaltação da Santa Cruz",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-holy-cross"
   }
 ]
@@ -132,6 +146,8 @@ major_calendar_feasts = [
     liturgical_color: "vermelho",
     can_be_transferred: false,
     description: "Celebração coletiva dos Apóstolos",
+    person_type: "plural",
+    gender: "masculine",
     post_slug: "celebration-apostles"
   },
   # Evangelistas
@@ -143,6 +159,8 @@ major_calendar_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Mateus, Marcos, Lucas e João",
+    person_type: "plural",
+    gender: "masculine",
     post_slug: "celebration-evangelists"
   },
   # Santos específicos do Calendário Maior
@@ -157,6 +175,8 @@ major_calendar_feasts = [
     liturgical_color: "vermelho",
     can_be_transferred: false,
     description: "Diácono e mártir",
+    person_type: "singular",
+    gender: "masculine",
     post_slug: "celebration-stephen"
   },
   {
@@ -170,6 +190,8 @@ major_calendar_feasts = [
     liturgical_color: "vermelho",
     can_be_transferred: false,
     description: "Os Santos Inocentes, mártires",
+    person_type: "plural",
+    gender: "masculine",
     post_slug: "celebration-holy-innocents"
   },
   {
@@ -182,6 +204,8 @@ major_calendar_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Esposo de Maria",
+    person_type: "singular",
+    gender: "masculine",
     post_slug: "celebration-joseph-of-nazareth"
   },
   {
@@ -194,6 +218,8 @@ major_calendar_feasts = [
     liturgical_color: "vermelho",
     can_be_transferred: false,
     description: "Irmão de nosso Senhor Jesus Cristo, mártir, 62",
+    person_type: "singular",
+    gender: "masculine",
     post_slug: "celebration-james-of-jerusalem"
   },
   {
@@ -207,6 +233,8 @@ major_calendar_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Assunção de Maria",
+    person_type: "singular",
+    gender: "feminine",
     post_slug: "celebration-assumption-of-mary"
   },
   {
@@ -219,6 +247,8 @@ major_calendar_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Natividade de Maria",
+    person_type: "singular",
+    gender: "feminine",
     post_slug: "celebration-nativity-of-mary"
   },
   {
@@ -232,6 +262,8 @@ major_calendar_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Miguel e todos os Anjos",
+    person_type: "plural",
+    gender: "masculine",
     post_slug: "celebration-archangel-michael-and-all-angels"
   },
   {
@@ -243,6 +275,8 @@ major_calendar_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Ação de Graças Nacional",
+    person_type: "event",
+    gender: "neutral",
     post_slug: "celebration-thanksgiving"
   }
 ]

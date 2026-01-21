@@ -8,6 +8,8 @@
     "liturgical_color": "roxo",
     "can_be_transferred": false,
     "description": "Início da Quaresma - dia de jejum",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-ash-wednesday"
   },
   {
@@ -19,6 +21,8 @@
     "liturgical_color": "branco",
     "can_be_transferred": false,
     "description": "Instituição da Eucaristia",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-maundy-thursday"
   },
   {
@@ -30,6 +34,8 @@
     "liturgical_color": "vermelho",
     "can_be_transferred": false,
     "description": "Paixão e Morte de nosso Senhor - dia de jejum",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-good-friday"
   }
 ]
