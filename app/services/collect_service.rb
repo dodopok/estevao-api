@@ -109,11 +109,14 @@ class CollectService
       subtitle = nil
     end
 
+    # Buscar a celebration do banco para ter acesso aos campos de gramática
+    celebration = Celebration.find_by(id: cel_info[:id])
+
     collects = collects_for_celebration_id(cel_info[:id])
     if collects.any?
-      format_collect_records(collects, module_title: module_title, title: title, subtitle: subtitle)
+      format_collect_records(collects, module_title: module_title, title: title, subtitle: subtitle, celebration: celebration)
     else
-      find_common_collect_for(cel_info, module_title: module_title, title: title, subtitle: subtitle)
+      find_common_collect_for(cel_info, celebration: celebration, module_title: module_title, title: title, subtitle: subtitle)
     end
   end
 
@@ -161,8 +164,11 @@ class CollectService
   end
 
   # Tenta encontrar uma coleta comum para uma celebração
-  def find_common_collect_for(cel_info, module_title: nil, title: nil, subtitle: nil)
+  def find_common_collect_for(cel_info, celebration: nil, module_title: nil, title: nil, subtitle: nil)
     return [] unless cel_info[:description].present?
+
+    # Se a celebração é de um evento (não pessoa), não usar coleta comum
+    return [] if celebration&.event?
 
     desc = cel_info[:description].downcase
     common_ref = nil
@@ -188,7 +194,7 @@ class CollectService
     end
 
     collects = collects_for_sunday(common_ref)
-    format_collect_records(collects, module_title: module_title, title: title, subtitle: subtitle, substitution: cel_info[:name])
+    format_collect_records(collects, module_title: module_title, title: title, subtitle: subtitle, celebration: celebration)
   end
 
   # 3. Buscar pela coleta do último domingo
@@ -265,12 +271,17 @@ class CollectService
   end
 
   # Formata a resposta
-  def format_collect_records(records, module_title: nil, title: nil, subtitle: nil, substitution: nil)
+  def format_collect_records(records, module_title: nil, title: nil, subtitle: nil, celebration: nil)
     return [] if records.blank?
 
     records.map do |c|
       text = c.text
-      text = text.gsub("N.", substitution) if substitution && text.include?("N.")
+
+      # Se a coleta contém "N." e temos uma celebration que não é evento, fazer substituição gramatical
+      if celebration && !celebration.event? && text.include?("N.")
+        # Substituir padrões gramaticais comuns
+        text = substitute_grammatical_patterns(text, celebration)
+      end
 
       {
         text: text,
@@ -280,6 +291,23 @@ class CollectService
         subtitle: subtitle
       }.compact
     end
+  end
+
+  # Substitui padrões gramaticais na coleta usando informações da celebration
+  def substitute_grammatical_patterns(text, celebration)
+    name = celebration.name
+
+    # Substituir padrões comuns de concordância
+    # Ex: "teu servo N." -> "tua serva Inês" ou "teus servos Timóteo e Tito"
+    text = text.gsub(/teu servo N\./, celebration.servant_phrase(name))
+    text = text.gsub(/tua serva N\./, celebration.servant_phrase(name))
+    text = text.gsub(/teus servos N\./, celebration.servant_phrase(name))
+    text = text.gsub(/tuas servas N\./, celebration.servant_phrase(name))
+
+    # Caso genérico: apenas substituir N. pelo nome se nenhum padrão acima foi encontrado
+    text = text.gsub("N.", name)
+
+    text
   end
 
   # Compatibility method for old code that expects format_response
