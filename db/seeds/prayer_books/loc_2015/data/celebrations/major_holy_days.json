@@ -7,7 +7,9 @@
     "calculation_rule": "easter_minus_46_days",
     "liturgical_color": "roxo",
     "can_be_transferred": false,
-    "description": "Início da Quaresma - dia de jejum"
+    "description": "Início da Quaresma - dia de jejum",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Quinta-Feira Santa",
@@ -17,7 +19,9 @@
     "calculation_rule": "easter_minus_3_days",
     "liturgical_color": "branco",
     "can_be_transferred": false,
-    "description": "Instituição da Eucaristia"
+    "description": "Instituição da Eucaristia",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Sexta-Feira da Paixão",
@@ -27,6 +31,8 @@
     "calculation_rule": "easter_minus_2_days",
     "liturgical_color": "vermelho",
     "can_be_transferred": false,
-    "description": "Paixão e Morte de nosso Senhor - dia de jejum"
+    "description": "Paixão e Morte de nosso Senhor - dia de jejum",
+    "person_type": "event",
+    "gender": "neutral"
   }
 ]
