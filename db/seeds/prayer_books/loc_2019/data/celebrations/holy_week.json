@@ -28,7 +28,7 @@
     "calculation_rule": "easter_minus_6_days",
     "liturgical_color": "purple",
     "can_be_transferred": false,
-    "post_slug": "celebration-segunda-feira-da-semana-santa"
+    "post_slug": "celebration-holy-monday"
   },
   {
     "name": "Terça-feira da Semana Santa",
@@ -38,7 +38,7 @@
     "calculation_rule": "easter_minus_5_days",
     "liturgical_color": "purple",
     "can_be_transferred": false,
-    "post_slug": "celebration-terca-feira-da-semana-santa"
+    "post_slug": "celebration-holy-tuesday"
   },
   {
     "name": "Quarta-feira da Semana Santa",
@@ -48,7 +48,7 @@
     "calculation_rule": "easter_minus_4_days",
     "liturgical_color": "purple",
     "can_be_transferred": false,
-    "post_slug": "celebration-quarta-feira-da-semana-santa"
+    "post_slug": "celebration-holy-wednesday"
   },
   {
     "name": "Quinta-feira Santa",
@@ -78,6 +78,6 @@
     "calculation_rule": "easter_minus_1_day",
     "liturgical_color": "white",
     "can_be_transferred": false,
-    "post_slug": "celebration-sabado-santo"
+    "post_slug": "celebration-holy-saturday"
   }
 ]

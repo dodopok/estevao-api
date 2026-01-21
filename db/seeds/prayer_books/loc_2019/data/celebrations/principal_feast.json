@@ -29,7 +29,7 @@
     "liturgical_color": "white",
     "rank": 3,
     "can_be_transferred": false,
-    "post_slug": "celebration-dia-de-pascoa"
+    "post_slug": "celebration-easter"
   },
   {
     "name": "Dia da Ascensão",
@@ -39,7 +39,7 @@
     "liturgical_color": "white",
     "rank": 4,
     "can_be_transferred": false,
-    "post_slug": "celebration-dia-da-ascensao"
+    "post_slug": "celebration-ascension"
   },
   {
     "name": "Dia de Pentecostes",

@@ -5,7 +5,7 @@
     "fixed_month": 1,
     "fixed_day": 1,
     "liturgical_color": "white",
-    "post_slug": "celebration-the-circumcision-and-holy-name-of-our-lord-jesus-c"
+    "post_slug": "celebration-holy-name-circumcision"
   },
   {
     "name": "The Epiphany of Our Lord Jesus Christ",
@@ -13,7 +13,7 @@
     "fixed_month": 1,
     "fixed_day": 6,
     "liturgical_color": "white",
-    "post_slug": "celebration-the-epiphany-of-our-lord-jesus-christ"
+    "post_slug": "celebration-epiphany"
   },
   {
     "name": "Confession of Peter the Apostle",
@@ -21,7 +21,7 @@
     "fixed_month": 1,
     "fixed_day": 18,
     "liturgical_color": "white",
-    "post_slug": "celebration-confession-of-peter-the-apostle"
+    "post_slug": "celebration-confession-of-peter"
   },
   {
     "name": "Conversion of Paul the Apostle",
@@ -29,7 +29,7 @@
     "fixed_month": 1,
     "fixed_day": 25,
     "liturgical_color": "white",
-    "post_slug": "celebration-conversion-of-paul-the-apostle"
+    "post_slug": "celebration-conversion-of-paul"
   },
   {
     "name": "The Presentation of Our Lord Jesus Christ in the Temple",
@@ -37,7 +37,7 @@
     "fixed_month": 2,
     "fixed_day": 2,
     "liturgical_color": "white",
-    "post_slug": "celebration-the-presentation-of-our-lord-jesus-christ-in-the-t"
+    "post_slug": "celebration-presentation"
   },
   {
     "name": "Matthias the Apostle",
@@ -53,7 +53,7 @@
     "fixed_month": 3,
     "fixed_day": 19,
     "liturgical_color": "white",
-    "post_slug": "celebration-joseph-husband-of-the-virgin-mary-and-guardian-of-"
+    "post_slug": "celebration-joseph-of-nazareth"
   },
   {
     "name": "The Annunciation of our Lord Jesus Christ to the Virgin Mary",
@@ -61,7 +61,7 @@
     "fixed_month": 3,
     "fixed_day": 25,
     "liturgical_color": "white",
-    "post_slug": "celebration-the-annunciation-of-our-lord-jesus-christ-to-the-v"
+    "post_slug": "celebration-annunciation"
   },
   {
     "name": "Mark the Evangelist",
@@ -85,7 +85,7 @@
     "fixed_month": 5,
     "fixed_day": 31,
     "liturgical_color": "white",
-    "post_slug": "celebration-the-visitation-of-the-virgin-mary-to-elizabeth-and"
+    "post_slug": "celebration-visitation"
   },
   {
     "name": "Barnabas the Apostle",
@@ -101,7 +101,7 @@
     "fixed_month": 6,
     "fixed_day": 24,
     "liturgical_color": "white",
-    "post_slug": "celebration-the-nativity-of-john-the-baptist"
+    "post_slug": "celebration-nativity-of-john-the-baptist"
   },
   {
     "name": "Peter and Paul, Apostles",
@@ -125,7 +125,7 @@
     "fixed_month": 7,
     "fixed_day": 25,
     "liturgical_color": "red",
-    "post_slug": "celebration-james-the-elder-apostle"
+    "post_slug": "celebration-james-the-apostle"
   },
   {
     "name": "The Transfiguration of Our Lord Jesus Christ",
@@ -133,7 +133,7 @@
     "fixed_month": 8,
     "fixed_day": 6,
     "liturgical_color": "white",
-    "post_slug": "celebration-the-transfiguration-of-our-lord-jesus-christ"
+    "post_slug": "celebration-transfiguration"
   },
   {
     "name": "The Virgin Mary, Mother of Our Lord Jesus Christ",
@@ -141,7 +141,7 @@
     "fixed_month": 8,
     "fixed_day": 15,
     "liturgical_color": "white",
-    "post_slug": "celebration-the-virgin-mary-mother-of-our-lord-jesus-christ"
+    "post_slug": "celebration-mary"
   },
   {
     "name": "Bartholomew the Apostle",
@@ -157,7 +157,7 @@
     "fixed_month": 9,
     "fixed_day": 14,
     "liturgical_color": "red",
-    "post_slug": "celebration-holy-cross-day"
+    "post_slug": "celebration-holy-cross"
   },
   {
     "name": "Matthew, Apostle and Evangelist",
@@ -165,7 +165,7 @@
     "fixed_month": 9,
     "fixed_day": 21,
     "liturgical_color": "red",
-    "post_slug": "celebration-matthew-apostle-and-evangelist"
+    "post_slug": "celebration-matthew-the-apostle"
   },
   {
     "name": "Holy Michael and All Angels",
@@ -181,7 +181,7 @@
     "fixed_month": 10,
     "fixed_day": 18,
     "liturgical_color": "red",
-    "post_slug": "celebration-luke-the-evangelist-and-companion-of-paul"
+    "post_slug": "celebration-luke-the-evangelist"
   },
   {
     "name": "James of Jerusalem, Bishop and Martyr",
@@ -189,7 +189,7 @@
     "fixed_month": 10,
     "fixed_day": 23,
     "liturgical_color": "red",
-    "post_slug": "celebration-james-of-jerusalem-bishop-and-martyr"
+    "post_slug": "celebration-james-of-jerusalem"
   },
   {
     "name": "Simon and Jude, Apostles",
@@ -221,7 +221,7 @@
     "fixed_month": 12,
     "fixed_day": 26,
     "liturgical_color": "red",
-    "post_slug": "celebration-stephen-deacon-and-martyr"
+    "post_slug": "celebration-stephen"
   },
   {
     "name": "John, Apostle and Evangelist",
@@ -229,7 +229,7 @@
     "fixed_month": 12,
     "fixed_day": 27,
     "liturgical_color": "white",
-    "post_slug": "celebration-john-apostle-and-evangelist"
+    "post_slug": "celebration-john-the-apostle"
   },
   {
     "name": "The Holy Innocents",
@@ -237,6 +237,6 @@
     "fixed_month": 12,
     "fixed_day": 28,
     "liturgical_color": "red",
-    "post_slug": "celebration-the-holy-innocents"
+    "post_slug": "celebration-holy-innocents"
   }
 ]

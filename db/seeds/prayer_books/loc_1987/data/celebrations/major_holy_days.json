@@ -42,7 +42,7 @@
     "fixed_day": 24,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saint-matthias"
+    "post_slug": "celebration-matthias-the-apostle"
   },
   {
     "name": "São José",
@@ -51,7 +51,7 @@
     "fixed_day": 19,
     "liturgical_color": "white",
     "rank": 50,
-    "post_slug": "celebration-saint-joseph"
+    "post_slug": "celebration-joseph-of-nazareth"
   },
   {
     "name": "Anunciação da Bem-Aventurada Virgem Maria",
@@ -69,7 +69,7 @@
     "fixed_day": 25,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saint-mark"
+    "post_slug": "celebration-mark-the-evangelist"
   },
   {
     "name": "São Felipe e São Tiago, Apóstolos",
@@ -78,7 +78,7 @@
     "fixed_day": 1,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saints-philip-and-james"
+    "post_slug": "celebration-philip-and-james-apostles"
   },
   {
     "name": "Visitação da Bem-Aventurada Virgem Maria",
@@ -96,7 +96,7 @@
     "fixed_day": 11,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saint-barnabas"
+    "post_slug": "celebration-barnabas-the-apostle"
   },
   {
     "name": "Natividade de São João Batista",
@@ -114,7 +114,7 @@
     "fixed_day": 29,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saints-peter-and-paul"
+    "post_slug": "celebration-peter-and-paul-apostles"
   },
   {
     "name": "Santa Maria Madalena",
@@ -123,7 +123,7 @@
     "fixed_day": 22,
     "liturgical_color": "white",
     "rank": 50,
-    "post_slug": "celebration-saint-mary-magdalene"
+    "post_slug": "celebration-mary-magdalene"
   },
   {
     "name": "São Tiago, Apóstolo",
@@ -132,7 +132,7 @@
     "fixed_day": 25,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saint-james"
+    "post_slug": "celebration-james-the-apostle"
   },
   {
     "name": "Transfiguração de Nosso Senhor Jesus Cristo",
@@ -159,7 +159,7 @@
     "fixed_day": 24,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saint-bartholomew"
+    "post_slug": "celebration-bartholomew-the-apostle"
   },
   {
     "name": "Dia da Pátria",
@@ -186,7 +186,7 @@
     "fixed_day": 21,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saint-matthew"
+    "post_slug": "celebration-matthew-the-apostle"
   },
   {
     "name": "São Miguel e Todos os Anjos",
@@ -204,7 +204,7 @@
     "fixed_day": 18,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saint-luke"
+    "post_slug": "celebration-luke-the-evangelist"
   },
   {
     "name": "São Tiago de Jerusalém, Irmão de Nosso Senhor Jesus Cristo, Mártir",
@@ -213,7 +213,7 @@
     "fixed_day": 23,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saint-james-of-jerusalem"
+    "post_slug": "celebration-james-of-jerusalem"
   },
   {
     "name": "São Simão e São Judas, Apóstolos",
@@ -222,7 +222,7 @@
     "fixed_day": 28,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saints-simon-and-jude"
+    "post_slug": "celebration-simon-and-jude-apostles"
   },
   {
     "name": "Dia Nacional de Ação de Graças",
@@ -240,7 +240,7 @@
     "fixed_day": 30,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saint-andrew"
+    "post_slug": "celebration-andrew-the-apostle"
   },
   {
     "name": "São Tomé, Apóstolo",
@@ -249,7 +249,7 @@
     "fixed_day": 21,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saint-thomas"
+    "post_slug": "celebration-thomas-the-apostle"
   },
   {
     "name": "Santo Estevão, Diácono e Mártir",
@@ -258,7 +258,7 @@
     "fixed_day": 26,
     "liturgical_color": "red",
     "rank": 50,
-    "post_slug": "celebration-saint-stephen"
+    "post_slug": "celebration-stephen"
   },
   {
     "name": "São João, Apóstolo e Evangelista",
@@ -267,7 +267,7 @@
     "fixed_day": 27,
     "liturgical_color": "white",
     "rank": 50,
-    "post_slug": "celebration-saint-john"
+    "post_slug": "celebration-john-the-apostle"
   },
   {
     "name": "Santos Inocentes",

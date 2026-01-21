@@ -27,7 +27,7 @@
     "liturgical_color": "white",
     "description": "Bispo e Mestre da Fé",
     "description_year": "367",
-    "post_slug": "celebration-hilario-de-poitiers"
+    "post_slug": "celebration-hilary-of-poitiers"
   },
   {
     "celebration_type": "lesser_feast",
@@ -47,7 +47,7 @@
     "liturgical_color": "white",
     "description": "Eremita no Egito",
     "description_year": "356",
-    "post_slug": "celebration-antao"
+    "post_slug": "celebration-anthony-of-egypt"
   },
   {
     "celebration_type": "lesser_feast",
@@ -67,7 +67,7 @@
     "liturgical_color": "red",
     "description": "Bispo de Roma e Mártir",
     "description_year": "250",
-    "post_slug": "celebration-fabiano"
+    "post_slug": "celebration-fabian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -87,7 +87,7 @@
     "liturgical_color": "red",
     "description": "Diácono de Saragoça, Mártir",
     "description_year": "304",
-    "post_slug": "celebration-vicente"
+    "post_slug": "celebration-vincent-of-saragossa"
   },
   {
     "celebration_type": "lesser_feast",
@@ -96,7 +96,7 @@
     "fixed_day": 26,
     "liturgical_color": "white",
     "description": "Companheiros do Apóstolo Paulo",
-    "post_slug": "celebration-timoteo-e-tito"
+    "post_slug": "celebration-timothy-and-titus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -105,7 +105,7 @@
     "fixed_day": 27,
     "liturgical_color": "white",
     "description": "Auxiliares dos Apóstolos",
-    "post_slug": "celebration-lidia"
+    "post_slug": "celebration-lydia-dorcas-and-phoebe"
   },
   {
     "celebration_type": "lesser_feast",
@@ -115,7 +115,7 @@
     "liturgical_color": "white",
     "description": "Frade, Presbítero e Mestre da Fé",
     "description_year": "1274",
-    "post_slug": "celebration-tomas-de-aquino"
+    "post_slug": "celebration-thomas-aquinas"
   },
   {
     "celebration_type": "lesser_feast",
@@ -135,7 +135,7 @@
     "liturgical_color": "red",
     "description": "Rei e Mártir",
     "description_year": "1649",
-    "post_slug": "celebration-carlos-i"
+    "post_slug": "celebration-charles"
   },
   {
     "celebration_type": "lesser_feast",
@@ -155,7 +155,7 @@
     "liturgical_color": "white",
     "description": "Abadessa de Kildare",
     "description_year": "523",
-    "post_slug": "celebration-brigida"
+    "post_slug": "celebration-brigid-of-kildare"
   },
   {
     "celebration_type": "lesser_feast",
@@ -173,7 +173,7 @@
     "fixed_month": 2,
     "fixed_day": 4,
     "liturgical_color": "white",
-    "post_slug": "celebration-cornelio"
+    "post_slug": "celebration-cornelius-the-centurion"
   },
   {
     "celebration_type": "lesser_feast",
@@ -182,7 +182,7 @@
     "fixed_day": 5,
     "liturgical_color": "red",
     "description_year": "1597",
-    "post_slug": "celebration-martires-do-japao"
+    "post_slug": "celebration-martyrs-of-japan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -192,7 +192,7 @@
     "liturgical_color": "white",
     "description": "Abadessa",
     "description_year": "543",
-    "post_slug": "celebration-escolastica"
+    "post_slug": "celebration-scholastica"
   },
   {
     "celebration_type": "lesser_feast",
@@ -212,7 +212,7 @@
     "liturgical_color": "white",
     "description": "Apóstolos dos Eslavos",
     "description_year": "869, 885",
-    "post_slug": "celebration-cirilo-e-metodio"
+    "post_slug": "celebration-cyril-and-methodius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -242,7 +242,7 @@
     "liturgical_color": "white",
     "description": "Reformador da Igreja",
     "description_year": "1546",
-    "post_slug": "celebration-martinho-lutero"
+    "post_slug": "celebration-martin-luther"
   },
   {
     "celebration_type": "lesser_feast",
@@ -252,7 +252,7 @@
     "liturgical_color": "white",
     "description": "Evangelista",
     "description_year": "2018",
-    "post_slug": "celebration-william-billy-graham"
+    "post_slug": "celebration-billy-graham"
   },
   {
     "celebration_type": "lesser_feast",
@@ -262,7 +262,7 @@
     "liturgical_color": "red",
     "description": "Bispo de Esmirna, Mártir",
     "description_year": "156",
-    "post_slug": "celebration-policarpo"
+    "post_slug": "celebration-policarpus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -282,7 +282,7 @@
     "liturgical_color": "white",
     "description": "Monge e Mestre da Fé",
     "description_year": "453",
-    "post_slug": "celebration-joao-cassiano"
+    "post_slug": "celebration-john-cassian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -292,7 +292,7 @@
     "liturgical_color": "white",
     "description": "Bispo e Apóstolo de Gales",
     "description_year": "601",
-    "post_slug": "celebration-david"
+    "post_slug": "celebration-david-of-wales"
   },
   {
     "celebration_type": "lesser_feast",
@@ -302,7 +302,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Lichfield e Missionário",
     "description_year": "672",
-    "post_slug": "celebration-chad"
+    "post_slug": "celebration-chad-of-lichfield"
   },
   {
     "celebration_type": "lesser_feast",
@@ -312,7 +312,7 @@
     "liturgical_color": "white",
     "description": "Presbíteros e Reformadores da Igreja",
     "description_year": "1791, 1788",
-    "post_slug": "celebration-john-e-charles-wesley"
+    "post_slug": "celebration-john-and-charles-wesley"
   },
   {
     "celebration_type": "lesser_feast",
@@ -322,7 +322,7 @@
     "liturgical_color": "red",
     "description": "Mártires em Cartago",
     "description_year": "203",
-    "post_slug": "celebration-perpetua-e-suas-companheiras"
+    "post_slug": "celebration-perpetua-and-her-companions"
   },
   {
     "celebration_type": "lesser_feast",
@@ -352,7 +352,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Roma e Mestre da Fé",
     "description_year": "604",
-    "post_slug": "celebration-gregorio-magno"
+    "post_slug": "celebration-gregory-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -362,7 +362,7 @@
     "liturgical_color": "white",
     "description": "Bispo e Apóstolo dos Irlandeses",
     "description_year": "461",
-    "post_slug": "celebration-patricio"
+    "post_slug": "celebration-patrick"
   },
   {
     "celebration_type": "lesser_feast",
@@ -372,7 +372,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Jerusalém e Mestre da Fé",
     "description_year": "386",
-    "post_slug": "celebration-cirilo"
+    "post_slug": "celebration-cyril"
   },
   {
     "celebration_type": "lesser_feast",
@@ -382,7 +382,7 @@
     "liturgical_color": "white",
     "description": "Bispo-Abade de Lindisfarne e Missionário",
     "description_year": "687",
-    "post_slug": "celebration-cutberto"
+    "post_slug": "celebration-cuthbert-of-lindisfarne"
   },
   {
     "celebration_type": "lesser_feast",
@@ -412,7 +412,7 @@
     "liturgical_color": "white",
     "description": "Missionário na Armênia",
     "description_year": "333",
-    "post_slug": "celebration-gregorio"
+    "post_slug": "celebration-gregory-the-illuminator"
   },
   {
     "celebration_type": "lesser_feast",
@@ -542,7 +542,7 @@
     "liturgical_color": "white",
     "description": "Arcebispo de Cantuária e Mestre da Fé",
     "description_year": "1109",
-    "post_slug": "celebration-anselmo"
+    "post_slug": "celebration-anselm-of-canterbury"
   },
   {
     "celebration_type": "lesser_feast",
@@ -552,7 +552,7 @@
     "liturgical_color": "red",
     "description": "Mártir",
     "description_year": "c. 304",
-    "post_slug": "celebration-jorge"
+    "post_slug": "celebration-george"
   },
   {
     "celebration_type": "lesser_feast",
@@ -572,7 +572,7 @@
     "liturgical_color": "white",
     "description": "Reformadora da Igreja",
     "description_year": "1380",
-    "post_slug": "celebration-catarina-de-sena"
+    "post_slug": "celebration-catherine-of-siena"
   },
   {
     "celebration_type": "lesser_feast",
@@ -582,7 +582,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Alexandria e Mestre da Fé",
     "description_year": "373",
-    "post_slug": "celebration-atanasio"
+    "post_slug": "celebration-athanasius-of-alexandria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -592,7 +592,7 @@
     "liturgical_color": "white",
     "description": "Ancoreta",
     "description_year": "c. 1417",
-    "post_slug": "celebration-juliana-de-norwich"
+    "post_slug": "celebration-julian-of-norwich"
   },
   {
     "celebration_type": "lesser_feast",
@@ -602,7 +602,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Constantinopla e Mestre",
     "description_year": "389",
-    "post_slug": "celebration-gregorio-de-nazianzo"
+    "post_slug": "celebration-gregory-of-nazianzus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -612,7 +612,7 @@
     "liturgical_color": "white",
     "description": "Abade e Organizador do Monasticismo",
     "description_year": "346",
-    "post_slug": "celebration-pacomio"
+    "post_slug": "celebration-pachomius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -621,7 +621,7 @@
     "fixed_day": 16,
     "liturgical_color": "red",
     "description_year": "2011",
-    "post_slug": "celebration-os-martires-do-sudao"
+    "post_slug": "celebration-martyrs-of-the-sudan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -631,7 +631,7 @@
     "liturgical_color": "white",
     "description": "Arcebispo de Cantuária e Reformador",
     "description_year": "988",
-    "post_slug": "celebration-dunstao"
+    "post_slug": "celebration-dunstan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -641,7 +641,7 @@
     "liturgical_color": "white",
     "description": "Diácono e Abade de Tours",
     "description_year": "804",
-    "post_slug": "celebration-alcuino"
+    "post_slug": "celebration-alcuin"
   },
   {
     "celebration_type": "lesser_feast",
@@ -671,7 +671,7 @@
     "liturgical_color": "white",
     "description": "Presbítero e Monge, Mestre",
     "description_year": "735",
-    "post_slug": "celebration-beda"
+    "post_slug": "celebration-bede"
   },
   {
     "celebration_type": "lesser_feast",
@@ -681,7 +681,7 @@
     "liturgical_color": "white",
     "description": "Primeiro Arcebispo de Cantuária e Missionário",
     "description_year": "605",
-    "post_slug": "celebration-agostinho-de-cantuaria"
+    "post_slug": "celebration-augustine-of-canterbury"
   },
   {
     "celebration_type": "lesser_feast",
@@ -691,7 +691,7 @@
     "liturgical_color": "white",
     "description": "Reformador da Igreja",
     "description_year": "1564",
-    "post_slug": "celebration-joao-calvino"
+    "post_slug": "celebration-john-calvin"
   },
   {
     "celebration_type": "lesser_feast",
@@ -711,7 +711,7 @@
     "liturgical_color": "red",
     "description": "Mestre da Fé e Mártir em Roma",
     "description_year": "c. 165",
-    "post_slug": "celebration-justino"
+    "post_slug": "celebration-justin-of-rome"
   },
   {
     "celebration_type": "lesser_feast",
@@ -721,7 +721,7 @@
     "liturgical_color": "red",
     "description": "Mártires em Lyon",
     "description_year": "177",
-    "post_slug": "celebration-blandina-e-suas-companheiras"
+    "post_slug": "celebration-blandina-and-her-companions"
   },
   {
     "celebration_type": "lesser_feast",
@@ -730,7 +730,7 @@
     "fixed_day": 3,
     "liturgical_color": "red",
     "description_year": "1886, 1977",
-    "post_slug": "celebration-os-martires-de-uganda"
+    "post_slug": "celebration-martyrs-of-uganda"
   },
   {
     "celebration_type": "lesser_feast",
@@ -750,7 +750,7 @@
     "liturgical_color": "red",
     "description": "Arcebispo de Mainz, Missionário e Mártir",
     "description_year": "754",
-    "post_slug": "celebration-bonifacio"
+    "post_slug": "celebration-boniface"
   },
   {
     "celebration_type": "lesser_feast",
@@ -790,7 +790,7 @@
     "liturgical_color": "white",
     "description": "Diácono e Mestre da Fé",
     "description_year": "373",
-    "post_slug": "celebration-efrem-da-edessa"
+    "post_slug": "celebration-efrem"
   },
   {
     "celebration_type": "lesser_feast",
@@ -800,7 +800,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Cesareia e Mestre",
     "description_year": "379",
-    "post_slug": "celebration-basilio-magno"
+    "post_slug": "celebration-basil-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -840,7 +840,7 @@
     "liturgical_color": "red",
     "description": "Primeiro Mártir da Grã-Bretanha",
     "description_year": "c. 250",
-    "post_slug": "celebration-albano"
+    "post_slug": "celebration-alban"
   },
   {
     "celebration_type": "lesser_feast",
@@ -850,7 +850,7 @@
     "liturgical_color": "white",
     "description": "Bispo e Mestre da Fé",
     "description_year": "444",
-    "post_slug": "celebration-cirilo-de-alexandria"
+    "post_slug": "celebration-cyril-of-alexandria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -860,7 +860,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Lyon e Mestre da Fé",
     "description_year": "200",
-    "post_slug": "celebration-ireneu"
+    "post_slug": "celebration-irenaeus-of-lyons"
   },
   {
     "celebration_type": "lesser_feast",
@@ -870,7 +870,7 @@
     "liturgical_color": "white",
     "description": "Abade e Fundador da Ordem Beneditina",
     "description_year": "c. 550",
-    "post_slug": "celebration-bento-de-nursia"
+    "post_slug": "celebration-benedict-of-nursia"
   },
   {
     "celebration_type": "lesser_feast",
@@ -890,7 +890,7 @@
     "liturgical_color": "white",
     "description": "Frade, Bispo e Mestre da Fé",
     "description_year": "1274",
-    "post_slug": "celebration-boaventura"
+    "post_slug": "celebration-bonaventure"
   },
   {
     "celebration_type": "lesser_feast",
@@ -900,7 +900,7 @@
     "liturgical_color": "white",
     "description": "Patronos da Igreja na Rússia",
     "description_year": "969, 1016",
-    "post_slug": "celebration-olga-e-vladimir"
+    "post_slug": "celebration-olga-and-vladimir"
   },
   {
     "celebration_type": "lesser_feast",
@@ -930,7 +930,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Nissa e Mestre da Fé",
     "description_year": "396",
-    "post_slug": "celebration-gregorio-de-nissa"
+    "post_slug": "celebration-gregory-of-nyssa"
   },
   {
     "celebration_type": "lesser_feast",
@@ -940,7 +940,7 @@
     "liturgical_color": "red",
     "description": "Mártir",
     "description_year": "século IV",
-    "post_slug": "celebration-margarida-de-antioquia"
+    "post_slug": "celebration-margaret-of-antioch"
   },
   {
     "celebration_type": "lesser_feast",
@@ -950,7 +950,7 @@
     "liturgical_color": "white",
     "description": "Presbítero e Mestre da Fé",
     "description_year": "1471",
-    "post_slug": "celebration-tomas-de-kempis"
+    "post_slug": "celebration-thomas-kempis"
   },
   {
     "celebration_type": "lesser_feast",
@@ -958,7 +958,7 @@
     "fixed_month": 7,
     "fixed_day": 26,
     "liturgical_color": "white",
-    "post_slug": "celebration-os-pais-da-virgem-maria"
+    "post_slug": "celebration-parents-of-the-virgin-mary"
   },
   {
     "celebration_type": "lesser_feast",
@@ -977,7 +977,7 @@
     "fixed_day": 29,
     "liturgical_color": "white",
     "description": "Companheiros de nosso Senhor",
-    "post_slug": "celebration-lazaro"
+    "post_slug": "celebration-martha-mary-and-lazarus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -995,7 +995,7 @@
     "fixed_month": 8,
     "fixed_day": 1,
     "liturgical_color": "white",
-    "post_slug": "celebration-jose-de-arimateia"
+    "post_slug": "celebration-joseph-of-arimathea"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1005,7 +1005,7 @@
     "liturgical_color": "red",
     "description": "Rei da Nortúmbria e Mártir",
     "description_year": "642",
-    "post_slug": "celebration-oswald"
+    "post_slug": "celebration-oswald-of-northumbria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1025,7 +1025,7 @@
     "liturgical_color": "white",
     "description": "Presbítero e Frade",
     "description_year": "1221",
-    "post_slug": "celebration-domingos"
+    "post_slug": "celebration-dominic"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1045,7 +1045,7 @@
     "liturgical_color": "red",
     "description": "Diácono e Mártir em Roma",
     "description_year": "258",
-    "post_slug": "celebration-lourenco"
+    "post_slug": "celebration-lawrence"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1055,7 +1055,7 @@
     "liturgical_color": "white",
     "description": "Abadessa de Assis",
     "description_year": "1253",
-    "post_slug": "celebration-clara"
+    "post_slug": "celebration-clare-of-assisi"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1095,7 +1095,7 @@
     "liturgical_color": "white",
     "description": "Abade de Claraval e Mestre da Fé",
     "description_year": "1153",
-    "post_slug": "celebration-bernardo"
+    "post_slug": "celebration-bernard-of-clairvaux"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1115,7 +1115,7 @@
     "liturgical_color": "white",
     "description": "Rei da França",
     "description_year": "1270",
-    "post_slug": "celebration-luis"
+    "post_slug": "celebration-louis"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1135,7 +1135,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Hipona e Mestre da Fé",
     "description_year": "430",
-    "post_slug": "celebration-agostinho-de-hipona"
+    "post_slug": "celebration-augustine-of-hippo"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1143,7 +1143,7 @@
     "fixed_month": 8,
     "fixed_day": 29,
     "liturgical_color": "red",
-    "post_slug": "celebration-a-degolacao-de-joao-batista"
+    "post_slug": "celebration-beheading-john-baptist"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1163,7 +1163,7 @@
     "liturgical_color": "white",
     "description": "Abade-Bispo de Lindisfarne, Missionário na Nortúmbria",
     "description_year": "651",
-    "post_slug": "celebration-aidano"
+    "post_slug": "celebration-aidan-of-lindisfarne"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1172,7 +1172,7 @@
     "fixed_day": 2,
     "liturgical_color": "red",
     "description_year": "1901 e 1942",
-    "post_slug": "celebration-os-martires-de-papua-nova-guine"
+    "post_slug": "celebration-martyrs-of-papua-new-guinea"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1182,7 +1182,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Dorchester e Evangelista em Wessex",
     "description_year": "650",
-    "post_slug": "celebration-birino"
+    "post_slug": "celebration-birinus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1192,7 +1192,7 @@
     "liturgical_color": "white",
     "description": "Renovadora da Sociedade",
     "description_year": "1997",
-    "post_slug": "celebration-madre-teresa-de-calcuta"
+    "post_slug": "celebration-teresa-of-calcutta"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1222,7 +1222,7 @@
     "liturgical_color": "red",
     "description": "Mártires de Memphis",
     "description_year": "1878",
-    "post_slug": "celebration-constancia-e-suas-companheiras"
+    "post_slug": "celebration-constance-and-her-companions"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1252,7 +1252,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Constantinopla e Mestre da Fé",
     "description_year": "407",
-    "post_slug": "celebration-joao-crisostomo"
+    "post_slug": "celebration-john-chrysostom"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1262,7 +1262,7 @@
     "liturgical_color": "red",
     "description": "Bispo de Cartago e Mártir",
     "description_year": "258",
-    "post_slug": "celebration-cipriano"
+    "post_slug": "celebration-cyprian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1272,7 +1272,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Galloway e Missionário para os Pictos",
     "description_year": "432",
-    "post_slug": "celebration-niniano"
+    "post_slug": "celebration-ninian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1292,7 +1292,7 @@
     "liturgical_color": "white",
     "description": "Arcebispo de Cantuária",
     "description_year": "690",
-    "post_slug": "celebration-teodoro-de-tarso"
+    "post_slug": "celebration-theodore-of-tarsus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1312,7 +1312,7 @@
     "liturgical_color": "white",
     "description": "Monge e Reformador da Igreja na Rússia",
     "description_year": "1392",
-    "post_slug": "celebration-sergio"
+    "post_slug": "celebration-sergius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1342,7 +1342,7 @@
     "liturgical_color": "white",
     "description": "Monge de Belém e Tradutor da Bíblia",
     "description_year": "420",
-    "post_slug": "celebration-jeronimo"
+    "post_slug": "celebration-jerome-of-betlehem"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1352,7 +1352,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Reims e Missionário para os Francos",
     "description_year": "533",
-    "post_slug": "celebration-remigio"
+    "post_slug": "celebration-remigius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1372,7 +1372,7 @@
     "liturgical_color": "white",
     "description": "Frade e Diácono, Reformador da Igreja",
     "description_year": "1226",
-    "post_slug": "celebration-francisco-de-assis"
+    "post_slug": "celebration-francis-of-assisi"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1402,7 +1402,7 @@
     "liturgical_color": "white",
     "description": "Bispo de York e Missionário",
     "description_year": "644",
-    "post_slug": "celebration-paulino"
+    "post_slug": "celebration-paulinus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1411,7 +1411,7 @@
     "fixed_day": 11,
     "liturgical_color": "white",
     "description": "Diácono e Evangelista",
-    "post_slug": "celebration-filipe"
+    "post_slug": "celebration-philip"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1431,7 +1431,7 @@
     "liturgical_color": "white",
     "description": "Rei da Inglaterra",
     "description_year": "1066",
-    "post_slug": "celebration-eduardo"
+    "post_slug": "celebration-edward-confessor"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1451,7 +1451,7 @@
     "liturgical_color": "white",
     "description": "Monja e Reformadora da Igreja",
     "description_year": "1582",
-    "post_slug": "celebration-teresa-de-avila"
+    "post_slug": "celebration-teresa-of-avila"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1461,7 +1461,7 @@
     "liturgical_color": "red",
     "description": "Bispos e Mártires",
     "description_year": "1555",
-    "post_slug": "celebration-hugh-latimer-e-nicholas-ridley"
+    "post_slug": "celebration-hugh-latimer-and-nicholas-ridley"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1471,7 +1471,7 @@
     "liturgical_color": "red",
     "description": "Bispo de Antioquia e Mártir",
     "description_year": "ca. 115",
-    "post_slug": "celebration-inacio"
+    "post_slug": "celebration-ignatius-antiochia"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1491,7 +1491,7 @@
     "liturgical_color": "white",
     "description": "Rei dos Saxões Ocidentais e Reformador da Igreja",
     "description_year": "899",
-    "post_slug": "celebration-alfredo"
+    "post_slug": "celebration-alfred-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1501,7 +1501,7 @@
     "liturgical_color": "red",
     "description": "Bispo da África Equatorial Oriental, e suas Companheiras, Mártires",
     "description_year": "1885",
-    "post_slug": "celebration-james-hannington-e-suas-companheiras"
+    "post_slug": "celebration-james-hannington-and-his-companions"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1509,7 +1509,7 @@
     "fixed_month": 11,
     "fixed_day": 2,
     "liturgical_color": "white",
-    "post_slug": "celebration-comemoracao-dos-fieis-defuntos"
+    "post_slug": "celebration-faithful-departed"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1528,7 +1528,7 @@
     "fixed_day": 5,
     "liturgical_color": "white",
     "description": "Pais de João Batista",
-    "post_slug": "celebration-isabel-e-zacarias"
+    "post_slug": "celebration-isabel-and-zacariah"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1558,7 +1558,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Roma e Mestre da Fé",
     "description_year": "461",
-    "post_slug": "celebration-leao-magno"
+    "post_slug": "celebration-leo-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1568,7 +1568,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Tours",
     "description_year": "397",
-    "post_slug": "celebration-martinho"
+    "post_slug": "celebration-martin-of-tours"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1608,7 +1608,7 @@
     "liturgical_color": "white",
     "description": "Rainha da Escócia, Reformadora da Igreja e Renovadora da Sociedade",
     "description_year": "1093",
-    "post_slug": "celebration-margarida"
+    "post_slug": "celebration-margaret-of-scotland"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1618,7 +1618,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Lincoln e Renovador da Sociedade",
     "description_year": "1200",
-    "post_slug": "celebration-hugh"
+    "post_slug": "celebration-hugh-of-lincoln"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1628,7 +1628,7 @@
     "liturgical_color": "white",
     "description": "Renovadora da Sociedade",
     "description_year": "1231",
-    "post_slug": "celebration-isabel-da-hungria"
+    "post_slug": "celebration-isabel-of-hungary"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1638,7 +1638,7 @@
     "liturgical_color": "white",
     "description": "Abadessa de Whitby",
     "description_year": "680",
-    "post_slug": "celebration-hilda"
+    "post_slug": "celebration-hilda-of-whitby"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1648,7 +1648,7 @@
     "liturgical_color": "red",
     "description": "Rei da Ânglia Oriental e Mártir",
     "description_year": "870",
-    "post_slug": "celebration-edmundo"
+    "post_slug": "celebration-edmund-king"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1668,7 +1668,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Roma e Mártir",
     "description_year": "c. 100",
-    "post_slug": "celebration-clemente"
+    "post_slug": "celebration-clement-of-rome"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1678,7 +1678,7 @@
     "liturgical_color": "red",
     "description": "Mártir",
     "description_year": "c. 305",
-    "post_slug": "celebration-catarina-de-alexandria"
+    "post_slug": "celebration-catherine-of-alexandria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1688,7 +1688,7 @@
     "liturgical_color": "white",
     "description": "Mestre da Fé",
     "description_year": "1963",
-    "post_slug": "celebration-clive-staples-lewis"
+    "post_slug": "celebration-c-s-lewis"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1718,7 +1718,7 @@
     "liturgical_color": "white",
     "description": "Presbítero e Mestre da Fé",
     "description_year": "760",
-    "post_slug": "celebration-joao-de-damasco"
+    "post_slug": "celebration-john-of-damascus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1728,7 +1728,7 @@
     "liturgical_color": "white",
     "description": "Presbítero e Mestre da Fé",
     "description_year": "210",
-    "post_slug": "celebration-clemente-de-alexandria"
+    "post_slug": "celebration-clement-of-alexandria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1738,7 +1738,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Mira",
     "description_year": "c. 326",
-    "post_slug": "celebration-nicolau"
+    "post_slug": "celebration-nicholas"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1748,7 +1748,7 @@
     "liturgical_color": "white",
     "description": "Bispo de Milão e Mestre da Fé",
     "description_year": "397",
-    "post_slug": "celebration-ambrosio"
+    "post_slug": "celebration-ambrose"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1768,7 +1768,7 @@
     "liturgical_color": "red",
     "description": "Mártir em Siracusa",
     "description_year": "304",
-    "post_slug": "celebration-luzia"
+    "post_slug": "celebration-lucy"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1860,6 +1860,6 @@
     "liturgical_color": "white",
     "description": "Presbítero e Tradutor da Bíblia para o Inglês",
     "description_year": "1384",
-    "post_slug": "celebration-john-wyclif"
+    "post_slug": "celebration-john-wycliffe"
   }
 ]

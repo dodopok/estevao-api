@@ -28,7 +28,7 @@
     "calculation_rule": "easter_minus_6_days",
     "liturgical_color": "purple",
     "can_be_transferred": false,
-    "post_slug": "celebration-monday-of-holy-week"
+    "post_slug": "celebration-holy-monday"
   },
   {
     "name": "Tuesday of Holy Week",
@@ -38,7 +38,7 @@
     "calculation_rule": "easter_minus_5_days",
     "liturgical_color": "purple",
     "can_be_transferred": false,
-    "post_slug": "celebration-tuesday-of-holy-week"
+    "post_slug": "celebration-holy-tuesday"
   },
   {
     "name": "Wednesday of Holy Week",
@@ -48,7 +48,7 @@
     "calculation_rule": "easter_minus_4_days",
     "liturgical_color": "purple",
     "can_be_transferred": false,
-    "post_slug": "celebration-wednesday-of-holy-week"
+    "post_slug": "celebration-holy-wednesday"
   },
   {
     "name": "Maundy Thursday",

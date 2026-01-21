@@ -8,7 +8,7 @@
     "rank": 1,
     "movable": false,
     "can_be_transferred": false,
-    "post_slug": "celebration-christmas-day"
+    "post_slug": "celebration-christmas"
   },
   {
     "name": "The Epiphany",
@@ -19,7 +19,7 @@
     "rank": 2,
     "movable": false,
     "can_be_transferred": false,
-    "post_slug": "celebration-the-epiphany"
+    "post_slug": "celebration-epiphany"
   },
   {
     "name": "Easter Day",
@@ -49,7 +49,7 @@
     "liturgical_color": "red",
     "rank": 5,
     "can_be_transferred": false,
-    "post_slug": "celebration-the-day-of-pentecost"
+    "post_slug": "celebration-pentecost"
   },
   {
     "name": "Trinity Sunday",

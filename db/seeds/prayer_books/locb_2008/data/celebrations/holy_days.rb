@@ -157,7 +157,7 @@ major_calendar_feasts = [
     liturgical_color: "vermelho",
     can_be_transferred: false,
     description: "Diácono e mártir",
-    post_slug: "celebration-saint-stephen"
+    post_slug: "celebration-stephen"
   },
   {
     name: "Santos Inocentes",
@@ -182,7 +182,7 @@ major_calendar_feasts = [
     liturgical_color: "branco",
     can_be_transferred: false,
     description: "Esposo de Maria",
-    post_slug: "celebration-saint-joseph"
+    post_slug: "celebration-joseph-of-nazareth"
   },
   {
     name: "São Tiago de Jerusalém",
@@ -194,7 +194,7 @@ major_calendar_feasts = [
     liturgical_color: "vermelho",
     can_be_transferred: false,
     description: "Irmão de nosso Senhor Jesus Cristo, mártir, 62",
-    post_slug: "celebration-saint-james-of-jerusalem"
+    post_slug: "celebration-james-of-jerusalem"
   },
   {
     name: "Bem-aventurada Virgem Maria",
