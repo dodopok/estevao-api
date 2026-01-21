@@ -28,7 +28,8 @@ other_feasts_of_our_lord = [
     can_be_transferred: false,
     description: "Oitava do Natal",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-holy-name-circumcision"
   },
   {
     name: "Apresentação de Cristo no Templo",
@@ -42,7 +43,8 @@ other_feasts_of_our_lord = [
     can_be_transferred: false,
     description: "Candelária - 40 dias após o Natal",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-presentation"
   },
   {
     name: "Anunciação de Nosso Senhor",
@@ -60,7 +62,8 @@ other_feasts_of_our_lord = [
     },
     description: "Anunciação do Anjo Gabriel a Maria",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-annunciation"
   },
   {
     name: "Visitação da Bem-Aventurada Virgem Maria",
@@ -74,7 +77,8 @@ other_feasts_of_our_lord = [
     can_be_transferred: false,
     description: "Visita de Maria a Isabel",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-visitation"
   },
   {
     name: "São João Batista",
@@ -88,7 +92,8 @@ other_feasts_of_our_lord = [
     can_be_transferred: false,
     description: "Natividade de João Batista",
     person_type: "singular",
-    gender: "masculine"
+    gender: "masculine",
+    post_slug: "celebration-nativity-of-john-the-baptist"
   },
   {
     name: "Transfiguração de nosso Senhor Jesus Cristo",
@@ -102,7 +107,8 @@ other_feasts_of_our_lord = [
     can_be_transferred: false,
     description: "Transfiguração de Cristo no Monte Tabor",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-transfiguration"
   },
   {
     name: "Dia da Santa Cruz",
@@ -116,7 +122,8 @@ other_feasts_of_our_lord = [
     can_be_transferred: false,
     description: "Exaltação da Santa Cruz",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-holy-cross"
   }
 ]
 
@@ -140,7 +147,8 @@ major_calendar_feasts = [
     can_be_transferred: false,
     description: "Celebração coletiva dos Apóstolos",
     person_type: "plural",
-    gender: "masculine"
+    gender: "masculine",
+    post_slug: "celebration-apostles"
   },
   # Evangelistas
   {
@@ -152,7 +160,8 @@ major_calendar_feasts = [
     can_be_transferred: false,
     description: "Mateus, Marcos, Lucas e João",
     person_type: "plural",
-    gender: "masculine"
+    gender: "masculine",
+    post_slug: "celebration-evangelists"
   },
   # Santos específicos do Calendário Maior
   {
@@ -167,7 +176,8 @@ major_calendar_feasts = [
     can_be_transferred: false,
     description: "Diácono e mártir",
     person_type: "singular",
-    gender: "masculine"
+    gender: "masculine",
+    post_slug: "celebration-stephen"
   },
   {
     name: "Santos Inocentes",
@@ -181,7 +191,8 @@ major_calendar_feasts = [
     can_be_transferred: false,
     description: "Os Santos Inocentes, mártires",
     person_type: "plural",
-    gender: "masculine"
+    gender: "masculine",
+    post_slug: "celebration-holy-innocents"
   },
   {
     name: "São José, esposo de Maria, mãe de nosso Senhor Jesus Cristo",
@@ -194,7 +205,8 @@ major_calendar_feasts = [
     can_be_transferred: false,
     description: "Esposo de Maria",
     person_type: "singular",
-    gender: "masculine"
+    gender: "masculine",
+    post_slug: "celebration-joseph-of-nazareth"
   },
   {
     name: "São Tiago de Jerusalém",
@@ -207,7 +219,8 @@ major_calendar_feasts = [
     can_be_transferred: false,
     description: "Irmão de nosso Senhor Jesus Cristo, mártir, 62",
     person_type: "singular",
-    gender: "masculine"
+    gender: "masculine",
+    post_slug: "celebration-james-of-jerusalem"
   },
   {
     name: "Bem-aventurada Virgem Maria",
@@ -221,7 +234,8 @@ major_calendar_feasts = [
     can_be_transferred: false,
     description: "Assunção de Maria",
     person_type: "singular",
-    gender: "feminine"
+    gender: "feminine",
+    post_slug: "celebration-assumption-of-mary"
   },
   {
     name: "Maria, virgem mãe de nosso Senhor Jesus Cristo",
@@ -234,7 +248,8 @@ major_calendar_feasts = [
     can_be_transferred: false,
     description: "Natividade de Maria",
     person_type: "singular",
-    gender: "feminine"
+    gender: "feminine",
+    post_slug: "celebration-nativity-of-mary"
   },
   {
     name: "São Miguel e Todos os Anjos",
@@ -248,7 +263,8 @@ major_calendar_feasts = [
     can_be_transferred: false,
     description: "Miguel e todos os Anjos",
     person_type: "plural",
-    gender: "masculine"
+    gender: "masculine",
+    post_slug: "celebration-archangel-michael-and-all-angels"
   },
   {
     name: "Dia Nacional de Ação de Graças",
@@ -260,7 +276,8 @@ major_calendar_feasts = [
     can_be_transferred: false,
     description: "Ação de Graças Nacional",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-thanksgiving"
   }
 ]
 

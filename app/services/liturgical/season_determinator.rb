@@ -6,6 +6,15 @@ module Liturgical
   class SeasonDeterminator
     MAJOR_SEASONS = %w[Advento Natal Quaresma Páscoa].freeze
 
+    SEASON_SLUGS = {
+      "Advento" => "season-advent",
+      "Natal" => "season-christmas",
+      "Epifania" => "season-epiphany",
+      "Quaresma" => "season-lent",
+      "Páscoa" => "season-easter",
+      "Tempo Comum" => "season-ordinary-time"
+    }.freeze
+
     attr_reader :year, :easter_calc
 
     def initialize(year, easter_calc: nil)
@@ -56,6 +65,12 @@ module Liturgical
       second_easter = movable[:second_sunday_of_easter]
 
       date >= palm_sunday && date <= second_easter
+    end
+
+    # Retorna o post_slug da quadra litúrgica para uma data
+    def season_slug_for_date(date)
+      season = season_for_date(date)
+      SEASON_SLUGS[season]
     end
   end
 end

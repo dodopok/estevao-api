@@ -7,7 +7,8 @@
     "liturgical_color": "white",
     "rank": 10,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-easter"
   },
   {
     "name": "Dia da Ascensão",
@@ -17,7 +18,8 @@
     "liturgical_color": "white",
     "rank": 10,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-ascension"
   },
   {
     "name": "Dia de Pentecostes",
@@ -27,7 +29,8 @@
     "liturgical_color": "red",
     "rank": 10,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-pentecost"
   },
   {
     "name": "Domingo da Trindade",
@@ -37,7 +40,8 @@
     "liturgical_color": "white",
     "rank": 10,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-trinity"
   },
   {
     "name": "Dia de Todos os Santos",
@@ -46,8 +50,9 @@
     "fixed_day": 1,
     "liturgical_color": "white",
     "rank": 10,
-    "person_type": "plural",
-    "gender": "mixed"
+    "person_type": "event",
+    "gender": "neutral",
+    "post_slug": "celebration-all-saints"
   },
   {
     "name": "Dia de Natal",
@@ -57,7 +62,8 @@
     "liturgical_color": "white",
     "rank": 10,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-christmas"
   },
   {
     "name": "Epifania de Nosso Senhor Jesus Cristo",
@@ -67,7 +73,8 @@
     "liturgical_color": "white",
     "rank": 10,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-epiphany"
   },
   {
     "name": "Batismo de nosso Senhor Jesus Cristo",
@@ -77,7 +84,8 @@
     "liturgical_color": "white",
     "rank": 10,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-baptism-of-christ"
   },
   {
     "name": "Cristo Rei do Universo",
@@ -87,6 +95,7 @@
     "liturgical_color": "white",
     "rank": 10,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-christ-the-king"
   }
 ]

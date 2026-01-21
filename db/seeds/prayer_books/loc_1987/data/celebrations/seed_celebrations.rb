@@ -61,6 +61,9 @@ def normalize_celebration(data, prayer_book_id, default_rank_base)
     description_year: data['description_year'],
     can_be_transferred: data['can_be_transferred'].nil? ? true : data['can_be_transferred'],
     transfer_rules: data['transfer_rules'],
+    post_slug: data['post_slug'],
+    person_type: data['person_type'],
+    gender: data['gender'],
     rank: rank,
     prayer_book_id: prayer_book_id
   }

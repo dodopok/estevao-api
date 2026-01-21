@@ -8,7 +8,8 @@
     "description": "Bispo no Sul da Índia, Evangelista",
     "description_year": "1945",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-vedanayagam-samuel-azariah"
   },
   {
     "celebration_type": "lesser_feast",
@@ -19,7 +20,8 @@
     "description": "Arcebispo de Cantuária, Mártir",
     "description_year": "1645",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-william-laud"
   },
   {
     "celebration_type": "lesser_feast",
@@ -30,7 +32,8 @@
     "description": "Bispo e Mestre da Fé",
     "description_year": "367",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-hilary-of-poitiers"
   },
   {
     "celebration_type": "lesser_feast",
@@ -40,8 +43,9 @@
     "liturgical_color": "white",
     "description": "Missionário em Strathclyde e Cúmbria",
     "description_year": "603",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-kentigern"
   },
   {
     "celebration_type": "lesser_feast",
@@ -52,7 +56,8 @@
     "description": "Eremita no Egito",
     "description_year": "356",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-anthony-of-egypt"
   },
   {
     "celebration_type": "lesser_feast",
@@ -63,7 +68,8 @@
     "description": "Bispo de Worcester",
     "description_year": "1095",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-wulfstan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -74,7 +80,8 @@
     "description": "Bispo de Roma e Mártir",
     "description_year": "250",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-fabian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -85,7 +92,8 @@
     "description": "Mártir em Roma",
     "description_year": "304",
     "person_type": "singular",
-    "gender": "feminine"
+    "gender": "feminine",
+    "post_slug": "celebration-ines"
   },
   {
     "celebration_type": "lesser_feast",
@@ -96,7 +104,8 @@
     "description": "Diácono de Saragoça, Mártir",
     "description_year": "304",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-vincent-of-saragossa"
   },
   {
     "celebration_type": "lesser_feast",
@@ -106,7 +115,8 @@
     "liturgical_color": "white",
     "description": "Companheiros do Apóstolo Paulo",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-timothy-and-titus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -116,7 +126,8 @@
     "liturgical_color": "white",
     "description": "Auxiliares dos Apóstolos",
     "person_type": "plural",
-    "gender": "feminine"
+    "gender": "feminine",
+    "post_slug": "celebration-lydia-dorcas-and-phoebe"
   },
   {
     "celebration_type": "lesser_feast",
@@ -127,7 +138,8 @@
     "description": "Frade, Presbítero e Mestre da Fé",
     "description_year": "1274",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-thomas-aquinas"
   },
   {
     "celebration_type": "lesser_feast",
@@ -138,7 +150,8 @@
     "description": "Bispo e Ecumenista",
     "description_year": "1998",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-lesslie-newbigin"
   },
   {
     "celebration_type": "lesser_feast",
@@ -149,7 +162,8 @@
     "description": "Rei e Mártir",
     "description_year": "1649",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-charles"
   },
   {
     "celebration_type": "lesser_feast",
@@ -160,7 +174,8 @@
     "description": "Presbítero e Renovador da Sociedade",
     "description_year": "1963",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-samuel-shoemaker"
   },
   {
     "celebration_type": "lesser_feast",
@@ -171,7 +186,8 @@
     "description": "Abadessa de Kildare",
     "description_year": "523",
     "person_type": "singular",
-    "gender": "feminine"
+    "gender": "feminine",
+    "post_slug": "celebration-brigid-of-kildare"
   },
   {
     "celebration_type": "lesser_feast",
@@ -182,7 +198,8 @@
     "description": "Bispo e Missionário na Dinamarca e Suécia",
     "description_year": "865",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-oscar"
   },
   {
     "celebration_type": "lesser_feast",
@@ -191,7 +208,8 @@
     "fixed_day": 4,
     "liturgical_color": "white",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-cornelius-the-centurion"
   },
   {
     "celebration_type": "lesser_feast",
@@ -201,7 +219,8 @@
     "liturgical_color": "red",
     "description_year": "1597",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-martyrs-of-japan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -212,7 +231,8 @@
     "description": "Abadessa",
     "description_year": "543",
     "person_type": "singular",
-    "gender": "feminine"
+    "gender": "feminine",
+    "post_slug": "celebration-scholastica"
   },
   {
     "celebration_type": "lesser_feast",
@@ -223,7 +243,8 @@
     "description": "Primeiro Presbítero Afro-Americano",
     "description_year": "1818",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-absalom-jones"
   },
   {
     "celebration_type": "lesser_feast",
@@ -234,7 +255,8 @@
     "description": "Apóstolos dos Eslavos",
     "description_year": "869, 885",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-cyril-and-methodius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -245,7 +267,8 @@
     "description": "Presbítero e Missionário",
     "description_year": "1730",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-thomas-bray"
   },
   {
     "celebration_type": "lesser_feast",
@@ -256,7 +279,8 @@
     "description": "Arcebispo de Uganda e Mártir",
     "description_year": "1977",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-janani-luwum"
   },
   {
     "celebration_type": "lesser_feast",
@@ -266,8 +290,9 @@
     "liturgical_color": "white",
     "description": "Reformador da Igreja",
     "description_year": "1546",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-martin-luther"
   },
   {
     "celebration_type": "lesser_feast",
@@ -278,7 +303,8 @@
     "description": "Evangelista",
     "description_year": "2018",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-billy-graham"
   },
   {
     "celebration_type": "lesser_feast",
@@ -289,7 +315,8 @@
     "description": "Bispo de Esmirna, Mártir",
     "description_year": "156",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-policarpus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -300,7 +327,8 @@
     "description": "Presbítero e Poeta",
     "description_year": "1633",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-george-herbert"
   },
   {
     "celebration_type": "lesser_feast",
@@ -311,7 +339,8 @@
     "description": "Monge e Mestre da Fé",
     "description_year": "453",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-john-cassian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -322,7 +351,8 @@
     "description": "Bispo e Apóstolo de Gales",
     "description_year": "601",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-david-of-wales"
   },
   {
     "celebration_type": "lesser_feast",
@@ -333,7 +363,8 @@
     "description": "Bispo de Lichfield e Missionário",
     "description_year": "672",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-chad-of-lichfield"
   },
   {
     "celebration_type": "lesser_feast",
@@ -343,8 +374,9 @@
     "liturgical_color": "white",
     "description": "Presbíteros e Reformadores da Igreja",
     "description_year": "1791, 1788",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "plural",
+    "gender": "masculine",
+    "post_slug": "celebration-john-and-charles-wesley"
   },
   {
     "celebration_type": "lesser_feast",
@@ -355,7 +387,8 @@
     "description": "Mártires em Cartago",
     "description_year": "203",
     "person_type": "plural",
-    "gender": "feminine"
+    "gender": "feminine",
+    "post_slug": "celebration-perpetua-and-her-companions"
   },
   {
     "celebration_type": "lesser_feast",
@@ -366,7 +399,8 @@
     "description": "Bispo e Missionário para os Anglos",
     "description_year": "647",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-felix"
   },
   {
     "celebration_type": "lesser_feast",
@@ -376,8 +410,9 @@
     "liturgical_color": "white",
     "description": "Primeiro Primaz do Canadá",
     "description_year": "1904",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-robert-machray"
   },
   {
     "celebration_type": "lesser_feast",
@@ -388,7 +423,8 @@
     "description": "Bispo de Roma e Mestre da Fé",
     "description_year": "604",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-gregory-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -399,7 +435,8 @@
     "description": "Bispo e Apóstolo dos Irlandeses",
     "description_year": "461",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-patrick"
   },
   {
     "celebration_type": "lesser_feast",
@@ -410,7 +447,8 @@
     "description": "Bispo de Jerusalém e Mestre da Fé",
     "description_year": "386",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-cyril"
   },
   {
     "celebration_type": "lesser_feast",
@@ -421,7 +459,8 @@
     "description": "Bispo-Abade de Lindisfarne e Missionário",
     "description_year": "687",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-cuthbert-of-lindisfarne"
   },
   {
     "celebration_type": "lesser_feast",
@@ -432,7 +471,8 @@
     "description": "Arcebispo de Cantuária e Mártir",
     "description_year": "1556",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-thomas-cranmer"
   },
   {
     "celebration_type": "lesser_feast",
@@ -443,7 +483,8 @@
     "description": "Presbítero",
     "description_year": "1879",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-james-dekoven"
   },
   {
     "celebration_type": "lesser_feast",
@@ -454,7 +495,8 @@
     "description": "Missionário na Armênia",
     "description_year": "333",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-gregory-the-illuminator"
   },
   {
     "celebration_type": "lesser_feast",
@@ -465,7 +507,8 @@
     "description": "Bispo e Missionário nas Filipinas",
     "description_year": "1929",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-charles-henry-brent"
   },
   {
     "celebration_type": "lesser_feast",
@@ -475,8 +518,9 @@
     "liturgical_color": "white",
     "description": "Presbítero e Reformador da Igreja",
     "description_year": "1866",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-john-keble"
   },
   {
     "celebration_type": "lesser_feast",
@@ -487,7 +531,8 @@
     "description": "Presbítero e Poeta",
     "description_year": "1631",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-john-donne"
   },
   {
     "celebration_type": "lesser_feast",
@@ -498,7 +543,8 @@
     "description": "Presbítero e Renovador da Sociedade",
     "description_year": "1872",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-frederick-denison-maurice"
   },
   {
     "celebration_type": "lesser_feast",
@@ -509,7 +555,8 @@
     "description": "Primeiro Presbítero Nativo no Canadá",
     "description_year": "1850",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-henry-budd"
   },
   {
     "celebration_type": "lesser_feast",
@@ -520,7 +567,8 @@
     "description": "Presbítero e Missionário",
     "description_year": "1879",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-james-lloyd-breck"
   },
   {
     "celebration_type": "lesser_feast",
@@ -530,8 +578,9 @@
     "liturgical_color": "red",
     "description": "Renovador da Sociedade",
     "description_year": "1968",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-martin-luther-king"
   },
   {
     "celebration_type": "lesser_feast",
@@ -542,7 +591,8 @@
     "description": "Bispo e Ecumenista",
     "description_year": "1925",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-tikhon"
   },
   {
     "celebration_type": "lesser_feast",
@@ -552,8 +602,9 @@
     "liturgical_color": "white",
     "description": "Presbítero, Reformador e Renovador",
     "description_year": "1877",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-william-augustus-muhlenberg"
   },
   {
     "celebration_type": "lesser_feast",
@@ -564,7 +615,8 @@
     "description": "Presbítero e Mestre da Fé",
     "description_year": "1761",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-william-law"
   },
   {
     "celebration_type": "lesser_feast",
@@ -575,7 +627,8 @@
     "description": "Bispo e Missionário na Nova Zelândia",
     "description_year": "1878",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-george-augustus-selwyn"
   },
   {
     "celebration_type": "lesser_feast",
@@ -586,7 +639,8 @@
     "description": "Arcebispo de Cantuária e Mártir",
     "description_year": "1012",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-alphege"
   },
   {
     "celebration_type": "lesser_feast",
@@ -597,7 +651,8 @@
     "description": "Arcebispo de Cantuária e Mestre da Fé",
     "description_year": "1109",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-anselm-of-canterbury"
   },
   {
     "celebration_type": "lesser_feast",
@@ -608,7 +663,8 @@
     "description": "Mártir",
     "description_year": "c. 304",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-george"
   },
   {
     "celebration_type": "lesser_feast",
@@ -619,7 +675,8 @@
     "description": "Arcebispo de Cantuária, Ecumenista e Mestre",
     "description_year": "1988",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-arthur-michael-ramsey"
   },
   {
     "celebration_type": "lesser_feast",
@@ -629,8 +686,9 @@
     "liturgical_color": "white",
     "description": "Reformadora da Igreja",
     "description_year": "1380",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-catherine-of-siena"
   },
   {
     "celebration_type": "lesser_feast",
@@ -641,7 +699,8 @@
     "description": "Bispo de Alexandria e Mestre da Fé",
     "description_year": "373",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-athanasius-of-alexandria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -651,8 +710,9 @@
     "liturgical_color": "white",
     "description": "Ancoreta",
     "description_year": "c. 1417",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-julian-of-norwich"
   },
   {
     "celebration_type": "lesser_feast",
@@ -663,7 +723,8 @@
     "description": "Bispo de Constantinopla e Mestre",
     "description_year": "389",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-gregory-of-nazianzus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -673,8 +734,9 @@
     "liturgical_color": "white",
     "description": "Abade e Organizador do Monasticismo",
     "description_year": "346",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-pachomius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -684,7 +746,8 @@
     "liturgical_color": "red",
     "description_year": "2011",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-martyrs-of-the-sudan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -694,8 +757,9 @@
     "liturgical_color": "white",
     "description": "Arcebispo de Cantuária e Reformador",
     "description_year": "988",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-dunstan"
   },
   {
     "celebration_type": "lesser_feast",
@@ -706,7 +770,8 @@
     "description": "Diácono e Abade de Tours",
     "description_year": "804",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-alcuin"
   },
   {
     "celebration_type": "lesser_feast",
@@ -716,8 +781,9 @@
     "liturgical_color": "white",
     "description": "Mãe de Constantino",
     "description_year": "330",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-helena"
   },
   {
     "celebration_type": "lesser_feast",
@@ -728,7 +794,8 @@
     "description": "Primeiro Bispo Missionário nos EUA",
     "description_year": "1870",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-jackson-kemper"
   },
   {
     "celebration_type": "lesser_feast",
@@ -739,7 +806,8 @@
     "description": "Presbítero e Monge, Mestre",
     "description_year": "735",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-bede"
   },
   {
     "celebration_type": "lesser_feast",
@@ -750,7 +818,8 @@
     "description": "Primeiro Arcebispo de Cantuária e Missionário",
     "description_year": "605",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-augustine-of-canterbury"
   },
   {
     "celebration_type": "lesser_feast",
@@ -760,8 +829,9 @@
     "liturgical_color": "white",
     "description": "Reformador da Igreja",
     "description_year": "1564",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-john-calvin"
   },
   {
     "celebration_type": "lesser_feast",
@@ -771,8 +841,9 @@
     "liturgical_color": "white",
     "description": "Renovadora da Sociedade",
     "description_year": "1906",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-josephine-butler"
   },
   {
     "celebration_type": "lesser_feast",
@@ -783,7 +854,8 @@
     "description": "Mestre da Fé e Mártir em Roma",
     "description_year": "c. 165",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-justin-of-rome"
   },
   {
     "celebration_type": "lesser_feast",
@@ -794,7 +866,8 @@
     "description": "Mártires em Lyon",
     "description_year": "177",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-blandina-and-her-companions"
   },
   {
     "celebration_type": "lesser_feast",
@@ -804,7 +877,8 @@
     "liturgical_color": "red",
     "description_year": "1886, 1977",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-martyrs-of-uganda"
   },
   {
     "celebration_type": "lesser_feast",
@@ -814,8 +888,9 @@
     "liturgical_color": "white",
     "description": "Bispo de Roma, Ecumenista e Reformador",
     "description_year": "1963",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-joao-xxiii"
   },
   {
     "celebration_type": "lesser_feast",
@@ -826,7 +901,8 @@
     "description": "Arcebispo de Mainz, Missionário e Mártir",
     "description_year": "754",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-boniface"
   },
   {
     "celebration_type": "lesser_feast",
@@ -837,7 +913,8 @@
     "description": "Bispo e Missionário na Austrália",
     "description_year": "1853",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-william-grant-broughton"
   },
   {
     "celebration_type": "lesser_feast",
@@ -848,7 +925,8 @@
     "description": "Bispo de Bath e Wells, Não-jurado",
     "description_year": "1711",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-thomas-ken"
   },
   {
     "celebration_type": "lesser_feast",
@@ -858,8 +936,9 @@
     "liturgical_color": "white",
     "description": "Abade de Iona e Missionário para os Escoceses",
     "description_year": "597",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-columba"
   },
   {
     "celebration_type": "lesser_feast",
@@ -869,8 +948,9 @@
     "liturgical_color": "white",
     "description": "Diácono e Mestre da Fé",
     "description_year": "373",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-efrem"
   },
   {
     "celebration_type": "lesser_feast",
@@ -881,7 +961,8 @@
     "description": "Bispo de Cesareia e Mestre",
     "description_year": "379",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-basil-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -891,8 +972,9 @@
     "liturgical_color": "white",
     "description": "Mestra da Fé",
     "description_year": "1941",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-evelyn-underhill"
   },
   {
     "celebration_type": "lesser_feast",
@@ -903,7 +985,8 @@
     "description": "Catequista e Mártir na Rodésia",
     "description_year": "1896",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-bernard-mizeki"
   },
   {
     "celebration_type": "lesser_feast",
@@ -913,8 +996,9 @@
     "liturgical_color": "white",
     "description": "Evangelista e Mestre da Fé",
     "description_year": "1929",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-sundar-singh"
   },
   {
     "celebration_type": "lesser_feast",
@@ -925,7 +1009,8 @@
     "description": "Primeiro Mártir da Grã-Bretanha",
     "description_year": "c. 250",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-alban"
   },
   {
     "celebration_type": "lesser_feast",
@@ -936,7 +1021,8 @@
     "description": "Bispo e Mestre da Fé",
     "description_year": "444",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-cyril-of-alexandria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -947,7 +1033,8 @@
     "description": "Bispo de Lyon e Mestre da Fé",
     "description_year": "200",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-irenaeus-of-lyons"
   },
   {
     "celebration_type": "lesser_feast",
@@ -957,8 +1044,9 @@
     "liturgical_color": "white",
     "description": "Abade e Fundador da Ordem Beneditina",
     "description_year": "c. 550",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-benedict-of-nursia"
   },
   {
     "celebration_type": "lesser_feast",
@@ -969,7 +1057,8 @@
     "description": "Arcebispo de Uppsala e Ecumenista",
     "description_year": "1931",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-nathan-soderblom"
   },
   {
     "celebration_type": "lesser_feast",
@@ -980,7 +1069,8 @@
     "description": "Frade, Bispo e Mestre da Fé",
     "description_year": "1274",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-bonaventure"
   },
   {
     "celebration_type": "lesser_feast",
@@ -991,7 +1081,8 @@
     "description": "Patronos da Igreja na Rússia",
     "description_year": "969, 1016",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-olga-and-vladimir"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1002,7 +1093,8 @@
     "description": "Bispo da Pensilvânia e Primeiro Bispo Primaz da Igreja nos EUA",
     "description_year": "1836",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-william-white"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1012,8 +1104,9 @@
     "liturgical_color": "white",
     "description": "Monja e Mestra da Fé",
     "description_year": "379",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-macrina"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1024,7 +1117,8 @@
     "description": "Bispo de Nissa e Mestre da Fé",
     "description_year": "396",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-gregory-of-nyssa"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1035,7 +1129,8 @@
     "description": "Mártir",
     "description_year": "século IV",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-margaret-of-antioch"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1046,7 +1141,8 @@
     "description": "Presbítero e Mestre da Fé",
     "description_year": "1471",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-thomas-kempis"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1055,7 +1151,8 @@
     "fixed_day": 26,
     "liturgical_color": "white",
     "person_type": "plural",
-    "gender": "feminine"
+    "gender": "mixed",
+    "post_slug": "celebration-parents-of-the-virgin-mary"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1066,7 +1163,8 @@
     "description": "Presbítero e Ecumenista",
     "description_year": "1909",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-william-reed-huntington"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1076,7 +1174,8 @@
     "liturgical_color": "white",
     "description": "Companheiros de nosso Senhor",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "mixed",
+    "post_slug": "celebration-martha-mary-and-lazarus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1087,7 +1186,8 @@
     "description": "Renovador da Sociedade",
     "description_year": "1833",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-william-wilberforce"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1095,8 +1195,9 @@
     "fixed_month": 8,
     "fixed_day": 1,
     "liturgical_color": "white",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-joseph-of-arimathea"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1107,7 +1208,8 @@
     "description": "Rei da Nortúmbria e Mártir",
     "description_year": "642",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-oswald-of-northumbria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1117,8 +1219,9 @@
     "liturgical_color": "white",
     "description": "Presbítero e Reformador da Igreja",
     "description_year": "1866",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-john-mason-neale"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1128,8 +1231,9 @@
     "liturgical_color": "white",
     "description": "Presbítero e Frade",
     "description_year": "1221",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-dominic"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1139,8 +1243,9 @@
     "liturgical_color": "white",
     "description": "Fundadora da União das Mães e Renovadora da Sociedade",
     "description_year": "1921",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-mary-sumner"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1151,7 +1256,8 @@
     "description": "Diácono e Mártir em Roma",
     "description_year": "258",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-lawrence"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1161,8 +1267,9 @@
     "liturgical_color": "white",
     "description": "Abadessa de Assis",
     "description_year": "1253",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-clare-of-assisi"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1173,7 +1280,8 @@
     "description": "Primeiro Bispo do Canadá",
     "description_year": "1787",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-charles-inglis"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1184,7 +1292,8 @@
     "description": "Bispo de Down e Connor, Mestre da Fé",
     "description_year": "1667",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-jeremy-taylor"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1194,8 +1303,9 @@
     "liturgical_color": "white",
     "description": "Monge de Taizé e Ecumenista",
     "description_year": "2005",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-roger-schutz"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1205,8 +1315,9 @@
     "liturgical_color": "white",
     "description": "Abade de Claraval e Mestre da Fé",
     "description_year": "1153",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-bernard-of-clairvaux"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1217,7 +1328,8 @@
     "description": "Mártir",
     "description_year": "1965",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-jonathan-myrick-daniels"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1227,8 +1339,9 @@
     "liturgical_color": "white",
     "description": "Rei da França",
     "description_year": "1270",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-louis"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1239,7 +1352,8 @@
     "description": "Mãe de Agostinho de Hipona",
     "description_year": "387",
     "person_type": "singular",
-    "gender": "feminine"
+    "gender": "feminine",
+    "post_slug": "celebration-monica"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1250,7 +1364,8 @@
     "description": "Bispo de Hipona e Mestre da Fé",
     "description_year": "430",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-augustine-of-hippo"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1259,7 +1374,8 @@
     "fixed_day": 29,
     "liturgical_color": "red",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-beheading-john-baptist"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1270,7 +1386,8 @@
     "description": "Bispo de Fond du Lac e Ecumenista",
     "description_year": "1912",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-charles-chapman-grafton"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1281,7 +1398,8 @@
     "description": "Abade-Bispo de Lindisfarne, Missionário na Nortúmbria",
     "description_year": "651",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-aidan-of-lindisfarne"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1291,7 +1409,8 @@
     "liturgical_color": "red",
     "description_year": "1901 e 1942",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-martyrs-of-papua-new-guinea"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1302,7 +1421,8 @@
     "description": "Bispo de Dorchester e Evangelista em Wessex",
     "description_year": "650",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-birinus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1312,8 +1432,9 @@
     "liturgical_color": "white",
     "description": "Renovadora da Sociedade",
     "description_year": "1997",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-teresa-of-calcutta"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1323,8 +1444,9 @@
     "liturgical_color": "white",
     "description": "Missionário e Fundador da SAMS",
     "description_year": "1851",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-alan-gardiner"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1334,8 +1456,9 @@
     "liturgical_color": "white",
     "description": "Renovadora da Sociedade e Fundadora de Escolas Dominicais",
     "description_year": "1833",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-hannah-more"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1346,7 +1469,8 @@
     "description": "Mártires de Memphis",
     "description_year": "1878",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "feminine",
+    "post_slug": "celebration-constance-and-her-companions"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1357,7 +1481,8 @@
     "description": "Presbítero e Missionário na Libéria",
     "description_year": "1898",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-alexander-crummell"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1367,8 +1492,9 @@
     "liturgical_color": "white",
     "description": "Bispo de Nova York e Reformador da Igreja",
     "description_year": "1830",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-john-henry-hobart"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1379,7 +1505,8 @@
     "description": "Bispo de Constantinopla e Mestre da Fé",
     "description_year": "407",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-john-chrysostom"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1390,7 +1517,8 @@
     "description": "Bispo de Cartago e Mártir",
     "description_year": "258",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-cyprian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1401,7 +1529,8 @@
     "description": "Bispo de Galloway e Missionário para os Pictos",
     "description_year": "432",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-ninian"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1412,7 +1541,8 @@
     "description": "Presbítero e Mestre da Fé",
     "description_year": "1882",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-edward-bouverie-pusey"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1423,7 +1553,8 @@
     "description": "Arcebispo de Cantuária",
     "description_year": "690",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-theodore-of-tarsus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1434,7 +1565,8 @@
     "description": "Bispo da Melanésia, e suas Companheiras, Mártires",
     "description_year": "1871",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-john-coleridge-patteson"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1444,8 +1576,9 @@
     "liturgical_color": "white",
     "description": "Monge e Reformador da Igreja na Rússia",
     "description_year": "1392",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-sergius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1456,7 +1589,8 @@
     "description": "Bispo de Winchester e Mestre da Fé",
     "description_year": "1626",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-lancelot-andrewes"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1466,8 +1600,9 @@
     "liturgical_color": "white",
     "description": "Evangelista e Fundador do Exército da Igreja",
     "description_year": "1942",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-wilson-carlile"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1478,7 +1613,8 @@
     "description": "Monge de Belém e Tradutor da Bíblia",
     "description_year": "420",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-jerome-of-betlehem"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1489,7 +1625,8 @@
     "description": "Bispo de Reims e Missionário para os Francos",
     "description_year": "533",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-remigius"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1500,7 +1637,8 @@
     "description": "Defensor da Igreja Confessante, Bispo e Ecumenista",
     "description_year": "1958",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-george-bell"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1510,8 +1648,9 @@
     "liturgical_color": "white",
     "description": "Frade e Diácono, Reformador da Igreja",
     "description_year": "1226",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-francis-of-assisi"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1522,7 +1661,8 @@
     "description": "Presbítero, Tradutor da Bíblia e Mártir",
     "description_year": "1536",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-william-tyndale"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1533,7 +1673,8 @@
     "description": "Bispo de Lincoln",
     "description_year": "1253",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-robert-grosseteste"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1544,7 +1685,8 @@
     "description": "Bispo de York e Missionário",
     "description_year": "644",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-paulinus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1553,8 +1695,9 @@
     "fixed_day": 11,
     "liturgical_color": "white",
     "description": "Diácono e Evangelista",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-philip"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1564,8 +1707,9 @@
     "liturgical_color": "white",
     "description": "Escritora de Hinos e Mestra da Fé",
     "description_year": "1895",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-cecil-frances-alexander"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1575,8 +1719,9 @@
     "liturgical_color": "white",
     "description": "Rei da Inglaterra",
     "description_year": "1066",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-edward-confessor"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1587,7 +1732,8 @@
     "description": "Bispo de Xangai",
     "description_year": "1906",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-samuel-isaac-joseph-schereschewsky"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1597,8 +1743,9 @@
     "liturgical_color": "white",
     "description": "Monja e Reformadora da Igreja",
     "description_year": "1582",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-teresa-of-avila"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1609,7 +1756,8 @@
     "description": "Bispos e Mártires",
     "description_year": "1555",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-hugh-latimer-and-nicholas-ridley"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1620,7 +1768,8 @@
     "description": "Bispo de Antioquia e Mártir",
     "description_year": "ca. 115",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-ignatius-antiochia"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1631,7 +1780,8 @@
     "description": "Presbítero e Missionário na Índia e Pérsia",
     "description_year": "1812",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-henry-martyn"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1641,8 +1791,9 @@
     "liturgical_color": "white",
     "description": "Rei dos Saxões Ocidentais e Reformador da Igreja",
     "description_year": "899",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-alfred-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1653,7 +1804,8 @@
     "description": "Bispo da África Equatorial Oriental, e suas Companheiras, Mártires",
     "description_year": "1885",
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "mixed",
+    "post_slug": "celebration-james-hannington-and-his-companions"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1662,7 +1814,8 @@
     "fixed_day": 2,
     "liturgical_color": "white",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-faithful-departed"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1673,7 +1826,8 @@
     "description": "Presbítero e Mestre da Fé",
     "description_year": "1600",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-richard-hooker"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1683,7 +1837,8 @@
     "liturgical_color": "white",
     "description": "Pais de João Batista",
     "person_type": "plural",
-    "gender": "feminine"
+    "gender": "mixed",
+    "post_slug": "celebration-isabel-and-zacariah"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1694,7 +1849,8 @@
     "description": "Arcebispo de Cantuária e Mestre da Fé",
     "description_year": "1944",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-william-temple"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1705,7 +1861,8 @@
     "description": "Arcebispo de Utrecht e Missionário na Frísia",
     "description_year": "739",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-willibrord"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1716,7 +1873,8 @@
     "description": "Bispo de Roma e Mestre da Fé",
     "description_year": "461",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-leo-the-great"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1727,7 +1885,8 @@
     "description": "Bispo de Tours",
     "description_year": "397",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-martin-of-tours"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1738,7 +1897,8 @@
     "description": "Presbítero e Evangelista",
     "description_year": "1836",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-charles-simeon"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1749,7 +1909,8 @@
     "description": "Primeiro Bispo nos Estados Unidos",
     "description_year": "1784",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-sagracao-de-samuel-seabury"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1759,8 +1920,9 @@
     "liturgical_color": "white",
     "description": "Monge e Missionário para os Nativos do Alasca",
     "description_year": "1837",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-herman"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1770,8 +1932,9 @@
     "liturgical_color": "white",
     "description": "Rainha da Escócia, Reformadora da Igreja e Renovadora da Sociedade",
     "description_year": "1093",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "feminine",
+    "post_slug": "celebration-margaret-of-scotland"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1782,7 +1945,8 @@
     "description": "Bispo de Lincoln e Renovador da Sociedade",
     "description_year": "1200",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-hugh-of-lincoln"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1793,7 +1957,8 @@
     "description": "Renovadora da Sociedade",
     "description_year": "1231",
     "person_type": "singular",
-    "gender": "feminine"
+    "gender": "feminine",
+    "post_slug": "celebration-isabel-of-hungary"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1804,7 +1969,8 @@
     "description": "Abadessa de Whitby",
     "description_year": "680",
     "person_type": "singular",
-    "gender": "feminine"
+    "gender": "feminine",
+    "post_slug": "celebration-hilda-of-whitby"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1815,7 +1981,8 @@
     "description": "Rei da Ânglia Oriental e Mártir",
     "description_year": "870",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-edmund-king"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1826,7 +1993,8 @@
     "description": "Mártir em Roma",
     "description_year": "c. 230",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-cecilia"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1837,7 +2005,8 @@
     "description": "Bispo de Roma e Mártir",
     "description_year": "c. 100",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-clement-of-rome"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1848,7 +2017,8 @@
     "description": "Mártir",
     "description_year": "c. 305",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-catherine-of-alexandria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1858,8 +2028,9 @@
     "liturgical_color": "white",
     "description": "Mestre da Fé",
     "description_year": "1963",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-c-s-lewis"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1869,8 +2040,9 @@
     "liturgical_color": "white",
     "description": "Diácono e Fundador da Comunidade de Little Gidding",
     "description_year": "1637",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-nicholas-ferrar"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1881,7 +2053,8 @@
     "description": "Bispo Missionário na China e no Japão",
     "description_year": "1910",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-channing-moore-williams"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1892,7 +2065,8 @@
     "description": "Presbítero e Mestre da Fé",
     "description_year": "760",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-john-of-damascus"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1903,7 +2077,8 @@
     "description": "Presbítero e Mestre da Fé",
     "description_year": "210",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-clement-of-alexandria"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1914,7 +2089,8 @@
     "description": "Bispo de Mira",
     "description_year": "c. 326",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-nicholas"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1925,7 +2101,8 @@
     "description": "Bispo de Milão e Mestre da Fé",
     "description_year": "397",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-ambrose"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1935,8 +2112,9 @@
     "liturgical_color": "white",
     "description": "Pastor e Mestre da Fé",
     "description_year": "1691",
-    "person_type": "event",
-    "gender": "neutral"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-richard-baxter"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1947,7 +2125,8 @@
     "description": "Mártir em Siracusa",
     "description_year": "304",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "feminine",
+    "post_slug": "celebration-lucy"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1957,7 +2136,8 @@
     "liturgical_color": "white",
     "description": "Ó Sabedoria do alto",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-o-sapientia"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1967,7 +2147,8 @@
     "liturgical_color": "white",
     "description": "Ó Senhor do Poder",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-o-adonai"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1977,7 +2158,8 @@
     "liturgical_color": "white",
     "description": "Ó Raiz de Jessé",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-o-radix-jesse"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1987,7 +2169,8 @@
     "liturgical_color": "white",
     "description": "Ó Chave de Davi",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-o-clavis-david"
   },
   {
     "celebration_type": "lesser_feast",
@@ -1997,7 +2180,8 @@
     "liturgical_color": "white",
     "description": "Ó Sol Nascente",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-o-oriens"
   },
   {
     "celebration_type": "lesser_feast",
@@ -2007,7 +2191,8 @@
     "liturgical_color": "white",
     "description": "Ó Desejo das Nações",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-o-rex-gentium"
   },
   {
     "celebration_type": "lesser_feast",
@@ -2017,7 +2202,8 @@
     "liturgical_color": "white",
     "description": "Ó Vem, Emanuel",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-o-emmanuel"
   },
   {
     "celebration_type": "lesser_feast",
@@ -2027,7 +2213,8 @@
     "liturgical_color": "white",
     "description": "Ó Virgem das Virgens",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-o-virgo-virginum"
   },
   {
     "celebration_type": "lesser_feast",
@@ -2038,7 +2225,8 @@
     "description": "Arcebispo de Cantuária, Mártir",
     "description_year": "1170",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-thomas-becket"
   },
   {
     "celebration_type": "lesser_feast",
@@ -2049,6 +2237,7 @@
     "description": "Presbítero e Tradutor da Bíblia para o Inglês",
     "description_year": "1384",
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-john-wycliffe"
   }
 ]

@@ -8,7 +8,8 @@
     "liturgical_color": "red",
     "description": "Entrada Triunfal em Jerusalém",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-palm-sunday"
   },
   {
     "name": "Segunda-feira Santa",
@@ -19,7 +20,8 @@
     "liturgical_color": "purple",
     "description": "Segunda-feira da Semana Santa",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-holy-monday"
   },
   {
     "name": "Terça-feira Santa",
@@ -30,7 +32,8 @@
     "liturgical_color": "purple",
     "description": "Terça-feira da Semana Santa",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-holy-tuesday"
   },
   {
     "name": "Quarta-feira Santa",
@@ -41,7 +44,8 @@
     "liturgical_color": "purple",
     "description": "Quarta-feira da Semana Santa",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-holy-wednesday"
   },
   {
     "name": "Quinta-feira Santa",
@@ -52,7 +56,8 @@
     "liturgical_color": "white",
     "description": "Instituição da Eucaristia",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-maundy-thursday"
   },
   {
     "name": "Sexta-feira da Paixão",
@@ -63,7 +68,8 @@
     "liturgical_color": "red",
     "description": "Paixão e Morte de Nosso Senhor",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-good-friday"
   },
   {
     "name": "Sábado Santo",
@@ -74,6 +80,7 @@
     "liturgical_color": "black",
     "description": "Sepultamento de Jesus",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-holy-saturday"
   }
 ]

@@ -22,7 +22,8 @@ principal_feasts = [
     can_be_transferred: false,
     description: "A Ressurreição de nosso Senhor Jesus Cristo",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-easter"
   },
   {
     name: "Ascensão de nosso Senhor Jesus Cristo",
@@ -35,7 +36,8 @@ principal_feasts = [
     can_be_transferred: false,
     description: "Quinta-feira, 40 dias após a Páscoa",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-ascension"
   },
   {
     name: "Pentecostes",
@@ -48,7 +50,8 @@ principal_feasts = [
     can_be_transferred: false,
     description: "Domingo, 50 dias após a Páscoa - Descida do Espírito Santo",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-pentecost"
   },
   {
     name: "Domingo da Trindade",
@@ -61,7 +64,8 @@ principal_feasts = [
     can_be_transferred: false,
     description: "Primeiro domingo após Pentecostes",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-trinity"
   },
   {
     name: "Todos os Santos",
@@ -78,8 +82,9 @@ principal_feasts = [
       transfer_to: "first_sunday_after_november_1"
     },
     description: "Pode ser observado no domingo seguinte",
-    person_type: "plural",
-    gender: "masculine"
+    person_type: "event",
+    gender: "neutral",
+    post_slug: "celebration-all-saints"
   },
   {
     name: "Natividade de nosso Senhor Jesus Cristo",
@@ -93,7 +98,8 @@ principal_feasts = [
     can_be_transferred: false,
     description: "Natal - Nascimento de Jesus Cristo",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-christmas"
   },
   {
     name: "Epifania de nosso Senhor Jesus Cristo",
@@ -107,7 +113,8 @@ principal_feasts = [
     can_be_transferred: false,
     description: "Manifestação de Cristo aos gentios",
     person_type: "event",
-    gender: "neutral"
+    gender: "neutral",
+    post_slug: "celebration-epiphany"
   }
 ]
 

@@ -9,7 +9,8 @@
     "can_be_transferred": false,
     "description": "Vigília Pascal - A Mãe de Todas as Vigílias",
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-easter-vigil"
   },
   {
     "celebration_type": "principal_feast",
@@ -21,7 +22,8 @@
     "calculation_rule": "easter",
     "rank": 0,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-easter"
   },
   {
     "celebration_type": "principal_feast",
@@ -33,7 +35,8 @@
     "can_be_transferred": false,
     "rank": 1,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-christmas-eve"
   },
   {
     "celebration_type": "principal_feast",
@@ -45,7 +48,8 @@
     "can_be_transferred": false,
     "rank": 1,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-christmas"
   },
   {
     "celebration_type": "principal_feast",
@@ -57,7 +61,8 @@
     "can_be_transferred": false,
     "rank": 2,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-holy-name-circumcision"
   },
   {
     "celebration_type": "principal_feast",
@@ -69,7 +74,8 @@
     "can_be_transferred": false,
     "rank": 3,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-epiphany"
   },
   {
     "celebration_type": "principal_feast",
@@ -83,7 +89,8 @@
     "can_be_transferred": false,
     "rank": 4,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-baptism-of-christ"
   },
   {
     "celebration_type": "principal_feast",
@@ -95,7 +102,8 @@
     "can_be_transferred": false,
     "rank": 5,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-presentation"
   },
   {
     "celebration_type": "principal_feast",
@@ -111,7 +119,8 @@
     },
     "rank": 6,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-annunciation"
   },
   {
     "celebration_type": "principal_feast",
@@ -128,7 +137,8 @@
     },
     "rank": 7,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-ascension"
   },
   {
     "celebration_type": "principal_feast",
@@ -142,7 +152,8 @@
     "can_be_transferred": false,
     "rank": 8,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-pentecost"
   },
   {
     "celebration_type": "principal_feast",
@@ -156,7 +167,8 @@
     "can_be_transferred": false,
     "rank": 9,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-trinity"
   },
   {
     "celebration_type": "principal_feast",
@@ -167,7 +179,8 @@
     "can_be_transferred": false,
     "rank": 10,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-transfiguration"
   },
   {
     "celebration_type": "principal_feast",
@@ -181,7 +194,8 @@
     },
     "rank": 11,
     "person_type": "plural",
-    "gender": "mixed"
+    "gender": "mixed",
+    "post_slug": "celebration-all-saints"
   },
   {
     "celebration_type": "principal_feast",
@@ -195,6 +209,7 @@
     "can_be_transferred": false,
     "rank": 12,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-christ-the-king"
   }
 ]

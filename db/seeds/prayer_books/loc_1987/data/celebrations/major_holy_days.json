@@ -7,7 +7,8 @@
     "liturgical_color": "white",
     "rank": 20,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-holy-name-circumcision"
   },
   {
     "name": "Confissão de São Pedro Apóstolo",
@@ -17,7 +18,8 @@
     "liturgical_color": "white",
     "rank": 50,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-confession-of-peter"
   },
   {
     "name": "Conversão de São Paulo Apóstolo",
@@ -27,7 +29,8 @@
     "liturgical_color": "white",
     "rank": 50,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-conversion-of-paul"
   },
   {
     "name": "Apresentação de Nosso Senhor Jesus Cristo no Templo",
@@ -37,7 +40,8 @@
     "liturgical_color": "white",
     "rank": 20,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-presentation"
   },
   {
     "name": "São Matias, Apóstolo",
@@ -47,7 +51,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-matthias-the-apostle"
   },
   {
     "name": "São José",
@@ -57,7 +62,8 @@
     "liturgical_color": "white",
     "rank": 50,
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-joseph-of-nazareth"
   },
   {
     "name": "Anunciação da Bem-Aventurada Virgem Maria",
@@ -67,7 +73,8 @@
     "liturgical_color": "white",
     "rank": 20,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-annunciation"
   },
   {
     "name": "São Marcos, Evangelista",
@@ -77,7 +84,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-mark-the-evangelist"
   },
   {
     "name": "São Felipe e São Tiago, Apóstolos",
@@ -87,7 +95,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-philip-and-james-apostles"
   },
   {
     "name": "Visitação da Bem-Aventurada Virgem Maria",
@@ -97,7 +106,8 @@
     "liturgical_color": "white",
     "rank": 20,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-visitation"
   },
   {
     "name": "São Barnabé, Apóstolo",
@@ -107,7 +117,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-barnabas-the-apostle"
   },
   {
     "name": "Natividade de São João Batista",
@@ -117,7 +128,8 @@
     "liturgical_color": "white",
     "rank": 20,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-nativity-of-john-the-baptist"
   },
   {
     "name": "São Pedro e São Paulo, Apóstolos",
@@ -127,7 +139,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-peter-and-paul-apostles"
   },
   {
     "name": "Santa Maria Madalena",
@@ -137,7 +150,8 @@
     "liturgical_color": "white",
     "rank": 50,
     "person_type": "singular",
-    "gender": "feminine"
+    "gender": "feminine",
+    "post_slug": "celebration-mary-magdalene"
   },
   {
     "name": "São Tiago, Apóstolo",
@@ -147,7 +161,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-james-the-apostle"
   },
   {
     "name": "Transfiguração de Nosso Senhor Jesus Cristo",
@@ -157,7 +172,8 @@
     "liturgical_color": "white",
     "rank": 20,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-transfiguration"
   },
   {
     "name": "Bem-Aventurada Virgem Maria, Mãe de Nosso Senhor Jesus Cristo",
@@ -167,7 +183,8 @@
     "liturgical_color": "white",
     "rank": 50,
     "person_type": "singular",
-    "gender": "feminine"
+    "gender": "feminine",
+    "post_slug": "celebration-assumption-of-mary"
   },
   {
     "name": "São Bartolomeu, Apóstolo",
@@ -177,7 +194,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-bartholomew-the-apostle"
   },
   {
     "name": "Dia da Pátria",
@@ -187,7 +205,8 @@
     "liturgical_color": "white",
     "rank": 50,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-independence-day-brazil"
   },
   {
     "name": "Dia da Santa Cruz",
@@ -197,7 +216,8 @@
     "liturgical_color": "red",
     "rank": 20,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-holy-cross"
   },
   {
     "name": "São Mateus, Apóstolo e Evangelista",
@@ -206,8 +226,9 @@
     "fixed_day": 21,
     "liturgical_color": "red",
     "rank": 50,
-    "person_type": "plural",
-    "gender": "masculine"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-matthew-the-apostle"
   },
   {
     "name": "São Miguel e Todos os Anjos",
@@ -217,7 +238,8 @@
     "liturgical_color": "white",
     "rank": 50,
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-archangel-michael-and-all-angels"
   },
   {
     "name": "São Lucas, Evangelista",
@@ -227,7 +249,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-luke-the-evangelist"
   },
   {
     "name": "São Tiago de Jerusalém, Irmão de Nosso Senhor Jesus Cristo, Mártir",
@@ -237,7 +260,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-james-of-jerusalem"
   },
   {
     "name": "São Simão e São Judas, Apóstolos",
@@ -247,7 +271,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "plural",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-simon-and-jude-apostles"
   },
   {
     "name": "Dia Nacional de Ação de Graças",
@@ -257,7 +282,8 @@
     "liturgical_color": "white",
     "rank": 50,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-thanksgiving-brazil"
   },
   {
     "name": "Santo André, Apóstolo",
@@ -267,7 +293,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-andrew-the-apostle"
   },
   {
     "name": "São Tomé, Apóstolo",
@@ -277,7 +304,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "singular",
-    "gender": "masculine"
+    "gender": "masculine",
+    "post_slug": "celebration-thomas-the-apostle"
   },
   {
     "name": "Santo Estevão, Diácono e Mártir",
@@ -286,8 +314,9 @@
     "fixed_day": 26,
     "liturgical_color": "red",
     "rank": 50,
-    "person_type": "plural",
-    "gender": "masculine"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-stephen"
   },
   {
     "name": "São João, Apóstolo e Evangelista",
@@ -296,8 +325,9 @@
     "fixed_day": 27,
     "liturgical_color": "white",
     "rank": 50,
-    "person_type": "plural",
-    "gender": "masculine"
+    "person_type": "singular",
+    "gender": "masculine",
+    "post_slug": "celebration-john-the-apostle"
   },
   {
     "name": "Santos Inocentes",
@@ -307,7 +337,8 @@
     "liturgical_color": "red",
     "rank": 50,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-holy-innocents"
   },
   {
     "name": "Quarta-feira de Cinzas",
@@ -317,6 +348,7 @@
     "liturgical_color": "purple",
     "rank": 20,
     "person_type": "event",
-    "gender": "neutral"
+    "gender": "neutral",
+    "post_slug": "celebration-ash-wednesday"
   }
 ]
