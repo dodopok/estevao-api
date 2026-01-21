@@ -7,7 +7,8 @@
     "liturgical_color": "white",
     "rank": 1,
     "movable": false,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "post_slug": "celebration-christmas"
   },
   {
     "name": "Epifania",
@@ -17,7 +18,8 @@
     "liturgical_color": "white",
     "rank": 2,
     "movable": false,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "post_slug": "celebration-epiphany"
   },
   {
     "name": "Dia de Páscoa",
@@ -26,7 +28,8 @@
     "calculation_rule": "easter",
     "liturgical_color": "white",
     "rank": 3,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "post_slug": "celebration-easter"
   },
   {
     "name": "Dia da Ascensão",
@@ -35,7 +38,8 @@
     "calculation_rule": "easter_plus_39_days",
     "liturgical_color": "white",
     "rank": 4,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "post_slug": "celebration-ascension"
   },
   {
     "name": "Dia de Pentecostes",
@@ -44,7 +48,8 @@
     "calculation_rule": "easter_plus_49_days",
     "liturgical_color": "red",
     "rank": 5,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "post_slug": "celebration-pentecost"
   },
   {
     "name": "Domingo da Trindade",
@@ -53,7 +58,8 @@
     "calculation_rule": "easter_plus_56_days",
     "liturgical_color": "white",
     "rank": 6,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "post_slug": "celebration-trinity"
   },
   {
     "name": "Dia de Todos os Santos",
@@ -63,6 +69,7 @@
     "liturgical_color": "white",
     "rank": 7,
     "movable": false,
-    "can_be_transferred": true
+    "can_be_transferred": true,
+    "post_slug": "celebration-all-saints"
   }
 ]

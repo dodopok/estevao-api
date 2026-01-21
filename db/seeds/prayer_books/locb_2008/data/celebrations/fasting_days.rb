@@ -17,7 +17,8 @@ fasting_days = [
     calculation_rule: "easter_minus_46_days",
     liturgical_color: "roxo",
     can_be_transferred: false,
-    description: "Início da Quaresma - dia de jejum"
+    description: "Início da Quaresma - dia de jejum",
+    post_slug: "celebration-ash-wednesday"
   },
   {
     name: "Sexta-feira da Paixão",
@@ -28,7 +29,8 @@ fasting_days = [
     calculation_rule: "easter_minus_2_days",
     liturgical_color: "vermelho",
     can_be_transferred: false,
-    description: "Paixão e Morte de nosso Senhor - dia de jejum"
+    description: "Paixão e Morte de nosso Senhor - dia de jejum",
+    post_slug: "celebration-good-friday"
   }
 ]
 

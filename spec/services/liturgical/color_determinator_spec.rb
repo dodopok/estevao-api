@@ -29,12 +29,58 @@ RSpec.describe Liturgical::ColorDeterminator do
         expect(color_determinator.color_for(date, celebration: celebration)).to eq("branco")
       end
 
-      it "ignores celebration color for non-principal types" do
-        # A festival during Ordinary Time - should use green
+      it "uses season color for festivals on Sundays" do
+        # A festival on Sunday should use season's color, not festival's color
+        # Only principal feasts and major holy days override Sundays
         date = Date.new(2025, 6, 15) # Sunday in Ordinary Time
+        celebration = { color: "branco", type: "festival" }
+
+        expect(date).to be_sunday
+        expect(color_determinator.color_for(date, celebration: celebration)).to eq("verde")
+      end
+
+      it "uses celebration color for festivals on weekdays" do
+        # A festival on weekday should use festival's color
+        date = Date.new(2025, 6, 16) # Monday in Ordinary Time
         celebration = { color: "vermelho", type: "festival" }
 
+        expect(date).not_to be_sunday
+        expect(color_determinator.color_for(date, celebration: celebration)).to eq("vermelho")
+      end
+
+      it "uses celebration color for lesser_feast on weekdays" do
+        # Lesser feast during Epiphany on a weekday - should use feast's white color
+        date = Date.new(2025, 1, 13) # Monday in Epiphany
+        celebration = { color: "branco", type: "lesser_feast" }
+
+        expect(date).not_to be_sunday
+        expect(color_determinator.color_for(date, celebration: celebration)).to eq("branco")
+      end
+
+      it "ignores lesser_feast color on Sundays" do
+        # Lesser feast on Sunday - should use season's green color, not feast's white
+        date = Date.new(2025, 11, 16) # Sunday in Ordinary Time with Margaret of Scotland
+        celebration = { color: "branco", type: "lesser_feast" }
+
+        expect(date).to be_sunday
         expect(color_determinator.color_for(date, celebration: celebration)).to eq("verde")
+      end
+
+      it "uses celebration color for commemoration on weekdays" do
+        # Commemoration during Ordinary Time on weekday - should use commemoration's color
+        date = Date.new(2025, 7, 15) # Tuesday in Ordinary Time
+        celebration = { color: "branco", type: "commemoration" }
+
+        expect(date).not_to be_sunday
+        expect(color_determinator.color_for(date, celebration: celebration)).to eq("branco")
+      end
+
+      it "uses celebration color for transferred celebrations" do
+        # Transferred celebration should maintain its original color
+        date = Date.new(2025, 3, 25) # Annunciation during Lent
+        celebration = { color: "branco", type: "principal_feast", transferred: true }
+
+        expect(color_determinator.color_for(date, celebration: celebration)).to eq("branco")
       end
     end
 

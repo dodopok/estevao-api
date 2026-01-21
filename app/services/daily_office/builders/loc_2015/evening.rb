@@ -24,6 +24,7 @@ module DailyOffice
             build_welcome,
             build_opening_sentence,
             build_confession,
+            build_absolution,
             build_invitatory,
             build_invitatory_canticle,
             build_psalms,
@@ -150,7 +151,7 @@ module DailyOffice
           }
         end
 
-        # 2. CONFESSION AND ABSOLUTION
+        # 2. CONFESSION
         def build_confession
           lines = []
 
@@ -194,13 +195,25 @@ module DailyOffice
           end
 
           # Prayer after confession (if no priest for absolution)
-          if preferences[:include_prayer_after_confession]
+          if preferences[:use_priestly_absolution] != "yes"
             prayer_num = preferences[:prayer_after_confession] || 1
             after_prayer = fetch_liturgical_text("prayer_after_confession_#{prayer_num}")
             if after_prayer
               lines << line_item(after_prayer.content, type: "congregation", slug: after_prayer.slug)
             end
           end
+
+          {
+            name: "Confissão de Pecados",
+            slug: "confession",
+            lines: lines
+          }
+        end
+
+        def build_absolution
+          return nil unless preferences[:use_priestly_absolution] == "yes"
+
+          lines = []
 
           absolution = fetch_liturgical_text("absolution")
           return nil unless absolution
@@ -215,8 +228,8 @@ module DailyOffice
           end
 
           {
-            name: "Confissão e Absolvição de Pecados",
-            slug: "confession",
+            name: "Absolvição",
+            slug: "absolution",
             lines: lines
           }
         end

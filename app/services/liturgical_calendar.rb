@@ -471,6 +471,7 @@ class LiturgicalCalendar
       description: description(date),
       day_of_week: Liturgical::Translator.day_name_pt(date),
       liturgical_season: season_for_date(date),
+      season_post_slug: @season_determinator.season_slug_for_date(date),
       color: color_for_date_uncached(date),
       celebration: build_celebration_for_date(date),
       is_sunday: date.sunday?,
@@ -497,7 +498,8 @@ class LiturgicalCalendar
       color: celebration.liturgical_color,
       description: celebration.description,
       description_year: celebration.description_year,
-      transferred: transferred?(celebration, date)
+      transferred: transferred?(celebration, date),
+      post_slug: celebration.post_slug
     }
   end
 
@@ -514,7 +516,8 @@ class LiturgicalCalendar
         color: celebration.liturgical_color,
         description: celebration.description,
         description_year: celebration.description_year,
-        transferred: transferred?(celebration, date)
+        transferred: transferred?(celebration, date),
+        post_slug: celebration.post_slug
       }
     end
   end

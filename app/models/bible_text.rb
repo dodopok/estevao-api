@@ -137,6 +137,11 @@ class BibleText < ApplicationRecord
     # Clean up the reference
     clean_ref = reference.strip
 
+    # Normalize en-dash (–) and em-dash (—) to regular hyphen (-)
+    # En-dash (UTF-8: 226,128,147) and em-dash (UTF-8: 226,128,148) are sometimes used
+    # in Bible references but need to be converted to regular ASCII hyphen (45)
+    clean_ref = clean_ref.gsub(/[–—]/, "-")
+
     # Normalize Roman numerals to Arabic numbers (I, II, III -> 1, 2, 3)
     clean_ref = clean_ref.gsub(/^(I{1,3})\s+/) do |match|
       roman = match.strip

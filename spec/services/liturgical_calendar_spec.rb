@@ -193,7 +193,7 @@ RSpec.describe LiturgicalCalendar do
         expect(calendar.color_for_date(date)).to eq("branco")
       end
 
-      it 'lesser feasts on weekdays keep season color' do
+      it 'lesser feasts on weekdays use celebration color' do
        # Create a celebration on a weekday
        Celebration.find_or_create_by!(
           name: "Santo Teste Segunda",
@@ -208,7 +208,8 @@ RSpec.describe LiturgicalCalendar do
         date = Date.new(2025, 6, 16)
 
         expect(date).not_to be_sunday
-        expect(calendar.color_for_date(date)).to eq("verde")
+        expect(calendar.season_for_date(date)).to eq("Tempo Comum")
+        expect(calendar.color_for_date(date)).to eq("vermelho") # Uses celebration color
       end
 
       it 'principal feasts override season color even in Lent' do
@@ -249,8 +250,8 @@ RSpec.describe LiturgicalCalendar do
         expect(calendar.color_for_date(date)).to eq("roxo")
       end
 
-      it 'lesser feasts in Lent keep purple season color' do
-        # Saint Patrick falls on March 17 (during Lent)
+      it 'lesser feasts in Lent use celebration color on weekdays' do
+        # Saint Patrick falls on March 17 (during Lent) - Monday in 2025
         Celebration.find_or_create_by!(
           name: "São Patrício",
           celebration_type: :lesser_feast,
@@ -263,8 +264,9 @@ RSpec.describe LiturgicalCalendar do
 
         date = Date.new(2025, 3, 17)
 
+        expect(date).not_to be_sunday # March 17, 2025 is Monday
         expect(calendar.season_for_date(date)).to eq("Quaresma")
-        expect(calendar.color_for_date(date)).to eq("roxo")
+        expect(calendar.color_for_date(date)).to eq("branco") # Uses celebration color
       end
     end
   end

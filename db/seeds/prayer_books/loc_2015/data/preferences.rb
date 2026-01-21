@@ -38,6 +38,19 @@ loc_2015_preferences = [
           { value: "traditional", label: "Orações Tradicionais", description: "Linguagem clássica e formal" },
           { value: "contemporary", label: "Orações Contemporâneas", description: "Linguagem moderna e atualizada" }
         ]
+      },
+      {
+        key: "use_priestly_absolution",
+        name: "Usar a absolvição de pecados na confissão",
+        description: "Apenas para presbíteros e bispos",
+        pref_type: "select_one",
+        required: true,
+        default_value: "no",
+        position: 3,
+        options: [
+          { value: "yes", label: "Sim, sou presbítero ou bispo" },
+          { value: "no", label: "Não" }
+        ]
       }
     ]
   },

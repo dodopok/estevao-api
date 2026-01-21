@@ -150,4 +150,52 @@ RSpec.describe Liturgical::SeasonDeterminator do
       )
     end
   end
+
+  describe "SEASON_SLUGS constant" do
+    it "maps all seasons to their post slugs" do
+      expect(Liturgical::SeasonDeterminator::SEASON_SLUGS).to eq({
+        "Advento" => "season-advent",
+        "Natal" => "season-christmas",
+        "Epifania" => "season-epiphany",
+        "Quaresma" => "season-lent",
+        "Páscoa" => "season-easter",
+        "Tempo Comum" => "season-ordinary-time"
+      })
+    end
+  end
+
+  describe "#season_slug_for_date" do
+    let(:year) { 2024 }
+    let(:determinator) { described_class.new(year) }
+
+    it "returns season-advent for Advent dates" do
+      date = Date.new(2024, 12, 1)
+      expect(determinator.season_slug_for_date(date)).to eq("season-advent")
+    end
+
+    it "returns season-christmas for Christmas dates" do
+      date = Date.new(2024, 12, 25)
+      expect(determinator.season_slug_for_date(date)).to eq("season-christmas")
+    end
+
+    it "returns season-epiphany for Epiphany dates" do
+      date = Date.new(2024, 1, 20)
+      expect(determinator.season_slug_for_date(date)).to eq("season-epiphany")
+    end
+
+    it "returns season-lent for Lent dates" do
+      date = Date.new(2024, 2, 14)
+      expect(determinator.season_slug_for_date(date)).to eq("season-lent")
+    end
+
+    it "returns season-easter for Easter dates" do
+      date = Date.new(2024, 3, 31)
+      expect(determinator.season_slug_for_date(date)).to eq("season-easter")
+    end
+
+    it "returns season-ordinary-time for Ordinary Time dates" do
+      date = Date.new(2024, 6, 15)
+      expect(determinator.season_slug_for_date(date)).to eq("season-ordinary-time")
+    end
+  end
 end

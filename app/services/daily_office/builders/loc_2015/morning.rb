@@ -182,10 +182,12 @@ module DailyOffice
           end
 
           # Post-confession prayer (2 options)
-          prayer_num = resolve_preference(:morning_prayer_after_confession, 1..2)
-          after_prayer = fetch_liturgical_text("prayer_after_confession_#{prayer_num}")
-          if after_prayer
-            lines << line_item(after_prayer.content, type: "congregation", slug: after_prayer.slug)
+          if preferences[:use_priestly_absolution] != "yes"
+            prayer_num = resolve_preference(:morning_prayer_after_confession, 1..2)
+            after_prayer = fetch_liturgical_text("prayer_after_confession_#{prayer_num}")
+            if after_prayer
+              lines << line_item(after_prayer.content, type: "congregation", slug: after_prayer.slug)
+            end
           end
 
           {
@@ -197,6 +199,8 @@ module DailyOffice
 
         # 3. ABSOLUTION
         def build_absolution
+          return nil unless preferences[:use_priestly_absolution] == "yes"
+
           lines = []
 
           absolution = fetch_liturgical_text("absolution")

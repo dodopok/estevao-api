@@ -63,7 +63,7 @@ gem "roo"
 gem "sqlite3", "~> 2.9"
 
 # Datadog APM, Logging, and Error Tracking
-gem "datadog", "~> 2.0"
+gem "datadog", "~> 2.26"
 gem "dogstatsd-ruby", "~> 5.6"  # For custom metrics
 
 gem "connection_pool", "< 3.0"
