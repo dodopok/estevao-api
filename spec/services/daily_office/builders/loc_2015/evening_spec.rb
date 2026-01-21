@@ -213,7 +213,7 @@ RSpec.describe DailyOffice::Builders::Loc2015::Evening do
         expect(result).to have_key(:slug)
         expect(result).to have_key(:lines)
         expect(result[:slug]).to eq('confession')
-        expect(result[:name]).to eq('Confissão e Absolvição de Pecados')
+        expect(result[:name]).to eq('Confissão de Pecados')
       end
     end
 

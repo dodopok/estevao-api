@@ -435,6 +435,13 @@ RSpec.describe CollectService do
         prayer_book: prayer_book)
     end
 
+    let!(:common_saints_collect) do
+      create(:collect,
+        sunday_reference: "common_saints",
+        text: "Deus Todo-poderoso, que nos manténs em unidade com todos os teus santos, dá-nos graça para seguir o exemplo do teu servo N. e perseverar na corrida que nos está proposta, até que, por fim, alcancemos com ele a tua alegria eterna; por Jesus Cristo, nosso Senhor, que vive e reina contigo e com o Espírito Santo, um só Deus, agora e sempre. Amém.",
+        prayer_book: prayer_book)
+    end
+
     context 'with a singular masculine saint' do
       let!(:policarpo) do
         Celebration.find_or_create_by!(
