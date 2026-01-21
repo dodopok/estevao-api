@@ -4,209 +4,269 @@
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 1,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "A Epifania de Nosso Senhor Jesus Cristo",
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 6,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Confissão do Apóstolo Pedro",
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 18,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Conversão do Apóstolo Paulo",
     "celebration_type": "major_holy_day",
     "fixed_month": 1,
     "fixed_day": 25,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "A Apresentação de Nosso Senhor Jesus Cristo no Templo",
     "celebration_type": "major_holy_day",
     "fixed_month": 2,
     "fixed_day": 2,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Matias, o Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 2,
     "fixed_day": 24,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine"
   },
   {
     "name": "José, Esposo da Virgem Maria e Guardião de Jesus",
     "celebration_type": "major_holy_day",
     "fixed_month": 3,
     "fixed_day": 19,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "feminine"
   },
   {
     "name": "A Anunciação de nosso Senhor Jesus Cristo à Virgem Maria",
     "celebration_type": "major_holy_day",
     "fixed_month": 3,
     "fixed_day": 25,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Marcos, o Evangelista",
     "celebration_type": "major_holy_day",
     "fixed_month": 4,
     "fixed_day": 25,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine"
   },
   {
     "name": "Filipe e Tiago, Apóstolos",
     "celebration_type": "major_holy_day",
     "fixed_month": 5,
     "fixed_day": 1,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine"
   },
   {
     "name": "A Visitação da Virgem Maria a Isabel e Zacarias",
     "celebration_type": "major_holy_day",
     "fixed_month": 5,
     "fixed_day": 31,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Barnabé, o Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 6,
     "fixed_day": 11,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "O Nascimento de João Batista",
     "celebration_type": "major_holy_day",
     "fixed_month": 6,
     "fixed_day": 24,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Pedro e Paulo, Apóstolos",
     "celebration_type": "major_holy_day",
     "fixed_month": 6,
     "fixed_day": 29,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine"
   },
   {
     "name": "Maria Madalena",
     "celebration_type": "major_holy_day",
     "fixed_month": 7,
     "fixed_day": 22,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "feminine"
   },
   {
     "name": "Tiago, o Maior, Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 7,
     "fixed_day": 25,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine"
   },
   {
     "name": "A Transfiguração de Nosso Senhor Jesus Cristo",
     "celebration_type": "major_holy_day",
     "fixed_month": 8,
     "fixed_day": 6,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "A Virgem Maria, Mãe de Nosso Senhor Jesus Cristo",
     "celebration_type": "major_holy_day",
     "fixed_month": 8,
     "fixed_day": 15,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "singular",
+    "gender": "feminine"
   },
   {
     "name": "Bartolomeu, o Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 8,
     "fixed_day": 24,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine"
   },
   {
     "name": "Dia da Santa Cruz",
     "celebration_type": "major_holy_day",
     "fixed_month": 9,
     "fixed_day": 14,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Mateus, Apóstolo e Evangelista",
     "celebration_type": "major_holy_day",
     "fixed_month": 9,
     "fixed_day": 21,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine"
   },
   {
     "name": "São Miguel e Todos os Anjos",
     "celebration_type": "major_holy_day",
     "fixed_month": 9,
     "fixed_day": 29,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "masculine"
   },
   {
     "name": "Lucas, o Evangelista e Companheiro de Paulo",
     "celebration_type": "major_holy_day",
     "fixed_month": 10,
     "fixed_day": 18,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine"
   },
   {
     "name": "Tiago de Jerusalém, Bispo e Mártir",
     "celebration_type": "major_holy_day",
     "fixed_month": 10,
     "fixed_day": 23,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine"
   },
   {
     "name": "Simão e Judas, Apóstolos",
     "celebration_type": "major_holy_day",
     "fixed_month": 10,
     "fixed_day": 28,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine"
   },
   {
     "name": "André, o Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 11,
     "fixed_day": 30,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "singular",
+    "gender": "masculine"
   },
   {
     "name": "Tomé, o Apóstolo",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 21,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Estêvão, Diácono e Mártir",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 26,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "plural",
+    "gender": "masculine"
   },
   {
     "name": "João, Apóstolo e Evangelista",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 27,
-    "liturgical_color": "white"
+    "liturgical_color": "white",
+    "person_type": "plural",
+    "gender": "masculine"
   },
   {
     "name": "Os Santos Inocentes",
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 28,
-    "liturgical_color": "red"
+    "liturgical_color": "red",
+    "person_type": "event",
+    "gender": "neutral"
   }
 ]

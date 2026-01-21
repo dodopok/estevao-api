@@ -7,7 +7,9 @@
     "liturgical_color": "white",
     "rank": 1,
     "movable": false,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "The Epiphany",
@@ -17,7 +19,9 @@
     "liturgical_color": "white",
     "rank": 2,
     "movable": false,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Easter Day",
@@ -26,7 +30,9 @@
     "calculation_rule": "easter",
     "liturgical_color": "white",
     "rank": 3,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Ascension Day",
@@ -35,7 +41,9 @@
     "calculation_rule": "easter_plus_39_days",
     "liturgical_color": "white",
     "rank": 4,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "The Day of Pentecost",
@@ -44,7 +52,9 @@
     "calculation_rule": "easter_plus_49_days",
     "liturgical_color": "red",
     "rank": 5,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Trinity Sunday",
@@ -53,7 +63,9 @@
     "calculation_rule": "easter_plus_56_days",
     "liturgical_color": "white",
     "rank": 6,
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "All Saints' Day",
@@ -63,6 +75,8 @@
     "liturgical_color": "white",
     "rank": 7,
     "movable": false,
-    "can_be_transferred": true
+    "can_be_transferred": true,
+    "person_type": "event",
+    "gender": "neutral"
   }
 ]

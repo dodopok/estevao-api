@@ -7,7 +7,9 @@
     "calculation_rule": "easter_minus_46_days",
     "liturgical_color": "purple",
     "can_be_transferred": false,
-    "description": "First day of Lent"
+    "description": "First day of Lent",
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Palm Sunday",
@@ -16,7 +18,9 @@
     "movable": true,
     "calculation_rule": "easter_minus_7_days",
     "liturgical_color": "red",
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Monday of Holy Week",
@@ -25,7 +29,9 @@
     "movable": true,
     "calculation_rule": "easter_minus_6_days",
     "liturgical_color": "purple",
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Tuesday of Holy Week",
@@ -34,7 +40,9 @@
     "movable": true,
     "calculation_rule": "easter_minus_5_days",
     "liturgical_color": "purple",
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Wednesday of Holy Week",
@@ -43,7 +51,9 @@
     "movable": true,
     "calculation_rule": "easter_minus_4_days",
     "liturgical_color": "purple",
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Maundy Thursday",
@@ -52,7 +62,9 @@
     "movable": true,
     "calculation_rule": "easter_minus_3_days",
     "liturgical_color": "white",
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Good Friday",
@@ -61,7 +73,9 @@
     "movable": true,
     "calculation_rule": "easter_minus_2_days",
     "liturgical_color": "red",
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   },
   {
     "name": "Holy Saturday",
@@ -70,6 +84,8 @@
     "movable": true,
     "calculation_rule": "easter_minus_1_day",
     "liturgical_color": "white",
-    "can_be_transferred": false
+    "can_be_transferred": false,
+    "person_type": "event",
+    "gender": "neutral"
   }
 ]
