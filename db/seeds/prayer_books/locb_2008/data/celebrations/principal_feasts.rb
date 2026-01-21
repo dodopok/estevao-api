@@ -20,7 +20,8 @@ principal_feasts = [
     calculation_rule: "easter",
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "A Ressurreição de nosso Senhor Jesus Cristo"
+    description: "A Ressurreição de nosso Senhor Jesus Cristo",
+    post_slug: "celebration-easter"
   },
   {
     name: "Ascensão de nosso Senhor Jesus Cristo",
@@ -31,7 +32,8 @@ principal_feasts = [
     calculation_rule: "easter_plus_39_days",
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Quinta-feira, 40 dias após a Páscoa"
+    description: "Quinta-feira, 40 dias após a Páscoa",
+    post_slug: "celebration-ascension"
   },
   {
     name: "Pentecostes",
@@ -42,7 +44,8 @@ principal_feasts = [
     calculation_rule: "easter_plus_49_days",
     liturgical_color: "vermelho",
     can_be_transferred: false,
-    description: "Domingo, 50 dias após a Páscoa - Descida do Espírito Santo"
+    description: "Domingo, 50 dias após a Páscoa - Descida do Espírito Santo",
+    post_slug: "celebration-pentecost"
   },
   {
     name: "Domingo da Trindade",
@@ -53,7 +56,8 @@ principal_feasts = [
     calculation_rule: "easter_plus_56_days",
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Primeiro domingo após Pentecostes"
+    description: "Primeiro domingo após Pentecostes",
+    post_slug: "celebration-trinity"
   },
   {
     name: "Todos os Santos",
@@ -69,7 +73,8 @@ principal_feasts = [
       conditions: [ "can_transfer_to_following_sunday" ],
       transfer_to: "first_sunday_after_november_1"
     },
-    description: "Pode ser observado no domingo seguinte"
+    description: "Pode ser observado no domingo seguinte",
+    post_slug: "celebration-all-saints"
   },
   {
     name: "Natividade de nosso Senhor Jesus Cristo",
@@ -81,7 +86,8 @@ principal_feasts = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Natal - Nascimento de Jesus Cristo"
+    description: "Natal - Nascimento de Jesus Cristo",
+    post_slug: "celebration-christmas"
   },
   {
     name: "Epifania de nosso Senhor Jesus Cristo",
@@ -93,7 +99,8 @@ principal_feasts = [
     movable: false,
     liturgical_color: "branco",
     can_be_transferred: false,
-    description: "Manifestação de Cristo aos gentios"
+    description: "Manifestação de Cristo aos gentios",
+    post_slug: "celebration-epiphany"
   }
 ]
 
