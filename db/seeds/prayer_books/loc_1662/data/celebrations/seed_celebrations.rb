@@ -18,8 +18,8 @@ celebrations = [
   # ============================================================================
   # FESTAS MÓVEIS (PRINCIPAIS)
   # ============================================================================
-  { name: "1º Domingo do Advento", celebration_type: :principal_feast, liturgical_color: "purple", movable: true, calculation_rule: "first_sunday_of_advent", post_slug: "celebration-first-sunday-of-advent", person_type: "event", gender: "neutral" },
-  { name: "Dia de Natal", celebration_type: :principal_feast, liturgical_color: "white", fixed_month: 12, fixed_day: 25, post_slug: "celebration-christmas", person_type: "event", gender: "neutral" },
+  { name: "1º Domingo do Advento", celebration_type: :principal_feast, liturgical_color: "purple", movable: true, calculation_rule: "first_sunday_of_advent", post_slug: "season-advent", person_type: "event", gender: "neutral" },
+  { name: "Dia de Natal", celebration_type: :principal_feast, liturgical_color: "white", fixed_month: 12, fixed_day: 25, post_slug: "season-christmas", person_type: "event", gender: "neutral" },
   { name: "Epifania", celebration_type: :principal_feast, liturgical_color: "white", fixed_month: 1, fixed_day: 6, post_slug: "celebration-epiphany", person_type: "event", gender: "neutral" },
   { name: "Quarta-feira de Cinzas", celebration_type: :major_holy_day, liturgical_color: "purple", movable: true, calculation_rule: "ash_wednesday", post_slug: "celebration-ash-wednesday", person_type: "event", gender: "neutral" },
   { name: "Domingo de Ramos", celebration_type: :major_holy_day, liturgical_color: "red", movable: true, calculation_rule: "palm_sunday", post_slug: "celebration-palm-sunday", person_type: "event", gender: "neutral" },

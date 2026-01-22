@@ -99,7 +99,7 @@ principal_feasts = [
     description: "Natal - Nascimento de Jesus Cristo",
     person_type: "event",
     gender: "neutral",
-    post_slug: "celebration-christmas"
+    post_slug: "season-christmas"
   },
   {
     name: "Epifania de nosso Senhor Jesus Cristo",
