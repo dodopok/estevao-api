@@ -1562,10 +1562,10 @@
     "fixed_month": 9,
     "fixed_day": 20,
     "liturgical_color": "red",
-    "description": "Bispo da Melanésia, e suas Companheiras, Mártires",
+    "description": "Bispo da Melanésia, e seus Companheiros, Mártires",
     "description_year": "1871",
-    "person_type": "singular",
-    "gender": "masculine",
+    "person_type": "plural",
+    "gender": "mixed",
     "post_slug": "celebration-john-coleridge-patteson"
   },
   {
@@ -1910,7 +1910,7 @@
     "description_year": "1784",
     "person_type": "event",
     "gender": "neutral",
-    "post_slug": "celebration-sagracao-de-samuel-seabury"
+    "post_slug": "celebration-samuel-seabury-consecration"
   },
   {
     "celebration_type": "lesser_feast",

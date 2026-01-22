@@ -1670,8 +1670,8 @@
     "liturgical_color": "red",
     "description": "Bispo da Melanésia e seus companheiros Missionários e Mártires da Fé",
     "description_year": "1871",
-    "person_type": "singular",
-    "gender": "masculine",
+    "person_type": "plural",
+    "gender": "mixed",
     "post_slug": "celebration-john-coleridge-patteson"
   },
   {

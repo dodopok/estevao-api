@@ -65,7 +65,7 @@
     "fixed_day": 28,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
-    "person_type": "plural",
+    "person_type": "singular",
     "gender": "masculine",
     "post_slug": "celebration-thomas-aquinas"
   },
@@ -95,7 +95,7 @@
     "fixed_day": 15,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
-    "person_type": "plural",
+    "person_type": "singular",
     "gender": "masculine",
     "post_slug": "celebration-thomas-bray"
   },
@@ -105,7 +105,7 @@
     "fixed_day": 23,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
-    "person_type": "plural",
+    "person_type": "singular",
     "gender": "masculine",
     "post_slug": "celebration-policarpus"
   },
@@ -145,7 +145,7 @@
     "fixed_day": 17,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
-    "person_type": "plural",
+    "person_type": "singular",
     "gender": "masculine",
     "post_slug": "celebration-patrick"
   },
@@ -155,7 +155,7 @@
     "fixed_day": 21,
     "celebration_type": "commemoration",
     "liturgical_color": "red",
-    "person_type": "plural",
+    "person_type": "singular",
     "gender": "masculine",
     "post_slug": "celebration-thomas-cranmer"
   },
@@ -165,7 +165,7 @@
     "fixed_day": 27,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
-    "person_type": "plural",
+    "person_type": "singular",
     "gender": "masculine",
     "post_slug": "celebration-charles-henry-brent"
   },
@@ -245,7 +245,7 @@
     "fixed_day": 25,
     "celebration_type": "commemoration",
     "liturgical_color": "white",
-    "person_type": "plural",
+    "person_type": "singular",
     "gender": "masculine",
     "post_slug": "celebration-bede"
   },
@@ -387,7 +387,7 @@
     "liturgical_color": "white",
     "person_type": "plural",
     "gender": "masculine",
-    "post_slug": "celebration-irenaeus-of-lyons"
+    "post_slug": "celebration-irenaeus-of-lyons-and-egmont-krischke"
   },
   {
     "name": "Bento de Núrsia, Abade de Montecassino, 540",
@@ -536,7 +536,7 @@
     "celebration_type": "commemoration",
     "liturgical_color": "red",
     "person_type": "plural",
-    "gender": "masculine",
+    "gender": "mixed",
     "post_slug": "celebration-john-coleridge-patteson"
   },
   {
@@ -597,7 +597,7 @@
     "liturgical_color": "white",
     "person_type": "plural",
     "gender": "mixed",
-    "post_slug": "celebration-teresa-of-avila"
+    "post_slug": "celebration-teresa-of-avila-and-samuel-schereschewsky"
   },
   {
     "name": "Inácio, Bispo de Antioquia e Mártir, 115",

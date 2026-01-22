@@ -215,9 +215,9 @@
     "fixed_month": 9,
     "fixed_day": 29,
     "liturgical_color": "white",
-    "person_type": "plural",
-    "gender": "masculine",
-    "post_slug": "celebration-saint-michael-and-all-angels"
+    "person_type": "event",
+    "gender": "neutral",
+    "post_slug": "celebration-holy-michael-and-all-angels"
   },
   {
     "name": "Lucas, o Evangelista e Companheiro de Paulo",
@@ -247,7 +247,7 @@
     "liturgical_color": "red",
     "person_type": "plural",
     "gender": "masculine",
-    "post_slug": "celebration-simon-and-jude"
+    "post_slug": "celebration-simon-and-jude-apostles"
   },
   {
     "name": "André, o Apóstolo",

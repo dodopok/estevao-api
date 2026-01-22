@@ -215,8 +215,8 @@
     "fixed_month": 9,
     "fixed_day": 29,
     "liturgical_color": "white",
-    "person_type": "plural",
-    "gender": "masculine",
+    "person_type": "event",
+    "gender": "neutral",
     "post_slug": "celebration-holy-michael-and-all-angels"
   },
   {

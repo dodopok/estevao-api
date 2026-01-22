@@ -1564,8 +1564,8 @@
     "liturgical_color": "red",
     "description": "Bishop of Melanesia, and his Companions, Martyrs",
     "description_year": "1871",
-    "person_type": "singular",
-    "gender": "masculine",
+    "person_type": "plural",
+    "gender": "mixed",
     "post_slug": "celebration-john-coleridge-patteson"
   },
   {

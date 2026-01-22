@@ -50,7 +50,7 @@ celebrations = [
   { name: "São Mateus, o Apóstolo", celebration_type: :major_holy_day, liturgical_color: "red", fixed_month: 9, fixed_day: 21, post_slug: "celebration-matthew-the-apostle", person_type: "singular", gender: "masculine" },
   { name: "São Miguel e Todos os Anjos", celebration_type: :major_holy_day, liturgical_color: "white", fixed_month: 9, fixed_day: 29, post_slug: "celebration-archangel-michael-and-all-angels", person_type: "plural", gender: "masculine" },
   { name: "São Lucas, o Evangelista", celebration_type: :major_holy_day, liturgical_color: "red", fixed_month: 10, fixed_day: 18, post_slug: "celebration-luke-the-evangelist", person_type: "singular", gender: "masculine" },
-  { name: "São Simão e São Judas, os Apóstolos", celebration_type: :major_holy_day, liturgical_color: "red", fixed_month: 10, fixed_day: 28, post_slug: "celebration-simon-and-jude", person_type: "plural", gender: "masculine" },
+  { name: "São Simão e São Judas, os Apóstolos", celebration_type: :major_holy_day, liturgical_color: "red", fixed_month: 10, fixed_day: 28, post_slug: "celebration-simon-and-jude-apostles", person_type: "plural", gender: "masculine" },
   { name: "Todos os Santos", celebration_type: :major_holy_day, liturgical_color: "white", fixed_month: 11, fixed_day: 1, post_slug: "celebration-all-saints", person_type: "event", gender: "neutral" },
   { name: "Santo André, o Apóstolo", celebration_type: :major_holy_day, liturgical_color: "red", fixed_month: 11, fixed_day: 30, post_slug: "celebration-andrew-the-apostle", person_type: "singular", gender: "masculine" },
   { name: "São Tomé, o Apóstolo", celebration_type: :major_holy_day, liturgical_color: "red", fixed_month: 12, fixed_day: 21, post_slug: "celebration-thomas-the-apostle", person_type: "singular", gender: "masculine" },
@@ -99,12 +99,12 @@ celebrations = [
   { name: "Nicodeme, P. & M. de Roma", celebration_type: :lesser_feast, fixed_month: 6, fixed_day: 1, post_slug: "celebration-nicomedes", person_type: "singular", gender: "masculine" },
   { name: "Bonifácio, B. de Mainz & Mártir", celebration_type: :lesser_feast, fixed_month: 6, fixed_day: 5, post_slug: "celebration-boniface", person_type: "singular", gender: "masculine" },
   { name: "Santo Albano, M.", celebration_type: :lesser_feast, fixed_month: 6, fixed_day: 17, post_slug: "celebration-alban", person_type: "singular", gender: "masculine" },
-  { name: "Tr. de Edward, R. dos Saxões Ocidentais", celebration_type: :lesser_feast, fixed_month: 6, fixed_day: 20, post_slug: "celebration-edward", person_type: "event", gender: "neutral" },
+  { name: "Tr. de Edward, R. dos Saxões Ocidentais", celebration_type: :lesser_feast, fixed_month: 6, fixed_day: 20, post_slug: "celebration-edward", person_type: "singular", gender: "masculine" },
 
   # JULHO
   { name: "Visitação da Bem-Aventurada V. Maria", celebration_type: :lesser_feast, fixed_month: 7, fixed_day: 2, post_slug: "celebration-visitation", person_type: "event", gender: "neutral" },
-  { name: "Tr. De São Martinho, B. & C.", celebration_type: :lesser_feast, fixed_month: 7, fixed_day: 4, post_slug: "celebration-translation-martin", person_type: "event", gender: "neutral" },
-  { name: "Tr. de Swithun, B. de Winchester", celebration_type: :lesser_feast, fixed_month: 7, fixed_day: 15, post_slug: "celebration-swithun", person_type: "event", gender: "neutral" },
+  { name: "Tr. De São Martinho, B. & C.", celebration_type: :lesser_feast, fixed_month: 7, fixed_day: 4, post_slug: "celebration-martin-of-tours", person_type: "singular", gender: "masculine" },
+  { name: "Tr. de Swithun, B. de Winchester", celebration_type: :lesser_feast, fixed_month: 7, fixed_day: 15, post_slug: "celebration-swithun", person_type: "singular", gender: "masculine" },
   { name: "Margarida, V. & M. em Antioquia", celebration_type: :lesser_feast, fixed_month: 7, fixed_day: 20, post_slug: "celebration-margaret-of-antioch", person_type: "singular", gender: "feminine" },
   { name: "Santa Maria Madalena", celebration_type: :lesser_feast, fixed_month: 7, fixed_day: 22, post_slug: "celebration-mary-magdalene", person_type: "singular", gender: "feminine" },
   { name: "Santa Ana, Mãe da Bem-Aventurada V. Maria", celebration_type: :lesser_feast, fixed_month: 7, fixed_day: 26, post_slug: "celebration-saint-anne", person_type: "singular", gender: "feminine" },
@@ -130,7 +130,7 @@ celebrations = [
   { name: "Remígio, B. de Reims", celebration_type: :lesser_feast, fixed_month: 10, fixed_day: 1, post_slug: "celebration-remigius", person_type: "singular", gender: "masculine" },
   { name: "Santa Fé, V. & M.", celebration_type: :lesser_feast, fixed_month: 10, fixed_day: 6, post_slug: "celebration-faith", person_type: "singular", gender: "feminine" },
   { name: "Dionísio, o Areopagita, B. & M.", celebration_type: :lesser_feast, fixed_month: 10, fixed_day: 9, post_slug: "celebration-dionysus-areopagite", person_type: "singular", gender: "masculine" },
-  { name: "Tr. do R. Eduardo, o C.", celebration_type: :lesser_feast, fixed_month: 10, fixed_day: 13, post_slug: "celebration-edward-confessor", person_type: "event", gender: "neutral" },
+  { name: "Tr. do R. Eduardo, o C.", celebration_type: :lesser_feast, fixed_month: 10, fixed_day: 13, post_slug: "celebration-edward-confessor", person_type: "singular", gender: "masculine" },
   { name: "Etelreda, V.", celebration_type: :lesser_feast, fixed_month: 10, fixed_day: 17, post_slug: "celebration-etheldreda", person_type: "singular", gender: "feminine" },
   { name: "Crispim, M.", celebration_type: :lesser_feast, fixed_month: 10, fixed_day: 25, post_slug: "celebration-crispin", person_type: "singular", gender: "masculine" },
 
