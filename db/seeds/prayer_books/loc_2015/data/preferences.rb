@@ -48,8 +48,8 @@ loc_2015_preferences = [
         default_value: "no",
         position: 3,
         options: [
-          { value: "yes", label: "Sim, sou presbítero ou bispo" },
-          { value: "no", label: "Não" }
+          { value: "yes", label: "Sim, sou presbítero ou bispo", description: "Apenas para presbíteros e bispos realizando o Ofício" },
+          { value: "no", label: "Não", description: "Para leigos e diáconos" }
         ]
       }
     ]
