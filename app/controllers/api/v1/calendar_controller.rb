@@ -51,15 +51,14 @@ module Api
 
         validate_year_month(year, month_num)
 
-        calendar = LiturgicalCalendar.new(year, prayer_book_code: resolved_prayer_book_code)
-        days = calendar.month_calendar(month_num)
+        cache_key = "calendar/month/#{year}/#{month_num}/#{resolved_prayer_book_code}"
 
-        render json: {
-          year: year,
-          month: month_num,
-          month_name: month_name_pt(month_num),
-          days: days.map { |info| format_day_response(info, Date.parse(info[:date])) }
-        }
+        days = Rails.cache.fetch(cache_key, expires_in: 1.month) do
+          calendar = LiturgicalCalendar.new(year, prayer_book_code: resolved_prayer_book_code)
+          calendar.month_calendar(month_num).map { |info| optimized_day_response(info) }
+        end
+
+        render json: days
       rescue ArgumentError => e
         render json: { error: "Data inválida: #{e.message}" }, status: :bad_request
       end
@@ -71,19 +70,46 @@ module Api
 
         validate_year(year_num)
 
-        calendar = LiturgicalCalendar.new(year_num, prayer_book_code: resolved_prayer_book_code)
+        cache_key = "calendar/year/#{year_num}/#{resolved_prayer_book_code}"
 
-        render json: {
-          year: year_num,
-          movable_dates: Liturgical::EasterCalculator.new(year_num).all_movable_dates,
-          seasons_summary: seasons_summary(calendar),
-          important_dates: important_dates_summary(year_num)
-        }
+        days = Rails.cache.fetch(cache_key, expires_in: 1.month) do
+          calendar = LiturgicalCalendar.new(year_num, prayer_book_code: resolved_prayer_book_code)
+          (1..12).flat_map do |month|
+            calendar.month_calendar(month).map { |info| optimized_day_response(info) }
+          end
+        end
+
+        render json: days
       rescue ArgumentError => e
         render json: { error: "Ano inválido: #{e.message}" }, status: :bad_request
       end
 
       private
+
+      def optimized_day_response(info)
+        # Parse date from DD/MM/YYYY format returned by LiturgicalCalendar
+        parsed_date = Date.strptime(info[:date], "%d/%m/%Y")
+
+        celebration_name = if info[:celebration]
+                             info[:celebration][:name]
+        elsif info[:is_holy_day]
+                             nil
+        end
+
+        # Week name: prioritize sunday_name, then look for week description
+        week_name = info[:sunday_name]
+        unless week_name
+          week_desc = info[:description].find { |d| d.include?("Semana") }
+          week_name = week_desc if week_desc
+        end
+
+        {
+          date: parsed_date.strftime("%Y-%m-%d"),
+          color: info[:color],
+          celebration_name: celebration_name,
+          week_name: week_name
+        }
+      end
 
       def format_day_response(info, date)
         {
