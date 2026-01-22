@@ -34,7 +34,7 @@
     "can_be_transferred": false,
     "person_type": "event",
     "gender": "neutral",
-    "post_slug": "celebration-holy-monday"
+    "post_slug": "celebration-holy-week"
   },
   {
     "name": "Terça-feira da Semana Santa",
@@ -46,7 +46,7 @@
     "can_be_transferred": false,
     "person_type": "event",
     "gender": "neutral",
-    "post_slug": "celebration-holy-tuesday"
+    "post_slug": "celebration-holy-week"
   },
   {
     "name": "Quarta-feira da Semana Santa",
@@ -58,7 +58,7 @@
     "can_be_transferred": false,
     "person_type": "event",
     "gender": "neutral",
-    "post_slug": "celebration-holy-wednesday"
+    "post_slug": "celebration-holy-week"
   },
   {
     "name": "Quinta-feira Santa",
@@ -94,6 +94,6 @@
     "can_be_transferred": false,
     "person_type": "event",
     "gender": "neutral",
-    "post_slug": "celebration-holy-saturday"
+    "post_slug": "celebration-holy-week"
   }
 ]

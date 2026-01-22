@@ -21,7 +21,7 @@
     "description": "Segunda-feira da Semana Santa",
     "person_type": "event",
     "gender": "neutral",
-    "post_slug": "celebration-holy-monday"
+    "post_slug": "celebration-holy-week"
   },
   {
     "name": "Terça-feira Santa",
@@ -33,7 +33,7 @@
     "description": "Terça-feira da Semana Santa",
     "person_type": "event",
     "gender": "neutral",
-    "post_slug": "celebration-holy-tuesday"
+    "post_slug": "celebration-holy-week"
   },
   {
     "name": "Quarta-feira Santa",
@@ -45,7 +45,7 @@
     "description": "Quarta-feira da Semana Santa",
     "person_type": "event",
     "gender": "neutral",
-    "post_slug": "celebration-holy-wednesday"
+    "post_slug": "celebration-holy-week"
   },
   {
     "name": "Quinta-feira Santa",
@@ -81,6 +81,6 @@
     "description": "Sepultamento de Jesus",
     "person_type": "event",
     "gender": "neutral",
-    "post_slug": "celebration-holy-saturday"
+    "post_slug": "celebration-holy-week"
   }
 ]

@@ -25,7 +25,7 @@ celebrations = [
   { name: "Domingo de Ramos", celebration_type: :major_holy_day, liturgical_color: "red", movable: true, calculation_rule: "palm_sunday", post_slug: "celebration-palm-sunday", person_type: "event", gender: "neutral" },
   { name: "Quinta-feira Santa", celebration_type: :major_holy_day, liturgical_color: "white", movable: true, calculation_rule: "maundy_thursday", post_slug: "celebration-maundy-thursday", person_type: "event", gender: "neutral" },
   { name: "Sexta-feira da Paixão", celebration_type: :major_holy_day, liturgical_color: "red", movable: true, calculation_rule: "good_friday", post_slug: "celebration-good-friday", person_type: "event", gender: "neutral" },
-  { name: "Sábado Santo", celebration_type: :major_holy_day, liturgical_color: "black", movable: true, calculation_rule: "holy_saturday", post_slug: "celebration-holy-saturday", person_type: "event", gender: "neutral" },
+  { name: "Sábado Santo", celebration_type: :major_holy_day, liturgical_color: "black", movable: true, calculation_rule: "holy_saturday", post_slug: "celebration-holy-week", person_type: "event", gender: "neutral" },
   { name: "Domingo da Páscoa", celebration_type: :principal_feast, liturgical_color: "white", movable: true, calculation_rule: "easter", post_slug: "celebration-easter", person_type: "event", gender: "neutral" },
   { name: "Dia da Ascensão", celebration_type: :principal_feast, liturgical_color: "white", movable: true, calculation_rule: "ascension", post_slug: "celebration-ascension", person_type: "event", gender: "neutral" },
   { name: "Pentecostes", celebration_type: :principal_feast, liturgical_color: "red", movable: true, calculation_rule: "pentecost", post_slug: "celebration-pentecost", person_type: "event", gender: "neutral" },
