@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_21_001922) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_23_201913) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -211,7 +211,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_21_001922) do
     t.integer "order", null: false
     t.string "title", null: false
     t.datetime "updated_at", null: false
-    t.index ["life_rule_id", "order"], name: "index_life_rule_steps_on_life_rule_id_and_order", unique: true
+    t.index ["life_rule_id", "order"], name: "index_life_rule_steps_on_life_rule_id_and_order"
     t.index ["life_rule_id"], name: "index_life_rule_steps_on_life_rule_id"
   end
 
