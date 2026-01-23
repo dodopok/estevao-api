@@ -121,7 +121,7 @@ portuguese_prayer_books = [
     language: "pt-BR",
     premium_required: false,
     jurisdiction: "Igreja Anglicana no Brasil",
-    description: "LOC atual da IEAB, parte de uma nova geração de Livros de Oração",
+    description: "LOC atual da IAB, parte de uma nova geração de Livros de Oração",
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2021.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2021.pdf",
     is_recommended: false,
