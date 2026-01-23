@@ -148,7 +148,7 @@ class User < ApplicationRecord
   def reset_streak!
     update!(
       current_streak: 1,
-      longest_streak: [ current_streak, longest_streak ].max,
+      longest_streak: [ 1, longest_streak ].max,
       last_completed_office_at: Time.current
     )
   end
