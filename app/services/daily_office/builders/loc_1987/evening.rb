@@ -198,7 +198,11 @@ module DailyOffice
           lines << line_item(rubric_sit.content, type: "rubric", slug: rubric_sit.slug) if rubric_sit
 
           rubric_announce = fetch_liturgical_text("rubric_readings_announcement")
-          lines << line_item(rubric_announce.content, type: "rubric", slug: rubric_announce.slug) if rubric_announce
+          if rubric_announce
+            # Substitute placeholders with first reading data
+            rubric_content = substitute_reading_placeholders(rubric_announce.content, readings[:first_reading])
+            lines << line_item(rubric_content, type: "rubric", slug: rubric_announce.slug)
+          end
 
           # First Reading
           if readings[:first_reading]

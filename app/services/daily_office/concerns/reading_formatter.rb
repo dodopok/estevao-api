@@ -146,6 +146,28 @@ module DailyOffice
         end
       end
 
+      # Substitute reading placeholders in any text
+      #
+      # @param text [String] text with placeholders
+      # @param reading [Hash] reading data with book_name, chapter, verse_start, verse_end
+      # @return [String] text with placeholders replaced
+      def substitute_reading_placeholders(text, reading)
+        return text if text.blank?
+
+        if reading
+          verse_range = build_verse_range(reading)
+          text
+            .gsub("{{book_name}}", reading[:book_name] || "")
+            .gsub("{{chapter}}", reading[:chapter]&.to_s || "")
+            .gsub("{{verse}}", verse_range)
+        else
+          text
+            .gsub("{{book_name}}", "_______________")
+            .gsub("{{chapter}}", "___")
+            .gsub("{{verse}}", "___")
+        end
+      end
+
       # Find pre-generated Bible audio URL if available
       # Returns nil if audio file doesn't exist (audio must be pre-generated via rake tasks)
       #
