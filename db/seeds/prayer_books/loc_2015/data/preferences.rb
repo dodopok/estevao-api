@@ -473,8 +473,8 @@ loc_2015_preferences = [
         options: [
           { value: "1", label: "2 Co 13.14", description: "A Graça de nosso Senhor Jesus Cristo..." },
           { value: "2", label: "Nm 6.24-26", description: "O Senhor nos abençoe e nos guarde..." },
-          { value: "2", label: "Rm 15.13", description: "Que o Deus da esperança..." },
-          { value: "2", label: "Ef 3.20-21", description: "Glória a Deus, cujo poder agindo em nós..." },
+          { value: "3", label: "Rm 15.13", description: "Que o Deus da esperança..." },
+          { value: "4", label: "Ef 3.20-21", description: "Glória a Deus, cujo poder agindo em nós..." },
           { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" }
         ]
       }
