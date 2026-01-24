@@ -108,6 +108,15 @@
     "can_be_transferred": true
   },
   {
+    "name": "SÃO CIRILO (869) E SÃO METÓDIO (885), MISSIONÁRIOS",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 2,
+    "fixed_day": 14,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
     "name": "JANANI LUWUM (1977), BISPO E MÁRTIR",
     "celebration_type": "lesser_feast",
     "fixed_month": 2,
@@ -216,10 +225,28 @@
     "can_be_transferred": true
   },
   {
+    "name": "JOHN WESLEY (1791) E CHARLES WESLEY (1788), PRESBÍTEROS, EVANGELISTAS E COMPOSITORES",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 5,
+    "fixed_day": 24,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
     "name": "VENERÁVEL BEDA, MONGE E DOUTOR DA FÉ",
     "celebration_type": "lesser_feast",
     "fixed_month": 5,
     "fixed_day": 25,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "AGOSTINHO DE CANTUÁRIA (605), PRIMEIRO ARCEBISPO DE CANTUÁRIA",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 5,
+    "fixed_day": 26,
     "movable": false,
     "liturgical_color": "branco",
     "can_be_transferred": true

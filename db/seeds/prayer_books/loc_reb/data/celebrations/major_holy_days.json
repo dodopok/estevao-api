@@ -144,28 +144,73 @@
     "can_be_transferred": true
   },
   {
+    "name": "SÃO BARTOLOMEU (OU NATANAEL), APÓSTOLO",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 8,
+    "fixed_day": 24,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SANTA CRUZ",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 9,
+    "fixed_day": 14,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SÃO MATEUS, APÓSTOLO E EVANGELISTA",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 9,
+    "fixed_day": 21,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SÃO MIGUEL E TODO OS ANJOS",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 9,
+    "fixed_day": 29,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SÃO LUCAS, EVANGELISTA",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 10,
+    "fixed_day": 18,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SÃO TIAGO DE JERUSALÉM, IRMÃO DO SENHOR",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 10,
+    "fixed_day": 23,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SÃO SIMÃO E SÃO JUDAS, APÓSTOLOS",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 10,
+    "fixed_day": 28,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
     "name": "TODOS OS SANTOS (FESTA PRINCIPAL)",
     "celebration_type": "major_holy_day",
     "fixed_month": 11,
     "fixed_day": 1,
-    "movable": false,
-    "liturgical_color": "branco",
-    "can_be_transferred": true
-  },
-  {
-    "name": "FESTA DA SANTÍSSIMA TRINDADE (FESTA PRINCIPAL)",
-    "celebration_type": "major_holy_day",
-    "fixed_month": 11,
-    "fixed_day": 26,
-    "movable": false,
-    "liturgical_color": "branco",
-    "can_be_transferred": true
-  },
-  {
-    "name": "LECIONÁRIO COMUM DAS FESTAS PRINCIPAIS E DIAS SANTOS",
-    "celebration_type": "major_holy_day",
-    "fixed_month": 11,
-    "fixed_day": 27,
     "movable": false,
     "liturgical_color": "branco",
     "can_be_transferred": true
@@ -211,6 +256,15 @@
     "celebration_type": "major_holy_day",
     "fixed_month": 12,
     "fixed_day": 26,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SÃO JOÃO, APÓSTOLO e EVANGELISTA",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 27,
     "movable": false,
     "liturgical_color": "branco",
     "can_be_transferred": true
