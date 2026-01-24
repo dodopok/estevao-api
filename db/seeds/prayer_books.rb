@@ -145,6 +145,27 @@ portuguese_prayer_books = [
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2019.pdf",
     is_recommended: false,
     features: {}
+  },
+  {
+    order: 7,
+    code: "loc_reb",
+    name: "REB - Lecionário Comum",
+    year: 2024,
+    language: "pt-BR",
+    premium_required: false,
+    jurisdiction: "Rede Evangélica Brasileira",
+    description: "Lecionário Comum da Rede Evangélica Brasileira com leituras diárias e dominicais",
+    thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-reb.png",
+    pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-reb.pdf",
+    is_recommended: false,
+    features: {
+      lectionary: {
+        reading_types: [ "semicontinuous" ],
+        default_reading_type: "semicontinuous",
+        readings_per_week: 7,
+        supports_vigil: false
+      }
+    }
   }
 ]
 

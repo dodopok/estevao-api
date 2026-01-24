@@ -1,0 +1,236 @@
+[
+  {
+    "name": "SÃO BASÍLIO MAGNO (379) e SÃO GREGÓRIO NAZIANZENO (389), BISPOS E DOUTORES DA FÉ",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 1,
+    "fixed_day": 2,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SANTO HILÁRIO DE POITIERS (367), BISPO E DOUTOR DA FÉ",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 1,
+    "fixed_day": 13,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SANTO ANTÔNIO DO EGITO - ANTÃO (356), EREMITA E ABADE",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 1,
+    "fixed_day": 17,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "CONFISSÃO DE SÃO PEDRO",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 1,
+    "fixed_day": 18,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "CONFISSÃO DE SÃO PEDRO",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 1,
+    "fixed_day": 18,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "CONFISSÃO DE SÃO PEDRO",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 1,
+    "fixed_day": 18,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "CONFISSÃO DE SÃO PEDRO",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 1,
+    "fixed_day": 18,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SANTA INÊS (304), MÁRTIR",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 1,
+    "fixed_day": 21,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "CONVERSÃO DE SÃO PAULO, APÓSTOLO (Séc. I)",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 1,
+    "fixed_day": 25,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SÃO TITO E SÃO TIMÓTEO (Séc. I), COMPANHEIROS DE SÃO PAULO",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 1,
+    "fixed_day": 26,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SÃO TOMÁS DE AQUINO (1274), FILÓSOFO E DOUTOR DA FÉ",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 1,
+    "fixed_day": 28,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "JEAN DE BOURDEL, MATHIEU VERNEUIL e PIERRE DE BOURDON, MÁRTIRES DA BAHIA DE GUANABARA (1558)",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 2,
+    "fixed_day": 9,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "JANANI LUWUM (1977), BISPO E MÁRTIR",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 2,
+    "fixed_day": 17,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SÃO POLICARPO DE ESMIRNA (c.155), BISPO E MÁRTIR",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 2,
+    "fixed_day": 23,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SANTA PERPÉTUA E SANTA FELICIDADE (203), MÁRTIRES",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 3,
+    "fixed_day": 7,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SÃO PATRÍCIO (460), BISPO E MISSIONÁRIO (PATRONO DA IRLANDA)",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 3,
+    "fixed_day": 17,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "THOMAS CRANMER (1556), ARCEBISPO DE CANTUÁRIA E MÁRTIR DA REFORMA",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 3,
+    "fixed_day": 21,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SANTO ALFEGE (1012), ARCEBISPO DE CANTUÁRIA E MÁRTIR",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 4,
+    "fixed_day": 19,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SANTO ANSELMO (1109), ARCEBISPO DE CANTUÁRIA E DOUTOR DA FÉ",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 4,
+    "fixed_day": 21,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SÃO JORGE, MÁRTIR",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 4,
+    "fixed_day": 23,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SANTA CATARINA DE SENA, DOUTORA DA FÉ",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 4,
+    "fixed_day": 29,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SANTO ATANÁSIO (373), BISPO E DOUTOR DA FÉ",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 5,
+    "fixed_day": 2,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "JULIANA DE NORWICH (1342), MONJA, MÍSTICA E ESCRITORA",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 5,
+    "fixed_day": 8,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SANTO ALCUÍNO DE YORK (804), DIÁCONO E ABADE DE TOURS - PATRONO DAS UNIVERSIDADES CRISTÃS",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 5,
+    "fixed_day": 20,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "VENERÁVEL BEDA, MONGE E DOUTOR DA FÉ",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 5,
+    "fixed_day": 25,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "SÃO JOÃO CRISÓSTOMO, BISPO DE CONSTANTINOPLA E DOUTOR DA FÉ",
+    "celebration_type": "lesser_feast",
+    "fixed_month": 9,
+    "fixed_day": 13,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  }
+]

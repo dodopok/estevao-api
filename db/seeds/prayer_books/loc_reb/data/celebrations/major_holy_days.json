@@ -1,0 +1,227 @@
+[
+  {
+    "name": "FESTA DO SANTO NOME DO SENHOR",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 1,
+    "fixed_day": 1,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DA CONVERSÃO DE SÃO PAULO",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 1,
+    "fixed_day": 25,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DA APRESENTAÇÃO DE CRISTO NO TEMPLO",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 2,
+    "fixed_day": 2,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SÃO JOSÉ, PAI DE NOSSO SENHOR",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 3,
+    "fixed_day": 19,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DA ANUNCIAÇÃO DE NOSSO SENHOR À BEM-AVENTURADA VIRGEM MARIA",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 3,
+    "fixed_day": 25,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SÃO MARCOS, EVANGELISTA",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 4,
+    "fixed_day": 25,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SÃO FILIPE E SÃO TIAGO MENOR, APÓSTOLOS",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 5,
+    "fixed_day": 1,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SÃO MATIAS, APÓSTOLO",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 5,
+    "fixed_day": 14,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DA VISITAÇÃO DA BEM-AVENTURADA VIRGEM MARIA À SANTA ISABEL",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 5,
+    "fixed_day": 31,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SÃO BARNABÉ, APÓSTOLO",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 6,
+    "fixed_day": 11,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SÃO JOÃO BATISTA",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 6,
+    "fixed_day": 24,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SÃO PEDRO E SÃO PAULO, APÓSTOLOS",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 6,
+    "fixed_day": 29,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SANTA MARIA MADALENA",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 7,
+    "fixed_day": 22,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SÃO TIAGO MAIOR, APÓSTOLO",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 7,
+    "fixed_day": 25,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DA TRANSFIGURAÇÃO DE NOSSO SENHOR",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 8,
+    "fixed_day": 6,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DA BEM-AVENTURADA VIRGEM MARIA",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 8,
+    "fixed_day": 15,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "TODOS OS SANTOS (FESTA PRINCIPAL)",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 11,
+    "fixed_day": 1,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DA SANTÍSSIMA TRINDADE (FESTA PRINCIPAL)",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 11,
+    "fixed_day": 26,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "LECIONÁRIO COMUM DAS FESTAS PRINCIPAIS E DIAS SANTOS",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 11,
+    "fixed_day": 27,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SANTO ANDRÉ, APÓSTOLO",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 11,
+    "fixed_day": 30,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SANTO ANDRÉ, APÓSTOLO",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 11,
+    "fixed_day": 30,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SÃO TOMÉ, APÓSTOLO",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 21,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DO NATAL DE NOSSO SENHOR (FESTA PRINCIPAL)",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 25,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DE SANTO ESTEVÃO, MÁRTIR",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 26,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  },
+  {
+    "name": "FESTA DOS SANTOS INOCENTES",
+    "celebration_type": "major_holy_day",
+    "fixed_month": 12,
+    "fixed_day": 28,
+    "movable": false,
+    "liturgical_color": "branco",
+    "can_be_transferred": true
+  }
+]
