@@ -84,11 +84,6 @@ module DailyOffice
           invitation_opt = resolve_preference(:morning_confession_type, %w[1 2 3])
           invitation_slug = invitation_opt == "2" ? "confession_invitation_2" : "confession_invitation_1"
 
-          if invitation_opt == "2"
-            rubric_short = fetch_liturgical_text("rubric_confession_short")
-            lines << line_item(rubric_short.content, type: "rubric", slug: rubric_short.slug) if rubric_short
-          end
-
           invitation = fetch_liturgical_text(invitation_slug)
           if invitation
             lines << line_item(invitation.content, type: "leader", slug: invitation.slug)
@@ -103,11 +98,6 @@ module DailyOffice
 
           # Confession Prayer
           conf_opt = resolve_preference(:morning_confession_type, %w[1 2 3]) || "1"
-
-          if conf_opt != "1"
-            rubric_opts = fetch_liturgical_text("rubric_confession_options")
-            lines << line_item(rubric_opts.content, type: "rubric", slug: rubric_opts.slug) if rubric_opts
-          end
 
           confession = fetch_liturgical_text("confession_prayer_#{conf_opt}")
           if confession
@@ -414,11 +404,6 @@ module DailyOffice
               lines << line_item(r.content, type: "congregation") if r
             end
           else
-            if suff_opt == "2"
-              rubric_short = fetch_liturgical_text("rubric_confession_short")
-              lines << line_item(rubric_short.content, type: "rubric", slug: rubric_short.slug) if rubric_short
-            end
-
             5.times do |i|
               v = fetch_liturgical_text("suffrages_2_v#{i + 1}")
               r = fetch_liturgical_text("suffrages_2_r#{i + 1}")
@@ -458,9 +443,6 @@ module DailyOffice
 
           thanksgiving = fetch_liturgical_text("general_thanksgiving_1")
           lines << line_item(thanksgiving.content, type: "congregation") if thanksgiving
-
-          rubric_opts = fetch_liturgical_text("rubric_confession_options")
-          lines << line_item(rubric_opts.content, type: "rubric", slug: rubric_opts.slug) if rubric_opts
 
           chrysostom = fetch_liturgical_text("prayer_chrysostom")
           lines << line_item(chrysostom.content, type: "leader") if chrysostom

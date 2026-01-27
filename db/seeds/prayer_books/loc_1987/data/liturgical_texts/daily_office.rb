@@ -229,7 +229,7 @@ texts = [
   # ============================================================================
   { slug: "rubric_confession_intro", title: "Rubrica Confissão", content: "Então o Oficiante dirá:" },
   { slug: "rubric_confession_short", title: "Rubrica Confissão Breve", content: "Ou dirá:" },
-  { slug: "rubric_confession_silence", title: "Rubrica Silêncio Confissão", content: "Haverá um instante de silêncio, estando todos ajoelhados." },
+  { slug: "rubric_confession_silence", title: "Rubrica Silêncio Confissão", content: "Haverá um instante de silêncio, estando todos ajoelhados. Depois será dito pelo Oficiante e Povo:" },
   { slug: "rubric_confession_options", title: "Rubrica Opções Confissão", content: "Ou esta:" },
   { slug: "rubric_absolution_intro", title: "Rubrica Absolvição", content: "O Oficiante, ainda ajoelhado, lerá uma das orações seguintes. Estando presente, porém, um Bispo ou Presbítero, deverá ser usada a Absolvição em lugar das orações abaixo:" },
   { slug: "rubric_absolution_priest", title: "Rubrica Absolvição Sacerdote", content: "Para ser usada unicamente pelo Bispo ou Presbítero:" },
