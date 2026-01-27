@@ -34,12 +34,11 @@ loc_1987_preferences = [
         description: "Escolha a oração de absolvição",
         pref_type: "select_one",
         required: true,
-        default_value: "random",
+        default_value: "1",
         position: 1,
         options: [
-          { value: "1", label: "1 (Ó Senhor, suplicamos-te...)", description: "Ó Senhor, suplicamos-te que escutes compassivo nossas orações..." },
-          { value: "2", label: "2 (Deus Todo-poderoso...)", description: "Deus Todo-poderoso tenha misericórdia de vós..." },
-          { value: "random", label: "Variar", description: "Variar aleatoriamente" }
+          { value: "1", label: "Oração de Confissão", description: "Para leigos e diáconos" },
+          { value: "2", label: "Absolvição", description: "Apenas para presbíteros e bispos" }
         ]
       },
       {
@@ -126,13 +125,26 @@ loc_1987_preferences = [
         ]
       },
       {
+        key: "evening_abs_type",
+        name: "Absolvição",
+        description: "Escolha a oração de absolvição",
+        pref_type: "select_one",
+        required: true,
+        default_value: "1",
+        position: 2,
+        options: [
+          { value: "1", label: "Oração de Confissão", description: "Para leigos e diáconos" },
+          { value: "2", label: "Absolvição", description: "Apenas para presbíteros e bispos" }
+        ]
+      },
+      {
         key: "evening_canticle_1",
         name: "1º Cântico",
         description: "Escolha o primeiro cântico",
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 2,
+        position: 3,
         options: [
           { value: "magnificat", label: "Magnificat", description: "A minha alma engrandece ao Senhor..." },
           { value: "cantate_domino", label: "Cantate Domino", description: "Cantai ao Senhor um cântico novo..." },
@@ -147,7 +159,7 @@ loc_1987_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 3,
+        position: 4,
         options: [
           { value: "nunc_dimittis", label: "Nunc Dimittis", description: "Eis que agora, Senhor, despedes em paz..." },
           { value: "deus_misereatur", label: "Deus Misereatur", description: "Deus tenha misericórdia de nós..." },
@@ -162,7 +174,7 @@ loc_1987_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 4,
+        position: 5,
         options: [
           { value: "1", label: "1 (Ó Senhor, mostra-nos...)", description: "Ó Senhor, mostra-nos a tua misericórdia..." },
           { value: "2", label: "2 (Salva, Senhor...)", description: "Salva, Senhor, o teu povo..." },
@@ -176,7 +188,7 @@ loc_1987_preferences = [
         pref_type: "select_one",
         required: true,
         default_value: "random",
-        position: 5,
+        position: 6,
         options: [
           { value: "1", label: "1 (A Graça...)", description: "A Graça de nosso Senhor Jesus Cristo..." },
           { value: "2", label: "2 (O Senhor nos abençoe...)", description: "O Senhor nos abençoe e nos guarde..." },

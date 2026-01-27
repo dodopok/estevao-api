@@ -107,6 +107,26 @@ module DailyOffice
           rubric_abs_intro = fetch_liturgical_text("rubric_absolution_intro")
           lines << line_item(rubric_abs_intro.content, type: "rubric", slug: rubric_abs_intro.slug) if rubric_abs_intro
 
+          abs_type = resolve_preference(:evening_abs_type, %w[1 2]) || "1"
+
+          if abs_type == "1"
+            absolution = fetch_liturgical_text("absolution_prayer_deacon")
+            if absolution
+              lines << line_item(absolution.content, type: "congregation", slug: absolution.slug)
+              lines << line_item("", type: "spacer")
+            end
+          elsif abs_type == "2"
+            absolution_minister = fetch_liturgical_text("absolution_prayer_deacon_2_minister")
+            if absolution_minister
+              lines << line_item(absolution_minister.content, type: "leader", slug: absolution_minister.slug)
+            end
+            absolution_people = fetch_liturgical_text("absolution_prayer_deacon_2_people")
+            if absolution_people
+              lines << line_item(absolution_people.content, type: "congregation", slug: absolution_people.slug)
+            end
+            lines << line_item("", type: "spacer")
+          end
+
           rubric_abs_priest = fetch_liturgical_text("rubric_absolution_priest")
           lines << line_item(rubric_abs_priest.content, type: "rubric", slug: rubric_abs_priest.slug) if rubric_abs_priest
 
