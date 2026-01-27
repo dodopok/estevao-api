@@ -485,18 +485,11 @@ module DailyOffice
         def build_collect_of_the_day
           lines = []
 
-          # Rubric for collect
-          rubric = fetch_liturgical_text("evening_1_collect_rubric")
-          if rubric
-            lines << line_item(rubric.content, type: "rubric", slug: rubric.slug)
-            lines << line_item("", type: "spacer")
-          end
-
           # Collect of the Day (from CollectService)
           lines.concat(build_collect_lines(@collects))
 
           {
-            name: "A Coleta do Dia",
+            name: "",
             slug: "collect_of_the_day",
             lines: lines
           }
@@ -516,7 +509,7 @@ module DailyOffice
           end
 
           # Use the common Our Father text (should be shared across prayer books)
-          lords_prayer = fetch_liturgical_text("our_father")
+          lords_prayer = fetch_liturgical_text("lords_prayer_all")
           if lords_prayer
             lines << line_item(lords_prayer.content, type: "congregation", slug: lords_prayer.slug)
           end

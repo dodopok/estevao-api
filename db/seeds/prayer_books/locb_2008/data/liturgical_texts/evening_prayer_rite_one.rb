@@ -348,8 +348,8 @@ LiturgicalText.find_or_create_by!(slug: 'evening_1_lords_prayer_opening_2_minist
   text.category = 'lords_prayer'
 end
 
-LiturgicalText.find_or_create_by!(slug: 'evening_1_lords_prayer_all', prayer_book_id: prayer_book.id) do |text|
-    text.content = 'Pai Nosso...'
+LiturgicalText.find_or_create_by!(slug: 'lords_prayer_all', prayer_book_id: prayer_book.id) do |text|
+  text.content = 'Pai nosso, que estás nos céus, santificado seja o teu nome. Venha o teu Reino, seja feita a tua vontade, assim na terra como no céu. O pão nosso de cada dia nos dá hoje. E perdoa-nos as nossas dívidas, assim como nós perdoamos aos nossos devedores. E não nos deixes cair em tentação, mas livra-nos do mal; pois teu é o Reino, e o poder, e a glória para sempre. Amém.'
   text.category = 'lords_prayer'
 end
 

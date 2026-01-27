@@ -508,18 +508,11 @@ module DailyOffice
         def build_collect_of_the_day
           lines = []
 
-          # Rubric for collect
-          rubric = fetch_liturgical_text("evening_2_collect_rubric")
-          if rubric
-            lines << line_item(rubric.content, type: "rubric", slug: rubric.slug)
-            lines << line_item("", type: "spacer")
-          end
-
           # Collect of the Day (from CollectService)
           lines.concat(build_collect_lines(@collects))
 
           {
-            name: "A Coleta do Dia",
+            name: "",
             slug: "collect_of_the_day",
             lines: lines
           }
