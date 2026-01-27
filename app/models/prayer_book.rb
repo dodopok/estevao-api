@@ -122,6 +122,53 @@ class PrayerBook < ApplicationRecord
     features.dig("lectionary", "supports_vigil") == true
   end
 
+  # Retorna os ofícios disponíveis para este Prayer Book
+  def available_offices(family_rite: false)
+    # Default to 4 standard offices if not defined
+    default = %w[morning midday evening compline]
+
+    config = if family_rite
+               daily_office_features["family_rite_offices"] || daily_office_features["available_offices"]
+             else
+               daily_office_features["available_offices"]
+    end
+
+    config || default
+  end
+
+  # Retorna os nomes dos ofícios (traduzidos) para este Prayer Book
+  def office_names(family_rite: false)
+    offices = available_offices(family_rite: family_rite)
+    
+    # Default names mapping
+    defaults = if family_rite
+      {
+        "morning" => "De Manhã",
+        "midday" => "Ao Meio-Dia",
+        "evening" => "Ao Entardecer",
+        "late_evening" => "Ao Anoitecer",
+        "compline" => "No Fim do Dia"
+      }
+    else
+      {
+        "morning" => "Matutino",
+        "midday" => "Meio-Dia",
+        "evening" => "Vespertino",
+        "compline" => "Completas"
+      }
+    end
+
+    # Allow overriding names in features
+    overrides = daily_office_features.dig("labels", family_rite ? "family" : "standard") || {}
+    
+    offices.map do |key|
+      {
+        key: key,
+        name: overrides[key] || defaults[key] || key.humanize
+      }
+    end
+  end
+
   # Retorna as opções padrão para este Prayer Book
   def default_options
     {

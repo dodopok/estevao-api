@@ -26,7 +26,9 @@ portuguese_prayer_books = [
       daily_office: {
         supports_family_rite: true,
         available_confession_types: [ "long", "short" ],
-        available_lords_prayer: [ "traditional", "contemporary" ]
+        available_lords_prayer: [ "traditional", "contemporary" ],
+        available_offices: %w[morning midday evening compline],
+        family_rite_offices: %w[morning midday evening late_evening compline]
       },
       psalter: {
         cycle_length: 30,
@@ -56,7 +58,8 @@ portuguese_prayer_books = [
       daily_office: {
         supports_family_rite: false,
         available_confession_types: [ "long" ],
-        available_lords_prayer: [ "traditional" ]
+        available_lords_prayer: [ "traditional" ],
+        available_offices: %w[morning midday evening compline]
       },
       psalter: {
         cycle_length: 28,
@@ -79,7 +82,8 @@ portuguese_prayer_books = [
     features: {
       daily_office: {
         has_midday: false,
-        has_compline: false
+        has_compline: false,
+        available_offices: %w[morning evening]
       }
     }
   },
@@ -105,7 +109,8 @@ portuguese_prayer_books = [
       daily_office: {
         supports_family_rite: false,
         available_confession_types: [ "long" ],
-        available_lords_prayer: [ "traditional" ]
+        available_lords_prayer: [ "traditional" ],
+        available_offices: %w[morning evening]
       },
       psalter: {
         cycle_length: 30,
@@ -128,7 +133,8 @@ portuguese_prayer_books = [
     features: {
       daily_office: {
         has_midday: false,
-        has_compline: false
+        has_compline: false,
+        available_offices: %w[morning evening]
       }
     }
   },
@@ -144,7 +150,11 @@ portuguese_prayer_books = [
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2019.png",
     pdf_url: "https://caminhoanglicano.com.br/locs/pdfs/loc-2019.pdf",
     is_recommended: false,
-    features: {}
+    features: {
+      daily_office: {
+        available_offices: %w[morning midday evening compline]
+      }
+    }
   }
 ]
 
@@ -162,7 +172,11 @@ english_prayer_books = [
     thumbnail_url: "https://caminhoanglicano.com.br/locs/thumbs/loc-2019.png",
     pdf_url: "https://bcp2019.anglicanchurch.net/",
     is_recommended: false,
-    features: {}
+    features: {
+      daily_office: {
+        available_offices: %w[morning midday evening compline]
+      }
+    }
   }
   # Future: Add more English Prayer Books (BCP 1662, BCP 1979, etc.)
 ]

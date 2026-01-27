@@ -66,6 +66,11 @@ module Api
           image_url: prayer_book.image_url,
           thumbnail_url: prayer_book.thumbnail_url,
           pdf_url: prayer_book.pdf_url,
+          available_offices: prayer_book.available_offices,
+          office_definitions: {
+            standard: prayer_book.office_names(family_rite: false),
+            family: prayer_book.office_names(family_rite: true)
+          },
           created_at: prayer_book.created_at.iso8601,
           updated_at: prayer_book.updated_at.iso8601
         }

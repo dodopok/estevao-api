@@ -7,7 +7,88 @@ module DailyOffice
         private
 
         def assemble_office
-          assemble_midday_prayer
+          if preferences[:office_type] == "family"
+            assemble_midday_prayer_family
+          else
+            assemble_midday_prayer
+          end
+        end
+
+        def assemble_midday_prayer_family
+          [
+            build_family_midday_opening,
+            build_family_psalms,
+            build_family_midday_reading,
+            build_lords_prayer_simple,
+            build_family_midday_collect
+          ].flatten.compact
+        end
+
+        def build_family_midday_opening
+          text = fetch_liturgical_text("family_midday_opening")
+          return nil unless text
+
+          {
+            name: "Ao Meio-Dia",
+            slug: "opening",
+            lines: [
+              line_item(text.content, type: "leader", slug: text.slug)
+            ]
+          }
+        end
+
+        def build_family_psalms
+          psalm = fetch_liturgical_text("family_midday_psalm_121")
+          return nil unless psalm
+
+          {
+            name: "Levavi Oculus (Salmo 121)",
+            slug: "psalms",
+            lines: [
+              line_item(psalm.content, type: "congregation", slug: psalm.slug)
+            ]
+          }
+        end
+
+        def build_family_midday_reading
+          reading_num = resolve_preference(:family_midday_reading, 1..3) || 1
+          text = fetch_liturgical_text("family_midday_reading_#{reading_num}")
+          return nil unless text
+
+          {
+            name: "Leituras",
+            slug: "reading",
+            lines: [
+              line_item(text.content, type: "leader", slug: text.slug),
+              line_item("(#{text.reference})", type: "citation")
+            ]
+          }
+        end
+
+        def build_family_midday_collect
+          text = fetch_liturgical_text("family_midday_collect")
+          return nil unless text
+
+          {
+            name: "Oração Conclusiva",
+            slug: "collect",
+            lines: [
+              line_item(text.content, type: "leader", slug: text.slug)
+            ]
+          }
+        end
+
+        def build_lords_prayer_simple
+          text = fetch_liturgical_text("our_father")
+          return nil unless text
+
+          {
+            name: "Pai Nosso",
+            slug: "lords_prayer",
+            lines: [
+              line_item(text.content, type: "congregation", slug: text.slug)
+            ]
+          }
         end
 
         def assemble_midday_prayer

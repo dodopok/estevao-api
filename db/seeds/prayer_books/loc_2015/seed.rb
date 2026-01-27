@@ -85,6 +85,7 @@ Rails.logger.info "="*80
 
 # Textos Litúrgicos
 load Rails.root.join("#{base_path}/liturgical_texts.rb")
+load Rails.root.join("#{base_path}/family_rite_texts.rb")
 
 # Preferências
 load Rails.root.join("#{base_path}/preferences.rb")

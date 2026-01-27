@@ -33,6 +33,8 @@ module DailyOffice
           Loc2015::Midday.new(date: date, office_type: office_type, preferences: preferences)
         when :compline
           Loc2015::Compline.new(date: date, office_type: office_type, preferences: preferences)
+        when :late_evening
+          Loc2015::LateEvening.new(date: date, office_type: office_type, preferences: preferences)
         else
           raise ArgumentError, "Unknown office type: #{office_type}"
         end

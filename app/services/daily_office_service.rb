@@ -42,8 +42,7 @@ class DailyOfficeService
 
   DEFAULT_PREFERENCES = {
     prayer_book_code: "loc_2015",
-    bible_version: "nvi",
-    family_rite: false
+    bible_version: "nvi"
   }.freeze
 
   attr_reader :date, :office_type, :preferences, :current_user

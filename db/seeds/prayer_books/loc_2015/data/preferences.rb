@@ -34,6 +34,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "traditional",
         position: 2,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "traditional", label: "Orações Tradicionais", description: "Linguagem clássica e formal" },
           { value: "contemporary", label: "Orações Contemporâneas", description: "Linguagem moderna e atualizada" }
@@ -47,9 +48,114 @@ loc_2015_preferences = [
         required: true,
         default_value: "no",
         position: 3,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "yes", label: "Sim, sou presbítero ou bispo", description: "Apenas para presbíteros e bispos realizando o Ofício" },
           { value: "no", label: "Não", description: "Para leigos e diáconos" }
+        ]
+      }
+    ]
+  },
+  {
+    key: "family_rite",
+    name: "Ofício Individual e Familiar",
+    description: "Configurações específicas para o Ofício Familiar",
+    icon: "family_restroom",
+    position: 2,
+    preferences: [
+      {
+        key: "family_morning_reading",
+        name: "Leitura (De Manhã)",
+        description: "Escolha a leitura para o ofício da manhã",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 1,
+        depends_on: { office_type: "family" },
+        options: [
+          { value: "1", label: "1 Cr 29.11-13", description: "Tua é, SENHOR, a grandeza..." },
+          { value: "2", label: "Is 43.18-21", description: "Esqueçam o que se foi..." },
+          { value: "3", label: "Rm 8.19-21", description: "A própria criação espera..." },
+          { value: "random", label: "Variar", description: "Aleatório" }
+        ]
+      },
+      {
+        key: "family_midday_reading",
+        name: "Leitura (Ao Meio-Dia)",
+        description: "Escolha a leitura para o ofício do meio-dia",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 2,
+        depends_on: { office_type: "family" },
+        options: [
+          { value: "1", label: "Jo 1.10-14", description: "No princípio era o Verbo..." },
+          { value: "2", label: "1 Jo 4.7-11", description: "Amemo-nos mutuamente..." },
+          { value: "3", label: "1 Jo 4.13-15", description: "Isto sabemos, que estamos nele..." },
+          { value: "random", label: "Variar", description: "Aleatório" }
+        ]
+      },
+      {
+        key: "family_evening_reading",
+        name: "Leitura (Ao Entardecer)",
+        description: "Escolha a leitura para o ofício do entardecer",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 3,
+        depends_on: { office_type: "family" },
+        options: [
+          { value: "1", label: "Jl 2.28-29", description: "E há de ser que..." },
+          { value: "2", label: "Rm 15.13", description: "O Deus da esperança encha vocês..." },
+          { value: "3", label: "Is 61.1-3", description: "O Espírito do Senhor Deus..." },
+          { value: "random", label: "Variar", description: "Aleatório" }
+        ]
+      },
+      {
+        key: "family_late_evening_reading",
+        name: "Leitura (Ao Anoitecer)",
+        description: "Escolha a leitura para o ofício do anoitecer",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 4,
+        depends_on: { office_type: "family" },
+        options: [
+          { value: "1", label: "1 Jo 4.7-12", description: "Amados e amadas, amemo-nos mutuamente..." },
+          { value: "2", label: "Ef 4.1-6", description: "Rogo a vocês, pois, eu..." },
+          { value: "3", label: "2 Co 4.5-7", description: "Não pregamos a nós..." },
+          { value: "random", label: "Variar", description: "Aleatório" }
+        ]
+      },
+      {
+        key: "family_compline_reading",
+        name: "Leitura (No Fim do Dia)",
+        description: "Escolha a leitura para o ofício do fim do dia",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 5,
+        depends_on: { office_type: "family" },
+        options: [
+          { value: "1", label: "Jo 3.16-17", description: "Porque Deus amou o mundo..." },
+          { value: "2", label: "Rm 5.6-8", description: "Porque Cristo, estando nós ainda frágeis..." },
+          { value: "3", label: "2 Co 5.14-15", description: "Porque o amor de Cristo nos impulsiona..." },
+          { value: "random", label: "Variar", description: "Aleatório" }
+        ]
+      },
+      {
+        key: "family_compline_collect",
+        name: "Oração (No Fim do Dia)",
+        description: "Escolha a oração conclusiva",
+        pref_type: "select_one",
+        required: true,
+        default_value: "random",
+        position: 6,
+        depends_on: { office_type: "family" },
+        options: [
+          { value: "1", label: "Oração 1 (Pág 170)", description: "Senhor Jesus Cristo, filho do Deus vivo..." },
+          { value: "2", label: "Oração 2 (Pág 171)", description: "Visita-nos nesta noite, ó Senhor..." },
+          { value: "random", label: "Variar", description: "Aleatório" }
         ]
       }
     ]
@@ -59,7 +165,7 @@ loc_2015_preferences = [
     name: "Lecionário",
     description: "Configure as leituras bíblicas diárias",
     icon: "book",
-    position: 2,
+    position: 3,
     preferences: [
       {
         key: "reading_type",
@@ -81,7 +187,7 @@ loc_2015_preferences = [
     name: "Oração da Manhã",
     description: "Configure o ofício da manhã como preferir",
     icon: "wb_sunny",
-    position: 3,
+    position: 4,
     preferences: [
       {
         key: "morning_opening_sentence",
@@ -91,6 +197,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 1,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "Sl 113.4", description: "Este é o dia que o Senhor fez..." },
           { value: "2", label: "Fl 1.2 / I Co 15.57", description: "Graça e Paz a vocês, da parte de Deus nosso Pai..." },
@@ -110,6 +217,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 1,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "long", label: "Longa", description: "Irmãs e irmãos em Cristo, na presença de Deus..." },
           { value: "short", label: "Breve", description: "Confessemos humildemente os nossos pecados a Deus Todo-poderoso." },
@@ -124,6 +232,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 2,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "1", description: "Misericordioso Deus, confessamos que temos pecado contra ti..." },
           { value: "2", label: "2", description: "Ó Deus, sentimos sobre nossos ombros o peso..." },
@@ -139,6 +248,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 3,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "1", description: "Ó Senhor, suplicamos-te que escutes compassivo nossas ..." },
           { value: "2", label: "2", description: "Deus Todo-poderoso tenha misericórdia de vocês..." },
@@ -153,6 +263,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 4,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "venite", label: "Venite, exultemus Domino", description: "Salmo 95 - \"Venham, cantemos ao SENHOR\"" },
           { value: "jubilate", label: "Jubilate Deo", description: "Salmo 100 - \"CELEBREM com júbilo ao SENHOR\"" },
@@ -168,6 +279,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 5,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "benedictus", label: "Benedictus es, Domine", description: "\"Bendito és tu, Senhor Deus de nossas mães e nossos pais\"" },
           { value: "cantate_domino", label: "Cantate Domino", description: "Salmo 98 - \"CANTEM ao SENHOR um cântico novo\"" },
@@ -184,6 +296,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 6,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "te_deum", label: "Te Deum Laudamus", description: "\"A ti, ó Deus, louvamos, e por Senhor nosso confessamos\"" },
           { value: "magna_et_mirabilia", label: "Magna et mirabilia", description: "Ap 15.3,4 - \"Grandes e admiráveis são as tuas obras\"" },
@@ -200,6 +313,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "apostolic",
         position: 7,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "apostolic", label: "Credo Apostólico", description: "Creio em Deus Pai todo-poderoso..." },
           { value: "apostolic_paraphrase", label: "Paráfrase do Credo Apostólico", description: "Bendigamos a Deus, Pai, Filho e Espírito Santo..." }
@@ -213,6 +327,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 8,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "1", description: "Ó Senhor, mostra-nos a tua misericórdia..." },
           { value: "2", label: "2", description: "Salva, ó Deus, o teu povo..." },
@@ -227,6 +342,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "for_peace",
         position: 9,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "for_peace", label: "Pela paz", description: "Ó Deus, que és o autor da paz..." },
           { value: "for_grace", label: "Pela graça", description: "Ó Deus Eterno, nosso Pai e Mãe de misericórdia..." },
@@ -246,6 +362,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 10,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "1", description: "Nós te bendizemos por nossa criação..." },
           { value: "2", label: "2", description: "Pelo dom de teu Espírito. Bendito sejas, ó Cristo..." },
@@ -261,6 +378,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 11,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "2 Co 13.14", description: "A Graça de nosso Senhor Jesus Cristo..." },
           { value: "2", label: "Nm 6.24-26", description: "O Senhor nos abençoe e nos guarde..." },
@@ -276,7 +394,7 @@ loc_2015_preferences = [
     name: "Oração do Meio-Dia",
     description: "Configure o ofício do meio-dia como preferir",
     icon: "wb_sunny_outlined",
-    position: 4,
+    position: 5,
     preferences: [
       {
         key: "midday_inviting_canticle",
@@ -286,6 +404,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 1,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "lucerna_pedibus_meis", label: "Lucerna pedibus meis", description: "Salmo 119 - \"A TUA palavra é lâmpada para os meus pés\"" },
           { value: "levavi_oculos", label: "Levavi oculos", description: "Salmo 121 - \"PARA os montes elevo os meus olhos\"" },
@@ -301,7 +420,7 @@ loc_2015_preferences = [
     name: "Oração da Tarde",
     description: "Configure o ofício da tarde como preferir",
     icon: "wb_sunny_outlined",
-    position: 5,
+    position: 6,
     preferences: [
       {
         key: "evening_opening_sentence",
@@ -311,11 +430,12 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 1,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "Sl 26.8 / Sl 141.2", description: "Eu amo, SENHOR, a habitação da tua casa..." },
           { value: "2", label: "Sl 19.15 / Sl 43.3", description: "Sejam bem aceitas as palavras de minha boca..." },
           { value: "3", label: "Sl 74.16,17", description: "O dia e a noite são teus; formaste a luz e o sol..." },
-          { value: "4", label: "Sl 96.9,13", description: "Adorem ao SENHOR na beleza da santidade..." },
+          { value: "4", label: "Sl 96.9,13", description: "Adoren ao SENHOR na beleza da santidade..." },
           { value: "5", label: "Sl 16.7-8", description: "Bendigo ao SENHOR que aconselha..." },
           { value: "6", label: "Sl 119.105 / Sl 17.5", description: "A tua palavra é lâmpada para os meus pés..." },
           { value: "7", label: "Sl 139.11-12", description: "Mesmo que eu dissesse: Cubram-me só trevas..." },
@@ -331,6 +451,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 2,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "long", label: "Longa", description: "Queridas irmãs e irmãos, as Santas Escrituras nos lembram..." },
           { value: "short", label: "Breve", description: "Confessemos humildemente os nossos pecados a Deus Todo-poderoso." },
@@ -345,6 +466,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 3,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "1", description: "Justo e compassivo Deus, nós chegamos à tua presença..." },
           { value: "2", label: "2", description: "Ó Deus de misericórdia; temos errado..." },
@@ -360,9 +482,10 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 4,
+        depends_on: { office_type: "traditional" },
         options: [
-          { value: "ecce_nunc", label: "Ecce nunc", description: "Salmo 134 - \"BENDIGAM ao SENHOR, todas as pessoas que servem\"" },
-          { value: "phos_hilaron", label: "Phos Hilaron", description: "\"Salve, alegre luz, puro esplendor\"" },
+          { value: "ecce_nunc", label: "Ecce nunc", description: "Salmo 134 - 'BENDIGAM ao SENHOR, todas as pessoas que servem'" },
+          { value: "phos_hilaron", label: "Phos Hilaron", description: "'Salve, alegre luz, puro esplendor'" },
           { value: "random", label: "Variar", description: "Quero variar dia a dia aleatoriamente" },
           { value: "all", label: "Todos", description: "Quero todos os salmos" }
         ]
@@ -375,6 +498,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 5,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "magnificat", label: "Magnificat", description: "S. Lucas 1.46 - \"A minha alma engrandece ao Senhor\"" },
           { value: "bonum_est_confiteri", label: "Bonum est confiteri", description: "Salmo 92 - \"BOM é louvar ao SENHOR\"" },
@@ -391,6 +515,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 6,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "nunc_dimittis", label: "Nunc dimittis", description: "S. Lucas 2.29 - \"Eis que agora, SENHOR, despedes em paz o teu servo\"" },
           { value: "deus_misereatur", label: "Deus misereatur", description: "Salmo 67 - \"DEUS tenha misericórdia de nós e nos abençoe\"" },
@@ -407,6 +532,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "apostolic",
         position: 7,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "apostolic", label: "Credo Apostólico", description: "Creio em Deus Pai todo-poderoso..." },
           { value: "faith_affirmation", label: "Afirmação de Fé", description: "Cremos em Deus; Cremos na força das pessoas pobres..." }
@@ -420,6 +546,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 8,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "1", description: "Ó Senhor, mostra-nos a tua misericórdia..." },
           { value: "2", label: "2", description: "Para que esta noite seja santa, boa e pacífica..." },
@@ -434,6 +561,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "for_peace",
         position: 9,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "for_peace", label: "Pela paz", description: "Bondoso Deus, Criador do Universo..." },
           { value: "for_grace", label: "Pela graça", description: "Ó Deus, amor eterno, que com tua luz..." },
@@ -455,6 +583,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 10,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "1", description: "Nós te bendizemos por nossa criação..." },
           { value: "2", label: "2", description: "Pelo dom de teu Espírito. Bendito sejas, ó Cristo..." },
@@ -470,6 +599,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 11,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "2 Co 13.14", description: "A Graça de nosso Senhor Jesus Cristo..." },
           { value: "2", label: "Nm 6.24-26", description: "O Senhor nos abençoe e nos guarde..." },
@@ -485,7 +615,7 @@ loc_2015_preferences = [
     name: "Oração da Noite",
     description: "Configure o ofício das completas como preferir",
     icon: "wb_sunny_outlined",
-    position: 6,
+    position: 7,
     preferences: [
       {
         key: "compline_inviting_canticle",
@@ -495,6 +625,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 1,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "cum_invocarem", label: "Cum invocarem", description: "Salmo 4 - \"RESPONDE ao meu clamor, DEUS de minha justiça\"" },
           { value: "qui_habitat", label: "Qui habitat", description: "Salmo 91 - \"Quem habita sob a proteção do Altíssimo\"" },
@@ -511,6 +642,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 2,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "Jr 14.9-22", description: "Tu estás em nosso meio, ó Senhor..." },
           { value: "2", label: "Mt 11.28-30", description: "Venham a mim, todas as pessoas que estão cansadas..." },
@@ -526,6 +658,7 @@ loc_2015_preferences = [
         required: true,
         default_value: "random",
         position: 3,
+        depends_on: { office_type: "traditional" },
         options: [
           { value: "1", label: "1", description: "Ilumina, suplicamos-te, Senhor Deus, as nossas trevas..." },
           { value: "2", label: "2", description: "Sê presente conosco, ó Deus de misericórdia..." },

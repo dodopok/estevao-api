@@ -74,6 +74,16 @@ module Api
       # GET /api/v1/daily_office/preferences
       # Returns available preferences options
       def preferences
+        prayer_book = resolved_prayer_book rescue nil
+        
+        # Determine available office types based on prayer book
+        # We include both standard and family rite offices if the PB supports it
+        office_types = if prayer_book
+          (prayer_book.available_offices(family_rite: true) + prayer_book.available_offices(family_rite: false)).uniq
+        else
+          [ "morning", "midday", "evening", "compline" ]
+        end
+
         render json: {
           versions: PrayerBook.active.pluck(:code),
           languages: [ "pt-BR", "en" ],
@@ -81,7 +91,7 @@ module Api
           lords_prayer_versions: [ "traditional", "contemporary" ],
           creed_types: [ "apostles", "nicene" ],
           confession_types: [ "long", "short" ],
-          office_types: [ "morning", "midday", "evening", "compline" ]
+          office_types: office_types
         }
       end
 
@@ -103,10 +113,15 @@ module Api
 
       def parse_office_type
         office_type = params[:office_type]&.to_sym || :morning
-        valid_types = [ :morning, :midday, :evening, :compline ]
 
-        unless valid_types.include?(office_type)
-          raise ArgumentError, "Invalid office type. Must be one of: #{valid_types.join(', ')}"
+        # Validate against prayer book's available offices
+        # We check both standard and family rite offices to be permissive at this stage
+        # The Builder will enforce specific availability logic if needed
+        prayer_book = resolved_prayer_book
+        available = prayer_book.available_offices(family_rite: true) | prayer_book.available_offices(family_rite: false)
+
+        unless available.include?(office_type.to_s)
+          raise ArgumentError, "O ofício '#{office_type}' não está disponível para o Livro de Oração #{prayer_book.code}"
         end
 
         office_type

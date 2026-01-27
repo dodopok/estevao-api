@@ -16,7 +16,104 @@ module DailyOffice
         private
 
         def assemble_office
-          assemble_compline
+          if preferences[:office_type] == "family"
+            assemble_compline_family
+          else
+            assemble_compline
+          end
+        end
+
+        def assemble_compline_family
+          [
+            build_family_compline_opening,
+            build_family_psalms,
+            build_family_compline_reading,
+            build_lords_prayer_simple,
+            build_family_compline_collect,
+            build_family_compline_dismissal
+          ].flatten.compact
+        end
+
+        def build_family_compline_opening
+          text = fetch_liturgical_text("family_compline_opening")
+          return nil unless text
+
+          {
+            name: "No Fim do Dia",
+            slug: "opening",
+            lines: [
+              line_item(text.content, type: "leader", slug: text.slug)
+            ]
+          }
+        end
+
+        def build_family_psalms
+          psalm = fetch_liturgical_text("family_compline_psalm_91")
+          return nil unless psalm
+
+          {
+            name: "Qui Habitat (Salmo 91)",
+            slug: "psalms",
+            lines: [
+              line_item(psalm.content, type: "congregation", slug: psalm.slug)
+            ]
+          }
+        end
+
+        def build_family_compline_reading
+          reading_num = resolve_preference(:family_compline_reading, 1..3) || 1
+          text = fetch_liturgical_text("family_compline_reading_#{reading_num}")
+          return nil unless text
+
+          {
+            name: "Leituras",
+            slug: "reading",
+            lines: [
+              line_item(text.content, type: "leader", slug: text.slug),
+              line_item("(#{text.reference})", type: "citation")
+            ]
+          }
+        end
+
+        def build_family_compline_collect
+          collect_num = resolve_preference(:family_compline_collect, 1..2) || 1
+          text = fetch_liturgical_text("family_compline_collect_#{collect_num}")
+          return nil unless text
+
+          {
+            name: "Oração Conclusiva",
+            slug: "collect",
+            lines: [
+              line_item(text.content, type: "leader", slug: text.slug)
+            ]
+          }
+        end
+
+        def build_family_compline_dismissal
+          text = fetch_liturgical_text("family_compline_dismissal")
+          return nil unless text
+
+          {
+            name: "Benção",
+            slug: "dismissal",
+            lines: [
+              line_item(text.content, type: "leader", slug: text.slug),
+              line_item("(#{text.reference})", type: "citation")
+            ]
+          }
+        end
+
+        def build_lords_prayer_simple
+          text = fetch_liturgical_text("our_father")
+          return nil unless text
+
+          {
+            name: "PAI NOSSO",
+            slug: "lords_prayer",
+            lines: [
+              line_item(text.content, type: "congregation", slug: text.slug)
+            ]
+          }
         end
 
         def assemble_compline

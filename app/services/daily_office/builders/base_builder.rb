@@ -8,8 +8,7 @@ module DailyOffice
 
       DEFAULT_PREFERENCES = {
         prayer_book_code: "loc_2015",
-        bible_version: "nvi",
-        family_rite: false
+        bible_version: "nvi"
       }.freeze
 
       def initialize(date:, office_type:, preferences: {})
