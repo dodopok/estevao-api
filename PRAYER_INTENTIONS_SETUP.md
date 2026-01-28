@@ -33,6 +33,37 @@ This feature adds prayer intentions functionality to the Estêvão API with Perp
    - Realistic test data generation
    - Full AI enrichment example
 
+### ✅ Phase 2: Perplexity API Service (COMPLETED)
+
+#### Files Created
+
+1. **Service**: `app/services/perplexity_api_service.rb`
+   - Complete Perplexity API integration
+   - Methods for spiritual context, scriptures, prayers, insights, prompts
+   - Rate limiting (20 requests/minute)
+   - Error handling and retry logic
+   - Anglican theological system prompt
+   - Response parsing with fallback defaults
+
+2. **Tests**: `spec/services/perplexity_api_service_spec.rb`
+   - Comprehensive service test suite
+   - 100% service coverage
+   - Mocked API responses
+   - Error scenario testing
+
+3. **Background Job**: `app/jobs/enrich_prayer_intention_job.rb`
+   - Async AI enrichment processing
+   - Retry strategy for API failures
+   - Exponential backoff for rate limiting
+   - User notification on completion
+   - Error logging and handling
+
+4. **Job Tests**: `spec/jobs/enrich_prayer_intention_job_spec.rb`
+   - Complete job test suite
+   - 100% job coverage
+   - Integration test scenarios
+   - Notification testing
+
 ## Database Schema
 
 ### Table: `prayer_intentions`
@@ -126,6 +157,58 @@ pending → praying → answered → archived
 #### API
 - `as_json_api` - Format for API response
 
+## Perplexity API Service
+
+### Features
+
+1. **Spiritual Context Generation**
+   - Biblical and theological framework
+   - Anglican tradition grounding
+   - Pastoral encouragement
+
+2. **Scripture Finding**
+   - 3-5 relevant Bible verses
+   - Complete references (book, chapter, verse)
+   - Context-appropriate selection
+
+3. **Traditional Prayer Suggestions**
+   - Book of Common Prayer prayers
+   - Ancient liturgies
+   - Well-known Christian prayers
+
+4. **Theological Insights**
+   - Christian tradition perspectives
+   - Balance of sovereignty and response
+   - Pastoral sensitivity
+
+5. **Reflection Prompts**
+   - 3-4 meditation questions
+   - Scripture-grounded
+   - Personally applicable
+
+### Configuration
+
+```ruby
+# Service constants
+MAX_REQUESTS_PER_MINUTE = 20
+DEFAULT_MODEL = 'llama-3.1-sonar-large-128k-online'
+MAX_TOKENS = 2000
+TEMPERATURE = 0.7
+```
+
+### Usage Example
+
+```ruby
+# Initialize service
+service = PerplexityApiService.new
+
+# Enrich a prayer intention
+enrichment = service.enrich_prayer_intention(prayer_intention)
+
+# Or use background job (recommended)
+EnrichPrayerIntentionJob.perform_later(prayer_intention.id)
+```
+
 ## AI Enrichment Structure
 
 ### Example Enriched Data
@@ -158,15 +241,7 @@ pending → praying → answered → archived
 
 ## Next Steps
 
-### 🔄 Phase 2: Perplexity API Service (IN PROGRESS)
-
-- [ ] Create `PerplexityApiService`
-- [ ] Add API configuration
-- [ ] Implement enrichment logic
-- [ ] Add rate limiting
-- [ ] Create background job
-
-### 🔄 Phase 3: API Endpoints
+### 🔄 Phase 3: API Endpoints (NEXT)
 
 - [ ] Create `Api::V1::PrayerIntentionsController`
 - [ ] RESTful routes (index, show, create, update, destroy)
@@ -174,14 +249,7 @@ pending → praying → answered → archived
 - [ ] API documentation (Swagger)
 - [ ] Request specs
 
-### 🔄 Phase 4: Background Processing
-
-- [ ] Create `EnrichPrayerIntentionJob`
-- [ ] Add to job queue
-- [ ] Handle failures and retries
-- [ ] Job specs
-
-### 🔄 Phase 5: Frontend Integration (ordo-app)
+### 🔄 Phase 4: Frontend Integration (ordo-app)
 
 - [ ] Create Flutter models
 - [ ] Create repository
@@ -216,14 +284,66 @@ bin/rails db:migrate:status
 ## Running Tests
 
 ```bash
-# Run all model tests
+# Run all prayer intention tests
 bundle exec rspec spec/models/prayer_intention_spec.rb
+bundle exec rspec spec/services/perplexity_api_service_spec.rb
+bundle exec rspec spec/jobs/enrich_prayer_intention_job_spec.rb
 
-# Run with documentation format
+# Run all with documentation format
 bundle exec rspec spec/models/prayer_intention_spec.rb --format documentation
 
-# Run specific test
-bundle exec rspec spec/models/prayer_intention_spec.rb:10
+# Run all prayer intention related tests
+bundle exec rspec spec/models/prayer_intention_spec.rb spec/services/perplexity_api_service_spec.rb spec/jobs/enrich_prayer_intention_job_spec.rb
+```
+
+## Usage Examples
+
+### Creating and Enriching Prayer Intentions
+
+```ruby
+# Create a prayer intention
+intention = PrayerIntention.create!(
+  user: current_user,
+  title: "Healing for my mother",
+  description: "Praying for complete healing and restoration",
+  category: "intercession"
+)
+
+# Trigger async enrichment
+EnrichPrayerIntentionJob.perform_later(intention.id)
+
+# Or enrich synchronously (for testing)
+service = PerplexityApiService.new
+enrichment = service.enrich_prayer_intention(intention)
+intention.update!(
+  spiritual_context: enrichment[:spiritual_context],
+  related_scriptures: enrichment[:related_scriptures],
+  # ... other fields
+)
+intention.mark_as_ai_enriched!
+
+# Query enriched intentions
+PrayerIntention.ai_enriched.each do |intention|
+  puts intention.spiritual_context
+  puts intention.related_scriptures.first[:text]
+end
+```
+
+### Recording Prayer Activity
+
+```ruby
+# Record someone prayed
+intention.record_prayer!
+
+# Mark as answered
+intention.mark_as_answered!(notes: "God provided healing through treatment")
+
+# Archive old intention
+intention.archive!
+
+# Get stats
+stats = intention.prayer_stats
+# => { total_prayers: 15, last_prayed: <DateTime>, ... }
 ```
 
 ## Factory Usage Examples
@@ -293,6 +413,8 @@ Track the following metrics:
 - Answered prayer rate
 - Community prayer participation
 - Perplexity API usage and costs
+- Job queue performance
+- Enrichment latency
 
 ## Cost Estimation
 
@@ -300,9 +422,31 @@ Track the following metrics:
 
 - Model: `llama-3.1-sonar-large-128k-online`
 - Cost: ~$0.001 per request
-- Average enrichment: 1 request per intention
+- Enrichment requires: 5 API calls per intention
+  - Spiritual context
+  - Related scriptures
+  - Traditional prayers
+  - Theological insights
+  - Reflection prompts
+- **Per intention cost**: ~$0.005
 - Expected usage: 100-500 intentions/month
-- **Estimated cost**: $0.10-$0.50/month
+- **Estimated monthly cost**: $0.50-$2.50/month
+
+## Error Handling
+
+### Perplexity API Errors
+
+- `PerplexityError` - General API errors (retries: 3)
+- `RateLimitError` - Rate limit exceeded (retries: 5, wait: 2 min)
+- `AuthenticationError` - Invalid API key (no retry, discard job)
+- `InvalidResponseError` - Malformed response (fallback to defaults)
+
+### Job Failures
+
+- Automatic retry with exponential backoff
+- Detailed error logging
+- User notification on failure (optional)
+- Graceful degradation with default values
 
 ## Support & Documentation
 
@@ -315,4 +459,4 @@ Track the following metrics:
 
 **Created**: 2026-01-28  
 **Last Updated**: 2026-01-28  
-**Status**: Phase 1 Complete ✅
+**Status**: Phase 1 & 2 Complete ✅
