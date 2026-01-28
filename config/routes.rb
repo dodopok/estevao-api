@@ -10,10 +10,10 @@ Rails.application.routes.draw do
   # API routes
   namespace :api do
     namespace :v1 do
-      # Prayer Intentions
+      # Prayer Intentions (simplified - private only)
       resources :prayer_intentions do
         member do
-          post :enrich
+          post :generate_prayer
           post :mark_answered
           post :record_prayer
           post :archive
@@ -22,7 +22,6 @@ Rails.application.routes.draw do
         collection do
           get :categories
           get :stats
-          get :community
         end
       end
       

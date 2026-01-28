@@ -2,12 +2,12 @@
 
 module Api
   module V1
-    # API Controller for managing prayer intentions
-    # Provides CRUD operations plus AI enrichment and prayer tracking
+    # API Controller for managing private prayer intentions
+    # All prayers are private to the user who created them
     class PrayerIntentionsController < ApplicationController
       before_action :authenticate_user!
-      before_action :set_prayer_intention, only: [:show, :update, :destroy, :enrich, :mark_answered, :record_prayer, :archive]
-      before_action :authorize_prayer_intention!, only: [:show, :update, :destroy, :enrich, :mark_answered, :archive]
+      before_action :set_prayer_intention, only: [:show, :update, :destroy, :generate_prayer, :mark_answered, :record_prayer, :archive]
+      before_action :authorize_prayer_intention!, only: [:show, :update, :destroy, :generate_prayer, :mark_answered, :archive, :record_prayer]
       
       # GET /api/v1/prayer_intentions
       # List user's prayer intentions with filtering and pagination
@@ -43,8 +43,8 @@ module Api
         intention = current_user.prayer_intentions.build(prayer_intention_params)
         
         if intention.save
-          # Optionally trigger async enrichment
-          if params[:auto_enrich] == true || params[:auto_enrich] == 'true'
+          # Optionally trigger async prayer generation
+          if params[:auto_generate] == true || params[:auto_generate] == 'true'
             EnrichPrayerIntentionJob.perform_later(intention.id)
           end
           
@@ -84,21 +84,21 @@ module Api
         }, status: :ok
       end
       
-      # POST /api/v1/prayer_intentions/:id/enrich
-      # Trigger AI enrichment for a prayer intention
-      def enrich
+      # POST /api/v1/prayer_intentions/:id/generate_prayer
+      # Generate Anglican-style prayer for the intention
+      def generate_prayer
         if @prayer_intention.ai_enriched? && !params[:force]
           return render json: {
-            message: 'Prayer intention already enriched. Use force=true to re-enrich.',
+            message: 'Prayer already generated. Use force=true to regenerate.',
             prayer_intention: @prayer_intention.as_json_api
           }, status: :ok
         end
         
-        # Queue enrichment job
+        # Queue prayer generation job
         EnrichPrayerIntentionJob.perform_later(@prayer_intention.id)
         
         render json: {
-          message: 'AI enrichment started. This may take a few moments.',
+          message: 'Prayer generation started. This may take a few moments.',
           prayer_intention: @prayer_intention.as_json_api
         }, status: :accepted
       end
@@ -121,15 +121,8 @@ module Api
       end
       
       # POST /api/v1/prayer_intentions/:id/record_prayer
-      # Record that someone prayed for this intention
+      # Record that the user prayed this intention
       def record_prayer
-        # Anyone who can view the intention can pray for it
-        unless @prayer_intention.prayable_by?(current_user)
-          return render json: {
-            error: 'You do not have permission to pray for this intention'
-          }, status: :forbidden
-        end
-        
         @prayer_intention.record_prayer!
         
         render json: {
@@ -172,10 +165,9 @@ module Api
           active: intentions.active.count,
           answered: intentions.answered.count,
           archived: intentions.archived.count,
-          ai_enriched: intentions.ai_enriched.count,
+          with_prayer: intentions.ai_enriched.count,
           by_category: {},
-          total_prayers: intentions.sum(:prayer_count),
-          current_streak: calculate_current_streak(intentions)
+          total_prayers_prayed: intentions.sum(:prayer_count)
         }
         
         # Count by category
@@ -184,27 +176,6 @@ module Api
         end
         
         render json: { stats: stats }, status: :ok
-      end
-      
-      # GET /api/v1/prayer_intentions/community
-      # Get public prayer intentions from the community
-      def community
-        intentions = PrayerIntention.public_intentions.community_prayer_enabled
-        
-        # Apply filters
-        intentions = intentions.by_category(params[:category]) if params[:category].present?
-        intentions = intentions.where(status: params[:status]) if params[:status].present?
-        
-        # Pagination
-        page = params[:page]&.to_i || 1
-        per_page = [params[:per_page]&.to_i || 20, 100].min
-        
-        paginated_intentions = intentions.recently_created.page(page).per(per_page)
-        
-        render json: {
-          prayer_intentions: paginated_intentions.map(&:as_json_api),
-          meta: pagination_meta(paginated_intentions)
-        }, status: :ok
       end
       
       private
@@ -218,7 +189,8 @@ module Api
       end
       
       def authorize_prayer_intention!
-        unless @prayer_intention.viewable_by?(current_user)
+        # All prayers are private - only owner can access
+        unless @prayer_intention.user_id == current_user.id
           render json: {
             error: 'You do not have permission to access this prayer intention'
           }, status: :forbidden
@@ -231,8 +203,6 @@ module Api
           :description,
           :category,
           :status,
-          :is_private,
-          :allow_community_prayer,
           :answer_notes
         )
       end
@@ -255,10 +225,10 @@ module Api
         # Filter by category
         intentions = intentions.by_category(params[:category]) if params[:category].present?
         
-        # Filter by AI enrichment
-        if params[:enriched] == 'true' || params[:enriched] == true
+        # Filter by prayer generation status
+        if params[:has_prayer] == 'true' || params[:has_prayer] == true
           intentions = intentions.ai_enriched
-        elsif params[:enriched] == 'false' || params[:enriched] == false
+        elsif params[:has_prayer] == 'false' || params[:has_prayer] == false
           intentions = intentions.needs_enrichment
         end
         
@@ -294,30 +264,6 @@ module Api
           total_count: collection.total_count,
           per_page: collection.limit_value
         }
-      end
-      
-      def calculate_current_streak(intentions)
-        # Simple streak calculation based on consecutive days with prayers
-        # This is a placeholder - implement more sophisticated logic as needed
-        recent_prayers = intentions.where.not(last_prayed_at: nil)
-                                  .order(last_prayed_at: :desc)
-                                  .limit(30)
-        
-        return 0 if recent_prayers.empty?
-        
-        streak = 0
-        current_date = Date.current
-        
-        recent_prayers.each do |intention|
-          prayer_date = intention.last_prayed_at.to_date
-          break if prayer_date < current_date - streak.days
-          
-          if prayer_date == current_date - streak.days
-            streak += 1
-          end
-        end
-        
-        streak
       end
     end
   end
