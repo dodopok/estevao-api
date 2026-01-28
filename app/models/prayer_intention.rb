@@ -2,27 +2,21 @@
 #
 # Table name: prayer_intentions
 #
-#  id                     :bigint           not null, primary key
-#  user_id                :bigint           not null
-#  title                  :string           not null
-#  description            :text
-#  status                 :integer          default("pending"), not null
-#  category               :string
-#  answered_at            :datetime
-#  answer_notes           :text
-#  spiritual_context      :text
-#  related_scriptures     :json
-#  suggested_prayers      :json
-#  theological_insights   :text
-#  reflection_prompts     :json
-#  is_private             :boolean          default(TRUE), not null
-#  allow_community_prayer :boolean          default(FALSE), not null
-#  prayer_count           :integer          default(0), not null
-#  last_prayed_at         :datetime
-#  ai_enriched_at         :datetime
-#  ai_model_version       :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  id                :bigint           not null, primary key
+#  user_id           :bigint           not null
+#  title             :string           not null
+#  description       :text
+#  status            :integer          default("pending"), not null
+#  category          :string
+#  answered_at       :datetime
+#  answer_notes      :text
+#  generated_prayer  :text
+#  ai_enriched_at    :datetime
+#  ai_model_version  :string
+#  prayer_count      :integer          default(0), not null
+#  last_prayed_at    :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 class PrayerIntention < ApplicationRecord
   # Associations
@@ -54,8 +48,6 @@ class PrayerIntention < ApplicationRecord
   scope :active, -> { where(status: [:pending, :praying]) }
   scope :answered, -> { where(status: :answered) }
   scope :archived, -> { where(status: :archived) }
-  scope :public_intentions, -> { where(is_private: false) }
-  scope :community_prayer_enabled, -> { where(allow_community_prayer: true) }
   scope :by_category, ->(category) { where(category: category) if category.present? }
   scope :recently_created, -> { order(created_at: :desc) }
   scope :recently_prayed, -> { where.not(last_prayed_at: nil).order(last_prayed_at: :desc) }
@@ -113,20 +105,6 @@ class PrayerIntention < ApplicationRecord
     [title, description].compact.join("\n\n")
   end
   
-  # Check if user can view this intention
-  def viewable_by?(viewing_user)
-    return true if user_id == viewing_user&.id
-    return true if !is_private
-    false
-  end
-  
-  # Check if user can pray for this intention
-  def prayable_by?(praying_user)
-    return true if user_id == praying_user&.id
-    return true if allow_community_prayer
-    false
-  end
-  
   # Get prayer statistics
   def prayer_stats
     {
@@ -148,23 +126,13 @@ class PrayerIntention < ApplicationRecord
       category: category,
       answered_at: answered_at,
       answer_notes: answer_notes,
-      ai_enrichment: {
-        spiritual_context: spiritual_context,
-        related_scriptures: related_scriptures,
-        suggested_prayers: suggested_prayers,
-        theological_insights: theological_insights,
-        reflection_prompts: reflection_prompts,
-        enriched_at: ai_enriched_at,
-        model_version: ai_model_version
-      },
-      metadata: {
-        is_private: is_private,
-        allow_community_prayer: allow_community_prayer,
-        prayer_count: prayer_count,
-        last_prayed_at: last_prayed_at,
-        created_at: created_at,
-        updated_at: updated_at
-      },
+      generated_prayer: generated_prayer,
+      ai_enriched_at: ai_enriched_at,
+      ai_model_version: ai_model_version,
+      prayer_count: prayer_count,
+      last_prayed_at: last_prayed_at,
+      created_at: created_at,
+      updated_at: updated_at,
       stats: prayer_stats
     }
   end
@@ -179,8 +147,6 @@ class PrayerIntention < ApplicationRecord
   
   def set_defaults
     self.status ||= :pending
-    self.is_private = true if is_private.nil?
-    self.allow_community_prayer = false if allow_community_prayer.nil?
     self.prayer_count ||= 0
   end
 end

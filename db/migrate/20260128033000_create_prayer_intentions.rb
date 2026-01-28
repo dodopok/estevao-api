@@ -14,24 +14,14 @@ class CreatePrayerIntentions < ActiveRecord::Migration[8.0]
       t.datetime :answered_at
       t.text :answer_notes
       
-      # AI-enriched fields (Perplexity API)
-      t.text :spiritual_context
-      t.json :related_scriptures, default: []
-      t.json :suggested_prayers, default: []
-      t.text :theological_insights
-      t.json :reflection_prompts, default: []
-      
-      # Privacy and sharing
-      t.boolean :is_private, default: true, null: false
-      t.boolean :allow_community_prayer, default: false, null: false
+      # AI-generated prayer (simplified from multiple fields)
+      t.text :generated_prayer
+      t.datetime :ai_enriched_at
+      t.string :ai_model_version
       
       # Prayer tracking metadata
       t.integer :prayer_count, default: 0, null: false
       t.datetime :last_prayed_at
-      
-      # AI enrichment metadata
-      t.datetime :ai_enriched_at
-      t.string :ai_model_version
       
       t.timestamps
     end
@@ -42,7 +32,5 @@ class CreatePrayerIntentions < ActiveRecord::Migration[8.0]
     add_index :prayer_intentions, :status
     add_index :prayer_intentions, :category
     add_index :prayer_intentions, :answered_at
-    add_index :prayer_intentions, :is_private
-    add_index :prayer_intentions, :allow_community_prayer
   end
 end
